@@ -141,7 +141,7 @@ class Collectable(commands.Cog):
             _save()
 
     @commands.command("collectables")
-    async def CollectableCreate(self, ctx, action, name, emoji):
+    async def collectablecreate(self, ctx, action, name, emoji):
         fileName = name + "_system"
         if action == "create" and emoji is not None:
             try:
@@ -161,7 +161,7 @@ class Collectable(commands.Cog):
 
     # @commands.has_role("Moderator")
     @commands.command("collectable")
-    async def Collectable(self, ctx, action, name, user: discord.Member, state="add", quantity=0):
+    async def collectable(self, ctx, action, name, user: discord.Member, state="add", quantity=0):
         id = str(user.id)
         userNickName = str(user.display_name)
         CollectableID = id + "+" + userNickName
@@ -208,7 +208,7 @@ class Collectable(commands.Cog):
                 await ctx.send(f"<@{id}> your {CollectableName} balance is {name[CollectableID]}!")
 
     @commands.command("cprofile")
-    async def Profile(self, ctx, user: discord.Member):
+    async def cprofile(self, ctx, user: discord.Member):
         id = str(user.id)
         userNickName = str(user.display_name)
         CollectableID = id + "+" + userNickName
@@ -252,9 +252,9 @@ class Collectable(commands.Cog):
 
         await ctx.send(content=None, embed=embed)
 
-    @commands.command("Ping")
-    async def ping(self, ctx, user: discord.Member):
-        await ctx.send("ID is {}".format(user.id))
+    # @commands.command("Ping")
+    # async def ping(self, ctx, user: discord.Member):
+    #     await ctx.send("ID is {}".format(user.id))
 
     @commands.command("Save")
     async def save(self, ctx):
@@ -288,10 +288,10 @@ class Collectable(commands.Cog):
             bot.unload_extension(f"cogs.{cog_name}")
             cogs.append(f"{cog_name}")
 
-    @commands.command(name='cogs')
-    async def ListCogs(self, ctx):
-        for cog in cogs:
-            embed = discord.Embed(title="Cogs", description="Loaded Cogs")
-            embed.add_field(name="Cog", value=cog)
-            await ctx.send(content=None, embed=embed)
-            print(cogs)
+    # @commands.command(name='cogs')
+    # async def ListCogs(self, ctx):
+    #     for cog in cogs:
+    #         embed = discord.Embed(title="Cogs", description="Loaded Cogs")
+    #         embed.add_field(name="Cog", value=cog)
+    #         await ctx.send(content=None, embed=embed)
+    #         print(cogs)
