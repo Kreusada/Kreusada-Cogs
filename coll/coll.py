@@ -236,7 +236,7 @@ class Collectable(commands.Cog):
             await ctx.send(f"{user.display_name} has no collectables!")
 
     @commands.command("leaderboard")
-    async def leaders(self, ctx, name):
+    async def cleaderboard(self, ctx, name):
         FileName = name + "_system"
         with open(f"{FileName}.json") as f:
             values = json.load(f)
