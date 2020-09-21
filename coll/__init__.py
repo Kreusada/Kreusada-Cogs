@@ -1,4 +1,5 @@
-from .coll import Coll
+from .coll import Collectable
+
 
 def setup(bot):
-  bot.add_cog(Coll())
+    bot.add_cog(Collectable())
