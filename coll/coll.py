@@ -14,13 +14,14 @@ amounts = {}
 name = {}
 
 
+def _save():
+    with open('amounts.json', 'w+') as f:
+        json.dump(amounts, f)
+
+
 class Coll(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-
-    def _save(self):
-        with open('amounts.json', 'w+') as f:
-            json.dump(amounts, f)
 
     @commands.Cog.listener()
     async def on_ready(self):
