@@ -2,6 +2,7 @@ from redbot.core import commands
 import random
 import json
 import os
+import discord
 
 
 cogs = []
