@@ -14,7 +14,7 @@ amounts = {}
 name = {}
 
 
-class Collectable(commands.Cog):
+class Coll(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
