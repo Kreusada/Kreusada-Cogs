@@ -1,5 +1,9 @@
 {
-    "author": "Kreusada",
+    "author": [
+        "Kreusada",
+        "Jojo",
+        "Otriux"
+    ],
     "max_bot_version": "3.4.0",
     "min_bot_version": "3.4.0",
     "min_python_version": [
