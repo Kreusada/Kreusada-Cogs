@@ -53,51 +53,66 @@ class Coll(commands.Cog):
             else:
                 await ctx.send("You do not have an account!")
 
-    @commands.command("Register")
-    async def register(self, ctx, user: discord.Member = None, add=None, subtract=None, currency=None):
-        if user is not None:
-            if add == "Add" and currency is not None:
-                id = str(user.id)
-                if id not in amounts.keys():
-                    amounts[id] += int(currency)
-                    _save()
-                else:
-                    await ctx.send(f"<@{user.id}> has already been Registered!")
-            else:
-                if add == "Add" and currency is None:
-                    id = str(user.id)
-                    if id not in amounts.keys():
-                        amounts[id] = 100
-                        await ctx.send("No currency was set, defaulting to 100")
-                        _save()
-                    else:
-                        await ctx.send(f"<@{user.id}> has already been Registered!")
-                else:
-                    if subtract == "Subtract" and currency is not None:
-                        id = str(user.id)
-                        if id not in amounts.keys():
-                            amounts[id] -= int(currency)
-                            _save()
-                        else:
-                            await ctx.send(f"<@{user.id}> has already been Registered!")
-                    else:
-                        if subtract == "Subtract" and currency is None:
-                            id = str(user.id)
-                            if id not in amounts.keys():
-                                amounts[id] = 100
-                                await ctx.send("No currency was set, defaulting to 100")
-                                _save()
-                            else:
-                                await ctx.send(f"<@{user.id}> has already been Registered!")
+    # @commands.command("Register")
+    # async def register(self, ctx, user: discord.Member = None, add=None, subtract=None, currency=None):
+    #     if user is not None:
+    #         if add == "Add" and currency is not None:
+    #             id = str(user.id)
+    #             if id not in amounts.keys():
+    #                 amounts[id] += int(currency)
+    #                 _save()
+    #             else:
+    #                 await ctx.send(f"<@{user.id}> has already been Registered!")
+    #         else:
+    #             if add == "Add" and currency is None:
+    #                 id = str(user.id)
+    #                 if id not in amounts.keys():
+    #                     amounts[id] = 100
+    #                     await ctx.send("No currency was set, defaulting to 100")
+    #                     _save()
+    #                 else:
+    #                     await ctx.send(f"<@{user.id}> has already been Registered!")
+    #             else:
+    #                 if subtract == "Subtract" and currency is not None:
+    #                     id = str(user.id)
+    #                     if id not in amounts.keys():
+    #                         amounts[id] -= int(currency)
+    #                         _save()
+    #                     else:
+    #                         await ctx.send(f"<@{user.id}> has already been Registered!")
+    #                 else:
+    #                     if subtract == "Subtract" and currency is None:
+    #                         id = str(user.id)
+    #                         if id not in amounts.keys():
+    #                             amounts[id] = 100
+    #                             await ctx.send("No currency was set, defaulting to 100")
+    #                             _save()
+    #                         else:
+    #                             await ctx.send(f"<@{user.id}> has already been Registered!")
 
+    #     else:
+    #         id = str(ctx.message.author.id)
+    #         if id not in amounts.keys():
+    #             amounts[id] = 100
+    #             await ctx.send("You are now registered")
+    #             _save()
+    #         else:
+    #             await ctx.send("You are already registered!")
+
+    @commands.group()
+    async def register(self, ctx):
+        pass
+
+    @register.command(name="add")
+    async def _add(self, ctx, user: discord.Member = None, currency: int = 100):
+        if user is None:
+            user = ctx.author
+
+        if str(user.id) not in amounts.keys():
+            amounts[str(user.id)] = currency
+            await ctx.send("{0.mention} has been registered!".format(user))
         else:
-            id = str(ctx.message.author.id)
-            if id not in amounts.keys():
-                amounts[id] = 100
-                await ctx.send("You are now registered")
-                _save()
-            else:
-                await ctx.send("You are already registered!")
+            await ctx.send("{0.mention} has already been registered".format(user))
 
     @commands.command("Add")
     async def add(self, ctx, currency):
