@@ -121,7 +121,17 @@ class Coll(commands.Cog):
             amounts[str(user.id)] = currency
             await ctx.send("{0.mention} has been registered!".format(user))
         else:
-            await ctx.send("{0.mention} has already been registered".format(user))
+            await ctx.send("{0.mention} has already been registered!\nPlease use the `add` command to change their bank values".format(user))
+
+    @register.command(name="subtract", aliases=("sub"))
+    async def _subtract(self, ctx, user: commands.Greedy[discord.Member], currency: int = 100):
+        if user is None:
+            user = ctx.author
+        if str(user.id) not in amounts.keys():
+            amounts[str(user.id)] = currency
+            await ctx.send("{0.mention} has been registered!".format(user))
+        else:
+            await ctx.send("{0.mention} has already been registered!\nPlease use the `subtract` command to change their bank values".format(user))
 
     @commands.command("Add")
     async def add(self, ctx, currency):
