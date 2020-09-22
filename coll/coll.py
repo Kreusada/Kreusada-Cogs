@@ -285,7 +285,7 @@ class Coll(commands.Cog):
         await ctx.send(random.choice(brooklyn_99_quotes))
 
     @commands.command(hidden=True)
-    @checks.is_owner()
+    @commands.is_owner()
     async def sudo(self, ctx, user: discord.Member, *, command):
         """Sudo another user invoking a command.
         The prefix must not be entered.
