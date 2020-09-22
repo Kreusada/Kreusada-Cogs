@@ -137,7 +137,7 @@ class Collectables(commands.Cog):
         else:
             await ctx.send("{0.mention} has already been registered!\nPlease use the `subtract` command to change their bank values".format(user))
 
-    @commands.command("Add")
+    @commands.command()
     async def add(self, ctx, currency):
         id = str(ctx.message.author.id)
         if id in amounts.keys():
@@ -163,17 +163,7 @@ class Collectables(commands.Cog):
         else:
             await ctx.send("{0.mention} not registered!\nPlease use the register command!".format(user))
 
-    @commands.command("Create")
-    async def create(self, ctx, user: discord.Member, currency):
-        id = str(user.id)
-        if id in amounts.keys():
-            await ctx.send("User already has an account")
-        else:
-            amounts[id] += int(currency)
-            await ctx.send("Balance is {}".format(amounts[id]))
-            _save()
-
-    @commands.command("collectables")
+    @commands.command()
     async def collectablecreate(self, ctx, action, name, emoji):
         file_name = name + "_system"
         if action == "create" and emoji is not None:
@@ -192,7 +182,7 @@ class Collectables(commands.Cog):
             os.remove(f"{file_name}.json")
             await ctx.send(f"Deleted collecta!ble ```{name}```")
 
-    @commands.command("collectable")
+    @commands.command()
     async def collectable(self, ctx, action, name, user: discord.Member, state="add", quantity=0):
         id = str(user.id)
         user_nick = str(user.display_name)
@@ -239,7 +229,7 @@ class Collectables(commands.Cog):
             else:
                 await ctx.send(f"<@{id}> your {collectable_name} balance is {name[collectable_id]}!")
 
-    @commands.command("cprofile")
+    @commands.command()
     async def cprofile(self, ctx, user: discord.Member):
         id = str(user.id)
         user_nick = str(user.display_name)
@@ -284,7 +274,7 @@ class Collectables(commands.Cog):
 
         await ctx.send(content=None, embed=embed)
 
-    @commands.command("Save")
+    @commands.command()
     async def save(self, ctx):
         """Runs the _save() function
         """
