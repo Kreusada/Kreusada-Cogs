@@ -160,7 +160,6 @@ class Coll(commands.Cog):
             os.remove(f"{fileName}.json")
             await ctx.send(f"Deleted collecta!ble ```{name}```")
 
-    # @commands.has_role("Moderator")
     @commands.command("collectable")
     async def collectable(self, ctx, action, name, user: discord.Member, state="add", quantity=0):
         id = str(user.id)
@@ -253,10 +252,6 @@ class Coll(commands.Cog):
 
         await ctx.send(content=None, embed=embed)
 
-    # @commands.command("Ping")
-    # async def ping(self, ctx, user: discord.Member):
-    #     await ctx.send("ID is {}".format(user.id))
-
     @commands.command("Save")
     async def save(self, ctx):
         _save()
@@ -275,24 +270,3 @@ class Coll(commands.Cog):
 
         response = random.choice(brooklyn_99_quotes)
         await ctx.send(response)
-
-    @commands.command(name='loadcogs')
-    async def LoadCogs(self, ctx, cog_name):
-        try:
-            bot.load_extension(f"cogs.{cog_name}")
-        except commands.ExtensionAlreadyLoaded:
-            await ctx.send(f"{cog_name} is loaded.")
-        except commands.ExtensionNotFound:
-            await ctx.send(f"{cog_name} could not be found")
-        else:
-            await ctx.send(f"{cog_name} is now Unloaded")
-            bot.unload_extension(f"cogs.{cog_name}")
-            cogs.append(f"{cog_name}")
-
-    # @commands.command(name='cogs')
-    # async def ListCogs(self, ctx):
-    #     for cog in cogs:
-    #         embed = discord.Embed(title="Cogs", description="Loaded Cogs")
-    #         embed.add_field(name="Cog", value=cog)
-    #         await ctx.send(content=None, embed=embed)
-    #         print(cogs)
