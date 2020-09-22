@@ -146,18 +146,18 @@ class Coll(commands.Cog):
         else:
             await ctx.send("User not registered")
 
-    @commands.command("Subtract")
-    async def subtract(self, ctx, currency):
-        id = str(ctx.message.author.id)
-        if id in amounts.keys():
-            balance = amounts[id]
+    @commands.command()
+    async def subtract(self, ctx, currency: int = 100):
+        user = ctx.author
+        if str(user.id) in amounts.keys():
+            balance = amounts[str(user.id)]
             balance -= int(currency)
             amounts[id] = balance
-            await ctx.send("Your updated balance is {}".format(amounts[id]))
+            await ctx.send("Your updated balance is {}".format(amounts[str(user.id)]))
             _save()
 
         else:
-            await ctx.send("User not registered")
+            await ctx.send("{0.mention} not registered!\nPlease use the register command!".format(user))
 
     @commands.command("Create")
     async def create(self, ctx, user: discord.Member, currency):
