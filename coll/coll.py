@@ -4,7 +4,7 @@ import json
 import os
 import discord
 from discord.utils import get
-from discord.ext import commands
+# from discord.ext import commands
 
 
 loaded = False
