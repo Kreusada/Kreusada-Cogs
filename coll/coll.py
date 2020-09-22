@@ -6,8 +6,6 @@ import discord
 from discord.utils import get
 
 
-cogs = []
-
 Loaded = False
 
 with open("amounts.json", "r") as f:
@@ -250,6 +248,8 @@ class Coll(commands.Cog):
 
     @commands.command("Save")
     async def save(self, ctx):
+        """Runs the _save() function
+        """
         _save()
         await ctx.send("Saved")
 
