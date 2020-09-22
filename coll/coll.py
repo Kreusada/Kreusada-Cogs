@@ -15,7 +15,7 @@ class LOADINGERROR(Exception):
     pass
 
 
-amounts = None
+amounts: dict = None
 
 name = {}
 
@@ -65,52 +65,6 @@ class Collectables(commands.Cog):
             await ctx.send("{0.mention} has {1} in the bank.".format(user, amounts[str(user.id)]))
         else:
             await ctx.send("{0.mention} does not have an account".format(user))
-
-    # @commands.command("Register")
-    # async def register(self, ctx, user: discord.Member = None, add=None, subtract=None, currency=None):
-    #     if user is not None:
-    #         if add == "Add" and currency is not None:
-    #             id = str(user.id)
-    #             if id not in amounts.keys():
-    #                 amounts[id] += int(currency)
-    #                 _save()
-    #             else:
-    #                 await ctx.send(f"<@{user.id}> has already been Registered!")
-    #         else:
-    #             if add == "Add" and currency is None:
-    #                 id = str(user.id)
-    #                 if id not in amounts.keys():
-    #                     amounts[id] = 100
-    #                     await ctx.send("No currency was set, defaulting to 100")
-    #                     _save()
-    #                 else:
-    #                     await ctx.send(f"<@{user.id}> has already been Registered!")
-    #             else:
-    #                 if subtract == "Subtract" and currency is not None:
-    #                     id = str(user.id)
-    #                     if id not in amounts.keys():
-    #                         amounts[id] -= int(currency)
-    #                         _save()
-    #                     else:
-    #                         await ctx.send(f"<@{user.id}> has already been Registered!")
-    #                 else:
-    #                     if subtract == "Subtract" and currency is None:
-    #                         id = str(user.id)
-    #                         if id not in amounts.keys():
-    #                             amounts[id] = 100
-    #                             await ctx.send("No currency was set, defaulting to 100")
-    #                             _save()
-    #                         else:
-    #                             await ctx.send(f"<@{user.id}> has already been Registered!")
-
-    #     else:
-    #         id = str(ctx.message.author.id)
-    #         if id not in amounts.keys():
-    #             amounts[id] = 100
-    #             await ctx.send("You are now registered")
-    #             _save()
-    #         else:
-    #             await ctx.send("You are already registered!")
 
     @commands.group()
     async def register(self, ctx):
