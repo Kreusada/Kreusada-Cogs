@@ -10,7 +10,7 @@ from copy import copy
 
 loaded = False
 
-with open('amounts.json', "r") as f:
+with open('amounts.json') as f:
     amounts = json.load(f)
 
 name = {}
