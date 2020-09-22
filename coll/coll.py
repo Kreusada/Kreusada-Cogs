@@ -10,7 +10,7 @@ from copy import copy
 
 loaded = False
 
-with open("amounts.json", "r") as f:
+with open('amounts.json', "r") as f:
     amounts = json.load(f)
 
 name = {}
@@ -21,7 +21,7 @@ def _save():
         json.dump(amounts, f)
 
 
-class Coll(commands.Cog):
+class Collectables(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
