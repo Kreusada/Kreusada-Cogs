@@ -36,7 +36,7 @@ class Coll(commands.Cog):
             await owner_id.send("File not found.")
             amounts = {}
 
-    @commands.command("Balance")
+    @commands.command()
     async def balance(self, ctx, user: discord.Member = None):
         if user is not None:
             id = str(user.id)
