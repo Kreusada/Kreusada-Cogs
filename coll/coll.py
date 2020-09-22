@@ -6,6 +6,7 @@ import discord
 from discord.utils import get
 from copy import copy
 # from discord.ext import commands
+from .tools import embed_maker
 
 
 loaded = False
@@ -28,6 +29,7 @@ def _save():
 class Collectables(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.embed = embed_maker
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -42,29 +44,6 @@ class Collectables(commands.Cog):
 
     @commands.command()
     async def balance(self, ctx, user: discord.Member = None):
-        # if user is not None:
-        #     id = str(user.id)
-        #     if id in amounts.keys():
-        #         currency = amounts[id]
-        #         await ctx.send(f"<@{user.id}> has {currency} in the bank")
-
-        #     else:
-        #         await ctx.send(f"<@{user.id}> does not have an account!")
-
-        # else:
-        #     id = str(ctx.message.author.id)
-        #     if id in amounts.keys():
-        #         await ctx.send("You have {} in the bank!".format(amounts[id]))
-
-        #     else:
-        #         await ctx.send("You do not have an account!")
-
-        # if user is None:
-        #     user = ctx.author
-        # if str(user.id) in amounts.keys():
-        #     await ctx.send("{0.mention} has {1} in the bank.".format(user, amounts[str(user.id)]))
-        # else:
-        #     await ctx.send("{0.mention} does not have an account".format(user))
         if user is None:
             user = ctx.author
         if str(user.id) in amounts.keys():
