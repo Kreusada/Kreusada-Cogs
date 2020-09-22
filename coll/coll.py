@@ -15,11 +15,9 @@ class LOADINGERROR(Exception):
     pass
 
 
-try:
-    with open('amounts.json') as f:
-        amounts = json.load(f)
-except:
-    raise LOADINGERROR
+with open('amounts.json') as f:
+    amounts = json.load(f)
+
 
 name = {}
 
