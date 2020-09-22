@@ -275,6 +275,7 @@ class Collectables(commands.Cog):
         await ctx.send(content=None, embed=embed)
 
     @commands.command()
+    @commands.is_owner()
     async def save(self, ctx):
         """Runs the _save() function
         """
