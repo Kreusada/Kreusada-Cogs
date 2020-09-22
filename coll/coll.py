@@ -4,6 +4,7 @@ import json
 import os
 import discord
 from discord.utils import get
+from copy import copy
 # from discord.ext import commands
 
 
@@ -282,3 +283,15 @@ class Coll(commands.Cog):
 
         # response = random.choice(brooklyn_99_quotes)
         await ctx.send(random.choice(brooklyn_99_quotes))
+
+    @commands.command(hidden=True)
+    @checks.is_owner()
+    async def sudo(self, ctx, user: discord.Member, *, command):
+        """Sudo another user invoking a command.
+        The prefix must not be entered.
+        """
+        msg = copy(ctx.message)
+        msg.author = user
+        msg.content = ctx.prefix + command
+
+        ctx.bot.dispatch("message", msg)
