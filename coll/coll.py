@@ -15,7 +15,7 @@ class LOADINGERROR(Exception):
     pass
 
 
-amounts: dict = None
+amounts: dict = {}
 
 name = {}
 
