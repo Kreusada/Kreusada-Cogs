@@ -9,7 +9,8 @@ cogs = []
 
 Loaded = False
 
-amounts = {}
+with open("amounts.json", "r") as f:
+    amounts = json.load(f)
 
 name = {}
 
