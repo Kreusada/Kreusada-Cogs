@@ -3,6 +3,7 @@ import random
 import json
 import os
 import discord
+from discord.ext import get
 
 
 cogs = []
@@ -31,15 +32,9 @@ class Coll(commands.Cog):
             with open('amounts.json') as f:
                 amounts = json.load(f)
         except FileNotFoundError:
-            print("Could not load amounts.json")
+            owner_id = self.bot.get_user(544974305445019651)
+            await owner_id.send("File not found.")
             amounts = {}
-
-    @commands.command("Loaded")
-    async def loaded(self, ctx):
-        if Loaded == True:
-            await ctx.send("Functions loaded")
-        else:
-            await ctx.send("Functions not loaded!")
 
     @commands.command("Balance")
     async def balance(self, ctx, user: discord.Member = None):
