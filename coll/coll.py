@@ -6,7 +6,7 @@ import discord
 from discord.utils import get
 
 
-Loaded = False
+loaded = False
 
 with open("amounts.json", "r") as f:
     amounts = json.load(f)
@@ -137,21 +137,21 @@ class Coll(commands.Cog):
 
     @commands.command("collectables")
     async def collectablecreate(self, ctx, action, name, emoji):
-        fileName = name + "_system"
+        file_name = name + "_system"
         if action == "create" and emoji is not None:
             try:
-                file = open(f"{fileName}.json", "x")
+                file = open(f"{file_name}.json", "x")
                 name = {}
                 name["emoji"] = emoji
                 json.dump(name, file)
-                await ctx.send(f"Created ```{fileName}.json``` and collectable")
+                await ctx.send(f"Created ```{file_name}.json``` and collectable")
             except FileExistsError:
-                with open(f"{fileName}.json") as f:
+                with open(f"{file_name}.json") as f:
                     name = json.load(f)
-                    await ctx.send(f"{fileName}.json already exists")
+                    await ctx.send(f"{file_name}.json already exists")
 
         elif action == "del":
-            os.remove(f"{fileName}.json")
+            os.remove(f"{file_name}.json")
             await ctx.send(f"Deleted collecta!ble ```{name}```")
 
     @commands.command("collectable")
@@ -160,15 +160,15 @@ class Coll(commands.Cog):
         user_nick = str(user.display_name)
         collectable_id = id + "+" + user_nick
         collectable_name = name
-        fileName = name + "_system"
+        file_name = name + "_system"
         try:
-            with open(f"{fileName}.json") as f:
+            with open(f"{file_name}.json") as f:
                 name = json.load(f)
         except FileNotFoundError:
             await ctx.send(f"{name} is not a Collectible!")
 
         if action == "setbalance":
-            with open(f"{fileName}.json", "w") as JSONCollectable:
+            with open(f"{file_name}.json", "w") as JSONCollectable:
                 if collectable_id not in name.keys():
                     name[collectable_id] = 0
                 if state == "add":
@@ -207,20 +207,20 @@ class Coll(commands.Cog):
         user_nick = str(user.display_name)
         collectable_id = id + "+" + user_nick
         has_collectable = False
-        JSON_Collectables = [Collectables for Collectables in os.listdir(
+        json_collectables = [Collectables for Collectables in os.listdir(
             os.curdir) if Collectables.endswith('.json')]
         embed = discord.Embed(title=f"{user.display_name}'s Collectables!",
                               description=f"{user.display_name}'s Collection")
-        for i in range(0, len(JSON_Collectables)):
-            with open(f"{JSON_Collectables[i]}") as f:
+        for i in range(0, len(json_collectables)):
+            with open(f"{json_collectables[i]}") as f:
                 data = json.load(f)
                 if collectable_id not in data:
                     print("No collectable for user")
 
                 else:
                     has_collectable = True
-                    # print(JSON_Collectables.split('_'))
-                    collectable_name = JSON_Collectables[i].split('.')
+                    # print(json_collectables.split('_'))
+                    collectable_name = json_collectables[i].split('.')
                     collectable_name = collectable_name[0].split('_')
                     embed.add_field(name=collectable_name[0], value=data[id])
         if has_collectable is not False:
@@ -231,8 +231,8 @@ class Coll(commands.Cog):
 
     @commands.command("leaderboard")
     async def cleaderboard(self, ctx, name):
-        FileName = name + "_system"
-        with open(f"{FileName}.json") as f:
+        file_name = name + "_system"
+        with open(f"{file_name}.json") as f:
             values = json.load(f)
 
         emoji = str(values["emoji"])
@@ -264,5 +264,5 @@ class Coll(commands.Cog):
             ),
         ]
 
-        response = random.choice(brooklyn_99_quotes)
-        await ctx.send(response)
+        # response = random.choice(brooklyn_99_quotes)
+        await ctx.send(random.choice(brooklyn_99_quotes))
