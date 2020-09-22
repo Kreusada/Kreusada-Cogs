@@ -263,7 +263,7 @@ class Coll(commands.Cog):
         else:
             await ctx.send(f"{user.display_name} has no collectables!")
 
-    @commands.command("leaderboard")
+    @commands.command()
     async def cleaderboard(self, ctx, name):
         file_name = name + "_system"
         with open(f"{file_name}.json") as f:
