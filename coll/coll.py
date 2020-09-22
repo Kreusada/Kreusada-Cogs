@@ -152,7 +152,7 @@ class Coll(commands.Cog):
         if str(user.id) in amounts.keys():
             balance = amounts[str(user.id)]
             balance -= int(currency)
-            amounts[id] = balance
+            amounts[str(user.id)] = balance
             await ctx.send("Your updated balance is {}".format(amounts[str(user.id)]))
             _save()
 
