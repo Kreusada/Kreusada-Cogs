@@ -157,9 +157,9 @@ class Coll(commands.Cog):
     @commands.command("collectable")
     async def collectable(self, ctx, action, name, user: discord.Member, state="add", quantity=0):
         id = str(user.id)
-        userNickName = str(user.display_name)
-        CollectableID = id + "+" + userNickName
-        CollectableName = name
+        user_nick = str(user.display_name)
+        collectable_id = id + "+" + user_nick
+        collectable_name = name
         fileName = name + "_system"
         try:
             with open(f"{fileName}.json") as f:
@@ -169,44 +169,44 @@ class Coll(commands.Cog):
 
         if action == "setbalance":
             with open(f"{fileName}.json", "w") as JSONCollectable:
-                if CollectableID not in name.keys():
-                    name[CollectableID] = 0
+                if collectable_id not in name.keys():
+                    name[collectable_id] = 0
                 if state == "add":
-                    current_balance = name[CollectableID]
+                    current_balance = name[collectable_id]
                     current_balance += int(quantity)
-                    name[CollectableID] = current_balance
+                    name[collectable_id] = current_balance
                     json.dump(name, JSONCollectable)
                     JSONCollectable.close()
-                    await ctx.send(f"<@{user.id}> your updated balance is {name[CollectableID]}")
+                    await ctx.send(f"<@{user.id}> your updated balance is {name[collectable_id]}")
                 elif state == "set":
-                    current_balance = name[CollectableID]
+                    current_balance = name[collectable_id]
                     current_balance = int(quantity)
-                    name[CollectableID] = current_balance
+                    name[collectable_id] = current_balance
                     json.dump(name, JSONCollectable)
                     JSONCollectable.close()
-                    await ctx.send(f"<@{user.id}> your updated balance is {name[CollectableID]}")
+                    await ctx.send(f"<@{user.id}> your updated balance is {name[collectable_id]}")
                 elif state == "subtract":
-                    current_balance = name[CollectableID]
+                    current_balance = name[collectable_id]
                     current_balance -= int(quantity)
-                    name[CollectableID] = current_balance
+                    name[collectable_id] = current_balance
                     json.dump(name, JSONCollectable)
                     JSONCollectable.close()
-                    await ctx.send(f"<@{user.id}> your updated balance is {name[CollectableID]}")
+                    await ctx.send(f"<@{user.id}> your updated balance is {name[collectable_id]}")
                 else:
                     await ctx.send("Invalid state!")
 
         elif action == "balance":
             if id not in name.keys():
-                await ctx.send(f"That user does not have a {CollectableName} balance!")
+                await ctx.send(f"That user does not have a {collectable_name} balance!")
             else:
-                await ctx.send(f"<@{id}> your {CollectableName} balance is {name[CollectableID]}!")
+                await ctx.send(f"<@{id}> your {collectable_name} balance is {name[collectable_id]}!")
 
     @commands.command("cprofile")
     async def cprofile(self, ctx, user: discord.Member):
         id = str(user.id)
-        userNickName = str(user.display_name)
-        CollectableID = id + "+" + userNickName
-        HasCollectable = False
+        user_nick = str(user.display_name)
+        collectable_id = id + "+" + user_nick
+        has_collectable = False
         JSON_Collectables = [Collectables for Collectables in os.listdir(
             os.curdir) if Collectables.endswith('.json')]
         embed = discord.Embed(title=f"{user.display_name}'s Collectables!",
@@ -214,16 +214,16 @@ class Coll(commands.Cog):
         for i in range(0, len(JSON_Collectables)):
             with open(f"{JSON_Collectables[i]}") as f:
                 data = json.load(f)
-                if CollectableID not in data:
+                if collectable_id not in data:
                     print("No collectable for user")
 
                 else:
-                    HasCollectable = True
+                    has_collectable = True
                     # print(JSON_Collectables.split('_'))
-                    CollectableName = JSON_Collectables[i].split('.')
-                    CollectableName = CollectableName[0].split('_')
-                    embed.add_field(name=CollectableName[0], value=data[id])
-        if HasCollectable is not False:
+                    collectable_name = JSON_Collectables[i].split('.')
+                    collectable_name = collectable_name[0].split('_')
+                    embed.add_field(name=collectable_name[0], value=data[id])
+        if has_collectable is not False:
             await ctx.send(content=None, embed=embed)
 
         else:
