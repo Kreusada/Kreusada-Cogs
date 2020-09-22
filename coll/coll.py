@@ -10,8 +10,16 @@ from copy import copy
 
 loaded = False
 
-with open('amounts.json') as f:
-    amounts = json.load(f)
+
+class LOADINGERROR(Exception):
+    pass
+
+
+try:
+    with open('amounts.json') as f:
+        amounts = json.load(f)
+except:
+    raise LOADINGERROR
 
 name = {}
 
