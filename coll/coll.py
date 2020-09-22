@@ -4,6 +4,7 @@ import json
 import os
 import discord
 from discord.utils import get
+from discord.ext import commands
 
 
 loaded = False
@@ -104,7 +105,7 @@ class Coll(commands.Cog):
         pass
 
     @register.command(name="add")
-    async def _add(self, ctx, user: discord.Member = None, currency: int = 100):
+    async def _add(self, ctx, user: commands.Greedy[discord.Member] = None, currency: int = 100):
         if user is None:
             user = ctx.author
 
