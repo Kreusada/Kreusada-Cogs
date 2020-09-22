@@ -3,7 +3,7 @@ import random
 import json
 import os
 import discord
-from discord.ext import get
+from discord.utils import get
 
 
 cogs = []
