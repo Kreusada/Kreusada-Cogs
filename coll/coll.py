@@ -42,29 +42,35 @@ class Collectables(commands.Cog):
 
     @commands.command()
     async def balance(self, ctx, user: discord.Member = None):
-        if user is not None:
-            id = str(user.id)
-            if id in amounts.keys():
-                currency = amounts[id]
-                await ctx.send(f"<@{user.id}> has {currency} in the bank")
+        # if user is not None:
+        #     id = str(user.id)
+        #     if id in amounts.keys():
+        #         currency = amounts[id]
+        #         await ctx.send(f"<@{user.id}> has {currency} in the bank")
 
-            else:
-                await ctx.send(f"<@{user.id}> does not have an account!")
+        #     else:
+        #         await ctx.send(f"<@{user.id}> does not have an account!")
 
-        else:
-            id = str(ctx.message.author.id)
-            if id in amounts.keys():
-                await ctx.send("You have {} in the bank!".format(amounts[id]))
+        # else:
+        #     id = str(ctx.message.author.id)
+        #     if id in amounts.keys():
+        #         await ctx.send("You have {} in the bank!".format(amounts[id]))
 
-            else:
-                await ctx.send("You do not have an account!")
+        #     else:
+        #         await ctx.send("You do not have an account!")
 
+        # if user is None:
+        #     user = ctx.author
+        # if str(user.id) in amounts.keys():
+        #     await ctx.send("{0.mention} has {1} in the bank.".format(user, amounts[str(user.id)]))
+        # else:
+        #     await ctx.send("{0.mention} does not have an account".format(user))
         if user is None:
             user = ctx.author
         if str(user.id) in amounts.keys():
-            await ctx.send("{0.mention} has {1} in the bank.".format(user, amounts[str(user.id)]))
+            await ctx.send("{0.display_name} has {1} in the bank".format(user, amounts[str(user.id)]))
         else:
-            await ctx.send("{0.mention} does not have an account".format(user))
+            await ctx.send("{0.display_name} does not have an account".format(user))
 
     @commands.group()
     async def register(self, ctx):
