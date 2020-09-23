@@ -121,52 +121,61 @@ class Collectables(commands.Cog):
             os.remove(f"{file_name}.json")
             await ctx.send(f"Deleted collecta!ble ```{name}```")
 
-    @commands.command()
-    async def collectable(self, ctx, action, name, user: discord.Member, state="add", quantity=0):
-        id = str(user.id)
-        user_nick = str(user.display_name)
-        collectable_id = id + "+" + user_nick
-        collectable_name = name
-        file_name = name + "_system"
-        try:
-            with open(f"{file_name}.json") as f:
-                name = json.load(f)
-        except FileNotFoundError:
-            await ctx.send(f"{name} is not a Collectible!")
+    @commands.group()
+    async def collectable(self, ctx):
+        # id = str(user.id)
+        # user_nick = str(user.display_name)
+        # collectable_id = id + "+" + user_nick
+        # collectable_name = name
+        # file_name = name + "_system"
+        # try:
+        #     with open(f"{file_name}.json") as f:
+        #         name = json.load(f)
+        # except FileNotFoundError:
+        #     await ctx.send(f"{name} is not a Collectible!")
 
-        if action == "setbalance":
-            with open(f"{file_name}.json", "w") as JSONCollectable:
-                if collectable_id not in name.keys():
-                    name[collectable_id] = 0
-                if state == "add":
-                    current_balance = name[collectable_id]
-                    current_balance += int(quantity)
-                    name[collectable_id] = current_balance
-                    json.dump(name, JSONCollectable)
-                    JSONCollectable.close()
-                    await ctx.send(f"<@{user.id}> your updated balance is {name[collectable_id]}")
-                elif state == "set":
-                    current_balance = name[collectable_id]
-                    current_balance = int(quantity)
-                    name[collectable_id] = current_balance
-                    json.dump(name, JSONCollectable)
-                    JSONCollectable.close()
-                    await ctx.send(f"<@{user.id}> your updated balance is {name[collectable_id]}")
-                elif state == "subtract":
-                    current_balance = name[collectable_id]
-                    current_balance -= int(quantity)
-                    name[collectable_id] = current_balance
-                    json.dump(name, JSONCollectable)
-                    JSONCollectable.close()
-                    await ctx.send(f"<@{user.id}> your updated balance is {name[collectable_id]}")
-                else:
-                    await ctx.send("Invalid state!")
+        # if action == "setbalance":
+        #     with open(f"{file_name}.json", "w") as JSONCollectable:
+        #         if collectable_id not in name.keys():
+        #             name[collectable_id] = 0
+        #         if state == "add":
+        #             current_balance = name[collectable_id]
+        #             current_balance += int(quantity)
+        #             name[collectable_id] = current_balance
+        #             json.dump(name, JSONCollectable)
+        #             JSONCollectable.close()
+        #             await ctx.send(f"<@{user.id}> your updated balance is {name[collectable_id]}")
+        #         elif state == "set":
+        #             current_balance = name[collectable_id]
+        #             current_balance = int(quantity)
+        #             name[collectable_id] = current_balance
+        #             json.dump(name, JSONCollectable)
+        #             JSONCollectable.close()
+        #             await ctx.send(f"<@{user.id}> your updated balance is {name[collectable_id]}")
+        #         elif state == "subtract":
+        #             current_balance = name[collectable_id]
+        #             current_balance -= int(quantity)
+        #             name[collectable_id] = current_balance
+        #             json.dump(name, JSONCollectable)
+        #             JSONCollectable.close()
+        #             await ctx.send(f"<@{user.id}> your updated balance is {name[collectable_id]}")
+        #         else:
+        #             await ctx.send("Invalid state!")
 
-        elif action == "balance":
-            if id not in name.keys():
-                await ctx.send(f"That user does not have a {collectable_name} balance!")
-            else:
-                await ctx.send(f"<@{id}> your {collectable_name} balance is {name[collectable_id]}!")
+        # elif action == "balance":
+        #     if id not in name.keys():
+        #         await ctx.send(f"That user does not have a {collectable_name} balance!")
+        #     else:
+        #         await ctx.send(f"<@{id}> your {collectable_name} balance is {name[collectable_id]}!")
+        pass
+
+    @collectable.group(name="setbal", aliases=["sb", "setb"])
+    async def set_balance(self, ctx, user):
+        pass
+
+    @set_balance.command()
+    async def add(self, ctx, user):
+        pass
 
     @commands.command()
     async def cprofile(self, ctx, user: discord.Member):
