@@ -85,16 +85,27 @@ class Collectables(commands.Cog):
 
     @commands.command()
     async def subtract(self, ctx, currency: int = 100):
-        user = ctx.author
-        if str(user.id) in amounts.keys():
-            balance = amounts[str(user.id)]
-            balance -= int(currency)
-            amounts[str(user.id)] = balance
-            await ctx.send("Your updated balance is {}".format(amounts[str(user.id)]))
+        if str(ctx.author.id) in amounts.keys():
+            # balance = amounts[str(ctx.author.id)]
+            # balance -= int(currency)
+            # amounts[str(ctx.author.id)] = balance
+            amounts[str(ctx.author.id)] -= currency
+            await ctx.send("Your updated balance is {0}".format(amounts[str(ctx.author.id)]))
             _save()
 
         else:
-            await ctx.send("{0.mention} not registered!\nPlease use the register command!".format(user))
+            await ctx.send("{0.mention} not registered!\nPlease use the register command!".format(ctx.author))
+
+    @commands.command(name="add")
+    async def add(self, ctx, currency: int = None):
+        if currency is None:
+            currency = 10
+        if str(ctx.author.id) in amounts.keys():
+            amounts[str(ctx.author.id)] += currency
+            _save()
+            await ctx.send("Your updated balance is {0}".format(amounts[str(ctx.author.id)]))
+        else:
+            await ctx.send("You haven't been registered yet!")
 
     @commands.command()
     async def collectablecreate(self, ctx, action, name, emoji):
@@ -114,17 +125,6 @@ class Collectables(commands.Cog):
         elif action == "del":
             os.remove(f"{file_name}.json")
             await ctx.send(f"Deleted collecta!ble ```{name}```")
-
-    @commands.command(name="add")
-    async def add(self, ctx, currency: int = None):
-        if currency is None:
-            currency = 10
-        if str(ctx.author.id) in amounts.keys():
-            amounts[str(ctx.author.id)] += currency
-            _save()
-            await ctx.send("Your updated balance is {0}".format(amounts[str(ctx.author.id)]))
-        else:
-            await ctx.send("You haven't been registered yet!")
 
     @commands.group()
     async def collectable(self, ctx):
@@ -262,17 +262,3 @@ class Collectables(commands.Cog):
         msg.content = ctx.prefix + command
 
         ctx.bot.dispatch("message", msg)
-
-    @commands.command()
-    @commands.is_owner()
-    async def simplecom(self, ctx):
-        with open("amounts.json", "r") as f:
-            amounts = json.load(f)
-        x = []
-        for key in amounts.keys():
-            if key not in x:
-                x.append(key)
-            else:
-                amounts.pop(key)
-        _save()
-        await ctx.send("Done")
