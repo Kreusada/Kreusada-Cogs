@@ -22,6 +22,8 @@ name = {}
 
 
 def _save():
+    """Saves the amounts to a json
+    """
     with open('amounts.json', 'w+') as f:
         json.dump(amounts, f)
 
@@ -51,30 +53,34 @@ class Collectables(commands.Cog):
         else:
             await ctx.send("{0.display_name} does not have an account".format(user))
 
-    @commands.group()
+    @commands.command()
     async def register(self, ctx):
-        pass
-
-    @register.command(name="add")
-    async def _add(self, ctx, user: commands.Greedy[discord.Member] = None, currency: int = 100):
-        if user is None:
-            user = ctx.author
-
-        if str(user.id) not in amounts.keys():
-            amounts[str(user.id)] = currency
-            await ctx.send("{0.mention} has been registered!".format(user))
+        if str(ctx.author.id) not in amounts.keys():
+            amounts[str(ctx.author.id)] = 100
+            await ctx.send("You have now been registered!")
         else:
-            await ctx.send("{0.mention} has already been registered!\nPlease use the `add` command to change their bank values".format(user))
+            await ctx.send("You have already been registered!")
 
-    @register.command(name="subtract", aliases=["sub"])
-    async def _subtract(self, ctx, user: commands.Greedy[discord.Member] = None, currency: int = 100):
-        if user is None:
-            user = ctx.author
-        if str(user.id) not in amounts.keys():
-            amounts[str(user.id)] = currency
-            await ctx.send("{0.mention} has been registered!".format(user))
-        else:
-            await ctx.send("{0.mention} has already been registered!\nPlease use the `subtract` command to change their bank values".format(user))
+    # @register.command(name="add")
+    # async def _add(self, ctx, user: commands.Greedy[discord.Member] = None, currency: int = 100):
+    #     if user is None:
+    #         user = ctx.author
+
+    #     if str(user.id) not in amounts.keys():
+    #         amounts[str(user.id)] = currency
+    #         await ctx.send("{0.mention} has been registered!".format(user))
+    #     else:
+    #         await ctx.send("{0.mention} has already been registered!\nPlease use the `add` command to change their bank values".format(user))
+
+    # @register.command(name="subtract", aliases=["sub"])
+    # async def _subtract(self, ctx, user: commands.Greedy[discord.Member] = None, currency: int = 100):
+    #     if user is None:
+    #         user = ctx.author
+    #     if str(user.id) not in amounts.keys():
+    #         amounts[str(user.id)] = currency
+    #         await ctx.send("{0.mention} has been registered!".format(user))
+    #     else:
+    #         await ctx.send("{0.mention} has already been registered!\nPlease use the `subtract` command to change their bank values".format(user))
 
     @commands.command()
     async def add(self, ctx, currency):
