@@ -133,8 +133,8 @@ class Collectables(commands.Cog):
             os.remove(f"{file_name}.json")
             await ctx.send(f"Deleted collecta!ble ```{name}```")
 
-    @commands.command()
-    async def add(self, ctx, currency: int = None):
+    @commands.command(name="add")
+    async def _something(self, ctx, currency: int = None):
         if currency is None:
             currency = 10
         if str(ctx.author.id) in amounts.keys():
