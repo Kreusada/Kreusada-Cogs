@@ -133,6 +133,10 @@ class Collectables(commands.Cog):
             os.remove(f"{file_name}.json")
             await ctx.send(f"Deleted collecta!ble ```{name}```")
 
+    @commands.command("something")
+    async def _something(self, ctx):
+        await ctx.send("This works")
+
     @commands.group()
     async def collectable(self, ctx):
         # id = str(user.id)
