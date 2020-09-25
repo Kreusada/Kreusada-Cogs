@@ -57,6 +57,7 @@ class Collectables(commands.Cog):
     async def register(self, ctx):
         if str(ctx.author.id) not in amounts.keys():
             amounts[str(ctx.author.id)] = 100
+            _save()
             await ctx.send("You have now been registered!")
         else:
             await ctx.send("You have already been registered!")
