@@ -82,7 +82,7 @@ class Collectables(commands.Cog):
     #     else:
     #         await ctx.send("{0.mention} has already been registered!\nPlease use the `subtract` command to change their bank values".format(user))
 
-    @commands.command(name="ADD YOU CAN'T MISS ME")
+    @commands.command(name="something")
     async def add(self, ctx, currency):
         if str(ctx.author.id) in amounts.keys():
             amounts[str(ctx.author.id)] += currency
