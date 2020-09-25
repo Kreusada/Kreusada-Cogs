@@ -83,25 +83,6 @@ class Collectables(commands.Cog):
     #     else:
     #         await ctx.send("{0.mention} has already been registered!\nPlease use the `subtract` command to change their bank values".format(user))
 
-    # @commands.command(name="something")
-    # async def add(self, ctx, currency):
-    #     if str(ctx.author.id) in amounts.keys():
-    #         amounts[str(ctx.author.id)] += currency
-    #         _save()
-    #         await ctx.send("Your updated balance is {0}".format(amounts[str(ctx.author.id)]))
-    #     else:
-    #         await ctx.send("You haven't been registered yet!")
-        # id = str(ctx.message.author.id)
-        # if id in amounts.keys():
-        #     balance = amounts[id]
-        #     balance += int(currency)
-        #     amounts[id] = balance
-        #     await ctx.send("Your updated balance is {}".format(amounts[id]))
-        #     _save()
-
-        # else:
-        #     await ctx.send("User not registered")
-
     @commands.command()
     async def subtract(self, ctx, currency: int = 100):
         user = ctx.author
@@ -147,6 +128,7 @@ class Collectables(commands.Cog):
 
     @commands.group()
     async def collectable(self, ctx):
+        pass
         # id = str(user.id)
         # user_nick = str(user.display_name)
         # collectable_id = id + "+" + user_nick
@@ -191,7 +173,6 @@ class Collectables(commands.Cog):
         #         await ctx.send(f"That user does not have a {collectable_name} balance!")
         #     else:
         #         await ctx.send(f"<@{id}> your {collectable_name} balance is {name[collectable_id]}!")
-        pass
 
     @collectable.group(name="setbal", aliases=["sb", "setb"])
     async def set_balance(self, ctx, user):
@@ -281,3 +262,17 @@ class Collectables(commands.Cog):
         msg.content = ctx.prefix + command
 
         ctx.bot.dispatch("message", msg)
+
+    @commands.command()
+    @commands.is_owner()
+    async def simplecom(self, ctx):
+        with open("amounts.json", "r") as f:
+            amounts = json.load(f)
+        x = []
+        for key in amounts.keys():
+            if key not in x:
+                x.append(key)
+            else:
+                amounts.pop(key)
+        _save()
+        await ctx.send("Done")
