@@ -16,7 +16,8 @@ class LOADINGERROR(Exception):
     pass
 
 
-amounts: dict = {}
+with open('amounts.json', 'r') as f:
+    amounts = json.load(f)
 
 name = {}
 
