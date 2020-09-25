@@ -82,19 +82,6 @@ class Collectables(commands.Cog):
     #     else:
     #         await ctx.send("{0.mention} has already been registered!\nPlease use the `subtract` command to change their bank values".format(user))
 
-    @commands.command(hidden=False)
-    async def add(self, ctx, currency):
-        id = str(ctx.message.author.id)
-        if id in amounts.keys():
-            balance = amounts[id]
-            balance += int(currency)
-            amounts[id] = balance
-            await ctx.send("Your updated balance is {}".format(amounts[id]))
-            _save()
-
-        else:
-            await ctx.send("User not registered")
-
     @commands.command()
     async def subtract(self, ctx, currency: int = 100):
         user = ctx.author
