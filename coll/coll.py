@@ -82,14 +82,14 @@ class Collectables(commands.Cog):
     #     else:
     #         await ctx.send("{0.mention} has already been registered!\nPlease use the `subtract` command to change their bank values".format(user))
 
-    @commands.command(name="something")
-    async def add(self, ctx, currency):
-        if str(ctx.author.id) in amounts.keys():
-            amounts[str(ctx.author.id)] += currency
-            _save()
-            await ctx.send("Your updated balance is {0}".format(amounts[str(ctx.author.id)]))
-        else:
-            await ctx.send("You haven't been registered yet!")
+    # @commands.command(name="something")
+    # async def add(self, ctx, currency):
+    #     if str(ctx.author.id) in amounts.keys():
+    #         amounts[str(ctx.author.id)] += currency
+    #         _save()
+    #         await ctx.send("Your updated balance is {0}".format(amounts[str(ctx.author.id)]))
+    #     else:
+    #         await ctx.send("You haven't been registered yet!")
         # id = str(ctx.message.author.id)
         # if id in amounts.keys():
         #     balance = amounts[id]
@@ -133,8 +133,8 @@ class Collectables(commands.Cog):
             os.remove(f"{file_name}.json")
             await ctx.send(f"Deleted collecta!ble ```{name}```")
 
-    @commands.command("something")
-    async def _something(self, ctx, currency: int = None):
+    @commands.command()
+    async def add(self, ctx, currency: int = None):
         if currency is None:
             currency = 10
         if str(ctx.author.id) in amounts.keys():
