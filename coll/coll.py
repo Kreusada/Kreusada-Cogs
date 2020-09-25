@@ -178,7 +178,9 @@ class Collectables(commands.Cog):
         pass
 
     @commands.command()
-    async def cprofile(self, ctx, user: discord.Member):
+    async def cprofile(self, ctx, user: discord.Member = None):
+        if user is None:
+            user = ctx.author
         id = str(user.id)
         user_nick = str(user.display_name)
         collectable_id = id + "+" + user_nick
