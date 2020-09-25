@@ -8,7 +8,6 @@ from copy import copy
 # from discord.ext import commands
 from .tools import embed_maker
 
-
 loaded = False
 
 
@@ -136,7 +135,7 @@ class Collectables(commands.Cog):
             await ctx.send(f"Deleted collecta!ble ```{name}```")
 
     @commands.command(name="add")
-    async def _something(self, ctx, currency: int = None):
+    async def add(self, ctx, currency: int = None):
         if currency is None:
             currency = 10
         if str(ctx.author.id) in amounts.keys():
@@ -198,8 +197,8 @@ class Collectables(commands.Cog):
     async def set_balance(self, ctx, user):
         pass
 
-    @set_balance.command()
-    async def add(self, ctx, user):
+    @set_balance.command(name="add")
+    async def collectable_add(self, ctx, user):
         pass
 
     @commands.command()
