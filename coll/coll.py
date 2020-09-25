@@ -84,16 +84,22 @@ class Collectables(commands.Cog):
 
     @commands.command(hidden=False)
     async def add(self, ctx, currency):
-        id = str(ctx.message.author.id)
-        if id in amounts.keys():
-            balance = amounts[id]
-            balance += int(currency)
-            amounts[id] = balance
-            await ctx.send("Your updated balance is {}".format(amounts[id]))
+        if str(ctx.author.id) in amounts.keys():
+            amounts[str(ctx.author.id)] += currency
             _save()
-
+            await ctx.send("Your updated balance is {0}".format(amounts[str(ctx.author.id)]))
         else:
-            await ctx.send("User not registered")
+            await ctx.send("You haven't been registered yet!")
+        # id = str(ctx.message.author.id)
+        # if id in amounts.keys():
+        #     balance = amounts[id]
+        #     balance += int(currency)
+        #     amounts[id] = balance
+        #     await ctx.send("Your updated balance is {}".format(amounts[id]))
+        #     _save()
+
+        # else:
+        #     await ctx.send("User not registered")
 
     @commands.command()
     async def subtract(self, ctx, currency: int = 100):
