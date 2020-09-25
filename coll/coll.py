@@ -134,8 +134,15 @@ class Collectables(commands.Cog):
             await ctx.send(f"Deleted collecta!ble ```{name}```")
 
     @commands.command("something")
-    async def _something(self, ctx):
-        await ctx.send("This works")
+    async def _something(self, ctx, currency: int = None):
+        if currency is None:
+            currency = 10
+        if str(ctx.author.id) in amounts.keys():
+            amounts[str(ctx.author.id)] += currency
+            _save()
+            await ctx.send("Your updated balance is {0}".format(amounts[str(ctx.author.id)]))
+        else:
+            await ctx.send("You haven't been registered yet!")
 
     @commands.group()
     async def collectable(self, ctx):
