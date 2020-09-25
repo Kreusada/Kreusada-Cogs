@@ -144,6 +144,7 @@ class Collectables(commands.Cog):
         #     with open(f"{file_name}.json", "w") as JSONCollectable:
         #         if collectable_id not in name.keys():
         #             name[collectable_id] = 0
+
         #         if state == "add":
         #             current_balance = name[collectable_id]
         #             current_balance += int(quantity)
@@ -151,6 +152,7 @@ class Collectables(commands.Cog):
         #             json.dump(name, JSONCollectable)
         #             JSONCollectable.close()
         #             await ctx.send(f"<@{user.id}> your updated balance is {name[collectable_id]}")
+
         #         elif state == "set":
         #             current_balance = name[collectable_id]
         #             current_balance = int(quantity)
@@ -158,6 +160,7 @@ class Collectables(commands.Cog):
         #             json.dump(name, JSONCollectable)
         #             JSONCollectable.close()
         #             await ctx.send(f"<@{user.id}> your updated balance is {name[collectable_id]}")
+
         #         elif state == "subtract":
         #             current_balance = name[collectable_id]
         #             current_balance -= int(quantity)
@@ -179,8 +182,22 @@ class Collectables(commands.Cog):
         pass
 
     @set_balance.command(name="add")
-    async def collectable_add(self, ctx, user):
-        pass
+    async def collectable_add(self, ctx, name, currency: int = 100):
+        collectable_id = "{0}+{1}".format(str(ctx.author.id),
+                                          str(ctx.author.display_name))
+        file_name = "{0}_system".format(name)
+        try:
+            with open("{0}.json".format(file_name), "r") as f:
+                name = json.load(f)
+        except FileNotFoundError:
+            await ctx.send("{0} is not a collectable!".format(name))
+        with open("{0}.json", "w") as COLLECTABLEJSON:
+            if collectable_id not in name.keys():
+                name[collectable_id] = 0
+
+            name[collectable_id] += currency
+            json.dump(name, COLLECTABLEJSON, indent=4)
+            await ctx.send("{0.display_name} you have {1}".format(ctx.author, name[collectable_id]))
 
     @commands.command()
     async def cprofile(self, ctx, user: discord.Member = None):
