@@ -1,4 +1,4 @@
-from collectables import Collectables
+from .coll import Collectables
 
 
 def setup(bot):
