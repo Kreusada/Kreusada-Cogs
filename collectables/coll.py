@@ -9,7 +9,7 @@ from copy import copy
 # from .tools import embed_maker
 # from .tools import coll_errors as ce
 
-loaded = False
+# loaded = False
 
 
 with open('amounts.json', 'r') as f:
@@ -30,16 +30,16 @@ class Collectables(commands.Cog):
         self.bot = bot
         # self.embed = embed_maker
 
-    @commands.Cog.listener()
-    async def on_ready(self):
-        global amounts
-        try:
-            with open('amounts.json') as f:
-                amounts = json.load(f)
-        except FileNotFoundError:
-            owner_id = self.bot.get_user(544974305445019651)
-            await owner_id.send("File not found.")
-            amounts = {}
+    # @commands.Cog.listener()
+    # async def on_ready(self):
+    #     global amounts
+    #     try:
+    #         with open('amounts.json') as f:
+    #             amounts = json.load(f)
+    #     except FileNotFoundError:
+    #         owner_id = self.bot.get_user(544974305445019651)
+    #         await owner_id.send("File not found.")
+    #         amounts = {}
 
     @commands.command()
     async def balance(self, ctx, user: discord.Member = None):
