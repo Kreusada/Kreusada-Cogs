@@ -10,12 +10,12 @@ from copy import copy
 # from .tools import coll_errors as ce
 
 # loaded = False
+amounts = {}
 
-try:
-    with open('testing.json', 'r') as f:
-        amounts = json.load(f)
-except FileNotFoundError:
-    print("Could not find that file")
+
+with open('testing.json', 'r') as f:
+    amounts = json.load(f)
+
 
 # name = {}
 
