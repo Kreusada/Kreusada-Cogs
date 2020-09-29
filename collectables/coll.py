@@ -7,12 +7,9 @@ from discord.utils import get
 from copy import copy
 # from discord.ext import commands
 from .tools import embed_maker
+from .tools import coll_errors as ce
 
 loaded = False
-
-
-class LOADINGERROR(Exception):
-    pass
 
 
 with open('amounts.json', 'r') as f:
@@ -178,7 +175,7 @@ class Collectables(commands.Cog):
         #         await ctx.send(f"<@{id}> your {collectable_name} balance is {name[collectable_id]}!")
 
     @collectable.group(name="setbal", aliases=["sb", "setb"])
-    async def set_balance(self, ctx, user):
+    async def set_balance(self, ctx):  # , user):
         pass
 
     @set_balance.command(name="add")

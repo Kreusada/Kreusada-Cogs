@@ -1,0 +1,2 @@
+class LOADINGERROR(Exception):
+    pass
