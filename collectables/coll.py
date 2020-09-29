@@ -17,7 +17,7 @@ try:
 except FileNotFoundError:
     print("Could not find that file")
 
-name = {}
+# name = {}
 
 
 def _save():
