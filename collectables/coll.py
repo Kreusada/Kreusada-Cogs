@@ -12,7 +12,7 @@ from copy import copy
 # loaded = False
 
 
-with open('test.json', 'r') as f:
+with open('testing.json', 'r') as f:
     amounts = json.load(f)
 
 name = {}
@@ -21,7 +21,7 @@ name = {}
 def _save():
     """Saves the amounts to a json
     """
-    with open('test.json', 'w+') as f:
+    with open('testing.json', 'w+') as f:
         json.dump(amounts, f)
 
 
@@ -34,7 +34,7 @@ class Collectables(commands.Cog):
     # async def on_ready(self):
     #     global amounts
     #     try:
-    #         with open('test.json') as f:
+    #         with open('testing.json') as f:
     #             amounts = json.load(f)
     #     except FileNotFoundError:
     #         owner_id = self.bot.get_user(544974305445019651)
