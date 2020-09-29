@@ -11,9 +11,11 @@ from copy import copy
 
 # loaded = False
 
-
-with open('testing.json', 'r') as f:
-    amounts = json.load(f)
+try:
+    with open('testing.json', 'r') as f:
+        amounts = json.load(f)
+except FileNotFoundError:
+    print("Could not find that file")
 
 name = {}
 
