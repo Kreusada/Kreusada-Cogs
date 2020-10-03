@@ -14,7 +14,7 @@ with open("amounts.json", "r") as f:
 def _save():
     """Saves the amounts to a json
     """
-    with open('testing.json', 'w+') as f:
+    with open('amounts.json', 'w+') as f:
         json.dump(amounts, f)
 
 
