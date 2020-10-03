@@ -5,11 +5,8 @@ import os
 import discord
 from discord.utils import get
 from copy import copy
-# from discord.ext import commands
-# from .tools import embed_maker
-# from .tools import coll_errors as ce
 
-# loaded = False
+
 amounts = {}
 
 
@@ -17,8 +14,6 @@ amounts = {}
 #     amounts = json.load(f)
 with open("testing.json", "r") as amounts_file:
     amounts = json.load(amounts_file)
-
-# name = {}
 
 
 def _save():
@@ -31,18 +26,17 @@ def _save():
 class Collectables(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        # self.embed = embed_maker
 
-    # @commands.Cog.listener()
-    # async def on_ready(self):
-    #     global amounts
-    #     try:
-    #         with open('testing.json') as f:
-    #             amounts = json.load(f)
-    #     except FileNotFoundError:
-    #         owner_id = self.bot.get_user(544974305445019651)
-    #         await owner_id.send("File not found.")
-    #         amounts = {}
+    @commands.Cog.listener()
+    async def on_ready(self):
+        global amounts
+        try:
+            with open('testing.json') as f:
+                amounts = json.load(f)
+        except FileNotFoundError:
+            owner_id = self.bot.get_user(544974305445019651)
+            await owner_id.send("File not found.")
+            amounts = {}
 
     @commands.command()
     async def balance(self, ctx, user: discord.Member = None):
