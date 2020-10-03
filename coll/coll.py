@@ -7,7 +7,7 @@ from discord.utils import get
 from copy import copy
 
 
-with open("amounts.json", "r") as f:
+with open("testingtesting.json", "r") as f:
     amounts = json.load(f)
 
 
