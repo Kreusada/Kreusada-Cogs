@@ -10,12 +10,6 @@ from copy import copy
 amounts = {}
 
 
-# with open('testing.json', 'r') as f:
-#     amounts = json.load(f)
-with open("testing.json", "r") as amounts_file:
-    amounts = json.load(amounts_file)
-
-
 def _save():
     """Saves the amounts to a json
     """
