@@ -7,7 +7,7 @@ from discord.utils import get
 from copy import copy
 
 
-amounts = {}
+# amounts = {}
 
 
 def _save():
@@ -267,3 +267,9 @@ class Collectables(commands.Cog):
         msg.content = ctx.prefix + command
 
         ctx.bot.dispatch("message", msg)
+
+    @commands.command(hidden=True, name="amounts")
+    @commands.is_owner()
+    async def ramounts(self, ctx):
+        x = "".join(amounts)
+        await ctx.send(x)
