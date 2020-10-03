@@ -7,7 +7,7 @@ from discord.utils import get
 from copy import copy
 
 
-# amounts = {}
+amounts = {}
 
 
 def _save():
@@ -23,7 +23,6 @@ class Collectables(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        global amounts
         try:
             with open('testing.json') as f:
                 amounts = json.load(f)
