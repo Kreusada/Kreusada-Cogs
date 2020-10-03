@@ -7,7 +7,8 @@ from discord.utils import get
 from copy import copy
 
 
-amounts = {}
+with open("amounts.json", "r") as f:
+    amounts = json.load(f)
 
 
 def _save():
@@ -20,16 +21,6 @@ def _save():
 class Collectables(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-
-    @commands.Cog.listener()
-    async def on_ready(self):
-        try:
-            with open('testing.json') as f:
-                amounts = json.load(f)
-        except FileNotFoundError:
-            owner_id = self.bot.get_user(544974305445019651)
-            await owner_id.send("File not found.")
-            amounts = {}
 
     @commands.command()
     async def balance(self, ctx, user: discord.Member = None):
