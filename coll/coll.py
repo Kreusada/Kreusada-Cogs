@@ -7,8 +7,10 @@ from discord.utils import get
 from copy import copy
 
 
-with open("testingtesting.json", "r") as f:
-    amounts = json.load(f)
+# with open("amounts.json", "r") as f:
+#     amounts = json.load(f)
+with open("amounts.txt", "r") as f:
+    amounts = f.read()
 
 
 def _save():
