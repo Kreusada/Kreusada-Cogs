@@ -42,33 +42,9 @@ class Collectables(commands.Cog):
         else:
             await ctx.send("You have already been registered!")
 
-    # @register.command(name="add")
-    # async def _add(self, ctx, user: commands.Greedy[discord.Member] = None, currency: int = 100):
-    #     if user is None:
-    #         user = ctx.author
-
-    #     if str(user.id) not in amounts.keys():
-    #         amounts[str(user.id)] = currency
-    #         await ctx.send("{0.mention} has been registered!".format(user))
-    #     else:
-    #         await ctx.send("{0.mention} has already been registered!\nPlease use the `add` command to change their bank values".format(user))
-
-    # @register.command(name="subtract", aliases=["sub"])
-    # async def _subtract(self, ctx, user: commands.Greedy[discord.Member] = None, currency: int = 100):
-    #     if user is None:
-    #         user = ctx.author
-    #     if str(user.id) not in amounts.keys():
-    #         amounts[str(user.id)] = currency
-    #         await ctx.send("{0.mention} has been registered!".format(user))
-    #     else:
-    #         await ctx.send("{0.mention} has already been registered!\nPlease use the `subtract` command to change their bank values".format(user))
-
     @commands.command()
     async def subtract(self, ctx, currency: int = 100):
         if str(ctx.author.id) in amounts.keys():
-            # balance = amounts[str(ctx.author.id)]
-            # balance -= int(currency)
-            # amounts[str(ctx.author.id)] = balance
             amounts[str(ctx.author.id)] -= currency
             await ctx.send("Your updated balance is {0}".format(amounts[str(ctx.author.id)]))
             _save()
@@ -104,7 +80,7 @@ class Collectables(commands.Cog):
 
         elif action == "del":
             os.remove(f"{file_name}.json")
-            await ctx.send(f"Deleted collecta!ble ```{name}```")
+            await ctx.send(f"Deleted collectable ```{name}```")
 
     @commands.group()
     async def collectable(self, ctx):
