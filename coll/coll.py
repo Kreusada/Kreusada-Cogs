@@ -7,12 +7,6 @@ from discord.utils import get
 from copy import copy
 
 
-# with open("amounts.json", "r") as f:
-#     amounts = json.load(f)
-with open("amounts.txt", "r") as f:
-    amounts = f.read()
-
-
 def _save():
     """Saves the amounts to a json
     """
@@ -20,9 +14,14 @@ def _save():
         json.dump(amounts, f)
 
 
+amounts = None
+
+
 class Collectables(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        with open("amounts.txt", "r") as f:
+            amounts = f.read()
 
     @commands.command()
     async def balance(self, ctx, user: discord.Member = None):
