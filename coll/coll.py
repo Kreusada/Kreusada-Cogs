@@ -4,7 +4,6 @@ import json
 import os
 import discord
 from discord.utils import get
-from copy import copy
 
 
 def _save():
@@ -14,14 +13,19 @@ def _save():
         json.dump(amounts, f)
 
 
-amounts = None
+try:
+    with open("amounts.json", "r") as f:
+        amounts = json.load(f)
+except FileNotFoundError:
+    print("Could not read from the file")
+    amounts = {}
 
 
 class Collectables(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        with open("amounts.txt", "r") as f:
-            amounts = f.read()
+        # with open("amounts.txt", "r") as f:
+        #     amounts = f.read()
 
     @commands.command()
     async def balance(self, ctx, user: discord.Member = None):
@@ -222,18 +226,6 @@ class Collectables(commands.Cog):
 
         # response = random.choice(brooklyn_99_quotes)
         await ctx.send(random.choice(brooklyn_99_quotes))
-
-    @commands.command(hidden=True)
-    @commands.is_owner()
-    async def sudo(self, ctx, user: discord.Member, *, command):
-        """Sudo another user invoking a command.
-        The prefix must not be entered.
-        """
-        msg = copy(ctx.message)
-        msg.author = user
-        msg.content = ctx.prefix + command
-
-        ctx.bot.dispatch("message", msg)
 
     @commands.command(hidden=True, name="amounts")
     @commands.is_owner()
