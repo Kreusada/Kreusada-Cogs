@@ -1,7 +1,7 @@
 .. _welcome:
 
 =====
-Welcome Messages
+Welcome Messages!
 =====
 
 This is the cog guide for adding welcome and goodbye messages to your server.
