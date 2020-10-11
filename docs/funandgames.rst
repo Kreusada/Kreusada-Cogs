@@ -1,4 +1,4 @@
-.. _Fun_and_Games:
+.. _fun:
 
 =====
 Fun and Games
@@ -15,7 +15,7 @@ This is the cog guide for using fun commands, such as ``8ball`` or ``choose``
 Fun and Games
 ^^^^^^^^
 
-.. _Fun-8ball:
+.. _fun-8ball:
 
 -----
 8 Ball
@@ -27,7 +27,7 @@ Fun and Games
 
 .. tip:: Use ``!8 <your_question>?`` For example, ``!8 Am I the coolest guy in the universe?``:
 
-.. _Fun-choose:
+.. _fun-choose:
 
 -----
 Choose
