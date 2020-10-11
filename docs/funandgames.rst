@@ -146,7 +146,7 @@ You can learn how to use them below:
     
 .. note:: ``!si`` is just a global alias for ``!serverinfo 1``!
 
-.. fun-stopwatch::
+.. _fun-stopwatch::
 
 -----
 Stopwatch
@@ -163,7 +163,7 @@ Used to set a stopwatch! Time yourself using the syntax below.
 
 .. warning:: Please remember to use the syntax above. It is common for someone to instead use ``!stop``, which could interfere with someone if they're using Demaratus in a Voice Chat.
 
-.. fun-urban::
+.. _fun-urban::
 
 -----
 Urban Dictionary
@@ -176,7 +176,7 @@ A dictionary used to search the meanings of words. Often, it includes slang, and
 .. code-block:: none
     !urban <word>
 
-.. fun-conclude::
+.. _fun-conclude::
 
 -----
 Fun and Games Summary
