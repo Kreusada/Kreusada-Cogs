@@ -12,6 +12,10 @@ This is the cog guide for using fun commands, such as ``8ball`` or ``choose``
         !help General
         Rememember to capitalise the ``G`` in General, for it is a cog category.
 
+^^^^^^^^
+Fun and Games
+^^^^^^^^
+
 .. _Fun_and_Games-8ball:
 
 -----
