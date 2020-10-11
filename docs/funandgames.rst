@@ -63,6 +63,9 @@ Flip is a game where you can flip a coin, landing on ``heads`` or ``tails``.
 .. _fun-lmgtfy:
 
 -----
+LMGTFY
+-----
+
 LMGTFY is a mocking command used to indicate that a user should search their terms before asking in chat.
 You can see an example here for the variable ``Demaratus``: https://lmgtfy.com/?q=Demaratus
 
