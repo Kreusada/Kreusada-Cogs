@@ -65,6 +65,12 @@ Welcome to the Demaratus Documentation!
 
     host-list
 
+Cog Support
+==================
+
+* :ref:`welcome`
+* :ref:`fun`
+
 
 Indices and tables
 ==================
