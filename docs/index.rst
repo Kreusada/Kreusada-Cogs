@@ -4,7 +4,7 @@ Welcome to the Demaratus Documentation!
 =============================================
 
 .. toctree::
-    :maxdepth: 1
+    :maxdepth: 2
     :caption: Cog Guides
 
     welcome
