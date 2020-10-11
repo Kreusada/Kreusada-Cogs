@@ -8,7 +8,7 @@ Welcome to the Demaratus Documentation!
     :caption: Cog Guides
 
     welcome
-    fun and games
+    fun
 
 .. toctree::
     :maxdepth: 2
