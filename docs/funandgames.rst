@@ -5,6 +5,7 @@ Fun and Games
 =====
 
 This is the cog guide for using fun commands, such as ``8ball`` or ``choose``
+
 ``!`` is currently Demaratus' prefix, and will most likely remain this way.
 
 .. note:: For the user help manual, you should consider typing::
