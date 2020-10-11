@@ -157,6 +157,7 @@ Used to set a stopwatch! Time yourself using the syntax below.
 **Syntax**
 
 .. code-block:: none
+    
     !stopwatch
 
 .. note:: ``!stopwatch`` is used for both starting and stopping the stopwatch!
@@ -174,6 +175,7 @@ A dictionary used to search the meanings of words. Often, it includes slang, and
 **Syntax**
 
 .. code-block:: none
+    
     !urban <word>
 
 .. _fun-conclude::
@@ -187,6 +189,7 @@ If you require support with these commands, come and ask us in our support serve
 Additionally, you can use the following command to bring up the full help menu for General:
 
 .. code-block:: none
+    
     !help General
 
 .. warning:: Remember to capitalise the ``G`` in ``!help General``.
@@ -194,4 +197,5 @@ Additionally, you can use the following command to bring up the full help menu f
 You can also use the help command for a specific command if you require assistance.
 
 .. code-block:: none
+    
     !help <command>
