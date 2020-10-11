@@ -22,4 +22,4 @@ This is the cog guide for using fun commands, such as ``8ball`` or ``choose``
 
 .. note:: It is important that you include ``?`` at the end of your question to get a reponse.:
 
-.. syntax:: Use ``!8 <your_question>?`` For example, ``!8 Am I the coolest guy in the universe?``:
+.. tip:: Use ``!8 <your_question>?`` For example, ``!8 Am I the coolest guy in the universe?``:
