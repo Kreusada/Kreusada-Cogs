@@ -23,8 +23,10 @@ Fun and Games
 
 8 Ball is a game which involves asking Demaratus a question, and receiving a random modified yes or no response.
 
-.. note:: It is important that you include ``?`` at the end of your question to get a reponse.:
+.. code-block:: none
 
+    !8ball <your_question>?
+    
 .. tip:: Use ``!8 <your_question>?`` For example, ``!8 Am I the coolest guy in the universe?``:
 
 .. _fun-choose:
@@ -37,7 +39,10 @@ Choose is a game which involves choosing one variable from a list of variables.
 The command is useful for decision making.
 
 **Syntax**
-``!choose <variable1> <variable2> <continued...>``
+
+.. code-block:: none
+
+    !choose <variable1> <variable2> <continued...>
 
 .. note:: If one of your variables has spaces, remember to put quotation marks around it. ``"Variable with Spaces"``.:
 
@@ -50,7 +55,10 @@ Flip
 Flip is a game where you can flip a coin, landing on ``heads`` or ``tails``.
 
 **Syntax**
-``!flip``
+
+.. code-block:: none
+
+    !flip
 
 .. _fun-lmgtfy:
 
@@ -59,7 +67,10 @@ LMGTFY is a mocking command used to indicate that a user should search their ter
 You can see an example here for the variable ``Demaratus``: https://lmgtfy.com/?q=Demaratus
 
 **Syntax**
-``!lmgtfy <search_terms>``
+
+.. code-block:: none
+
+    !lmgtfy <search_terms>
 
 .. note:: Avoid using quotation marks for lmgtfy. It will automatically identify spaces in the quiery for you.:
 
@@ -72,7 +83,10 @@ Roll
 Use this command to roll a dice. You can set the parameters for the roll as high as you'd like.
 
 **Syntax**
-``!roll <max_number>``
+
+.. code-block:: none
+
+    !roll <max_value>
 
 .. note:: The default max number is ``100``.:
 
