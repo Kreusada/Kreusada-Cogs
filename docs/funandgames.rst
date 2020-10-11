@@ -77,7 +77,7 @@ You can see an example here for the variable ``Demaratus``: https://lmgtfy.com/?
 
 .. note:: Avoid using quotation marks for lmgtfy. It will automatically identify spaces in the quiery for you.:
 
-.._fun-roll:
+.. _fun-roll:
 
 -----
 Roll
