@@ -12,6 +12,10 @@ This is the cog guide for using fun commands, such as ``8ball`` or ``choose``
 
         !help General:
 
+--------
+Commands
+--------
+
 ^^^^^^^^
 Fun and Games
 ^^^^^^^^
