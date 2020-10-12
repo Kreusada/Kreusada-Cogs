@@ -6,6 +6,7 @@ Welcome to the Demaratus Documentation!
 Demaratus Central
 ==================
 * :ref:`info`
+* :ref:`docnotices`
 
 Cog Support
 ==================
