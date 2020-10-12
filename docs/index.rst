@@ -69,6 +69,7 @@ Cog Support
 
 * :ref:`welcome`
 * :ref:`fun`
+* :ref:`info`
 
 
 Indices and tables
