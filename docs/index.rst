@@ -3,20 +3,20 @@
 Welcome to the Demaratus Documentation!
 =============================================
 
-.. toctree::
+#.. toctree::
     :maxdepth: 1
     :caption: Disclaimers
 
     Demaratus Information
 
-.. toctree::
+#.. toctree::
     :maxdepth: 2
     :caption: Cog Reference:
 
     cog_customcom
     cog_permissions
 
-.. toctree::
+#.. toctree::
     :maxdepth: 2
     :caption: User guides:
 
@@ -26,7 +26,7 @@ Welcome to the Demaratus Documentation!
     cog_guides/bank
     red_core_data_statement
 
-.. toctree::
+#.. toctree::
     :maxdepth: 2
     :caption: Demaratus Development Framework Reference:
 
@@ -48,7 +48,7 @@ Welcome to the Demaratus Documentation!
     framework_utils
     version_guarantees
 
-.. toctree::
+#.. toctree::
     :maxdepth: 2
     :caption: Changelogs:
 
@@ -58,19 +58,21 @@ Welcome to the Demaratus Documentation!
     changelog_3_2_0
     changelog_3_1_0
 
-.. toctree::
+#.. toctree::
     :maxdepth: 2
     :caption: Others
 
     host-list
+
+Demaratus Central
+==================
+* :ref:`info`
 
 Cog Support
 ==================
 
 * :ref:`welcome`
 * :ref:`fun`
-* :ref:`info`
-
 
 Indices and tables
 ==================
