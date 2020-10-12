@@ -12,6 +12,7 @@ Cog Support
 
 * :ref:`welcome`
 * :ref:`fun`
+* :ref:`audio`
 
 Indices and tables
 ==================
