@@ -58,7 +58,7 @@ You can use certain commands to get Demaratus to play, skip, pause, shuffle or s
 
 **Pausing Songs**
 
-.. code0block:: none
+.. codeblock:: none
 
     !pause
 
