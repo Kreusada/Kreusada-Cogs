@@ -1,0 +1,16 @@
+{
+    "author": [
+        "Kreusada",
+        "Jojo",
+        "Otriux"
+    ],
+    "max_bot_version": "3.4.0",
+    "min_bot_version": "3.4.0",
+    "min_python_version": [
+        3,
+        7,
+        0
+    ],
+    "description": "This is a cog for making collectables as a fun mini game for your server",
+    "install_msg": "Thank you for installing the collectables cog!"
+}
