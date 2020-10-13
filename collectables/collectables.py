@@ -48,7 +48,7 @@ class Collectables(commands.Cog):
 
     @commands.command(name="list", aliases=["clist", "collectlist"])
     async def collectable_list(self, ctx):
-        collectable_listing = await self.config.guild(ctx.guild).collectables.get_raw()
+        collectable_listing = await self.config.guild(ctx.guild).get_raw()
         collectable_list_readable = self.readable_dict(collectable_listing)
         await ctx.send(collectable_list_readable)
 
