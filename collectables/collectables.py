@@ -41,7 +41,7 @@ class Collectables(commands.Cog):
 
         if await bank.can_spend(ctx.author, cost):
             await self.config.user(ctx.author).collectables.set_raw(
-                collectable
+                collectable, value=cost
             )
             await ctx.send("You have purchased {0} for {1}!".format(collectable, cost))
             await bank.withdraw_credits(ctx.author, cost)
