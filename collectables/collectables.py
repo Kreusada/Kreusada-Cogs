@@ -18,7 +18,7 @@ class Collectables(commands.Cog):
             collectables={}
         )
 
-    def humanize_dict(self, dictionary: dict):
+    def readable_dict(self, dictionary: dict):
         x = []
         for key, item in dictionary.items():
             y = "{0}: {1}".format(key, item)
@@ -49,8 +49,8 @@ class Collectables(commands.Cog):
     @commands.command(name="list", aliases=["clist", "collectlist"])
     async def collectable_list(self, ctx):
         collectable_listing = await self.config.collectables
-        collectable_list_humanized = humanize_dict(collectable_listing)
-        await ctx.send(collectable_list_humanized)
+        collectable_list_readable = self.readable_dict(collectable_listing)
+        await ctx.send(collectable_list_readable)
 
     # @commands.command()
     # async def balance(self, ctx, user: discord.Member = None):
