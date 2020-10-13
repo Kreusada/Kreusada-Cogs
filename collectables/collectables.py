@@ -7,21 +7,6 @@ import discord
 from discord.utils import get
 
 
-# def _save():
-#     """Saves the amounts to a json
-#     """
-#     with open('amounts.json', 'w+') as f:
-#         json.dump(amounts, f)
-
-
-# try:
-#     with open("amounts.json", "r") as f:
-#         amounts = json.load(f)
-# except FileNotFoundError:
-#     print("Could not read from the file")
-#     amounts = {}
-
-
 class Collectables(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -64,6 +49,8 @@ class Collectables(commands.Cog):
     @commands.command(name="list", aliases=["clist", "collectlist"])
     async def collectable_list(self, ctx):
         collectable_listing = await self.config.collectables
+        collectable_list_humanized = humanize_dict(collectable_listing)
+        await ctx.send(collectable_list_humanized)
 
     # @commands.command()
     # async def balance(self, ctx, user: discord.Member = None):
