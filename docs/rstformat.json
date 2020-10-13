@@ -1,0 +1,30 @@
+.. _category::
+# Include this category at the start of the RSTs, and reference in index.rst using :ref:`category`
+
+=====
+Headers
+=====
+
+Normal Writing
+
+.. note:: Note Block
+
+.. warning:: Warning Block
+
+.. tip:: Tip Block
+
+# Below is the formatting for code blocks. Always include `none`
+
+.. code-block:: none
+
+!command
+
+-----
+Sub-Header
+-----
+
+**Syntax**
+
+**Description**
+
+``small code block``
