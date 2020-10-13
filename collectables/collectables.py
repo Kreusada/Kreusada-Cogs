@@ -31,11 +31,16 @@ class Collectables(commands.Cog):
         await self.config.guild(ctx.guild).set_raw(collectable_name, value=price)
         await ctx.send("Added {0} as a Collectable which can be purchased for {1}".format(collectable_name, price))
 
-    @commands.command(name="list", aliases=["clist", "collectlist"])
-    async def collectable_list(self, ctx):
-        collectable_listing = await self.config.guild(ctx.guild).get_raw()
-        collectable_list_readable = self.readable_dict(collectable_listing)
-        await ctx.send(collectable_list_readable)
+    @commands.command(name="clist", aliases=["list", "collectlist"])
+    async def collectable_list(self, ctx, _global: bool = False):
+        if _global is not True:
+            collectable_listing = await self.config.guild(ctx.guild).get_raw()
+            collectable_list_readable = self.readable_dict(collectable_listing)
+            await ctx.send(collectable_list_readable)
+        else:
+            collectable_listing = await self.config.get_raw()
+            collectable_list_readable = self.readable_dict(collectable_listing)
+            await ctx.send(collectable_list_readable)
 
     @commands.command()
     async def buy(self, ctx, collectable: str):
