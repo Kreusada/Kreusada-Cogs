@@ -38,7 +38,7 @@ class Collectables(commands.Cog):
             collectable_list_readable = self.readable_dict(collectable_listing)
             await ctx.send(collectable_list_readable)
         else:
-            collectable_listing = await self.config.GLOBAL.get_raw()
+            collectable_listing = await self.config.all.get_raw()
             collectable_list_readable = self.readable_dict(collectable_listing)
             await ctx.send(collectable_list_readable)
 
