@@ -7,6 +7,7 @@ Demaratus Central
 ==================
 * :ref:`info`
 * :ref:`docnotices`
+* :ref:`beta`
 
 Cog Support
 ==================
