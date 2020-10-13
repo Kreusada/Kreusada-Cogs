@@ -14,7 +14,7 @@ Demaratus is a redbot instance owned by Kreusada. Its main purpose is for utilit
 Developers
 -----
 
-Demaratus was developed by Kreusada, with support from Octavius, Jojo, YamiKaitou and Jackenmen. Additionally, this instance would not exist without Red's Core Developers; as well as many approved and unnapproved cog creators supported by Red. You can find our full repo list by using ``!repo list``
+Demaratus was developed by Kreusada, with support from Octavius, Jojo, Otriux, Snowflake, YamiKaitou and Jackenmen. Additionally, this instance would not exist without Red's Core Developers; as well as many approved and unnapproved cog creators supported by Red. Many members of the community at Matrix have also distributed towards the development of this instance. You can find our full repo list which credits our repo creators by using ``!repo list``
 
 -----
 Support
