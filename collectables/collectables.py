@@ -34,7 +34,7 @@ class Collectables(commands.Cog):
     @commands.command()
     async def buy(self, ctx, collectable: str):
         try:
-            cost = await self.config.get_raw(collectable)
+            cost = await self.config.guild(ctx.guild).get_raw(collectable)
         except KeyError:
             await ctx.send("I could not find that Collectable")
             return
