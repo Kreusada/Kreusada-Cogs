@@ -1,0 +1,12 @@
+{
+    "author" : ["ZeLarpMaster#0818"],
+    "description" : "Users set their birthday and optionaly their age and they automatically receive a role on their birthday with an announcement in a channel",
+    "install_msg" : "Enjoy your birthday cog!\nRemember to setup the role and channel or else it will only act as a list of birthdays :wink:",
+    "short" : "Announce birthdays and give a role during people's birthdays",
+    "bot_version": [3, 0, 0],
+    "hidden": false,
+    "disabled": false,
+    "required_cogs": {},
+    "requirements" : [],
+    "tags" : ["birthday"]
+}
