@@ -8,7 +8,7 @@ Demaratus Information
 Standard Information
 -----
 
-Demaratus is a Discord development instance endorsed by Red and developed by Kreusada, with assistance from many. Originally named Grandmaster, Demaratus quickly rebranded in its development porcess. Whilst sharing cogs from the Red core and their third party cog developers, Demaratus also owns its unique features exclusive to this instance. You can find out about all our features by reading the remainder of this documentation.
+Demaratus is a Discord development instance endorsed by Red and developed by Kreusada, with assistance from many. Originally named Grandmaster, Demaratus quickly rebranded in its development process. Whilst sharing cogs from the Red core and their third party cog developers, Demaratus also owns its unique features exclusive to this instance. You can find out about all our features by reading the remainder of this documentation.
 
 .. _warning:: Demaratus Documentation is currently in its development process and will remain this way until late January 2021 (Predicted ETA)
 
@@ -41,7 +41,7 @@ Here are the steps to setting up DV2 in your Discord server:
 
   Follow our announcement channel (#🔱demaratus-alerts) in the Matrix Development Team. You can join our server here: https://discord.gg/JmCFyq7
 
-  Set an announcement channel in your server: Use ``dem #channel``. This channel will have alerts from Demaratus sent straight to your channel. 
+  Set an announcement channel in your server: Use ``,dem #channel``. This channel will have alerts from Demaratus sent straight to your channel. 
 
 We urge you to consider either of these options, and we advise you set these functions up in moderator or admin only text channels. If you require assistance in this process, let us know in our Development server.
 
