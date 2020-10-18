@@ -16,9 +16,7 @@ Cog Support
 * :ref:`fun`
 * :ref:`audio`
 
-Indices and tables
+Glossaries and ToS
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
