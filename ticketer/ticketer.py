@@ -175,7 +175,7 @@ class Ticketer(commands.Cog):
 
     @ticket.command(aliases=["open"])
     async def create(self, ctx, author, *, reason=""):
-        reason: Optional[str] = f"No reason provided.\nSubmitted by {ctx.message.author.mention}.",
+        reason: Optional[str] = f"Submitted by {ctx.message.author.mention}",
 
         """Create a ticket."""
         if await self._check_settings(ctx):
