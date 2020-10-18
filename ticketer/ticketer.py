@@ -179,9 +179,7 @@ class Ticketer(commands.Cog):
         ctx,
         author,
         *,
-        reason=""
-    )
-        reason: Optional[str] = "No reason provided.",
+        reason: Optional[str] = "No reason provided. Submitted by {ctx.message.author.mention}.",
     ):
         """Create a ticket."""
         if await self._check_settings(ctx):
