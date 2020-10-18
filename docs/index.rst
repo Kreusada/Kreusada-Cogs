@@ -6,8 +6,6 @@ Welcome to the Demaratus Documentation!
 Demaratus Central
 ==================
 * :ref:`info`
-* :ref:`docnotices`
-* :ref:`beta`
 
 Cog Support
 ==================
@@ -16,9 +14,7 @@ Cog Support
 * :ref:`fun`
 * :ref:`audio`
 
-Indices and tables
+Glossaries and ToS
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

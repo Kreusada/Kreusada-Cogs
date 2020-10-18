@@ -28,7 +28,7 @@ To get Demaratus into your Voice Chat, use:
 
 .. code-block:: none
     
-    !summon
+    ,summon
 
 .. note:: You must be in the Voice Chat to summon Demaratus.
 
@@ -36,7 +36,7 @@ To get Demaratus to disconnect from your Voice Chat, use
 
 .. code-block:: none
     
-    !disconnect
+    ,disconnect
     
 .. _playmenu:
 
@@ -50,7 +50,7 @@ You can use certain commands to get Demaratus to play, skip, pause, shuffle or s
 
 .. code-block:: none
     
-    !play <url>
+    ,play <url>
 
 .. note:: YouTube playlists can also be played this way!
 
@@ -60,7 +60,7 @@ You can use certain commands to get Demaratus to play, skip, pause, shuffle or s
 
 .. codeblock:: none
 
-    !pause
+    ,pause
 
 .. note:: Please use ``!pause`` for resuming tracks too!
 
@@ -68,39 +68,39 @@ You can use certain commands to get Demaratus to play, skip, pause, shuffle or s
 
 .. code-block:: none
 
-    !now
+    ,now
 
 **Play Previous Song**
 
 .. code-block:: none
 
-    !prev
+    ,prev
 
 **Skip To The Next Song**
 
 .. code-block:: none
 
-    !skip
+    ,skip
 
 **Toggle Shuffle for Queue**
 
 .. code-block:: none
 
-    !shuffle
+    ,shuffle
 
 **List queue**
 
 .. code-block:: none
 
-    !queue
+    ,queue
 
 -----
 Further Support
 -----
 
-Audio is really easy to use! The commands listed in this document are only some of the commands available. There are many more, which you can access using ``!help Audio``
+Audio is really easy to use! The commands listed in this document are only some of the commands available. There are many more, which you can access using ``,help Audio``
 
-.. warning:: Remember to captitalise the ``A`` in ``!help Audio``. It is the name of a cog (category of commands) and therefore needs to be captitalised at the start of the word.
+.. warning:: Remember to captitalise the ``A`` in ``,help Audio``. It is the name of a cog (category of commands) and therefore needs to be captitalised at the start of the word.
 
 For further ``Audio`` support, we're happy to help. Come and ask your questions in the Matrix Development Team. You can join our server here: https://discord.gg/JmCFyq7
 
