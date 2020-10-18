@@ -1,0 +1,14 @@
+{
+    "author": [
+        "JJW",
+        "Kreusada"
+    ],
+    "min_bot_version": "3.4.0",
+    "min_python_version": [
+        3,
+        7,
+        0
+    ],
+    "description": "This is a cog for dadjokes",
+    "install_msg": "Thank you for installing the dadjokes cog! All questions can go to our support server: https://discord.gg/JmCFyq7."
+}
