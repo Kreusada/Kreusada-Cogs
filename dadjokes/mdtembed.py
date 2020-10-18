@@ -1,5 +1,5 @@
 import discord
-import requests
+# import requests
 from validator_collection import validators
 
 
