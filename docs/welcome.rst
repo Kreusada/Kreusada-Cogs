@@ -6,11 +6,11 @@ Welcome Messages
 
 This is the cog guide for adding welcome and goodbye messages to your server.
 
-``!`` is currently Demaratus' prefix, and will most likely remain this way.
+``,`` is currently Demaratus' prefix, and will most likely remain this way.
 
 .. note:: For the user help manual, you should consider typing::
 
-        !help welcomeset
+        ,help welcomeset
 
 .. _welcome-simple-message:
 
@@ -39,7 +39,7 @@ Simple Welcome Messages
 
 .. code-block:: none
 
-    !welcomeset greeting add <message>
+    ,welcomeset greeting add <message>
 
 **Description**
 
@@ -56,9 +56,11 @@ Welcome Messages Channel
 
 .. code-block:: none
 
-    !welcomeset greeting channel <#channel>
+    ,welcomeset greeting channel <#channel>
 
 **Description**
 
 Adds a channel for the greetings to be sent to.
 You can only have one channel where welcome messages are sent.
+
+.. warning:: This documentation is left incomplete due to priorities. You can support us to finish this section by joining our development server. https://discord.gg/JmCFyq7
