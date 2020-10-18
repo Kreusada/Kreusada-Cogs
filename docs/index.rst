@@ -17,4 +17,4 @@ Cog Support
 Glossaries and ToS
 ==================
 
-* :ref:`genindex`
+* :ref:`glossary`
