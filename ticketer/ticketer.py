@@ -174,12 +174,9 @@ class Ticketer(commands.Cog):
         pass
 
     @ticket.command(aliases=["open"])
-    async def create(
-        self,
-        ctx,
-        *,
+    async def create(self, ctx, *,):
         reason: Optional[str] = f"No reason provided.\nSubmitted by {ctx.author.name}#{ctx.author.discriminator}.",
-    ):
+
         """Create a ticket."""
         if await self._check_settings(ctx):
             settings = await self.config.guild(ctx.guild).all()
