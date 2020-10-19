@@ -122,7 +122,7 @@ class Ticketer(commands.Cog):
     @ticketer.command()
     async def help(self, ctx):
         """Provides a support menu for ticketer setup."""
-        await ctx.send('You can read our `ticketer` documentation here, which will show you how to use this cog: https://kreusadacogs.readthedocs.io/en/latest/tickets.html#tickets\nThe documentation was scripted by Kreusada.\nYou can also join our support server here: https://discord.gg/JmCFyq7')
+        await ctx.send('You can read our `ticketer` documentation here, which will show you how to use this cog: https://kreusadacogs.readthedocs.io/en/latest/tickets.html#tickets\nThe documentation was scripted by **Kreusada**. You can also join our support server here: https://discord.gg/JmCFyq7')
 
     @commands.group()
     async def ticket(self, ctx):
