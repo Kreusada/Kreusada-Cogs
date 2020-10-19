@@ -19,8 +19,7 @@ class DadJokes(commands.Cog):
         )
         self.channel = self.bot.get_channel('725065939460030575')
         # self.diagnostics = DIAGNOSTICS(self.bot)
-        self.dadjoke_images = [
-            'https://cdn.discordapp.com/attachments/758775890954944572/767818906151813130/demaratusfull.png']
+        self.dadjoke_images = ['https://cdn.discordapp.com/attachments/758775890954944572/767820109128400937/demaratusfull.png']
 
     @commands.command(pass_context=True, aliases=('joke', 'dadjokes', 'jokes',))
     async def dadjoke(self, ctx):
