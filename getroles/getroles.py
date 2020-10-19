@@ -49,7 +49,7 @@ class Getroles(commands.Cog):
         pass
 
     @getroles.command()
-    async def testselfrole(self, ctx: commands.Context, *, selfrole: SelfRole):
+    async def testselfrole(self, ctx: commands.Context, *, testselfrole: GetRoles):
         """
         Add a selfrole to yourself.
         Server admins must have configured the role as user settable.
