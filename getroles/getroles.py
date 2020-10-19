@@ -23,7 +23,7 @@ class Getroles(commands.Cog):
         await ctx.send(f"You have obtained the {role.mention} role.")
 
     @getroles.command()
-    async def addrole(
+    async def testrole(
         self, ctx: commands.Context, member: discord.Member, role: discord.Role, *, check_user=True
     ):
         if role in member.roles:
