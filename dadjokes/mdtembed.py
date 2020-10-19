@@ -1,6 +1,6 @@
 import discord
-# import requests
-# from validator_collection import validators
+import requests
+from validator_collection import validators
 
 
 class Embed:
