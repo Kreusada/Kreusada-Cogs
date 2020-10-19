@@ -84,7 +84,7 @@ class Ticketer(commands.Cog):
         """Toggle if the ticket channels should be named using a user's name and ID or counting upwards starting at 0."""
         await self.config.guild(ctx.guild).use_counter.set(true_or_false)
         await ctx.send(
-            "The counter has been {}.".format("enabled" if true_or_false else "disabled")
+            "The counter has been {}.".format("enabled. Ticket channel names will now be named as `ticket-<number>`." if true_or_false else "Ticket channel names will be named as `ticket-<user><user ID>`.`")
         )
 
     @ticketer.command()
