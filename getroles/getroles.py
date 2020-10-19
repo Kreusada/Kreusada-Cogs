@@ -35,7 +35,7 @@ class Getroles(commands.Cog):
     @commands.command()
     @commands.guild_only()
     @checks.admin_or_permissions(manage_roles=True)
-    async def addrole(
+    async def testrole(
         self, ctx: commands.Context, rolename: discord.Role, *, user: discord.Member = None
     ):
         if user is None:
