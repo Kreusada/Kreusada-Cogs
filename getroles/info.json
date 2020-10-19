@@ -1,0 +1,10 @@
+{
+  "author": [
+    "Kreusada"
+  ],
+  "description": "Command menu to get roles via commands.",
+  "hidden": false,
+  "install_msg": "Thank you for installing getroles.",
+  "short": "A system to get roles.",
+  "end_user_data_statement": "This cog does not store end user data."
+}
