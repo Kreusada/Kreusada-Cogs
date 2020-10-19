@@ -32,7 +32,7 @@ class Getroles(commands.Cog):
 #                    role=role, member=member
 #                )
             
-    @commands.command()
+    @getroles.command()
     @commands.guild_only()
     @checks.admin_or_permissions(manage_roles=True)
     async def testrole(
