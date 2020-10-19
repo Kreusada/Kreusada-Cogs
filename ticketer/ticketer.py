@@ -20,7 +20,7 @@ class Ticketer(commands.Cog):
             "open_category": None,
             "current_ticket": 0,
             "role": None,
-            "message": "Here is your ticket. Ticket managers, please use `,ticketer message` to set your own custom message which will replace this message! :sparkly:",
+            "message": "Here is your ticket. Ticket managers, please use `,ticketer message` to set your own custom message which will replace this message! :sparkles:",
             "active": [],
             "modlog": True,
             "closed": [],
