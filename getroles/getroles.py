@@ -17,7 +17,7 @@ class Getroles(commands.Cog):
         """All getrole settings."""
         pass
 
-    @getrole.command()
+    @getroles.command()
     async def channel(self, ctx, channel: discord.TextChannel):
         """Set the ticket-management channel."""
         await self.config.guild(ctx.guild).channel.set(channel.id)
