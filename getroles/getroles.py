@@ -5,48 +5,19 @@ from datetime import datetime
 from redbot.core import commands, checks, Config, modlog
 
 
-class Ticketer(commands.Cog):
-    """Ticketer"""
-
-    async def red_delete_data_for_user(self, *, requester, user_id):
-        # This cog stores no EUD
-        return
+class Getroles(commands.Cog):
+    """Getroles"""
 
     def __init__(self):
         self.config = Config.get_conf(self, 200730042020, force_registration=True)
-        default_guild = {
-            "channel": None,
-            "use_counter": False,
-            "closed_category": None,
-            "open_category": None,
-            "current_ticket": 0,
-            "role": None,
-            "message": "Here is your ticket. Ticket managers, please use `,ticketer message` to set your own custom message which will replace this message! :sparkles:",
-            "active": [],
-            "modlog": True,
-            "closed": [],
-        }
-        self.config.register_guild(**default_guild)
-
-    @staticmethod
-    async def register_casetypes():
-        new_types = [
-            {
-                "name": "ticket_created",
-                "default_setting": True,
-                "image": "\N{BALLOT BOX WITH BALLOT}\N{VARIATION SELECTOR-16}",
-                "case_str": "Ticket created",
-            }
-        ]
-        await modlog.register_casetypes(new_types)
 
     @commands.group()
     @checks.admin()
-    async def ticketer(self, ctx):
-        """All ticketer settings."""
+    async def getroles(self, ctx):
+        """All getrole settings."""
         pass
 
-    @ticketer.command()
+    @getrole.command()
     async def channel(self, ctx, channel: discord.TextChannel):
         """Set the ticket-management channel."""
         await self.config.guild(ctx.guild).channel.set(channel.id)
