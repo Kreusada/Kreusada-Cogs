@@ -41,7 +41,7 @@ class DadJokes(commands.Cog):
         #     await self.diagnostics.log(ctx, self.channel, msg=joke)
 
     async def get_joke(self):
-        api = 'https://icanhazdadjoke.com/slack'
+        api = 'https://ibb.co/album/SD7k2h/slack'
         joke = None
         while joke is None:
             async with aiohttp.ClientSession() as session:
