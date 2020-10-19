@@ -9,7 +9,7 @@ def __init__(self, bot):
   self.config = Config.get_conf(
     self,
     identifier=
-    force_registration=True,
+    force_registration = True,
   )
 
 #@commands.group()
