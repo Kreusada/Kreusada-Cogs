@@ -20,7 +20,7 @@ class Ticketer(commands.Cog):
             "open_category": None,
             "current_ticket": 0,
             "role": None,
-            "message": "Your ticket has been created. You can add information by typing in this channel. \n\nA member of the ticket-handling-team will be with you as soon as they can.",
+            "message": "Your ticket has been created. You can add information by typing in this channel. \n**Kreusada** will be with you as *soon* as possible.\nPlease describe your request or issue below in greater detail.\n@kreusada",
             "active": [],
             "modlog": True,
             "closed": [],
@@ -237,7 +237,7 @@ class Ticketer(commands.Cog):
                 async with self.config.guild(ctx.guild).active() as active:
                     active.append((ticketchannel.id, message.id))
             else:
-                await ctx.send("You already have an open ticket.")
+                await ctx.send("You already have an open ticket! You can close it in your ticket channel by using `,ticketclose`.")
         else:
             await ctx.send("Please finish the setup process before creating a ticket.")
 
@@ -265,7 +265,7 @@ class Ticketer(commands.Cog):
                 )
                 await ctx.send(embed=new_embed)
                 await ctx.send(
-                    "This ticket can no longer be edited using ticketer.", delete_after=30
+                    "You can submit additional tickets by using `,ticketcreate`.", delete_after=30
                 )
                 await ctx.channel.edit(
                     category=ctx.guild.get_channel(settings["closed_category"]),
@@ -287,7 +287,7 @@ class Ticketer(commands.Cog):
                     closed.append(ticket[0])
                 success = True
         if not success:
-            await ctx.send("This is not a ticket channel.")
+            await ctx.send("This is not a ticket channel, please move to your ticket channel when running this command.")
         await self.config.guild(ctx.guild).active.set(active)
 
     @ticket.command()
