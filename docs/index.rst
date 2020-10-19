@@ -13,6 +13,7 @@ Cog Support
 * :ref:`welcome`
 * :ref:`fun`
 * :ref:`audio`
+* :ref:`tickets`
 
 Glossaries and ToS
 ==================
