@@ -28,7 +28,7 @@ class Collectables(commands.Cog):
 
     @commands.group()
     async def collectable(self, ctx):
-        """**Commands working with the Collectable cog!**"""
+        """Commands working with the Collectable cog!"""
 
     @collectable.command(name="add")  # , aliases=["colladd", "addcoll"])
     @checks.guildowner_or_permissions(administrator=True)
@@ -59,6 +59,7 @@ class Collectables(commands.Cog):
 
     @commands.command()
     async def collectables(self, ctx, user: discord.Member = None):
+        """Displays a users collectables."""
         if user is None:
             user = ctx.author
         try:
