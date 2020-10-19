@@ -52,7 +52,7 @@ class Getroles(commands.Cog):
 
         await ctx.send(random.choice(URLs))
         
-    @getroles.command()
+    @getroles.group()
     async def info(self, ctx):
         """Shows cog info, testing subcommands."""
 
