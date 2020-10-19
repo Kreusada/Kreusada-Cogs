@@ -20,7 +20,7 @@ class Ticketer(commands.Cog):
             "open_category": None,
             "current_ticket": 0,
             "role": None,
-            "message": "Your ticket has been created. You can add information by typing in this channel. \n**Kreusada** will be with you as *soon* as possible.\nPlease describe your request or issue below in greater detail.",
+            "message": "Here is your ticket. Ticket managers, please use `,ticketer message` to set your own custom message which will replace this message! :sparkly:",
             "active": [],
             "modlog": True,
             "closed": [],
