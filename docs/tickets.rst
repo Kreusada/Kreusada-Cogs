@@ -22,7 +22,7 @@ Use the following command to set the category for open tickets.
 
 .. code-block:: none
 
-,ticketer category open <category_id>
+  ,ticketer category open <category_id>
 
 When a user creates a ticket using ``ticket create``, a ticket is created for them in this category. You must define this category for your ticketer setup.
 
@@ -32,7 +32,7 @@ Use the following command to set the category for closed tickets.
 
 .. code-block:: none
 
-,ticketer category closed <category_id>
+  ,ticketer category closed <category_id>
 
 When a user closed a ticket using ``ticket close``, their open ticket is moved into this category. You must define this category for your ticketer setup.
 
@@ -46,7 +46,7 @@ Ticket Management channels are required for your ticketer setup.
 
 .. code-block:: none
 
-,ticketer channel <#channel>
+  ,ticketer channel <#channel>
 
 When tickets are created, an embedded message is created in your ticket management channel, containing the name of the ticket, the reason, and the time.
 
