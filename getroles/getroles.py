@@ -36,11 +36,11 @@ class Getroles(commands.Cog):
         """Test 4 Response."""
         await ctx.send(f"Test 4 responded.")
         
-    @getroles.command()
-    async def random(self, ctx):
-        """Testing random responses."""
-        numberList = [111,222,333,444,555]
-        await ctx.send("Random: {0}".format(random.choice())")
+#    @getroles.command()
+#    async def random(self, ctx):
+#        """Testing random responses."""
+#       numberList = [111,222,333,444,555]
+#        await ctx.send("Random: {0}".format(random.choice())")
 
 #    @getroles.command()
 #    async def testrole(
