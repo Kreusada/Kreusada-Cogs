@@ -1,5 +1,4 @@
 import random
-# from cdtcommon.cdtdiagnostics import DIAGNOSTICS
 from .mdtembed import Embed
 import json
 import aiohttp
