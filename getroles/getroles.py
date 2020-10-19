@@ -40,7 +40,7 @@ class Getroles(commands.Cog):
     ):
         if user is None:
             user = ctx.author
-        await self._testrole(ctx, user, rolename)
+        await self._getroles(ctx, user, rolename)
 
 #    @ticketer.group()
 #    async def category(self, ctx):
