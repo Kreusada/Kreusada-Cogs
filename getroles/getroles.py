@@ -22,16 +22,25 @@ class Getroles(commands.Cog):
         await self.config.guild(ctx.guild).role.set(role.id)
         await ctx.send(f"You have obtained the {role.mention} role.")
 
-    @getroles.command()
-    async def testrole(
-        self, ctx: commands.Context, member: discord.Member, role: discord.Role, *, check_user=True
+#    @getroles.command()
+#    async def testrole(
+#        self, ctx: commands.Context, member: discord.Member, role: discord.Role, *, check_user=True
+#    ):
+#        if role in member.roles:
+#            await ctx.send(
+#                _("{member.display_name} already has the role {role.name}.").format(
+#                    role=role, member=member
+#                )
+            
+    @commands.command()
+    @commands.guild_only()
+    @checks.admin_or_permissions(manage_roles=True)
+    async def addrole(
+        self, ctx: commands.Context, rolename: discord.Role, *, user: discord.Member = None
     ):
-        if role in member.roles:
-            await ctx.send(
-                _("{member.display_name} already has the role {role.name}.").format(
-                    role=role, member=member
-                )
-            )
+        if user is None:
+            user = ctx.author
+        await self._addrole(ctx, user, rolename)
 
 #    @ticketer.group()
 #    async def category(self, ctx):
