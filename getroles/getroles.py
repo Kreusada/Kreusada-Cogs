@@ -17,10 +17,9 @@ class Getroles(commands.Cog):
         pass
 
     @getroles.command()
-    async def python(self, ctx, role: discord.Role):
-        """Gives you the python helper role."""
-        await self.config.guild(ctx.guild).role.set(role.id)
-        await ctx.send(f"You have obtained the {role.mention} role.")
+    async def test(self, ctx):
+        """This is a test category."""
+        await ctx.send(f"Testing.")
 
 #    @getroles.command()
 #    async def testrole(
@@ -32,32 +31,32 @@ class Getroles(commands.Cog):
 #                    role=role, member=member
 #                )
             
-    @getroles.command()
-    @commands.guild_only()
-    @checks.admin_or_permissions(manage_roles=True)
-    async def testrole(
-        self, ctx: commands.Context, rolename: discord.Role, *, user: discord.Member = None
-    ):
-        if user is None:
-            user = ctx.author
-        await self._getroles(ctx, user, rolename)
-        
-    @commands.guild_only()
-    @commands.group()
-    async def selfrole(self, ctx: commands.Context):
-        """Apply selfroles."""
-        pass
-
-    @getroles.command()
-    async def testselfrole(self, ctx: commands.Context, *, testselfrole: getroles):
-        """
-        Add a selfrole to yourself.
-        Server admins must have configured the role as user settable.
-        NOTE: The role is case sensitive!
-        """
-        # noinspection PyTypeChecker
-        await self._addrole(ctx, ctx.author, selfrole, check_user=False)
-
+#    @getroles.command()
+#    @commands.guild_only()
+#    @checks.admin_or_permissions(manage_roles=True)
+#    async def testrole(
+#        self, ctx: commands.Context, rolename: discord.Role, *, user: discord.Member = None
+#    ):
+#        if user is None:
+#            user = ctx.author
+#        await self._getroles(ctx, user, rolename)
+#        
+#    @commands.guild_only()
+#    @commands.group()
+#    async def selfrole(self, ctx: commands.Context):
+#        """Apply selfroles."""
+#        pass
+#
+#    @getroles.command()
+#    async def testselfrole(self, ctx: commands.Context, *, testselfrole: getroles):
+#        """
+#        Add a selfrole to yourself.
+#        Server admins must have configured the role as user settable.
+#        NOTE: The role is case sensitive!
+#        """
+#        # noinspection PyTypeChecker
+#        await self._addrole(ctx, ctx.author, testselfrole, check_user=False)
+#
 #    @ticketer.group()
 #    async def category(self, ctx):
 #        """Set the categories for open and closed tickets."""
