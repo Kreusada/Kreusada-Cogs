@@ -27,12 +27,10 @@ class Getroles(commands.Cog):
         
     @test2.group()
     async def test3(self, ctx):
-        """Response from Test 3."""
         await ctx.send(f"Test 3 responded.")
         
     @test2.group()
     async def test4(self, ctx):
-        """Response from Test 4."""
         await ctx.send(f"Test 4 responded.")
 
 #    @getroles.command()
