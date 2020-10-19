@@ -167,6 +167,9 @@ class Ticketer(commands.Cog):
             await ctx.send(
                 f"This action will permanently delete all closed ticket channels.\nThis action is irreversible.\nConfirm with ``{ctx.clean_prefix}ticketer purge true``"
             )
+    @ticketer.command()
+    async def help():
+        print('Test.')
 
     @commands.group()
     async def ticket(self, ctx):
