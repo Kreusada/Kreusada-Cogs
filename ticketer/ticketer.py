@@ -174,13 +174,11 @@ class Ticketer(commands.Cog):
         pass
 
     @ticket.command(aliases=["open"])
-    async def create(
-        self,
-        ctx,
-        author,
-        *,
-        reason: Optional[str] = "No reason provided. Submitted by {ctx.message.author.mention}.",
-    ):
+async def create(self, ctx, author, *, reason: Optional[str] = None):
+    if not reason: # If no reason provided (it will be None)
+        # set reason to default reason
+        reason = f"No reason provided. Submitted by {ctx.message.author.mention}."
+    # rest of code here
         """Create a ticket."""
         if await self._check_settings(ctx):
             settings = await self.config.guild(ctx.guild).all()
