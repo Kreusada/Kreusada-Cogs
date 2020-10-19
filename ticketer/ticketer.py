@@ -174,12 +174,12 @@ class Ticketer(commands.Cog):
         pass
 
     @ticket.command(aliases=["open"])
-async def create(self, ctx, author, *, reason: Optional[str] = None)
-    if not reason: # If no reason provided (it will be None)
-        # set reason to default reason
-        reason = f"No reason provided. Submitted by {ctx.message.author.mention}."
-    # rest of code here
-    
+    async def create(
+        self,
+        ctx,
+        *,
+        reason: Optional[str] = "No reason provided.",
+    ):
         """Create a ticket."""
         if await self._check_settings(ctx):
             settings = await self.config.guild(ctx.guild).all()
@@ -261,13 +261,15 @@ async def create(self, ctx, author, *, reason: Optional[str] = None)
                     await ctx.guild.get_channel(settings["channel"]).fetch_message(ticket[1])
                 ).edit(
                     embed=new_embed,
+                    delete_after=10,
                 )
                 await ctx.send(embed=new_embed)
                 await ctx.send(
-                    "Thanks for submitting your request! This ticket will NOT be archived.\nYou can start another ticket by using `!kreusada`.")
+                    "This ticket can no longer be edited using ticketer.", delete_after=30
+                )
                 await ctx.channel.edit(
                     category=ctx.guild.get_channel(settings["closed_category"]),
-                    name=f"Expired - {ctx.channel.name}",
+                    name=f"{ctx.channel.name}-c-{datetime.utcnow().strftime('%B-%d-%Y-%H-%m')}",
                     overwrites={
                         ctx.guild.default_role: discord.PermissionOverwrite(read_messages=False),
                         ctx.guild.get_role(settings["role"]): discord.PermissionOverwrite(
@@ -303,7 +305,7 @@ async def create(self, ctx, author, *, reason: Optional[str] = None)
                 await channel.edit(
                     topic=f'{channel.topic}\n\n{ctx.author.name}#{ctx.author.discriminator}:"{update}"'
                 )
-                await ctx.send("Ticket updated.")
+                await ctx.send("Ticket updated.", delete_after=10)
             else:
                 ctx.send(f"{channel.mention} is not a ticket channel.")
 
@@ -323,7 +325,7 @@ async def create(self, ctx, author, *, reason: Optional[str] = None)
                 )
                 new_embed.timestamp = datetime.utcnow()
                 await message.edit(embed=new_embed)
-                await ctx.send("Note added.")
+                await ctx.send("Note added.", delete_after=10)
             else:
                 await ctx.send("This is not a ticket channel.")
 
