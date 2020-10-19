@@ -26,12 +26,12 @@ class Getroles(commands.Cog):
     async def test2(self, ctx):
         """This is for testing sub-categories."""
         
-    @test2.group(invoke_without_subcommand=True)
+    @test2.group(invoke_without_command=True)
     async def test3(self, ctx):
         """Test 3 Response."""
         await ctx.send(f"Test 3 responded.")
         
-    @test2.group(invoke_without_subcommand=True)
+    @test2.group(invoke_without_command=True)
     async def test4(self, ctx):
         """Test 4 Response."""
         await ctx.send(f"Test 4 responded.")
