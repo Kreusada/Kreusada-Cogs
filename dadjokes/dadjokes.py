@@ -26,7 +26,7 @@ class DadJokes(commands.Cog):
         """Gets a random dad joke."""
         author = ctx.message.author
         joke = await self.get_joke()
-        data = Embed.create(self, ctx, title='Demaratus Dad Jokes :sparkles:',
+        data = Embed.create(self, ctx, title='Demaratus Dad Jokes :joy:',
                             description=joke)
         data.set_author
         data.set_image(url=random.choice(self.dadjoke_images))
