@@ -8,5 +8,4 @@ with open(Path(__file__).parent / "info.json") as fp:
 
 async def setup(bot):
     cog = Getroles()
-    await cog.register_casetypes()
     bot.add_cog(cog)
