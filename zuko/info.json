@@ -1,13 +1,12 @@
-  {
-    "author": [
-        "Kreusada"
-    ],
-    "min_bot_version": "3.4.0",
-    "min_python_version": [
-        3,
-        7,
-        0
-    ],
-    "description": "Cog used for testing and learning discord.py",
-    "install_msg": "You have installed Zuko. Please note this is for testing purposes only.\nYou shouldn't install this cog without permission."
+{
+  "author": [
+    "Kreusada",
+    "Adnayekken",
+    "Tealo74"
+  ],
+  "description": "Used for testing and learning python.",
+  "hidden": false,
+  "install_msg": "Zuko is a private cog and should not be installed by others at this time.",
+  "short": "Learning cog.",
+  "end_user_data_statement": "This cog does not store end user data."
 }
