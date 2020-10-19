@@ -22,12 +22,12 @@ class Getroles(commands.Cog):
         await self.config.guild(ctx.guild).role.set(role.id)
         await ctx.send(f"You have obtained the {role.mention} role.")
 
-#    @ticketer.command()
-#    async def role(self, ctx, role: discord.Role):
-#        """Set the role for ticket managers."""
-#        await self.config.guild(ctx.guild).role.set(role.id)
-#        await ctx.send(f"Ticket manager role has been set to {role.mention}.")
-#
+    @getroles.command()
+    async def role(self, ctx, role: discord.Role):
+        """Set the role for ticket managers."""
+        await self.config.guild(ctx.guild).role.set(role.id)
+        await ctx.send(f"Ticket manager role has been set to {role.mention}.")
+
 #    @ticketer.group()
 #    async def category(self, ctx):
 #        """Set the categories for open and closed tickets."""
