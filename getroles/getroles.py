@@ -23,10 +23,15 @@ class Getroles(commands.Cog):
         await ctx.send(f"You have obtained the {role.mention} role.")
 
     @getroles.command()
-    async def role(self, ctx, role: discord.Role):
-        """Set the role for ticket managers."""
-        await self.config.guild(ctx.guild).role.set(role.id)
-        await ctx.send(f"Ticket manager role has been set to {role.mention}.")
+    async def addrole(
+        self, ctx: commands.Context, member: discord.Member, role: discord.Role, *, check_user=True
+    ):
+        if role in member.roles:
+            await ctx.send(
+                _("{member.display_name} already has the role {role.name}.").format(
+                    role=role, member=member
+                )
+            )
 
 #    @ticketer.group()
 #    async def category(self, ctx):
