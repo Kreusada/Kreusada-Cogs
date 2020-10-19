@@ -1,13 +1,13 @@
 from redbot.core import commands, Config
-import discord
+#import discord
 
 class Zuko(commands.Cog):
   """Zuko"""
 
-@commands.group()
-async def zuko(self, ctx):
-  """All Zuko settings."""
-  pass
+#@commands.group()
+#async def zuko(self, ctx):
+#  """All Zuko settings."""
+#  pass
 
 @commands.command()
 async def zukosimple(self, ctx):
