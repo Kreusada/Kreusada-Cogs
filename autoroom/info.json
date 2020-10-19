@@ -2,8 +2,8 @@
 {
     "name": "AutoRoom",
     "author": [
-        "PhasecoreX (PhasecoreX#0635)",
-      "Kreusada (Kreusada#0518)"
+        "PhasecoreX",
+      "Kreusada (Modified)"
     ],
     "short": "Automatic voice channel management.",
     "description": "Allows for designating voice channels as AutoRoom sources. When a user joins an AutoRoom source, they will be moved into their own personal on-demand voice channel (AutoRoom). Once all users have left the AutoRoom, it is automatically deleted.",
