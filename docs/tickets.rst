@@ -6,6 +6,8 @@ Tickets
 
 This is a cog guide for the ``ticketer`` cog from Demaratus. The cog is very complex, this part of the documentation should cover all areas. 
 
+.. warning:: This documentation is INCOMPLETE.
+
 --------
 Commands - Setup
 --------
