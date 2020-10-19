@@ -1,9 +1,4 @@
-from redbot.core import commands, checks, Config
-import discord
-import json
-import os
-import discord
-from discord.utils import get
+from redbot.core import commands
 
 class Zuko(commands.Cog):
   """Zuko"""
