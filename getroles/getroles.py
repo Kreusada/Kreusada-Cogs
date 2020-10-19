@@ -1,4 +1,5 @@
 import discord
+import random
 from typing import Optional
 from datetime import datetime
 from redbot.core import commands, checks, Config, modlog
