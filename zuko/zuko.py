@@ -13,15 +13,15 @@ async def zukosimple(self, ctx, *):
   """Simple test response from Zuko."""
   await ctx.send('**You got the `coding` just right. :white_check_mark:.**')
 
-@commands.group()
-async def zukosubcats(self, ctx, *):
-  """Testing sub-categories."""
-  pass
+#@commands.group()
+#async def zukosubcats(self, ctx, *):
+#  """Testing sub-categories."""
+#  pass
 
-@zukosubcats.command():
-  async def subcat(self, ctx, *):
-    """Here should be your sub category. *Should be*."""
-    await ctx.send('Subcategory command **successful**. :sparkles:')
+#@zukosubcats.command():
+#  async def subcat(self, ctx, *):
+#    """Here should be your sub category. *Should be*."""
+#    await ctx.send('Subcategory command **successful**. :sparkles:')
 
 
   
