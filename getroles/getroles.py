@@ -42,7 +42,7 @@ class Getroles(commands.Cog):
             user = ctx.author
         await self._getroles(ctx, user, rolename)
         
-            @commands.guild_only()
+    @commands.guild_only()
     @commands.group()
     async def selfrole(self, ctx: commands.Context):
         """Apply selfroles."""
