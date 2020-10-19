@@ -9,7 +9,7 @@ async def zuko(self, ctx):
   """All Zuko settings."""
   pass
 
-@zuko.command()
+@commands.command()
 async def zukosimple(self, ctx):
   """Simple test response from Zuko."""
   await ctx.send('**You got the `coding` just right. :white_check_mark:.**')
