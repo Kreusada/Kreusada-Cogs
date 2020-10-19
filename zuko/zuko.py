@@ -4,12 +4,12 @@ class Zuko(commands.Cog):
   """Zuko"""
 
 @commands.group()
-async def zuko(self, ctx, *):
+async def zuko(self, ctx):
   """All Zuko settings."""
   pass
 
 @zuko.command()
-async def zukosimple(self, ctx, *):
+async def zukosimple(self, ctx):
   """Simple test response from Zuko."""
   await ctx.send('**You got the `coding` just right. :white_check_mark:.**')
 
