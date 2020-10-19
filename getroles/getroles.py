@@ -41,6 +41,12 @@ class Getroles(commands.Cog):
         """Testing random responses."""
         numberList = [111,222,333,444,555]
         await ctx.send("Random: {0}".format(random.choice(numberList)))
+        
+    @getroles.command()
+    async def randomurl(self, ctx):
+        """Testing random responses with URLs."""
+        urlList = [https://cdn.discordapp.com/attachments/745608075670585344/767866788935368744/Storm_Pyramid_Z.png,https://cdn.discordapp.com/attachments/745608075670585344/767866847390728222/Silver_Aegon.png]
+        await ctx.send("Random: {0}".format(random.choice(urlList)))
 
 #    @getroles.command()
 #    async def testrole(
