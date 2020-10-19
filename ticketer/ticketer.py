@@ -269,7 +269,7 @@ class Ticketer(commands.Cog):
                 )
                 await ctx.channel.edit(
                     category=ctx.guild.get_channel(settings["closed_category"]),
-                    name=f"{ctx.channel.name}",
+                    name=f"expired - {ctx.channel.name}",
                     overwrites={
                         ctx.guild.default_role: discord.PermissionOverwrite(read_messages=False),
                         ctx.guild.get_role(settings["role"]): discord.PermissionOverwrite(
