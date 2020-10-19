@@ -16,5 +16,3 @@ Cog Support
 
 Glossaries and ToS
 ==================
-
-* :ref:`glossary`
