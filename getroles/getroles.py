@@ -56,7 +56,7 @@ class Getroles(commands.Cog):
     async def info(self, ctx):
         """Shows cog info, testing subcommands."""
 
-    @info.group(invoke_without_command=True)
+    @getroles.group(invoke_without_command=True)
     async def getrolesinfo(self, ctx):
         """Shows cog info."""
         await ctx.send(f"Here I will display cog info. When I can be bothered.")
