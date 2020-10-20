@@ -203,5 +203,6 @@ class Mcoc(commands.Cog):
       
     ]
     
-    await ctx.send(random.choice(CHAMPS))
+    
+#    await ctx.send(random.choice(CHAMPS))
       
