@@ -205,11 +205,11 @@ class Find(commands.Cog):
     """Stone 3 Badge."""
     await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738084098857238670/EA938C0B0C2AE3E6DB91514F5F8768C4F033D373.png")
     
-  @participation.group(name="1", invoke_without_command=True)
+  @participation.group(name="1", invoke_without_command=True, pass_context=True)
   async def twentyone(self, ctx):
     """Participation Badge."""
     author = ctx.message.author
-    data = Embed.create(self, ctx, title='Participation Badge :trophy:',
+    data = Embed.create(self, ctx, title='Participation Badge :trophy:')
     data.set_author
     await ctx.send(embed=data)
 
