@@ -14,7 +14,7 @@ class Mcoc(commands.Cog):
   async def crystal(self, ctx):
     """Chooses a random champion from MCOC."""
     author = ctx.message.author
-    data = Embed.create(self, ctx, title='Participation Badge :trophy:')
+    data = Embed.create(self, ctx, title='You got... :gem:')
     image = (random.choice(FEATUREDS))
     name = ctx.author.name
     data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
