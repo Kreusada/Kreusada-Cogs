@@ -140,7 +140,7 @@ class Ticketer(commands.Cog):
         if await self._check_settings(ctx):
             settings = await self.config.guild(ctx.guild).all()
             if settings["use_counter"]:
-                name = f":ticket: ticket-{settings['current_ticket']}"
+                name = f"📄ticket-{settings['current_ticket']}"
                 await self.config.guild(ctx.guild).current_ticket.set(
                     settings["current_ticket"] + 1
                 )
