@@ -1,4 +1,4 @@
-from .getroles import Getroles
+from .learning import Learning
 from pathlib import Path
 import json
 
@@ -7,5 +7,5 @@ with open(Path(__file__).parent / "info.json") as fp:
 
 
 async def setup(bot):
-    cog = Getroles()
+    cog = Learning()
     bot.add_cog(cog)

@@ -1,0 +1,10 @@
+{
+  "author": [
+    "Kreusada"
+  ],
+  "description": "Learning Red help menu with Kreusada.",
+  "hidden": false,
+  "install_msg": "Thank you for installing learning.",
+  "short": "A system to learn the Red help menu.",
+  "end_user_data_statement": "This cog does not store end user data."
+}

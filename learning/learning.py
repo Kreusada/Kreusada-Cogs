@@ -5,24 +5,24 @@ from datetime import datetime
 from redbot.core import commands, checks, Config, modlog
 
 
-class Getroles(commands.Cog):
-    """Getroles"""
+class Learning(commands.Cog):
+    """Learning"""
 
     def __init__(self):
         self.config = Config.get_conf(self, 200730042020, force_registration=True)
 
     @commands.group()
     @checks.admin()
-    async def getroles(self, ctx):
-        """All getrole settings."""
+    async def learning(self, ctx):
+        """Learning the Red help menu with Kreusada"""
         pass
 
-    @getroles.command()
+    @learning.command()
     async def test(self, ctx):
         """This is a test category."""
         await ctx.send(f"Testing.")
         
-    @getroles.group()
+    @learning.group()
     async def test2(self, ctx):
         """This is for testing sub-categories."""
         
@@ -36,13 +36,13 @@ class Getroles(commands.Cog):
         """Test 4 Response."""
         await ctx.send(f"Test 4 responded.")
         
-    @getroles.command()
+    @learning.command()
     async def random(self, ctx):
         """Testing random responses."""
         numberList = [111,222,333,444,555]
         await ctx.send("Random: {0}".format(random.choice(numberList)))
         
-    @getroles.command()
+    @learning.command()
     async def randomurl(self, ctx):
         """Testing random URL responses."""
         URLs = [
@@ -52,12 +52,12 @@ class Getroles(commands.Cog):
 
         await ctx.send(random.choice(URLs))
         
-    @getroles.group()
+    @learning.group()
     async def info(self, ctx):
         """Shows cog info, testing subcommands."""
 
     @info.group(invoke_without_command=True)
-    async def getrolesinfo(self, ctx):
+    async def learninginfo(self, ctx):
         """Shows cog info."""
         await ctx.send(f"Here I will display cog info. When I can be bothered.")
 
