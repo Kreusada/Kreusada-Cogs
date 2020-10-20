@@ -1,7 +1,7 @@
 from redbot.core import commands, checks, Config
 import discord
 import random
-from .mdtembed import Embed
+# from .mdtembed import Embed
 
 class Mcoc(commands.Cog):
   """Mcoc"""
