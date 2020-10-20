@@ -1,4 +1,4 @@
-FEATUREDS = {
+FEATUREDS = [
       "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_abomination.png",
       "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_aegon.png",
       "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_agent_venom.png",
@@ -169,7 +169,7 @@ FEATUREDS = {
       "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_ultron.png",
       "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_ultron_prime.png",
       "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_colossus_unstoppable.png",
-      "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_venom.png"
+      "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_venom.png",
       "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_venomtheduck.png",
       "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_venompool.png",
       "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_vision.png",
@@ -187,4 +187,4 @@ FEATUREDS = {
       "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_yellowjacket.png",
       "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_yondu.png"
       
-}
+]
