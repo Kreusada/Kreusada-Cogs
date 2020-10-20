@@ -310,8 +310,40 @@ class Find(commands.Cog):
     author = ctx.message.author
     data = Embed.create(self, ctx, title='Participation Badge :trophy:')
     image = (f"https://media.discordapp.net/attachments/401476363707744257/738083790886535228/DA7D39277836A9CF1B39A68D37EAF99999B366C7.png")
-    data.set_author(name=author)
+    data.set_author(name=author, url=ctx.avatar.url)
     data.set_image(url=image)
     await ctx.send(embed=data)
+    
+  @find.group()
+  async def donate(self, ctx)
+  """Support the development of this cog."""
+  
+  @donate.group()
+  async def placeholder(self, ctx)
+  """Use this command if you dare..."""
+  await ctx.send(f"I haven't finished this bit yet lol, priorities... :nerd:")
+
+  @find.group()
+  async def champ(self, ctx):
+    """Finds champion images"""
+  
+  @champ.group()
+  async def portrait(self, ctx): 
+    """Finds champion portraits."""
+  
+  @champ.group()
+  async def featured(self, ctx): 
+    """Finds champion featureds."""
+  
+  @featured.group()
+  async def notice(self, ctx):
+    """Read me please."""
+    await ctx.send(f"This section is still being constructed.")
+    
+  @portrait.group()
+  async def notice(self, ctx):
+    """Read me please."""
+    await ctx.send(f"This section is still being constructed.")
+    
 
  
