@@ -210,7 +210,7 @@ class Ticketer(commands.Cog):
                 ).embeds[0]
                 new_embed.add_field(
                     name=datetime.utcnow().strftime("%H:%m UTC"),
-                    value=(f"Ticket closed by {ctx.author.name}",
+                    value=f"Ticket closed by {ctx.author.name}",
                 )
                 new_embed.timestamp = datetime.utcnow()
                 await (
