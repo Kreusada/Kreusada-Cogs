@@ -73,34 +73,34 @@ class Find(commands.Cog):
     await ctx.send(f"Unfortunately, Collector does not have a documentation at this time.\nHowever, JJW has made some video guides for the Collector.\nYou can watch them here: https://www.youtube.com/watch?v=wO5JFXJZBHE&list=PLrM7-aBPjDsRVEq1UpvV-u85K06Ds7suD")
   
   @find.group()
-  async def awbadges(self, ctx):
+  async def awbadge(self, ctx):
     """The Alliance War badge index."""
     
-  @awbadges.group()
+  @awbadge.group()
   async def master(self, ctx):
     """Master Alliance War Badges."""
   
-  @awbadges.group()
+  @awbadge.group()
   async def platinum(self, ctx):
     """Platinum Alliance War Badges."""
     
-  @awbadges.group()
+  @awbadge.group()
   async def gold(self, ctx):
     """Gold Alliance War Badges."""
     
-  @awbadges.group()
+  @awbadge.group()
   async def silver(self, ctx):
     """Silver Alliance War Badges."""
     
-  @awbadges.group()
+  @awbadge.group()
   async def bronze(self, ctx):
     """Bronze Alliance War Badges."""
     
-  @awbadges.group()
+  @awbadge.group()
   async def stone(self, ctx):
     """Stone Alliance War Badges."""
     
-  @awbadges.group()
+  @awbadge.group()
   async def participation(self, ctx):
     """Participation Alliance War Badges."""
     
