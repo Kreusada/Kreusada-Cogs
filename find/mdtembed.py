@@ -16,7 +16,7 @@ class Embed:
         description = String, sets description.
         image = String url.  Validator checks for valid url.
         thumbnail = String url. Validator checks for valid url.'''
-        DEMARATUS_ICON = 'https://cdn.discordapp.com/attachments/745608075670585344/767361428910637066/demaratuscircle.png'
+        DEMARATUS_ICON = 'https://cdn.discordapp.com/attachments/758775890954944572/768155856293986324/Demaratuswhite.png'
         PATREON = 'https://patreon.com/matrixdt'
         MDT_LOGO = 'https://cdn.discordapp.com/attachments/745608075670585344/767361113477611580/MatrixDevelopmentTeam.png'
 
