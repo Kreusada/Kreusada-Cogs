@@ -1,14 +1,24 @@
 from redbot.core import commands, checks, Config
 import discord
 import random
+import json
+import os
 from .mdtembed import Embed
 from .featureds import FEATUREDS
+from discord.utils import get
 
 class Mcoc(commands.Cog):
   """Mcoc"""
   
   def __init__(self):
     self.config = Config.get_conf(self, 200730042020, force_registration=True)
+    
+  def readable_dict(self, dictionary: dict):
+      x = []
+      for key, item in dictionary.items():
+          y = "{0}: {1}".format(key, item)
+          x.append(y)
+      return "\n".join(x)  
     
   @commands.group(invoke_without_command=True)
   async def crystal(self, ctx):
@@ -20,4 +30,19 @@ class Mcoc(commands.Cog):
     data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
     data.set_image(url=image)
     await ctx.send(embed=data)
+    
+  @commands.group()
+  async def champ(self, ctx):
+    """Find champion images."""
+    
+  @champ.group()
+  async def featured(self, ctx):
+    """Find champion featured images."""
+    data = Embed.create(self, ctx, title='{0} Featured Image')
+    image = (random.choice(FEATUREDS))
+    name = ctx.author.name
+    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+    data.set_image(url=image)
+    await ctx.send(embed=data)
+    
       
