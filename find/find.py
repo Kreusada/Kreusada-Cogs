@@ -210,9 +210,7 @@ class Find(commands.Cog):
     """Participation Badge."""
     author = ctx.message.author
     data = Embed.create(self, ctx, title='Participation Badge :trophy:',
-                        
     data.set_author
-                        
     await ctx.send(embed=data)
 
  
