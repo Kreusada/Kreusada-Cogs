@@ -39,18 +39,18 @@ class Embed:
             else:
                 print('Image URL Failure, code {}'.format(code))
                 print('Attempted URL:\n{}'.format(image))
-        if thumbnail is None:
-            thumbnail = CRYSTAL
-        if thumbnail is not None:
-            validators.url(thumbnail)
-            code = requests.get(thumbnail).status_code
-            if code == 200:
-                data.set_thumbnail(
-                    url=thumbnail)
-            else:
-                data.set_thumbnail(url=CRYSTAL)
-                print('Thumbnail URL Failure, code {}'.format(code))
-                print('Attempted URL:\n{}'.format(thumbnail))
+#        if thumbnail is None:
+#            thumbnail = CRYSTAL
+#        if thumbnail is not None:
+#            validators.url(thumbnail)
+#            code = requests.get(thumbnail).status_code
+#            if code == 200:
+#                data.set_thumbnail(
+#                    url=thumbnail)
+#            else:
+#                data.set_thumbnail(url=CRYSTAL)
+#                print('Thumbnail URL Failure, code {}'.format(code))
+#                print('Attempted URL:\n{}'.format(thumbnail))
         if footer_text is None:
             footer_text = "Demaratus | MDT | From Kreusada"
         if footer_url is None:
