@@ -33,7 +33,7 @@ class Mcoc(commands.Cog):
                 champion.lower()), image=FEATUREDS[champion.lower()])
             await ctx.send(embed=data)
         except KeyError:
-            await ctx.send("I could not find that champion. Either the champion does not exist or the key was entered incorrectly")
+            await ctx.send("`I could not find that champion. Either the champion does not exist or the key was entered incorrectly.`")
 
     @champ.command()
     async def portrait(self, ctx, champion: str):
@@ -42,4 +42,4 @@ class Mcoc(commands.Cog):
                 champion.lower()), image=FEATUREDS[champion.lower()])
             await ctx.send(embed=data)
         except KeyError:
-            await ctx.send("I could not find that champion. Either the champion does not exist or the key was entered incorrectly")
+            await ctx.send("`I could not find that champion. Either the champion does not exist or the key was entered incorrectly.`")
