@@ -210,8 +210,7 @@ class Ticketer(commands.Cog):
                 ).embeds[0]
                 new_embed.add_field(
                     name=datetime.utcnow().strftime("%H:%m UTC"),
-                    value=f"Ticket closed by {ctx.author.name}#{ctx.author.discriminator}",
-                )
+                    value=(f"Ticket closed by {ctx.author.name}")
                 new_embed.timestamp = datetime.utcnow()
                 await (
                     await ctx.guild.get_channel(settings["channel"]).fetch_message(ticket[1])
