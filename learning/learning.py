@@ -65,22 +65,22 @@ class Learning(commands.Cog):
     async def emoji(self, ctx):
         """Testing emoji output in groups."""
         
-    @emoji.group()
+    @emoji.group(invoke_without_command=True)
     async def thunder(self, ctx):
         """Shows the thunder cloud emoji."""
         await ctx.send(f"thunder_cloud_rain")
         
-    @emoji.group()
+    @emoji.group(invoke_without_command=True)
     async def apple(self, ctx):
         """Shows the apple emoji."""
         await ctx.send(f":apple:")
         
-    @emoji.group()
+    @emoji.group(invoke_without_command=True)
     async def custom(self, ctx):
         """Shows a select custom emoji in the MDT."""
         await ctx.send(f":banhammer:")
         
-    @emoji.group()
+    @emoji.group(invoke_without_command=True)
     async def randomcustom(self, ctx):
         """Picks a random custom emoji."""
         CUSTOM = [
