@@ -188,7 +188,7 @@ class Ticketer(commands.Cog):
                     title=name,
                     description=reason,
                     timestamp=datetime.utcnow(),
-                ).set_footer(text="Last updated at:")
+                ).set_footer(text="Demaratus")
                 message = await ctx.guild.get_channel(settings["channel"]).send(embed=embed)
                 async with self.config.guild(ctx.guild).active() as active:
                     active.append((ticketchannel.id, message.id))
