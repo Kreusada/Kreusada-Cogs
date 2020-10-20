@@ -1,9 +1,11 @@
-  
 {
-  "author": [Tobo],
-  "description": "Register adds a single command, which is effectively an alias for the commands `[p]selfrole` and `[p]selfrole remove`. The point is to have one command which does both adding and removing of selfroles, depending on whether or not the role is already applied to the user.",
-  "install_msg": "Thanks for installing `register`. See `[p]help register` for details.",
-  "short": "Simplifies two SelfRole commands into one.",
+  "author": [
+  "Kreusada",
+  "Tobotimus"
+  ],
+  "description": "Get user settables roles.",
+  "install_msg": "Thanks for installing `getroles`. See `[p]help getroles` for details.",
+  "short": "Get user settables roles.",
   "hidden": false,
   "disabled": false,
   "required_cogs": {
