@@ -16,7 +16,7 @@ class Embed:
         description = String, sets description.
         image = String url.  Validator checks for valid url.
         thumbnail = String url. Validator checks for valid url.'''
-        DEMARATUS_ICON = 'https://cdn.discordapp.com/attachments/758775890954944572/768155856293986324/Demaratuswhite.png'
+        CRYSTAL = 'https://vignette.wikia.nocookie.net/marvel-contestofchampions/images/f/fe/6-Star_Crystal.png/revision/latest?cb=20200605225602'
         PATREON = 'https://patreon.com/matrixdt'
         MDT_LOGO = 'https://cdn.discordapp.com/attachments/745608075670585344/767361113477611580/MatrixDevelopmentTeam.png'
 
@@ -39,7 +39,7 @@ class Embed:
                 print('Image URL Failure, code {}'.format(code))
                 print('Attempted URL:\n{}'.format(image))
         if thumbnail is None:
-            thumbnail = DEMARATUS_ICON
+            thumbnail = CRYSTAL
         if thumbnail is not None:
             validators.url(thumbnail)
             code = requests.get(thumbnail).status_code
@@ -48,12 +48,12 @@ class Embed:
                 data.set_thumbnail(
                     url=thumbnail)
             else:
-                data.set_thumbnail(url=DEMARATUS_ICON)
+                data.set_thumbnail(url=CRYSTAL)
                 print('Thumbnail URL Failure, code {}'.format(code))
                 print('Attempted URL:\n{}'.format(thumbnail))
         if footer_text is None:
             footer_text = "Demaratus | MDT | From Kreusada"
         if footer_url is None:
-            footer_url = DEMARATUS_ICON
+            footer_url = CRYSTAL
         data.set_footer(text=footer_text, icon_url=footer_url)
         return data
