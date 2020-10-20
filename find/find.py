@@ -213,7 +213,6 @@ class Find(commands.Cog):
                         
     data.set_author
                         
-    
-    await ctx.send(embed=data"https://media.discordapp.net/attachments/401476363707744257/738083790886535228/DA7D39277836A9CF1B39A68D37EAF99999B366C7.png")
+    await ctx.send(embed=data)
 
  
