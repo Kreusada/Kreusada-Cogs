@@ -18,7 +18,6 @@ class DadJokes(commands.Cog):
             force_registration=True,
         )
         self.channel = self.bot.get_channel('725065939460030575')
-        # self.diagnostics = DIAGNOSTICS(self.bot)
         self.dadjoke_images = ['https://cdn.discordapp.com/attachments/758775890954944572/767820109128400937/demaratusfull.png']
 
     @commands.command(pass_context=True, aliases=('joke', 'dadjokes', 'jokes',))
@@ -30,15 +29,8 @@ class DadJokes(commands.Cog):
                             description=joke)
         data.set_author
         data.set_image(url=random.choice(self.dadjoke_images))
-        # if self.channel is None:
-        #     self.set_channel()
-        # try:
-        # await ctx.send(ctx.message.channel, embed=data)
 
         await ctx.send(embed=data)
-        #     await self.diagnostics.log(ctx, self.channel)
-        # except:
-        #     await self.diagnostics.log(ctx, self.channel, msg=joke)
 
     async def get_joke(self):
         api = 'https://icanhazdadjoke.com/slack'
