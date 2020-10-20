@@ -103,22 +103,22 @@ class Find(commands.Cog):
   @master.group(name="1", invoke_without_command=True)
   async def one(self, ctx):
     """Master Rank 1 Badge."""
-    await ctx.send(f"Placeholder.")
+    await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738083791654092940/47EFB6D4D1380ABD2C40D2C7B0533A29245F7955.png")
     
   @master.group(name="2", invoke_without_command=True)
   async def two(self, ctx):
     """Master Rank 2 Badge."""
-    await ctx.send(f"Placeholder.")
+    await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738083791113027654/650E29ADB8C5C382FF5A358113B2C02B8EADA415.png")
     
   @master.group(name="3", invoke_without_command=True)
   async def three(self, ctx):
     """Master Rank 3 Badge."""
-    await ctx.send(f"Placeholder.")
+    await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738083791440052294/08BA0A081A9D56E35E60E3FD61FAB7ED9A10CD00.png")
     
   @master.group(name="20", invoke_without_command=True)
   async def twenty(self, ctx):
     """Master Top 20 Badge."""
-    await ctx.send(f"Placeholder.")
+    await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738083791301509191/28A5CCCA9CA8294C76D8BE94CC0ADD2734B26570.png")
     
   
  
