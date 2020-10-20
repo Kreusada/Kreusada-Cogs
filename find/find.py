@@ -120,92 +120,92 @@ class Find(commands.Cog):
     await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738083791440052294/08BA0A081A9D56E35E60E3FD61FAB7ED9A10CD00.png")
     
   @master.group(name="20", invoke_without_command=True)
-  async def twenty(self, ctx):
+  async def four(self, ctx):
     """Master Top 20 Badge."""
     await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738083791301509191/28A5CCCA9CA8294C76D8BE94CC0ADD2734B26570.png")
     
   @platinum.group(name="1", invoke_without_command=True)
-  async def one(self, ctx):
+  async def five(self, ctx):
     """Platinum 1 Badge."""
     await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738083790718631937/E78E2BAF9B0C9BA6C7FE45BE726FFB0B0B0CACFD.png")
     
   @platinum.group(name="2", invoke_without_command=True)
-  async def two(self, ctx):
+  async def six(self, ctx):
     """Platinum 2 Badge."""
     await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738083790362116116/487EA26A1BA0F2C2848E7C87F10430BD218C2178.png")
     
   @platinum.group(name="3", invoke_without_command=True)
-  async def three(self, ctx):
+  async def seven(self, ctx):
     """Platinum 3 Badge."""
     await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738083790559117352/0ED8BD10441C6D086AEB7BBA5271269F46E009D1.png")
     
   @platinum.group(name="4", invoke_without_command=True)
-  async def four(self, ctx):
+  async def eight(self, ctx):
     """Platinum 4 Badge."""
     await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738083789934166046/71703F9C740FFDC3223A570CC1C252D8392534BC.png")
     
   @gold.group(name="1", invoke_without_command=True)
-  async def one(self, ctx):
+  async def nine(self, ctx):
     """Gold 1 Badge."""
     await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738083790131298375/76BC21BF523A415866D19814BD8AF4BE16EF30A9.png")
     
   @gold.group(name="2", invoke_without_command=True)
-  async def two(self, ctx):
+  async def ten(self, ctx):
     """Gold 2 Badge."""
     await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738083998462509096/8CD52FEB7540016B6ABA1EC67B9F1777E3C29878.png")
     
   @gold.group(name="3", invoke_without_command=True)
-  async def three(self, ctx):
+  async def eleven(self, ctx):
     """Gold 3 Badge."""
     await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738084001926873098/3A9A8FDA006D0BE225242AAA5909021CD52BCFB3.png")
     
   @silver.group(name="1", invoke_without_command=True)
-  async def one(self, ctx):
+  async def twelve(self, ctx):
     """Silver 1 Badge."""
     await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738083999276204103/8A0D0EE25836F3A35AF83704A25B915B0DBEC46B.png")
     
   @silver.group(name="2", invoke_without_command=True)
-  async def two(self, ctx):
+  async def thirteen(self, ctx):
     """Silver 2 Badge."""
     await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738084001465499789/4B389D377A94EDA747B38DF640C0B33A3A3F61AE.png")
     
   @silver.group(name="3", invoke_without_command=True)
-  async def three(self, ctx):
+  async def fourteen(self, ctx):
     """Silver 3 Badge."""
     await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738083994612006914/5302FA8FA04735224847C8BBF82D1D54C8567B9C.png")
     
   @bronze.group(name="1", invoke_without_command=True)
-  async def one(self, ctx):
+  async def fifteen(self, ctx):
     """Bronze 1 Badge."""
     await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738083995211792404/719AC2C2AB5833D815C899DAF9ADB7CF11819CBA.png")
     
   @bronze.group(name="2", invoke_without_command=True)
-  async def two(self, ctx):
+  async def sixteen(self, ctx):
     """Bronze 2 Badge."""
     await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738083993043337276/E636A90C3F0DFFDAED0176D972AA0C73F3E40FF8.png")
     
   @bronze.group(name="3", invoke_without_command=True)
-  async def three(self, ctx):
+  async def seventeen(self, ctx):
     """Bronze 3 Badge."""
     await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738083997866786876/5B06D509847E0FA1405A50021486C1A5D8C6F9B2.png")
 
   @stone.group(name="1", invoke_without_command=True)
-  async def one(self, ctx):
+  async def eighteen(self, ctx):
     """Stone 1 Badge."""
     await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738083996054978730/9AC92A2FDC2996C346125296356C664373147F2F.png")
     
   @stone.group(name="2", invoke_without_command=True)
-  async def two(self, ctx):
+  async def nineteen(self, ctx):
     """Stone 2 Badge."""
     await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738083993681002586/BF3D13EACC9F44216E754884AA183185761C84CF.png")
     
   @stone.group(name="3", invoke_without_command=True)
-  async def three(self, ctx):
+  async def twenty(self, ctx):
     """Stone 3 Badge."""
     await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738084098857238670/EA938C0B0C2AE3E6DB91514F5F8768C4F033D373.png")
     
   @participation.group(name="1", invoke_without_command=True)
-  async def one(self, ctx):
+  async def twentyone(self, ctx):
     """Participation Badge."""
     await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738083790886535228/DA7D39277836A9CF1B39A68D37EAF99999B366C7.png")
     
