@@ -26,7 +26,7 @@ class Mcoc(commands.Cog):
     async def champ(self, ctx):
         """Find champion images."""
 
-    @champ.group()
+    @champ.command()
     async def featured(self, ctx, champion: str):
         try:
             data = Embed.create(self, ctx, title="{0}'s featured image.".format(
@@ -35,7 +35,7 @@ class Mcoc(commands.Cog):
         except KeyError:
             await ctx.send("I could not find that champion. Either the champion does not exist or the key was entered incorrectly")
 
-    @champ.group()
+    @champ.command()
     async def portrait(self, ctx, champion: str):
         try:
             data = Embed.create(self, ctx, title="{0}'s portrait".format(
