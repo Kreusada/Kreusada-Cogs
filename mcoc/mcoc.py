@@ -9,16 +9,6 @@ from discord.utils import get
 
 class Mcoc(commands.Cog):
   """Mcoc"""
-  
-  def __init__(self):
-    self.config = Config.get_conf(self, 200730042020, force_registration=True)
-    
-  def readable_dict(self, dictionary: dict):
-      x = []
-      for key, item in dictionary.items():
-          y = "{0}: {1}".format(key, item)
-          x.append(y)
-      return "\n".join(x)  
     
   @commands.group(invoke_without_command=True)
   async def crystal(self, ctx):
