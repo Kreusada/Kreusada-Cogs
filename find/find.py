@@ -205,9 +205,14 @@ class Find(commands.Cog):
     """Stone 3 Badge."""
     await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738084098857238670/EA938C0B0C2AE3E6DB91514F5F8768C4F033D373.png")
     
-  @participation.group(name="1", invoke_without_command=True, pass_context=True)
+ @participation.group(name="1", invoke_without_command=True, pass_context=True)
   async def twentyone(self, ctx):
     """Participation Badge."""
-    await ctx.send(printf"https://media.discordapp.net/attachments/401476363707744257/738083790886535228/DA7D39277836A9CF1B39A68D37EAF99999B366C7.png")
+    author = ctx.message.author
+    data = Embed.create(self, ctx, title='Participation Badge :trophy:')
+    image = (f"https://media.discordapp.net/attachments/401476363707744257/738083790886535228/DA7D39277836A9CF1B39A68D37EAF99999B366C7.png")
+    data.set_author(name=author)
+    data.set_image(url=image)
+    await ctx.send(embed=data)
 
  
