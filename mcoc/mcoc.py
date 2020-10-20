@@ -30,7 +30,7 @@ class Mcoc(commands.Cog):
     async def featured(self, ctx, champion: str):
         try:
             data = Embed.create(self, ctx, title="{0}'s Featured Image.".format(
-                champion), image=FEATUREDS[champion.lower()])
+                champion.capitalize()), image=FEATUREDS[champion.lower()])
             await ctx.send(embed=data)
         except KeyError:
             await ctx.send("`I could not find that champion. Either the champion does not exist or the key was entered incorrectly.`")
