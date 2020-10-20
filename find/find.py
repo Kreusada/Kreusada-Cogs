@@ -315,13 +315,13 @@ class Find(commands.Cog):
     await ctx.send(embed=data)
     
   @find.group()
-  async def donate(self, ctx)
-  """Support the development of this cog."""
+  async def donate(self, ctx):
+    """Support the development of this cog."""
   
   @donate.group()
-  async def placeholder(self, ctx)
-  """Use this command if you dare..."""
-  await ctx.send(f"I haven't finished this bit yet lol, priorities... :nerd:")
+  async def placeholder(self, ctx): 
+    """Use this command if you dare..."""
+    await ctx.send(f"I haven't finished this bit yet lol, priorities... :nerd:")
 
   @find.group()
   async def champ(self, ctx):
