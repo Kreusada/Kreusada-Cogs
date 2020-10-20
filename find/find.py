@@ -208,8 +208,12 @@ class Find(commands.Cog):
   @participation.group(name="1", invoke_without_command=True)
   async def twentyone(self, ctx):
     """Participation Badge."""
-#    author = ctx.message.author
-#    data = Embed.create(self, ctx, title='Participation Badge :trophy:',
-    await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738083790886535228/DA7D39277836A9CF1B39A68D37EAF99999B366C7.png")
+    author = ctx.message.author
+    data = Embed.create(self, ctx, title='Participation Badge :trophy:',
+                        
+    data.set_author
+                        
+    
+    await ctx.send(embed=data"https://media.discordapp.net/attachments/401476363707744257/738083790886535228/DA7D39277836A9CF1B39A68D37EAF99999B366C7.png")
 
  
