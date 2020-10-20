@@ -24,7 +24,7 @@ class Embed:
         if isinstance(ctx.message.channel, discord.abc.GuildChannel):
             color = ctx.message.author.color
         if url is None:
-            url = 
+            url = none
         data = discord.Embed(color=color, title=title, url=url)
         if description is not None:
             if len(description) < 1500:
