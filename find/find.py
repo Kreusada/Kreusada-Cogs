@@ -18,56 +18,56 @@ class Find(commands.Cog):
   async def matrixrepo(self, ctx):
     """Browse our Cog Creator's repositories."""
     
-  @matrixrepo.command(invoke_without_command=True)
+  @matrixrepo.group(invoke_without_command=True)
   async def kreusada(self, ctx):
     """Kreusada's Github Repository."""
     await ctx.send(f"https://github.com/KREUSADA/demaratus/")
     
-  @matrixrepo.command(invoke_without_command=True)
+  @matrixrepo.group(invoke_without_command=True)
   async def jojo(self, ctx):
     """Jojo's Github Repository."""
     await ctx.send(f"https://github.com/Just-Jojo/JojoCogs/")
     
-  @matrixrepo.command(invoke_without_command=True)
+  @matrixrepo.group(invoke_without_command=True)
   async def flyingkiller(self, ctx):
     """FlyingKiller147's Github Repository."""
     await ctx.send(f"https://github.com/FlyingKiller147/mybotfk/")
     
-  @matrixrepo.command(invoke_without_command=True)
+  @matrixrepo.group(invoke_without_command=True)
   async def adnayekken(self, ctx):
     """Adnayekken's Github Repository."""
     await ctx.send(f"Adnayekken's Github Repository is temporarily closed. :x:")
     
-  @matrixrepo.command(invoke_without_command=True)
+  @matrixrepo.group(invoke_without_command=True)
   async def otriux(self, ctx):
     """Otriux's Github Repository."""
     await ctx.send(f"Otriux's Github Repository has not yet been submitted!")
     
-  @matrixrepo.command(invoke_without_command=True)
+  @matrixrepo.group(invoke_without_command=True)
   async def titan(self, ctx):
     """The Mad Titan's Github Repository."""
     await ctx.send(f"Titan's Github Repository has not yet been submitted!")
     
-  @matrixrepo.command(invoke_without_command=True)
+  @matrixrepo.group(invoke_without_command=True)
   async def octavius(self, ctx):
     """Octavius' Github Repository."""
     await ctx.send(f"Octavius doesn't code anymore! :robot:")
     
-  @matrixrepo.command(invoke_without_command=True)
+  @matrixrepo.group(invoke_without_command=True)
   async def zagelfino(self, ctx):
     """Zagelfino's Github Repository."""
     await ctx.send(f"Zagelfino doesn't code anymore! :robot:")
     
-  @find.command(invoke_without_command=True)
+  @find.group(invoke_without_command=True)
   async def matrixdocs(self, ctx):
     """Shows the documentation for some of our bots."""
     
-  @matrixdocs.command(invoke_without_command=True)
+  @matrixdocs.group(invoke_without_command=True)
   async def demaratus(self, ctx):
     """Demaratus' RTD Documentation."""
     await ctx.send(f"Demaratus Documentation: https://kreusadacogs.readthedocs.io/en/latest/\nThis documentation is scripted by Kreusada, and won't be completed until 2021 for sure.\nYou can contribute, let us know, or create a pull request on my github repo under /docs.")
   
-  @matrixdocs.command(invoke_without_command=True)
+  @matrixdocs.group(invoke_without_command=True)
   async def collector(self, ctx):
     """Collector Documentation."""
     await ctx.send(f"Unfortunately, Collector does not have a documentation at this time.\nHowever, JJW has made some video guides for the Collector.\nYou can watch them here: https://www.youtube.com/watch?v=wO5JFXJZBHE&list=PLrM7-aBPjDsRVEq1UpvV-u85K06Ds7suD")
