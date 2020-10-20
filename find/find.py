@@ -210,7 +210,7 @@ class Find(commands.Cog):
     """Participation Badge."""
     author = ctx.message.author
     data = Embed.create(self, ctx, title='Participation Badge :trophy:')
-    image = (f"https://media.discordapp.net/attachments/401476363707744257/738083790886535228/DA7D39277836A9CF1B39A68D37EAF99999B366C7.png")
+    image = ("https://media.discordapp.net/attachments/401476363707744257/738083790886535228/DA7D39277836A9CF1B39A68D37EAF99999B366C7.png")
     data.set_author
     data.set_image
     await ctx.send(embed=data)
