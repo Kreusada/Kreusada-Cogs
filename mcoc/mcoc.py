@@ -20,7 +20,4 @@ class Mcoc(commands.Cog):
     data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
     data.set_image(url=image)
     await ctx.send(embed=data)
-    
-    
-#    await ctx.send(random.choice(CHAMPS))
       
