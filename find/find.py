@@ -315,34 +315,34 @@ class Find(commands.Cog):
     data.set_image(url=image)
     await ctx.send(embed=data)
     
-  @find.group()
-  async def donate(self, ctx):
-    """Support the development of this cog."""
-  
-  @donate.group()
-  async def placeholder(self, ctx): 
-
-  @find.group()
-  async def champ(self, ctx):
-    """Finds champion images"""
-  
-  @champ.group()
-  async def portrait(self, ctx): 
-    """Finds champion portraits."""
-  
-  @champ.group()
-  async def featured(self, ctx): 
-    """Finds champion featureds."""
-  
-  @featured.group()
-  async def notice(self, ctx):
-    """Read me please."""
-    await ctx.send(f"This section is still being constructed.")
-    
-  @portrait.group()
-  async def notice(self, ctx):
-    """Read me please."""
-    await ctx.send(f"This section is still being constructed.")
-    
+#  @find.group()
+#  async def donate(self, ctx):
+#    """Support the development of this cog."""
+#  
+#  @donate.group()
+#  async def placeholder(self, ctx): 
+#
+#  @find.group()
+#  async def champ(self, ctx):
+#    """Finds champion images"""
+#  
+#  @champ.group()
+#  async def portrait(self, ctx): 
+#    """Finds champion portraits."""
+#  
+#  @champ.group()
+#  async def featured(self, ctx): 
+#    """Finds champion featureds."""
+#  
+#  @featured.group()
+#  async def notice(self, ctx):
+#    """Read me please."""
+#    await ctx.send(f"This section is still being constructed.")
+#    
+#  @portrait.group()
+#  async def notice(self, ctx):
+#   """Read me please."""
+#    await ctx.send(f"This section is still being constructed.")
+#    
 
  
