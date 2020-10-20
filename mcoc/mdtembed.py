@@ -24,7 +24,7 @@ class Embed:
         if isinstance(ctx.message.channel, discord.abc.GuildChannel):
             color = ctx.message.author.color
         if url is None:
-            url = PATREON
+            url = 
         data = discord.Embed(color=color, title=title, url=url)
         if description is not None:
             if len(description) < 1500:
@@ -45,7 +45,6 @@ class Embed:
             validators.url(thumbnail)
             code = requests.get(thumbnail).status_code
             if code == 200:
-                # data.set_thumbnail(url=thumbnail)
                 data.set_thumbnail(
                     url=thumbnail)
             else:
