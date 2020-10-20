@@ -29,7 +29,7 @@ class Mcoc(commands.Cog):
     @champ.command()
     async def featured(self, ctx, champion: str):
         try:
-            data = Embed.create(self, ctx, title="{0}'s featured image.".format(
+            data = Embed.create(self, ctx, title="{0}'s Featured Image.".format(
                 champion.lower()), image=FEATUREDS[champion.lower()])
             await ctx.send(embed=data)
         except KeyError:
@@ -38,7 +38,7 @@ class Mcoc(commands.Cog):
     @champ.command()
     async def portrait(self, ctx, champion: str):
         try:
-            data = Embed.create(self, ctx, title="{0}'s portrait".format(
+            data = Embed.create(self, ctx, title="{0}'s Portrait".format(
                 champion.lower()), image=FEATUREDS[champion.lower()])
             await ctx.send(embed=data)
         except KeyError:
