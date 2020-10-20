@@ -36,9 +36,8 @@ class Collectables(commands.Cog):
     async def add_collectables(self, ctx, collectable_name: str, price: int = 100):
         """Adds collectables to a user."""
         data = Embed.create(self, ctx, title='Adding {0} as a Collectable. :trophy:', description='Added {0} as a Collectable which can be purchased for {1}'.format(collectable_name, price))
-        await ctx.send(embed=data)
         await self.config.guild(ctx.guild).set_raw(collectable_name, value=price)
-        await ctx.send("Added {0} as a Collectable which can be purchased for {1}".format(collectable_name, price))
+        await ctx.send(embed=data)
 
     @collectable.command(name="list")  # , aliases=["list", "collectlist"])
     async def collectable_list(self, ctx):  # , _global: bool = False):
