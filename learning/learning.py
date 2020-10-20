@@ -60,6 +60,38 @@ class Learning(commands.Cog):
     async def learninginfo(self, ctx):
         """Shows cog info."""
         await ctx.send(f"Here I will display cog info. When I can be bothered.")
+        
+    @learning.group()
+    async def emoji(self, ctx):
+        """Testing emoji output in groups."""
+        
+    @emoji.group()
+    async def thunder(self, ctx):
+        """Shows the thunder cloud emoji."""
+        await ctx.send(f"thunder_cloud_rain")
+        
+    @emoji.group()
+    async def apple(self, ctx):
+        """Shows the apple emoji."""
+        await ctx.send(f":apple:")
+        
+    @emoji.group()
+    async def custom(self, ctx):
+        """Shows a select custom emoji in the MDT."""
+        await ctx.send(f":banhammer:")
+        
+    @emoji.group()
+    async def randomcustom(self, ctx):
+        """Picks a random custom emoji."""
+        CUSTOM = [
+            ':banhammer:',
+            ':notlikecat:',
+            ':wavepanda:',
+            ':swift:',
+        ]
+        
+        await ctx.send(random.choice(CUSTOM))
+        
 
 #    @getroles.command()
 #    async def testrole(
