@@ -38,7 +38,6 @@ class Collectables(commands.Cog):
         author = ctx.message.author
         data = Embed.create(self, ctx, title='Adding Collectables :trophy:')
         data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
-        data.set_image(url=image)
         await ctx.send(embed=data)
         await self.config.guild(ctx.guild).set_raw(collectable_name, value=price)
         await ctx.send("Added {0} as a Collectable which can be purchased for {1}".format(collectable_name, price))
