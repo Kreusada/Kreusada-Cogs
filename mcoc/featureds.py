@@ -186,3 +186,5 @@ FEATUREDS = {
       "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_x23.png",
       "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_yellowjacket.png",
       "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_yondu.png"
+      
+}
