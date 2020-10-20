@@ -1,0 +1,10 @@
+{
+  "author": [
+    "Kreusada"
+  ],
+  "description": "Find MDT related links for repositories, documentation, and more. Also a channel guide for the MDT.",
+  "hidden": false,
+  "install_msg": "Thanks for installing `find`! Any questions can go to our support server: https://discord.gg/JmCFyq7",
+  "short": "An index for the MDT.",
+  "end_user_data_statement": "This cog does not store end user data."
+}
