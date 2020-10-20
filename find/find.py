@@ -203,7 +203,12 @@ class Find(commands.Cog):
   @stone.group(name="3", invoke_without_command=True)
   async def twenty(self, ctx):
     """Stone 3 Badge."""
-    await ctx.send(f"https://media.discordapp.net/attachments/401476363707744257/738084098857238670/EA938C0B0C2AE3E6DB91514F5F8768C4F033D373.png")
+    author = ctx.message.author
+    data = Embed.create(self, ctx, title='Stone 3 Badge :rock:')
+    image = (f"https://media.discordapp.net/attachments/401476363707744257/738084098857238670/EA938C0B0C2AE3E6DB91514F5F8768C4F033D373.png")
+    data.set_author(name=author)
+    data.set_image(url=image)
+    await ctx.send(embed=data)
     
   @participation.group(name="1", invoke_without_command=True, pass_context=True)
   async def twentyone(self, ctx):
