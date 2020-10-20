@@ -100,23 +100,23 @@ class Find(commands.Cog):
   async def participation(self, ctx):
     """Participation Alliance War Badges."""
     
-  @master.group(invoke_without_command=True)
-  async def 1(self, ctx):
+  @master.group(name="1", invoke_without_command=True)
+  async def one(self, ctx):
     """Master Rank 1 Badge."""
     await ctx.send(f"Placeholder.")
     
-  @master.group(invoke_without_command=True)
-  async def 2(self, ctx):
+  @master.group(name="2", invoke_without_command=True)
+  async def two(self, ctx):
     """Master Rank 2 Badge."""
     await ctx.send(f"Placeholder.")
     
-  @master.group(invoke_without_command=True)
-  async def 3(self, ctx):
+  @master.group(name="3", invoke_without_command=True)
+  async def three(self, ctx):
     """Master Rank 3 Badge."""
     await ctx.send(f"Placeholder.")
     
-  @master.group(invoke_without_command=True)
-  async def 20(self, ctx):
+  @master.group(name="20", invoke_without_command=True)
+  async def twenty(self, ctx):
     """Master Top 20 Badge."""
     await ctx.send(f"Placeholder.")
     
