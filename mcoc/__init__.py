@@ -1,4 +1,4 @@
-  from .mcoc import Mcoc
+from .mcoc import Mcoc
 from pathlib import Path
 import json
 
