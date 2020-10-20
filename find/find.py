@@ -110,7 +110,7 @@ class Find(commands.Cog):
     author = ctx.message.author
     data = Embed.create(self, ctx, title='Master Rank One Badge :trophy:')
     image = (f"https://media.discordapp.net/attachments/401476363707744257/738083791654092940/47EFB6D4D1380ABD2C40D2C7B0533A29245F7955.png")
-    data.set_author(name=author)
+    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
     data.set_image(url=image)
     await ctx.send(embed=data)
     
@@ -120,7 +120,7 @@ class Find(commands.Cog):
     author = ctx.message.author
     data = Embed.create(self, ctx, title='Master Rank Two Badge :trophy:')
     image = (f"https://media.discordapp.net/attachments/401476363707744257/738083791113027654/650E29ADB8C5C382FF5A358113B2C02B8EADA415.png")
-    data.set_author(name=author)
+    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
     data.set_image(url=image)
     await ctx.send(embed=data)
     
@@ -130,7 +130,7 @@ class Find(commands.Cog):
     author = ctx.message.author
     data = Embed.create(self, ctx, title='Master Rank Three Badge :trophy:')
     image = (f"https://media.discordapp.net/attachments/401476363707744257/738083791440052294/08BA0A081A9D56E35E60E3FD61FAB7ED9A10CD00.png")
-    data.set_author(name=author)
+    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
     data.set_image(url=image)
     await ctx.send(embed=data)
     
@@ -140,7 +140,7 @@ class Find(commands.Cog):
     author = ctx.message.author
     data = Embed.create(self, ctx, title='Master Badge :trophy:')
     image = (f"https://media.discordapp.net/attachments/401476363707744257/738083791301509191/28A5CCCA9CA8294C76D8BE94CC0ADD2734B26570.png")
-    data.set_author(name=author)
+    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
     data.set_image(url=image)
     await ctx.send(embed=data)
     
@@ -150,7 +150,7 @@ class Find(commands.Cog):
     author = ctx.message.author
     data = Embed.create(self, ctx, title='Platinum One Badge :trophy:')
     image = (f"https://media.discordapp.net/attachments/401476363707744257/738083790718631937/E78E2BAF9B0C9BA6C7FE45BE726FFB0B0B0CACFD.png")
-    data.set_author(name=author)
+    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
     data.set_image(url=image)
     await ctx.send(embed=data)
     
@@ -160,7 +160,7 @@ class Find(commands.Cog):
     author = ctx.message.author
     data = Embed.create(self, ctx, title='Platinum Two Badge :trophy:')
     image = (f"https://media.discordapp.net/attachments/401476363707744257/738083790362116116/487EA26A1BA0F2C2848E7C87F10430BD218C2178.png")
-    data.set_author(name=author)
+    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
     data.set_image(url=image)
     await ctx.send(embed=data)
     
@@ -170,7 +170,7 @@ class Find(commands.Cog):
     author = ctx.message.author
     data = Embed.create(self, ctx, title='Platinum Three Badge :trophy:')
     image = (f"https://media.discordapp.net/attachments/401476363707744257/738083790559117352/0ED8BD10441C6D086AEB7BBA5271269F46E009D1.png")
-    data.set_author(name=author)
+    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
     data.set_image(url=image)
     await ctx.send(embed=data)
     
@@ -180,7 +180,7 @@ class Find(commands.Cog):
     author = ctx.message.author
     data = Embed.create(self, ctx, title='Platinum Four Badge :trophy:')
     image = (f"https://media.discordapp.net/attachments/401476363707744257/738083789934166046/71703F9C740FFDC3223A570CC1C252D8392534BC.png")
-    data.set_author(name=author)
+    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
     data.set_image(url=image)
     await ctx.send(embed=data)
     
@@ -190,7 +190,7 @@ class Find(commands.Cog):
     author = ctx.message.author
     data = Embed.create(self, ctx, title='Gold One Badge :trophy:')
     image = (f"https://media.discordapp.net/attachments/401476363707744257/738083790131298375/76BC21BF523A415866D19814BD8AF4BE16EF30A9.png")
-    data.set_author(name=author)
+    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
     data.set_image(url=image)
     await ctx.send(embed=data)
     
@@ -200,7 +200,7 @@ class Find(commands.Cog):
     author = ctx.message.author
     data = Embed.create(self, ctx, title='Gold Two Badge :trophy:')
     image = (f"https://media.discordapp.net/attachments/401476363707744257/738083998462509096/8CD52FEB7540016B6ABA1EC67B9F1777E3C29878.png")
-    data.set_author(name=author)
+    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
     data.set_image(url=image)
     await ctx.send(embed=data)
     
@@ -210,7 +210,7 @@ class Find(commands.Cog):
     author = ctx.message.author
     data = Embed.create(self, ctx, title='Gold Three Badge:trophy:')
     image = (f"https://media.discordapp.net/attachments/401476363707744257/738084001926873098/3A9A8FDA006D0BE225242AAA5909021CD52BCFB3.png")
-    data.set_author(name=author)
+    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
     data.set_image(url=image)
     await ctx.send(embed=data)
     
@@ -220,7 +220,7 @@ class Find(commands.Cog):
     author = ctx.message.author
     data = Embed.create(self, ctx, title='Silver One Badge :trophy:')
     image = (f"https://media.discordapp.net/attachments/401476363707744257/738084001465499789/4B389D377A94EDA747B38DF640C0B33A3A3F61AE.png")
-    data.set_author(name=author)
+    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
     data.set_image(url=image)
     await ctx.send(embed=data)
     
@@ -230,7 +230,7 @@ class Find(commands.Cog):
     author = ctx.message.author
     data = Embed.create(self, ctx, title='Silver Two Badge :trophy:')
     image = (f"https://media.discordapp.net/attachments/401476363707744257/738084001465499789/4B389D377A94EDA747B38DF640C0B33A3A3F61AE.png")
-    data.set_author(name=author)
+    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
     data.set_image(url=image)
     await ctx.send(embed=data)
     
@@ -240,7 +240,7 @@ class Find(commands.Cog):
     author = ctx.message.author
     data = Embed.create(self, ctx, title='Silver Three Badge :trophy:')
     image = (f"https://media.discordapp.net/attachments/401476363707744257/738083994612006914/5302FA8FA04735224847C8BBF82D1D54C8567B9C.png")
-    data.set_author(name=author)
+    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
     data.set_image(url=image)
     await ctx.send(embed=data)
     
@@ -250,7 +250,7 @@ class Find(commands.Cog):
     author = ctx.message.author
     data = Embed.create(self, ctx, title='Bronze One Badge :trophy:')
     image = (f"https://media.discordapp.net/attachments/401476363707744257/738083995211792404/719AC2C2AB5833D815C899DAF9ADB7CF11819CBA.png")
-    data.set_author(name=author)
+    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
     data.set_image(url=image)
     await ctx.send(embed=data)
     
@@ -260,7 +260,7 @@ class Find(commands.Cog):
     author = ctx.message.author
     data = Embed.create(self, ctx, title='Bronze Two Badge :trophy:')
     image = (f"https://media.discordapp.net/attachments/401476363707744257/738083993043337276/E636A90C3F0DFFDAED0176D972AA0C73F3E40FF8.png")
-    data.set_author(name=author)
+    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
     data.set_image(url=image)
     await ctx.send(embed=data)
     
@@ -270,7 +270,7 @@ class Find(commands.Cog):
     author = ctx.message.author
     data = Embed.create(self, ctx, title='Bronze Three Badge :trophy:')
     image = (f"https://media.discordapp.net/attachments/401476363707744257/738083997866786876/5B06D509847E0FA1405A50021486C1A5D8C6F9B2.png")
-    data.set_author(name=author)
+    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
     data.set_image(url=image)
     await ctx.send(embed=data)
 
@@ -280,7 +280,7 @@ class Find(commands.Cog):
     author = ctx.message.author
     data = Embed.create(self, ctx, title='Stone One Badge :trophy:')
     image = (f"https://media.discordapp.net/attachments/401476363707744257/738083996054978730/9AC92A2FDC2996C346125296356C664373147F2F.png")
-    data.set_author(name=author)
+    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
     data.set_image(url=image)
     await ctx.send(embed=data)
     
@@ -290,7 +290,7 @@ class Find(commands.Cog):
     author = ctx.message.author
     data = Embed.create(self, ctx, title='Stone Two Badge :trophy:')
     image = (f"https://media.discordapp.net/attachments/401476363707744257/738083993681002586/BF3D13EACC9F44216E754884AA183185761C84CF.png")
-    data.set_author(name=author)
+    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
     data.set_image(url=image)
     await ctx.send(embed=data)
     
@@ -300,7 +300,7 @@ class Find(commands.Cog):
     author = ctx.message.author
     data = Embed.create(self, ctx, title='Stone Three Badge :trophy:')
     image = (f"https://media.discordapp.net/attachments/401476363707744257/738084098857238670/EA938C0B0C2AE3E6DB91514F5F8768C4F033D373.png")
-    data.set_author(name=author)
+    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
     data.set_image(url=image)
     await ctx.send(embed=data)
     
