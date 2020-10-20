@@ -10,7 +10,6 @@ class Find(commands.Cog):
     self.config = Config.get_conf(self, 200730042020, force_registration=True)
     
   @commands.group()
-  @checks.admin()
   async def find(self, ctx):
     """The Matrix Development Team Index."""
     pass
