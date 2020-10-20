@@ -26,7 +26,7 @@ class Mcoc(commands.Cog):
     """Find champion images."""
     
   @champ.group()
-  async def featured(self, ctx):
+  async def featured(self, ctx, champion: str):
     try:
         data = Embed.create(self, ctx, title="{0}'s portrait".format(champion.lower()), image=FEATUREDS[champion.lower()])
         await ctx.send(embed=embed)
