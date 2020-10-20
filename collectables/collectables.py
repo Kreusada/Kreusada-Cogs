@@ -36,7 +36,7 @@ class Collectables(commands.Cog):
     async def add_collectables(self, ctx, collectable_name: str, price: int = 100):
         """Adds collectables to a user."""
         author = ctx.message.author
-        data = Embed.create(self, ctx, title='Adding Collectables :trophy:, description='"Added {0} as a Collectable which can be purchased for {1}".format(collectable_name, price)')
+        data = Embed.create(self, ctx, title='Adding Collectables :trophy:')
         data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
         data.set_image(url=image)
         await ctx.send(embed=data)
