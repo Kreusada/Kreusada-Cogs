@@ -19,6 +19,7 @@ class Embed:
         CRYSTAL = 'https://vignette.wikia.nocookie.net/marvel-contestofchampions/images/f/fe/6-Star_Crystal.png/revision/latest?cb=20200605225602'
         PATREON = 'https://patreon.com/matrixdt'
         MDT_LOGO = 'https://cdn.discordapp.com/attachments/745608075670585344/767361113477611580/MatrixDevelopmentTeam.png'
+        DEMARATUS = 'https://cdn.discordapp.com/attachments/758775890954944572/768175533858226196/demaratuscircle.png'
 
         if isinstance(ctx.message.channel, discord.abc.GuildChannel):
             color = ctx.message.author.color
@@ -54,6 +55,6 @@ class Embed:
         if footer_text is None:
             footer_text = "Demaratus | MDT | From Kreusada"
         if footer_url is None:
-            footer_url = CRYSTAL
+            footer_url = DEMARATUS
         data.set_footer(text=footer_text, icon_url=footer_url)
         return data
