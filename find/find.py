@@ -108,7 +108,7 @@ class Find(commands.Cog):
   @master.group(name="1", invoke_without_command=True)
   async def one(self, ctx):
     """Master Rank 1 Badge."""
-     author = ctx.message.author
+    author = ctx.message.author
     data = Embed.create(self, ctx, title='Master Rank One Badge :trophy:')
     image = (f"https://media.discordapp.net/attachments/401476363707744257/738083791654092940/47EFB6D4D1380ABD2C40D2C7B0533A29245F7955.png")
     data.set_author(name=author)
