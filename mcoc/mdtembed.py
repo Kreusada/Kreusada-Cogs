@@ -20,12 +20,11 @@ class Embed:
         PATREON = 'https://patreon.com/matrixdt'
         MDT_LOGO = 'https://cdn.discordapp.com/attachments/745608075670585344/767361113477611580/MatrixDevelopmentTeam.png'
         DEMARATUS = 'https://cdn.discordapp.com/attachments/758775890954944572/768175533858226196/demaratuscircle.png'
-        NONE = 
 
         if isinstance(ctx.message.channel, discord.abc.GuildChannel):
             color = ctx.message.author.color
-        if url is None:
-            url = NONE
+#        if url is None:
+#            url = PATREON
         data = discord.Embed(color=color, title=title, url=url)
         if description is not None:
             if len(description) < 1500:
