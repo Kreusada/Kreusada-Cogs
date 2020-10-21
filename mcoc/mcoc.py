@@ -12,7 +12,7 @@ from discord.utils import get
 
 
 class Mcoc(commands.Cog):
-    """Mcoc"""
+    """Fun Games and Tools for Marvel Contest of Champions."""
 
     @commands.group(invoke_without_command=True)
     async def crystal(self, ctx):
