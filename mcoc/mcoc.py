@@ -36,7 +36,7 @@ class Mcoc(commands.Cog):
 
     @champ.command()
     async def featured(self, ctx, alias: str):
-        await ctx.send("`Unfortunately, this command is currently down for maintenance.\n`Unexpected expenses may arrise for Kelldor, as Demaratus was using his auntm.ai URLs.`\n\nFor more updates, please stay tuned to my support server: https://discord.gg/JmCFyq7")
+        await ctx.send("`Unfortunately, this command is currently down for maintenance.`\n`Unexpected expenses may arrise for Kelldor, as Demaratus was using his auntm.ai URLs.`\n\nFor more updates, please stay tuned to my support server: https://discord.gg/JmCFyq7")
 #        champion = FULL_NAMES.get(alias, alias)
 #        try:
 #            data = Embed.create(self, ctx, title="Featured Image.".format(
