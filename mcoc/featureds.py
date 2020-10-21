@@ -1,7 +1,3 @@
-for name, link in FEATUREDS.items():
-    for alias in ALIASES.get(name, []):
-        FEATUREDS[alias] = link
-        
 ALIASES = {
     'antman': ['am', 'ant-man', 'ant man'],
     'civilwarrior': ['cv', 'civil warrior']
@@ -195,3 +191,7 @@ FEATUREDS = {
     "yellowjacket": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_yellowjacket.png",
     "yondu": "https: // auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_yondu.png"
 }
+
+for name, link in FEATUREDS.items():
+    for alias in ALIASES.get(name, []):
+        FEATUREDS[alias] = link
