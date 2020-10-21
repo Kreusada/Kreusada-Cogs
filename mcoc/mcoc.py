@@ -45,3 +45,8 @@ class Mcoc(commands.Cog):
             await ctx.send(embed=data)
         except KeyError:
             await ctx.send("`I could not find that champion.`\n`Please check your spelling, or your alias might not be available just yet.` :fearful:")
+            
+FULL_NAMES = {}
+for name, aliases in ALIASES.items():
+    for alias in aliases:
+        FULL_NAMES[alias] = name
