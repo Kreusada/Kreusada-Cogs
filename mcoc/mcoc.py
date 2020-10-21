@@ -51,4 +51,4 @@ class Mcoc(commands.Cog):
                 champion.capitalize()), image=PORTRAITS[champion.lower()])
             await ctx.send(embed=data)
         except KeyError:
-            await ctx.send("`I could not find that champion.`\n`Please check your spelling, or your alias might not be available just yet.` :fearful:")
+            await ctx.send("`I could not find that champion.`\n`Please check your spelling, or your alias might not be available just yet.` :fearful:\n\n`Additionally, this command has not yet been completed. I'm working on it asap!`")
