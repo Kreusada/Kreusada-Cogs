@@ -188,10 +188,11 @@ FEATUREDS = {
 }
 
 ALIASES = {
-    'abomination': ['abom']
-    'agentvenom': ['av']
-    'antman': ['am', 'ant-man', 'ant man'],
-    'civilwarrior': ['cv', 'civil warrior']
+  'am': 'antman',
+  'ant-man': 'antman',
+  'ant man': 'antman',
+  'cv': 'civilwarrior',
+  'civil warrior': 'civilwarrior',
 }
 
 for name, link in list(FEATUREDS.items()):
