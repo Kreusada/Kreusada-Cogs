@@ -5,6 +5,7 @@ import json
 import os
 from .mdtembed import Embed
 from .featureds import FEATUREDS
+from .portraits import PORTRAITS
 from discord.utils import get
 
 
