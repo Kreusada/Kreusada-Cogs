@@ -42,6 +42,7 @@ class Mcoc(commands.Cog):
 
     @champ.command()
     async def portrait(self, ctx, champion: str):
+        champion = FULL_NAMES.get(alias, alias)
         try:
             data = Embed.create(self, ctx, title="{0}'s Portrait Image.".format(
                 champion), image=PORTRAITS[champion.lower()])
