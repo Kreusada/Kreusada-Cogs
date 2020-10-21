@@ -24,7 +24,7 @@ FEATUREDS = {
     "cmm": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_captain_marvel_movie.png",
     "captainmarvel": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_captain_marvel.png",
     "carnage": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_carnage.png",
-    "civil Warrior": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_civilwarrior.png",
+    "Civil Warrior": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_civilwarrior.png",
     "colossus": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_colossus.png",
     "corvus": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_corvusglaive.png",
     "cgr": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_ghost_rider_cosmic.png",
@@ -189,7 +189,7 @@ FEATUREDS = {
 
 ALIASES = {
     'antman': ['am', 'ant-man', 'ant man'],
-    'civil Warrior': ['cw', 'civilwarrior']
+    'Civil Warrior': ['cw', 'civilwarrior']
 }
 
 FULL_NAMES = {}
