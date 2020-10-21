@@ -48,6 +48,20 @@ PORTRAITS = {
   "ultronclassic": "https://i1.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/Ultron-OG.png?resize=256%2C256&ssl=1",
   "wolverineweaponx": "https://i0.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/Wolverine-Weapon-X.png?resize=256%2C256&ssl=1",
   "yondu": "https://i2.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/yondu.png?resize=256%2C256&ssl=1",
-  "yellowjacket": "https://i2.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/yellowjacket.png?resize=256%2C256&ssl=1"
+  "yellowjacket": "https://i2.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/yellowjacket.png?resize=256%2C256&ssl=1",
+  "wintersoldier": "https://i0.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/winter-soldier.png?resize=256%2C256&ssl=1",
+  "wolverinex23": "https://i1.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/Wolverine-x23.png?resize=256%2C256&ssl=1",
+  "wolverine": "https://i2.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/Wolverine.png?resize=256%2C256&ssl=1",
+  "wasp": "https://i0.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/wasp.png?resize=256%2C256&ssl=1",
+  "warmachine": "https://i2.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/War-Machine.png?resize=300%2C300&ssl=1",
+  "warlock": "https://i1.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/Warlock.png?resize=256%2C256&ssl=1",
+  "vulture": "https://i0.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/vulture.png?resize=256%2C256&ssl=1",
+  "void": "https://i1.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/void.png?resize=256%2C256&ssl=1",
+  "vision": "https://i0.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/vision.png?resize=256%2C256&ssl=1",
+  "visionaarkus": "https://i1.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/Vision-Aarkus.png?resize=256%2C256&ssl=1",
+  "visionageofultron": "https://i2.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/Vision-Age-of-Ultron.png?resize=300%2C300&ssl=1",
+  "venompool": "https://i2.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/venompool.png?resize=256%2C256&ssl=1",
+  "venom": "https://i2.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/venom.png?resize=256%2C256&ssl=1",
+  "venomtheduck": "https://i0.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/venom-the-duck.png?resize=256%2C256&ssl=1"
   
 }
