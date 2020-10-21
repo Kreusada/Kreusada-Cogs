@@ -39,7 +39,7 @@ class Mcoc(commands.Cog):
     @champ.command()
     async def portrait(self, ctx, champion: str):
         try:
-            data = Embed.create(self, ctx, title="{0}'s Portrait".format(
+            data = Embed.create(self, ctx, title="{0}'s Portrait Image.".format(
                 champion.captialize()), image=PORTRAITS[champion.lower()])
             await ctx.send(embed=data)
         except KeyError:
