@@ -14,6 +14,11 @@ from discord.utils import get
 
 class Mcoc(commands.Cog):
     """Fun Games and Tools for Marvel Contest of Champions."""
+    
+    @commands.group(invoke_without_command=True)
+    async def mdtlink(self, ctx):
+        """Matrix Development Team invite link."""
+        await ctx.send("https://discord.gg/JmCFyq7")
 
     @commands.group(invoke_without_command=True)
     async def crystal(self, ctx):
