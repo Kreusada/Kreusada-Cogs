@@ -6,6 +6,7 @@ import os
 from .mdtembed import Embed
 from .featureds import FEATUREDS
 from .portraits import PORTRAITS
+from .crystal import CRYSTAL
 from discord.utils import get
 
 
