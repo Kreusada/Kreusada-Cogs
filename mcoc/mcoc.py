@@ -26,8 +26,6 @@ class Mcoc(commands.Cog):
         # author = ctx.message.author
         data = Embed.create(self, ctx, title='You got... :gem:')
         image = (random.choice(CRYSTAL))
-        # name = ctx.author.name
-        # data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
         data.set_image(url=image)
         await ctx.send(embed=data)
 
@@ -43,7 +41,7 @@ class Mcoc(commands.Cog):
                 champion.capitalize()), image=FEATUREDS[champion.lower()])
             await ctx.send(embed=data)
         except KeyError:
-            await ctx.send("`I could not find that champion.`\n`Please check your spelling, or your alias might not be available just yet.` :fearful:")
+            await ctx.send("`I could not find that champion.`\n`Please check your spelling, or your alias might not be available just yet.` :fearful:\n\n`Additionally, this command has not yet been completed. I'm working on it asap!`")
 
     @champ.command()
     async def portrait(self, ctx, champion: str):
