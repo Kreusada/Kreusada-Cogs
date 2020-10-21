@@ -1,8 +1,3 @@
-ALIASES = {
-    'antman': ['am', 'ant-man', 'ant man'],
-    'civilwarrior': ['cv', 'civil warrior']
-}
-
 FEATUREDS = {
     "abomination": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_abomination.png",
     "aegon": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_aegon.png",
@@ -190,6 +185,11 @@ FEATUREDS = {
     "x23": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_x23.png",
     "yellowjacket": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_yellowjacket.png",
     "yondu": "https: // auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_yondu.png"
+}
+
+ALIASES = {
+    'antman': ['am', 'ant-man', 'ant man'],
+    'civilwarrior': ['cv', 'civil warrior']
 }
 
 for name, link in FEATUREDS.items():
