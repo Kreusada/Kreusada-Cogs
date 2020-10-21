@@ -22,8 +22,8 @@ class Embed:
 
         if isinstance(ctx.message.channel, discord.abc.GuildChannel):
             color = ctx.message.author.color
-        if url is None:
-            url = PATREON
+#        if url is None:
+#            url = PATREON
         data = discord.Embed(color=color, title=title, url=url)
         if description is not None:
             if len(description) < 1500:
@@ -38,19 +38,19 @@ class Embed:
             else:
                 print('Image URL Failure, code {}'.format(code))
                 print('Attempted URL:\n{}'.format(image))
-        if thumbnail is None:
-            thumbnail = DEMARATUS_ICON
-        if thumbnail is not None:
-            validators.url(thumbnail)
-            code = requests.get(thumbnail).status_code
-            if code == 200:
+#        if thumbnail is None:
+#            thumbnail = DEMARATUS_ICON
+#        if thumbnail is not None:
+#            validators.url(thumbnail)
+#            code = requests.get(thumbnail).status_code
+#            if code == 200:
                 # data.set_thumbnail(url=thumbnail)
-                data.set_thumbnail(
-                    url=thumbnail)
-            else:
-                data.set_thumbnail(url=DEMARATUS_ICON)
-                print('Thumbnail URL Failure, code {}'.format(code))
-                print('Attempted URL:\n{}'.format(thumbnail))
+#                data.set_thumbnail(
+#                    url=thumbnail)
+#            else:
+#                data.set_thumbnail(url=DEMARATUS_ICON)
+#                print('Thumbnail URL Failure, code {}'.format(code))
+#                print('Attempted URL:\n{}'.format(thumbnail))
         if footer_text is None:
             footer_text = "Demaratus | Matrix Development Team"
         if footer_url is None:
