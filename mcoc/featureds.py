@@ -188,6 +188,8 @@ FEATUREDS = {
 }
 
 ALIASES = {
+    'abomination': ['abom']
+    'agentvenom': ['av']
     'antman': ['am', 'ant-man', 'ant man'],
     'civilwarrior': ['cv', 'civil warrior']
 }
