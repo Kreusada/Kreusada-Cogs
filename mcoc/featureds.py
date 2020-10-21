@@ -195,6 +195,7 @@ ALIASES = {
   'civil warrior': 'civilwarrior',
 }
 
-for name, link in list(FEATUREDS.items()):
-    for alias in ALIASES.get(name, []):
-        FEATUREDS[alias] = link
+FULL_NAMES = {}
+for name, aliases in ALIASES.items():
+    for alias in aliases:
+        FULL_NAMES[alias] = name
