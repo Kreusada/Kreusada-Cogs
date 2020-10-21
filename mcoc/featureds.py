@@ -1,5 +1,5 @@
 FEATUREDS = {
-    "abom": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_abomination.png",
+    "abom": {"url":"https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_abomination.png", "aliases": ["abom1", "abom2", "abom3"]},
     "aegon": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_aegon.png",
     "agentvenom": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_agent_venom.png",
     "airwalker": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_airwalker.png",
