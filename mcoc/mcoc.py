@@ -34,8 +34,8 @@ class Mcoc(commands.Cog):
     async def featured(self, ctx, alias: str):
         champion = FULL_NAMES.get(alias, alias)
         try:
-            data = Embed.create(self, ctx, title="{0}'s Featured Image.".format(
-                champion), image=FEATUREDS[champion.lower()])
+            data = Embed.create(self, ctx, title="Featured Image.".format(
+                champion.capitalize()), image=FEATUREDS[champion.lower()])
             await ctx.send(embed=data)
         except KeyError:
             await ctx.send("`I could not find that champion.`\n`Please check your spelling, or your alias might not be available just yet.` :fearful:")
@@ -45,7 +45,7 @@ class Mcoc(commands.Cog):
         champion = FULL_NAMES.get(alias, alias)
         try:
             data = Embed.create(self, ctx, title="{0}'s Portrait Image.".format(
-                champion), image=PORTRAITS[champion.lower()])
+                champion.capitalize()), image=PORTRAITS[champion.lower()])
             await ctx.send(embed=data)
         except KeyError:
             await ctx.send("`I could not find that champion.`\n`Please check your spelling, or your alias might not be available just yet.` :fearful:")
