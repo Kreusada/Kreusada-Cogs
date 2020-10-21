@@ -29,8 +29,7 @@ class DadJokes(commands.Cog):
                             description=joke)
         image = (f"https://media.discordapp.net/attachments/758775890954944572/768580081689559090/demaratusfull.png?width=891&height=630")
         data.set_author
-        data.set_image(url=random.choice(self.dadjoke_images))
-
+        data.set_image(url=image)
         await ctx.send(embed=data)
 
     async def get_joke(self):
