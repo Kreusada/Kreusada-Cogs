@@ -5,6 +5,7 @@ import json
 import os
 from .mdtembed import Embed
 from .featureds import FEATUREDS
+from .featureds import FULL_NAMES
 from .featureds import ALIASES
 from .portraits import PORTRAITS
 from .crystal import CRYSTAL
@@ -30,7 +31,8 @@ class Mcoc(commands.Cog):
         """Find champion images."""
 
     @champ.command()
-    async def featured(self, ctx, champion: str):
+    async def featured(self, ctx, alias: str):
+        champion = FULL_NAMES.get(alias, alias)
         try:
             data = Embed.create(self, ctx, title="{0}'s Featured Image.".format(
                 champion.capitalize()), image=FEATUREDS[champion.lower()])
