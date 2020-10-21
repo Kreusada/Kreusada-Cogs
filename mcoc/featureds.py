@@ -189,7 +189,7 @@ FEATUREDS = {
 
 ALIASES = {
     'antman': ['am', 'ant-man', 'ant man'],
-    'Civil Warrior': ['cw', 'civilwarrior']
+    'civil Warrior': ['cw', 'civilwarrior']
 }
 
 FULL_NAMES = {}
