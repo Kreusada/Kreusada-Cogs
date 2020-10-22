@@ -23,12 +23,11 @@ class Mcoc(commands.Cog):
     @commands.group(invoke_without_command=True)
     async def crystal(self, ctx):
         """Chooses a random champion from MCOC."""
-        await ctx.send("`I'm getting this command rebuild right now!` :star_struck:\nFor more updates, please stay tuned to my support server: https://discord.gg/JmCFyq7")
         # author = ctx.message.author
-#        data = Embed.create(self, ctx, title='You got... :gem:')
-#        image = (random.choice(CRYSTAL))
-#        data.set_image(url=image)
-#        await ctx.send(embed=data)
+        data = Embed.create(self, ctx, title='You got... :gem:')
+        image = (random.choice(CRYSTAL))
+        data.set_image(url=image)
+        await ctx.send(embed=data)
 
     @commands.group()
     async def champ(self, ctx):
