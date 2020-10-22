@@ -20,7 +20,8 @@ class Mcoc(commands.Cog):
         """Matrix Development Team invite link."""
         await ctx.send("https://discord.gg/JmCFyq7")
 
-    @commands.group(invoke_without_command=True)
+    @commands.group(invoke_without_command=True,)
+    @commands.cooldown(1, 1800, commands.BucketType.user)
     async def crystal(self, ctx):
         """Chooses a random champion from MCOC."""
         # author = ctx.message.author
