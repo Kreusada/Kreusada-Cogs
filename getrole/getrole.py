@@ -1,14 +1,20 @@
-    @commands.group()
+from redbot.core import commands, Config, modlog
+from redbot.core import checks
+import discord
+from .mdtembed import Embed
+
+@commands.group()
     async def role(self, ctx):
-        """Base role command
-        This allows you to buy certain roles for credits"""
+        """Get self assignable roles."""
 
     @role.command(name="add")
     @checks.admin()
-    async def _add(self, ctx, role: discord.Role, cost: int = 3000):
+    async def _add(self, ctx, role: discord.Role)
         """Add a purchasable role"""
-        await self.config.guild(ctx.guild).roles.set_raw(role, value=cost)
-        await ctx.send("That role can now be bought for {}".format(cost))
+        await self.config.guild(ctx.guild).roles.set_raw(role)
+        data = Embed.create(self, ctx, title='**Menu: Adding Roles**')
+        description = ("That role can now be self-assigned by members.")
+        await ctx.send(embed=data)        
 
     @role.command(aliases=["del", ])
     @checks.admin()
