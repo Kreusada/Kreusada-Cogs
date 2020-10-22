@@ -29,7 +29,6 @@ Crystal
 **Syntax**
 
 .. code-block:: none
-
 ,crystal
 
 That is generally all you have to type. Then, a random champion will be displayed inside an embed, as their featured image.
@@ -45,7 +44,6 @@ Champ
 **Syntax: champ featured**
 
 .. code-block:: none
-
 ,champ featured <champion>
 
 This will bring up the featured image of a champion.
@@ -55,7 +53,6 @@ This will bring up the featured image of a champion.
 **Syntax: champ portrait**
 
 .. code-block:: none
-
 ,champ portrait <champion>
 
 This will bring up the portrait image of a champion. This command is good to go!
