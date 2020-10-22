@@ -23,7 +23,7 @@ class Mcoc(commands.Cog):
     @commands.group(invoke_without_command=True)
     async def crystal(self, ctx):
         """Chooses a random champion from MCOC."""
-        await ctx.send("`I'm getting this command rebuild right now!` :star_struck:`\nFor more updates, please stay tuned to my support server: https://discord.gg/JmCFyq7")
+        await ctx.send("`I'm getting this command rebuild right now!` :star_struck:\nFor more updates, please stay tuned to my support server: https://discord.gg/JmCFyq7")
         # author = ctx.message.author
 #        data = Embed.create(self, ctx, title='You got... :gem:')
 #        image = (random.choice(CRYSTAL))
@@ -36,7 +36,7 @@ class Mcoc(commands.Cog):
 
     @champ.command()
     async def featured(self, ctx, alias: str):
-        await ctx.send("`I'm getting this command rebuild right now!` :star_struck:`\nFor more updates, please stay tuned to my support server: https://discord.gg/JmCFyq7")
+        await ctx.send("`I'm getting this command rebuild right now!` :star_struck:\nFor more updates, please stay tuned to my support server: https://discord.gg/JmCFyq7")
 #        champion = FULL_NAMES.get(alias, alias)
 #        try:
 #            data = Embed.create(self, ctx, title="Featured Image.".format(
