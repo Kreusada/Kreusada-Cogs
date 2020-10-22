@@ -3,7 +3,7 @@ from redbot.core import checks
 import discord
 from .mdtembed import Embed
 
-@commands.group()
+    @commands.group()
     async def role(self, ctx):
         """Get self assignable roles."""
 
