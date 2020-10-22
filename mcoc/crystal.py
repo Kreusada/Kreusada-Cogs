@@ -3,7 +3,7 @@ CRYSTAL = [
       "https://media.discordapp.net/attachments/745608075670585344/768767066467205140/gachachaseprize_256x256_aegon.png",
       "https://media.discordapp.net/attachments/745608075670585344/768766780054569000/Agent_Venom_featured.png",
       "https://media.discordapp.net/attachments/745608075670585344/768766786018476072/air_walker.png",
-#      "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_angela.png",
+      "https://media.discordapp.net/attachments/745608075670585344/768809127492845568/gachachaseprize_256x256_angela.png",
       "https://media.discordapp.net/attachments/745608075670585344/768766792050147348/Annihilus_featured.png",
       "https://media.discordapp.net/attachments/745608075670585344/768766789223972944/Ant-Man_featured.png",
 #      "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_apocalypse.png",
