@@ -16,7 +16,7 @@ class get(commands.Cog):
     async def get(self, ctx):
         """Get self assignable roles."""
 
-    @getrole.command(name="add")
+    @get.command(name="add")
     @checks.admin()
     async def _add(self, ctx, role: discord.Role):
         """Add a purchasable role"""
@@ -25,7 +25,7 @@ class get(commands.Cog):
         description = ("That role can now be self-assigned by members.")
         await ctx.send(embed=data)        
 
-    @getrole.command(aliases=["del", ])
+    @get.command(aliases=["del", ])
     @checks.admin()
     async def remove(self, ctx, *, role):
         try:
@@ -34,7 +34,7 @@ class get(commands.Cog):
         except KeyError:
             await ctx.send("I couldn't find that role")
 
-    @getrole.command()
+    @get.command()
     async def role(self, ctx, *, role: discord.Role):
         """Buy a role with credits"""
         try:
