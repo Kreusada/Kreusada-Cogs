@@ -3,7 +3,7 @@ from redbot.core import checks
 import discord
 from .mdtembed import Embed
 
-class Getrole(commands.Cog):
+class get(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, 13814755994)
@@ -13,7 +13,7 @@ class Getrole(commands.Cog):
         self.embed = Embed(self)
 
     @commands.group()
-    async def getrole(self, ctx):
+    async def get(self, ctx):
         """Get self assignable roles."""
 
     @getrole.command(name="add")
@@ -35,7 +35,7 @@ class Getrole(commands.Cog):
             await ctx.send("I couldn't find that role")
 
     @getrole.command()
-    async def buy(self, ctx, *, role: discord.Role):
+    async def role(self, ctx, *, role: discord.Role):
         """Buy a role with credits"""
         try:
             role_cost = await self.config.guild(ctx.guild).roles.get_raw(role)
