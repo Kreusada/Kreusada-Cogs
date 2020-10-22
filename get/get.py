@@ -20,7 +20,7 @@ class get(commands.Cog):
     @checks.admin()
     async def _add(self, ctx, role: discord.Role):
         """Add a purchasable role"""
-        await self.config.guild(ctx.guild).roles.set_raw(role)
+        await self.config.guild(ctx.guild).roles.set(role)
         data = Embed.create(self, ctx, title='**Menu: Adding Roles**')
         description = ("That role can now be self-assigned by members.")
         await ctx.send(embed=data)        
@@ -29,7 +29,7 @@ class get(commands.Cog):
     @checks.admin()
     async def remove(self, ctx, *, role):
         try:
-            await self.config.guild(ctx.guild).roles.clear_raw(role)
+            await self.config.guild(ctx.guild).roles.clear(role)
             await ctx.send("Removed that role from the store")
         except KeyError:
             await ctx.send("I couldn't find that role")
@@ -38,7 +38,7 @@ class get(commands.Cog):
     async def role(self, ctx, *, role: discord.Role):
         """Buy a role with credits"""
         try:
-            role_cost = await self.config.guild(ctx.guild).roles.get_raw(role)
+            role_cost = await self.config.guild(ctx.guild).roles.get(role)
         except KeyError:
             return await ctx.send("I could not find that role!")
 
