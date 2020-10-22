@@ -3,6 +3,15 @@ from redbot.core import checks
 import discord
 from .mdtembed import Embed
 
+class Getrole(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+        self.config = Config.get_conf(self, 13814755994)
+        self.config.register_guild(
+            roles={}
+        )
+        self.embed = Embed(self)
+
     @commands.group()
     async def role(self, ctx):
         """Get self assignable roles."""
