@@ -6,8 +6,6 @@ Fun and Games
 
 This is the cog guide for using fun commands, such as ``8ball`` or ``choose``
 
-``!`` is currently Demaratus' prefix, and will most likely remain this way.
-
 .. note:: For the user help manual, you should consider typing::
 
         !help General:
@@ -30,7 +28,7 @@ Fun and Games
 
 .. code-block:: none
 
-    !8ball <your_question>?
+    ,8ball <your_question>?
     
 .. tip:: Use ``!8 <your_question>?`` For example, ``!8 Am I the coolest guy in the universe?``
 
@@ -47,7 +45,7 @@ The command is useful for decision making.
 
 .. code-block:: none
 
-    !choose <variable1> <variable2> <continued...>
+    ,choose <variable1> <variable2> <continued...>
 
 .. note:: If one of your variables has spaces, remember to put quotation marks around it. ``"Variable with Spaces"``.
 
@@ -63,7 +61,7 @@ Flip is a game where you can flip a coin, landing on ``heads`` or ``tails``.
 
 .. code-block:: none
 
-    !flip
+    ,flip
 
 .. _fun-lmgtfy:
 
@@ -78,7 +76,7 @@ You can see an example here for the variable ``Demaratus``: https://lmgtfy.com/?
 
 .. code-block:: none
 
-    !lmgtfy <search_terms>
+    ,lmgtfy <search_terms>
 
 .. note:: Avoid using quotation marks for lmgtfy. It will automatically identify spaces in the quiery for you.
 
@@ -94,7 +92,7 @@ Use this command to roll a dice. You can set the parameters for the roll as high
 
 .. code-block:: none
 
-    !roll <max_value>
+    ,roll <max_value>
 
 .. note:: The default max number is ``100``.
 
@@ -110,7 +108,7 @@ Use this command to play rock, paper, scissors!
 
 .. code-block:: none
 
-    !rps <rock_paper_scissors>
+    ,rps <rock_paper_scissors>
 
 .. note:: Remember, scissors is spelt scissors, NOT scizzors!
 
@@ -132,7 +130,7 @@ You can learn how to use them below:
 
 .. code-block:: none
 
-    !serverinfo
+    ,serverinfo
 
 **Server Info: Greater**
 
@@ -142,7 +140,7 @@ You can learn how to use them below:
     
 .. code-block:: none
 
-    !serverinfo 1
+    ,serverinfo 1
     
 .. note:: ``!si`` is just a global alias for ``!serverinfo 1``!
 
@@ -158,9 +156,9 @@ Used to set a stopwatch! Time yourself using the syntax below.
 
 .. code-block:: none
     
-    !stopwatch
+    ,stopwatch
 
-.. note:: ``!stopwatch`` is used for both starting and stopping the stopwatch!
+.. note:: ``,stopwatch`` is used for both starting and stopping the stopwatch!
 
 .. warning:: Please remember to use the syntax above. It is common for someone to instead use ``!stop``, which could interfere with someone if they're using Demaratus in a Voice Chat.
 
@@ -176,7 +174,7 @@ A dictionary used to search the meanings of words. Often, it includes slang, and
 
 .. code-block:: none
     
-    !urban <word>
+    ,urban <word>
 
 .. _fun-conclude::
 
@@ -190,12 +188,12 @@ Additionally, you can use the following command to bring up the full help menu f
 
 .. code-block:: none
     
-    !help General
+    ,help General
 
-.. warning:: Remember to capitalise the ``G`` in ``!help General``.
+.. warning:: Remember to capitalise the ``G`` in ``,help General``.
 
 You can also use the help command for a specific command if you require assistance.
 
 .. code-block:: none
     
-    !help <command>
+    ,help <command>
