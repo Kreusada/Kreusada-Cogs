@@ -36,7 +36,7 @@ class Mcoc(commands.Cog):
 
     @champ.command()
     async def featured(self, ctx, alias: str):
-        await ctx.send("`I'm getting this command rebuild right now!` :star_struck:\nFor more updates, please stay tuned to my support server: https://discord.gg/JmCFyq7")
+        await ctx.send("`I'm getting this command rebuilt right now!` :star_struck:\nFor more updates, please stay tuned to my support server: https://discord.gg/JmCFyq7")
 #        champion = FULL_NAMES.get(alias, alias)
 #        try:
 #            data = Embed.create(self, ctx, title="Featured Image.".format(
@@ -49,7 +49,7 @@ class Mcoc(commands.Cog):
     async def portrait(self, ctx, champion: str):
         champion = FULL_NAMES.get(alias, alias)
         try:
-            data = Embed.create(self, ctx, title="{0}'s Portrait Image.".format(
+            data = Embed.create(self, ctx, title="Portrait Image.".format(
                 champion.capitalize()), image=PORTRAITS[champion.lower()])
             await ctx.send(embed=data)
         except KeyError:
