@@ -18,7 +18,7 @@ class Getrole(commands.Cog):
 
     @role.command(name="add")
     @checks.admin()
-    async def _add(self, ctx, role: discord.Role)
+    async def _add(self, ctx, role: discord.Role):
         """Add a purchasable role"""
         await self.config.guild(ctx.guild).roles.set_raw(role)
         data = Embed.create(self, ctx, title='**Menu: Adding Roles**')
