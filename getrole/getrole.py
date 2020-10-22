@@ -13,10 +13,10 @@ class Getrole(commands.Cog):
         self.embed = Embed(self)
 
     @commands.group()
-    async def role(self, ctx):
+    async def getrole(self, ctx):
         """Get self assignable roles."""
 
-    @role.command(name="add")
+    @getrole.command(name="add")
     @checks.admin()
     async def _add(self, ctx, role: discord.Role):
         """Add a purchasable role"""
@@ -25,7 +25,7 @@ class Getrole(commands.Cog):
         description = ("That role can now be self-assigned by members.")
         await ctx.send(embed=data)        
 
-    @role.command(aliases=["del", ])
+    @getrole.command(aliases=["del", ])
     @checks.admin()
     async def remove(self, ctx, *, role):
         try:
@@ -34,7 +34,7 @@ class Getrole(commands.Cog):
         except KeyError:
             await ctx.send("I couldn't find that role")
 
-    @role.command()
+    @getrole.command()
     async def buy(self, ctx, *, role: discord.Role):
         """Buy a role with credits"""
         try:
