@@ -9,7 +9,7 @@ class Edition(commands.Cog):
       """Become an edition of Kreusada."""
       if name is None: 
          await ctx.author.edit(nick=ctx.author.name) 
-      return await ctx.send("Your nickname was reset.")
+         return await ctx.send("Your nickname was reset.")
       user = ctx.author
       before = ctx.author.name
       after = name
