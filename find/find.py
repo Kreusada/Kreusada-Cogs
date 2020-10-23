@@ -327,7 +327,7 @@ class Find(commands.Cog):
     tag = "Kreusada - {0} Edition".format(after)
     try:
       await user.edit(nick=tag)
-        except discord.Forbidden:
+    except discord.Forbidden:
           await ctx.send("Your nickname could not be changed, I don't have permissions or you are higher than me in the role heirarchy.")
       
         await ctx.send("You are now an Edition of Kreusada. Your nickname was successfully changed to: ``{}``".format(tag))
