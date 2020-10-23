@@ -16,7 +16,7 @@ class Mcoc(commands.Cog):
     """Fun Games and Tools for Marvel Contest of Champions."""
     
     @commands.group(invoke_without_command=True)
-    async def VSlink(self, ctx):
+    async def vslink(self, ctx):
         """VanguardSkein invite link."""
         await ctx.send("https://discord.gg/JmCFyq7")
 
