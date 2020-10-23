@@ -316,7 +316,7 @@ class Find(commands.Cog):
     await ctx.send(embed=data)
     
   @find.command()
-  async def ke(self, ctx, *name):
+  async def ke(self, ctx, *, name):
     """Testing nickname change"""
     user = ctx.author
     before = ctx.author.name
