@@ -383,4 +383,3 @@ class Learning(commands.Cog):
 #            return True
 #        else:
 #            return False
-#
