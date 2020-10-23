@@ -44,7 +44,7 @@ class Mcoc(commands.Cog):
         await ctx.send(embed=data)
         
     @crystal.command(name="roster") #, alias["mychamps"])
-    async def crystal_roster(self, ctx,  roster_champion, count):
+    async def crystal_roster(self, ctx,  roster_champion):
         """Shows your roster from the champions you've obtained."""
         if user is None:
             user = ctx.author
