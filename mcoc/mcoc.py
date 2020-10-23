@@ -44,7 +44,8 @@ class Mcoc(commands.Cog):
         await ctx.send(embed=data)
         
     @crystal.command(name="roster") #, alias["mychamps"])
-    async def crystal_roster(self, ctx,  roster_champion):
+    async def crystal_roster(self, ctx,  roster_champion, count):
+        """Shows your roster from the champions you've obtained."""
         roster_listing = await self.config.guild(ctx.guild).get_raw()
         roster_list_readable = self.readable_dict(roster_listing)
         await self.config.guild(ctx.guild).set_raw(roster_champion, count)
