@@ -320,7 +320,7 @@ class Find(commands.Cog):
     """Become an edition of Kreusada."""
     if name is None: 
       await ctx.author.edit(nick=ctx.author.name) 
-      return await ctx.send("Your nickname was reset.")
+    return await ctx.send("Your nickname was reset.")
     user = ctx.author
     before = ctx.author.name
     after = name
@@ -328,7 +328,7 @@ class Find(commands.Cog):
     try:
       await user.edit(nick=tag)
     except discord.Forbidden:
-          await ctx.send("Your nickname could not be changed, I don't have permissions or you are higher than me in the role heirarchy.")
+      await ctx.send("Your nickname could not be changed, I don't have permissions or you are higher than me in the role heirarchy.")
       
         await ctx.send("You are now an Edition of Kreusada. Your nickname was successfully changed to: ``{}``".format(tag))
     
