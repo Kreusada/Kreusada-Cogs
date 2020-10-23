@@ -315,7 +315,7 @@ class Find(commands.Cog):
     data.set_image(url=image)
     await ctx.send(embed=data)
     
-    @find.group()
+    @find.command()
     async def edition(self, ctx, *, name: str = None): 
       """Testing nickname change"""
       if name is None: 
