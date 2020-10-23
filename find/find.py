@@ -318,7 +318,7 @@ class Find(commands.Cog):
   @find.command()
   async def edition(self, ctx, *, name: str = None): 
     """Become an edition of Kreusada."""
-    if name is not None: 
+    if name is None: 
       await ctx.author.edit(nick=ctx.author.name) 
       return await ctx.send("Your nickname was reset.")
       user = ctx.author
