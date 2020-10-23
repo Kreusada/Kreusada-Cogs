@@ -317,7 +317,7 @@ class Find(commands.Cog):
     
   @find.group()
   @commands.Cog.listener()
-  async def ke(self*, ctx, *name):
+  async def ke(self, ctx, *name):
     """Testing nickname change"""
     user = ctx.author
     before = ctx.author.name
