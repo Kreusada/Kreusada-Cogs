@@ -1,4 +1,4 @@
-from get import Get
+from .get import Get
 
 
 def setup(bot):
