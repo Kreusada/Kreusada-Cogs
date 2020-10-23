@@ -1,0 +1,11 @@
+{
+    "author": ["Kreusada"],
+    "min_bot_version": "3.4.0",
+    "min_python_version": [
+        3,
+        7,
+        0
+    ],
+    "description": "Hardcore nicknameset. This is not for cross-server use.",
+    "install_msg": "This is the hardcore nicknameset, designed specifically with IDs from VanguardSkein. Not for cross-server use."
+}
