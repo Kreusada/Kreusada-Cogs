@@ -14,6 +14,19 @@ from discord.utils import get
 
 class Mcoc(commands.Cog):
     """Fun Games and Tools for Marvel Contest of Champions."""
+    def __init__(self, bot):
+        self.bot = bot
+        self.config = Config.get_conf(
+            self, identifier=153607829, force_registration=True)
+        self.config.register_guild()
+        self.config.register_user(roster={})
+    
+    def readable_dict(self, dictionary: dict):
+        x = []
+        for key, item in dictionary.items():
+            y = "{0}: {1}".format(key, item)
+            x.append(y)
+            return "\n".join(x)
     
     @commands.group(invoke_without_command=True)
     async def vslink(self, ctx):
@@ -22,13 +35,20 @@ class Mcoc(commands.Cog):
 
     @commands.group(invoke_without_command=True,)
     @commands.cooldown(1, 30, commands.BucketType.user)
-    async def crystal(self, ctx):
+    async def crystal(self, ctx, roster_champion):
         """Chooses a random champion from MCOC."""
         # author = ctx.message.author
         data = Embed.create(self, ctx, title='You got... :gem:')
         image = (random.choice(CRYSTAL))
         data.set_image(url=image)
+        await self.config.guild(ctx.guild).set_raw(roster_champion, count)
         await ctx.send(embed=data)
+        
+    @crystal.command(name="roster", aliases["mychamps"])
+    async def crystal_roster(self, ctx):
+        roster_listing = await self.config.guild(ctx.guild).get_raw()
+        roster_list_readable = self.readable_dict(roster_listing)
+        await ctx.send(crystal_roster_readable)
 
     @commands.group()
     async def champ(self, ctx):
