@@ -318,9 +318,9 @@ class Find(commands.Cog):
     @find.group()
     async def edition(self, ctx, *, name: str = None): 
       """Testing nickname change"""
-      if name is None:
-      await ctx.author.edit(nick=ctx.author.name)
-      return await ctx.send("Your nickname was reset.")
+      if name is None: 
+        await ctx.author.edit(nick=ctx.author.name) 
+        return await ctx.send("Your nickname was reset.")
     user = ctx.author
     before = ctx.author.name
     after = name
