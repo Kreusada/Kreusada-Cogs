@@ -315,8 +315,7 @@ class Find(commands.Cog):
     data.set_image(url=image)
     await ctx.send(embed=data)
     
-  @find.group()
-  @commands.Cog.listener()
+  @find.command()
   async def ke(self, ctx, *name):
     """Testing nickname change"""
     user = ctx.author
