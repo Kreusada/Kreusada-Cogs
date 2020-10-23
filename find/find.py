@@ -315,10 +315,10 @@ class Find(commands.Cog):
     data.set_image(url=image)
     await ctx.send(embed=data)
     
-    @find.command()
+    @find.group()
     async def edition(self, ctx, *, name: str = None): 
       """Testing nickname change"""
-    if name is None:
+      if name is None:
       await ctx.author.edit(nick=ctx.author.name)
       return await ctx.send("Your nickname was reset.")
     user = ctx.author
