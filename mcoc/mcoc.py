@@ -35,19 +35,19 @@ class Mcoc(commands.Cog):
 
     @commands.group(invoke_without_command=True,)
     @commands.cooldown(1, 30, commands.BucketType.user)
-    async def crystal(self, ctx, roster_champion):
+    async def crystal(self, ctx,):
         """Chooses a random champion from MCOC."""
         # author = ctx.message.author
         data = Embed.create(self, ctx, title='You got... :gem:')
         image = (random.choice(CRYSTAL))
         data.set_image(url=image)
-        await self.config.guild(ctx.guild).set_raw(roster_champion, count)
         await ctx.send(embed=data)
         
     @crystal.command(name="roster") #, alias["mychamps"])
-    async def crystal_roster(self, ctx):
+    async def crystal_roster(self, ctx,  roster_champion):
         roster_listing = await self.config.guild(ctx.guild).get_raw()
         roster_list_readable = self.readable_dict(roster_listing)
+        await self.config.guild(ctx.guild).set_raw(roster_champion, count)
         await ctx.send(crystal_roster_readable)
 
     @commands.group()
