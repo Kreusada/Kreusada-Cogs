@@ -315,7 +315,7 @@ class Find(commands.Cog):
     data.set_image(url=image)
     await ctx.send(embed=data)
     
-    @commands.command()
+    @find.command()
     async def edition(self, ctx, *, name: str = None): 
       """Testing nickname change"""
     if name is None:
@@ -329,7 +329,6 @@ class Find(commands.Cog):
       await user.edit(nick=tag)
     except discord.Forbidden:
       await ctx.send("Your nickname could not be changed, I don't have permissions or you are higher than me in the role heirarchy.")
-      
       await ctx.send("You are now an Edition of Kreusada. Your nickname was successfully changed to: ``{}``".format(tag))
     
 #  @find.group()
