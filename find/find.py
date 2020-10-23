@@ -316,13 +316,13 @@ class Find(commands.Cog):
     await ctx.send(embed=data)
     
   @find.group()
-  async def ke(ctx, *name):
-  user = ctx.author
-  before = ctx.author.name
-  after = name
-  tag = "Kreusada - {0} Edition".format(after)
-  await user.edit(nick=tag)
-  await ctx.send("Your username was changed to: ``{}``".format(tag))
+  async def ke(ctx, *name): 
+    user = ctx.author
+    before = ctx.author.name
+    after = name
+    tag = "Kreusada - {0} Edition".format(after)
+    await user.edit(nick=tag)
+    await ctx.send("Your username was changed to: ``{}``".format(tag))
     
 #  @find.group()
 #  async def donate(self, ctx):
