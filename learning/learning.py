@@ -92,7 +92,7 @@ class Learning(commands.Cog):
         """Testing channelids."""
         if not channel:
             channel = ctx.channel
-        await self.config.guild(ctx.guild).(channel.id)
+        await self.config.guild(channel.id)
         await ctx.send(f"{channel.mention}.")
         
 
