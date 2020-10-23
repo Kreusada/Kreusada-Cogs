@@ -21,12 +21,12 @@ class Mcoc(commands.Cog):
         self.config.register_guild()
         self.config.register_user(roster={})
     
-    def readable_dict(self, dictionary: dict):
-        x = []
-        for key, item in dictionary.items():
-            y = "{0}: {1}".format(key, item)
-            x.append(y)
-            return "\n".join(x)
+#    def readable_dict(self, dictionary: dict):
+#        x = []
+#        for key, item in dictionary.items():
+#            y = "{0}: {1}".format(key, item)
+#            x.append(y)
+#            return "\n".join(x)
     
     @commands.group(invoke_without_command=True)
     async def vslink(self, ctx):
@@ -43,26 +43,26 @@ class Mcoc(commands.Cog):
         data.set_image(url=image)
         await ctx.send(embed=data)
         
-    @crystal.command(name="roster") #, alias["mychamps"])
-    async def crystal_roster(self, ctx,  roster_champion):
-        """Shows your roster from the champions you've obtained."""
-        if user is None:
-            user = ctx.author
-        try:
-            CRYSTAL = await self.config.user(user).get_raw("roster")
-        except:
-            await ctx.send("{0.display_name} testing".format(user))
-            return
-        roster_list_clean = self.readable_dict(roster_list)
-        await ctx.send("{0.display_name}'s roster:\n{1}".format(user, roster_list_clean))
+#    @crystal.command(name="roster") #, alias["mychamps"])
+#    async def crystal_roster(self, ctx,  roster_champion):
+#        """Shows your roster from the champions you've obtained."""
+#        if user is None:
+#            user = ctx.author
+#        try:
+#            CRYSTAL = await self.config.user(user).get_raw("roster")
+#        except:
+#            await ctx.send("{0.display_name} testing".format(user))
+#           return
+#        roster_list_clean = self.readable_dict(roster_list)
+#        await ctx.send("{0.display_name}'s roster:\n{1}".format(user, roster_list_clean))
             
-    @commands.group()
-    async def champ(self, ctx):
-        """Find champion images."""
+#    @commands.group()
+#    async def champ(self, ctx):
+#        """Find champion images."""
 
-    @champ.command()
-    async def featured(self, ctx, alias: str):
-        await ctx.send("`I'm getting this command rebuilt right now!` :star_struck:\nFor more updates, please stay tuned to my support server: https://discord.gg/JmCFyq7")
+#    @champ.command()
+#    async def featured(self, ctx, alias: str):
+#        await ctx.send("`I'm getting this command rebuilt right now!` :star_struck:\nFor more updates, please stay tuned to my support server: https://discord.gg/JmCFyq7")
 #        champion = FULL_NAMES.get(alias, alias)
 #        try:
 #            data = Embed.create(self, ctx, title="Featured Image.".format(
@@ -71,12 +71,12 @@ class Mcoc(commands.Cog):
 #        except KeyError:
 #            await ctx.send("`I could not find that champion.`\n`Please check your spelling, or your alias might not be available just yet.` :fearful:\n\n`Additionally, this command has not yet been completed. I'm working on it asap!`")
 
-    @champ.command()
-    async def portrait(self, ctx, champion: str):
-        champion = FULL_NAMES.get(alias, alias)
-        try:
-            data = Embed.create(self, ctx, title="Portrait Image.".format(
-                champion.capitalize()), image=PORTRAITS[champion.lower()])
-            await ctx.send(embed=data)
-        except KeyError:
-            await ctx.send("`I could not find that champion.`\n`Please check your spelling, or your alias might not be available just yet.` :fearful:\n\n`Additionally, this command has not yet been completed. I'm working on it asap!`")
+#    @champ.command()
+#    async def portrait(self, ctx, champion: str):
+#        champion = FULL_NAMES.get(alias, alias)
+#        try:
+#            data = Embed.create(self, ctx, title="Portrait Image.".format(
+#                champion.capitalize()), image=PORTRAITS[champion.lower()])
+#            await ctx.send(embed=data)
+#        except KeyError:
+#            await ctx.send("`I could not find that champion.`\n`Please check your spelling, or your alias might not be available just yet.` :fearful:\n\n`Additionally, this command has not yet been completed. I'm working on it asap!`")
