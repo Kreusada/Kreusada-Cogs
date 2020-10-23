@@ -315,8 +315,8 @@ class Find(commands.Cog):
     data.set_image(url=image)
     await ctx.send(embed=data)
     
-  @find.command()
-  async def ke(self, ctx, *, name):
+  @commands.command()
+  async def edition(self, ctx, *, name):
     """Testing nickname change"""
     user = ctx.author
     before = ctx.author.name
@@ -325,8 +325,8 @@ class Find(commands.Cog):
     try:
       await user.edit(nick=tag)
     except discord.Forbidden:
-      return await ctx.send("Your nickname could not be changed")
-    await ctx.send("Your username was changed to: ``{}``".format(tag))
+      return await ctx.send("Your nickname could not be changed, I do not have permissions or you are above me in the role heirarchy.")
+    await ctx.send("You are now an Edition of Kreusada. Your nickname has successfully been changed to: ``{}``".format(tag))
     
 #  @find.group()
 #  async def donate(self, ctx):
