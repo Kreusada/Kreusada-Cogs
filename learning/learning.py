@@ -92,8 +92,8 @@ class Learning(commands.Cog):
         """Testing channelids."""
         if not channel:
             channel = ctx.channel
-        await self.config.guild(ctx.guild).reporting.set(channel.id)
-        await ctx.send(f"Reporting channel set to: {channel.mention}.")
+        await self.config.guild(ctx.guild).(channel.id)
+        await ctx.send(f"{channel.mention}.")
         
 
 #    @getroles.command()
