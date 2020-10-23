@@ -237,7 +237,7 @@ class Ticketer(commands.Cog):
                         ),
                     },
                 )
-                await ctx.send("Ticket closed.")
+                await ctx.send("Ticket closed. Have a great day!")
                 active.remove(ticket)
                 async with self.config.guild(ctx.guild).closed() as closed:
                     closed.append(ticket[0])
