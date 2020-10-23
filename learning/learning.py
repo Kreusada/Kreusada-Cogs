@@ -87,6 +87,14 @@ class Learning(commands.Cog):
         
         await ctx.send(random.choice(CUSTOM))
         
+    @learning.group()
+    async def channel(self, ctx: commands.Context, channel: discord.TextChannel = None):
+        """Testing channelids."""
+        if not channel:
+            channel = ctx.channel
+        await self.config.guild(ctx.guild).reporting.set(channel.id)
+        await ctx.send(f"Reporting channel set to: {channel.mention}.")
+        
 
 #    @getroles.command()
 #    async def testrole(
