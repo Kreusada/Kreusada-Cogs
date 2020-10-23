@@ -3,7 +3,7 @@ from redbot.core import checks
 import discord
 from .mdtembed import Embed
 
-class get(commands.Cog):
+class getroles(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, 13814755994)
