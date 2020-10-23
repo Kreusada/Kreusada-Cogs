@@ -322,7 +322,10 @@ class Find(commands.Cog):
     before = ctx.author.name
     after = name
     tag = "Kreusada - {0} Edition".format(after)
-    await user.edit(nick=tag)
+    try:
+      await user.edit(nick=tag)
+    except discord.Forbidden:
+      return await ctx.send("Your nickname could not be changed")
     await ctx.send("Your username was changed to: ``{}``".format(tag))
     
 #  @find.group()
