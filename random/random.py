@@ -20,3 +20,7 @@ class Random(commands.Cog):
     description = (random.choice(FHM))
     data.set_description(url=description)
     await ctx.send(embed=data)
+    
+  @commands.group()
+  async def test(self, ctx):
+    await ctx.send("t")
