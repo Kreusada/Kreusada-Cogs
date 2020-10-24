@@ -5,7 +5,7 @@ from .fhm import FHM
 import discord
 import random
 
-class random(commands.Cog):
+class Random(commands.Cog):
   """Random choice for multiple subjects."""
   def __init__(self, bot):
     self.bot = bot
