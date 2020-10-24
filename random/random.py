@@ -1,6 +1,7 @@
 from redbot.core import commands, checks, Config
 from .mdtembed import Embed
 from discord.utils import get
+from .fhm import FHM
 import discord
 import random
 
