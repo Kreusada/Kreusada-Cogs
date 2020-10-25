@@ -3,6 +3,7 @@ import discord
 import random
 import json
 import os
+from .bc import BCB
 from .mdtembed import Embed
 from .featureds import FEATUREDS
 from .featureds import FULL_NAMES
@@ -42,6 +43,18 @@ class Mcoc(commands.Cog):
         image = (random.choice(CRYSTAL))
         data.set_image(url=image)
         await ctx.send(embed=data)
+        
+    @commands.group()
+    async def battlechip(self, ctx,):
+        """Opens a battlechip crystal from MCOC."""
+        
+    @battlechip.group(invoke_without_command=True)
+    @commands.cooldown(1, 30, commands.BucketType.user)
+    async def basic(self, ctx):
+        """Open a basic battlechip crystal."""
+        data = Embed.create(self, ctx, title="You got {}!".format(bcb.capitalize(), image=BCP[bcp.lower(), (random.choice(BCP))])
+        await ctx.send(embed=data)
+    
         
 #    @crystal.command(name="roster") #, alias["mychamps"])
 #    async def crystal_roster(self, ctx,  roster_champion):
