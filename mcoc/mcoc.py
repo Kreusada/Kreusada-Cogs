@@ -52,6 +52,7 @@ class Mcoc(commands.Cog):
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def basic(self, ctx):
         """Open a basic battlechip crystal."""
+        print("[INFO]",random.__file__)
         key = random.choice(list(BCB.keys()))
         data = Embed.create(self, ctx, title="You got {}!".format(key))
         url = BCB[key]
