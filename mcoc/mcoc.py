@@ -56,7 +56,9 @@ class Mcoc(commands.Cog):
         title= "You got {}!".format(random.choice(BCB))
         key = random.choice(list(BCB.keys()))
         url = BCB[key]
+        image = url
         data.set_image(url=image)
+        data.set_title(title=title)
         await ctx.send(embed=data)
     
         
