@@ -52,7 +52,7 @@ class Embed:
 #                print('Thumbnail URL Failure, code {}'.format(code))
 #                print('Attempted URL:\n{}'.format(thumbnail))
         if footer_text is None:
-            footer_text = "Demaratus | Matrix Development Team"
+            footer_text = "Demaratus | VanguardSkein"
         if footer_url is None:
             footer_url = DEMARATUS_ICON
         data.set_footer(text=footer_text, icon_url=footer_url)
