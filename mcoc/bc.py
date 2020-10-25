@@ -70,6 +70,3 @@ BCB = {
   "Energy Refill": "https://vignette.wikia.nocookie.net/marvel-contestofchampions/images/a/af/Full_Energy_Refills.png/revision/latest/top-crop/width/220/height/220?cb=20190505215200",
   "Energy Refill": "https://vignette.wikia.nocookie.net/marvel-contestofchampions/images/a/af/Full_Energy_Refills.png/revision/latest/top-crop/width/220/height/220?cb=20190505215200"
 }
-
-BCU = {
-  "
