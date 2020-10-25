@@ -58,7 +58,7 @@ class Mcoc(commands.Cog):
         url = BCB[key]
         image = url
         data.set_image(url=image)
-        data.set_title(title=title)
+        data.set_title(title)
         await ctx.send(embed=data)
     
         
