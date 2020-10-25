@@ -67,7 +67,7 @@ BCB = {
   "3 Star Punisher": "https://vignette.wikia.nocookie.net/marvel-contestofchampions/images/b/bd/Punisher.png/revision/latest?cb=20150702191549",
   "3 Star Punisher": "https://vignette.wikia.nocookie.net/marvel-contestofchampions/images/b/bd/Punisher.png/revision/latest?cb=20150702191549",
   "4 Star Punisher": "https://vignette.wikia.nocookie.net/marvel-contestofchampions/images/b/bd/Punisher.png/revision/latest?cb=20150702191549",
-  "Energy Refill": "https://vignette.wikia.nocookie.net/marvel-contestofchampions/images/a/af/Full_Energy_Refills.png/revision/latest/top-crop/width/220/height/220?cb=20190505215200"
+  "Energy Refill": "https://vignette.wikia.nocookie.net/marvel-contestofchampions/images/a/af/Full_Energy_Refills.png/revision/latest/top-crop/width/220/height/220?cb=20190505215200",
   "Energy Refill": "https://vignette.wikia.nocookie.net/marvel-contestofchampions/images/a/af/Full_Energy_Refills.png/revision/latest/top-crop/width/220/height/220?cb=20190505215200"
 }
 
