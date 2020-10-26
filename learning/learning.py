@@ -94,17 +94,21 @@ class Learning(commands.Cog):
             channel = ctx.channel
         await self.config.guild(channel.id)
         await ctx.send(f"{channel.mention}.")
-        
-
-    @learning.command()
-    async def testrole(
-        self, ctx: commands.Context, member: discord.Member, role: discord.Role, *, check_user=True
-    ):
-        if role in member.roles:
-            await ctx.send(
-                _("{member.display_name} already has the role {role.name}.").format(
-                    role=role, member=member
-                )
+                
+    @learning.group(invoke_without_command = True)
+    async def randint(self, ctx):
+        """Testing `random.randint`."""
+        randint_nonjackpot = [
+            "Testing Nonjackpot",
+            "Testing Nonjackpot2",
+            "Testing Nonjackpot3"
+        ]
+        randint_jackpot = random.randint(1, 10)
+        if randint_jackpot == 300:
+                msg = "Jackpot"
+        else:
+                msg = random.choice(randint_nonjackpot)
+        await ctx.send(msg)
             
 #    @getroles.command()
 #    @commands.guild_only()
