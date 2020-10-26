@@ -95,7 +95,7 @@ class Learning(commands.Cog):
         await self.config.guild(channel.id)
         await ctx.send(f"{channel.mention}.")
                 
-    @learning.group()
+    @learning.group(invoke_without_command = True)
     async def randint(self, ctx):
         """Testing `random.randint`."""
         randint_nonjackpot = [
