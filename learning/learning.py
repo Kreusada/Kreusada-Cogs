@@ -94,17 +94,6 @@ class Learning(commands.Cog):
             channel = ctx.channel
         await self.config.guild(channel.id)
         await ctx.send(f"{channel.mention}.")
-        
-
-    @learning.command()
-    async def testrole(
-        self, ctx: commands.Context, member: discord.Member, role: discord.Role, *, check_user=True
-    ):
-        if role in member.roles:
-            await ctx.send(
-                _("{member.display_name} already has the role {role.name}.").format(
-                    role=role, member=member
-                )
                 
     @learning.group()
     async def randint(self, ctx):
