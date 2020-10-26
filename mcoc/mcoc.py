@@ -22,13 +22,6 @@ class Mcoc(commands.Cog):
         self.config.register_guild()
         self.config.register_user(roster={})
     
-#    def readable_dict(self, dictionary: dict):
-#        x = []
-#        for key, item in dictionary.items():
-#            y = "{0}: {1}".format(key, item)
-#            x.append(y)
-#            return "\n".join(x)
-    
     @commands.group(invoke_without_command=True)
     async def vslink(self, ctx):
         """VanguardSkein invite link."""
@@ -59,20 +52,6 @@ class Mcoc(commands.Cog):
         image = url
         data.set_image(url=image)
         await ctx.send(embed=data)
-    
-        
-#    @crystal.command(name="roster") #, alias["mychamps"])
-#    async def crystal_roster(self, ctx,  roster_champion):
-#        """Shows your roster from the champions you've obtained."""
-#        if user is None:
-#            user = ctx.author
-#        try:
-#            CRYSTAL = await self.config.user(user).get_raw("roster")
-#        except:
-#            await ctx.send("{0.display_name} testing".format(user))
-#           return
-#        roster_list_clean = self.readable_dict(roster_list)
-#        await ctx.send("{0.display_name}'s roster:\n{1}".format(user, roster_list_clean))
             
 #    @commands.group()
 #    async def champ(self, ctx):
