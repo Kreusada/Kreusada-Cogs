@@ -87,16 +87,24 @@ class Learning(commands.Cog):
         
         await ctx.send(random.choice(CUSTOM))
         
+    @learning.group()
+    async def channel(self, ctx: commands.Context, channel: discord.TextChannel = None):
+        """Testing channelids."""
+        if not channel:
+            channel = ctx.channel
+        await self.config.guild(channel.id)
+        await ctx.send(f"{channel.mention}.")
+        
 
-#    @getroles.command()
-#    async def testrole(
-#        self, ctx: commands.Context, member: discord.Member, role: discord.Role, *, check_user=True
-#    ):
-#        if role in member.roles:
-#            await ctx.send(
-#                _("{member.display_name} already has the role {role.name}.").format(
-#                    role=role, member=member
-#                )
+    @learning.command()
+    async def testrole(
+        self, ctx: commands.Context, member: discord.Member, role: discord.Role, *, check_user=True
+    ):
+        if role in member.roles:
+            await ctx.send(
+                _("{member.display_name} already has the role {role.name}.").format(
+                    role=role, member=member
+                )
             
 #    @getroles.command()
 #    @commands.guild_only()
@@ -375,4 +383,4 @@ class Learning(commands.Cog):
 #            return True
 #        else:
 #            return False
-#
+

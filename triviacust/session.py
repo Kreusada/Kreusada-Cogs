@@ -20,7 +20,6 @@ _REVEAL_MESSAGES = (
     _("You melonheads! The answer is {answer}!"),
     _("Too slow. Way too slow. The answer is {answer}."),
     _("Are you being stupid on purpose? It's {answer} of course."),
-    _("If I was your MCOC teacher at school, I would not be impressed. It's {answer}. Get it right."),
     _("What are you?? An IDIOT SANDWICH! The answer is obviously {answer}."),
     _("You knew that question, you just couldn't get the words out. Don't worry, I totally understand. It was {answer}."),
 )

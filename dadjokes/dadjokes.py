@@ -27,9 +27,9 @@ class DadJokes(commands.Cog):
         joke = await self.get_joke()
         data = Embed.create(self, ctx, title='Demaratus Dad Jokes :joy:',
                             description=joke)
+        image = (f"https://media.discordapp.net/attachments/745608075670585344/770068453502877716/DADJOKES.png?width=1442&height=481")
         data.set_author
-        data.set_image(url=random.choice(self.dadjoke_images))
-
+        data.set_image(url=image)
         await ctx.send(embed=data)
 
     async def get_joke(self):

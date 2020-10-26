@@ -1,30 +1,30 @@
 FEATUREDS = {
-    "abom": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_abomination.png",
+    "abomination": "https://media.discordapp.net/attachments/745608075670585344/768766778691420180/Abomination_featured.png",
     "aegon": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_aegon.png",
-    "agentvenom": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_agent_venom.png",
-    "airwalker": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_airwalker.png",
+    "agentvenom": "https://media.discordapp.net/attachments/745608075670585344/768766780054569000/Agent_Venom_featured.png",
+    "airwalker": "https://media.discordapp.net/attachments/745608075670585344/768766786018476072/air_walker.png",
     "angela": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_angela.png",
-    "annihilus": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_annihilus.png",
-    "antman": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_antman.png",
+    "annihilus": "https://media.discordapp.net/attachments/745608075670585344/768766792050147348/Annihilus_featured.png",
+    "antman": "https://media.discordapp.net/attachments/745608075670585344/768766789223972944/Ant-Man_featured.png",
     "apoc": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_apocalypse.png",
-    "aa": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_archangel.png",
-    "beast": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_beast_allnew.png",
-    "bishop": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_bishop.png",
-    "blackbolt": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_black_bolt.png",
-    "blackpanther": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_black_panther.png",
-    "bpcw": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_black_panther_cw.png",
-    "blackwidow": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_black_widow.png",
-    "bwcv": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_black_widow_timely.png",
+    "aa": "https://media.discordapp.net/attachments/745608075670585344/768766799859941396/Archangel_featured.png",
+    "beast": "https://media.discordapp.net/attachments/745608075670585344/768766795615436800/Beast_featured.png",
+    "bishop": "https://media.discordapp.net/attachments/745608075670585344/768766827744460840/Bishop_featured.png",
+    "blackbolt": "https://media.discordapp.net/attachments/745608075670585344/768766800237953055/Black_Bolt_featured.png",
+    "blackpanther": "https://media.discordapp.net/attachments/745608075670585344/768766802116476928/Black_Panther_featured.png",
+    "bpcw": "https://media.discordapp.net/attachments/745608075670585344/768766800888070144/Black_Panther_Civil_War_featured.png",
+    "blackwidow": "https://media.discordapp.net/attachments/745608075670585344/768766835100614656/Black_Widow_featured.png",
+    "bwcv": "https://media.discordapp.net/attachments/745608075670585344/768766851311861790/Black_Widow_Claire_Voyant_featured.png",
     "bwdo": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_black_widow_movie.png",
-    "blade": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_blade.png",
+    "blade": "https://media.discordapp.net/attachments/745608075670585344/768766856168734730/Blade_featured.png",
     "cable": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_cable.png",
     "captainamerica": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_captain_america.png",
-    "capiw": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_captainamerica_infinitywar.png",
+    "capiw": "https://media.discordapp.net/attachments/745608075670585344/768766821155209276/Captain_America_Infinity_War_featured.png",
     "capwii": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_capamerica_wwii.png",
     "cmm": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_captain_marvel_movie.png",
     "captainmarvel": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_captain_marvel.png",
     "carnage": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_carnage.png",
-    "civilwarrior": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_civilwarrior.png",
+    "Civil Warrior": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_civilwarrior.png",
     "colossus": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_colossus.png",
     "corvus": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_corvusglaive.png",
     "cgr": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_ghost_rider_cosmic.png",
@@ -35,7 +35,7 @@ FEATUREDS = {
     "daredevilnetflix": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_daredevil_netflix.png",
     "daredevil": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_daredevil.png",
     "darkhawk": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_darkhawk.png",
-    "deadpool": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_deadpool.png",
+    "deadpool": "https://media.discordapp.net/attachments/745608075670585344/768766846156406784/Deadpool_featured.png",
     "deadpoolxforce": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_deadpool_xforce.png",
     "diablo": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_diablo.png",
     "doom": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_doctordoom.png",
@@ -43,7 +43,7 @@ FEATUREDS = {
     "drstrange": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_doctor_strange.png",
     "drvoodoo": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_brother_voodoo.png",
     "domino": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_domino.png",
-    "dormammu": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_dormammu.png",
+    "dormammu": "https://media.discordapp.net/attachments/745608075670585344/768766851378708530/Dormammu_featured.png",
     "dragonman": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_dragonman.png",
     "drax": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_drax.png",
     "ebonymaw": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_ebonymaw.png",
@@ -186,3 +186,13 @@ FEATUREDS = {
     "yellowjacket": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_yellowjacket.png",
     "yondu": "https: // auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_yondu.png"
 }
+
+ALIASES = {
+    'antman': ['am', 'ant-man', 'ant man'],
+    'Civil Warrior': ['cw', 'civilwarrior, civil warrior']
+}
+
+FULL_NAMES = {}
+for name, aliases in ALIASES.items():
+    for alias in aliases:
+        FULL_NAMES[alias] = name

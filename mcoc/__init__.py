@@ -7,5 +7,5 @@ with open(Path(__file__).parent / "info.json") as fp:
 
 
 async def setup(bot):
-    cog = Mcoc()
+    cog = Mcoc(bot)
     bot.add_cog(cog)

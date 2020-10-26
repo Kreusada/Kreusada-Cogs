@@ -140,7 +140,7 @@ class Ticketer(commands.Cog):
         if await self._check_settings(ctx):
             settings = await self.config.guild(ctx.guild).all()
             if settings["use_counter"]:
-                name = f"ticket-{settings['current_ticket']}"
+                name = f"📄ticket-{settings['current_ticket']}"
                 await self.config.guild(ctx.guild).current_ticket.set(
                     settings["current_ticket"] + 1
                 )
@@ -188,7 +188,7 @@ class Ticketer(commands.Cog):
                     title=name,
                     description=reason,
                     timestamp=datetime.utcnow(),
-                ).set_footer(text="Last updated at:")
+                ).set_footer(text="Demaratus")
                 message = await ctx.guild.get_channel(settings["channel"]).send(embed=embed)
                 async with self.config.guild(ctx.guild).active() as active:
                     active.append((ticketchannel.id, message.id))
@@ -210,7 +210,8 @@ class Ticketer(commands.Cog):
                 ).embeds[0]
                 new_embed.add_field(
                     name=datetime.utcnow().strftime("%H:%m UTC"),
-                    value=(f"Ticket closed by {ctx.author.name}")
+                    value=f"Ticket closed by {ctx.author.name}",
+                )
                 new_embed.timestamp = datetime.utcnow()
                 await (
                     await ctx.guild.get_channel(settings["channel"]).fetch_message(ticket[1])
@@ -236,7 +237,7 @@ class Ticketer(commands.Cog):
                         ),
                     },
                 )
-                await ctx.send("Ticket closed.")
+                await ctx.send("Ticket closed. Have a great day!")
                 active.remove(ticket)
                 async with self.config.guild(ctx.guild).closed() as closed:
                     closed.append(ticket[0])
