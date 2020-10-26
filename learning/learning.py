@@ -105,6 +105,21 @@ class Learning(commands.Cog):
                 _("{member.display_name} already has the role {role.name}.").format(
                     role=role, member=member
                 )
+                
+    @learning.group()
+    async def randint(self, ctx):
+        """Testing `random.randint`."""
+        randint_nonjackpot = [
+            "Testing Nonjackpot",
+            "Testing Nonjackpot2",
+            "Testing Nonjackpot3"
+        ]
+        randint_jackpot = random.randint(1, 10)
+        if randint_jackpot == 300:
+                msg = "Jackpot"
+        else:
+                msg = random.choice(randint_nonjackpot)
+        await ctx.send(msg)
             
 #    @getroles.command()
 #    @commands.guild_only()
