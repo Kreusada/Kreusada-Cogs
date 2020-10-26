@@ -62,6 +62,23 @@ PORTRAITS = {
   "visionageofultron": "https://i2.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/Vision-Age-of-Ultron.png?resize=300%2C300&ssl=1",
   "venompool": "https://i2.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/venompool.png?resize=256%2C256&ssl=1",
   "venom": "https://i2.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/venom.png?resize=256%2C256&ssl=1",
-  "venomtheduck": "https://i0.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/venom-the-duck.png?resize=256%2C256&ssl=1"
+  "venomtheduck": "https://i0.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/venom-the-duck.png?resize=256%2C256&ssl=1",
+  "unstoppablecolossus": "https://i2.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/Unstoppable-Colossus.png?resize=256%2C256&ssl=1",
+  "ultron": "https://i0.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/ultron-prime.png?resize=256%2C256&ssl=1",
+  "tigra": "https://i1.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/tigra.png?resize=256%2C256&ssl=1",
+  "thor": "https://i1.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/Thor.png?resize=256%2C256&ssl=1",
+  "thorragnarok": "https://i1.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/thor-ragnarok.png?resize=256%2C256&ssl=1",
+  "thing": "https://i1.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/thing.png?resize=256%2C256&ssl=1",
+  "thorjanefoster": "https://i1.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/thor-jane-foster.png?resize=256%2C256&ssl=1",
+  "thehood": "https://i0.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/the-hood.png?resize=256%2C256&ssl=1",
+  "thechampion": "https://i1.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/the-champion.png?resize=256%2C256&ssl=1",
+  "terrax": "https://i0.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/terrax.png?resize=256%2C256&ssl=1",
+  "taskmaster": "https://i0.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/taskmaster.png?resize=256%2C256&ssl=1",
+  "symbiotesupreme": "https://i0.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/symbiote-supreme.png?resize=256%2C256&ssl=1",
+  "superiorironman": "https://i0.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/superior-ironman.png?resize=256%2C256&ssl=1",
+  "sunspot": "https://i1.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/sunspot.png?resize=256%2C256&ssl=1",
+  "storm": "https://i1.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/Storm.png?resize=256%2C256&ssl=1",
+  "stormpyramidx": "https://i1.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/storm-pyramid-x.png?resize=256%2C256&ssl=1",
+  "starlord": "https://i2.wp.com/www.mcoc-guide.com/wp-content/uploads/2020/06/starlord.png?resize=256%2C256&ssl=1"
   
 }
