@@ -18,13 +18,6 @@ class Mcoc(commands.Cog):
         self.config.register_guild()
         self.config.register_user(roster={})
 
-#    def readable_dict(self, dictionary: dict):
-#        x = []
-#        for key, item in dictionary.items():
-#            y = "{0}: {1}".format(key, item)
-#            x.append(y)
-#            return "\n".join(x)
-
     @commands.group(invoke_without_command=True)
     async def vslink(self, ctx):
         """VanguardSkein invite link."""
@@ -50,26 +43,29 @@ class Mcoc(commands.Cog):
     async def basic(self, ctx):
         """Open a basic battlechip crystal."""
         print("[BCB]", random.__file__)
-        key = random.choice(BCB)
-        data = Embed.create(self, ctx, title="You got {}!".format(key))
-        url = BCB[key]
+        data = Embed.create(self, ctx)
+        drop_rate = random.randint(1, 100)
+        if drop_rate >= 98:
+            data.title = "You got {}!".format(BCB["4 Star Punisher"])
+        if drop_rate >= 97:
+            data.title = "You got {}!".format(BCB["Energy Refill"])
+        if drop_rate >= 75:
+            data.title = "You got {}!".format(BCB["3 Star Punisher"])
+        if drop_rate >= 40:
+            data.title = "You got {}!".format(BCB["45 Units"])
+        if drop_rate >= 20:
+            data.title = "You got {}!".format(BCB["15 Units"])
+        if drop_rate >= 15:
+            data.title = "You got {}!".format(BCB["10,000 Gold"])
+        if drop_rate >= 10:
+            data.title = "You got {}!".format(BCB["5,000 Gold"])
+        else:
+            data.title = "You got {}!".format(BCB["2,000 Gold"])
+        url = BCB[drop_rate]
         image = url
         data.set_image(url=image)
         await ctx.send(embed=data)
 
-
-#    @crystal.command(name="roster") #, alias["mychamps"])
-#    async def crystal_roster(self, ctx,  roster_champion):
-#        """Shows your roster from the champions you've obtained."""
-#        if user is None:
-#            user = ctx.author
-#        try:
-#            CRYSTAL = await self.config.user(user).get_raw("roster")
-#        except:
-#            await ctx.send("{0.display_name} testing".format(user))
-#           return
-#        roster_list_clean = self.readable_dict(roster_list)
-#        await ctx.send("{0.display_name}'s roster:\n{1}".format(user, roster_list_clean))
 
 #    @commands.group()
 #    async def champ(self, ctx):
