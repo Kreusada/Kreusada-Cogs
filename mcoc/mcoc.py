@@ -63,6 +63,7 @@ class Mcoc(commands.Cog):
             data.title = "You got {}!".format(BCB["5,000 Gold"])
         else:
             data.title = "You got {}!".format(BCB["2,000 Gold"])
+        data = Embed.create(self, ctx)
         url = BCB[drop_rate]
         image = url
         data.set_image(url=image)
