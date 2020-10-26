@@ -46,6 +46,7 @@ class Mcoc(commands.Cog):
     async def basic(self, ctx):
         """Open a basic battlechip crystal."""
         print("[BCB]",random.__file__)
+        data = Embed.create(self, ctx)
         drop_rate = random.randint(1, 100)
         if drop_rate >= 98:
             data.title = "You got {}!".format(BCB["4 Star Punisher"])
@@ -63,7 +64,6 @@ class Mcoc(commands.Cog):
             data.title = "You got {}!".format(BCB["5,000 Gold"])
         else:
             data.title = "You got {}!".format(BCB["2,000 Gold"])
-        data = Embed.create(self, ctx)
         url = BCB[drop_rate]
         image = url
         data.set_image(url=image)
