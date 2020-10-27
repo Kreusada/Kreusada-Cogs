@@ -18,10 +18,9 @@ T_ = Translator("TriviaSession", __file__)
 _ = lambda s: s
 _REVEAL_MESSAGES = (
     _("You melonheads! The answer is {answer}!"),
-    _("Too slow. Way too slow. The answer is {answer}."),
-    _("Are you being stupid on purpose? It's {answer} of course."),
-    _("What are you?? An IDIOT SANDWICH! The answer is obviously {answer}."),
-    _("You knew that question, you just couldn't get the words out. Don't worry, I totally understand. It was {answer}."),
+    _("Unlucky peeps! It was {answer}."),
+    _("Better luck next time. It was {answer}."),
+    _("{answer}.. of course!"),
 )
 _FAIL_MESSAGES = (
     _("To the next one I guess..."),
