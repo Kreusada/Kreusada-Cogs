@@ -4,7 +4,7 @@ import random
 import json
 import os
 from .mdtembed import Embed
-from .crystal import BCB, FEATUREDS, CRYSTAL
+from .crystal import CRYSTAL, FEATUREDS, BCB
 from discord.utils import get
 
 
@@ -30,7 +30,6 @@ class Mcoc(commands.Cog):
         # author = ctx.message.author
         data = Embed.create(self, ctx, title='You got... :gem:')
         image = (random.choice(CRYSTAL))
-        await self.config.user(ctx.author).roster.set_raw(image)
         data.set_image(url=image)
         await ctx.send(embed=data)
 
@@ -45,49 +44,30 @@ class Mcoc(commands.Cog):
         print("[BCB]", random.__file__)
         data = Embed.create(self, ctx)
         drop_rate = random.randint(1, 100)
-        if drop_rate >= 98:
-            data.title = "You got {}!".format(BCB["4 Star Punisher"])
-        if drop_rate >= 97:
-            data.title = "You got {}!".format(BCB["Energy Refill"])
-        if drop_rate >= 75:
-            data.title = "You got {}!".format(BCB["3 Star Punisher"])
-        if drop_rate >= 40:
-            data.title = "You got {}!".format(BCB["45 Units"])
-        if drop_rate >= 20:
-            data.title = "You got {}!".format(BCB["15 Units"])
-        if drop_rate >= 15:
-            data.title = "You got {}!".format(BCB["10,000 Gold"])
-        if drop_rate >= 10:
-            data.title = "You got {}!".format(BCB["5,000 Gold"])
+        if drop_rate >= 85:
+            msg = BCB[0]
+        elif drop_rate >= 70:
+            msg = BCB[1]
+        elif drop_rate >= 45:
+            msg = BCB[2]
         else:
-            data.title = "You got {}!".format(BCB["2,000 Gold"])
-        url = BCB[drop_rate]
-        image = url
-        data.set_image(url=image)
+            msg = BCB[3]
+        data.title = "You got {}!".format(msg)
+        # if drop_rate == 100:
+        #     data.title = "You got {}!".format(BCB["4 Star Punisher"])
+        # elif drop_rate >= 97:
+        #     data.title = "You got {}!".format(BCB["Energy Refill"])
+        # elif drop_rate >= 75:
+        #     data.title = "You got {}!".format(BCB["3 Star Punisher"])
+        # elif drop_rate >= 40:
+        #     data.title = "You got {}!".format(BCB["45 Units"])
+        # elif drop_rate >= 20:
+        #     data.title = "You got {}!".format(BCB["15 Units"])
+        # elif drop_rate >= 15:
+        #     data.title = "You got {}!".format(BCB[])
+        # elif drop_rate >= 10:
+        #     data.title = "You got {}!".format(BCB["5,000 Gold"])
+        # else:
+        #     data.title = "You got {}!".format(BCB["2,000 Gold"])
+        data.set_image(url=msg)
         await ctx.send(embed=data)
-
-
-#    @commands.group()
-#    async def champ(self, ctx):
-#        """Find champion images."""
-
-#    @champ.command()
-#    async def featured(self, ctx, alias: str):
-#        await ctx.send("`I'm getting this command rebuilt right now!` :star_struck:\nFor more updates, please stay tuned to my support server: https://discord.gg/JmCFyq7")
-#        champion = FULL_NAMES.get(alias, alias)
-#        try:
-#            data = Embed.create(self, ctx, title="Featured Image.".format(
-#                champion.capitalize()), image=FEATUREDS[champion.lower()])
-#            await ctx.send(embed=data)
-#        except KeyError:
-#            await ctx.send("`I could not find that champion.`\n`Please check your spelling, or your alias might not be available just yet.` :fearful:\n\n`Additionally, this command has not yet been completed. I'm working on it asap!`")
-
-#    @champ.command()
-#    async def portrait(self, ctx, champion: str):
-#        champion = FULL_NAMES.get(alias, alias)
-#        try:
-#            data = Embed.create(self, ctx, title="Portrait Image.".format(
-#                champion.capitalize()), image=PORTRAITS[champion.lower()])
-#            await ctx.send(embed=data)
-#        except KeyError:
-#            await ctx.send("`I could not find that champion.`\n`Please check your spelling, or your alias might not be available just yet.` :fearful:\n\n`Additionally, this command has not yet been completed. I'm working on it asap!`")

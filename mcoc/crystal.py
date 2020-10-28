@@ -189,14 +189,10 @@ CRYSTAL = [
     "https://media.discordapp.net/attachments/745608075670585344/768767008593936414/Skrull_featured.png"
 ]
 BCB = [
-    "https://vignette.wikia.nocookie.net/marvel-contestofchampions/images/b/b0/Units_icon.png/revision/latest/scale-to-width-down/340?cb=20190505220131",
-    "https://vignette.wikia.nocookie.net/marvel-contestofchampions/images/b/b0/Units_icon.png/revision/latest/scale-to-width-down/340?cb=20190505220131",
-    "https://vignette.wikia.nocookie.net/marvel-contestofchampions/images/2/2b/Gold_icon.png/revision/latest?cb=20190505220317",
-    "https://vignette.wikia.nocookie.net/marvel-contestofchampions/images/2/2b/Gold_icon.png/revision/latest?cb=20190505220317",
-    "https://vignette.wikia.nocookie.net/marvel-contestofchampions/images/2/2b/Gold_icon.png/revision/latest?cb=20190505220317",
-    "https://vignette.wikia.nocookie.net/marvel-contestofchampions/images/b/bd/Punisher.png/revision/latest?cb=20150702191549",
     "https://vignette.wikia.nocookie.net/marvel-contestofchampions/images/b/bd/Punisher.png/revision/latest?cb=20150702191549",
     "https://vignette.wikia.nocookie.net/marvel-contestofchampions/images/a/af/Full_Energy_Refills.png/revision/latest/top-crop/width/220/height/220?cb=20190505215200"
+    "https://vignette.wikia.nocookie.net/marvel-contestofchampions/images/b/b0/Units_icon.png/revision/latest/scale-to-width-down/340?cb=20190505220131",
+    "https://vignette.wikia.nocookie.net/marvel-contestofchampions/images/2/2b/Gold_icon.png/revision/latest?cb=20190505220317",
 ]
 FEATUREDS = {
     "abomination": "https://media.discordapp.net/attachments/745608075670585344/768766778691420180/Abomination_featured.png",
