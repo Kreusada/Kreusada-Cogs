@@ -46,13 +46,17 @@ class Mcoc(commands.Cog):
         drop_rate = random.randint(1, 100)
         if drop_rate >= 85:
             msg = BCB[0]
+            title = "Punisher"
         elif drop_rate >= 70:
             msg = BCB[1]
+            title = "Energy refill"
         elif drop_rate >= 45:
             msg = BCB[2]
+            title = "Units"
         else:
             msg = BCB[3]
-        data.title = "You got {}!".format(msg)
+            title = "Gold"
+        data.title = "You got {}!".format(title)
         # if drop_rate == 100:
         #     data.title = "You got {}!".format(BCB["4 Star Punisher"])
         # elif drop_rate >= 97:
