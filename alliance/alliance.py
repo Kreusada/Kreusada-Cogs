@@ -6,7 +6,6 @@ class Alliance(commands.Cog):
 
 @commands.command()
 async def timezone(self, ctx):
-    """Replicates a users timezone to their nickname."""
     if name is None:
         await ctx.author.edit(nick=ctx.author.name)
         return await ctx.send("Your timezone was reset. It will no longer show on your Discord nickname.")
