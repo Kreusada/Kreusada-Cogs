@@ -14,7 +14,7 @@ class Collectables(commands.Cog):
         self.config = Config.get_conf(
             self, identifier=153607829, force_registration=True)
         self.config.register_guild(
-            trophy=100
+            Vanguards=100
         )
         self.config.register_user(
             collectables={}
