@@ -19,4 +19,4 @@ async def timezone(self, ctx):
     except discord.Forbidden:
         await ctx.send("Your nickname could not be changed, I don't have permission to change it. :man_shrugging:")
 
-    await ctx.send("Your timezone was successfully added to your nickname --> ``{}``".format(tag))
+    await ctx.send("Your timezone was successfully added to your nickname. ``{}``".format(tag))
