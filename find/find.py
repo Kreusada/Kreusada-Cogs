@@ -315,15 +315,13 @@ class Find(commands.Cog):
     data.set_image(url=image)
     await ctx.send(embed=data)
     
-  @house.group(invoke_without_command=True, pass_context=True)
+  @commands.command()
   async def house(self, ctx):
     """Find a random house to live in!"""
     author = ctx.message.author
     data = Embed.create(self, ctx, title="{}".format(random.choice(HOUSE))
-    image = (random.choice(HOUSE))
-    name = ctx.author.name
     data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
-    data.set_image(url=image)
+    data.set_image(url=random.choice(HOUSE))
     await ctx.send(embed=data)
     
 #  @find.group()
