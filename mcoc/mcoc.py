@@ -27,7 +27,6 @@ class Mcoc(commands.Cog):
     @commands.cooldown(1, 30, commands.BucketType.user)
     async def crystal(self, ctx,):
         """Chooses a random champion from MCOC."""
-        # author = ctx.message.author
         data = Embed.create(self, ctx, title='You got... :gem:')
         image = (random.choice(CRYSTAL))
         data.set_image(url=image)
@@ -38,40 +37,23 @@ class Mcoc(commands.Cog):
         """Opens a battlechip crystal from MCOC."""
 
     @battlechip.group(invoke_without_command=True)
-#    @commands.cooldown(1, 10, commands.BucketType.user)
     async def basic(self, ctx):
         """Open a basic battlechip crystal."""
         print("[BCB]", random.__file__)
         data = Embed.create(self, ctx)
         drop_rate = random.randint(1, 100)
         if drop_rate >= 85:
-            msg = BCB[0]
+            link = BCB[0]
             title = "Punisher"
         elif drop_rate >= 70:
-            msg = BCB[1]
+            link = BCB[1]
             title = "Energy refill"
         elif drop_rate >= 45:
-            msg = BCB[2]
+            link = BCB[2]
             title = "Units"
         else:
-            msg = BCB[3]
+            link = BCB[3]
             title = "Gold"
         data.title = "You got {}!".format(title)
-        # if drop_rate == 100:
-        #     data.title = "You got {}!".format(BCB["4 Star Punisher"])
-        # elif drop_rate >= 97:
-        #     data.title = "You got {}!".format(BCB["Energy Refill"])
-        # elif drop_rate >= 75:
-        #     data.title = "You got {}!".format(BCB["3 Star Punisher"])
-        # elif drop_rate >= 40:
-        #     data.title = "You got {}!".format(BCB["45 Units"])
-        # elif drop_rate >= 20:
-        #     data.title = "You got {}!".format(BCB["15 Units"])
-        # elif drop_rate >= 15:
-        #     data.title = "You got {}!".format(BCB[])
-        # elif drop_rate >= 10:
-        #     data.title = "You got {}!".format(BCB["5,000 Gold"])
-        # else:
-        #     data.title = "You got {}!".format(BCB["2,000 Gold"])
-        data.set_image(url=msg)
+        data.set_image(url=link)
         await ctx.send(embed=data)
