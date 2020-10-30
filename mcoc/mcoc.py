@@ -29,6 +29,7 @@ class Mcoc(commands.Cog):
         data = Embed.create(self, ctx, title='You got... :gem:')
         image = (random.choice(CRYSTAL))
         description = "Testing"
+        data.description = description
         data.set_image(url=image)
         await ctx.send(embed=data)
 
