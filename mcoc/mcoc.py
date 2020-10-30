@@ -72,6 +72,7 @@ class Mcoc(commands.Cog):
         else:
             link = BCB[3]
             title = "2,500 Gold"
+            description = "Testing"
         data.title = "You got {}!".format(title)
         data.description = "{}".format(description)
         data.set_image(url=link)
