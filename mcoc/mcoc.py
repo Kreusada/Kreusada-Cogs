@@ -61,11 +61,7 @@ class Mcoc(commands.Cog):
             description = ""
         elif drop_rate < 6:
             link = BCB[2]
-            title = "10 Units"
-            description = ""
-        elif drop_rate < 9:
-            link = BCB[2]
-            title = "5 Units"
+            title = "15 Units"
             description = ""
         elif drop_rate < 30:
             link = BCB[3]
