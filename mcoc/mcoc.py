@@ -38,6 +38,7 @@ class Mcoc(commands.Cog):
         """Opens a battlechip crystal from MCOC."""
 
     @battlechip.group(invoke_without_command=True)
+    @commands.cooldown(1, 30, commands.BucketType.user)
     async def basic(self, ctx):
         """Open a basic battlechip crystal."""
         print("[BCB]", random.__file__)
