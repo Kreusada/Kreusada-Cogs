@@ -16,7 +16,6 @@ class Mcoc(commands.Cog):
         self.config = Config.get_conf(
             self, identifier=153607829, force_registration=True)
         self.config.register_guild()
-        self.config.register_user(roster={})
 
     @commands.group(invoke_without_command=True)
     async def vslink(self, ctx):
@@ -63,6 +62,7 @@ class Mcoc(commands.Cog):
         elif drop_rate < 30:
             link = BCB[3]
             title = "10,000 Gold"
+            description = "Testing"
         else:
             link = BCB[3]
             title = "2,500 Gold"
