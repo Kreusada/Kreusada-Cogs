@@ -44,21 +44,27 @@ class Mcoc(commands.Cog):
         if drop_rate < 0.02:
             link = BCB[0]
             title = "4 Star Punisher"
+            description = "Testing"
         elif drop_rate < 0.65:
             link = BCB[0]
             title = "3 Star Punisher"
+            description = "Testing"
         elif drop_rate < 0.35:
             link = BCB[1]
             title = "Energy Refill"
+            description = "Testing"
         elif drop_rate < 2:
             link = BCB[2]
             title = "45 Units"
+            description = "Testing"
         elif drop_rate < 6:
             link = BCB[2]
             title = "10 Units"
+            description = "Testing"
         elif drop_rate < 9:
             link = BCB[2]
             title = "5 Units"
+            description = "Testing"
         elif drop_rate < 30:
             link = BCB[3]
             title = "10,000 Gold"
