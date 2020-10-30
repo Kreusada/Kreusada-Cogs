@@ -67,5 +67,6 @@ class Mcoc(commands.Cog):
             link = BCB[3]
             title = "2,500 Gold"
         data.title = "You got {}!".format(title)
+        data.description = "{}".format(description)
         data.set_image(url=link)
         await ctx.send(embed=data)
