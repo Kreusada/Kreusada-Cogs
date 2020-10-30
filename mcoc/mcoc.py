@@ -42,18 +42,27 @@ class Mcoc(commands.Cog):
         print("[BCB]", random.__file__)
         data = Embed.create(self, ctx)
         drop_rate = random.randint(1, 100)
-        if drop_rate >= 85:
+        if drop_rate >= 97:
             link = BCB[0]
-            title = "Punisher"
+            title = "4 Star Punisher"
+        elif drop_rate >= 85:
+            link = BCB[0]
+            title = "3 Star Punisher"
         elif drop_rate >= 70:
             link = BCB[1]
-            title = "Energy refill"
+            title = "Energy Refill"
         elif drop_rate >= 45:
             link = BCB[2]
-            title = "Units"
+            title = "10 Units"
+        elif drop_rate >= 45:
+            link = BCB[3]
+            title = "10,000 Gold"
+        elif drop_rate >= 15:
+            link = BCB[2]
+            title = "5 Units"
         else:
             link = BCB[3]
-            title = "Gold"
+            title = "2,500 Gold"
         data.title = "You got {}!".format(title)
         data.set_image(url=link)
         await ctx.send(embed=data)
