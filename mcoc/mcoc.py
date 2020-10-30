@@ -28,7 +28,7 @@ class Mcoc(commands.Cog):
         """Chooses a random champion from MCOC."""
         data = Embed.create(self, ctx, title='You got... :gem:')
         image = (random.choice(CRYSTAL))
-        description = "Features to add these champions to your `roster` will be coming soon, please expect an ETA of around February 2021."
+        description = ""
         data.description = description
         data.set_image(url=image)
         await ctx.send(embed=data)
