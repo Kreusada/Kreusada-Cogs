@@ -87,6 +87,7 @@ class Mcoc(commands.Cog):
         data = Embed.create(self, ctx, title='Oopsies!')
         image = (f"https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Under_construction_icon-yellow.svg/1200px-Under_construction_icon-yellow.svg.png")
         description = "This command is still being developed. It should be finished by this week! :heart"
+        data.description = description
         data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
         data.set_image(url=image)
         await ctx.send(embed=data)
