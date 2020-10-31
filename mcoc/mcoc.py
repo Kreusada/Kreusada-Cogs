@@ -88,7 +88,7 @@ class Mcoc(commands.Cog):
             description = "This tier has a `0.02%` chance.\nCongratulations!\nMessage Kreusada#0518 with a screenshot to be added to the hall of fame!"
         elif drop_rate < 0.65:
             link = BCB[0]
-            title "4 Star Punisher"
+            title = "4 Star Punisher"
             description = "This tier has a `0.65%` chance.\nCongratulations!"
         elif drop_rate < 0.35:
             link = BCB[1]
