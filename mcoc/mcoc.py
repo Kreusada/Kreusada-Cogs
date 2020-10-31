@@ -106,7 +106,7 @@ class Mcoc(commands.Cog):
             link = BCB[3]
             title = "50,000 Gold"
             description = ""
-        elif drop_rate < 45
+        elif drop_rate < 45:
             link = BCB[3]
             title = "25,000 Gold"
             description = ""
