@@ -107,3 +107,5 @@ Comparing two text channel's categories
     [p]customcom add simple comparecategory {0.category:TextChannel}  |  {1.category:TextChannel}
     [p]comparecategory #support #general
         Red  |  Community
+
+.. note:: This particular segment was provided to us by Red.
