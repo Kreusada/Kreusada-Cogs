@@ -13,7 +13,7 @@ Change Logs
 Cog Support
 ==================
 
-* :ref:`welcome`
+* :ref:`customcommands`
 * :ref:`fun`
 * :ref:`audio`
 * :ref:`tickets`
