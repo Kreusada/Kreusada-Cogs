@@ -6,7 +6,7 @@ class Alliance(commands.Cog):
     """Tools for your alliance on MCOC."""
 
     @commands.command()
-    async def timezone(self, ctx, timezone):
+    async def timezone(self, ctx, *, timezone: str = None):
         """
         Use this command to set your timezone on your nickname.
         For example - `Kreusada [+4]`
