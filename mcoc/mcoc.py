@@ -119,7 +119,7 @@ class Mcoc(commands.Cog):
         data.set_image(url=link)
         await ctx.send(embed=data)
         
-    @mcoc.command()
+    @find.group()
     async def awbadge(self, ctx):
         """The Alliance War badge index."""
     
