@@ -12,7 +12,7 @@ class Alliance(commands.Cog):
             return await ctx.send("Your timezone was reset. It will no longer show on your Discord nickname.")
         user = ctx.author
         before = ctx.author.name
-        after = name
+        after = timezone
         tag = "{0} [{1}]".format(before, after)
         try:
             await user.edit(nick=tag)
