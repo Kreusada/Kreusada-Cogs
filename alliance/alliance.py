@@ -7,6 +7,10 @@ class Alliance(commands.Cog):
 
     @commands.command()
     async def timezone(self, ctx, timezone):
+        """
+        Use this command to set your timezone on your nickname.
+        For example - `Kreusada [+4]`
+        """
         if timezone is None:
             await ctx.author.edit(nick=ctx.author.name)
             return await ctx.send("Your timezone was reset. It will no longer show on your Discord nickname.")
