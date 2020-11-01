@@ -1,66 +1,109 @@
-.. _welcome:
+.. Custom Commands
 
-=====
-Welcome Messages
-=====
+============================
+CustomCommands Cog Reference
+============================
 
-This is the cog guide for adding welcome and goodbye messages to your server.
+------------
+How it works
+------------
 
-``,`` is currently Demaratus' prefix, and will most likely remain this way.
+CustomCommands allows you to create simple commands for your bot without requiring you to code your own cog for Red.
 
-.. note:: For the user help manual, you should consider typing::
+If the command you attempt to create shares a name with an already loaded command, you cannot overwrite it with this cog.
 
-        ,help welcomeset
+---------
+Cooldowns
+---------
 
-.. _welcome-simple-message:
+You can set cooldowns for your custom commands. If a command is on cooldown, it will not be triggered.
 
------
-Simple Message Welcomer
------
+You can set cooldowns per member or per channel, or set a cooldown guild-wide. You can also set multiple types of cooldown on a single custom command. All cooldowns must pass before the command will trigger.
 
-Welcoming a user to your server is definitely something you should consider.
-You can add fancy embed formatting to your welcome message, you can find out about that further down this document.
+------------------
+Context Parameters
+------------------
 
-.. _welcome-greeting-commands:
+You can enhance your custom command's response by leaving spaces for the bot to substitute.
 
---------
-Commands
---------
++-----------+----------------------------------------+
+| Argument  | Substitute                             |
++===========+========================================+
+| {message} | The message the bot is responding to.  |
++-----------+----------------------------------------+
+| {author}  | The user who called the command.       |
++-----------+----------------------------------------+
+| {channel} | The channel the command was called in. |
++-----------+----------------------------------------+
+| {server}  | The server the command was called in.  |
++-----------+----------------------------------------+
+| {guild}   | Same as with {server}.                 |
++-----------+----------------------------------------+
 
-Here is a list of all available commands available for this cog.
+You can further refine the response with dot notation. For example, {author.mention} will mention the user who called the command.
 
-.. _welcome-command-add:
+------------------
+Command Parameters
+------------------
 
-^^^^^^^^
-Simple Welcome Messages
-^^^^^^^^
+You can further enhance your custom command's response by leaving spaces for the user to substitute.
 
-**Syntax**
+To do this, simply put {#} in the response, replacing # with any number starting with 0. Each number will be replaced with what the user gave the command, in order.
+
+You can refine the response with colon notation. For example, {0:Member} will accept members of the server, and {0:int} will accept a number. If no colon notation is provided, the argument will be returned unchanged.
+
++-----------------+--------------------------------+
+| Argument        | Substitute                     |
++=================+================================+
+| {#:Member}      | A member of your server.       |
++-----------------+--------------------------------+
+| {#:TextChannel} | A text channel in your server. |
++-----------------+--------------------------------+
+| {#:Role}        | A role in your server.         |
++-----------------+--------------------------------+
+| {#:int}         | A whole number.                |
++-----------------+--------------------------------+
+| {#:float}       | A decimal number.              |
++-----------------+--------------------------------+
+| {#:bool}        | True or False.                 |
++-----------------+--------------------------------+
+
+You can specify more than the above with colon notation, but those are the most common.
+
+As with context parameters, you can use dot notation to further refine the response. For example, {0.mention:Member} will mention the Member specified.
+
+----------------
+Example commands
+----------------
+
+Showing your own avatar
 
 .. code-block:: none
 
-    ,welcomeset greeting add <message>
+    [p]customcom add simple avatar {author.avatar_url}
+    [p]avatar
+        https://cdn.discordapp.com/avatars/133801473317404673/be4c4a4fe47cb3e74c31a0504e7a295e.webp?size=1024
 
-**Description**
-
-Adds a simple welcome message to your guild. 
-Do not include <> in your syntax.
-
-.. _welcome-command-channel:
-
-""""""""""""
-Welcome Messages Channel
-""""""""""""
-
-**Syntax**
+Repeating the user
 
 .. code-block:: none
 
-    ,welcomeset greeting channel <#channel>
+    [p]customcom add simple say {0}
+    [p]say Pete and Repeat
+        Pete and Repeat
 
-**Description**
+Greeting the specified member
 
-Adds a channel for the greetings to be sent to.
-You can only have one channel where welcome messages are sent.
+.. code-block:: none
 
-.. warning:: This documentation is left incomplete due to priorities. You can support us to finish this section by joining our development server. https://discord.gg/JmCFyq7
+    [p]customcom add simple greet Hello, {0.mention:Member}!
+    [p]greet Twentysix
+        Hello, @Twentysix!
+
+Comparing two text channel's categories
+
+.. code-block:: none
+
+    [p]customcom add simple comparecategory {0.category:TextChannel}  |  {1.category:TextChannel}
+    [p]comparecategory #support #general
+        Red  |  Community
