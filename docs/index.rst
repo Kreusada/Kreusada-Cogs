@@ -9,8 +9,6 @@ Demaratus Central
 
 Change Logs
 ==================
-* :ref:`v1.1`
-* :ref:`v1.2`
 
 Cog Support
 ==================
