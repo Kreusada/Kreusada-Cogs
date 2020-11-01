@@ -118,3 +118,33 @@ class Mcoc(commands.Cog):
         data.description = "{}".format(description)
         data.set_image(url=link)
         await ctx.send(embed=data)
+        
+    @find.group()
+    async def awbadge(self, ctx):
+        """The Alliance War badge index."""
+    
+    @awbadge.group()
+    async def master(self, ctx):
+        """Master Alliance War Badges."""
+  
+    @awbadge.group()
+    async def platinum(self, ctx):
+        """Platinum Alliance War Badges."""
+    
+    @awbadge.group()
+    async def gold(self, ctx):
+        """Gold Alliance War Badges."""
+    
+    @awbadge.group()
+    async def silver(self, ctx):
+        """Silver Alliance War Badges."""
+    
+    @awbadge.group()
+    async def bronze(self, ctx):
+        """Bronze Alliance War Badges."""
+    
+    @awbadge.group()
+    async def stone(self, ctx):
+        """Stone Alliance War Badges."""
+        
+
