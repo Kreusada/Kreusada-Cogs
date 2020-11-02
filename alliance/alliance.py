@@ -2,19 +2,22 @@ import discord
 from validator_collection import validators
 from redbot.core import commands, checks, Config
 
-
 class Alliance(commands.Cog):
     """Tools for your alliance on MCOC."""
 
     @commands.command()
-    async def timezone(self, ctx, name):
-        if name is None:
+    async def timezone(self, ctx, *, timezone: str = None):
+        """
+        Use this command to set your timezone on your nickname.
+        For example - `Kreusada [+4]`
+        """
+        if timezone is None:
             await ctx.author.edit(nick=ctx.author.name)
             return await ctx.send("Your timezone was reset. It will no longer show on your Discord nickname.")
         user = ctx.author
         before = ctx.author.name
-        after = name
-        tag = "{0} - [{1}]".format(before, after)
+        after = timezone
+        tag = "{0} [{1}]".format(before, after)
         try:
             await user.edit(nick=tag)
         except discord.Forbidden:

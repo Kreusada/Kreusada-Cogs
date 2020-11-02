@@ -7,10 +7,14 @@ Demaratus Central
 ==================
 * :ref:`info`
 
+Change Logs
+==================
+* :ref:`v1.1`
+
 Cog Support
 ==================
 
-* :ref:`welcome`
+* :ref:`customcommands`
 * :ref:`fun`
 * :ref:`audio`
 * :ref:`tickets`
