@@ -46,16 +46,29 @@ We now require for you to remove our V1 Demaratus from your server. It should no
 If you have not yet removed this bot, it will be removed over the coming months. These are the servers that KreusadaTesting is currently present in:
 
 01: Acey Official Discord               (730548797767155764)
+
 02: D.A.R.W.I.N.                        (737585293678477363)
+
 03: Defenders of the Multiverse         (728369999709995118)
+
 04: Iron_patriot official discord       (762894841734103041)
+
 05: Matrix - VanguardSkein              (744572173137477692)[Excluded]
+
+06: N/A
+
 07: Matrix Organisation                 (742781228725436437)[Excluded]
+
 08: Summoner006                         (714396392440856639)
+
 09: THE SHADE SYNDICATE                 (664163482270433281)
+
 10: The Horizon Side                    (757733330513821768)
+
 11: The MC Lounge                       (693862255275540490)
+
 12: The Salt Warriors (Seatin Man Of... (319066667315494934)
+
 13: TΗΞ Θ.G. LΛIR                       (708529233051385947)
 
 
