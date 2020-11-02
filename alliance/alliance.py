@@ -30,7 +30,7 @@ class Alliance(commands.Cog):
     async def alliancealert(self, ctx): #aliases: aa, alert):
         """Alert your fellow alliance mates for movement."""
         
-    @alliancealert.command()
+    @alliancealert.group()
     async def aqstart(self, ctx, invoke_without_command=True, pass_context=True):
         """Alliance Quest has started!"""
         author = ctx.message.author
