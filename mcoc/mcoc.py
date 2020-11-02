@@ -231,135 +231,135 @@ class Mcoc(commands.Cog):
         data.set_image(url=image)
         await ctx.send(embed=data)
     
-  @gold.group(name="1", invoke_without_command=True)
-  async def nine(self, ctx):
-    """Gold 1 Badge."""
-    author = ctx.message.author
-    data = Embed.create(self, ctx, title='Gold One Badge :trophy:')
-    image = (f"https://media.discordapp.net/attachments/401476363707744257/738083790131298375/76BC21BF523A415866D19814BD8AF4BE16EF30A9.png")
-    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
-    data.set_image(url=image)
-    await ctx.send(embed=data)
+    @gold.group(name="1", invoke_without_command=True)
+    async def nine(self, ctx):
+        """Gold 1 Badge."""
+        author = ctx.message.author
+        data = Embed.create(self, ctx, title='Gold One Badge :trophy:')
+        image = (f"https://media.discordapp.net/attachments/401476363707744257/738083790131298375/76BC21BF523A415866D19814BD8AF4BE16EF30A9.png")
+        data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+        data.set_image(url=image)
+        await ctx.send(embed=data)
     
-  @gold.group(name="2", invoke_without_command=True)
-  async def ten(self, ctx):
-    """Gold 2 Badge."""
-    author = ctx.message.author
-    data = Embed.create(self, ctx, title='Gold Two Badge :trophy:')
-    image = (f"https://media.discordapp.net/attachments/401476363707744257/738083998462509096/8CD52FEB7540016B6ABA1EC67B9F1777E3C29878.png")
-    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
-    data.set_image(url=image)
-    await ctx.send(embed=data)
+    @gold.group(name="2", invoke_without_command=True)
+    async def ten(self, ctx):
+        """Gold 2 Badge."""
+        author = ctx.message.author
+        data = Embed.create(self, ctx, title='Gold Two Badge :trophy:')
+        image = (f"https://media.discordapp.net/attachments/401476363707744257/738083998462509096/8CD52FEB7540016B6ABA1EC67B9F1777E3C29878.png")
+        data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+        data.set_image(url=image)
+        await ctx.send(embed=data)
     
-  @gold.group(name="3", invoke_without_command=True)
-  async def eleven(self, ctx):
-    """Gold 3 Badge."""
-    author = ctx.message.author
-    data = Embed.create(self, ctx, title='Gold Three Badge:trophy:')
-    image = (f"https://media.discordapp.net/attachments/401476363707744257/738084001926873098/3A9A8FDA006D0BE225242AAA5909021CD52BCFB3.png")
-    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
-    data.set_image(url=image)
-    await ctx.send(embed=data)
+    @gold.group(name="3", invoke_without_command=True)
+    async def eleven(self, ctx):
+        """Gold 3 Badge."""
+        author = ctx.message.author
+        data = Embed.create(self, ctx, title='Gold Three Badge:trophy:')
+        image = (f"https://media.discordapp.net/attachments/401476363707744257/738084001926873098/3A9A8FDA006D0BE225242AAA5909021CD52BCFB3.png")
+        data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+        data.set_image(url=image)
+        await ctx.send(embed=data)
     
-  @silver.group(name="1", invoke_without_command=True)
-  async def twelve(self, ctx):
-    """Silver 1 Badge."""
-    author = ctx.message.author
-    data = Embed.create(self, ctx, title='Silver One Badge :trophy:')
-    image = (f"https://media.discordapp.net/attachments/401476363707744257/738084001465499789/4B389D377A94EDA747B38DF640C0B33A3A3F61AE.png")
-    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
-    data.set_image(url=image)
-    await ctx.send(embed=data)
+    @silver.group(name="1", invoke_without_command=True)
+    async def twelve(self, ctx):
+        """Silver 1 Badge."""
+        author = ctx.message.author
+        data = Embed.create(self, ctx, title='Silver One Badge :trophy:')
+        image = (f"https://media.discordapp.net/attachments/401476363707744257/738084001465499789/4B389D377A94EDA747B38DF640C0B33A3A3F61AE.png")
+        data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+        data.set_image(url=image)
+        await ctx.send(embed=data)
     
-  @silver.group(name="2", invoke_without_command=True)
-  async def thirteen(self, ctx):
-    """Silver 2 Badge."""
-    author = ctx.message.author
-    data = Embed.create(self, ctx, title='Silver Two Badge :trophy:')
-    image = (f"https://media.discordapp.net/attachments/401476363707744257/738084001465499789/4B389D377A94EDA747B38DF640C0B33A3A3F61AE.png")
-    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
-    data.set_image(url=image)
-    await ctx.send(embed=data)
+    @silver.group(name="2", invoke_without_command=True)
+    async def thirteen(self, ctx):
+        """Silver 2 Badge."""
+        author = ctx.message.author
+        data = Embed.create(self, ctx, title='Silver Two Badge :trophy:')
+        image = (f"https://media.discordapp.net/attachments/401476363707744257/738084001465499789/4B389D377A94EDA747B38DF640C0B33A3A3F61AE.png")
+        data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+        data.set_image(url=image)
+        await ctx.send(embed=data)
     
-  @silver.group(name="3", invoke_without_command=True)
-  async def fourteen(self, ctx):
-    """Silver 3 Badge."""
-    author = ctx.message.author
-    data = Embed.create(self, ctx, title='Silver Three Badge :trophy:')
-    image = (f"https://media.discordapp.net/attachments/401476363707744257/738083994612006914/5302FA8FA04735224847C8BBF82D1D54C8567B9C.png")
-    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
-    data.set_image(url=image)
-    await ctx.send(embed=data)
+    @silver.group(name="3", invoke_without_command=True)
+    async def fourteen(self, ctx):
+        """Silver 3 Badge."""
+        author = ctx.message.author
+        data = Embed.create(self, ctx, title='Silver Three Badge :trophy:')
+        image = (f"https://media.discordapp.net/attachments/401476363707744257/738083994612006914/5302FA8FA04735224847C8BBF82D1D54C8567B9C.png")
+        data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+        data.set_image(url=image)
+        await ctx.send(embed=data)
     
-  @bronze.group(name="1", invoke_without_command=True)
-  async def fifteen(self, ctx):
-    """Bronze 1 Badge."""
-    author = ctx.message.author
-    data = Embed.create(self, ctx, title='Bronze One Badge :trophy:')
-    image = (f"https://media.discordapp.net/attachments/401476363707744257/738083995211792404/719AC2C2AB5833D815C899DAF9ADB7CF11819CBA.png")
-    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
-    data.set_image(url=image)
-    await ctx.send(embed=data)
+    @bronze.group(name="1", invoke_without_command=True)
+    async def fifteen(self, ctx):
+        """Bronze 1 Badge."""
+        author = ctx.message.author
+        data = Embed.create(self, ctx, title='Bronze One Badge :trophy:')
+        image = (f"https://media.discordapp.net/attachments/401476363707744257/738083995211792404/719AC2C2AB5833D815C899DAF9ADB7CF11819CBA.png")
+        data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+        data.set_image(url=image)
+        await ctx.send(embed=data)
     
-  @bronze.group(name="2", invoke_without_command=True)
-  async def sixteen(self, ctx):
-    """Bronze 2 Badge."""
-    author = ctx.message.author
-    data = Embed.create(self, ctx, title='Bronze Two Badge :trophy:')
-    image = (f"https://media.discordapp.net/attachments/401476363707744257/738083993043337276/E636A90C3F0DFFDAED0176D972AA0C73F3E40FF8.png")
-    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
-    data.set_image(url=image)
-    await ctx.send(embed=data)
+    @bronze.group(name="2", invoke_without_command=True)
+    async def sixteen(self, ctx):
+        """Bronze 2 Badge."""
+        author = ctx.message.author
+        data = Embed.create(self, ctx, title='Bronze Two Badge :trophy:')
+        image = (f"https://media.discordapp.net/attachments/401476363707744257/738083993043337276/E636A90C3F0DFFDAED0176D972AA0C73F3E40FF8.png")
+        data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+        data.set_image(url=image)
+        await ctx.send(embed=data)
     
-  @bronze.group(name="3", invoke_without_command=True)
-  async def seventeen(self, ctx):
-    """Bronze 3 Badge."""
-    author = ctx.message.author
-    data = Embed.create(self, ctx, title='Bronze Three Badge :trophy:')
-    image = (f"https://media.discordapp.net/attachments/401476363707744257/738083997866786876/5B06D509847E0FA1405A50021486C1A5D8C6F9B2.png")
-    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
-    data.set_image(url=image)
-    await ctx.send(embed=data)
+    @bronze.group(name="3", invoke_without_command=True)
+    async def seventeen(self, ctx):
+        """Bronze 3 Badge."""
+        author = ctx.message.author
+        data = Embed.create(self, ctx, title='Bronze Three Badge :trophy:')
+        image = (f"https://media.discordapp.net/attachments/401476363707744257/738083997866786876/5B06D509847E0FA1405A50021486C1A5D8C6F9B2.png")
+        data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+        data.set_image(url=image)
+        await ctx.send(embed=data)
 
-  @stone.group(name="1", invoke_without_command=True)
-  async def eighteen(self, ctx):
-    """Stone 1 Badge."""
-    author = ctx.message.author
-    data = Embed.create(self, ctx, title='Stone One Badge :trophy:')
-    image = (f"https://media.discordapp.net/attachments/401476363707744257/738083996054978730/9AC92A2FDC2996C346125296356C664373147F2F.png")
-    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
-    data.set_image(url=image)
-    await ctx.send(embed=data)
+    @stone.group(name="1", invoke_without_command=True)
+    async def eighteen(self, ctx):
+        """Stone 1 Badge."""
+        author = ctx.message.author
+        data = Embed.create(self, ctx, title='Stone One Badge :trophy:')
+        image = (f"https://media.discordapp.net/attachments/401476363707744257/738083996054978730/9AC92A2FDC2996C346125296356C664373147F2F.png")
+        data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+        data.set_image(url=image)
+        await ctx.send(embed=data)
     
-  @stone.group(name="2", invoke_without_command=True)
-  async def nineteen(self, ctx):
-    """Stone 2 Badge."""
-    author = ctx.message.author
-    data = Embed.create(self, ctx, title='Stone Two Badge :trophy:')
-    image = (f"https://media.discordapp.net/attachments/401476363707744257/738083993681002586/BF3D13EACC9F44216E754884AA183185761C84CF.png")
-    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
-    data.set_image(url=image)
-    await ctx.send(embed=data)
+    @stone.group(name="2", invoke_without_command=True)
+    async def nineteen(self, ctx):
+        """Stone 2 Badge."""
+        author = ctx.message.author
+        data = Embed.create(self, ctx, title='Stone Two Badge :trophy:')
+        image = (f"https://media.discordapp.net/attachments/401476363707744257/738083993681002586/BF3D13EACC9F44216E754884AA183185761C84CF.png")
+        data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+        data.set_image(url=image)
+        await ctx.send(embed=data)
     
-  @stone.group(name="3", invoke_without_command=True)
-  async def twenty(self, ctx):
-    """Stone 3 Badge."""
-    author = ctx.message.author
-    data = Embed.create(self, ctx, title='Stone Three Badge :trophy:')
-    image = (f"https://media.discordapp.net/attachments/401476363707744257/738084098857238670/EA938C0B0C2AE3E6DB91514F5F8768C4F033D373.png")
-    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
-    data.set_image(url=image)
-    await ctx.send(embed=data)
+    @stone.group(name="3", invoke_without_command=True)
+    async def twenty(self, ctx):
+        """Stone 3 Badge."""
+        author = ctx.message.author
+        data = Embed.create(self, ctx, title='Stone Three Badge :trophy:')
+        image = (f"https://media.discordapp.net/attachments/401476363707744257/738084098857238670/EA938C0B0C2AE3E6DB91514F5F8768C4F033D373.png")
+        data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+        data.set_image(url=image)
+        await ctx.send(embed=data)
     
-  @participation.group(name="1", invoke_without_command=True, pass_context=True)
-  async def twentyone(self, ctx):
+    @participation.group(name="1", invoke_without_command=True, pass_context=True)
+    async def twentyone(self, ctx):
     """Participation Badge."""
-    author = ctx.message.author
-    data = Embed.create(self, ctx, title='Participation Badge :trophy:')
-    image = (f"https://media.discordapp.net/attachments/401476363707744257/738083790886535228/DA7D39277836A9CF1B39A68D37EAF99999B366C7.png")
-    name = ctx.author.name
-    data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
-    data.set_image(url=image)
-    await ctx.send(embed=data)
+        author = ctx.message.author
+        data = Embed.create(self, ctx, title='Participation Badge :trophy:')
+        image = (f"https://media.discordapp.net/attachments/401476363707744257/738083790886535228/DA7D39277836A9CF1B39A68D37EAF99999B366C7.png")
+        name = ctx.author.name
+        data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+        data.set_image(url=image)
+        await ctx.send(embed=data)
         
 
