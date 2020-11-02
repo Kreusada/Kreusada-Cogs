@@ -22,6 +22,7 @@ Changelog
 - Bolstered ``trivia`` trigger msgs.
 - Added more ``trivia`` questions to ``pixel`` and ``mcoc``.
 - Adding redcore categories overtime for ``trivia``.
+- Clarified the justification between previous instance versions.
 
 New Cogs
 --------
@@ -31,6 +32,33 @@ New Cogs
 - TBD AQ+AW Alerts for Marvel Contest of Champions.
 
 **Find**
+- Find MCOC PNGs with this quick and accessible tool.
+- ``Find`` is now in the process of being merged from its own cog to ``mcoc``.
+
+**Fun**
+- A package of original fun commands made by Jojo.
+
+Updated ToS
+-----------
+
+We now require for you to remove our V1 Demaratus from your server. It should now identify as KreusadaTesting, and will only be used for testing in the development server. This bot has no additional features, and actually functions unreliably in comparison to Demaratus.
+
+If you have not yet removed this bot, it will be removed over the coming months. These are the servers that KreusadaTesting is currently present in:
+
+01: Acey Official Discord               (730548797767155764)
+02: D.A.R.W.I.N.                        (737585293678477363)
+03: Defenders of the Multiverse         (728369999709995118)
+04: Iron_patriot official discord       (762894841734103041)
+05: Matrix - VanguardSkein              (744572173137477692)[Excluded]
+07: Matrix Organisation                 (742781228725436437)[Excluded]
+08: Summoner006                         (714396392440856639)
+09: THE SHADE SYNDICATE                 (664163482270433281)
+10: The Horizon Side                    (757733330513821768)
+11: The MC Lounge                       (693862255275540490)
+12: The Salt Warriors (Seatin Man Of... (319066667315494934)
+13: TΗΞ Θ.G. LΛIR                       (708529233051385947)
+
+
 
 
 
