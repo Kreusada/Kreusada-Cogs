@@ -1,6 +1,7 @@
 import discord
 from validator_collection import validators
 from redbot.core import commands, checks, Config
+from .allianceembed import Embed
 
 class Alliance(commands.Cog):
     """Tools for your alliance on MCOC."""
@@ -24,3 +25,20 @@ class Alliance(commands.Cog):
             await ctx.send("Your nickname could not be changed, I don't have permission to change it. :man_shrugging:")
 
         await ctx.send("Your timezone was successfully added to your nickname. ``{}``".format(tag))
+      
+    @commands.command()
+    async def alliancealert(self, ctx, [aliases: aa, alert]):
+        """Alert your fellow alliance mates for movement."""
+        
+    @alliancealert.group()
+    async def aqstart(self, ctx, invoke_without_command=True, pass_context=True):
+        """Alliance Quest has started!"""
+        author = ctx.message.author
+        data = Embed.create(self, ctx, title='Alliance Quest has STARTED!')
+        description = "Join as soon as possible."
+        image = ("https://media.discordapp.net/attachments/745608075670585344/772947661421805648/aqstarted.png?width=1441&height=480")
+        name = ctx.author.name
+        data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+        data.set_image(url=image)
+        await ctx.send(embed=data)
+        await ctx.send("@pings")
