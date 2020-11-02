@@ -1,16 +1,16 @@
 .. _customcommands:
 
 ============================
-CustomCommands Cog Reference
+Custom Commands
 ============================
 
 ------------
 How it works
 ------------
 
-CustomCommands allows you to create simple commands for your bot without requiring you to code your own cog for Red.
+CustomCommands allows you to create simple commands for your own guild.
 
-If the command you attempt to create shares a name with an already loaded command, you cannot overwrite it with this cog.
+If the command you attempt to create shares a name with an already loaded command, you cannot overwrite it.
 
 ---------
 Cooldowns
@@ -97,8 +97,8 @@ Greeting the specified member
 .. code-block:: none
 
     [p]customcom add simple greet Hello, {0.mention:Member}!
-    [p]greet Twentysix
-        Hello, @Twentysix!
+    [p]greet Kreusada
+        Hello, @Kreusada!
 
 Comparing two text channel's categories
 
