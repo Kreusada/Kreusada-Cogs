@@ -27,7 +27,7 @@ class Alliance(commands.Cog):
         await ctx.send("Your timezone was successfully added to your nickname. ``{}``".format(tag))
       
     @commands.command()
-    async def alliancealert(self, ctx, [aliases: aa, alert]):
+    async def alliancealert(self, ctx): #aliases: aa, alert):
         """Alert your fellow alliance mates for movement."""
         
     @alliancealert.group()
