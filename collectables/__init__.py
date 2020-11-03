@@ -2,4 +2,5 @@ from .collectables import Collectables
 
 
 def setup(bot):
-    bot.add_cog(Collectables(bot))
+    cog = Collectables(bot)
+    bot.add_cog(cog)

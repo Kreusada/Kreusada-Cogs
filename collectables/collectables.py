@@ -1,11 +1,17 @@
 from redbot.core import commands, Config, bank, checks
-from .mdtembed import Embed
+from redbot.core.utils import menus
+import asyncio
+from .embed import Embed
 import discord
 import random
 import json
 import os
 import discord
 from discord.utils import get
+import logging
+
+log = logging.getLogger('red.jojo.collectables')
+log.setLevel(logging.INFO)
 
 
 class Collectables(commands.Cog):
@@ -20,33 +26,87 @@ class Collectables(commands.Cog):
             collectables={}
         )
 
-    def readable_dict(self, dictionary: dict):
-        x = []
-        for key, item in dictionary.items():
-            y = "{0}: {1}".format(key, item)
-            x.append(y)
-        return "\n".join(x)
+    async def page_logic(self, ctx: commands.Context, dictionary: dict, item: str, field_num: int = 15) -> None:
+        """Convert a dictionary into a pagified embed"""
+        embeds = []
+        count = 0
+        title = item
+        embed = Embed.create(self,
+                             ctx=ctx, title=title, thumbnail=ctx.guild.icon_url
+                             )
+        if len(dictionary.keys()) > field_num:
+            for key, value in dictionary.items():
+                if count == field_num - 1:
+                    embed.add_field(name=key, value=value, inline=True)
+                    embeds.append(embed)
+                    embed = Embed.create(
+                        self, ctx=ctx, title=title, thumbnail=ctx.guild.icon_url
+                    )
+                    count = 0
+                else:
+                    embed.add_field(name=key, value=value, inline=True)
+                    count += 1
+            else:
+                embeds.append(embed)
+        else:
+            for key, value in dictionary.items():
+                embed.add_field(name=key, value=value, inline=True)
+            embeds.append(embed)
+        msg = await ctx.send(embed=embeds[0])
+        control = menus.DEFAULT_CONTROLS if len(embeds) > 1 else {
+            "\N{CROSS MARK}": menus.close_menu
+        }
+        asyncio.create_task(menus.menu(ctx, embeds, control, message=msg))
+        menus.start_adding_reactions(msg, control.keys())
+
+    @commands.Cog.listener()
+    async def on_member_remove(self, member) -> None:
+        try:
+            await self.config.user(member).clear()
+            log.info(
+                "Cleared the collectables for {} as they left the server".format(member.name))
+        except KeyError:
+            return
 
     @commands.group()
     async def collectable(self, ctx):
         """Commands working with the Collectable cog!"""
 
-    @collectable.command(name="add")  # , aliases=["colladd", "addcoll"])
+    @collectable.command()
+    @commands.admin_or_permissions(manage_guild=True)
+    async def add(self, ctx, user: discord.Member = None, *, collectable: str = None):
+        """Add a collectable to someone's collection"""
+        if collectable is not None:
+            try:
+                collectable_data = await self.config.guild(ctx.guild).get_raw(collectable)
+            except KeyError:
+                return await ctx.send("I could not find that collectable!")
+            data = Embed.create(self, ctx, description="Success!", title="Adding {} to {}'s collection".format(
+                collectable, user.display_name), footer="Collectables | Collect them all!")
+            await ctx.send(embed=data)
+            await self.config.user(user).collectables.set_raw(collectable, value=collectable_data)
+
+    @collectable.command()
     @checks.guildowner_or_permissions(administrator=True)
-    async def add_collectables(self, ctx, collectable_name: str, price: int = 100):
+    async def create(self, ctx, collectable_name: str, price: int = 100):
         """Adds collectables to a user."""
-        data = Embed.create(self, ctx, title='Adding {0} as a Collectable. :trophy:', description='Added {0} as a Collectable which can be purchased for {1}'.format(collectable_name, price))
+        data = Embed.create(self, ctx, title='Adding {0} as a Collectable. :trophy:',
+                            description='Added {0} as a Collectable which can be purchased for {1}'.format(collectable_name, price))
         await self.config.guild(ctx.guild).set_raw(collectable_name, value=price)
         await ctx.send(embed=data)
 
-    @collectable.command(name="list")  # , aliases=["list", "collectlist"])
-    async def collectable_list(self, ctx):  # , _global: bool = False):
-        collectable_listing = await self.config.guild(ctx.guild).get_raw()
-        collectable_list_readable = self.readable_dict(collectable_listing)
-        await ctx.send(collectable_list_readable)
+    @collectable.command(name="list")
+    async def collectable_list(self, ctx):
+        """List all of the collectables in your guild"""
+        try:
+            coll = await self.config.guild(ctx.guild).get_raw()
+        except Exception:
+            return await ctx.send("Your guild does not have any collectables!\nHave an admin run `{}collectable create <collectable> [cost]` to start collecting!".format(ctx.clean_prefix))
+        await self.page_logic(ctx, coll, item="{}'s Collectables".format(ctx.guild.name))
 
     @collectable.command()
     async def buy(self, ctx, collectable: str):
+        """Buys a collectable"""
         try:
             cost = await self.config.guild(ctx.guild).get_raw(collectable)
         except KeyError:
@@ -66,15 +126,16 @@ class Collectables(commands.Cog):
         if user is None:
             user = ctx.author
         try:
-            coll_list = await self.config.user(user).get_raw("collectables")
-        except:
-            await ctx.send("{0.display_name} does not have any collectables".format(user))
-            return
-        coll_list_clean = self.readable_dict(coll_list)
-        await ctx.send("{0.display_name}'s collectables:\n{1}".format(user, coll_list_clean))
+            collectable_list = await self.config.user(user).get_raw("collectables")
+        except Exception:
+            return await ctx.send("{} doesn't have any collectables!".format(user.display_name))
+        await self.page_logic(ctx, collectable_list, item="{}'s items".format(user.display_name))
 
-    @commands.command(name='99', help='Responds with a random quote from Brooklyn 99')
+    @commands.command(name='99')
     async def nine_nine(self, ctx):
+        """Responds with a random quote from Brooklyn 99
+
+        **Side note: this was in the original cog (before it was a red cog) by Otriux, the brains behind this cog's logic so I left it in here**"""
         brooklyn_99_quotes = [
             'I\'m the human form of the 💯 emoji.',
             'Bingpot!',
