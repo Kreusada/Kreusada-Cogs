@@ -1,2 +1,0 @@
-class LOADINGERROR(Exception):
-    pass
