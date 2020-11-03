@@ -13,6 +13,8 @@ import logging
 log = logging.getLogger('red.jojo.collectables')
 log.setLevel(logging.INFO)
 
+__version__ = "1.0.0"
+
 
 class Collectables(commands.Cog):
     def __init__(self, bot):
