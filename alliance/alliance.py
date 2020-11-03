@@ -26,11 +26,11 @@ class Alliance(commands.Cog):
 
         await ctx.send("Your timezone was successfully added to your nickname. ``{}``".format(tag))
       
-    @commands.command()
+    @commands.group()
     async def alliancealert(self, ctx): #aliases: aa, alert):
         """Alert your fellow alliance mates for movement."""
         
-    @alliancealert.group()
+    @alliancealert.command()
     async def aqstart(self, ctx, invoke_without_command=True, pass_context=True):
         """Alliance Quest has started!"""
         author = ctx.message.author
