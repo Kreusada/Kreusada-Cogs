@@ -28,8 +28,8 @@ class Embed:
         if description is not None:
             if len(description) < 1500:
                 data.description = description
-        data.set_author(name=ctx.message.author.display_name,
-                        icon_url=ctx.message.author.avatar_url)
+#        data.set_author(name=ctx.message.author.display_name,
+#                        icon_url=ctx.message.author.avatar_url)
         if image is not None:
             validators.url(image)
             code = requests.get(image).status_code
