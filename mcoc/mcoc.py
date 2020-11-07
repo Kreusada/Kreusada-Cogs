@@ -45,13 +45,13 @@ class Mcoc(commands.Cog):
     @commands.command()
     async def roster(self, ctx):
         roster = await self.config.user(ctx.author).roster.get_raw()
-        roster = " ".join(
-            ["{} {}".format(key, value) for key, value in roster.items()]
+        roster = "\n".join(
+            ["**{}** {}".format(key, value) for key, value in roster.items()]
         )
         embed = discord.Embed(
-            title="{}'s roster".format(ctx.author), color=ctx.author.color
+            title="Crystal roster", color=ctx.author.color
         )
-        embed.add_field(name="O", value=roster)
+        embed.add_field(name="{}'s Roster".format(ctx.author), value=roster)
         await ctx.send(embed=embed)
 
     @commands.group()
