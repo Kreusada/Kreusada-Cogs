@@ -46,12 +46,14 @@ class Mcoc(commands.Cog):
     async def roster(self, ctx):
         roster = await self.config.user(ctx.author).roster.get_raw()
         roster = ["{} {}".format(key, value) for key, value in roster.items()]
-        ros = pagify(roster)
-        embed = discord.Embed(
-            title="{}'s roster".format(ctx.author), color=ctx.author.color
-        )
-        embed.add_field(name="O", value=ros)
-        await ctx.send(embed=embed)
+        embeds = []
+        for ros in pagify(roster):
+            embed = discord.Embed(
+                title="{}'s roster".format(ctx.author), color=ctx.author.color
+            )
+            embed.add_field(name="O", value=ros)
+            embeds.append(embed)
+        await ctx.send(embed=embeds[0])
 
     @commands.group()
     async def battlechip(self, ctx,):
