@@ -46,7 +46,7 @@ class Mcoc(commands.Cog):
     async def roster(self, ctx):
         roster = await self.config.user(ctx.author).roster.get_raw()
         roster = "\n".join(
-            ["**{}** {}".format(key, value) for key, value in roster.items()]
+            ["{} s{}".format(key, value) for key, value in roster.items()]
         )
         embed = discord.Embed(
             title="Crystal roster", color=ctx.author.color
