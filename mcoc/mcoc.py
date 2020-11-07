@@ -50,7 +50,7 @@ class Mcoc(commands.Cog):
         embed = discord.Embed(
             title="{}'s roster".format(ctx.author), color=ctx.author.color
         )
-        embed.add_field(name="", value=ros)
+        embed.add_field(name="O", value=ros)
         await ctx.send(embed=embed)
 
     @commands.group()
