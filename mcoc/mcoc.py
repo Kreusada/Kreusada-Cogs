@@ -1,4 +1,5 @@
 from redbot.core import commands, checks, Config
+from redbot.core.utils.chat_formatting import pagify
 import discord
 import random
 import logging
@@ -40,6 +41,17 @@ class Mcoc(commands.Cog):
         await self.config.user(ctx.author).roster.set_raw(value=roster)
         data.set_image(url=image)
         await ctx.send(embed=data)
+
+    @commands.command()
+    async def roster(self, ctx):
+        roster = await self.config.user(ctx.author).roster.get_raw()
+        roster = ["{} {}".format(key, value) for key, value in roster.items()]
+        ros = pagify(roster)
+        embed = discord.Embed(
+            title="{}'s roster".format(ctx.author), color=ctx.author.color
+        )
+        embed.add_field(name="", value=ros)
+        await ctx.send(embed=embed)
 
     @commands.group()
     async def battlechip(self, ctx,):
