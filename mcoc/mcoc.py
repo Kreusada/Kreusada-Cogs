@@ -25,8 +25,8 @@ class Mcoc(commands.Cog):
         """VanguardSkein invite link."""
         await ctx.send("https://discord.gg/JmCFyq7")
 
-    @commands.group(invoke_without_command=True,)
-    @commands.cooldown(1, 30, commands.BucketType.user)
+    @commands.command()
+    # @commands.cooldown(1, 30, commands.BucketType.user)
     async def crystal(self, ctx):
         """Chooses a random champion from MCOC."""
         data = Embed.create(self, ctx, title='You got... :gem:')
