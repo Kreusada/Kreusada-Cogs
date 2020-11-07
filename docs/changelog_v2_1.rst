@@ -63,11 +63,21 @@ A huge thankyou to our Staff, Contributors, and Members for making this push rel
 
 
 Admins: AndreasDevesa, Jojo
+
 Staff: AndreasDevesa, Evolve, Kreusada, Jojo, Otriux
+
 Retired Staff: YanaleraPreda, Sinestro
+
 Demaratus Support Squad: Adnayekken, AndreasDevesa, Evolve, Kreusada, Jojo, Otriux, YanaleraPreda, The Mad Titan
+
 Contributors: Adnayekken, Bbgun11, Bucket Of Fire, Cats73, Crusader, LeOctavius, Maurica Elayêt, Moo00se, YanaleraPreda, Titan, Voldemort, Zagelfino, Sinestro, AndreasDevesa, Evolve, Kreusada, Jojo, Otriux, The Mad Titan, FlyingKiller189
 
+Plans for the future
+--------------------
+
+- Store user input and datas with config to develop your roster and currencies. No estimated ETA.
+- Add more fun games for the community to enjoy.
+- Bolster the UI of certain cogs such as moderation, to establish an improved authentic environment instead of standardred.
 
 Updated ToS
 -----------
