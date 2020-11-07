@@ -92,8 +92,8 @@ class Collectables(commands.Cog):
     @checks.guildowner_or_permissions(administrator=True)
     async def create(self, ctx, collectable_name: str, price: int = 100):
         """Adds collectables to a user."""
-        data = Embed.create(self, ctx, title='Adding {0} as a Collectable. :trophy:',
-                            description='Added {0} as a Collectable which can be purchased for {1}'.format(collectable_name, price))
+        data = Embed.create(self, ctx, title='Adding {} as a Collectable. :trophy:'.format(collectable_name),
+                            description='Added {} as a Collectable which can be purchased for {1}'.format(collectable_name, price))
         await self.config.guild(ctx.guild).set_raw(collectable_name, value=price)
         await ctx.send(embed=data)
 
