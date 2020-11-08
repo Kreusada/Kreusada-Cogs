@@ -30,15 +30,12 @@ class Alliance(commands.Cog):
     async def alliancealert(self, ctx): #aliases: aa, alert):
         """Alert your fellow alliance mates for movement."""
         
-    @alliancealert.command(aliases=["aa", "alert"])
-    async def aqstart(self, ctx, invoke_without_command=True, pass_context=True):
+    @alliancealert.command(invoke_without_command=True, pass_context=True, aliases=["aa", "alert"])
+    async def aqstart(self, ctx):
         """Alliance Quest has started!"""
-#        author = ctx.message.author
         data = Embed.create(self, ctx, title='Alliance Quest has STARTED!')
         image = ("https://media.discordapp.net/attachments/745608075670585344/772947661421805648/aqstarted.png?width=1441&height=480")
         description = (f"<770943114645864470>")
-#        name = ctx.author.name
-#        data.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
         data.set_image(url=image)
         data.description = "{}".format(description)
         await ctx.send(embed=data)
