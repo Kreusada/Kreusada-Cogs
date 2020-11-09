@@ -50,9 +50,9 @@ class Mcoc(commands.Cog):
     async def roster(self, ctx, star: str = None):
         try:
             roster = await self.config.user(ctx.author).roster.get_raw(star) if star is not None\
-                else await self.config.user(ctx.author).roster.get_raw()
+                else await self.config.user(ctx.author).roster.get_raw("5")
         except KeyError:
-            roster = await self.config.user(ctx.author).roster.get_raw()
+            roster = await self.config.user(ctx.author).roster.get_raw("5")
         roster = "\n".join(
             ["{} s{}".format(key, value) for key, value in roster.items()]
         )
