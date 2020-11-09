@@ -48,9 +48,10 @@ class Mcoc(commands.Cog):
 
     @commands.command()
     async def roster(self, ctx, star: str = None):
+        if star is None:
+            star = "5"
         try:
-            roster: dict = await self.config.user(ctx.author).roster.get_raw(star) if star is not None\
-                else await self.config.user(ctx.author).roster.get_raw("5")
+            roster: dict = await self.config.user(ctx.author).roster.get_raw(star)
         except KeyError:
             roster: dict = await self.config.user(ctx.author).roster.get_raw("5")
         if len(roster.values()) > 0:
@@ -66,7 +67,9 @@ class Mcoc(commands.Cog):
             embed = discord.Embed(
                 title="Crystal roster", color=ctx.author.color, description=(
                     "You don't have any {} star champions!\n"
-                    "Collect some using `{}crystal`!".format(ctx.clean_prefix)
+                    "Collect some using `{}crystal`!".format(
+                        star, ctx.clean_prefix
+                    )
                 )
             )
         await ctx.send(embed=embed)
