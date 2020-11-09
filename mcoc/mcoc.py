@@ -47,8 +47,12 @@ class Mcoc(commands.Cog):
         await ctx.send(embed=data)
 
     @commands.command()
-    async def roster(self, ctx, star: str = "5"):
-        roster = await self.config.user(ctx.author).roster.get_raw(star)
+    async def roster(self, ctx, star: str = None):
+        try:
+            roster = await self.config.user(ctx.author).roster.get_raw(star) if star is not None\
+                else await self.config.user(ctx.author).roster.get_raw()
+        except KeyError:
+            roster = await self.config.user(ctx.author).roster.get_raw()
         roster = "\n".join(
             ["{} s{}".format(key, value) for key, value in roster.items()]
         )
