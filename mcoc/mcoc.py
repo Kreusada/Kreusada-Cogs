@@ -49,17 +49,26 @@ class Mcoc(commands.Cog):
     @commands.command()
     async def roster(self, ctx, star: str = None):
         try:
-            roster = await self.config.user(ctx.author).roster.get_raw(star) if star is not None\
+            roster: dict = await self.config.user(ctx.author).roster.get_raw(star) if star is not None\
                 else await self.config.user(ctx.author).roster.get_raw("5")
         except KeyError:
-            roster = await self.config.user(ctx.author).roster.get_raw("5")
-        roster = "\n".join(
-            ["{} s{}".format(key, value) for key, value in roster.items()]
-        )
-        embed = discord.Embed(
-            title="Crystal roster", color=ctx.author.color
-        )
-        embed.add_field(name="{}'s Roster".format(ctx.author), value=roster)
+            roster: dict = await self.config.user(ctx.author).roster.get_raw("5")
+        if len(roster.values()) > 0:
+            roster = "\n".join(
+                ["{} s{}".format(key, value) for key, value in roster.items()]
+            )
+            embed = discord.Embed(
+                title="Crystal roster", color=ctx.author.color
+            )
+            embed.add_field(name="{}'s Roster".format(
+                ctx.author), value=roster)
+        else:
+            embed = discord.Embed(
+                title="Crystal roster", color=ctx.author.color, description=(
+                    "You don't have any {} star champions!\n"
+                    "Collect some using `{}crystal`!".format(ctx.clean_prefix)
+                )
+            )
         await ctx.send(embed=embed)
 
     @commands.group()
