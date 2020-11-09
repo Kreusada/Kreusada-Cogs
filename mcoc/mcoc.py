@@ -18,7 +18,11 @@ class Mcoc(commands.Cog):
             self, identifier=153607829, force_registration=True
         )
         self.config.register_user(
-            roster={}
+            roster={
+                "5": {},
+                "4": {},
+                "3": {}
+            }
         )
 
     @commands.group(invoke_without_command=True)
@@ -30,15 +34,15 @@ class Mcoc(commands.Cog):
     # @commands.cooldown(1, 30, commands.BucketType.user)
     async def crystal(self, ctx):
         """Chooses a random champion from MCOC."""
-        data = Embed.create(self, ctx, title='You got... :gem:')
+        star = random.choice(['3', '4', '5'])
         key, image = (random.choice(list(FEATUREDS.items())))
         roster = await self.config.user(ctx.author).roster.get_raw()
         log.info(roster)
-        try:
-            roster[key] += 1
-        except KeyError:
-            roster[key] = 1
-        await self.config.user(ctx.author).roster.set_raw(value=roster)
+        await self.roster_logistics(ctx, star, key, roster)
+        data = Embed.create(
+            self, ctx, title='You got... :gem:',
+            description="⭐" * int(star)
+        )
         data.set_image(url=image)
         await ctx.send(embed=data)
 
@@ -139,6 +143,21 @@ class Mcoc(commands.Cog):
         data.description = "{}".format(description)
         data.set_image(url=link)
         await ctx.send(embed=data)
+
+    async def roster_logistics(self, ctx: commands.Context, star: str, champion: str, roster: dict) -> None:
+        if star <= 0 or star > 6:
+            star = 6
+        if int(star) == 1 or int(star) == 2:
+            sigs = 1
+        elif int(star) == 3:
+            sigs = 8
+        else:
+            sigs = 20
+        try:
+            roster[star][champion] += sigs
+        except KeyError:
+            roster[star][champion] = 0
+        await self.config.user(ctx.author).roster.set_raw(value=roster)
 
     # @commands.group()
     # async def awbadge(self, ctx):
