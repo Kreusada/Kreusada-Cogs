@@ -145,11 +145,13 @@ class Mcoc(commands.Cog):
         await ctx.send(embed=data)
 
     async def roster_logistics(self, ctx: commands.Context, star: str, champion: str, roster: dict) -> None:
-        if star <= 0 or star > 6:
-            star = 6
-        if int(star) == 1 or int(star) == 2:
+        intstar = int(star)
+        if intstar <= 0 or star > 6:
+            intstar = 6
+            star = "6"
+        if intstar == 1 or intstar == 2:
             sigs = 1
-        elif int(star) == 3:
+        elif intstar == 3:
             sigs = 8
         else:
             sigs = 20
