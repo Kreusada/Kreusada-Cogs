@@ -47,8 +47,8 @@ class Mcoc(commands.Cog):
         await ctx.send(embed=data)
 
     @commands.command()
-    async def roster(self, ctx):
-        roster = await self.config.user(ctx.author).roster.get_raw()
+    async def roster(self, ctx, star: str = "5"):
+        roster = await self.config.user(ctx.author).roster.get_raw(star)
         roster = "\n".join(
             ["{} s{}".format(key, value) for key, value in roster.items()]
         )
