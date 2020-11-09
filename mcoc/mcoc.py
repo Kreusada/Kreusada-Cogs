@@ -146,7 +146,7 @@ class Mcoc(commands.Cog):
 
     async def roster_logistics(self, ctx: commands.Context, star: str, champion: str, roster: dict) -> None:
         intstar = int(star)
-        if intstar <= 0 or star > 6:
+        if intstar <= 0 or intstar > 6:
             intstar = 6
             star = "6"
         if intstar == 1 or intstar == 2:
