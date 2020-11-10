@@ -27,8 +27,8 @@ class Mcoc(commands.Cog):
         )
 
     @commands.group(invoke_without_command=True)
-    async def vslink(self, ctx):
-        """VanguardSkein invite link."""
+    async def supportserver(self, ctx):
+        """Support Server invite link."""
         await ctx.send("https://discord.gg/JmCFyq7")
 
     @commands.command()
