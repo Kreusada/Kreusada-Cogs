@@ -32,21 +32,6 @@ class Mcoc(commands.Cog):
         await ctx.send("https://discord.gg/JmCFyq7")
 
     @commands.command()
-    @commands.is_owner()
-    async def test(self, ctx):
-        champions = self.generate_champions()
-        embeds = []
-        for i in champions:
-            y = Embed.create(
-                self, ctx, image=i
-            )
-            embeds.append(y)
-        msg = await ctx.send(embed=embeds[0])
-        controls = menus.DEFAULT_CONTROLS
-        asyncio.create_task(menus.menu(ctx, embeds, controls, message=msg))
-        menus.start_adding_reactions(msg, controls)
-
-    @commands.command()
     # @commands.cooldown(1, 30, commands.BucketType.user)
     async def crystal(self, ctx):
         """Chooses a random champion from MCOC."""
@@ -192,11 +177,6 @@ class Mcoc(commands.Cog):
         except KeyError:
             roster[star][champion] = 0
         await self.config.user(ctx.author).roster.set_raw(value=roster)
-
-    def generate_champions(self) -> str:
-        for i in FEATUREDS.values():
-            yield i
-
     # @commands.group()
     # async def awbadge(self, ctx):
     #     """The Alliance War badge index."""
