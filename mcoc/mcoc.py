@@ -177,6 +177,7 @@ class Mcoc(commands.Cog):
         except KeyError:
             roster[star][champion] = 0
         await self.config.user(ctx.author).roster.set_raw(value=roster)
+
     # @commands.group()
     # async def awbadge(self, ctx):
     #     """The Alliance War badge index."""

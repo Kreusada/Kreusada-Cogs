@@ -189,8 +189,8 @@ FEATUREDS = {
     "wolverine": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_wolverine.png",
     "weaponx": "https://vignette.wikia.nocookie.net/marvel-contestofchampions/images/b/b7/Wolverine_%28Weapon_X%29_featured.png/revision/latest?cb=20200601191347",
     "x23": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_x23.png",
-    "yellowjacket": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_yellowjacket.png",
-    "yondu": "https: // auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_yondu.png"
+    "yellowjacket": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_yellowjacket.png"
+    # "yondu": "https: // auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_yondu.png"
 }
 
 ALIASES = {
