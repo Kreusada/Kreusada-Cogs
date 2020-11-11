@@ -46,8 +46,6 @@ Links
 
 Development Server:  https://discord.gg/JmCFyq7
 
-MDT Patreon: https://www.patreon.com/matrixdt
-
 RTD Docs - Raw RSTs: https://github.com/KREUSADA/kreusadacogs/edit/master/docs
 
 Email Address (Business ONLY): kreusadaprojects@gmail.com
