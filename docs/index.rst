@@ -15,11 +15,12 @@ Change Logs
 Cog Support
 ==================
 
+* :ref:`admin`
+* :ref:`audio`
 * :ref:`customcommands`
 * :ref:`fun`
-* :ref:`audio`
-* :ref:`tickets`
 * :ref:`mcoc`
+* :ref:`tickets`
 
 Glossaries and ToS
 ==================
