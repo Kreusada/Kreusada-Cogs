@@ -21,6 +21,3 @@ Cog Support
 * :ref:`fun`
 * :ref:`mcoc`
 * :ref:`tickets`
-
-Glossaries and ToS
-==================
