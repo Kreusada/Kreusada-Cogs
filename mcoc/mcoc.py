@@ -26,7 +26,7 @@ class Mcoc(commands.Cog):
             }
         )
 
-    @commands.group(invoke_without_command=True)
+    @commands.command()
     async def supportserver(self, ctx):
         """Support Server invite link."""
         await ctx.send("https://discord.gg/JmCFyq7")
@@ -76,7 +76,7 @@ class Mcoc(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.group()
-    async def battlechip(self, ctx,):
+    async def battlechip(self, ctx):
         """Opens a battlechip crystal from MCOC."""
 
     @battlechip.command()
@@ -122,12 +122,13 @@ class Mcoc(commands.Cog):
     @battlechip.command()
     async def uncollected(self, ctx):
         """Open an uncollected battlechip crystal."""
-        data = Embed.create(self, ctx)
-        drop_rate = random.randint(1, 100)
+        drop_rate = round(random.uniform(0, 100), 2)
         if drop_rate < 0.02:
             link = BCB[0]
             title = "5 Star Punisher"
-            description = "This tier has a `0.02%` chance.\nCongratulations!\nMessage Kreusada#0518 with a screenshot to be added to the hall of fame!"
+            description = ("This tier has a `0.02%` chance.\nCongratulations!\n"
+                           "Message Kreusada#0518 with a screenshot to be added to the hall of fame!"
+                           )
         elif drop_rate < 0.65:
             link = BCB[0]
             title = "4 Star Punisher"
@@ -156,9 +157,11 @@ class Mcoc(commands.Cog):
             link = BCB[3]
             title = "10,000 Gold"
             description = ""
-        data.title = "You got {}!".format(title)
-        data.description = "{}".format(description)
-        data.set_image(url=link)
+        data = Embed.create(
+            self, ctx,
+            title="You got {}!".format(title), description="{}".format(description),
+            image=link
+        )
         await ctx.send(embed=data)
 
     async def roster_logistics(self, ctx: commands.Context, star: str, champion: str, roster: dict) -> None:
