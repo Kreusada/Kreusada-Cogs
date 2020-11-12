@@ -140,10 +140,7 @@ class Mcoc(commands.Cog):
         if drop_rate < 0.02:
             link = BCB[0]
             title = "5 Star Punisher"
-            description = (
-                "This tier has a `0.02%` chance.\nCongratulations!\n"
-                "Message Kreusada#0518 with a screenshot to be added to the hall of fame!"
-            )
+            description = "This tier has a `0.02%` chance.\nCongratulations!"
         elif drop_rate < 0.65:
             link = BCB[0]
             title = "4 Star Punisher"
@@ -235,8 +232,8 @@ class Mcoc(commands.Cog):
         tier = tier.lower() if tier is not None else None
         if tier is None or tier not in tiers:
             embed = Embed.create(
-                self, ctx, title="Aw Tiers",
-                description="Here are the different tiers you can choose from"
+                self, ctx, title="Alliance War Badge Tiers",
+                description="Please choose one of the tiers below :arrow_down:"
             )
             normal = ", ".join(tiers)
             embed.add_field(name="Badges", value="{}, participation".format(normal)) # Unfortunatly I have to do this to make sure that participation gets in the list :/
