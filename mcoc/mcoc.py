@@ -196,8 +196,8 @@ class Mcoc(commands.Cog):
 
     @commands.command()
     async def awbadge(self, ctx, tier: str = None, group: int = None):
-        if group is not None:
-            group = group - 1 if group >= 1 and group < 4 # This is to make sure that it will work with the urls
+        if group is not None and group >= 1 and group < 4:
+            group -= 1 # This is to make sure that it will work with the urls
         tiers = {
             "master": [
                 "https://media.discordapp.net/attachments/401476363707744257/738083791654092940/47EFB6D4D1380ABD2C40D2C7B0533A29245F7955.png",
