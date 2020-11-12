@@ -262,7 +262,7 @@ class Mcoc(commands.Cog):
         else:
             embed = Embed.create(
                 self, ctx,
-                title="{} Badge".format(tier), description="{} {}".format(tier, group),
+                title="{} Badge".format(tier.capitalize()), description="{} {}".format(tier.capitalize(), group),
                 image=tiers[tier][group_num]
             )
             await ctx.send(embed=embed)
