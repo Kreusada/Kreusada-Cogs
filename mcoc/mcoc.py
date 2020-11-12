@@ -62,7 +62,7 @@ class Mcoc(commands.Cog):
 
     @commands.command()
     async def roster(self, ctx, star: str = None):
-        if ctx.author is not self.bot.is_owner():
+        if self.bot.is_owner(ctx.author) is False:
             return await ctx.send("This feature is coming soon :eyes:")
         if star is None:
             star = "5"
