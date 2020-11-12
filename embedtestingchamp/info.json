@@ -1,13 +1,17 @@
 {
 	"author": [
 		"Kreusada",
-        "kreusada"
+		"kreusada"
 	],
 	"description": "Used to pull champion portrait and featured images.",
-    "install_msg": "Thanks for installing. Use `[p]help` Champ to get started.",
-    "min_python_version": [3, 8, 0],
-    "permissions" : [
-		"send_messages",
+	"install_msg": "Thanks for installing. Use `[p]help` Champ to get started.",
+	"min_python_version": [
+		3,
+		8,
+		0
+	],
+	"permissions": [
+		"send_messages"
 	],
 	"short": "Used to pull champion portrait and featured images.",
 	"tags": [
