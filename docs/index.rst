@@ -16,7 +16,6 @@ Cog Support
 ==================
 
 * :ref:`admin`
-* :ref:`audio`
 * :ref:`customcommands`
 * :ref:`fun`
 * :ref:`mcoc`
