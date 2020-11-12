@@ -249,7 +249,7 @@ class Mcoc(commands.Cog):
             return await ctx.send(embed=embed)
         if group is None:
             embeds = []
-            for i in range(len(tiers[tier])):
+            for i in range(3):
                 embed = Embed.create(
                     self, ctx,
                     title="{} Badges".format(tier.capitalize()), image=tiers[tier][i]
