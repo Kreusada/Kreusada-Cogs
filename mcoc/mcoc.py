@@ -46,7 +46,7 @@ class Mcoc(commands.Cog):
         )
 
     @commands.command()
-    # @commands.cooldown(1, 30, commands.BucketType.user)
+    @commands.cooldown(1, 30, commands.BucketType.user)
     async def crystal(self, ctx):
         """Chooses a random champion from MCOC."""
         star = random.choice(['3', '4', '5'])
@@ -62,6 +62,8 @@ class Mcoc(commands.Cog):
 
     @commands.command()
     async def roster(self, ctx, star: str = None):
+        if ctx.author is not self.bot.is_owner():
+            return await ctx.send("This feature is coming soon :eyes:")
         if star is None:
             star = "5"
         try:
