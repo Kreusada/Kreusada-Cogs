@@ -6,7 +6,7 @@ import os
 from .deembed import Embed
 from discord.utils import get
 
-class kreustools(commands.Cog):
+class Kreustools(commands.Cog):
   """Tools from Kreusada and Others."""
 
   def __init__(self, bot):
