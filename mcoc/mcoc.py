@@ -13,6 +13,8 @@ log = logging.getLogger(name="red.demaratus.mcoc")
 class Mcoc(commands.Cog):
     """Fun Games and Tools for Marvel Contest of Champions."""
 
+    __version__ = "1.0.1"
+
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(
@@ -26,10 +28,22 @@ class Mcoc(commands.Cog):
             }
         )
 
-    @commands.command()
+    @commands.group()
+    async def mcoc(self, ctx):
+        """Base MCOC Command"""
+
+    @mcoc.command(name="server", aliases=["ss",])
     async def supportserver(self, ctx):
         """Support Server invite link."""
         await ctx.send("https://discord.gg/JmCFyq7")
+
+    @mcoc.command()
+    async def version(self, ctx):
+        """Version of the mcoc cog"""
+        embed = Embed.create(
+            self, ctx, title="MCOC Version",
+            description="Current version: {}".format(self.__version__)
+        )
 
     @commands.command()
     # @commands.cooldown(1, 30, commands.BucketType.user)
