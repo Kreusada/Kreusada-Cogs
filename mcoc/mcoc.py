@@ -250,7 +250,7 @@ class Mcoc(commands.Cog):
             for i in range(len(tiers[tier])):
                 embed = Embed.create(
                     self, ctx,
-                    title="{} Badges".format(tier), image=tiers[tier][i]
+                    title="{} Badges".format(tier.capitalize()), image=tiers[tier][i]
                 )
                 embeds.append(embed)
             msg = await ctx.send(embed=embeds[0])
