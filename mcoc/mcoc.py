@@ -253,7 +253,7 @@ class Mcoc(commands.Cog):
                     title="{} Badges".format(tier), image=tiers[tier][i]
                 )
                 embeds.append(embed)
-            msg = await ctx.send(embeds[0])
+            msg = await ctx.send(embed=embeds[0])
             control = menus.DEFAULT_CONTROLS if len(embeds) > 1 else {
                 "\N{CROSS MARK}": menus.close_menu
             }
