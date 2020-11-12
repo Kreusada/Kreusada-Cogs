@@ -51,4 +51,4 @@ class DadJokes(commands.Cog):
 
 def setup(bot):
     n = DadJokes(bot)
-    bot.add_cog(n)
+    bot.add_cog(n) # 🤨
