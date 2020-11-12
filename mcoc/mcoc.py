@@ -243,7 +243,7 @@ class Mcoc(commands.Cog):
             normal = "\n".join([t.capitalize() for t in tiers.keys()])
             embed.add_field(
                 # Unfortunatly I have to do this to make sure that participation gets in the list :/
-                name="Badges", value="{}\n Participation".format(normal)
+                name="Badges", value="{}\nParticipation".format(normal)
             )
             return await ctx.send(embed=embed)
         if tier == "participation":
