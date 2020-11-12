@@ -189,7 +189,7 @@ class Mcoc(commands.Cog):
         else:
             sigs = 20
         try:
-            roster[star][champion] += sigs
+            roster[star][champion] += sigs # Test
         except KeyError:
             roster[star][champion] = 0
         await self.config.user(ctx.author).roster.set_raw(value=roster)
