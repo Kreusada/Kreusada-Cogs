@@ -198,32 +198,32 @@ class Mcoc(commands.Cog):
         if group is not None and group >= 1 and group < 4:
             group_num = group - 1 # This is to make sure that it will work with the urls
         tiers = {
-            "Master": [
+            "master": [
                 "https://media.discordapp.net/attachments/401476363707744257/738083791654092940/47EFB6D4D1380ABD2C40D2C7B0533A29245F7955.png",
                 "https://media.discordapp.net/attachments/401476363707744257/738083791113027654/650E29ADB8C5C382FF5A358113B2C02B8EADA415.png",
                 "https://media.discordapp.net/attachments/401476363707744257/738083791440052294/08BA0A081A9D56E35E60E3FD61FAB7ED9A10CD00.png"
             ],
-            "Platinum": [
+            "platinum": [
                 "https://media.discordapp.net/attachments/401476363707744257/738083790718631937/E78E2BAF9B0C9BA6C7FE45BE726FFB0B0B0CACFD.png",
                 "https://media.discordapp.net/attachments/401476363707744257/738083790362116116/487EA26A1BA0F2C2848E7C87F10430BD218C2178.png",
                 "https://media.discordapp.net/attachments/401476363707744257/738083790559117352/0ED8BD10441C6D086AEB7BBA5271269F46E009D1.png"
             ],
-            "Gold": [
+            "gold": [
                 "https://media.discordapp.net/attachments/401476363707744257/738083790131298375/76BC21BF523A415866D19814BD8AF4BE16EF30A9.png",
                 "https://media.discordapp.net/attachments/401476363707744257/738083998462509096/8CD52FEB7540016B6ABA1EC67B9F1777E3C29878.png",
                 "https://media.discordapp.net/attachments/401476363707744257/738084001926873098/3A9A8FDA006D0BE225242AAA5909021CD52BCFB3.png"
             ],
-            "Silver": [
+            "silver": [
                 "https://media.discordapp.net/attachments/401476363707744257/738084001465499789/4B389D377A94EDA747B38DF640C0B33A3A3F61AE.png",
                 "https://media.discordapp.net/attachments/401476363707744257/738084001465499789/4B389D377A94EDA747B38DF640C0B33A3A3F61AE.png",
                 "https://media.discordapp.net/attachments/401476363707744257/738083994612006914/5302FA8FA04735224847C8BBF82D1D54C8567B9C.png"
             ],
-            "Bronze": [
+            "bronze": [
                 "https://media.discordapp.net/attachments/401476363707744257/738083995211792404/719AC2C2AB5833D815C899DAF9ADB7CF11819CBA.png",
                 "https://media.discordapp.net/attachments/401476363707744257/738083993043337276/E636A90C3F0DFFDAED0176D972AA0C73F3E40FF8.png",
                 "https://media.discordapp.net/attachments/401476363707744257/738083997866786876/5B06D509847E0FA1405A50021486C1A5D8C6F9B2.png"
             ],
-            "Stone": [
+            "stone": [
                 "https://media.discordapp.net/attachments/401476363707744257/738083996054978730/9AC92A2FDC2996C346125296356C664373147F2F.png",
                 "https://media.discordapp.net/attachments/401476363707744257/738083993681002586/BF3D13EACC9F44216E754884AA183185761C84CF.png",
                 "https://media.discordapp.net/attachments/401476363707744257/738084098857238670/EA938C0B0C2AE3E6DB91514F5F8768C4F033D373.png"
@@ -235,7 +235,7 @@ class Mcoc(commands.Cog):
                 self, ctx, title="Alliance War Badge Tiers",
                 description="Please choose one of the tiers below :arrow_down:"
             )
-            normal = ", ".join(tiers)
+            normal = "\n".join(tiers)
             embed.add_field(name="Badges", value="{}, participation".format(normal)) # Unfortunatly I have to do this to make sure that participation gets in the list :/
             return await ctx.send(embed=embed)
         if tier == "participation":
