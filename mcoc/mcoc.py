@@ -38,7 +38,6 @@ class Mcoc(commands.Cog):
         star = random.choice(['3', '4', '5'])
         key, image = (random.choice(list(FEATUREDS.items())))
         roster = await self.config.user(ctx.author).roster.get_raw()
-        log.info(roster)
         await self.roster_logistics(ctx, star, key, roster)
         data = Embed.create(
             self, ctx, title='You got... :gem:',
@@ -83,13 +82,14 @@ class Mcoc(commands.Cog):
     @commands.cooldown(1, 30, commands.BucketType.user)
     async def basic(self, ctx):
         """Open a basic battlechip crystal."""
-        print("[BCB]", random.__file__)
-        data = Embed.create(self, ctx)
         drop_rate = round(random.uniform(0, 100), 2)
         if drop_rate < 0.02:
             link = BCB[0]
             title = "4 Star Punisher"
-            description = "This tier has a `0.02%` chance.\nCongratulations!\nMessage Kreusada#0518 with a screenshot to be added to the hall of fame!"
+            description = (
+                "This tier has a `0.02%` chance.\nCongratulations!\n"
+                "Message Kreusada#0518 with a screenshot to be added to the hall of fame!"
+            )
         elif drop_rate < 0.65:
             link = BCB[0]
             title = "3 Star Punisher"
@@ -114,9 +114,7 @@ class Mcoc(commands.Cog):
             link = BCB[3]
             title = "2,500 Gold"
             description = ""
-        data.title = "You got {}!".format(title)
-        data.description = "{}".format(description)
-        data.set_image(url=link)
+        data = Embed.create(self, ctx, description=description, image=link)
         await ctx.send(embed=data)
 
     @battlechip.command()
@@ -126,9 +124,10 @@ class Mcoc(commands.Cog):
         if drop_rate < 0.02:
             link = BCB[0]
             title = "5 Star Punisher"
-            description = ("This tier has a `0.02%` chance.\nCongratulations!\n"
-                           "Message Kreusada#0518 with a screenshot to be added to the hall of fame!"
-                           )
+            description = (
+                "This tier has a `0.02%` chance.\nCongratulations!\n"
+                "Message Kreusada#0518 with a screenshot to be added to the hall of fame!"
+            )
         elif drop_rate < 0.65:
             link = BCB[0]
             title = "4 Star Punisher"
