@@ -240,7 +240,7 @@ class Mcoc(commands.Cog):
                 self, ctx, title="Aw Tiers",
                 description="Here are the different tiers you can choose from"
             )
-            normal = ", ".join([t.capitalize for t in tiers.keys()])
+            normal = ", ".join([t.capitalize() for t in tiers.keys()])
             embed.add_field(
                 # Unfortunatly I have to do this to make sure that participation gets in the list :/
                 name="Badges", value="{}, Participation".format(normal)
