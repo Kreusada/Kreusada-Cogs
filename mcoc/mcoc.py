@@ -54,7 +54,7 @@ class Mcoc(commands.Cog):
         roster = await self.config.user(ctx.author).roster.get_raw()
         await self.roster_logistics(ctx, star, key, roster)
         data = Embed.create(
-            self, ctx, title='You got... :gem:',
+            self, ctx, title='You got... <:RooCheer:759845378803236886>',
             description="⭐" * int(star)
         )
         data.set_image(url=image)
