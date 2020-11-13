@@ -43,7 +43,7 @@ class Mcoc(commands.Cog):
         embed = Embed.create(
             self, ctx, title="Cog Version",
             description="Current version: `{}`".format(self.__version__)
-            image="https://media.discordapp.net/attachments/763066391107862550/776883505929519124/vanguardskeindem1.png?width=678&height=678"
+            image="https://media.discordapp.net/attachments/763066391107862550/776883505929519124/vanguardskeindem1.png"
         )
         await ctx.send(embed=embed)
 
