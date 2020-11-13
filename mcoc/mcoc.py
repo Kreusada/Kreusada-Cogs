@@ -235,7 +235,7 @@ class Mcoc(commands.Cog):
         if tier is None or tier not in tiers:
             embed = Embed.create(
                 self, ctx, title="Alliance War Badge Tiers",
-                description="Please choose one of the tiers below :arrow_down:"
+                description="Please choose one of the tiers below :arrow_down:\nSyntax: `,awbadge <tier>`"
             )
             normal = "\n".join([t.capitalize() for t in tiers.keys()])
             embed.add_field(
