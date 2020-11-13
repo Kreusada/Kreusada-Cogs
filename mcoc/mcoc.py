@@ -32,7 +32,7 @@ class Mcoc(commands.Cog):
     async def mcoc(self, ctx):
         """Base MCOC Command"""
 
-    @mcoc.command(name="server", aliases=["ss",])
+    @mcoc.command(name="server", aliases=["ss", ])
     async def supportserver(self, ctx):
         """Support Server invite link."""
         await ctx.send("https://discord.gg/JmCFyq7")
@@ -44,6 +44,7 @@ class Mcoc(commands.Cog):
             self, ctx, title="MCOC Version",
             description="Current version: {}".format(self.__version__)
         )
+        await ctx.send(embed=embed)
 
     @commands.command()
     @commands.cooldown(1, 30, commands.BucketType.user)
@@ -130,7 +131,8 @@ class Mcoc(commands.Cog):
             link = BCB[3]
             title = "2,500 Gold"
             description = ""
-        data = Embed.create(self, ctx, description=description, image=link)
+        data = Embed.create(self, ctx, title=title,
+                            description=description, image=link)
         await ctx.send(embed=data)
 
     @battlechip.command()
@@ -188,7 +190,7 @@ class Mcoc(commands.Cog):
         else:
             sigs = 20
         try:
-            roster[star][champion] += sigs # Test
+            roster[star][champion] += sigs  # Test
         except KeyError:
             roster[star][champion] = 0
         await self.config.user(ctx.author).roster.set_raw(value=roster)
@@ -196,7 +198,7 @@ class Mcoc(commands.Cog):
     @commands.command()
     async def awbadge(self, ctx, tier: str = None, group: int = None):
         if group is not None and group >= 1 and group < 4:
-            group_num = group - 1 # This is to make sure that it will work with the urls
+            group_num = group - 1  # This is to make sure that it will work with the urls
         tiers = {
             "master": [
                 "https://media.discordapp.net/attachments/401476363707744257/738083791654092940/47EFB6D4D1380ABD2C40D2C7B0533A29245F7955.png",
@@ -235,6 +237,12 @@ class Mcoc(commands.Cog):
                 self, ctx, title="Alliance War Badge Tiers",
                 description="Please choose one of the tiers below :arrow_down:"
             )
+            normal = "\n".join([t.capitalize() for t in tiers.keys()])
+            embed.add_field(
+                # Unfortunatly I have to do this to make sure that participation gets in the list :/
+                name="Badges", value="{}\nParticipation".format(normal)
+            )
+
             normal = "\n".join(tiers)
             embed.add_field(name="Badges", value="{}\nparticipation".format(normal)) # Unfortunatly I have to do this to make sure that participation gets in the list :/
             return await ctx.send(embed=embed)
@@ -246,7 +254,7 @@ class Mcoc(commands.Cog):
             return await ctx.send(embed=embed)
         if group is None:
             embeds = []
-            for i in range(len(tiers[tier])):
+            for i in range(3):
                 embed = Embed.create(
                     self, ctx,
                     title="{} Badges".format(tier.capitalize()), image=tiers[tier][i]
