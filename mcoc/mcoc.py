@@ -29,19 +29,19 @@ class Mcoc(commands.Cog):
         )
 
     @commands.group()
-    async def mcoc(self, ctx):
-        """Base MCOC Command"""
+    async def support(self, ctx):
+        """Cog support and information."""
 
-    @mcoc.command(name="server", aliases=["ss", ])
+    @support.command(name="server", aliases=["ss", ])
     async def supportserver(self, ctx):
         """Support Server invite link."""
         await ctx.send("https://discord.gg/JmCFyq7")
 
-    @mcoc.command()
+    @support.command()
     async def version(self, ctx):
         """Version of the mcoc cog"""
         embed = Embed.create(
-            self, ctx, title="MCOC Version",
+            self, ctx, title="Cog Version",
             description="Current version: {}".format(self.__version__)
         )
         await ctx.send(embed=embed)
@@ -49,7 +49,7 @@ class Mcoc(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 30, commands.BucketType.user)
     async def crystal(self, ctx):
-        """Chooses a random champion from MCOC."""
+        """Chooses a random champion."""
         star = random.choice(['3', '4', '5'])
         key, image = (random.choice(list(FEATUREDS.items())))
         roster = await self.config.user(ctx.author).roster.get_raw()
@@ -197,6 +197,7 @@ class Mcoc(commands.Cog):
 
     @commands.command()
     async def awbadge(self, ctx, tier: str = None, group: int = None):
+        """Get alliance war badges."""
         if group is not None and group >= 1 and group < 4:
             group_num = group - 1  # This is to make sure that it will work with the urls
         tiers = {
