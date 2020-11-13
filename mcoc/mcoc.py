@@ -138,7 +138,7 @@ class Mcoc(commands.Cog):
             roster: dict = await self.config.user(ctx.author).roster.get_raw("3")
         if len(roster.values()) > 0:
             roster = "\n".join(
-                ["{} s{}".format(key, value) for key, value in roster.items()]
+                ["{} s{}".format(key, value, roster.capitalize()) for key, value in roster.items()]
             )
             embed = discord.Embed(
                 title="Crystal Roster: {} Star :star:".format(star), color=ctx.author.color, description=":star::star::star:"
