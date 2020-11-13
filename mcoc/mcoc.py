@@ -238,10 +238,10 @@ class Mcoc(commands.Cog):
                 description="Please choose one of the tiers below :arrow_down:"
             )
             normal = "\n".join([t.capitalize() for t in tiers.keys()])
-            embed.add_field(
+#            embed.add_field(
                 # Unfortunatly I have to do this to make sure that participation gets in the list :/
-                name="Badges", value="{}\nParticipation".format(normal)
-            )
+#                name="Badges", value="{}\nParticipation".format(normal)
+#            )
 
             normal = "\n".join(tiers)
             embed.add_field(name="Badges", value="{}\nparticipation".format(normal)) # Unfortunatly I have to do this to make sure that participation gets in the list :/
