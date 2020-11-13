@@ -47,7 +47,7 @@ class Mcoc(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
-    @commands.cooldown(1, 30, commands.BucketType.user)
+    @commands.cooldown(1, 10, commands.BucketType.user)
     async def crystal(self, ctx):
         """Chooses a random champion."""
         star = random.choice(['3', '4', '5'])
@@ -55,7 +55,7 @@ class Mcoc(commands.Cog):
         roster = await self.config.user(ctx.author).roster.get_raw()
         await self.roster_logistics(ctx, star, key, roster)
         data = Embed.create(
-            self, ctx, title='You got... <:RooCheer:759845378803236886>',
+            self, ctx, title='You got... <:crystal:776941489464672266>',
             description="⭐" * int(star)
         )
         data.set_image(url=image)
@@ -76,7 +76,8 @@ class Mcoc(commands.Cog):
                 ["{} s{}".format(key, value) for key, value in roster.items()]
             )
             embed = discord.Embed(
-                title="Crystal Roster: {} Star :star:".format(star), color=ctx.author.color
+                title="Crystal Roster: {} Star".format(star), color=ctx.author.color
+                description=":star::star::star::star::star:"
             )
             embed.add_field(name="{}'s Roster".format(
                 ctx.author), value=roster)
