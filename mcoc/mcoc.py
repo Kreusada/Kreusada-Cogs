@@ -76,13 +76,13 @@ class Mcoc(commands.Cog):
                 ["{} s{}".format(key, value) for key, value in roster.items()]
             )
             embed = discord.Embed(
-                title="Crystal roster", color=ctx.author.color
+                title="Crystal Roster: {} Star :star:".format(star), color=ctx.author.color
             )
             embed.add_field(name="{}'s Roster".format(
                 ctx.author), value=roster)
         else:
             embed = discord.Embed(
-                title="Crystal roster", color=ctx.author.color, description=(
+                title="Crystal Roster: {} Star :star:".format(star), color=ctx.author.color, description=(
                     "You don't have any {} star champions!\n"
                     "Collect some using `{}crystal`!".format(
                         star, ctx.clean_prefix
@@ -106,13 +106,13 @@ class Mcoc(commands.Cog):
                 ["{} s{}".format(key, value) for key, value in roster.items()]
             )
             embed = discord.Embed(
-                title="Crystal roster", color=ctx.author.color
+                title="Crystal Roster: {} Star :star:".format(star), color=ctx.author.color
             )
             embed.add_field(name="{}'s Roster".format(
                 ctx.author), value=roster)
         else:
             embed = discord.Embed(
-                title="Crystal roster", color=ctx.author.color, description=(
+                title="Crystal Roster: {} Star :star:".format(star), color=ctx.author.color, description=(
                     "You don't have any {} star champions!\n"
                     "Collect some using `{}crystal`!".format(
                         star, ctx.clean_prefix
@@ -136,13 +136,13 @@ class Mcoc(commands.Cog):
                 ["{} s{}".format(key, value) for key, value in roster.items()]
             )
             embed = discord.Embed(
-                title="Crystal roster", color=ctx.author.color
+                title="Crystal Roster: {} Star :star:".format(star), color=ctx.author.color
             )
             embed.add_field(name="{}'s Roster".format(
                 ctx.author), value=roster)
         else:
             embed = discord.Embed(
-                title="Crystal roster", color=ctx.author.color, description=(
+                title="Crystal Roster: {} Star :star:".format(star), color=ctx.author.color, description=(
                     "You don't have any {} star champions!\n"
                     "Collect some using `{}crystal`!".format(
                         star, ctx.clean_prefix
