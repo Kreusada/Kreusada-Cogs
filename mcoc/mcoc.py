@@ -60,9 +60,13 @@ class Mcoc(commands.Cog):
         )
         data.set_image(url=image)
         await ctx.send(embed=data)
-
-    @commands.command()
-    async def roster5(self, ctx, star: str = None):
+    
+    @commands.group()
+    async def roster(self, ctx):
+        """Access your crystal rosters."""
+    
+    @roster.command(name="5")
+    async def five(self, ctx, star: str = None):
         if await self.bot.is_owner(ctx.author) is False:
             return await ctx.send("This feature is coming soon :eyes:")
         if star is None:
@@ -91,8 +95,8 @@ class Mcoc(commands.Cog):
             )
         await ctx.send(embed=embed)
 
-    @commands.command()
-    async def roster4(self, ctx, star: str = None):
+    @roster.command(name="4")
+    async def four(self, ctx, star: str = None):
         if await self.bot.is_owner(ctx.author) is False:
             return await ctx.send("This feature is coming soon :eyes:")
         if star is None:
@@ -121,8 +125,8 @@ class Mcoc(commands.Cog):
             )
         await ctx.send(embed=embed)
 
-    @commands.command()
-    async def roster3(self, ctx, star: str = None):
+    @roster.command(name="3")
+    async def three(self, ctx, star: str = None):
         if await self.bot.is_owner(ctx.author) is False:
             return await ctx.send("This feature is coming soon :eyes:")
         if star is None:
