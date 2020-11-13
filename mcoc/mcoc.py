@@ -62,7 +62,7 @@ class Mcoc(commands.Cog):
         await ctx.send(embed=data)
 
     @commands.command()
-    async def roster(self, ctx, star: str = None):
+    async def roster5(self, ctx, star: str = None):
         if await self.bot.is_owner(ctx.author) is False:
             return await ctx.send("This feature is coming soon :eyes:")
         if star is None:
@@ -71,6 +71,66 @@ class Mcoc(commands.Cog):
             roster: dict = await self.config.user(ctx.author).roster.get_raw(star)
         except KeyError:
             roster: dict = await self.config.user(ctx.author).roster.get_raw("5")
+        if len(roster.values()) > 0:
+            roster = "\n".join(
+                ["{} s{}".format(key, value) for key, value in roster.items()]
+            )
+            embed = discord.Embed(
+                title="Crystal roster", color=ctx.author.color
+            )
+            embed.add_field(name="{}'s Roster".format(
+                ctx.author), value=roster)
+        else:
+            embed = discord.Embed(
+                title="Crystal roster", color=ctx.author.color, description=(
+                    "You don't have any {} star champions!\n"
+                    "Collect some using `{}crystal`!".format(
+                        star, ctx.clean_prefix
+                    )
+                )
+            )
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    async def roster4(self, ctx, star: str = None):
+        if await self.bot.is_owner(ctx.author) is False:
+            return await ctx.send("This feature is coming soon :eyes:")
+        if star is None:
+            star = "4"
+        try:
+            roster: dict = await self.config.user(ctx.author).roster.get_raw(star)
+        except KeyError:
+            roster: dict = await self.config.user(ctx.author).roster.get_raw("4")
+        if len(roster.values()) > 0:
+            roster = "\n".join(
+                ["{} s{}".format(key, value) for key, value in roster.items()]
+            )
+            embed = discord.Embed(
+                title="Crystal roster", color=ctx.author.color
+            )
+            embed.add_field(name="{}'s Roster".format(
+                ctx.author), value=roster)
+        else:
+            embed = discord.Embed(
+                title="Crystal roster", color=ctx.author.color, description=(
+                    "You don't have any {} star champions!\n"
+                    "Collect some using `{}crystal`!".format(
+                        star, ctx.clean_prefix
+                    )
+                )
+            )
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    async def roster3(self, ctx, star: str = None):
+        if await self.bot.is_owner(ctx.author) is False:
+            return await ctx.send("This feature is coming soon :eyes:")
+        if star is None:
+            star = "3"
+        try:
+            roster: dict = await self.config.user(ctx.author).roster.get_raw(star)
+        except KeyError:
+            roster: dict = await self.config.user(ctx.author).roster.get_raw("3")
         if len(roster.values()) > 0:
             roster = "\n".join(
                 ["{} s{}".format(key, value) for key, value in roster.items()]
