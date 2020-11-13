@@ -27,7 +27,8 @@ Crystal
 **Syntax**
 
 .. code-block:: none
-,crystal
+  
+  ,crystal
 
 A random champion will be displayed inside an embed, as their featured image. Kreusada is learning Config, therefore an ETA for collecting champions will most likely be February/March 2021.
 
@@ -44,7 +45,8 @@ Battlechip
 **Syntax**
 
 .. code-block:: none
-,battlechip basic
+  
+  ,battlechip basic
 
 Opens a basic battlechip crystal with the official drop rates. Currently, user config is not registered but this is something we are working on to complete.
 
@@ -53,6 +55,7 @@ Opens a basic battlechip crystal with the official drop rates. Currently, user c
 **Syntax**
 
 .. code-block:: none
-,battlechip uncollected
+  
+  ,battlechip uncollected
 
 Opens an uncollected battlechip crystal with the official drop rates. Currently, user config is not registered but this is something we are working on to complete.

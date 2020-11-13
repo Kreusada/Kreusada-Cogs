@@ -15,11 +15,8 @@ Change Logs
 Cog Support
 ==================
 
+* :ref:`admin`
 * :ref:`customcommands`
 * :ref:`fun`
-* :ref:`audio`
-* :ref:`tickets`
 * :ref:`mcoc`
-
-Glossaries and ToS
-==================
+* :ref:`tickets`

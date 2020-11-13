@@ -4,13 +4,11 @@
 Audio
 =====
 
-.. warning:: HAWK! Our audio is currently experiencing some issues. We're working on a fix asap.
-
 Playing music inside Voice Chats is such an awesome feature to have. Luckily, with Demaratus, we have this feature ready for you to use! In this documentation, you will find a full guide on how to use ``Audio`` in your server!
 
 .. warning:: Unfortunately, our Spotify API token is currently depleted, we are doing our best to re-enable Spotify for you!
 
-.. warning:: In extremely rare cases, the Lavalink server may crash. In this case, the ``Audio`` commands will not be usable. If you receive an alert saying that Lavalink has crashed, please report it to the Staff at the Matrix Development Team.
+.. warning:: In extremely rare cases, the Lavalink server may crash. In this case, the ``Audio`` commands will not be usable. If you receive an alert saying that Lavalink has crashed, please report it to the Staff at our `support server <https://discord.gg/JmCFyq7>`_.
 
 --------
 Commands
