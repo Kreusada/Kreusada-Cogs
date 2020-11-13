@@ -61,7 +61,7 @@ class Mcoc(commands.Cog):
         data.set_image(url=image)
         await ctx.send(embed=data)
     
-    @commands.group()
+    @commands.group(invoke_without_command=True)
     async def roster(self, ctx):
         """Access your crystal rosters."""
     
