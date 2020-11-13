@@ -84,7 +84,7 @@ class Mcoc(commands.Cog):
                 title="Crystal Roster: {} Star".format(star), color=ctx.author.color, description=":star::star::star::star::star:"
             )
             embed.add_field(name="{}'s Roster".format(
-                ctx.author), value=roster)
+                ctx.author.name), value=roster)
         else:
             embed = discord.Embed(
                 title="Crystal Roster: {} Star :star:".format(star), color=ctx.author.color, description=(
@@ -114,7 +114,7 @@ class Mcoc(commands.Cog):
                 title="Crystal Roster: {} Star :star:".format(star), color=ctx.author.color, description=":star::star::star::star:"
             )
             embed.add_field(name="{}'s Roster".format(
-                ctx.author), value=roster)
+                ctx.author.name), value=roster)
         else:
             embed = discord.Embed(
                 title="Crystal Roster: {} Star :star:".format(star), color=ctx.author.color, description=(
@@ -144,7 +144,7 @@ class Mcoc(commands.Cog):
                 title="Crystal Roster: {} Star :star:".format(star), color=ctx.author.color, description=":star::star::star:"
             )
             embed.add_field(name="{}'s Roster".format(
-                ctx.author), value=roster)
+                ctx.author.name), value=roster)
         else:
             embed = discord.Embed(
                 title="Crystal Roster: {} Star :star:".format(star), color=ctx.author.color, description=(
