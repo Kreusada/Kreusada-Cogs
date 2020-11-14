@@ -57,6 +57,11 @@ class Learning(commands.Cog):
         msg = await ctx.send("The message")
         await msg.add_reaction("✅")
         
+    @learning.command()
+    async def reactioncust(self, ctx):
+        msg = await ctx.send("The message")
+        await msg.add_reaction("\<:almost:777177673264136242>")
+        
     @learning.group()
     async def info(self, ctx):
         """Shows cog info, testing subcommands."""
