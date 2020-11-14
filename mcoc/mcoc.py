@@ -81,7 +81,7 @@ class Mcoc(commands.Cog):
                 ["{} s{}".format(key, value) for key, value in roster.items()]
             )
             embed = discord.Embed(
-                title="Crystal Roster: {} Star".format(star), color=ctx.author.color, description=":star::star::star::star::star:", footer="Test"
+                title="Crystal Roster: {} Star".format(star), color=ctx.author.color, description=":star::star::star::star::star:", footer_text="Test"
             )
             embed.add_field(name="{}'s Roster :arrow_down:".format(
                 ctx.author.name), value=roster)
