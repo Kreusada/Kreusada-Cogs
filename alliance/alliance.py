@@ -28,7 +28,6 @@ class Alliance(commands.Cog):
                     Your timezone is no longer shown on your nickname (`{ctx.author.name}`)
                     """
                 )
-            else:
                 user = ctx.author
                 before = ctx.author.name
                 after = timezone
