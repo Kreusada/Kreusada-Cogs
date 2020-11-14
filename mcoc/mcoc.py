@@ -64,7 +64,7 @@ class Mcoc(commands.Cog):
     @commands.group(invoke_without_command=True)
     async def roster(self, ctx):
         """Access your crystal rosters."""
-        await ctx.send("This feature is coming soon :eyes:")
+        await ctx.send("This feature is coming soon :eyes:\n<error:777117297273077760>")
     
     @roster.command(name="5")
     async def five(self, ctx, star: str = None):
@@ -138,7 +138,7 @@ class Mcoc(commands.Cog):
             roster: dict = await self.config.user(ctx.author).roster.get_raw("3")
         if len(roster.values()) > 0:
             roster = "\n".join(
-                ["{} s{}".format(key, value, roster.capitalize()) for key, value in roster.items()]
+                ["{} s{}".format(key, value) for key, value in roster.items()]
             )
             embed = discord.Embed(
                 title="Crystal Roster: {} Star".format(star), color=ctx.author.color, description=":star::star::star:"
