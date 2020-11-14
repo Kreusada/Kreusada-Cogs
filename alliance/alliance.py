@@ -27,6 +27,8 @@ class Alliance(commands.Cog):
                 For example: `dem timezone +4` or `dem timezone -12`.
                 """
             )
+            
+            try:
             await ctx.send(embed=embed)
         except discord Forbidden:
             embed = Embed.create(
@@ -41,11 +43,11 @@ class Alliance(commands.Cog):
                 """,
             )
             await ctx.send(embed=embed)
-        user = ctx.author
-        before = ctx.author.name
-        after = timezone
-        tag = "{0} [{1}]".format(before, after)
-        embed = Embed.create(
+            user = ctx.author
+            before = ctx.author.name
+            after = timezone
+            tag = "{0} [{1}]".format(before, after)
+            embed = Embed.create(
             self, ctx, title="Successful <:success:777167188816560168>",
             description="Your timezone is now displayed on your nickname as: ``{}``".format(tag),
         )
