@@ -64,12 +64,12 @@ class Mcoc(commands.Cog):
     @commands.group(invoke_without_command=True)
     async def roster(self, ctx):
         """Access your crystal rosters."""
-        await ctx.send("<:success:777165995378343947> - `You are eligible for a roster, the champions you collect now will be stored.`\n<:error:777117297273077760> - `This feature is currently unavailable.`")
+        await ctx.send("<:success:777167188816560168> - `You are eligible for a roster, the champions you collect now will be stored.`\n<:error:777117297273077760> - `This feature is currently unavailable.`")
     
     @roster.command(name="5")
     async def five(self, ctx, star: str = None):
         if await self.bot.is_owner(ctx.author) is False:
-            return await ctx.send("<:success:777165995378343947> - `You are eligible for a roster, the champions you collect now will be stored.`\n<:error:777117297273077760> - `This feature is currently unavailable.`")
+            return await ctx.send("<:success:777167188816560168> - `You are eligible for a roster, the champions you collect now will be stored.`\n<:error:777117297273077760> - `This feature is currently unavailable.`")
         if star is None:
             star = "5"
         try:
@@ -99,7 +99,7 @@ class Mcoc(commands.Cog):
     @roster.command(name="4")
     async def four(self, ctx, star: str = None):
         if await self.bot.is_owner(ctx.author) is False:
-            return await ctx.send("<:success:777165995378343947> - `You are eligible for a roster, the champions you collect now will be stored.`\n<:error:777117297273077760> - `This feature is currently unavailable.`")
+            return await ctx.send("<:success:777167188816560168> - `You are eligible for a roster, the champions you collect now will be stored.`\n<:error:777117297273077760> - `This feature is currently unavailable.`")
         if star is None:
             star = "4"
         try:
@@ -129,7 +129,7 @@ class Mcoc(commands.Cog):
     @roster.command(name="3")
     async def three(self, ctx, star: str = None):
         if await self.bot.is_owner(ctx.author) is False:
-            return await ctx.send("<:success:777165995378343947> - `You are eligible for a roster, the champions you collect now will be stored.`\n<:error:777117297273077760> - `This feature is currently unavailable.`")
+            return await ctx.send("<:success:777167188816560168> - `You are eligible for a roster, the champions you collect now will be stored.`\n<:error:777117297273077760> - `This feature is currently unavailable.`")
         if star is None:
             star = "3"
         try:
