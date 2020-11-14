@@ -5,8 +5,8 @@ BCB = [
     "https://vignette.wikia.nocookie.net/marvel-contestofchampions/images/2/2b/Gold_icon.png/revision/latest?cb=20190505220317",
 ]
 FEATUREDS = {
-    "abomination": "https://media.discordapp.net/attachments/745608075670585344/768766778691420180/Abomination_featured.png",
-    "abominationimmortal": "https://media.discordapp.net/attachments/763066391107862550/777108902248054784/gachachaseprize_256x256_abomination_immortal.png",
+    "<Science:777119812018896907> abomination": "https://media.discordapp.net/attachments/745608075670585344/768766778691420180/Abomination_featured.png",
+    "<Science:777119812018896907> abominationimmortal": "https://media.discordapp.net/attachments/763066391107862550/777108902248054784/gachachaseprize_256x256_abomination_immortal.png",
     "aegon": "https://media.discordapp.net/attachments/763066391107862550/777109017726025728/gachachaseprize_256x256_aegon.png",
     "agentvenom": "https://media.discordapp.net/attachments/745608075670585344/768766780054569000/Agent_Venom_featured.png",
     "airwalker": "https://media.discordapp.net/attachments/745608075670585344/768766786018476072/air_walker.png",
@@ -25,9 +25,9 @@ FEATUREDS = {
     "bwdo": "https://media.discordapp.net/attachments/763066391107862550/777110635451908126/gachachaseprize_256x256_black_widow_timely.png",
     "blade": "https://media.discordapp.net/attachments/745608075670585344/768766856168734730/Blade_featured.png",
     "cable": "https://media.discordapp.net/attachments/763066391107862550/777110835922206720/gachachaseprize_256x256_cable.png",
-    "captainamerica": "https://media.discordapp.net/attachments/763066391107862550/777110943120228362/gachachaseprize_256x256_captain_america.png",
-    "capiw": "https://media.discordapp.net/attachments/745608075670585344/768766821155209276/Captain_America_Infinity_War_featured.png",
-    "capwii": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_capamerica_wwii.png",
+    "<Science:777119812018896907> captainamerica": "https://media.discordapp.net/attachments/763066391107862550/777110943120228362/gachachaseprize_256x256_captain_america.png",
+    "<Science:777119812018896907> capiw": "https://media.discordapp.net/attachments/745608075670585344/768766821155209276/Captain_America_Infinity_War_featured.png",
+    "<Science:777119812018896907> capwii": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_capamerica_wwii.png",
     "cmm": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_captain_marvel_movie.png",
     "captainmarvel": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_captain_marvel.png",
     "carnage": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_carnage.png",
