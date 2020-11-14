@@ -44,6 +44,12 @@ class Alliance(commands.Cog):
             description=f"{role.mention} will now be mentioned when Alliance events start.",
         )
         await ctx.send(embed=embed)
+    except discord.Forbidden:
+        embed = Embed.create(
+        self, ctx, title="Oopsies! <:error:777117297273077760>",
+            description=f"Something went wrong during the setup process. If this problem continues, please notify Kreusada by using `dem contact <explain your issue`.",
+        )
+        
         
     @alliancealert.command(invoke_without_command=True, pass_context=True, aliases=["aa", "alert"])
     async def aqstart(self, ctx):
