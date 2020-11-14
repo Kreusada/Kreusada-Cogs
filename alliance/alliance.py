@@ -41,7 +41,7 @@ class Alliance(commands.Cog):
         await self.config.guild(ctx.guild).role.set(role.id)
         embed = Embed.create(
         self, ctx, title="Successful <:success:777167188816560168>",
-            description="{role.mention} will now be mentioned when Alliance events start.",
+            description=f"{role.mention} will now be mentioned when Alliance events start.",
         )
         await ctx.send(embed=embed)
         
