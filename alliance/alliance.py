@@ -24,12 +24,26 @@ class Alliance(commands.Cog):
         before = ctx.author.name
         after = timezone
         tag = "{0} [{1}]".format(before, after)
+        embed = Embed.create(
+            self, ctx, title="Successful <:success:777167188816560168>",
+            description=f"Your timezone is now displayed on your nickname as: ``{}``".format(tag),
+        )
+       
         try:
             await user.edit(nick=tag)
+            await ctx.send(embed=embed)
         except discord.Forbidden:
-            await ctx.send("Your nickname could not be changed, I don't have permission to change it. :man_shrugging:")
-
-        await ctx.send("Your timezone was successfully added to your nickname. ``{}``".format(tag))
+            embed = Embed.create(
+                self, ctx, title="Oopsies! <:error:777117297273077760>",
+                description="""
+                Something went wrong during the setup process, I could not change your nickname.
+                This may be due to the following error:
+                :x: `Invalid Permissions`
+                :x: `Role Heirarchy`
+                Please resolve these issues before I can set nicknames.
+                If problems continue, please ask for help in our [support server](https://discord.gg/JmCFyq7)
+                """
+            await ctx.send(embed=embed)
       
     @commands.group(invoke_without_command=True)
     async def alliancealert(self, ctx): #aliases: aa, alert):
