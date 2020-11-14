@@ -29,9 +29,9 @@ class Alliance(commands.Cog):
             )
             
             try:
-            await ctx.send(embed=embed)
-        except discord Forbidden:
-            embed = Embed.create(
+                await ctx.send(embed=embed)
+            except discord Forbidden:
+                embed = Embed.create(
                 self, ctx, title="Oopsies! <:error:777117297273077760>",
                 description="""
                 Something went wrong during the setup process, I could not change your nickname.
