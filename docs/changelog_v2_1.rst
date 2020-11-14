@@ -7,11 +7,20 @@ A massive thankyou to our contributors in our development server. This includes 
 
 Additionally, thankyou to our servers who have helped to invoke, bolster its development, and share within the community. Currently, as of 01/11/2020, we have 63164 unique users, in 27 different servers.
 
+
+Changelog Summary
+-----------------
+
+Demaratus 2.1 brings lots of new fun features, vast UI improvements, and improving your user experience. Many issues and bugs have been resolved, and our main focus has been to release roster for ``mcoc``. Unfortunately, we were not able to get it released on time for the version release date, but we are working on adding the finishing touches as we speak. Demaratus 2.1 build has been HUGE, with over 1,000 code commits and approximately 60 hours spent between Kreusada and Jojo. Below, you will find all the patch notes relative to Demaratus.
+
+This changelog was independently scripted by Kreusada. And let me tell ya, I'm tired from all this typing and coding recently, so imma dip out for a short while :D
+
 Changelog
 ---------
 
 - Improved our ``crystal`` functionality with replaced URLs and on the rebuild.
 - Added our ``battlechip`` command group which uses official DRs from Marvel Contest of Champions.
+- Added star ratings to champions in ``crystals``
 - Removed ``champ portrait`` and ``champ featured`` as we look to rebuild these cogs.
 - Improved User Interface amongst Kreusada's Cogs.
 - Improved Ticket System for UI, improved menus, deprecated ``quicksetup`` for clarity.
@@ -23,6 +32,9 @@ Changelog
 - Investigating the cause and a fix for missing champion featured images in ``crystals``.
 - Investigating the cause and a fix for embed spams in certain channel types.
 - Investigating the cause and a fix for user trigger messages occassionally being removed when a command timeout is applied to the command group.
+- Investigating issues relating to server owners having heirarchy higher than Demaratus although Demaratus is higher in the heirarchy.
+- Investigating issues relating to multiple ``excepts`` being sent for discord forbidden permission quotas.
+- Investigating issues relating to reactmenus in ``awbadges`` becoming 'laggy' and inuniform.
 - Fixed issue where embeds were occassionally 'distorted'.
 - Fixed issue for certain cogs to no longer falsely clarify the fact that they store user end data.
 - Fixed issue where users were unable to use the ``invite`` command although global permissions were granted.
@@ -32,16 +44,23 @@ Changelog
 - Fixed issues relating to ``Audio`` not making any sound despite audio in queue with full volume.
 - Fixed issues relating to ``Audio`` lavalink port 2333 interfering with our drone instances of 750728173804585010, 738690155212177459 and 746347560767193158.
 
+In development
+--------------
+
+- Adding drop rates to the newly established tiers.
+- Adding authentic rosters for each tier
+- Adding ``find`` commands into ``mcoc``.
+- Editing forks replace datapath core cogs to better authenticate the branding for Demaratus.
 
 New Cogs
 --------
 
 **Alliance**
-- Added a ``timezone`` tool to bind to the end of your nickname.
+- Added a ``timezone`` tool to bind to the end of your nickname. [MAINTENANCE]
 - TBD AQ+AW Alerts for Marvel Contest of Champions. (Under development)
 
 **Find**
-- Find MCOC PNGs with this quick and accessible tool.
+- Find MCOC PNGs with this quick and accessible tool. [MAINTENANCE]
 - ``Find`` is now in the process of being merged from its own cog to ``mcoc``.
 
 **Fun**
@@ -50,6 +69,15 @@ New Cogs
 **Modmail**
 - A fluent easy-setup modmail cog produced by Jojo.
 
+Support Server Changelog
+------------------------
+
+- Removed channels #poaching and #crystals from community category.
+- Removed Titan and Otriux Cog Support Channels from Cog Support Category due to dormancy.
+- Added Demaratus Announcement roles available to opt in and out of.
+- Added a testing-beta channel for beta testing features.
+- Added lavalink and hosting support channels.
+- Added some roles, here and there. :D
 
 Contact Support
 ---------------
@@ -61,21 +89,16 @@ Special Thanks
 
 A huge thankyou to our Staff, Contributors, and Members for making this push release possible.
 
-
-Admins: AndreasDevesa, Jojo
-
-Staff: AndreasDevesa, Evolve, Kreusada, Jojo, Otriux
-
-Retired Staff: YanaleraPreda, Sinestro
-
-Demaratus Support Squad: Adnayekken, AndreasDevesa, Evolve, Kreusada, Jojo, Otriux, YanaleraPreda, The Mad Titan
-
-Contributors: Adnayekken, Bbgun11, Bucket Of Fire, Cats73, Crusader, LeOctavius, Maurica Elayêt, Moo00se, YanaleraPreda, Titan, Voldemort, Zagelfino, Sinestro, AndreasDevesa, Evolve, Kreusada, Jojo, Otriux, The Mad Titan, FlyingKiller189
+Admins: AndreasDevesa, Jojo, Kreusada
+Staff: Evolve, Kreusada, Jojo, Otriux
+Retired Staff: YanaleraPreda, Sinestro, andreaskonamino
+Demaratus Support Squad: Adnayekken, andreaskonamino, Evolve, Kreusada, Jojo, Otriux, YanaleraPreda, The Mad Titan
+Contributors: Adnayekken, Bbgun11, Bucket Of Fire, Cats73, Crusader, LeOctavius, Maurica Elayêt, Moo00se, YanaleraPreda, Titan, Voldemort, Zagelfino, Sinestro, andreaskonamino, Evolve, Kreusada, Jojo, Otriux, The Mad Titan, FlyingKiller189
 
 Plans for the future
 --------------------
 
-- Store user input and datas with config to develop your roster and currencies. No estimated ETA.
+- Store user input and datas with config to develop currencies. No estimated ETA.
 - Add more fun games for the community to enjoy.
 - Bolster the UI of certain cogs such as moderation, to establish an improved authentic environment instead of standardred.
 - Create games that involve currencies and storing user and user input data.
