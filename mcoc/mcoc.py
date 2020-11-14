@@ -148,7 +148,7 @@ class Mcoc(commands.Cog):
         else:
             embed = discord.Embed(
                 title="Crystal Roster: {} Star :star:".format(star), color=ctx.author.color, description=(
-                    "You don't have any {} star champions!\n"
+                    "<error:777117297273077760> You don't have any {} star champions!\n"
                     "Collect some using `{}crystal`!".format(
                         star, ctx.clean_prefix
                     )
