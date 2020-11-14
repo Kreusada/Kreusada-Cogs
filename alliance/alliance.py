@@ -31,15 +31,15 @@ class Alliance(commands.Cog):
 
         await ctx.send("Your timezone was successfully added to your nickname. ``{}``".format(tag))
       
-    @commands.group()
+    @commands.group(invoke_without_command=True)
     async def alliancealert(self, ctx): #aliases: aa, alert):
         """Alert your fellow alliance mates for movement."""
         
-    @commands.group()
+    @commands.group(invoke_without_command=True)
     async def alliancealertset(self, ctx, role: discord.Role):
         """Set the alliance role to be pinged for alerts."""
         await self.config.guild(ctx.guild).role.set(role.id)
-        await ctx.send(f"<:success:777167188816560168> - {role.mention} will now be mentioned when Alliance events start. .")
+        await ctx.send(f"<:success:777167188816560168> - `{role.mention}` will now be mentioned when Alliance events start.")
         
     @alliancealert.command(invoke_without_command=True, pass_context=True, aliases=["aa", "alert"])
     async def aqstart(self, ctx):
