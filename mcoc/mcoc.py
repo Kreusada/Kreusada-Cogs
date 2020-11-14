@@ -95,7 +95,6 @@ class Mcoc(commands.Cog):
                 )
             )
         await ctx.send(embed=embed)
-        await ctx.send("<:error:777117297273077760> - `We are having functional problems with awbadges.`\n          `Please report bugs by using: dem support server`")
 
     @roster.command(name="4")
     async def four(self, ctx, star: str = None):
@@ -312,6 +311,7 @@ class Mcoc(commands.Cog):
 
             normal = "\n".join(tiers)
             return await ctx.send(embed=embed)
+        await ctx.send("<:error:777117297273077760> - `\nWe are having functional problems with awbadges.`\n          `Please report bugs by using: dem support server`")
         if tier == "participation":
             embed = Embed.create(
                 self, ctx, title="Participation",
@@ -339,3 +339,4 @@ class Mcoc(commands.Cog):
                 image=tiers[tier][group_num]
             )
             await ctx.send(embed=embed)
+            await ctx.send("<:error:777117297273077760> - `\nWe are having functional problems with awbadges.`\n          `Please report bugs by using: dem support server`")
