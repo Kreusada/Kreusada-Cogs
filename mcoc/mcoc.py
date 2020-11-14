@@ -128,9 +128,9 @@ class Mcoc(commands.Cog):
 
     @roster.command(name="3")
     async def three(self, ctx, star: str = None):
-    await ctx.send("This feature is coming soon :eyes:")
-    if star is None:
-        star = "3"
+        await ctx.send("This feature is coming soon :eyes:")
+        if star is None:
+            star = "3"
         try:
             roster: dict = await self.config.user(ctx.author).roster.get_raw(star)
         except KeyError:
