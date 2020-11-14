@@ -51,6 +51,12 @@ class Learning(commands.Cog):
         ]
 
         await ctx.send(random.choice(URLs))
+    
+    @learning.command()
+    async def reaction(self, ctx):
+        emoji = `\N{APPLE}
+        await ctx.send("The message\nThe reaction :arrow_down::fingers_crossed:")
+        await message.add_reaction(emoji)
         
     @learning.group()
     async def info(self, ctx):
