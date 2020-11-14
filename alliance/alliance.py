@@ -21,10 +21,10 @@ class Alliance(commands.Cog):
             await ctx.author.edit(nick=ctx.author.name)
             embed = Embed.create(
                 self, ctx, title="Successful <:success:777167188816560168>",
-                description="""
-                Your timezone has been successfully reset to `{ctx.author}`.
-                You can set your nickname using `dem timezone`
+                description=f"""
+                You can set your nickname using `dem timezone`.
                 For example: `dem timezone +4` or `dem timezone -12`.
+                Your timezone is no longer shown on your nickname (`{ctx.author}`)
                 """
             )
             
@@ -39,7 +39,7 @@ class Alliance(commands.Cog):
                 :x: `Invalid Permissions`
                 :x: `Role Heirarchy`
                 Please resolve these issues before I can set nicknames.
-                If problems continue, please ask for help in our [support server](https://discord.gg/JmCFyq7)
+                If problems continue, please ask for help in our [support server](https://discord.gg/JmCFyq7).
                 """,
             )
             await ctx.send(embed=embed)
