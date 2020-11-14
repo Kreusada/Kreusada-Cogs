@@ -24,11 +24,9 @@ class Alliance(commands.Cog):
                 description=f"""
                 You can set your nickname using `dem timezone`.
                 For example: `dem timezone +4` or `dem timezone -12`.
-                Your timezone is no longer shown on your nickname (`{ctx.author}`)
+                Your timezone is no longer shown on your nickname (`{ctx.author.name}`)
                 """
             )
-            
-            try:
                 await ctx.send(embed=embed)
             except discord.Forbidden:
                 embed = Embed.create(
