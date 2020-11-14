@@ -26,7 +26,7 @@ class Alliance(commands.Cog):
         tag = "{0} [{1}]".format(before, after)
         embed = Embed.create(
             self, ctx, title="Successful <:success:777167188816560168>",
-            description=f"Your timezone is now displayed on your nickname as: ``{}``".format(tag),
+            description="Your timezone is now displayed on your nickname as: ``{}``".format(tag),
         )
        
         try:
