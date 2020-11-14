@@ -64,7 +64,7 @@ class Mcoc(commands.Cog):
     @commands.group(invoke_without_command=True)
     async def roster(self, ctx):
         """Access your crystal rosters."""
-        await ctx.send("This feature is coming soon :eyes:\n<error:777117297273077760>")
+        await ctx.send("This feature is coming soon :eyes:\n<:error:777117297273077760>")
     
     @roster.command(name="5")
     async def five(self, ctx, star: str = None):
