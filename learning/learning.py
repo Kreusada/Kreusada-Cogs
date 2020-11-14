@@ -54,9 +54,9 @@ class Learning(commands.Cog):
     
     @learning.command()
     async def reaction(self, ctx):
-        emoji = "\N{APPLE}"
+        emoji = "<:almost:777177673264136242>"
         await ctx.send("The message\nThe reaction :arrow_down::fingers_crossed:")
-        await message.add_reaction(emoji)
+        await ctx.add_reaction(emoji)
         
     @learning.group()
     async def info(self, ctx):
