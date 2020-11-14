@@ -128,7 +128,7 @@ class Mcoc(commands.Cog):
 
     @roster.command(name="3")
     async def three(self, ctx, star: str = None):
-        if await self.bot.is_owner(ctx.author) is False:
+#        if await self.bot.is_owner(ctx.author) is False:
             return await ctx.send("This feature is coming soon :eyes:")
         if star is None:
             star = "3"
