@@ -95,7 +95,7 @@ class Mcoc(commands.Cog):
                 )
             )
         await ctx.send(embed=embed)
-        await ctx.send("<:error:777117297273077760> - `We are having functional problems with awbadges.`\n   `Please report bugs by using: dem support server`")
+        await ctx.send("<:error:777117297273077760> - `We are having functional problems with awbadges.`\n          `Please report bugs by using: dem support server`")
 
     @roster.command(name="4")
     async def four(self, ctx, star: str = None):
