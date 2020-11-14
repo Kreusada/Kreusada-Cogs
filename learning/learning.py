@@ -54,7 +54,7 @@ class Learning(commands.Cog):
     
     @learning.command()
     async def reaction(self, ctx):
-        emoji = `\N{APPLE}
+        emoji = '\N{APPLE}'
         await ctx.send("The message\nThe reaction :arrow_down::fingers_crossed:")
         await message.add_reaction(emoji)
         
