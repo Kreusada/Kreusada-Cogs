@@ -18,16 +18,16 @@ class Alliance(commands.Cog):
         For example - `Kreusada [+4]`
         """
         if timezone is None:
-            await ctx.author.edit(nick=ctx.author.name)
-            embed = Embed.create(
-                self, ctx, title="Successful <:success:777167188816560168>",
-                description=f"""
-                You can set your nickname using `dem timezone`.
-                For example: `dem timezone +4` or `dem timezone -12`.
-                Your timezone is no longer shown on your nickname (`{ctx.author.name}`)
-                """
-            )
             try:
+                await ctx.author.edit(nick=ctx.author.name)
+                embed = Embed.create(
+                    self, ctx, title="Successful <:success:777167188816560168>",
+                    description=f"""
+                    You can set your nickname using `dem timezone`.
+                    For example: `dem timezone +4` or `dem timezone -12`.
+                    Your timezone is no longer shown on your nickname (`{ctx.author.name}`)
+                    """
+                )
                 await ctx.send(embed=embed)
             except discord.Forbidden:
                 embed = Embed.create(
