@@ -39,7 +39,11 @@ class Alliance(commands.Cog):
     async def alliancealertset(self, ctx, role: discord.Role):
         """Set the alliance role to be pinged for alerts."""
         await self.config.guild(ctx.guild).role.set(role.id)
-        await ctx.send(f"<:success:777167188816560168> - `{role.mention}` will now be mentioned when Alliance events start.")
+        embed = Embed.create(
+        self, ctx, title="Successful <:success:777167188816560168>",
+            description="{role.mention} will now be mentioned when Alliance events start.",
+        )
+        await ctx.send(embed=embed)
         
     @alliancealert.command(invoke_without_command=True, pass_context=True, aliases=["aa", "alert"])
     async def aqstart(self, ctx):
