@@ -61,6 +61,10 @@ class Learning(commands.Cog):
     async def reactioncust(self, ctx):
         msg = await ctx.send("The message")
         await msg.add_reaction("\<:almost:777177673264136242>")
+
+    @learning.command()
+    async def reactionadd(self, ctx):
+        await ctx.add_reaction("\<:success:777167188816560168>")
         
     @learning.group()
     async def info(self, ctx):
