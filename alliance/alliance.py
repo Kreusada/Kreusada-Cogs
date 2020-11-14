@@ -19,7 +19,28 @@ class Alliance(commands.Cog):
         """
         if timezone is None:
             await ctx.author.edit(nick=ctx.author.name)
-            return await ctx.send("Your timezone was reset. It will no longer show on your Discord nickname.")
+            embed = Embed.create(
+                self, ctx, title="Successful <:success:777167188816560168>",
+                description="""
+                Your timezone has been successfully reset to `{ctx.author}`.
+                You can set your nickname using `dem timezone`
+                For example: `dem timezone +4` or `dem timezone -12`.
+                """
+            )
+            await ctx.send(embed=embed)
+        except discord Forbidden:
+            embed = Embed.create(
+                self, ctx, title="Oopsies! <:error:777117297273077760>",
+                description="""
+                Something went wrong during the setup process, I could not change your nickname.
+                This may be due to the following error:
+                :x: `Invalid Permissions`
+                :x: `Role Heirarchy`
+                Please resolve these issues before I can set nicknames.
+                If problems continue, please ask for help in our [support server](https://discord.gg/JmCFyq7)
+                """,
+            )
+            await ctx.send(embed=embed)
         user = ctx.author
         before = ctx.author.name
         after = timezone
