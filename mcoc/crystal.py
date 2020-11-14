@@ -85,7 +85,7 @@ FEATUREDS = {
     "invisiblewoman": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_invisiblewoman.png",
     "ironfist": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_iron_fist.png",
     "immortalironfist": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_iron_fist_white.png",
-    "ironman": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_iron_man.png",
+    "<:Tech:777119812031741973> ironman": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_iron_man.png",
     "ironmaninfinitywar": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_ironman_movie.png",
     "ironpatriot": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_ironpatriot.png",
     "joefixit": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_joefixit.png",
