@@ -6,6 +6,11 @@ from .allianceembed import Embed
 class Alliance(commands.Cog):
     """Tools for your alliance on MCOC."""
 
+    def __init__(self):
+        self.config = Config.get_conf(self, 200730042020, force_registration=True)
+        default_guild = {"role": None}
+        self.config.register_guild(**default_guild)  
+
     @commands.command()
     async def timezone(self, ctx, *, timezone: str = None):
         """
@@ -29,6 +34,12 @@ class Alliance(commands.Cog):
     @commands.group()
     async def alliancealert(self, ctx): #aliases: aa, alert):
         """Alert your fellow alliance mates for movement."""
+        
+    @commands.group()
+    async def alliancealertset(self, ctx, role: discord.Role):
+        """Set the alliance role to be pinged for alerts."""
+        await self.config.guild(ctx.guild).role.set(role.id)
+        await ctx.send(f"<:success:777167188816560168> - {role.mention} will now be mentioned when Alliance events start. .")
         
     @alliancealert.command(invoke_without_command=True, pass_context=True, aliases=["aa", "alert"])
     async def aqstart(self, ctx):
