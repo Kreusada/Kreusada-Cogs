@@ -42,7 +42,8 @@ class Alliance(commands.Cog):
                 :x: `Role Heirarchy`
                 Please resolve these issues before I can set nicknames.
                 If problems continue, please ask for help in our [support server](https://discord.gg/JmCFyq7)
-                """
+                """,
+            )
             await ctx.send(embed=embed)
       
     @commands.group(invoke_without_command=True)
