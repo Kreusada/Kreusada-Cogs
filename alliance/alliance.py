@@ -53,10 +53,10 @@ class Alliance(commands.Cog):
         try:
             await user.edit(nick=tag)
             await ctx.send(embed=embed)
-      
-    @commands.group(invoke_without_command=True)
-    async def alliancealert(self, ctx): #aliases: aa, alert):
-        """Alert your fellow alliance mates for movement."""
+            
+            @commands.group(invoke_without_command=True)
+            async def alliancealert(self, ctx): #aliases: aa, alert):
+                """Alert your fellow alliance mates for movement."""
         
     @commands.group(invoke_without_command=True)
     async def alliancealertset(self, ctx, role: discord.Role):
