@@ -55,13 +55,16 @@ class Alliance(commands.Cog):
             )
             await ctx.send(embed=embed)
                 
-    @commands.group()
+    @commands.group(invoke_without_command=True)
     async def alliancealert(self, ctx): #aliases: aa, alert):
         """Alert your fellow alliance mates for movement."""
             
-    @commands.group(invoke_without_command=True)
-    async def alliancealertset(self, ctx, role: discord.Role):
+    @commands.group()
+    async def alliancealertset(self, ctx):
         """Set the alliance role to be pinged for alerts."""
+        
+    @alliancealertset.command(invoke_without_command=True)
+    async def role(self, ctx, role: discord.Role):
         await self.config.guild(ctx.guild).role.set(role.id)
         self.role_mention = role
         embed = Embed.create(
@@ -80,11 +83,10 @@ class Alliance(commands.Cog):
     @alliancealert.command(invoke_without_command=True, pass_context=True, aliases=["aa", "alert"])
     async def aqstart(self, ctx):
         """Alliance Quest has started!"""
-        embed = Embed.create(
-            self, ctx, title='Alliance Quest has STARTED!',
-        image = "https://media.discordapp.net/attachments/745608075670585344/772947661421805648/aqstarted.png?width=1441&height=480",
-        description = "Time to join Alliance Quest.")
-#        data.set_image(url=image)
-#        data.description = "{}".format(description)
-        await ctx.send(embed=embed)
+        data = Embed.create(self, ctx, title='Alliance Quest has STARTED!')
+        image = ("https://media.discordapp.net/attachments/745608075670585344/772947661421805648/aqstarted.png?width=1441&height=480")
+        description = ("Time to join Alliance Quest.")
+        data.set_image(url=image)
+        data.description = "{}".format(description)
+        await ctx.send(data=embed)
         await ctx.send({self.role_mention})
