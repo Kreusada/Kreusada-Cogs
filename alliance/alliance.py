@@ -63,10 +63,13 @@ class Alliance(commands.Cog):
     async def aa(self, ctx):  # aliases: aa, alert):
         """Alert your fellow alliance mates for movement."""
 
-    @aa.group(name="set", invoke_without_command=True)
+    @aa.group(name="set")
     @commands.admin_or_permissions(manage_guild=True)
     async def aas(self, ctx):
         """Alliance alert settings"""
+
+    @aas.command()
+    async def showsettings(self, ctx):
         rol = await self.config.guild(ctx.guild).get_raw("role")
         chan = await self.config.guild(ctx.guild).get_raw("channel")
         role = ctx.guild.get_role(rol) if rol is not None\
@@ -76,7 +79,8 @@ class Alliance(commands.Cog):
         embed = Embed.create(
             self, ctx, title="{}'s Settings".format(ctx.guild.name),
             description="Role = {}\nChannel = {}".format(
-                role.mention, channel.mention)
+                role.mention, channel.mention),
+            thumbnail=ctx.guild.icon_url
         )
         await ctx.send(embed=embed)
 
@@ -86,7 +90,8 @@ class Alliance(commands.Cog):
         embed = Embed.create(
             self, ctx, title="Successful <:success:777167188816560168>",
             description="{} will now be the channel that the alerts will be sent to when Alliance events start".format(
-                channel.mention
+                channel.mention,
+                thumbnail=ctx.guild.icon_url
             )
         )
         await ctx.send(embed=embed)
@@ -98,12 +103,13 @@ class Alliance(commands.Cog):
             embed = Embed.create(
                 self, ctx, title="Successful <:success:777167188816560168>",
                 description=f"{role.mention} will now be mentioned when Alliance events start.",
+                thumbnail=ctx.guild.icon_url
             )
             await ctx.send(embed=embed)
         except discord.Forbidden:
             embed = Embed.create(
                 self, ctx, title="Oopsies! <:error:777117297273077760>",
-                description=f"Something went wrong during the setup process.",
+                description=f"Something went wrong during the setup process."
             )
             await ctx.send(embed=embed)
 
@@ -119,7 +125,8 @@ class Alliance(commands.Cog):
             embed = Embed.create(
                 self, ctx, title='Alliance Quest has STARTED!',
                 image="https://media.discordapp.net/attachments/745608075670585344/772947661421805648/aqstarted.png?width=1441&height=480",
-                description="Time to join Alliance Quest."
+                description="Time to join Alliance Quest.",
+                thumbnail=ctx.guild.icon_url
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
@@ -130,6 +137,7 @@ class Alliance(commands.Cog):
                     "To set up a role, use `{}alliancealert|aa set role <role>`".format(
                         ctx.clean_prefix
                     )
-                )
+                ),
+                thumbnail=ctx.guild.icon_url
             )
             await ctx.send(embed=embed)
