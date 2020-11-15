@@ -81,7 +81,7 @@ class Alliance(commands.Cog):
             await ctx.send(embed=embed)
 
     @alliancealert.command(invoke_without_command=True, pass_context=True, aliases=["aa", "alert"])
-    async def aqstart(self, ctx, None):
+    async def aqstart(self, ctx):
         """Alliance Quest has started!"""
         self.role_mention = None
         embed = Embed.create(
