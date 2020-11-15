@@ -85,5 +85,5 @@ class Alliance(commands.Cog):
         description = ("Time to join Alliance Quest.")
         data.set_image(url=image)
         data.description = "{}".format(description)
-        await ctx.send(embed=embed)
+        await ctx.send(embed=data)
         await ctx.send({self.role_mention})
