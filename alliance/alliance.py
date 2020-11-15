@@ -18,7 +18,6 @@ class Alliance(commands.Cog):
         For example - `Kreusada [+4]`
         """
         if timezone is None:
-            try:
                 await ctx.author.edit(nick=ctx.author.name)
                 embed = Embed.create(
                     self, ctx, title="Successful <:success:777167188816560168>",
@@ -28,30 +27,34 @@ class Alliance(commands.Cog):
                     Your timezone is no longer shown on your nickname (`{ctx.author.name}`)
                     """
                 )
+                return await ctx.send(embed=embed)
                 user = ctx.author
                 before = ctx.author.name
                 after = timezone
                 tag = "{0} [{1}]".format(before, after)
+                try:
+                    await user.edit(nick=tag)
+                except discord.Forbidden:
+                    embed = Embed.create(
+                    self, ctx, title="Oopsies! <:error:777117297273077760>",
+                    description="""
+                    Something went wrong during the setup process, I could not change your nickname.
+                    This may be due to the following error:
+                    :x: `Invalid Permissions`
+                    :x: `Role Heirarchy`
+                    Please resolve these issues before I can set nicknames.
+                    If problems continue, please ask for help in our [support server](https://discord.gg/JmCFyq7).
+                    """,
+                    )
+                    await ctx.send(embed=embed)
+                
                 embed = Embed.create(
                     self, ctx, title="Successful <:success:777167188816560168>",
                     description="Your timezone is now displayed on your nickname as: ``{}``".format(tag),
+                
                 )
                 await ctx.send(embed=embed)
-                await user.edit(nick=tag)
-            except discord.Forbidden:
-                embed = Embed.create(
-                self, ctx, title="Oopsies! <:error:777117297273077760>",
-                description="""
-                Something went wrong during the setup process, I could not change your nickname.
-                This may be due to the following error:
-                :x: `Invalid Permissions`
-                :x: `Role Heirarchy`
-                Please resolve these issues before I can set nicknames.
-                If problems continue, please ask for help in our [support server](https://discord.gg/JmCFyq7).
-                """,
-                )
-            await ctx.send(embed=embed)
-            
+                
     @commands.group(invoke_without_command=True)
     async def alliancealert(self, ctx): #aliases: aa, alert):
         """Alert your fellow alliance mates for movement."""
