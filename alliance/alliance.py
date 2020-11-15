@@ -37,6 +37,7 @@ class Alliance(commands.Cog):
                     description="Your timezone is now displayed on your nickname as: ``{}``".format(tag),
                 )
                 await ctx.send(embed=embed)
+                await user.edit(nick=tag)
             except discord.Forbidden:
                 embed = Embed.create(
                 self, ctx, title="Oopsies! <:error:777117297273077760>",
@@ -49,9 +50,6 @@ class Alliance(commands.Cog):
                 If problems continue, please ask for help in our [support server](https://discord.gg/JmCFyq7).
                 """,
                 )
-            await ctx.send(embed=embed)
-        try:
-            await user.edit(nick=tag)
             await ctx.send(embed=embed)
             
             @commands.group(invoke_without_command=True)
