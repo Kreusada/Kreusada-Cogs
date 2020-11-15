@@ -75,7 +75,8 @@ class Alliance(commands.Cog):
             else None
         embed = Embed.create(
             self, ctx, title="{}'s Settings".format(ctx.guild.name),
-            description="Role = {}\nChannel = {}".format(role, channel)
+            description="Role = {}\nChannel = {}".format(
+                role.mention, channel.mention)
         )
         await ctx.send(embed=embed)
 
