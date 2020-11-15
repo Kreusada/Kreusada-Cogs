@@ -86,4 +86,4 @@ class Alliance(commands.Cog):
         data.set_image(url=image)
         data.description = "{}".format(description)
         await ctx.send(embed=embed)
-        await ctx.send(#Here is where I will mention the role
+        await ctx.send({self.role_mention})
