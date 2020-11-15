@@ -35,7 +35,11 @@ class Mcoc(commands.Cog):
     @support.command(name="server", aliases=["ss", ])
     async def supportserver(self, ctx):
         """Support Server invite link."""
-        await ctx.send("https://discord.gg/JmCFyq7")
+        embed = Embed.create(
+            self, ctx, title="Support Server",
+            description="https://discord.gg/JmCFyq7"
+        )
+        await ctx.send(embed=embed)
 
     @support.command()
     async def version(self, ctx):
