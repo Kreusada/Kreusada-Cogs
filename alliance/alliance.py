@@ -10,7 +10,7 @@ class Alliance(commands.Cog):
         self.config = Config.get_conf(self, 200730042020, force_registration=True)
         default_guild = {"role": None}
         self.config.register_guild(**default_guild)
-        self.role_mention = role
+        self.role_mention = None
 
     @commands.command()
     async def timezone(self, ctx, *, timezone: str = None):
