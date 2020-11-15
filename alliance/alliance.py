@@ -71,7 +71,7 @@ class Alliance(commands.Cog):
         except discord.Forbidden:
             embed = Embed.create(
                 self, ctx, title="Oopsies! <:error:777117297273077760>",
-                description=f"Something went wrong during the setup process. If this problem continues, please notify Kreusada by using `dem contact <explain your issue`.",
+                description=f"Something went wrong during the setup process.",
             )
             await ctx.send(embed=embed)
 
