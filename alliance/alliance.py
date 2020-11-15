@@ -83,9 +83,11 @@ class Alliance(commands.Cog):
     @alliancealert.command(invoke_without_command=True, pass_context=True, aliases=["aa", "alert"])
     async def aqstart(self, ctx):
         """Alliance Quest has started!"""
-        data = Embed.create(self, ctx, title='Alliance Quest has STARTED!')
-        image = ("https://media.discordapp.net/attachments/745608075670585344/772947661421805648/aqstarted.png?width=1441&height=480")
-        description = ("Time to join Alliance Quest.")
+        embed = Embed.create(
+            self, ctx, title='Alliance Quest has STARTED!',
+        image = "https://media.discordapp.net/attachments/745608075670585344/772947661421805648/aqstarted.png?width=1441&height=480",
+        description = "Time to join Alliance Quest."
+        )
 #        data.set_image(url=image)
 #        data.description = "{}".format(description)
         await ctx.send(embed=embed)
