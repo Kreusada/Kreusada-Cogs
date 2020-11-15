@@ -9,7 +9,8 @@ class Alliance(commands.Cog):
     def __init__(self):
         self.config = Config.get_conf(self, 200730042020, force_registration=True)
         default_guild = {"role": None}
-        self.config.register_guild(**default_guild)  
+        self.config.register_guild(**default_guild)
+        self.role_mention = role
 
     @commands.command()
     async def timezone(self, ctx, *, timezone: str = None):
@@ -59,7 +60,7 @@ class Alliance(commands.Cog):
         """Alert your fellow alliance mates for movement."""
             
     @commands.group(invoke_without_command=True)
-    async def alliancealertset(self, ctx, role: discord.Role):
+    async def alliancealertset(self, ctx, role: discord.Role, self.role_mention = role):
         """Set the alliance role to be pinged for alerts."""
         await self.config.guild(ctx.guild).role.set(role.id)
         embed = Embed.create(
