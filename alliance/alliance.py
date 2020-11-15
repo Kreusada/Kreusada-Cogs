@@ -55,7 +55,7 @@ class Alliance(commands.Cog):
             )
             await ctx.send(embed=embed)
                 
-    @commands.group(invoke_without_command=True)
+    @commands.group(invoke_without_command=True, aliases=["aa"])
     async def alliancealert(self, ctx): #aliases: aa, alert):
         """Alert your fellow alliance mates for movement."""
             
@@ -80,7 +80,7 @@ class Alliance(commands.Cog):
             )
             await ctx.send(embed=embed)
 
-    @alliancealert.command(invoke_without_command=True, pass_context=True, aliases=["aa", "alert"])
+    @alliancealert.command(invoke_without_command=True, pass_context=True, aliases=["aqs"])
     async def aqstart(self, ctx):
         """Alliance Quest has started!"""
         embed = Embed.create(
