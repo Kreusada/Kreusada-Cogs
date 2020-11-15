@@ -59,7 +59,7 @@ class Alliance(commands.Cog):
             )
             await ctx.send(embed=embed)
 
-    @commands.group(name="alliancealert")
+    @commands.group(name="alliancealert", aliases=["aa", ])
     async def aa(self, ctx):  # aliases: aa, alert):
         """Alert your fellow alliance mates for movement."""
 
@@ -70,7 +70,7 @@ class Alliance(commands.Cog):
 
     @aas.command()
     async def channel(self, ctx, channel: discord.TextChannel):
-        await self.config.guild(ctx.guild).channel.set_raw(value=channel)
+        await self.config.guild(ctx.guild).set_raw("channel", value=channel)
         embed = Embed.create(
             self, ctx, title="Successful <:success:777167188816560168>",
             description="{} will now be the channel that the alerts will be sent to when Alliance events start".format(
@@ -82,7 +82,7 @@ class Alliance(commands.Cog):
     @aas.command()
     async def role(self, ctx, role: discord.Role):
         try:
-            await self.config.guild(ctx.guild).role.set_raw(value=role.id)
+            await self.config.guild(ctx.guild).set_raw("role", value=role.id)
             embed = Embed.create(
                 self, ctx, title="Successful <:success:777167188816560168>",
                 description=f"{role.mention} will now be mentioned when Alliance events start.",
