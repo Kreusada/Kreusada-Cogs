@@ -22,7 +22,7 @@ class Alliance(commands.Cog):
             embed = Embed.create(
                 self, ctx, title="Successful <:success:777167188816560168>",
                 description=f"""
-                You can set your nickname using `dem timezone`.
+                You can set your nickname using `dem timezone <timezone>`.
                 For example: `dem timezone +4` or `dem timezone -12`.
                 Your timezone is no longer shown on your nickname (`{ctx.author.name}`)
                 """
@@ -47,7 +47,10 @@ class Alliance(commands.Cog):
                     This may be due to the following error:
                     :x: `Invalid Permissions`
                     :x: `Role Heirarchy`
+                    :x: `I cannot edit server owner's nicknames.`
                     Please resolve these issues before I can set nicknames.
+                    Server owners automatically have a higher heirarchy than anyone else (including me).
+                    Unfortunately this can't be justified.
                     If problems continue, please ask for help in our [support server](https://discord.gg/JmCFyq7).
                     """,
             )
