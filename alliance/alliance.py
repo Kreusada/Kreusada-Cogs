@@ -18,15 +18,15 @@ class Alliance(commands.Cog):
         For example - `Kreusada [+4]`
         """
         if timezone is None:
-                await ctx.author.edit(nick=ctx.author.name)
-                embed = Embed.create(
-                    self, ctx, title="Successful <:success:777167188816560168>",
-                    description=f"""
-                    You can set your nickname using `dem timezone`.
-                    For example: `dem timezone +4` or `dem timezone -12`.
-                    Your timezone is no longer shown on your nickname (`{ctx.author.name}`)
-                    """
-                )
+            await ctx.author.edit(nick=ctx.author.name)
+            embed = Embed.create(
+                self, ctx, title="Successful <:success:777167188816560168>",
+                description=f"""
+                You can set your nickname using `dem timezone`.
+                For example: `dem timezone +4` or `dem timezone -12`.
+                Your timezone is no longer shown on your nickname (`{ctx.author.name}`)
+                """
+            )
                 return await ctx.send(embed=embed)
                 user = ctx.author
                 before = ctx.author.name
@@ -34,6 +34,11 @@ class Alliance(commands.Cog):
                 tag = "{0} [{1}]".format(before, after)
                 try:
                     await user.edit(nick=tag)
+                    embed = Embed.create(
+                        self, ctx, title="Successful <:success:777167188816560168>",
+                        description="Your timezone is now displayed on your nickname as: ``{}``".format(tag),
+                    )
+                    await ctx.send(embed=embed)
                 except discord.Forbidden:
                     embed = Embed.create(
                     self, ctx, title="Oopsies! <:error:777117297273077760>",
@@ -47,12 +52,6 @@ class Alliance(commands.Cog):
                     """,
                     )
                     await ctx.send(embed=embed)
-                
-                embed = Embed.create(
-                    self, ctx, title="Successful <:success:777167188816560168>",
-                    description="Your timezone is now displayed on your nickname as: ``{}``".format(tag),
-                )
-                await ctx.send(embed=embed)
                 
     @commands.group(invoke_without_command=True)
     async def alliancealert(self, ctx): #aliases: aa, alert):
