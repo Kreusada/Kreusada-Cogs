@@ -28,19 +28,19 @@ class Alliance(commands.Cog):
                 """
             )
             return await ctx.send(embed=embed)
-            user = ctx.author
-            before = ctx.author.name
-            after = timezone
-            tag = "{0} [{1}]".format(before, after)
-            try:
-                await user.edit(nick=tag)
-                embed = Embed.create(
+        user = ctx.author
+        before = ctx.author.name
+        after = timezone
+        tag = "{0} [{1}]".format(before, after)
+        try:
+            await user.edit(nick=tag)
+            embed = Embed.create(
                     self, ctx, title="Successful <:success:777167188816560168>",
                         description="Your timezone is now displayed on your nickname as: ``{}``".format(tag),
-                )
-                await ctx.send(embed=embed)
-            except discord.Forbidden:
-                embed = Embed.create(
+            )
+            await ctx.send(embed=embed)
+        except discord.Forbidden:
+            embed = Embed.create(
                     self, ctx, title="Oopsies! <:error:777117297273077760>",
                     description="""
                     Something went wrong during the setup process, I could not change your nickname.
@@ -50,18 +50,14 @@ class Alliance(commands.Cog):
                     Please resolve these issues before I can set nicknames.
                     If problems continue, please ask for help in our [support server](https://discord.gg/JmCFyq7).
                     """,
-                    )
-                await ctx.send(embed=embed)
-                
-                embed = Embed.create(
-                    self, ctx, title="Successful <:success:777167188816560168>",
-                        description="Your timezone is now displayed on your nickname as: ``{}``".format(tag),
-                )
-                await ctx.send(embed=embed)
+            )
+            await ctx.send(embed=embed)
                 
     @commands.group(invoke_without_command=True)
     async def alliancealert(self, ctx): #aliases: aa, alert):
         """Alert your fellow alliance mates for movement."""
+        
+# Don't worry about this bit, its not quite done
             
     @commands.group(invoke_without_command=True)
     async def alliancealertset(self, ctx, role: discord.Role):
@@ -80,6 +76,7 @@ class Alliance(commands.Cog):
             )
             await ctx.send(embed=embed)
         
+# Don't worry about this bit yet, its not quite done
 
     @alliancealert.command(invoke_without_command=True, pass_context=True, aliases=["aa", "alert"])
     async def aqstart(self, ctx):
