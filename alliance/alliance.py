@@ -88,5 +88,5 @@ class Alliance(commands.Cog):
             image = "https://media.discordapp.net/attachments/745608075670585344/772947661421805648/aqstarted.png?width=1441&height=480",
             description = "Time to join Alliance Quest."
         )
-        role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role")
+        role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
                                   await ctx.send(content=role.mention, embed=embed)
