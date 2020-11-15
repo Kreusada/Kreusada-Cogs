@@ -63,10 +63,21 @@ class Alliance(commands.Cog):
     async def aa(self, ctx):  # aliases: aa, alert):
         """Alert your fellow alliance mates for movement."""
 
-    @aa.group(name="set")
+    @aa.group(name="set", invoke_without_command=True)
     @commands.admin_or_permissions(manage_guild=True)
     async def aas(self, ctx):
         """Alliance alert settings"""
+        rol = await self.config.guild(ctx.guild).get_raw("role")
+        chan = await self.config.guild(ctx.guild).get_raw("channel")
+        role = ctx.guild.get_role(rol) if rol is not None\
+            else None
+        channel = ctx.guild.get_channel(chan) if chan is not None\
+            else None
+        embed = Embed.create(
+            self, ctx, title="{}'s Settings".format(ctx.guild.name),
+            description="Role = {}\nChannel = {}".format(role, channel)
+        )
+        await ctx.send(embed=embed)
 
     @aas.command()
     async def channel(self, ctx, channel: discord.TextChannel):
