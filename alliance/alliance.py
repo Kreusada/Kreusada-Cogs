@@ -89,7 +89,4 @@ class Alliance(commands.Cog):
         image = "https://media.discordapp.net/attachments/745608075670585344/772947661421805648/aqstarted.png?width=1441&height=480",
         description = "Time to join Alliance Quest."
         )
-#        data.set_image(url=image)
-#        data.description = "{}".format(description)
-        await ctx.send(embed=embed)
-        await ctx.send(f"{self.role_mention}")
+        await ctx.send(f"{self.role_mention}", embed=embed)
