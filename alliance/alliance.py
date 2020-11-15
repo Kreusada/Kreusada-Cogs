@@ -53,6 +53,12 @@ class Alliance(commands.Cog):
                     )
                 await ctx.send(embed=embed)
                 
+                embed = Embed.create(
+                    self, ctx, title="Successful <:success:777167188816560168>",
+                        description="Your timezone is now displayed on your nickname as: ``{}``".format(tag),
+                )
+                await ctx.send(embed=embed)
+                
     @commands.group(invoke_without_command=True)
     async def alliancealert(self, ctx): #aliases: aa, alert):
         """Alert your fellow alliance mates for movement."""
