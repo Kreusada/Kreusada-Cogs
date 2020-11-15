@@ -13,7 +13,7 @@ log = logging.getLogger(name="red.demaratus.mcoc")
 class Mcoc(commands.Cog):
     """Fun Games and Tools for Marvel Contest of Champions."""
 
-    __version__ = "1.0.1"
+    __version__ = "1.1.1"
 
     def __init__(self, bot):
         self.bot = bot
@@ -29,42 +29,51 @@ class Mcoc(commands.Cog):
         )
 
     @commands.group()
-    async def mcoc(self, ctx):
-        """Base MCOC Command"""
+    async def support(self, ctx):
+        """Cog support and information."""
 
-    @mcoc.command(name="server", aliases=["ss", ])
+    @support.command(name="server", aliases=["ss", ])
     async def supportserver(self, ctx):
         """Support Server invite link."""
-        await ctx.send("https://discord.gg/JmCFyq7")
+        embed = Embed.create(
+            self, ctx, title="Support Server",
+            description="https://discord.gg/JmCFyq7"
+        )
+        await ctx.send(embed=embed)
 
-    @mcoc.command()
+    @support.command()
     async def version(self, ctx):
         """Version of the mcoc cog"""
         embed = Embed.create(
-            self, ctx, title="MCOC Version",
-            description="Current version: {}".format(self.__version__)
+            self, ctx, title="Cog Version",
+            description="Current version: `{}`".format(self.__version__),
         )
         await ctx.send(embed=embed)
 
     @commands.command()
-    @commands.cooldown(1, 30, commands.BucketType.user)
+    @commands.cooldown(1, 10, commands.BucketType.user)
     async def crystal(self, ctx):
-        """Chooses a random champion from MCOC."""
+        """Chooses a random champion."""
         star = random.choice(['3', '4', '5'])
         key, image = (random.choice(list(FEATUREDS.items())))
         roster = await self.config.user(ctx.author).roster.get_raw()
         await self.roster_logistics(ctx, star, key, roster)
         data = Embed.create(
-            self, ctx, title='You got... <:RooCheer:759845378803236886>',
+            self, ctx, title='You got... <:crystal:776941489464672266>',
             description="⭐" * int(star)
         )
         data.set_image(url=image)
         await ctx.send(embed=data)
-
-    @commands.command()
-    async def roster(self, ctx, star: str = None):
+    
+    @commands.group(invoke_without_command=True)
+    async def roster(self, ctx):
+        """Access your crystal rosters."""
+        await ctx.send("<:success:777167188816560168> - `You are eligible for a roster, the champions you collect now will be stored.`\n<:error:777117297273077760> - `This feature is currently unavailable.`")
+    
+    @roster.command(name="5")
+    async def five(self, ctx, star: str = None):
         if await self.bot.is_owner(ctx.author) is False:
-            return await ctx.send("This feature is coming soon :eyes:")
+            return await ctx.send(_("<:success:777167188816560168> - `You are eligible for a roster, the champions you collect now will be stored.`\n<:error:777117297273077760> - `This feature is currently unavailable.`"), delete_after=10)
         if star is None:
             star = "5"
         try:
@@ -76,14 +85,74 @@ class Mcoc(commands.Cog):
                 ["{} s{}".format(key, value) for key, value in roster.items()]
             )
             embed = discord.Embed(
-                title="Crystal roster", color=ctx.author.color
+                title="Crystal Roster: {} Star".format(star), color=ctx.author.color, description=":star::star::star::star::star:"
             )
-            embed.add_field(name="{}'s Roster".format(
-                ctx.author), value=roster)
+            embed.add_field(name="{}'s Roster :arrow_down:".format(
+                ctx.author.name), value=roster)
         else:
             embed = discord.Embed(
-                title="Crystal roster", color=ctx.author.color, description=(
+                title="Crystal Roster: {} Star :star:".format(star), color=ctx.author.color, description=(
                     "You don't have any {} star champions!\n"
+                    "Collect some using `{}crystal`!".format(
+                        star, ctx.clean_prefix
+                    )
+                )
+            )
+        await ctx.send(embed=embed)
+
+    @roster.command(name="4")
+    async def four(self, ctx, star: str = None):
+        if await self.bot.is_owner(ctx.author) is False:
+            return await ctx.send("<:success:777167188816560168> - `You are eligible for a roster, the champions you collect now will be stored.`\n<:error:777117297273077760> - `This feature is currently unavailable.`")
+        if star is None:
+            star = "4"
+        try:
+            roster: dict = await self.config.user(ctx.author).roster.get_raw(star)
+        except KeyError:
+            roster: dict = await self.config.user(ctx.author).roster.get_raw("4")
+        if len(roster.values()) > 0:
+            roster = "\n".join(
+                ["{} s{}".format(key, value) for key, value in roster.items()]
+            )
+            embed = discord.Embed(
+                title="Crystal Roster: {} Star".format(star), color=ctx.author.color, description=":star::star::star::star:"
+            )
+            embed.add_field(name="{}'s Roster :arrow_down:".format(
+                ctx.author.name), value=roster)
+        else:
+            embed = discord.Embed(
+                title="Crystal Roster: {} Star :star:".format(star), color=ctx.author.color, description=(
+                    "You don't have any {} star champions!\n"
+                    "Collect some using `{}crystal`!".format(
+                        star, ctx.clean_prefix
+                    )
+                )
+            )
+        await ctx.send(embed=embed)
+
+    @roster.command(name="3")
+    async def three(self, ctx, star: str = None):
+        if await self.bot.is_owner(ctx.author) is False:
+            return await ctx.send("<:success:777167188816560168> - `You are eligible for a roster, the champions you collect now will be stored.`\n<:error:777117297273077760> - `This feature is currently unavailable.`")
+        if star is None:
+            star = "3"
+        try:
+            roster: dict = await self.config.user(ctx.author).roster.get_raw(star)
+        except KeyError:
+            roster: dict = await self.config.user(ctx.author).roster.get_raw("3")
+        if len(roster.values()) > 0:
+            roster = "\n".join(
+                ["{} s{}".format(key, value) for key, value in roster.items()]
+            )
+            embed = discord.Embed(
+                title="Crystal Roster: {} Star".format(star), color=ctx.author.color, description=":star::star::star:"
+            )
+            embed.add_field(name="{}'s Roster :arrow_down:".format(
+                ctx.author.name), value=roster)
+        else:
+            embed = discord.Embed(
+                title="Crystal Roster: {} Star :star:".format(star), color=ctx.author.color, description=(
+                    "<error:777117297273077760> You don't have any {} star champions!\n"
                     "Collect some using `{}crystal`!".format(
                         star, ctx.clean_prefix
                     )
@@ -197,6 +266,7 @@ class Mcoc(commands.Cog):
 
     @commands.command()
     async def awbadge(self, ctx, tier: str = None, group: int = None):
+        """Get alliance war badges."""
         if group is not None and group >= 1 and group < 4:
             group_num = group - 1  # This is to make sure that it will work with the urls
         tiers = {
@@ -235,7 +305,7 @@ class Mcoc(commands.Cog):
         if tier is None or tier not in tiers:
             embed = Embed.create(
                 self, ctx, title="Alliance War Badge Tiers",
-                description="Please choose one of the tiers below :arrow_down:"
+                description="Please choose one of the tiers below :arrow_down:\nSyntax: `,awbadge <tier>`"
             )
             normal = "\n".join([t.capitalize() for t in tiers.keys()])
             embed.add_field(
@@ -244,7 +314,6 @@ class Mcoc(commands.Cog):
             )
 
             normal = "\n".join(tiers)
-            embed.add_field(name="Badges", value="{}\nparticipation".format(normal)) # Unfortunatly I have to do this to make sure that participation gets in the list :/
             return await ctx.send(embed=embed)
         if tier == "participation":
             embed = Embed.create(

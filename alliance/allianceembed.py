@@ -18,7 +18,7 @@ class Embed:
         thumbnail = String url. Validator checks for valid url.'''
         CRYSTAL = 'https://vignette.wikia.nocookie.net/marvel-contestofchampions/images/f/fe/6-Star_Crystal.png/revision/latest?cb=20200605225602'
         PATREON = 'https://patreon.com/matrixdt'
-        DEMARATUS = 'https://cdn.discordapp.com/attachments/758775890954944572/768452440785027132/demaratuscircle.png'
+        DEMARATUS = 'https://media.discordapp.net/attachments/758775890954944572/777496867109208094/vanguardskeindem1.png'
 
         if isinstance(ctx.message.channel, discord.abc.GuildChannel):
             color = ctx.message.author.color
