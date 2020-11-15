@@ -51,7 +51,7 @@ class Embed:
 #                print('Thumbnail URL Failure, code {}'.format(code))
 #                print('Attempted URL:\n{}'.format(thumbnail))
         if footer_text is None:
-            footer_text = "Demaratus | Alliance Tools"
+            footer_text = "Demaratus | Alliance Tools | [Support Server](https://discord.gg/JmCFyq7)"
         if footer_url is None:
             footer_url = DEMARATUS
         data.set_footer(text=footer_text, icon_url=footer_url)
