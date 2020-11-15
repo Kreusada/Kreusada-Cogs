@@ -57,8 +57,6 @@ class Alliance(commands.Cog):
     @commands.group(invoke_without_command=True)
     async def alliancealert(self, ctx): #aliases: aa, alert):
         """Alert your fellow alliance mates for movement."""
-        
-# Don't worry about this bit, its not quite done
             
     @commands.group(invoke_without_command=True)
     async def alliancealertset(self, ctx, role: discord.Role):
@@ -76,8 +74,6 @@ class Alliance(commands.Cog):
                 description=f"Something went wrong during the setup process. If this problem continues, please notify Kreusada by using `dem contact <explain your issue`.",
             )
             await ctx.send(embed=embed)
-        
-# Don't worry about this bit yet, its not quite done
 
     @alliancealert.command(invoke_without_command=True, pass_context=True, aliases=["aa", "alert"])
     async def aqstart(self, ctx):
