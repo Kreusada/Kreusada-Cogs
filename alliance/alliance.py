@@ -84,7 +84,7 @@ class Alliance(commands.Cog):
     async def aqstart(self, ctx):
         """Alliance Quest has started!"""
         self.role_mention = role
-        await self.config.guild(ctx.guild).role.set(role.id)
+        await self.config.guild(ctx.guild).config.role(ctx.role)
         embed = Embed.create(
             self, ctx, title='Alliance Quest has STARTED!',
         image = "https://media.discordapp.net/attachments/745608075670585344/772947661421805648/aqstarted.png?width=1441&height=480",
