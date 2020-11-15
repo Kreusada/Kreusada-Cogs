@@ -70,7 +70,7 @@ class Alliance(commands.Cog):
 
     @aas.command()
     async def channel(self, ctx, channel: discord.TextChannel):
-        await self.config.guild(ctx.guild).set_raw("channel", value=channel)
+        await self.config.guild(ctx.guild).set_raw("channel", value=channel.id)
         embed = Embed.create(
             self, ctx, title="Successful <:success:777167188816560168>",
             description="{} will now be the channel that the alerts will be sent to when Alliance events start".format(
