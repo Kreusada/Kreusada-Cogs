@@ -92,4 +92,4 @@ class Alliance(commands.Cog):
 #        data.set_image(url=image)
 #        data.description = "{}".format(description)
         await ctx.send(embed=embed)
-        await ctx.send(f"{role.mention}")
+        await ctx.send(f"{self.role_mention}")
