@@ -55,7 +55,7 @@ class Alliance(commands.Cog):
             )
             await ctx.send(embed=embed)
                 
-    @commands.group(invoke_without_command=True)
+    @commands.group()
     async def alliancealert(self, ctx): #aliases: aa, alert):
         """Alert your fellow alliance mates for movement."""
             
@@ -86,5 +86,5 @@ class Alliance(commands.Cog):
         description = "Time to join Alliance Quest.")
 #        data.set_image(url=image)
 #        data.description = "{}".format(description)
-        await ctx.send(dembed=embed)
+        await ctx.send(embed=embed)
         await ctx.send({self.role_mention})
