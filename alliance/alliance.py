@@ -60,7 +60,7 @@ class Alliance(commands.Cog):
         """Alert your fellow alliance mates for movement."""
             
     @commands.group(invoke_without_command=True)
-    async def alliancealertset(self, ctx, role: discord.Role, self.role_mention = role):
+    async def alliancealertset(self, ctx, role: discord.Role):
         """Set the alliance role to be pinged for alerts."""
         await self.config.guild(ctx.guild).role.set(role.id)
         await self.role_mention = role
