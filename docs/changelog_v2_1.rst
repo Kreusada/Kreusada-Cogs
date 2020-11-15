@@ -13,7 +13,7 @@ Changelog Summary
 
 Demaratus 2.1 brings lots of new fun features, vast UI improvements, and improving your user experience. Many issues and bugs have been resolved, and our main focus has been to release roster for ``mcoc``. Unfortunately, we were not able to get it released on time for the version release date, but we are working on adding the finishing touches as we speak. Demaratus 2.1 build has been HUGE, with over 1,000 code commits and approximately 60 hours spent between Kreusada and Jojo. Below, you will find all the patch notes relative to Demaratus.
 
-This changelog was independently scripted by Kreusada. And let me tell ya, I'm tired from all this typing and coding recently, so imma dip out for a short while :D
+This changelog was scripted by Kreusada and Andreas. 
 
 Changelog
 ---------
