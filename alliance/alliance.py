@@ -51,7 +51,7 @@ class Alliance(commands.Cog):
                     If problems continue, please ask for help in our [support server](https://discord.gg/JmCFyq7).
                     """,
                     )
-                    await ctx.send(embed=embed)
+                await ctx.send(embed=embed)
                 
     @commands.group(invoke_without_command=True)
     async def alliancealert(self, ctx): #aliases: aa, alert):
