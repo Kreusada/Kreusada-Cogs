@@ -78,7 +78,7 @@ class Alliance(commands.Cog):
             else None
         embed = Embed.create(
             self, ctx, title="{}'s Settings".format(ctx.guild.name),
-            description="Role = {}\nChannel = {}".format(
+            description="**Role:** {}\n**Channel:** {}".format(
                 role.mention, channel.mention),
             thumbnail=ctx.guild.icon_url
         )
