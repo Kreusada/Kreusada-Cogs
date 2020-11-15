@@ -28,19 +28,19 @@ class Alliance(commands.Cog):
                 """
             )
             return await ctx.send(embed=embed)
-                user = ctx.author
-                before = ctx.author.name
-                after = timezone
-                tag = "{0} [{1}]".format(before, after)
-                try:
-                    await user.edit(nick=tag)
-                    embed = Embed.create(
-                        self, ctx, title="Successful <:success:777167188816560168>",
+            user = ctx.author
+            before = ctx.author.name
+            after = timezone
+            tag = "{0} [{1}]".format(before, after)
+            try:
+                await user.edit(nick=tag)
+                embed = Embed.create(
+                    self, ctx, title="Successful <:success:777167188816560168>",
                         description="Your timezone is now displayed on your nickname as: ``{}``".format(tag),
-                    )
-                    await ctx.send(embed=embed)
-                except discord.Forbidden:
-                    embed = Embed.create(
+                )
+                await ctx.send(embed=embed)
+            except discord.Forbidden:
+                embed = Embed.create(
                     self, ctx, title="Oopsies! <:error:777117297273077760>",
                     description="""
                     Something went wrong during the setup process, I could not change your nickname.
