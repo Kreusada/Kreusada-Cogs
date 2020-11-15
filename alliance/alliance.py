@@ -61,6 +61,9 @@ class Alliance(commands.Cog):
 
     @commands.group(name="alliancealert", aliases=["aa", ])
     async def aa(self, ctx):  # aliases: aa, alert):
+                
+    @commands.group(invoke_without_command=True, aliases=["aa"])
+    async def alliancealert(self, ctx): #aliases: aa, alert):
         """Alert your fellow alliance mates for movement."""
 
     @aa.group(name="set")
@@ -117,6 +120,14 @@ class Alliance(commands.Cog):
     async def aqstart(self, ctx):
         """Alliance Quest has started!"""
 
+    @alliancealert.command(invoke_without_command=True, pass_context=True, aliases=["aqs"])
+    async def aqstart(self, ctx):
+        """Alliance Quest has started!"""
+        embed = Embed.create(
+            self, ctx, title='<:info:777656123381383209> Alliance Quest has STARTED!',
+            image = "https://media.discordapp.net/attachments/745608075670585344/772947661421805648/aqstarted.png?width=1441&height=480",
+            description = "Time to join Alliance Quest."
+        )
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
         channel = ctx.guild.get_channel(chan) if chan is not None\
