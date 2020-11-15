@@ -89,4 +89,4 @@ class Alliance(commands.Cog):
             description = "Time to join Alliance Quest."
         )
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
-        await ctx.send(content=role.mention, allowed_mentions=True, embed=embed)
+        await ctx.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=true), embed=embed)
