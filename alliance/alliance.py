@@ -48,8 +48,7 @@ class Alliance(commands.Cog):
                     :x: `Invalid Permissions`
                     :x: `Role Heirarchy`
                     Please resolve these issues before I can set nicknames.
-                    If you are the server owner, the heirarchy between us
-                    cannot be justified.
+                    If you are the server owner, the heirarchy between us cannot be justified.
                     If problems continue, please ask for help in our [support server](https://discord.gg/JmCFyq7).
                     """,
             )
