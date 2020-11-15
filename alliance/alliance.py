@@ -51,7 +51,6 @@ class Alliance(commands.Cog):
                 embed = Embed.create(
                     self, ctx, title="Successful <:success:777167188816560168>",
                     description="Your timezone is now displayed on your nickname as: ``{}``".format(tag),
-                
                 )
                 await ctx.send(embed=embed)
                 
