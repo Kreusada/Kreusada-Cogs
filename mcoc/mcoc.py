@@ -73,7 +73,7 @@ class Mcoc(commands.Cog):
     @roster.command(name="5")
     async def five(self, ctx, star: str = None):
         if await self.bot.is_owner(ctx.author) is False:
-            return await ctx.send("<:success:777167188816560168> - `You are eligible for a roster, the champions you collect now will be stored.`\n<:error:777117297273077760> - `This feature is currently unavailable.`")
+            return await ctx.send(_("<:success:777167188816560168> - `You are eligible for a roster, the champions you collect now will be stored.`\n<:error:777117297273077760> - `This feature is currently unavailable.`"), delete_after=10)
         if star is None:
             star = "5"
         try:
