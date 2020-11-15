@@ -63,7 +63,7 @@ class Alliance(commands.Cog):
     async def alliancealertset(self, ctx, role: discord.Role):
         """Set the alliance role to be pinged for alerts."""
         await self.config.guild(ctx.guild).role.set(role.id)
-        await self.role_mention = role
+        self.role_mention = role
         embed = Embed.create(
             self, ctx, title="Successful <:success:777167188816560168>",
             description=f"{role.mention} will now be mentioned when Alliance events start.",
