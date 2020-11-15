@@ -13,7 +13,7 @@ log = logging.getLogger(name="red.demaratus.mcoc")
 class Mcoc(commands.Cog):
     """Fun Games and Tools for Marvel Contest of Champions."""
 
-    __version__ = "1.0.1"
+    __version__ = "1.1.1"
 
     def __init__(self, bot):
         self.bot = bot
