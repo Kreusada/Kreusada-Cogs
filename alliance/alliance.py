@@ -27,7 +27,7 @@ class Alliance(commands.Cog):
                 Your timezone is no longer shown on your nickname (`{ctx.author.name}`)
                 """
             )
-                return await ctx.send(embed=embed)
+            return await ctx.send(embed=embed)
                 user = ctx.author
                 before = ctx.author.name
                 after = timezone
