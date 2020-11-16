@@ -69,8 +69,9 @@ class Staff(commands.Cog):
             embed = Embed.create(
                 self, ctx, title='<:alert:777928824670388254> ALERT!',
                 description=(
-                    f"**{ctx.author}** has just called for the staff in {ctx.channel.mention}.\nRequested at: **{datetime.utcnow().strftime("%H:%m UTC")}**"
+                    f"**{ctx.author}** has just called for the staff in {ctx.channel.mention}.\n\n**Requested at: {} on {}**"
                 )
+                footer=datetime.now(timezone.utc)
                     
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
