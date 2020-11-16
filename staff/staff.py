@@ -70,7 +70,7 @@ class Staff(commands.Cog):
             self, ctx, title="Successful <:success:777167188816560168>",
             description="Logging to modlog has been {}.".format("enabled" if true_or_false else "disabled")
         )
-        await ctx.send(embed=embed
+        await ctx.send(embed=embed)
 
     @commands.command()
     #@commands.cooldown(1, 600, commands.BucketType.user)
