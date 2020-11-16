@@ -66,7 +66,7 @@ class Alliance(commands.Cog):
     @commands.group(name="alliancealertset", autohelp=False)
     @commands.admin_or_permissions(manage_guild=True)
     async def aas(self, ctx):
-        """Alliance alert settings"""
+        """Alliance alert configuration."""
         embed = Embed.create(
             self, ctx, title="<:info:777656123381383209> Configuration Help Menu",
             description=(
@@ -79,6 +79,7 @@ class Alliance(commands.Cog):
             
     @aas.command()
     async def showsettings(self, ctx):
+        """Shows the current alert settings."""
         rol = await self.config.guild(ctx.guild).get_raw("role")
         chan = await self.config.guild(ctx.guild).get_raw("channel")
         role = ctx.guild.get_role(rol) if rol is not None\
@@ -94,6 +95,7 @@ class Alliance(commands.Cog):
 
     @aas.command()
     async def channel(self, ctx, channel: discord.TextChannel):
+        """Sets the discord channel for alerts to be sent to."""
         await self.config.guild(ctx.guild).set_raw("channel", value=channel.id)
         embed = Embed.create(
             self, ctx, title="Successful <:success:777167188816560168>",
@@ -105,6 +107,7 @@ class Alliance(commands.Cog):
 
     @aas.command()
     async def role(self, ctx, role: discord.Role):
+        """Sets the discord role to be notified for alerts."""
         try:
             await self.config.guild(ctx.guild).set_raw("role", value=role.id)
             embed = Embed.create(
