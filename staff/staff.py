@@ -72,6 +72,8 @@ class Staff(commands.Cog):
             )
             msg = await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
             await msg.add_reaction("✅")
+            reaction = await bot.wait_for_reaction(emoji="✅", msg=msg)
+            await reaction.delete(msg)
         else:
             embed = Embed.create(
                 self, ctx, title="The Staff team have not completed the command setup. <:error:777117297273077760>",
