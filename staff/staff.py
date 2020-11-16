@@ -50,7 +50,7 @@ class Staff(commands.Cog):
             await ctx.send(embed=embed)
 
     @commands.command()
-    @commands.cooldown()#(1, 600, commands.BucketType.user)
+    #@commands.cooldown(1, 600, commands.BucketType.user)
     async def staff(self, ctx):
         """Notifies the staff."""
         embed = Embed.create(
