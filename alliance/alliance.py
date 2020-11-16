@@ -124,7 +124,7 @@ class Alliance(commands.Cog):
         )
         await ctx.send(embed=embed)
 
-    @aas.command()
+    @aas.command(invoke_without_command=True)
     async def role(self, ctx, role: discord.Role):
         """Sets the discord role to be notified for alerts."""
         try:
