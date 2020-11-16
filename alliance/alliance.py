@@ -63,7 +63,7 @@ class Alliance(commands.Cog):
     async def aa(self, ctx):  # aliases: aa, alert):
         """Alert your fellow alliance mates for movement."""
 
-    @commands.group(name="alliancealertset", invoke_without_subcommand=True)
+    @commands.group(name="alliancealertset", autohelp=False)
     @commands.admin_or_permissions(manage_guild=True)
     async def aas(self, ctx):
         """Alliance alert settings"""
