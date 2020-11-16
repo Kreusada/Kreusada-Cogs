@@ -63,7 +63,6 @@ class Staff(commands.Cog):
         await ctx.send(embed=embed)
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
-        bot = self.bot
         channel = ctx.guild.get_channel(chan) if chan is not None\
             else ctx.channel
         if role is not None:
