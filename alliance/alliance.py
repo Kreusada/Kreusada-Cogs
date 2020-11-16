@@ -59,7 +59,7 @@ class Alliance(commands.Cog):
             )
             await ctx.send(embed=embed)
 
-    @commands.group(name="alliancealert", aliases=["aa", ])
+    @commands.group(name="alliancealert", aliases=["aa", ], autohelp=False)
     async def aa(self, ctx):  # aliases: aa, alert):
         """Alert your fellow alliance mates for movement."""
         embed = Embed.create(
