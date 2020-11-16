@@ -87,12 +87,13 @@ class Staff(commands.Cog):
         )
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
+        jump_link = _(\n\n[Jump to message!]({link})").format(link=message.jump_url)
         channel = ctx.guild.get_channel(chan) if chan is not None\
             else ctx.channel
         if role is not None:
             embed = Embed.create(
                 self, ctx, title='<:alert:777928824670388254> ALERT!',
-                description=f"**{ctx.author.name}** has just called for the staff in {ctx.channel.mention}\n\n[Jump to message!]({link})").format(link=message.jump_url)"
+                description=f"**{ctx.author.name}** has just called for the staff in {ctx.channel.mention}{jump_link}"
             )
             msg = await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
             await msg.add_reaction("✅")
