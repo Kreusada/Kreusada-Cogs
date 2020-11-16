@@ -60,6 +60,7 @@ class Staff(commands.Cog):
                 "A member of our Staff team will be with you as soon as possible."
                 )
         )
+        await ctx.send(embed=embed)
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
         channel = ctx.guild.get_channel(chan) if chan is not None\
