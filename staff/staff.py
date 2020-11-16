@@ -33,7 +33,7 @@ class Staff(commands.Cog):
 
     @staffsetup.command()
     @commands.mod()
-    async def role(self, ctx, role discord.Role):
+    async def role(self, ctx, role: discord.Role):
         """Sets the Staff role."""
         try:
             await self.config.guild(ctx.guild).set_raw("role", value=role.id)
