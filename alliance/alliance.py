@@ -134,7 +134,8 @@ class Alliance(commands.Cog):
                 self, ctx, title="Error! <:error:777117297273077760>",
                 description=(
                     "Your guild does not have a role set up for the alerts!\n"
-                    "To set up a role, use `{}alliancealert|aa set role <role>`".format(ctx.clean_prefix)
+                    "This is a requirement for alliance alerts.\n"
+                    "To set up a role, use `{}alliancealert set role <role>`".format(ctx.clean_prefix)
                 )
             )
             await ctx.send(embed=embed)
@@ -163,6 +164,7 @@ class Alliance(commands.Cog):
                 self, ctx, title="Error! <:error:777117297273077760>",
                 description=(
                     "Your guild does not have a role set up for the alerts!\n"
+                    "This is a requirement for alliance alerts.\n"
                     "To set up a role, use `{}alliancealert set role <role>`".format(ctx.clean_prefix)
                 )
             )
@@ -192,6 +194,7 @@ class Alliance(commands.Cog):
                 self, ctx, title="Error! <:error:777117297273077760>",
                 description=(
                     "Your guild does not have a role set up for the alerts!\n"
+                    "This is a requirement for alliance alerts.\n"
                     "To set up a role, use `{}alliancealert set role <role>`".format(ctx.clean_prefix)
                 )
             )
@@ -221,6 +224,7 @@ class Alliance(commands.Cog):
                 self, ctx, title="Error! <:error:777117297273077760>",
                 description=(
                     "Your guild does not have a role set up for the alerts!\n"
+                    "This is a requirement for alliance alerts.\n"
                     "To set up a role, use `{}alliancealert set role <role>`".format(ctx.clean_prefix)
                 )
             )
@@ -250,6 +254,7 @@ class Alliance(commands.Cog):
                 self, ctx, title="Error! <:error:777117297273077760>",
                 description=(
                     "Your guild does not have a role set up for the alerts!\n"
+                    "This is a requirement for alliance alerts.\n"
                     "To set up a role, use `{}alliancealert set role <role>`".format(ctx.clean_prefix)
                 )
             )
@@ -279,6 +284,7 @@ class Alliance(commands.Cog):
                 self, ctx, title="Error! <:error:777117297273077760>",
                 description=(
                     "Your guild does not have a role set up for the alerts!\n"
+                    "This is a requirement for alliance alerts.\n"
                     "To set up a role, use `{}alliancealert set role <role>`".format(ctx.clean_prefix)
                 )
             )
