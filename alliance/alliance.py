@@ -65,22 +65,11 @@ class Alliance(commands.Cog):
         embed = Embed.create(
             self, ctx, title="Alert Help Menu",
             description="`Syntax: {}alliancealert <alert_type>`\n"
+        )
             embed.add_field(
                 name="Alert your fellow alliancemates for movement.",
                 description="Test"
             )
-                "**__Subcommands__**\n"
-                "**aqglory** Announces for glory collection.\n"
-                "**aqstart** Announces for AQ starting.\n"
-                "**awattack** Announces for AW attack phase starting.\n"
-                "**awdefeat** Announces for AW defeat.\n"
-                "**awplacement** Announces for AW attack phase starting.\n"
-                "**awvictory** Announces for AW Victory.\n\n"
-                "**Additional Support**"
-                "Contact us in our [support server](https://discord.gg/JmCFyq7).".format(
-            )
-        )
-        await ctx.send(embed=embed)
 
     @commands.group(name="alliancealertset", autohelp=False, aliases=["aas"])
     @commands.admin_or_permissions(manage_guild=True)
