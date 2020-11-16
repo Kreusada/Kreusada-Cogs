@@ -65,14 +65,17 @@ class Alliance(commands.Cog):
         embed = Embed.create(
             self, ctx, title="Alert Help Menu",
             description=(
-                "**Syntax:** `{}alliancealert <alert_type>` or `{}aa <alert_type`\n\n"
+                "`Syntax: {}alliancealert <alert_type>` or `{}aa <alert_type`\n"
+                "**Alert your fellow alliance mates for alliance activity.**\n\n"
+                "**__Subcommands__**"
                 "**aqglory** Announces for glory collection.\n"
                 "**aqstart** Announces for AQ starting.\n"
                 "**awattack** Announces for AW attack phase starting.\n"
                 "**awdefeat** Announces for AW defeat.\n"
                 "**awplacement** Announces for AW attack phase starting.\n"
                 "**awvictory** Announces for AW Victory.\n\n"
-                "Need more support? Contact us in our [support server](https://discord.gg/JmCFyq7).".format(
+                "**Additional Support**"
+                "Contact us in our [support server](https://discord.gg/JmCFyq7).".format(
                     ctx.clean_prefix, ctx.clean_prefix
                 )
             )
