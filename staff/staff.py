@@ -68,8 +68,8 @@ class Staff(commands.Cog):
             embed = Embed.create(
                 self, ctx, title='<:alert:777928824670388254> ALERT!',
                 description=(
-                    "{} has just called for the staff in {}.".format(
-                        ctx.author.mention, ctx.channel.mention
+                    "{} has just called for the staff in {}.\n\n**Requested by: {}**\n**In channel: ".format(
+                        ctx.author, ctx.channel.mention
                     )
                 )
                     
