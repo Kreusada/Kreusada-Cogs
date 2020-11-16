@@ -74,7 +74,7 @@ class Alliance(commands.Cog):
                 "**awdefeat** Announces for AW defeat.\n"
                 "**awplacement** Announces for AW attack phase starting.\n"
                 "**awvictory** Announces for AW Victory.\n\n"
-                "**Additional Support**"
+                "**Additional Support**\n"
                 "Contact us in our [support server](https://discord.gg/JmCFyq7).".format(
                     ctx.clean_prefix, ctx.clean_prefix
                 )
