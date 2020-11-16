@@ -76,7 +76,8 @@ class Alliance(commands.Cog):
                     ctx.clean.prefix
                 )
             )
-            await ctx.send(embed=embed)
+        )
+        await ctx.send(embed=embed)
 
     @commands.group(name="alliancealertset", autohelp=False, aliases=["aas"])
     @commands.admin_or_permissions(manage_guild=True)
