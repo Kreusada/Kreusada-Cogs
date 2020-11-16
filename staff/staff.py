@@ -10,12 +10,13 @@ class Staff(commands.Cog):
     def __init__(self):
         self.config = Config.get_conf(
             self, 200730042020, force_registration=True)
-        default_guild = {"modlog": True}
-        self.config.register_guild(
-            role=None,
-            channel=None
-            **default_guild
-        )
+        default_guild = {
+            "modlog": True,
+            "role": None,
+            "channel": None
+        }
+        self.config.register_guild(**default_guild)
+        
         
     @staticmethod
     async def register_casetypes():
