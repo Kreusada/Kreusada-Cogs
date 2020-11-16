@@ -1,5 +1,6 @@
 import discord
 from validator_collection import validators
+from datetime import datetime
 from redbot.core import commands, checks, Config
 from .staffembed import Embed
 
@@ -68,9 +69,7 @@ class Staff(commands.Cog):
             embed = Embed.create(
                 self, ctx, title='<:alert:777928824670388254> ALERT!',
                 description=(
-                    "{} has just called for the staff in {}.\n\n**Requested by: {}**\n**In channel: ".format(
-                        ctx.author, ctx.channel.mention
-                    )
+                    f"**{ctx.author}** has just called for the staff in {ctx.channel.mention}.\nRequested at: **{datetime.utcnow().strftime("%H:%m UTC")}**"
                 )
                     
             )
