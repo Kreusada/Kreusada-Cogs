@@ -63,11 +63,20 @@ class Alliance(commands.Cog):
     async def aa(self, ctx):  # aliases: aa, alert):
         """Alert your fellow alliance mates for movement."""
 
-    @aa.group(name="set")
+    @commands.group(name="alliancealertset")
     @commands.admin_or_permissions(manage_guild=True)
     async def aas(self, ctx):
         """Alliance alert settings"""
-
+        embed = Embed.create(
+            self, ctx, title="Configuration Help Menu"
+            description=(
+                "**channel** Set the channel for alerts to be sent to.\n"
+                "**role** Set the role to be mentioned for alerts.\n\n"
+                "Need more support? Contact us in our [support server](https://discord.gg/JmCFyq7)."
+            )
+        )
+        await ctx.send(embed=embed)
+            
     @aas.command()
     async def showsettings(self, ctx):
         rol = await self.config.guild(ctx.guild).get_raw("role")
