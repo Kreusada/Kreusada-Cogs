@@ -87,7 +87,8 @@ class Staff(commands.Cog):
         )
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
-        jump_link = ("\n\n[Jump to message!]({link})").format(link=message.jump_url)
+        url = message.jump_url
+        jump_link = _("\n\n[Jump to message!]({link})").format(link=message.jump_url)
         channel = ctx.guild.get_channel(chan) if chan is not None\
             else ctx.channel
         if role is not None:
