@@ -72,8 +72,11 @@ class Alliance(commands.Cog):
                 "**awdefeat** Announces for AW defeat.\n"
                 "**awplacement** Announces for AW attack phase starting.\n"
                 "**awvictory** Announces for AW Victory.\n\n"
-                "Need more support? Contact us in our [support server](https://discord.gg/JmCFyq7)."
+                "Need more support? Contact us in our [support server](https://discord.gg/JmCFyq7).".format(
+                    ctx.clean.prefix
+                )
             )
+            await ctx.send(embed=embed)
 
     @commands.group(name="alliancealertset", autohelp=False, aliases=["aas"])
     @commands.admin_or_permissions(manage_guild=True)
