@@ -68,12 +68,11 @@ class Staff(commands.Cog):
         if role is not None:
             embed = Embed.create(
                 self, ctx, title='<:alert:777928824670388254> ALERT!',
-                description=f"**{ctx.author.name}** has just called for the staff in {ctx.channel.mention}."
+                description=f"**{ctx.author.name}** has just called for the staff in {ctx.channel.mention}.\n\n"
             )
             msg = await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
             await msg.add_reaction("✅")
-            reaction = await bot.wait_for_reaction(emoji="✅", msg=msg)
-            await reaction.delete(msg)
+            reaction, user = await client.wait_for('reaction_add', timeout=60.0, check=check)
         else:
             embed = Embed.create(
                 self, ctx, title="The Staff team have not completed the command setup. <:error:777117297273077760>",
