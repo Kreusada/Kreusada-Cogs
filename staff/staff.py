@@ -14,6 +14,7 @@ class Staff(commands.Cog):
         self.config.register_guild(
             role=None,
             channel=None
+            **default_guild
         )
         
     @staticmethod
