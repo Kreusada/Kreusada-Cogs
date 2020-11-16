@@ -20,7 +20,7 @@ My license emanates that my cogs are free for distribution and modification. How
 
 - ``[p]repo add kreusada https://github.com/kreus7/demaratus``
 
-**Installing ``staff`` into your cogs**
+**Installing staff into your cogs**
 
 - ``[p]cog install kreusada staff``
 
@@ -42,7 +42,7 @@ Set your staff channel to a private mod/admin channel.
 
 - ``dem staffset role <role``
 
-When the staff command is used, this configured channel will send a message containing the alert, the mention, the location of which the ``staff`` command was used, and the user who executed the command.
+When the staff command is used, this configured channel host a message containing the alert, the mention, the location of which the ``staff`` command was used, and the user who executed the command.
 
 -----------
 Staff Usage
