@@ -132,6 +132,7 @@ class Alliance(commands.Cog):
         else:
             embed = Embed.create(
                 self, ctx, title="Error! <:error:777117297273077760>",
+                color="59e1ac",
                 description=(
                     "Your guild does not have a role set up for the alerts!\n"
                     "This is a requirement for alliance alerts.\n"
