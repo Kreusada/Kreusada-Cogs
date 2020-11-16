@@ -69,7 +69,8 @@ class Staff(commands.Cog):
                 description=f"**{ctx.author.name}** has just called for the staff in {ctx.channel.mention}."
 #                embed.set_footer(datetime.now(timezone.utc))  
             )
-            await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
+            msg = await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
+            await msg.add_reaction("✅")
         else:
             embed = Embed.create(
                 self, ctx, title="The Staff team have not completed the command setup. <:error:777117297273077760>",
