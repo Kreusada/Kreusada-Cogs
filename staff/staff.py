@@ -71,12 +71,7 @@ class Staff(commands.Cog):
                 self, ctx, title='<:alert:777928824670388254> ALERT!',
                 description=f"**{ctx.author.name}** has just called for the staff in {ctx.channel.mention}.\n\n"
             )
-            msg = await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
-            await msg.add_reaction("✅")
-        reaction, user = await self.bot.wait_for("reaction_add")#, check = check)
-        if reaction == ("✅"):
-            await reaction.message.delete
-            await channel.send("Yeet")
+            await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
         else:
             embed = Embed.create(
                 self, ctx, title="The Staff team have not completed the command setup. <:error:777117297273077760>",
