@@ -79,8 +79,7 @@ class Alliance(commands.Cog):
         embed = Embed.create(
             self, ctx, title="{}'s Settings".format(ctx.guild.name),
             description="**Role:** {}\n**Channel:** {}".format(
-                role.mention, channel.mention),
-            thumbnail=ctx.guild.icon_url
+                role.mention, channel.mention)
         )
         await ctx.send(embed=embed)
 
@@ -90,8 +89,7 @@ class Alliance(commands.Cog):
         embed = Embed.create(
             self, ctx, title="Successful <:success:777167188816560168>",
             description="{} will now be the channel that the alerts will be sent to when Alliance events start".format(
-                channel.mention,
-                thumbnail=ctx.guild.icon_url
+                channel.mention
             )
         )
         await ctx.send(embed=embed)
@@ -103,7 +101,6 @@ class Alliance(commands.Cog):
             embed = Embed.create(
                 self, ctx, title="Successful <:success:777167188816560168>",
                 description=f"{role.mention} will now be mentioned when Alliance events start.",
-                thumbnail=ctx.guild.icon_url
             )
             await ctx.send(embed=embed)
         except discord.Forbidden:
@@ -130,7 +127,6 @@ class Alliance(commands.Cog):
                 self, ctx, title='<:info:777656123381383209> Alliance Quest has STARTED!',
                 image="https://media.discordapp.net/attachments/763066391107862550/777865269477376030/aqstarted.png?width=1442&height=481",
                 description="Time to join Alliance Quest.",
-                thumbnail=ctx.guild.icon_url
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
@@ -141,10 +137,8 @@ class Alliance(commands.Cog):
                     "To set up a role, use `{}alliancealert|aa set role <role>`".format(
                         ctx.clean_prefix
                     )
-                ),
-                thumbnail=ctx.guild.icon_url
-            )
-            await ctx.send(embed=embed)
+                )
+                await ctx.send(embed=embed)
 
     @aa.command(invoke_without_command=True, pass_context=True, aliases=["aqg"])
     async def aqglory(self, ctx):
@@ -163,7 +157,6 @@ class Alliance(commands.Cog):
                 self, ctx, title='<:info:777656123381383209> The Alliance Quest cycle has ended.',
                 image = "https://media.discordapp.net/attachments/763066391107862550/777865235746783232/aqglory.png?width=1442&height=481",
                 description = "Collect your glory rewards."
-                thumbnail = ctx.guild.icon_url
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
@@ -174,10 +167,8 @@ class Alliance(commands.Cog):
                     "To set up a role, use `{}alliancealert set role <role>`".format(
                         ctx.clean_prefix
                     )
-                ),
-                thumbnail=ctx.guild.icon_url
-            )
-            await ctx.send(embed=embed)
+                )
+                await ctx.send(embed=embed)
 
     @aa.command(invoke_without_command=True, pass_context=True, aliases=["awv, aww"])
     async def awvictory(self, ctx):
@@ -196,7 +187,6 @@ class Alliance(commands.Cog):
                 self, ctx, title='<:aha:777867124706246687> Alliance War has ended in VICTORY!',
                 image = "https://media.discordapp.net/attachments/763066391107862550/777865265882988564/awvictory.png?width=1442&height=481",
                 description = "Good job everyone!"
-                thumbnail=ctx.guild.icon_url
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
@@ -207,10 +197,8 @@ class Alliance(commands.Cog):
                     "To set up a role, use `{}alliancealert set role <role>`".format(
                         ctx.clean_prefix
                     )
-                ),
-                thumbnail=ctx.guild.icon_url
-            )
-            await ctx.send(embed=embed)
+                )
+                await ctx.send(embed=embed)
 
     @aa.command(invoke_without_command=True, pass_context=True, aliases=["awv, aww"])
     async def awdefeat(self, ctx):
@@ -229,7 +217,6 @@ class Alliance(commands.Cog):
                 self, ctx, title='<:notlikecat:766419778822078524> Alliance War has ended in DEFEAT.',
                 image = "https://media.discordapp.net/attachments/763066391107862550/777865262329626635/awdefeat.png?width=1442&height=481",
                 description = "Better luck next time. :cry:"
-                thumbnail=ctx.guild.icon_url
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
@@ -240,10 +227,8 @@ class Alliance(commands.Cog):
                     "To set up a role, use `{}alliancealert set role <role>`".format(
                         ctx.clean_prefix
                     )
-                ),
-                thumbnail=ctx.guild.icon_url
-            )
-            await ctx.send(embed=embed)
+                )
+                await ctx.send(embed=embed)
 
     @aa.command(invoke_without_command=True, pass_context=True, aliases=["awa"])
     async def awattack(self, ctx):
@@ -262,7 +247,6 @@ class Alliance(commands.Cog):
                 self, ctx, title='<:info:777656123381383209> Attack Phase has started!',
                 image = "https://media.discordapp.net/attachments/763066391107862550/777865273272565760/awattack.png?width=1442&height=481",
                 description = "Time to join attack phase. Check with officers in case you need to take a certain path."
-                thumbnail=ctx.guild.icon_url
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
@@ -273,10 +257,8 @@ class Alliance(commands.Cog):
                     "To set up a role, use `{}alliancealert set role <role>`".format(
                         ctx.clean_prefix
                     )
-                ),
-                thumbnail=ctx.guild.icon_url
-            )
-            await ctx.send(embed=embed)
+                )
+                await ctx.send(embed=embed)
 
     @aa.command(invoke_without_command=True, pass_context=True, aliases=["awp"])
     async def awplacement(self, ctx):
@@ -295,7 +277,6 @@ class Alliance(commands.Cog):
                 self, ctx, title='<:info:777656123381383209> Placement Phase has started!',
                 image = "https://media.discordapp.net/attachments/763066391107862550/777865276531671080/awplacement.png?width=1442&height=481",
                 description = "Time to place your defenders, Check with officers in case you place your defenders in a certain place."
-                thumbnail=ctx.guild.icon_url
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
@@ -306,7 +287,5 @@ class Alliance(commands.Cog):
                     "To set up a role, use `{}alliancealert set role <role>`".format(
                         ctx.clean_prefix
                     )
-                ),
-                thumbnail=ctx.guild.icon_url
-            )
-            await ctx.send(embed=embed)
+                )
+                await ctx.send(embed=embed)
