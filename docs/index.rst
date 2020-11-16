@@ -6,7 +6,6 @@ Welcome to the Demaratus Documentation!
 Demaratus Central
 ==================
 * :ref:`info`
-* :ref:`events`
 
 Change Logs
 ==================
@@ -20,4 +19,3 @@ Cog Support
 * :ref:`fun`
 * :ref:`mcoc`
 * :ref:`staff`
-* :ref:`tickets`
