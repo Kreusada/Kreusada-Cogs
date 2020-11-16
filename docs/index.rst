@@ -19,4 +19,5 @@ Cog Support
 * :ref:`customcommands`
 * :ref:`fun`
 * :ref:`mcoc`
+* :ref:`staff`
 * :ref:`tickets`
