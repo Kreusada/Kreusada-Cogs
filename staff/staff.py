@@ -69,7 +69,7 @@ class Staff(commands.Cog):
                 self, ctx, title='<:alert:777928824670388254> ALERT!',
                 description=(
                     "Someone has just called for the staff in {}.".format(
-                        ctx.channel
+                        ctx.channel.mention
                     )
                 )
                     
