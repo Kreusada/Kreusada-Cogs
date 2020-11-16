@@ -11,25 +11,11 @@ class Staff(commands.Cog):
         self.config = Config.get_conf(
             self, 200730042020, force_registration=True)
         default_guild = {
-            "modlog": True,
             "role": None,
             "channel": None
         }
         self.config.register_guild(**default_guild)
         
-        
-    @staticmethod
-    async def register_casetypes():
-        new_types = [
-            {
-                "name": "alert_created",
-                "default_setting": True,
-                "image": "\N{BALLOT BOX WITH BALLOT}\N{VARIATION SELECTOR-16}",
-                "case_str": "Alert created",
-            }
-        ]
-        await modlog.register_casetypes(new_types)
-
     @commands.group()
     async def staffset(self, ctx):
         """Staff notifier configuration."""
@@ -63,17 +49,6 @@ class Staff(commands.Cog):
             )
             await ctx.send(embed=embed)
 
-    @staffset.command()
-    @commands.mod()
-    async def modlog(self, ctx, true_or_false: bool):
-        """Decide if alerts should log to modlog."""
-        await self.config.guild(ctx.guild).modlog.set(true_or_false)
-        embed = Embed.create(
-            self, ctx, title="Successful <:success:777167188816560168>",
-            description="Logging to modlog has been {}.".format("enabled" if true_or_false else "disabled")
-        )
-        await ctx.send(embed=embed)
-
     @commands.command()
     #@commands.cooldown(1, 600, commands.BucketType.user)
     async def staff(self, ctx):
@@ -87,14 +62,12 @@ class Staff(commands.Cog):
         )
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
-        url = message.jump_url
-        jump_link = _("\n\n[Jump to message!]({link})").format(link=message.jump_url)
         channel = ctx.guild.get_channel(chan) if chan is not None\
             else ctx.channel
         if role is not None:
             embed = Embed.create(
                 self, ctx, title='<:alert:777928824670388254> ALERT!',
-                description=f"**{ctx.author.name}** has just called for the staff in {ctx.channel.mention}{jump_link}"
+                description=f"**{ctx.author.name}** has just called for the staff in {ctx.channel.mention}."
             )
             msg = await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
             await msg.add_reaction("✅")
