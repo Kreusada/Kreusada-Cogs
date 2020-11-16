@@ -64,10 +64,12 @@ class Alliance(commands.Cog):
         """Alert your fellow alliance mates for movement."""
         embed = Embed.create(
             self, ctx, title="Alert Help Menu",
-            description=(
-                "`Syntax: {}alliancealert <alert_type>` or `{}aa <alert_type`\n"
-                "**Alert your fellow alliance mates for alliance activity.**\n\n"
-                "**__Subcommands__**"
+            description="`Syntax: {}alliancealert <alert_type>`\n"
+            embed.add_field(
+                name="Alert your fellow alliancemates for movement.",
+                description="Test"
+            )
+                "**__Subcommands__**\n"
                 "**aqglory** Announces for glory collection.\n"
                 "**aqstart** Announces for AQ starting.\n"
                 "**awattack** Announces for AW attack phase starting.\n"
@@ -76,8 +78,6 @@ class Alliance(commands.Cog):
                 "**awvictory** Announces for AW Victory.\n\n"
                 "**Additional Support**"
                 "Contact us in our [support server](https://discord.gg/JmCFyq7).".format(
-                    ctx.clean_prefix, ctx.clean_prefix
-                )
             )
         )
         await ctx.send(embed=embed)
