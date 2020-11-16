@@ -73,7 +73,7 @@ class Alliance(commands.Cog):
                 "**awplacement** Announces for AW attack phase starting.\n"
                 "**awvictory** Announces for AW Victory.\n\n"
                 "Need more support? Contact us in our [support server](https://discord.gg/JmCFyq7).".format(
-                    ctx.clean_prefix
+                    ctx.clean_prefix, ctx.clean_prefix
                 )
             )
         )
