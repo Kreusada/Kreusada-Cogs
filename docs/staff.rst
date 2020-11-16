@@ -14,6 +14,8 @@ The ``staff`` cog is a cog used to alert the staff. It's that simple. This cog g
 Staff Setup
 ^^^^^^^^^^^
 
+.. warning:: It is vitally important that you use ``dem set addmodrole <your mod role>``, otherwise these ``staffset`` commands will not work.
+
 **Setting your staff role**
 
 Staff roles are required to notify your staff.
