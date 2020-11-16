@@ -62,6 +62,18 @@ class Alliance(commands.Cog):
     @commands.group(name="alliancealert", aliases=["aa", ])
     async def aa(self, ctx):  # aliases: aa, alert):
         """Alert your fellow alliance mates for movement."""
+        embed = Embed.create(
+            self, ctx, title="Alert Help Menu",
+            description=(
+                "**Syntax:** `{}alliancealert <alert_type>` or `{}aa <alert_type`\n\n"
+                "**aqglory** Announces for glory collection.\n"
+                "**aqstart** Announces for AQ starting.\n"
+                "**awattack** Announces for AW attack phase starting.\n"
+                "**awdefeat** Announces for AW defeat.\n"
+                "**awplacement** Announces for AW attack phase starting.\n"
+                "**awvictory** Announces for AW Victory.\n\n"
+                "Need more support? Contact us in our [support server](https://discord.gg/JmCFyq7)."
+            )
 
     @commands.group(name="alliancealertset", autohelp=False, aliases=["aas"])
     @commands.admin_or_permissions(manage_guild=True)
