@@ -146,7 +146,8 @@ class Alliance(commands.Cog):
         embed = Embed.create(
             self, ctx, title='<:info:777656123381383209> The Alliance Quest cycle has ended.',
             image = "https://media.discordapp.net/attachments/763066391107862550/777865235746783232/aqglory.png?width=1442&height=481",
-            description = "Collect your glory rewards."
+            description = "Collect your glory rewards.",
+            color = 0xffc64d
         )
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
@@ -156,7 +157,8 @@ class Alliance(commands.Cog):
             embed = Embed.create(
                 self, ctx, title='<:info:777656123381383209> The Alliance Quest cycle has ended.',
                 image = "https://media.discordapp.net/attachments/763066391107862550/777865235746783232/aqglory.png?width=1442&height=481",
-                description = "Collect your glory rewards."
+                description = "Collect your glory rewards.",
+                color = 0xffc64d
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
@@ -187,7 +189,8 @@ class Alliance(commands.Cog):
             embed = Embed.create(
                 self, ctx, title='<:aha:777867124706246687> Alliance War has ended in VICTORY!',
                 image = "https://media.discordapp.net/attachments/763066391107862550/777865265882988564/awvictory.png?width=1442&height=481",
-                description = "Good job everyone!"
+                description = "Good job everyone!",
+                color = 0x59e1ac
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
@@ -207,7 +210,8 @@ class Alliance(commands.Cog):
         embed = Embed.create(
             self, ctx, title='<:notlikecat:766419778822078524> Alliance War has ended in DEFEAT.',
             image = "https://media.discordapp.net/attachments/763066391107862550/777865262329626635/awdefeat.png?width=1442&height=481",
-            description = "Better luck next time. :cry:"
+            description = "Better luck next time. :cry:",
+            color = 0xd32f2f
         )
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
@@ -217,7 +221,8 @@ class Alliance(commands.Cog):
             embed = Embed.create(
                 self, ctx, title='<:notlikecat:766419778822078524> Alliance War has ended in DEFEAT.',
                 image = "https://media.discordapp.net/attachments/763066391107862550/777865262329626635/awdefeat.png?width=1442&height=481",
-                description = "Better luck next time. :cry:"
+                description = "Better luck next time. :cry:",
+                color = 0xd32f2f
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
@@ -237,7 +242,8 @@ class Alliance(commands.Cog):
         embed = Embed.create(
             self, ctx, title='<:info:777656123381383209> Attack Phase has started!',
             image = "https://media.discordapp.net/attachments/763066391107862550/777865273272565760/awattack.png?width=1442&height=481",
-            description = "Time to join attack phase. Check with officers in case you need to take a certain path."
+            description = "Time to join attack phase. Check with officers in case you need to take a certain path.",
+            color = 0xffc64d
         )
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
@@ -247,7 +253,8 @@ class Alliance(commands.Cog):
             embed = Embed.create(
                 self, ctx, title='<:info:777656123381383209> Attack Phase has started!',
                 image = "https://media.discordapp.net/attachments/763066391107862550/777865273272565760/awattack.png?width=1442&height=481",
-                description = "Time to join attack phase. Check with officers in case you need to take a certain path."
+                description = "Time to join attack phase. Check with officers in case you need to take a certain path.",
+                color = 0xffc64d
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
@@ -267,7 +274,8 @@ class Alliance(commands.Cog):
         embed = Embed.create(
             self, ctx, title='<:info:777656123381383209> Placement Phase has started!',
             image = "https://media.discordapp.net/attachments/763066391107862550/777865276531671080/awplacement.png?width=1442&height=481",
-            description = "Time to place your defenders, Check with officers in case you place your defenders in a certain place."
+            description = "Time to place your defenders, Check with officers in case you place your defenders in a certain place.",
+            color = 0xffc64d
         )
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
@@ -277,7 +285,8 @@ class Alliance(commands.Cog):
             embed = Embed.create(
                 self, ctx, title='<:info:777656123381383209> Placement Phase has started!',
                 image = "https://media.discordapp.net/attachments/763066391107862550/777865276531671080/awplacement.png?width=1442&height=481",
-                description = "Time to place your defenders, Check with officers in case you place your defenders in a certain place."
+                description = "Time to place your defenders, Check with officers in case you place your defenders in a certain place.",
+                color = 0xffc64d
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
