@@ -134,9 +134,7 @@ class Alliance(commands.Cog):
                 self, ctx, title="Error! <:error:777117297273077760>",
                 description=(
                     "Your guild does not have a role set up for the alerts!\n"
-                    "To set up a role, use `{}alliancealert|aa set role <role>`".format(
-                        ctx.clean_prefix
-                    )
+                    "To set up a role, use `{}alliancealert|aa set role <role>`".format(ctx.clean_prefix)
                 )
                 await ctx.send(embed=embed)
 
