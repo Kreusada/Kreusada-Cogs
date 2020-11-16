@@ -54,7 +54,7 @@ class Staff(commands.Cog):
     async def staff(self, ctx):
         """Notifies the staff."""
         embed = Embed.create(
-            self, ctx, title='<:alert:777928824670388254> The Staff have been notified.',
+            self, ctx, title=':alert: The Staff have been notified.',
             description = (
                 "Please keep your cool, and if required, try to disperse the situation. "
                 "A member of our Staff team will be with you as soon as possible."
@@ -67,12 +67,15 @@ class Staff(commands.Cog):
             else ctx.channel
         if role is not None:
             embed = Embed.create(
-                self, ctx, title='<:alert:777928824670388254> ALERT!',
+                self, ctx, title=':alert: ALERT!',
                 description=f"**{ctx.author.name}** has just called for the staff in {ctx.channel.mention}.\n\n"
             )
             msg = await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
             await msg.add_reaction("✅")
-            reaction, user = await client.wait_for('reaction_add', timeout=60.0, check=check)
+        reaction, user = await self.bot.wait_for("reaction_add", check = check)
+        if reaction == ("✅"):
+            await reaction.message.delete
+            await channel.send("Yeet")
         else:
             embed = Embed.create(
                 self, ctx, title="The Staff team have not completed the command setup. <:error:777117297273077760>",
