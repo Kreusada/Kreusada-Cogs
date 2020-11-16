@@ -168,7 +168,7 @@ class Alliance(commands.Cog):
             )
             await ctx.send(embed=embed)
 
-    @aa.command(invoke_without_command=True, pass_context=True, aliases=["awv, aww"])
+    @aa.command(invoke_without_command=True, pass_context=True, aliases=["awv"])
     async def awvictory(self, ctx):
         """Alliance War ended in Victory."""
         embed = Embed.create(
