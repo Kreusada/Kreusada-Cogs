@@ -136,7 +136,8 @@ class Alliance(commands.Cog):
                     "Your guild does not have a role set up for the alerts!\n"
                     "To set up a role, use `{}alliancealert|aa set role <role>`".format(ctx.clean_prefix)
                 )
-                await ctx.send(embed=embed)
+            )
+            await ctx.send(embed=embed)
 
     @aa.command(invoke_without_command=True, pass_context=True, aliases=["aqg"])
     async def aqglory(self, ctx):
