@@ -7,7 +7,8 @@ from .staffembed import Embed
 class Staff(commands.Cog):
     """Cog for alerting Staff."""
 
-    def __init__(self):
+    def __init__(self, bot):
+        self.bot = bot
         self.config = Config.get_conf(
             self, 200730042020, force_registration=True)
         default_guild = {
@@ -98,6 +99,10 @@ class Staff(commands.Cog):
             )
             msg = await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
             await msg.add_reaction("✅")
+        reaction, user = await self.bot.wait_for("reaction_add", check = check)
+        if reaction == ("✅"):
+            await reaction.message.delete
+            await channel.send("Yeet")
         else:
             embed = Embed.create(
                 self, ctx, title="The Staff team have not completed the command setup. <:error:777117297273077760>",
