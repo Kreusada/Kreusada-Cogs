@@ -26,9 +26,7 @@ class Staff(commands.Cog):
         await self.config.guild(ctx.guild).set_raw("channel", value=channel.id)
         embed =Embed.create(
             self, ctx, title="Successful <:success:777167188816560168>",
-            description="{} will now receive notifications from users to notify the staff.".format(
-                channel.mention
-            )
+            description=f"{channel.mention} will now receive notifications from users to notify the staff."
         )
         await ctx.send(embed=embed)
 
@@ -68,7 +66,7 @@ class Staff(commands.Cog):
         if role is not None:
             embed = Embed.create(
                 self, ctx, title='<:alert:777928824670388254> ALERT!',
-                description=f"**{ctx.author}** has just called for the staff in {ctx.channel.mention}."
+                description=f"**{ctx.author.name}** has just called for the staff in {ctx.channel.mention}."
 #                embed.set_footer(datetime.now(timezone.utc))  
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
