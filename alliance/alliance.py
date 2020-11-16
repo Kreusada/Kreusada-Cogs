@@ -162,7 +162,7 @@ class Alliance(commands.Cog):
             embed = Embed.create(
                 self, ctx, title='<:info:777656123381383209> The Alliance Quest cycle has ended.',
                 image = "https://media.discordapp.net/attachments/763066391107862550/777865235746783232/aqglory.png?width=1442&height=481",
-                description = "Collect your glory rewards.
+                description = "Collect your glory rewards."
                 thumbnail=ctx.guild.icon_url
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
