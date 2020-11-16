@@ -56,7 +56,7 @@ class Staff(commands.Cog):
         embed = Embed.create(
             self, ctx, title='<:alert:777928824670388254> The Staff have been notified.',
             description = (
-                "Please keep your cool, and if required, try to disperse the situation."
+                "Please keep your cool, and if required, try to disperse the situation. "
                 "A member of our Staff team will be with you as soon as possible."
                 )
         )
