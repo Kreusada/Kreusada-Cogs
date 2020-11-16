@@ -1,7 +1,7 @@
 import discord
 from validator_collection import validators
 from datetime import datetime
-from redbot.core import commands, checks, Config
+from redbot.core import commands, checks, Config, modlog
 from .staffembed import Embed
 
 class Staff(commands.Cog):
@@ -10,10 +10,23 @@ class Staff(commands.Cog):
     def __init__(self):
         self.config = Config.get_conf(
             self, 200730042020, force_registration=True)
+        default_guild = {"modlog": True}
         self.config.register_guild(
             role=None,
             channel=None
         )
+        
+    @staticmethod
+    async def register_casetypes():
+        new_types = [
+            {
+                "name": "alert_created",
+                "default_setting": True,
+                "image": "\N{BALLOT BOX WITH BALLOT}\N{VARIATION SELECTOR-16}",
+                "case_str": "Alert created",
+            }
+        ]
+        await modlog.register_casetypes(new_types)
 
     @commands.group()
     async def staffset(self, ctx):
@@ -47,6 +60,17 @@ class Staff(commands.Cog):
                 description=f"Something went wrong during the setup process."
             )
             await ctx.send(embed=embed)
+
+    @staffset.command()
+    @commands.mod()
+    async def modlog(self, ctx, true_or_false: bool):
+        """Decide if alerts should log to modlog."""
+        await self.config.guild(ctx.guild).modlog.set(true_or_false)
+        embed = Embed.create(
+            self, ctx, title="Successful <:success:777167188816560168>",
+            description="Logging to modlog has been {}.".format("enabled" if true_or_false else "disabled")
+        )
+        await ctx.send(embed=embed
 
     @commands.command()
     #@commands.cooldown(1, 600, commands.BucketType.user)
