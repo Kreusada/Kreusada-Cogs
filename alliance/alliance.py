@@ -66,10 +66,10 @@ class Alliance(commands.Cog):
             self, ctx, title="Alert Help Menu",
             description="`Syntax: {}alliancealert <alert_type>`\n"
         )
-            embed.add_field(
-                name="Alert your fellow alliancemates for movement.",
-                description="Test"
-            )
+        embed.add_field(
+            name="Alert your fellow alliancemates for movement.",
+            description="Test"
+        )
 
     @commands.group(name="alliancealertset", autohelp=False, aliases=["aas"])
     @commands.admin_or_permissions(manage_guild=True)
