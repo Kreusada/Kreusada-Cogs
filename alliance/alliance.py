@@ -65,8 +65,8 @@ class Alliance(commands.Cog):
         embed = Embed.create(
             self, ctx, title="Alert Help Menu",
             description=(
-                "`Syntax: {}alliancealert <alert_type>`\n"
                 "**Alert your fellow alliance mates for alliance activity.**\n\n"
+                "`Syntax: {}alliancealert <alert_type>`\n\n"
                 "**__Subcommands__**\n"
                 "**aqglory** Announces for glory collection.\n"
                 "**aqstart** Announces for AQ starting.\n"
