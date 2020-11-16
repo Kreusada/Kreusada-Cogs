@@ -68,7 +68,7 @@ class Alliance(commands.Cog):
         )
         embed.add_field(
             name="Alert your fellow alliancemates for movement.",
-            description="Test"
+            value="Test"
         )
 
     @commands.group(name="alliancealertset", autohelp=False, aliases=["aas"])
