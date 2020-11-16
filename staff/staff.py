@@ -93,8 +93,6 @@ class Staff(commands.Cog):
             embed = Embed.create(
                 self, ctx, title='<:alert:777928824670388254> ALERT!',
                 description=f"**{ctx.author.name}** has just called for the staff in {ctx.channel.mention}\n\n[Jump to message!]({link})").format(link=message.jump_url)"
-                
-#                embed.set_footer(datetime.now(timezone.utc))  
             )
             msg = await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
             await msg.add_reaction("✅")
