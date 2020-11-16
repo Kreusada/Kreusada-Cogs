@@ -15,10 +15,10 @@ class Staff(commands.Cog):
         )
 
     @commands.group()
-    async def staffsetup(self, ctx):
+    async def staffset(self, ctx):
         """Staff notifier configuration."""
 
-    @staffsetup.command()
+    @staffset.command()
     @commands.mod()
     async def channel(self, ctx, channel: discord.TextChannel):
         """Sets the channel for staff to receive notifications."""
@@ -31,7 +31,7 @@ class Staff(commands.Cog):
         )
         await ctx.send(embed=embed)
 
-    @staffsetup.command()
+    @staffset.command()
     @commands.mod()
     async def role(self, ctx, role: discord.Role):
         """Sets the Staff role."""
@@ -68,8 +68,8 @@ class Staff(commands.Cog):
             embed = Embed.create(
                 self, ctx, title='<:alert:777928824670388254> ALERT!',
                 description=(
-                    "Someone has just called for the staff in {}.".format(
-                        ctx.channel.mention
+                    "{} has just called for the staff in {}.".format(
+                        ctx.author.mention, ctx.channel.mention
                     )
                 )
                     
