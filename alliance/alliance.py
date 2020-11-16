@@ -68,7 +68,7 @@ class Alliance(commands.Cog):
     async def aas(self, ctx):
         """Alliance alert configuration."""
         embed = Embed.create(
-            self, ctx, title="<:info:777656123381383209> Configuration Help Menu",
+            self, ctx, title="Configuration Help Menu",
             description=(
                 "**channel** Set the channel for alerts to be sent to.\n"
                 "**role** Set the role to be mentioned for alerts.\n\n"
