@@ -163,11 +163,10 @@ class Alliance(commands.Cog):
                 self, ctx, title="Error! <:error:777117297273077760>",
                 description=(
                     "Your guild does not have a role set up for the alerts!\n"
-                    "To set up a role, use `{}alliancealert set role <role>`".format(
-                        ctx.clean_prefix
-                    )
+                    "To set up a role, use `{}alliancealert set role <role>`".format(ctx.clean_prefix)
                 )
-                await ctx.send(embed=embed)
+            )
+            await ctx.send(embed=embed)
 
     @aa.command(invoke_without_command=True, pass_context=True, aliases=["awv, aww"])
     async def awvictory(self, ctx):
@@ -193,11 +192,10 @@ class Alliance(commands.Cog):
                 self, ctx, title="Error! <:error:777117297273077760>",
                 description=(
                     "Your guild does not have a role set up for the alerts!\n"
-                    "To set up a role, use `{}alliancealert set role <role>`".format(
-                        ctx.clean_prefix
-                    )
+                    "To set up a role, use `{}alliancealert set role <role>`".format(ctx.clean_prefix)
                 )
-                await ctx.send(embed=embed)
+            )
+            await ctx.send(embed=embed)
 
     @aa.command(invoke_without_command=True, pass_context=True, aliases=["awv, aww"])
     async def awdefeat(self, ctx):
@@ -223,11 +221,10 @@ class Alliance(commands.Cog):
                 self, ctx, title="Error! <:error:777117297273077760>",
                 description=(
                     "Your guild does not have a role set up for the alerts!\n"
-                    "To set up a role, use `{}alliancealert set role <role>`".format(
-                        ctx.clean_prefix
-                    )
+                    "To set up a role, use `{}alliancealert set role <role>`".format(ctx.clean_prefix)
                 )
-                await ctx.send(embed=embed)
+            )
+            await ctx.send(embed=embed)
 
     @aa.command(invoke_without_command=True, pass_context=True, aliases=["awa"])
     async def awattack(self, ctx):
@@ -253,11 +250,10 @@ class Alliance(commands.Cog):
                 self, ctx, title="Error! <:error:777117297273077760>",
                 description=(
                     "Your guild does not have a role set up for the alerts!\n"
-                    "To set up a role, use `{}alliancealert set role <role>`".format(
-                        ctx.clean_prefix
-                    )
+                    "To set up a role, use `{}alliancealert set role <role>`".format(ctx.clean_prefix)
                 )
-                await ctx.send(embed=embed)
+            )
+            await ctx.send(embed=embed)
 
     @aa.command(invoke_without_command=True, pass_context=True, aliases=["awp"])
     async def awplacement(self, ctx):
@@ -283,8 +279,7 @@ class Alliance(commands.Cog):
                 self, ctx, title="Error! <:error:777117297273077760>",
                 description=(
                     "Your guild does not have a role set up for the alerts!\n"
-                    "To set up a role, use `{}alliancealert set role <role>`".format(
-                        ctx.clean_prefix
-                    )
+                    "To set up a role, use `{}alliancealert set role <role>`".format(ctx.clean_prefix)
                 )
-                await ctx.send(embed=embed)
+            )
+            await ctx.send(embed=embed)
