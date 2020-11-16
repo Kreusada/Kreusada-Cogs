@@ -177,6 +177,7 @@ class Alliance(commands.Cog):
             self, ctx, title='<:aha:777867124706246687> Alliance War has ended in VICTORY!',
             image = "https://media.discordapp.net/attachments/763066391107862550/777865265882988564/awvictory.png?width=1442&height=481",
             description = "Good job everyone!"
+            color = 0x59e1ac
         )
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
