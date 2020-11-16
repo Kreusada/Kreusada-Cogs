@@ -66,11 +66,12 @@ class Staff(commands.Cog):
             else ctx.channel
         if role is not None:
             embed = Embed.create(
-                self, ctx, title='<:alert:777928824670388254> The Staff have been notified.',
+                self, ctx, title='<:alert:777928824670388254> ALERT!',
                 description=(
-                    "Please keep your cool, and if required, try to disperse the situation."
-                    "A member of our Staff team will be with you as soon as possible."
+                    "Someone has just called for the staff in {}.".format(
+                        ctx.channel
                     )
+                )
                     
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
