@@ -18,7 +18,9 @@ Staff Setup
 
 Staff roles are required to notify your staff.
 
-- ``dem staffset role <role>``
+.. code-block:: none 
+
+      dem staffset role <role>
 
 When the staff command is used, this configured role will be mentioned, allowing for staff to be notified straight away.
 
@@ -26,7 +28,9 @@ When the staff command is used, this configured role will be mentioned, allowing
 
 Set your staff channel to a private mod/admin channel. 
 
-- ``dem staffset role <role``
+.. code-block:: none
+
+      dem staffset role <role>
 
 When the staff command is used, this configured channel host a message containing the alert, the mention, the location of which the ``staff`` command was used, and the user who executed the command.
 
@@ -36,7 +40,9 @@ Staff Usage
 
 **Syntax**
 
-``dem staff``
+.. code-block:: none
+
+      dem staff
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Downloading for your redbot
