@@ -20,11 +20,10 @@ class Kreustools(commands.Cog):
   @commands.command(pass_context=True, no_pm=True)
   async def showtopic(self, ctx, channel: discord.TextChannel = None):
     """Show the Channel Topic in a chat channel."""
-    await self.config.guild(ctx.guild).set_raw("channel", value=channel.id)
     if channel is None:
       channel = ctx.message.channel
       topic = channel.topic
       if topic is not None and topic != '':
-        embed = Embed.create(self, ctx, title=f"#{channel.mention} Channel Topic :star:",
+        embed = Embed.create(self, ctx, title=f"#{channel.name} Channel Topic :star:",
                             description=topic)
         await ctx.send(embed=embed)
