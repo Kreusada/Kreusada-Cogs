@@ -104,7 +104,7 @@ class Vanguard(commands.Cog):
     )
     await ctx.send(embed=embed)
       
-  @commands.group()
+  @commands.command()
   async def quicklinks(self, ctx):
     embed= Embed.create(
       self, ctx, title="<:alert:777928824670388254> Quicklinks",
