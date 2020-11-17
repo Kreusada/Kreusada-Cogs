@@ -49,7 +49,7 @@ class Vanguard(commands.Cog):
         "**Rule 6**\nUsernames that involve unicode, slurs or invisibility will be changed.\n\n"
         "**Quick Links:**\n[Invite Demaratus](https://discord.com/oauth2/authorize?client_id=766580519000473640&scope=bot&permissions=8)"
         " | [Main Community Server](https://discord.gg/h5mUyEG) | [Demaratus Documentation](https://kreusadacogs.readthedocs.io/en/latest/)"
-      )
+      ),
       color=0x59e1ac
     )
     await ctx.send(embed=embed, embed=embed2)
