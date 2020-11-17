@@ -43,5 +43,5 @@ class Vanguard(commands.Cog):
         "**Rule 5""\nDo not spam. Do not advertise content; this includes discord servers, or media that you are looking to promote. We don't do that here.\n"
         "**Rule 6""\nUsernames that involve unicode, slurs or invisibility will be changed."
       )
-   )
-   await ctx.send(embed=embed)
+    )
+    await ctx.send(embed=embed)
