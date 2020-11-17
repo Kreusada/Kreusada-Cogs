@@ -14,7 +14,7 @@ class Kreustools(commands.Cog):
     self.config = Config.get_conf(
       self, identifier=153607829, force_registration=True)
     self.config.register_guild(
-      role=None
+      channel=None
     )
         
   @commands.command(pass_context=True, no_pm=True)
