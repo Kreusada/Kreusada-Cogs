@@ -13,7 +13,9 @@ class Kreustools(commands.Cog):
     self.bot = bot
     self.config = Config.get_conf(
       self, identifier=153607829, force_registration=True)
-    self.config.register_guild()
+    self.config.register_guild(
+      role=None
+    )
         
   @commands.command(pass_context=True, no_pm=True)
   async def showtopic(self, ctx, channel: discord.TextChannel = None):
