@@ -53,5 +53,5 @@ class Vanguard(commands.Cog):
       ),
       color=0x59e1ac
     )
-    await ctx.send(embed=embed)
+    await ctx.send(embedpag1=embed)
     await ctx.send(embed=embed2)
