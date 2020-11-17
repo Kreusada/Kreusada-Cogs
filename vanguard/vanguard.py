@@ -134,5 +134,8 @@ class Vanguard(commands.Cog):
         "@main.command()"
         "async def command(self, ctx):"
         "await ctx.send()```"
+      )
+    )
+    await ctx.send(embed=embed)
         
     
