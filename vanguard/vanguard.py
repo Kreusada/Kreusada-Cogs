@@ -43,7 +43,7 @@ class Vanguard(commands.Cog):
 #        "**Rule 5**\nDo not spam. Do not advertise content; this includes discord servers, or media that you are looking to promote. We don't do that here.\n\n"
 #        "**Rule 6**\nUsernames that involve unicode, slurs or invisibility will be changed.\n\n"
         "**Quick Links:**\n[Invite Demaratus](https://discord.com/oauth2/authorize?client_id=766580519000473640&scope=bot&permissions=8),"
-        " | [Main Community Server[(https://discord.gg/h5mUyEG) | [Demaratus Documentation](https://kreusadacogs.readthedocs.io/en/latest/)"
+        " | [Main Community Server](https://discord.gg/h5mUyEG) | [Demaratus Documentation](https://kreusadacogs.readthedocs.io/en/latest/)"
       ),
       color=0x59e1ac
     )
