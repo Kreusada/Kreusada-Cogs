@@ -171,7 +171,7 @@ class Alliance(commands.Cog):
             )
             await ctx.send(embed=embed)
 
-    @aa.command(invoke_without_subcommand=True, pass_context=True, aliases=["aqg"])
+    @aa.command(invoke_without_command=True, pass_context=True, aliases=["aqg"])
     async def aqglory(self, ctx):
         """Collect your glory rewards."""
         embed = Embed.create(
