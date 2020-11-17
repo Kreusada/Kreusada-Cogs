@@ -34,7 +34,7 @@ class Embed:
         if thumbnail is not None:
             data.set_thumbnail(url=thumbnail)
         if footer_text is None:
-            footer_text = "Demaratus | Alerting the Staff"
+            footer_text = "Demaratus | Vanguard Support"
         if footer_url is None:
             footer_url = DEMARATUS
         data.set_footer(text=footer_text, icon_url=footer_url)
