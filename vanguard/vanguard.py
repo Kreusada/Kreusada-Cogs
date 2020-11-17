@@ -28,7 +28,7 @@ class Vanguard(commands.Cog):
   @rule.command()
   @checks.admin()
   async def full(self, ctx):
-    embed = create.Embed(
+    embed = Embed.create(
       self, ctx, title="<:alert:777928824670388254> Vanguard Rules",
       description=(
         "Hey there, welcome to the Vanguards. "
