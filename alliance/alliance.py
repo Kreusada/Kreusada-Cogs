@@ -59,42 +59,42 @@ class Alliance(commands.Cog):
             )
             await ctx.send(embed=embed)
 
-    @commands.group(name="alliancealert", aliases=["aa", ], autohelp=False)
-    async def aa(self, ctx):  # aliases: aa, alert):
+    @commands.group(name="alliancealert", aliases=["aa", ])#, autohelp=False)
+    async def aa(self, ctx):
         """Alert your fellow alliance mates for movement."""
-        embed = Embed.create(
-            self, ctx, title="Alert Help Menu",
-            description=(
-                "**Alert your fellow alliance mates for alliance activity.**\n\n"
-                "`Syntax: {}alliancealert <alert_type>`\n\n"
-                "**__Subcommands__**\n"
-                "**aqglory** Announces for glory collection.\n"
-                "**aqstart** Announces for AQ starting.\n"
-                "**awattack** Announces for AW attack phase starting.\n"
-                "**awdefeat** Announces for AW defeat.\n"
-                "**awplacement** Announces for AW attack phase starting.\n"
-                "**awvictory** Announces for AW Victory.\n\n"
-                "**Additional Support**\n"
-                "Contact us in our [support server](https://discord.gg/JmCFyq7).".format(
-                    ctx.clean_prefix, ctx.clean_prefix
-                )
-            )
-        )
-        await ctx.send(embed=embed)
+#        embed = Embed.create(
+#            self, ctx, title="Alert Help Menu",
+#            description=(
+#                "**Alert your fellow alliance mates for alliance activity.**\n\n"
+#                "`Syntax: {}alliancealert <alert_type>`\n\n"
+#                "**__Subcommands__**\n"
+#                "**aqglory** Announces for glory collection.\n"
+#                "**aqstart** Announces for AQ starting.\n"
+#                "**awattack** Announces for AW attack phase starting.\n"
+#                "**awdefeat** Announces for AW defeat.\n"
+#                "**awplacement** Announces for AW attack phase starting.\n"
+#                "**awvictory** Announces for AW Victory.\n\n"
+#                "**Additional Support**\n"
+#                "Contact us in our [support server](https://discord.gg/JmCFyq7).".format(
+#                    ctx.clean_prefix, ctx.clean_prefix
+#                )
+#            )
+#        )
+#        await ctx.send(embed=embed)
 
-    @commands.group(name="alliancealertset", autohelp=False, aliases=["aas"])
+    @commands.group(name="alliancealertset", aliases=["aas"])#,autohelp=False)
     @commands.admin_or_permissions(manage_guild=True)
     async def aas(self, ctx):
         """Alliance alert configuration."""
-        embed = Embed.create(
-            self, ctx, title="Configuration Help Menu",
-            description=(
-                "**channel** Set the channel for alerts to be sent to.\n"
-                "**role** Set the role to be mentioned for alerts.\n\n"
-                "Need more support? Contact us in our [support server](https://discord.gg/JmCFyq7)."
-            )
-        )
-        await ctx.send(embed=embed)
+#        embed = Embed.create(
+#            self, ctx, title="Configuration Help Menu",
+#            description=(
+#                "**channel** Set the channel for alerts to be sent to.\n"
+#                "**role** Set the role to be mentioned for alerts.\n\n"
+#                "Need more support? Contact us in our [support server](https://discord.gg/JmCFyq7)."
+#            )
+#        )
+#        await ctx.send(embed=embed)
             
     @aas.command()
     async def showsettings(self, ctx):
