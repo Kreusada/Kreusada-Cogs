@@ -120,11 +120,11 @@ class Vanguard(commands.Cog):
     embed = Embed.create(
       self, ctx, title="Codeblocks!",
       description=(
-        "Code blocks are used in Discord to represent code and data, supporting a range of coding languages."
-        "They are vital for showing people your code, otherwise things look real messy!"
+        "Code blocks are used in Discord to represent code and data, supporting a range of coding languages. "
+        "They are vital for showing people your code, otherwise things look real messy! "
         "Remember to use these code blocks when visiting our coding channels.\n\n"
         "**Small Code Blocks | **Syntax:** [`]\n\n**"
-        "Represented using one backtick eitherside of the text.\n"
+        "Represented using one backtick eitherside of the text. \n"
         "For example: `here is an example!`.\n"
         "Small code blocks are designed for mentioning small instances of code such as snippits, modules or command examples.\n\n"
         "**Large Code Blocks | **Syntax:** [```]\n\n**"
@@ -133,7 +133,9 @@ class Vanguard(commands.Cog):
         " ```py\n"
         "@main.command()\n"
         "async def command(self, ctx):\n"
-        "await ctx.send()```"
+        "await ctx.send()```\n"
+        "**Using file extensions**"
+        "https://media.discordapp.net/attachments/763066391107862550/778389481048375316/2020-11-17_4.png?width=310&height=92"
       )
     )
     await ctx.send(embed=embed)
