@@ -22,7 +22,7 @@ class Staff(commands.Cog):
         """Staff notifier configuration."""
 
     @staffset.command()
-    @checks.mod()
+    @checks.admin_or_permissions(manage_guild=True)
     async def channel(self, ctx, channel: discord.TextChannel):
         """Sets the channel for staff to receive notifications."""
         await self.config.guild(ctx.guild).set_raw("channel", value=channel.id)
@@ -33,7 +33,7 @@ class Staff(commands.Cog):
         await ctx.send(embed=embed)
 
     @staffset.command()
-    @checks.mod()
+    @checks.admin_or_permissions(manage_guild=True)
     async def role(self, ctx, role: discord.Role):
         """Sets the Staff role."""
         try:
