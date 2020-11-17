@@ -2,7 +2,6 @@ import discord
 from validator_collection import validators
 from redbot.core import commands, checks, Config, modlog
 from .vangem import Embed
-from .vangempag1 import Embedpag1
 
 class Vanguard(commands.Cog):
   """Vanguard Support Schema."""
@@ -29,7 +28,7 @@ class Vanguard(commands.Cog):
   @rule.command()
   @checks.admin()
   async def full(self, ctx):
-    embed = Embedpag1.create(
+    embed = Embed.create(
       self, ctx, title="<:alert:777928824670388254> Vanguard Rules",
       description=(
         "\n\nHey there, welcome to the Vanguards. "
@@ -42,6 +41,7 @@ class Vanguard(commands.Cog):
         "**Rule 3**\nWe will not offer support for coding which involves illegally mitigating APIs and websites, or that breaks terms of service for discord or the targeted environment. Or for other actions which may be considered malicious from intent.\n\n"
       ),
       color=0x59e1ac
+      embed.set_footer("")
     )
     embed2 = Embed.create(
       self, ctx, description=(
