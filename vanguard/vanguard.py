@@ -38,7 +38,7 @@ class Vanguard(commands.Cog):
         "We have some rules, which **must** be followed for the welfare of our members.\n\n"
         "**Rule 1**\nDO NOT share bot tokens anywhere. If you're showing code which includes the token, please replace it with placeholding text.\n\n"
         "**Rule 2**\nKeep to the correct channels, we'll be strict on this. If you don't know where you're going, ask in <#758775858222727168>. Additionally, keep discussion relevant to the channel topic.\n\n" 
-        "**Rule 3**\nWe will not offer support for coding which involves illegally mitigating APIs and websites, or that breaks terms of service for discord or the targeted environment. Or for other actions which may be considered malicious from intent.\n\n"
+        "**Rule 3**\nWe will not offer support for coding which involves illegally mitigating APIs and websites, or that breaks terms of service for discord or the targeted environment, or for other actions which may be considered malicious from intent.\n\n"
       ),
       color=0x59e1ac,
       footer_text=""
@@ -76,7 +76,7 @@ class Vanguard(commands.Cog):
   async def three(self, ctx):
     embed = Embed.create(
       self, ctx, title="<:alert:777928824670388254> Rule Number Three",
-      description="We will not offer support for coding which involves illegally mitigating APIs and websites, or that breaks terms of service for discord or the targeted environment. Or for other actions which may be considered malicious from intent."
+      description="We will not offer support for coding which involves illegally mitigating APIs and websites, or that breaks terms of service for discord or the targeted environment, or for other actions which may be considered malicious from intent."
     )
     await ctx.send(embed=embed)
       
