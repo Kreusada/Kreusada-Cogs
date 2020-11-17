@@ -20,7 +20,7 @@ class Kreustools(commands.Cog):
   @commands.command(pass_context=True, no_pm=True)
   async def showtopic(self, ctx, channel: discord.TextChannel = None):
     """Show the Channel Topic in a chat channel."""
-    await self.config.guild(ctx.guild).set_raw("channel", value=channel.id)
+    await self.config.guild(ctx.guild).set_raw("channel")
     if channel is None:
       channel = ctx.message.channel
       topic = channel.topic
