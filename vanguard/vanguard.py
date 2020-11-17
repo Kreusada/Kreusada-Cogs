@@ -31,7 +31,7 @@ class Vanguard(commands.Cog):
     embed = Embed.create(
       self, ctx, title="<:alert:777928824670388254> Vanguard Rules",
       description=(
-        "Hey there, welcome to the Vanguards. "
+        "\n\nHey there, welcome to the Vanguards. "
         "This server can help you to learn, implement and use **code**. "
         "We support multiple coding languages and are happy to help you. "
         "Additionally, this is the primary support server for <@766580519000473640>. "
@@ -41,7 +41,7 @@ class Vanguard(commands.Cog):
         "**Rule 3**\n\nWe will not offer support for coding which involves illegally mitigating APIs and websites, or that breaks terms of service for discord or the targeted environment. Or for other actions which may be considered malicious from intent.\n\n"
         "**Rule 4**\n\nListen to and respect staff members and their instructions. Do not be rude or vulgar to those who voluntarily give up their time to help you.\n\n"
         "**Rule 5**\n\nDo not spam. Do not advertise content; this includes discord servers, or media that you are looking to promote. We don't do that here.\n\n"
-        "**Rule 6""\n\nUsernames that involve unicode, slurs or invisibility will be changed."
+        "**Rule 6**\n\nUsernames that involve unicode, slurs or invisibility will be changed."
       ),
       color=0x59e1ac
     )
