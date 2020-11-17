@@ -25,5 +25,5 @@ class Kreustools(commands.Cog):
       topic = channel.topic
       if topic is not None and topic != '':
         embed = Embed.create(self, ctx, title=f"Channel Topic Tool :tools:",
-                            description=f"\n**Channel: {channel.mention}**\n{topic}\n\nChannel ID: **{channel.id}**\nRequested by: **{ctx.author.name}**.")
+                            description=f"\n\n**Channel: {channel.mention}**\n**Topic:**{topic}\n\nChannel ID: **{channel.id}**\nRequested by: **{ctx.author.name}**.")
         await ctx.send(embed=embed)
