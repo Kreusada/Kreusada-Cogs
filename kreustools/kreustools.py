@@ -22,7 +22,6 @@ class Kreustools(commands.Cog):
       channel = ctx.message.channel
       topic = channel.topic
       if topic is not None and topic != '':
-        data = Embed.create(ctx, title=f"#{channel.name} Topic :star:",
+        embed = Embed.create(self, ctx, title=f"#{channel.name} Topic :star:",
                             description=topic)
-        data.set_thumbnail(url=ctx.message.guild.icon_url)
-        await ctx.send(embed=data)
+        await ctx.send(embed=embed)
