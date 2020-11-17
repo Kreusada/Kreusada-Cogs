@@ -42,7 +42,7 @@ class Vanguard(commands.Cog):
         "**Rule 4**\n\nListen to and respect staff members and their instructions. Do not be rude or vulgar to those who voluntarily give up their time to help you.\n\n"
         "**Rule 5**\n\nDo not spam. Do not advertise content; this includes discord servers, or media that you are looking to promote. We don't do that here.\n\n"
         "**Rule 6""\n\nUsernames that involve unicode, slurs or invisibility will be changed."
-      )
+      ),
       color=0x59e1ac
     )
     await ctx.send(embed=embed)
