@@ -20,18 +20,12 @@ class Embed:
 
         if isinstance(ctx.message.channel, discord.abc.GuildChannel):
             color = ctx.message.author.color
-#        if url is None:
-#            url = PATREON
         data = discord.Embed(color=color, title=title, url=url)
         if description is not None:
             if len(description) < 1500:
                 data.description = description
-#        data.set_author(name=ctx.message.author.display_name,
-#                        icon_url=ctx.message.author.avatar_url)
         if image is not None:
             data.set_image(url=image)
-#        if thumbnail is None:
-#            thumbnail = CRYSTAL
         if thumbnail is not None:
             data.set_thumbnail(url=thumbnail)
         if footer_text is None:
