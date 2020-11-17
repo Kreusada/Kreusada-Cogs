@@ -106,7 +106,7 @@ class Vanguard(commands.Cog):
       
   @commands.command()
   async def quicklinks(self, ctx):
-    embed= Embed.create(
+    embed = Embed.create(
       self, ctx, title="<:alert:777928824670388254> Quicklinks",
       description=(
         "[Invite Demaratus](https://discord.com/oauth2/authorize?client_id=766580519000473640&scope=bot&permissions=8)"
@@ -114,4 +114,25 @@ class Vanguard(commands.Cog):
       )
     )
     await ctx.send(embed=embed)
+    
+  @guide.command()
+  async def codeblock(self, ctx):
+    embed = Embed.create(
+      self, ctx, title="Codeblocks!",
+      description=(
+        "Code blocks are used in Discord to represent code and data, supporting a range of coding languages."
+        "They are vital for showing people your code, otherwise things look real messy!"
+        "Remember to use these code blocks when visiting our coding channels.\n\n"
+        "**Small Code Blocks | **Syntax:** [`]\n\n**"
+        "Represented using one backtick eitherside of the text."
+        "For example: `here is an example!`.\n"
+        "Small code blocks are designed for mentioning small instances of code such as snippits, modules or command examples.\n\n"
+        "**Large Code Blocks | **Syntax:** [```]\n\n**"
+        "Represented using three backticks eitherside of the text."
+        "It is important to include the file extension at the start of the code block. For example:"
+        " ```py"
+        "@main.command()"
+        "async def command(self, ctx):"
+        "await ctx.send()```"
+        
     
