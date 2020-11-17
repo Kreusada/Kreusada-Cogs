@@ -1,12 +1,16 @@
 import discord
 import requests
+from validator_collection import validators
 
 
 class Embed:
     def __init__(self, bot):
         self.bot = bot
-
-    def create(self, ctx, color=discord.Color.red(), title='', description='', image=None,
+ 
+class colors:
+    error = 0xf74545
+    
+    def create(self, ctx, color=discord.Color.error(), title='', description='', image=None,
                thumbnail=None, url=None, footer_text=None, footer_url=None, author_text=None):
         '''Return a color styled embed with MDT footer, and optional title or description.
         user_id = user id string. If none provided, takes message author.
