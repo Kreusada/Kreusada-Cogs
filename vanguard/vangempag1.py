@@ -25,17 +25,3 @@ class Embedpag1:
         if description is not None:
             if len(description) < 1500:
                 data.description = description
-#        data.set_author(name=ctx.message.author.display_name,
-#                        icon_url=ctx.message.author.avatar_url)
-        if image is not None:
-            data.set_image(url=image)
-#        if thumbnail is None:
-#            thumbnail = CRYSTAL
-        if thumbnail is not None:
-            data.set_thumbnail(url=thumbnail)
-        if footer_text is None:
-            footer_text = "Demaratus | Vanguard Support"
-        if footer_url is None:
-            footer_url = DEMARATUS
-        data.set_footer(text=footer_text, icon_url=footer_url)
-        return data
