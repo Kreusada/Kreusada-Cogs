@@ -56,62 +56,62 @@ class Vanguard(commands.Cog):
     await ctx.send(embed=embed)
     await ctx.send(embed=embed2)
     
-    @rule.command(name="1", aliases=["r1"])
-    async def one(self, ctx):
-      embed = Embed.create(
-        self, ctx, title="<:alert:777928824670388254> Rule Number One",
-        description="DO NOT share bot tokens anywhere. If you're showing code which includes the token, please replace it with placeholding text."
-      )
-      await ctx.send(embed=embed)
+  @rule.command(name="1", aliases=["r1"])
+  async def one(self, ctx):
+    embed = Embed.create(
+      self, ctx, title="<:alert:777928824670388254> Rule Number One",
+      description="DO NOT share bot tokens anywhere. If you're showing code which includes the token, please replace it with placeholding text."
+    )
+    await ctx.send(embed=embed)
 
-    @rule.command(name="2", aliases=["r2"])
-    async def two(self, ctx):
-      embed = Embed.create(
-        self, ctx, title="<:alert:777928824670388254> Rule Number Two",
-        description="Keep to the correct channels, we'll be strict on this. If you don't know where you're going, ask in <#758775858222727168>. Additionally, keep discussion relevant to the channel topic."
-      )
-      await ctx.send(embed=embed)
+  @rule.command(name="2", aliases=["r2"])
+  async def two(self, ctx):
+    embed = Embed.create(
+      self, ctx, title="<:alert:777928824670388254> Rule Number Two",
+      description="Keep to the correct channels, we'll be strict on this. If you don't know where you're going, ask in <#758775858222727168>. Additionally, keep discussion relevant to the channel topic."
+    )
+    await ctx.send(embed=embed)
 
-    @rule.command(name="3", aliases=["r3"])
-    async def three(self, ctx):
-      embed = Embed.create(
-        self, ctx, title="<:alert:777928824670388254> Rule Number Three",
-        description="We will not offer support for coding which involves illegally mitigating APIs and websites, or that breaks terms of service for discord or the targeted environment. Or for other actions which may be considered malicious from intent."
-      )
-      await ctx.send(embed=embed)
+  @rule.command(name="3", aliases=["r3"])
+  async def three(self, ctx):
+    embed = Embed.create(
+      self, ctx, title="<:alert:777928824670388254> Rule Number Three",
+      description="We will not offer support for coding which involves illegally mitigating APIs and websites, or that breaks terms of service for discord or the targeted environment. Or for other actions which may be considered malicious from intent."
+    )
+    await ctx.send(embed=embed)
       
-    @rule.command(name="4", aliases=["r4"])
-    async def four(self, ctx):
-      embed = Embed.create(
-        self, ctx, title="<:alert:777928824670388254> Rule Number Four",
-        description="Listen to and respect staff members and their instructions. Do not be rude or vulgar to those who voluntarily give up their time to help you."
-      )
-      await ctx.send(embed=embed)
+  @rule.command(name="4", aliases=["r4"])
+  async def four(self, ctx):
+    embed = Embed.create(
+      self, ctx, title="<:alert:777928824670388254> Rule Number Four",
+      description="Listen to and respect staff members and their instructions. Do not be rude or vulgar to those who voluntarily give up their time to help you."
+    )
+    await ctx.send(embed=embed)
 
-    @rule.command(name="5", aliases=["r5"])
-    async def five(self, ctx):
-      embed = Embed.create(
-        self, ctx, title="<:alert:777928824670388254> Rule Number Five",
-        description="Do not spam. Do not advertise content; this includes discord servers, or media that you are looking to promote. We don't do that here."
-      )
-      await ctx.send(embed=embed)
+  @rule.command(name="5", aliases=["r5"])
+  async def five(self, ctx):
+    embed = Embed.create(
+      self, ctx, title="<:alert:777928824670388254> Rule Number Five",
+      description="Do not spam. Do not advertise content; this includes discord servers, or media that you are looking to promote. We don't do that here."
+    )
+    await ctx.send(embed=embed)
 
-    @rule.command(name="6", aliases=["r6"])
-    async def six(self, ctx):
-      embed = Embed.create(
-        self, ctx, title="<:alert:777928824670388254> Rule Number Six",
-        description="Usernames that involve unicode, slurs or invisibility will be changed."
-      )
-      await ctx.send(embed=embed)
+  @rule.command(name="6", aliases=["r6"])
+  async def six(self, ctx):
+    embed = Embed.create(
+      self, ctx, title="<:alert:777928824670388254> Rule Number Six",
+      description="Usernames that involve unicode, slurs or invisibility will be changed."
+    )
+    await ctx.send(embed=embed)
       
-    @commands.group()
-    async def quicklinks(self, ctx):
-      embed= Embed.create(
-        self, ctx, title="<:alert:777928824670388254> Quicklinks",
-        description=(
-          "[Invite Demaratus](https://discord.com/oauth2/authorize?client_id=766580519000473640&scope=bot&permissions=8)"
-          " | [Main Community Server](https://discord.gg/h5mUyEG) | [Demaratus Documentation](https://kreusadacogs.readthedocs.io/en/latest/)"
-        )
+  @commands.group()
+  async def quicklinks(self, ctx):
+    embed= Embed.create(
+      self, ctx, title="<:alert:777928824670388254> Quicklinks",
+      description=(
+        "[Invite Demaratus](https://discord.com/oauth2/authorize?client_id=766580519000473640&scope=bot&permissions=8)"
+        " | [Main Community Server](https://discord.gg/h5mUyEG) | [Demaratus Documentation](https://kreusadacogs.readthedocs.io/en/latest/)"
       )
-      await ctx.send(embed=embed)
+    )
+    await ctx.send(embed=embed)
     
