@@ -41,6 +41,7 @@ class Vanguard(commands.Cog):
         "**Rule 3**\nWe will not offer support for coding which involves illegally mitigating APIs and websites, or that breaks terms of service for discord or the targeted environment. Or for other actions which may be considered malicious from intent.\n\n"
       ),
       color=0x59e1ac
+    )
     embed2 = Embed.create(
       self, ctx, description=(
         "**Rule 4**\nListen to and respect staff members and their instructions. Do not be rude or vulgar to those who voluntarily give up their time to help you.\n\n"
