@@ -40,7 +40,7 @@ class Vanguard(commands.Cog):
         "**Rule 2**\nKeep to the correct channels, we'll be strict on this. If you don't know where you're going, ask in <#758775858222727168>. Additionally, keep discussion relevant to the channel topic.\n\n" 
         "**Rule 3**\nWe will not offer support for coding which involves illegally mitigating APIs and websites, or that breaks terms of service for discord or the targeted environment. Or for other actions which may be considered malicious from intent.\n\n"
       ),
-      color=0x59e1ac
+      color=0x59e1ac,
       footer_text=""
     )
     embed2 = Embed.create(
