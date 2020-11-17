@@ -136,7 +136,7 @@ class Vanguard(commands.Cog):
         " await ctx.send()```\n"
         "**Using file extensions**"
       ),
-      image="https://media.discordapp.net/attachments/763066391107862550/778395296018989056/codeblock_example.png"
+      image="https://media.discordapp.net/attachments/763066391107862550/778398035675840532/codeblock_example.png"
     )
     await ctx.send(embed=embed)
         
