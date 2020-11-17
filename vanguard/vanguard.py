@@ -133,10 +133,10 @@ class Vanguard(commands.Cog):
         " ```py\n"
         "@main.command()\n"
         "async def command(self, ctx):\n"
-        "await ctx.send()```\n"
+        " await ctx.send()```\n"
         "**Using file extensions**"
       ),
-      image="https://media.discordapp.net/attachments/763066391107862550/778389481048375316/2020-11-17_4.png?width=310&height=92"
+      image="https://media.discordapp.net/attachments/763066391107862550/778395296018989056/codeblock_example.png"
     )
     await ctx.send(embed=embed)
         
