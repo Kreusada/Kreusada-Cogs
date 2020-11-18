@@ -48,7 +48,7 @@ Changelog
 - Fixed issues relating to ``Audio`` not being able to play YouTube tracks.
 - Fixed issues relating to ``Audio`` not making any sound despite audio in queue with full volume.
 - Fixed issues relating to ``Audio`` lavalink port 2333 interfering with our other instances.
-- Fixed issue where staffset commands were not operating without a configured mod role from set addmodrole <role>. This was not intentional.
+- Fixed issue where staffset commands were not operating without a configured mod role from ``set addmodrole <role>``. This was not intentional.
 - Fixed issue where the parent group command is displaying on top of the group's child commands.
 - Fixed issue where commands were not invoked from their parents.
 - Fixed issue where the mention attribute is now unclassified in ``alliancealertset showsettings``.
