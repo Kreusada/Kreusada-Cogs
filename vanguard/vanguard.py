@@ -21,10 +21,6 @@ class Vanguard(commands.Cog):
   async def rule(self, ctx):
     """Vanguard Rule Index"""
     
-  @commands.group()
-  async def guide(self, ctx):
-    """Vanguard Guide Index"""
-    
   @rule.command()
   @checks.admin()
   async def full(self, ctx):
@@ -50,6 +46,7 @@ class Vanguard(commands.Cog):
         "**Rule 6**\nUsernames that involve unicode, slurs or invisibility will be changed.\n\n"
         "**Quick Links:**\n[Invite Demaratus](https://discord.com/oauth2/authorize?client_id=766580519000473640&scope=bot&permissions=8)"
         " | [Main Community Server](https://discord.gg/h5mUyEG) | [Demaratus Documentation](https://kreusadacogs.readthedocs.io/en/latest/)"
+        " | [Vanguard Patreon](https://patreon.com/vanguards)"
       ),
       color=0x59e1ac
     )
@@ -104,18 +101,19 @@ class Vanguard(commands.Cog):
     )
     await ctx.send(embed=embed)
       
-  @commands.command()
+  @commands.command(aliases=["quicklink"])
   async def quicklinks(self, ctx):
     embed = Embed.create(
       self, ctx, title="<:alert:777928824670388254> Quicklinks",
       description=(
         "[Invite Demaratus](https://discord.com/oauth2/authorize?client_id=766580519000473640&scope=bot&permissions=8)"
         " | [Main Community Server](https://discord.gg/h5mUyEG) | [Demaratus Documentation](https://kreusadacogs.readthedocs.io/en/latest/)"
+        " | [Vanguard Patreon](https://patreon.com/vanguards)"
       )
     )
     await ctx.send(embed=embed)
     
-  @guide.command()
+  @commands.command(aliases=["codeblocks"])
   async def codeblock(self, ctx):
     embed = Embed.create(
       self, ctx, title="Codeblocks!",
