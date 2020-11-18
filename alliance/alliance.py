@@ -147,19 +147,9 @@ class Alliance(commands.Cog):
         embed = Embed.create(
             self, ctx, title='<:info:777656123381383209> Alliance Quest has STARTED!',
             image = "https://media.discordapp.net/attachments/763066391107862550/777865269477376030/aqstarted.png?width=1442&height=481",
-            description = "Time to join Alliance Quest."
+            description="Time to join Alliance Quest.",
         )
-        role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
-        chan = await self.config.guild(ctx.guild).get_raw("channel")
-        channel = ctx.guild.get_channel(chan) if chan is not None\
-            else ctx.channel
-        if role is not None:
-            embed = Embed.create(
-                self, ctx, title='<:info:777656123381383209> Alliance Quest has STARTED!',
-                image="https://media.discordapp.net/attachments/763066391107862550/777865269477376030/aqstarted.png?width=1442&height=481",
-                description="Time to join Alliance Quest."
-            )
-            await ctx.send(embed=embed)
+        await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
 
     @aa.command(invoke_without_command=True, pass_context=True, aliases=["aqg"])
     async def aqglory(self, ctx):
