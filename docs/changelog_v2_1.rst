@@ -65,17 +65,23 @@ New Cogs
 --------
 
 **Alliance**
+
 - Added a ``timezone`` tool to bind to the end of your nickname.
+
 - TBD AQ+AW Alerts for Marvel Contest of Champions. 
 
 **Find**
+
 - Find MCOC PNGs with this quick and accessible tool. [MAINTENANCE]
+
 - ``Find`` is now in the process of being merged from its own cog to ``mcoc``. [Development]
 
 **Fun**
+
 - A package of original fun commands made by Jojo.
 
 **Modmail**
+
 - A fluent easy-setup modmail cog produced by Jojo.
 
 Support Server Changelog
