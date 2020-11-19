@@ -172,7 +172,7 @@ class Vanguard(commands.Cog):
         else:
             return False
     
-  @commands.command(pass_context=True, hidden=True, name="demaratustips", aliases=("dt",))
+  @commands.command(pass_context=True, name="demaratustips", aliases=["dt",])
   async def demaratus_tips(self, ctx, channel: discord.TextChannel, *, content):
       authorized = self.check_dem_supportsquad(ctx)
       if authorized is not True:
