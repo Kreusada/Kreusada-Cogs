@@ -121,15 +121,23 @@ class Alliance(commands.Cog):
     async def reset(self, ctx):
         """Reset the values for the alliance alert system"""
 
-    @reset.command()
+    @reset.command(name="role")
     async def _role(self, ctx: commands.Context):
         """Resets the role that is mentioned when alerting your alliance"""
-        await self.removal(ctx, "role")
+        role = await self.config.guild(ctx.guild).get_raw("channel")
+        if role is not None:
+            await self.removal(ctx, "role")
+        else:
+            await ctx.send("You don't have a role set up!")
 
     @reset.command(name="channel")
     async def _channel(self, ctx: commands.Context):
         """Reset the channel"""
-        await self.removal(ctx, "channel")
+        channel = await self.config.guild(ctx.guild).get_raw("channel")
+        if channel is not None:
+            await self.removal(ctx, "channel")
+        else:
+            await ctx.send("You don't have a channel set up!")
 
     @aa.command(aliases=["aqs"])
     async def aqstart(self, ctx):
