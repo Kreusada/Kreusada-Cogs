@@ -64,12 +64,6 @@ class Mcoc(commands.Cog):
         )
         data.set_image(url=image)
         await ctx.send(embed=data)
-        await ctx.author.send(
-            f"Hey there {ctx.author.name}! I've just responded to your `crystal` command.\n"
-            "For your information, the `crystal` command is about to go bust. That means people won't be able to use it anymore.\n"
-            "Sounds shocking, right? I need **your** help. If you would like to help, you can read here: https://kreusadacogs.readthedocs.io/en/latest/emergency.html#emergency\n\n"
-            "*This will take you under 5 minutes, depending on how much you'd like to contribute.*"
-        )
     
     @commands.group(invoke_without_command=True)
     async def roster(self, ctx):
