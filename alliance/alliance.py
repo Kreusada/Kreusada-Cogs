@@ -140,7 +140,7 @@ class Alliance(commands.Cog):
 
     @aa.command(aliases=["aqs"])
     async def aqstart(self, ctx):
-        """Alliance Quest has started!"""
+        """Alerts for alliance quest starting."""
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
         channel = ctx.guild.get_channel(chan) if chan is not None\
@@ -226,8 +226,8 @@ class Alliance(commands.Cog):
             )
             await ctx.send(embed=embed)
 
-    @aa.command(aliases=["awa"])
-    async def awattack(self, ctx):
+    @aa.command(aliases=["awv"])
+    async def awvictory(self, ctx):
         """Alerts for alliance war victory."""
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
