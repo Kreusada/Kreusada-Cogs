@@ -37,7 +37,7 @@ class Mcoc(commands.Cog):
         """Support Server invite link."""
         embed = Embed.create(
             self, ctx, title="Support Server",
-            description="https://discord.gg/JmCFyq7"
+            description=f"[You can join our support server here](https://discord.gg/JmCFyq7)"
         )
         await ctx.send(embed=embed)
 
@@ -64,6 +64,15 @@ class Mcoc(commands.Cog):
         )
         data.set_image(url=image)
         await ctx.send(embed=data)
+        await ctx.author.send(
+            f"Hey there {ctx.author}! I need your help. "
+            "The `crystal` command may be taken down soon. This is because the URLs used are actually against our policies.\n"
+            "I'd really appreciate just a moment of your time to help me out. If you would like to help out, please follow the steps below:\n\n"
+            "1. Join our Discord support server: https://discord.gg/JmCFyq7\n"
+            "2. Take a look at our champion dictionary: https://github.com/kreus7/demaratus/blob/master/mcoc/crystal.py. You should look at the FEATUREDS section.\n"
+            "3. For the URLs that contain a `#` before them, they need replacing. So, find a hashtagged champion in the list, get their featured image, and then paste it into a Discord text channel and copy the link. This way, the URLs will always work!\n\n"
+            "Thankyou for using Demaratus. Those who contribute will be given the Github Contributors role in our support server. For more information, I advise asking Kreusada#0518, or andreaskonamino#4501."
+        )
     
     @commands.group(invoke_without_command=True)
     async def roster(self, ctx):
