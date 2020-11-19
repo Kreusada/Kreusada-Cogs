@@ -93,33 +93,33 @@ class Alliance(commands.Cog):
     @aas.command()
     async def channel(self, ctx, channel: discord.TextChannel):
       """Configures the channel where alerts are sent."""
-        await self.config.guild(ctx.guild).set_raw("channel", value=channel.id)
-        embed = Embed.create(
-            self, ctx, title="Successful <:success:777167188816560168>",
-            description="{} will now be the channel that the alerts will be sent to when Alliance events start".format(
-                channel.mention,
-                thumbnail=ctx.guild.icon_url
-            )
-        )
-        await ctx.send(embed=embed)
+      await self.config.guild(ctx.guild).set_raw("channel", value=channel.id)
+      embed = Embed.create(
+          self, ctx, title="Successful <:success:777167188816560168>",
+          description="{} will now be the channel that the alerts will be sent to when Alliance events start".format(
+              channel.mention,
+              thumbnail=ctx.guild.icon_url
+          )
+      )
+      await ctx.send(embed=embed)
 
     @aas.command()
     async def role(self, ctx, role: discord.Role):
       """Configures the role to be mentioned for alerts."""
-        try:
-            await self.config.guild(ctx.guild).set_raw("role", value=role.id)
-            embed = Embed.create(
-                self, ctx, title="Successful <:success:777167188816560168>",
-                description=f"{role.mention} will now be mentioned when Alliance events start.",
-                thumbnail=ctx.guild.icon_url
-            )
-            await ctx.send(embed=embed)
-        except discord.Forbidden:
-            embed = Embed.create(
-                self, ctx, title="Oopsies! <:error:777117297273077760>",
-                description=f"Something went wrong during the setup process."
-            )
-            await ctx.send(embed=embed)
+      try:
+          await self.config.guild(ctx.guild).set_raw("role", value=role.id)
+          embed = Embed.create(
+              self, ctx, title="Successful <:success:777167188816560168>",
+              description=f"{role.mention} will now be mentioned when Alliance events start.",
+              thumbnail=ctx.guild.icon_url
+          )
+          await ctx.send(embed=embed)
+      except discord.Forbidden:
+          embed = Embed.create(
+              self, ctx, title="Oopsies! <:error:777117297273077760>",
+              description=f"Something went wrong during the setup process."
+          )
+          await ctx.send(embed=embed)
 
     @aa.group()
     async def reset(self, ctx):
