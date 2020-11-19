@@ -1,6 +1,10 @@
 import discord
 from validator_collection import validators
 from redbot.core import commands, checks, Config
+from redbot.core.utils.menus import start_adding_reactions
+from redbot.core.utils.predicates import ReactionPredicate, MessagePredicate
+from contextlib import suppress
+import asyncio
 from .allianceembed import Embed
 
 
@@ -60,10 +64,7 @@ class Alliance(commands.Cog):
             await ctx.send(embed=embed)
 
     @commands.group(name="alliancealert", aliases=["aa", ])
-    async def aa(self, ctx):  # aliases: aa, alert):
-                
-    @commands.group(invoke_without_command=True, aliases=["aa"])
-    async def alliancealert(self, ctx): #aliases: aa, alert):
+    async def aa(self, ctx):
         """Alert your fellow alliance mates for movement."""
 
     @aa.group(name="set")
@@ -116,18 +117,27 @@ class Alliance(commands.Cog):
             )
             await ctx.send(embed=embed)
 
-    # @aa.command(invoke_without_command=True, pass_context=True, aliases=["aa", "alert"])
-    @aa.command(aliases=["aa", "alert"])
-    async def aqstart(self, ctx):
-        """Alliance Quest has started!"""
+    @aas.group()
+    async def reset(self, ctx):
+        """Reset the values for the alliance alert system"""
 
-    @alliancealert.command(invoke_without_command=True, pass_context=True, aliases=["aqs"])
+    @reset.command()
+    async def _role(self, ctx: commands.Context):
+        """Resets the role that is mentioned when alerting your alliance"""
+        await self.removal(ctx, "role")
+
+    @reset.command(name="channel")
+    async def _channel(self, ctx: commands.Context):
+        """Reset the channel"""
+        await self.removal(ctx, "channel")
+
+    @aa.command(aliases=["aqs"])
     async def aqstart(self, ctx):
         """Alliance Quest has started!"""
         embed = Embed.create(
             self, ctx, title='<:info:777656123381383209> Alliance Quest has STARTED!',
-            image = "https://media.discordapp.net/attachments/745608075670585344/772947661421805648/aqstarted.png?width=1441&height=480",
-            description = "Time to join Alliance Quest."
+            image="https://media.discordapp.net/attachments/745608075670585344/772947661421805648/aqstarted.png?width=1441&height=480",
+            description="Time to join Alliance Quest."
         )
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
@@ -153,3 +163,34 @@ class Alliance(commands.Cog):
                 thumbnail=ctx.guild.icon_url
             )
             await ctx.send(embed=embed)
+
+    # This function will remove a lot of unnecessary repetition in the code
+    async def removal(self, ctx: commands.Context, action: str):
+        message = "Would you like to reset the {}?".format(action)
+        can_react = ctx.channel.permission_for(ctx.me).add_reactions
+        if not can_react:
+            message += " (y/n)"
+        question: discord.Message = await ctx.send(message)
+        if can_react:
+            start_adding_reactions(
+                question, ReactionPredicate.YES_OR_NO_EMOJIS
+            )
+            pred = ReactionPredicate.yes_or_no(question, ctx.author)
+            event = "reaction_add"
+        else:
+            pred = MessagePredicate.yes_or_no(ctx)
+            event = "message"
+        try:
+            await ctx.bot.wait_for(event, check=pred, timeout=20)
+        except asyncio.TimeoutError:
+            await question.delete()
+            await ctx.send("Okay then :D")
+        if not pred.result:
+            await question.delete()
+            return await ctx.send("Cancled!")
+        else:
+            if can_react:
+                with suppress(discord.Forbidden):
+                    await question.clear_reactions()
+        await self.config.guild(ctx.guild).set_raw(action, value=None)
+        await ctx.send("Removed the {}!".format(action))
