@@ -1,4 +1,5 @@
 import discord
+import random
 from validator_collection import validators
 from redbot.core import commands, checks, Config, modlog
 from .vangem import Embed
