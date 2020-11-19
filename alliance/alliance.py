@@ -83,7 +83,7 @@ class Alliance(commands.Cog):
         embed = Embed.create(
             self, ctx, title="{}'s Settings".format(ctx.guild.name),
             description="**Role:** {}\n**Channel:** {}".format(
-                role.mention, channel.mention),
+                role, channel),
             thumbnail=ctx.guild.icon_url
         )
         await ctx.send(embed=embed)
@@ -117,7 +117,7 @@ class Alliance(commands.Cog):
             )
             await ctx.send(embed=embed)
 
-    @aas.group()
+    @aa.group()
     async def reset(self, ctx):
         """Reset the values for the alliance alert system"""
 
