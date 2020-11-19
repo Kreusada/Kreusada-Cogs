@@ -175,7 +175,7 @@ class Alliance(commands.Cog):
     # This function will remove a lot of unnecessary repetition in the code
     async def removal(self, ctx: commands.Context, action: str):
         message = "Would you like to reset the {}?".format(action)
-        can_react = ctx.channel.permission_for(ctx.me).add_reactions
+        can_react = ctx.channel.permissions_for(ctx.me).add_reactions
         if not can_react:
             message += " (y/n)"
         question: discord.Message = await ctx.send(message)
