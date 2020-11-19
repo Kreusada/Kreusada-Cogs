@@ -157,17 +157,17 @@ class Alliance(commands.Cog):
                 description="Time to join Alliance Quest."
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
-        else:
-            embed = Embed.create(
-                self, ctx, title="Error! <:error:777117297273077760>",
-                description=(
-                    "Your guild does not have a role set up for the alerts!\n"
-                    "To set up a role, use `{}alliancealert|aa set role <role>`".format(
-                        ctx.clean_prefix
-                    )
-                )
-            )
-            await ctx.send(embed=embed)
+#        else:
+#            embed = Embed.create(
+#                self, ctx, title="Error! <:error:777117297273077760>",
+#                description=(
+#                    "Your guild does not have a role set up for the alerts!\n"
+#                    "To set up a role, use `{}alliancealert|aa set role <role>`".format(
+#                        ctx.clean_prefix
+#                    )
+#                )
+#            )
+#            await ctx.send(embed=embed)
 
     # This function will remove a lot of unnecessary repetition in the code
     async def removal(self, ctx: commands.Context, action: str):
