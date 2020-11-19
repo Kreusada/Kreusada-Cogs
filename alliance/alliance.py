@@ -195,7 +195,7 @@ class Alliance(commands.Cog):
             await ctx.send("Okay then :D")
         if not pred.result:
             await question.delete()
-            return await ctx.send("Cancled!")
+            return await ctx.send("Canceled!")
         else:
             if can_react:
                 with suppress(discord.Forbidden):
