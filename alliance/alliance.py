@@ -1,5 +1,4 @@
-  
-import discord
+  import discord
 from validator_collection import validators
 from redbot.core import commands, checks, Config
 from redbot.core.utils.menus import start_adding_reactions
@@ -68,7 +67,7 @@ class Alliance(commands.Cog):
     async def aa(self, ctx):
         """Alert your fellow alliance mates for movement."""
 
-    @commands.group(name="alertset")
+    @commands.group(name="alertset", aliases=["aas", "as"])
     @commands.admin_or_permissions(manage_guild=True)
     async def aas(self, ctx):
         """Alliance alert settings"""
