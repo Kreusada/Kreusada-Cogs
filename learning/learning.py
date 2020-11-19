@@ -16,25 +16,10 @@ class Learning(commands.Cog):
     async def learning(self, ctx):
         """Learning the Red help menu with Kreusada"""
         pass
-
+        
     @learning.command()
-    async def test(self, ctx):
-        """This is a test category."""
-        await ctx.send(f"Testing.")
-        
-    @learning.group()
-    async def test2(self, ctx):
-        """This is for testing sub-categories."""
-        
-    @test2.group(invoke_without_command=True)
-    async def test3(self, ctx):
-        """Test 3 Response."""
-        await ctx.send(f"Test 3 responded.")
-        
-    @test2.group(invoke_without_command=True)
-    async def test4(self, ctx):
-        """Test 4 Response."""
-        await ctx.send(f"Test 4 responded.")
+    async def dmingcom(self, ctx):
+        await ctx.author.send("Pong.")
         
     @learning.command()
     async def random(self, ctx):
@@ -65,63 +50,20 @@ class Learning(commands.Cog):
     @learning.command()
     async def reactionadd(self, ctx):
         await ctx.message.add_reaction("\<:success:777167188816560168>")
-        
-    @learning.group()
-    async def info(self, ctx):
-        """Shows cog info, testing subcommands."""
-
-    @info.group(invoke_without_command=True)
-    async def learninginfo(self, ctx):
-        """Shows cog info."""
-        await ctx.send(f"Here I will display cog info. When I can be bothered.")
-        
-    @learning.group()
-    async def emoji(self, ctx):
-        """Testing emoji output in groups."""
-        
-    @emoji.group(invoke_without_command=True)
-    async def thunder(self, ctx):
-        """Shows the thunder cloud emoji."""
-        await ctx.send(f":thunder_cloud_rain:")
-        
-    @emoji.group(invoke_without_command=True)
-    async def apple(self, ctx):
-        """Shows the apple emoji."""
-        await ctx.send(f":apple:")
-        
-    @emoji.group(invoke_without_command=True)
-    async def randomemoji(self, ctx):
-        """Picks a random emoji."""
-        CUSTOM = [
-            ':apple:',
-            ':thunder_cloud_rain:',
-            ':white_check_mark:',
-            ':skull:',
-        ]
-        
-        await ctx.send(random.choice(CUSTOM))
-        
-    @learning.group()
-    async def channel(self, ctx: commands.Context, channel: discord.TextChannel = None):
-        """Testing channelids."""
-        if not channel:
-            channel = ctx.channel
-        await self.config.guild(channel.id)
-        await ctx.send(f"{channel.mention}.")
                 
     @learning.group(invoke_without_command = True)
     async def randint(self, ctx):
         """Testing `random.randint`."""
-        randint_nonjackpot = [
-            "Testing Nonjackpot",
-            "Testing Nonjackpot2",
-            "Testing Nonjackpot3"
+        randint_test = [
+            "Testing resp 1",
+            "Testing resp 2",
+            "Testing resp 3"
         ]
-        randint_jackpot = random.randint(1, 10)
-        if randint_jackpot == 300:
+        randint_test = random.randint(1, 10)
+        if randint_test == 300:
                 msg = "Jackpot"
         else:
-                msg = random.choice(randint_nonjackpot)
+                msg = random.choice(randint_test)
         await ctx.send(msg)
             
 #    @getroles.command()
