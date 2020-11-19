@@ -6,7 +6,6 @@ Welcome to the Demaratus Documentation!
 Demaratus Central
 ==================
 * :ref:`info`
-* :ref:`emergency`
 
 Change Logs
 ==================
