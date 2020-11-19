@@ -84,8 +84,7 @@ class Alliance(commands.Cog):
       embed = Embed.create(
           self, ctx, title="{}'s Settings".format(ctx.guild.name),
           description="**Role:** {}\n**Channel:** {}".format(
-              role, channel),
-          thumbnail=ctx.guild.icon_url
+              role, channel)
       )
       await ctx.send(embed=embed)
 
@@ -96,9 +95,7 @@ class Alliance(commands.Cog):
       embed = Embed.create(
           self, ctx, title="Successful <:success:777167188816560168>",
           description="{} will now be the channel that the alerts will be sent to when Alliance events start".format(
-              channel.mention,
-              thumbnail=ctx.guild.icon_url
-          )
+              channel.mention)
       )
       await ctx.send(embed=embed)
 
@@ -110,7 +107,6 @@ class Alliance(commands.Cog):
           embed = Embed.create(
               self, ctx, title="Successful <:success:777167188816560168>",
               description=f"{role.mention} will now be mentioned when Alliance events start.",
-              thumbnail=ctx.guild.icon_url
           )
           await ctx.send(embed=embed)
       except discord.Forbidden:
@@ -158,8 +154,7 @@ class Alliance(commands.Cog):
             embed = Embed.create(
                 self, ctx, title='Alliance Quest has STARTED!',
                 image="https://media.discordapp.net/attachments/745608075670585344/772947661421805648/aqstarted.png?width=1441&height=480",
-                description="Time to join Alliance Quest.",
-                thumbnail=ctx.guild.icon_url
+                description="Time to join Alliance Quest."
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
@@ -170,8 +165,7 @@ class Alliance(commands.Cog):
                     "To set up a role, use `{}alliancealert|aa set role <role>`".format(
                         ctx.clean_prefix
                     )
-                ),
-                thumbnail=ctx.guild.icon_url
+                )
             )
             await ctx.send(embed=embed)
 
