@@ -121,7 +121,7 @@ class Alliance(commands.Cog):
           )
           await ctx.send(embed=embed)
 
-    @aa.group()
+    @aas.group()
     async def reset(self, ctx):
         """Reset the values for the alliance alert system"""
 
