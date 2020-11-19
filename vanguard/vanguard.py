@@ -140,12 +140,12 @@ class Vanguard(commands.Cog):
 
   def check_dem_supportsquad(self, ctx, user=None):
     """Support Squad Checks"""
-    role = discord.utils.get(self.cdtguild.roles, id=745600714910335016)
+    role = discord.utils.get(self.vg.roles, id=745600714910335016)
     print('Support Squad member identified.')
     if user is None:
         user = ctx.message.author
         print('Message.author is user.')
-    checkuser = discord.utils.get(self.cdtguild.members, id=user.id)
+    checkuser = discord.utils.get(self.vg.members, id=user.id)
     if checkuser is None:
         print('User not found in The Vanguards.')
         return False
@@ -163,10 +163,10 @@ class Vanguard(commands.Cog):
               
   def check_dem_devsquad(self, ctx, user=None):
     """Dev Squad Checks"""
-    role = discord.utils.get(self.cdtguild.roles, id=777606882256093214)
+    role = discord.utils.get(self.vg.roles, id=777606882256093214)
     if user is None:
         user = ctx.message.author
-        checkuser = discord.utils.get(self.cdtguild.members, id=user.id)
+        checkuser = discord.utils.get(self.vg.members, id=user.id)
         if role in checkuser.roles:
             return True
         else:
