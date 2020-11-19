@@ -148,14 +148,14 @@ class Alliance(commands.Cog):
         if role is not None:
             embed = Embed.create(
                 self, ctx, title='Alliance Quest has STARTED!',
-                image="https://media.discordapp.net/attachments/758775890954944572/779045288320303124/aqstarted.png?width=1442&height=481",
+                image="https://media.discordapp.net/attachments/758775890954944572/779063680792789042/aqstarted.png?width=1442&height=481",
                 description="Time to join Alliance Quest."
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
             embed = Embed.create(
                 self, ctx, title='Alliance Quest has STARTED!',
-                image="https://media.discordapp.net/attachments/758775890954944572/779045288320303124/aqstarted.png?width=1442&height=481",
+                image="https://media.discordapp.net/attachments/758775890954944572/779063680792789042/aqstarted.png?width=1442&height=481",
                 description="Time to join Alliance Quest."
             )
             await ctx.send(embed=embed)
@@ -170,14 +170,14 @@ class Alliance(commands.Cog):
         if role is not None:
             embed = Embed.create(
                 self, ctx, title='GLORY has arrived!',
-                image="https://media.discordapp.net/attachments/758775890954944572/779045286517145610/aqglory.png?width=962&height=321",
+                image="https://media.discordapp.net/attachments/758775890954944572/779063679953141810/aqglory.png?width=1442&height=481",
                 description="That feeling of topping up your glory balance..."
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
             embed = Embed.create(
                 self, ctx, title='GLORY has arrived!',
-                image="https://media.discordapp.net/attachments/758775890954944572/779045286517145610/aqglory.png?width=962&height=321",
+                image="https://media.discordapp.net/attachments/758775890954944572/779063679953141810/aqglory.png?width=1442&height=481",
                 description="That feeling of topping up your glory balance..."
             )
             await ctx.send(embed=embed)
