@@ -177,16 +177,16 @@ class Alliance(commands.Cog):
             description="Time to join Alliance Quest."
         )
         await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
-    else:
-        embed = Embed.create(
-            self, ctx, title="Error! <:error:777117297273077760>",
-            description=(
-                "Your guild does not have a role set up for the alerts!\n"
-                "This is a requirement for alliance alerts.\n"
-                "To set up a role, use `{}alliancealert set role <role>`".format(ctx.clean_prefix)
+        else:
+            embed = Embed.create(
+                self, ctx, title="Error! <:error:777117297273077760>",
+                description=(
+                    "Your guild does not have a role set up for the alerts!\n"
+                    "This is a requirement for alliance alerts.\n"
+                    "To set up a role, use `{}alliancealert set role <role>`".format(ctx.clean_prefix)
+                )
             )
-        )
-        await ctx.send(embed=embed)
+            await ctx.send(embed=embed)
 
     @aa.command(invoke_without_command=True, pass_context=True, aliases=["aqg"])
     async def aqglory(self, ctx):
