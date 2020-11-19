@@ -76,19 +76,19 @@ class Alliance(commands.Cog):
     @aas.command()
     async def showsettings(self, ctx):
       """Shows the curernt settings for alerts."""
-        rol = await self.config.guild(ctx.guild).get_raw("role")
-        chan = await self.config.guild(ctx.guild).get_raw("channel")
-        role = ctx.guild.get_role(rol) if rol is not None\
-            else None
-        channel = ctx.guild.get_channel(chan) if chan is not None\
-            else None
-        embed = Embed.create(
-            self, ctx, title="{}'s Settings".format(ctx.guild.name),
-            description="**Role:** {}\n**Channel:** {}".format(
-                role, channel),
-            thumbnail=ctx.guild.icon_url
-        )
-        await ctx.send(embed=embed)
+      rol = await self.config.guild(ctx.guild).get_raw("role")
+      chan = await self.config.guild(ctx.guild).get_raw("channel")
+      role = ctx.guild.get_role(rol) if rol is not None\
+          else None
+      channel = ctx.guild.get_channel(chan) if chan is not None\
+          else None
+      embed = Embed.create(
+          self, ctx, title="{}'s Settings".format(ctx.guild.name),
+          description="**Role:** {}\n**Channel:** {}".format(
+              role, channel),
+          thumbnail=ctx.guild.icon_url
+      )
+      await ctx.send(embed=embed)
 
     @aas.command()
     async def channel(self, ctx, channel: discord.TextChannel):
