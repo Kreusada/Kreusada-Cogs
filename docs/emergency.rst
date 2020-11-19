@@ -18,12 +18,12 @@ How can you help?
 
 3. If a ``#`` appears before a champion in the list, it means that the URL is from ``auntm.ai``. This is where you can help out:
 
-3a. If you spot a champion with a ``#`` before their name, get a featured image of them. This can be obtained from ``auntm.ai``!
+4. If you spot a champion with a ``#`` before their name, get a featured image of them. This can be obtained from ``auntm.ai``!
 
-3b. Paste the featured image into a text channel, and then right click and **copy link**.
+5. Paste the featured image into a text channel, and then right click and **copy link**.
 
-3c. Send this link to our contributors channel in our support server, with the champion's name of whom it belongs to.
+6. Send this link to our contributors channel in our support server, with the champion's name of whom it belongs to.
 
-3d. The image is no longer hosted by ``auntm.ai``. It is instead hosted by Discord, so we're good to go!
+7. The image is no longer hosted by ``auntm.ai``. It is instead hosted by Discord, so we're good to go!
 
 Any more information needed? You can contact **Kreusada** privately.
