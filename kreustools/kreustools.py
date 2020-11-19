@@ -13,7 +13,9 @@ class Kreustools(commands.Cog):
     self.bot = bot
     self.config = Config.get_conf(
       self, identifier=153607829, force_registration=True)
-    self.config.register_guild()
+    self.config.register_guild(
+      channel=None
+    )
         
   @commands.command(pass_context=True, no_pm=True)
   async def showtopic(self, ctx, channel: discord.TextChannel = None):
@@ -22,8 +24,6 @@ class Kreustools(commands.Cog):
       channel = ctx.message.channel
       topic = channel.topic
       if topic is not None and topic != '':
-        data = self.Embed.create(ctx, title='#{} Topic :star:'.format(
-          channel.name),
-                                 description=topic)
-        data.set_thumbnail(url=ctx.message.guild.icon_url)
-        await ctx.send(embed=data)
+        embed = Embed.create(self, ctx, title=f"Channel Topic Tool :tools:",
+                            description=f"\n\n**Channel: {channel.mention}**\n**Topic:** {topic}\n\nChannel ID: **{channel.id}**\nRequested by: **{ctx.author.name}**.")
+        await ctx.send(embed=embed)
