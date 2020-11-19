@@ -187,17 +187,18 @@ class Vanguard(commands.Cog):
               imagelist = "https://media.discordapp.net/attachments/758775890954944572/779118744155979787/demaratusfull.png?width=907&height=641"
               imgurl = random.choice(imagelist)
           thumbnail = "https://media.discordapp.net/attachments/758775890954944572/779118859651252254/vanguardskeindem1.png?width=641&height=641"
-          data = self.Embed.create(ctx,
-                                   title='Demaratus Tips', description=content,
-                                   image=imgurl)
-          data.set_author(name="{} from the Demaratus Support Squad".format(
+          embed = Embed.create(
+            self, ctx, title='Demaratus Tips', description=content,
+            image=imgurl
+          )
+          embed.set_author(name="{} from the Demaratus Support Squad".format(
               ctx.message.author.display_name), icon_url=ctx.message.author.avatar_url)
 #            data.add_field(name="Alliance Template",
 #                           value="[Make an Alliance Guild](https://discord.new/gtzuXHq2kCg4)\nRoles, Channels & Permissions pre-defined", inline=False)
-          data.add_field(
+          embed.add_field(
               name="Add Demaratus", value="[Invite](https://discord.com/oauth2/authorize?client_id=766580519000473640&scope=bot&permissions=8)", inline=False)
-          data.add_field(
+          embed.add_field(
               name="Get Support", value="[The Vanguards](https://discord.gg/JmCFyq7)", inline=False)
-          await channel.send(embed=data)
+          await channel.send(embed=embed)
         
     
