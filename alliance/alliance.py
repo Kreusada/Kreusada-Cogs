@@ -68,13 +68,14 @@ class Alliance(commands.Cog):
     async def aa(self, ctx):
         """Alert your fellow alliance mates for movement."""
 
-    @aa.group(name="set")
+    @commands.group(name="alertset")
     @commands.admin_or_permissions(manage_guild=True)
     async def aas(self, ctx):
         """Alliance alert settings"""
 
     @aas.command()
     async def showsettings(self, ctx):
+      """Shows the curernt settings for alerts."""
         rol = await self.config.guild(ctx.guild).get_raw("role")
         chan = await self.config.guild(ctx.guild).get_raw("channel")
         role = ctx.guild.get_role(rol) if rol is not None\
@@ -91,6 +92,7 @@ class Alliance(commands.Cog):
 
     @aas.command()
     async def channel(self, ctx, channel: discord.TextChannel):
+      """Configures the channel where alerts are sent."""
         await self.config.guild(ctx.guild).set_raw("channel", value=channel.id)
         embed = Embed.create(
             self, ctx, title="Successful <:success:777167188816560168>",
@@ -103,6 +105,7 @@ class Alliance(commands.Cog):
 
     @aas.command()
     async def role(self, ctx, role: discord.Role):
+      """Configures the role to be mentioned for alerts."""
         try:
             await self.config.guild(ctx.guild).set_raw("role", value=role.id)
             embed = Embed.create(
