@@ -159,13 +159,9 @@ class Alliance(commands.Cog):
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
             embed = Embed.create(
-                self, ctx, title="Error! <:error:777117297273077760>",
-                description=(
-                    "Your guild does not have a role set up for the alerts!\n"
-                    "To set up a role, use `{}alliancealert|aa set role <role>`".format(
-                        ctx.clean_prefix
-                    )
-                )
+                self, ctx, title='Alliance Quest has STARTED!',
+                image="https://media.discordapp.net/attachments/745608075670585344/772947661421805648/aqstarted.png?width=1441&height=480",
+                description="Time to join Alliance Quest."
             )
             await ctx.send(embed=embed)
 
