@@ -1,4 +1,4 @@
-  import discord
+import discord
 from validator_collection import validators
 from redbot.core import commands, checks, Config
 from redbot.core.utils.menus import start_adding_reactions
