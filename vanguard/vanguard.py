@@ -183,9 +183,9 @@ class Vanguard(commands.Cog):
               image = ctx.message.attachments[0]
               imgurl = image.url
           else:
-              imagelist = 'https://media.discordapp.net/attachments/758775890954944572/779118744155979787/demaratusfull.png?width=907&height=641`
+              imagelist = "https://media.discordapp.net/attachments/758775890954944572/779118744155979787/demaratusfull.png?width=907&height=641"
               imgurl = random.choice(imagelist)
-          thumbnail = 'https://media.discordapp.net/attachments/758775890954944572/779118859651252254/vanguardskeindem1.png?width=641&height=641'
+          thumbnail = "https://media.discordapp.net/attachments/758775890954944572/779118859651252254/vanguardskeindem1.png?width=641&height=641"
           data = self.Embed.create(ctx,
                                    title='Demaratus Tips', description=content,
                                    image=imgurl)
