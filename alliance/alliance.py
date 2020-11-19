@@ -160,6 +160,116 @@ class Alliance(commands.Cog):
             )
             await ctx.send(embed=embed)
 
+    @aa.command(aliases=["aqg"])
+    async def aqglory(self, ctx):
+        """Alerts for glory collection."""
+        role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
+        chan = await self.config.guild(ctx.guild).get_raw("channel")
+        channel = ctx.guild.get_channel(chan) if chan is not None\
+            else ctx.channel
+        if role is not None:
+            embed = Embed.create(
+                self, ctx, title='GLORY has arrived!',
+                image="https://media.discordapp.net/attachments/758775890954944572/779045286517145610/aqglory.png?width=962&height=321",
+                description="That feeling of topping up your glory balance..."
+            )
+            await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
+        else:
+            embed = Embed.create(
+                self, ctx, title='GLORY has arrived!',
+                image="https://media.discordapp.net/attachments/758775890954944572/779045286517145610/aqglory.png?width=962&height=321",
+                description="That feeling of topping up your glory balance..."
+            )
+            await ctx.send(embed=embed)
+
+    @aa.command(aliases=["awp"])
+    async def awplace(self, ctx):
+        """Alerts for alliance war placement."""
+        role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
+        chan = await self.config.guild(ctx.guild).get_raw("channel")
+        channel = ctx.guild.get_channel(chan) if chan is not None\
+            else ctx.channel
+        if role is not None:
+            embed = Embed.create(
+                self, ctx, title='Placement Phase has begun...',
+                image="https://media.discordapp.net/attachments/758775890954944572/779045289579249694/awplacement.png?width=962&height=321",
+                description="Place your defenders, and make sure you know where they're going!"
+            )
+            await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
+        else:
+            embed = Embed.create(
+                self, ctx, title='Placement Phase has begun...',
+                image="https://media.discordapp.net/attachments/758775890954944572/779045289579249694/awplacement.png?width=962&height=321",
+                description="Place your defenders, and make sure you know where they're going!"
+            )
+            await ctx.send(embed=embed)
+
+    @aa.command(aliases=["awa"])
+    async def awattack(self, ctx):
+        """Alerts for alliance war attack."""
+        role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
+        chan = await self.config.guild(ctx.guild).get_raw("channel")
+        channel = ctx.guild.get_channel(chan) if chan is not None\
+            else ctx.channel
+        if role is not None:
+            embed = Embed.create(
+                self, ctx, title='Attack Phase has begun...',
+                image="https://media.discordapp.net/attachments/758775890954944572/779045289268871169/awattack.png?width=962&height=321",
+                description="It's time to attack your opponent."
+            )
+            await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
+        else:
+            embed = Embed.create(
+                self, ctx, title='Attack Phase has begun...',
+                image="https://media.discordapp.net/attachments/758775890954944572/779045289268871169/awattack.png?width=962&height=321",
+                description="It's time to attack your opponent."
+            )
+            await ctx.send(embed=embed)
+
+    @aa.command(aliases=["awa"])
+    async def awattack(self, ctx):
+        """Alerts for alliance war victory."""
+        role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
+        chan = await self.config.guild(ctx.guild).get_raw("channel")
+        channel = ctx.guild.get_channel(chan) if chan is not None\
+            else ctx.channel
+        if role is not None:
+            embed = Embed.create(
+                self, ctx, title='<:success:777167188816560168> Alliance War VICTORY',
+                image="https://media.discordapp.net/attachments/758775890954944572/779045290237231164/awvictory.png?width=962&height=321",
+                description="Give yourselves a pat on the back. Good job."
+            )
+            await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
+        else:
+            embed = Embed.create(
+                self, ctx, title='<:success:777167188816560168> Alliance War VICTORY',
+                image="https://media.discordapp.net/attachments/758775890954944572/779045290237231164/awvictory.png?width=962&height=321",
+                description="Give yourselves a pat on the back. Good job."
+            )
+            await ctx.send(embed=embed)
+
+    @aa.command(aliases=["awd"])
+    async def awdefeat(self, ctx):
+        """Alerts for alliance war defeat."""
+        role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
+        chan = await self.config.guild(ctx.guild).get_raw("channel")
+        channel = ctx.guild.get_channel(chan) if chan is not None\
+            else ctx.channel
+        if role is not None:
+            embed = Embed.create(
+                self, ctx, title='<:error:777117297273077760> Alliance War DEFEAT',
+                image="https://media.discordapp.net/attachments/758775890954944572/779045290270261288/awdefeat.png?width=962&height=321",
+                description="Unlucky, we'll get 'em next time."
+            )
+            await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
+        else:
+            embed = Embed.create(
+                self, ctx, title='<:error:777117297273077760> Alliance War DEFEAT',
+                image="https://media.discordapp.net/attachments/758775890954944572/779045290270261288/awdefeat.png?width=962&height=321",
+                description="Unlucky, we'll get 'em next time."
+            )
+            await ctx.send(embed=embed)
+
     # This function will remove a lot of unnecessary repetition in the code
     async def removal(self, ctx: commands.Context, action: str):
         message = "Would you like to reset the {}?".format(action)
