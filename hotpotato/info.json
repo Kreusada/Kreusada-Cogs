@@ -1,0 +1,10 @@
+{
+    "author" : ["Redjumpman (Redjumpman#1337)"],
+    "install_msg" : "Thank you for installing Hot Potato.",
+    "name" : "Hot Potato",
+    "short" : "Play a game of Hot Potato!",
+    "description" : "Play a game of hot potato where the winner takes all. You can change the table size that gets served, the wait time before starting the game, and the cost to play!",
+    "tags" : ["Games", "Economy", "Fun", "Russian"],
+    "min_python_version": [3, 6, 0],
+    "end_user_data_statement": "This cog stores Discord IDs as needed for operation temporarily during the game which are automatically deleted when it ends."
+}
