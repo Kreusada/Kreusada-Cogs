@@ -22,5 +22,9 @@ This is a repo made for [Demaratus.](https://discord.com/oauth2/authorize?client
 Join my [support server](https://discord.gg/JmCFyq7).
 
 If you're having any important(s) issue(s), open an issue or pull request to this repo.
-<iframe src="https://discordapp.com/widget?id=744572173137477692&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+<p align="center">
+  <a href="https://discord.gg/JmCFyq7">
+    <img src="https://discord.com/api/guilds/731147725902708827/widget.png?style=banner4" alt="Support Server">
+  </a>
+</p>
 ## Credits (AKA. Awesome peoples)
