@@ -192,7 +192,7 @@ class Vanguard(commands.Cog):
           thumbnail = "https://media.discordapp.net/attachments/758775890954944572/779118859651252254/vanguardskeindem1.png?width=641&height=641"
           embed = Embed.create(
             self, ctx, title='Demaratus Tips', description=content,
-            image=(imgurl)
+            image=f"{imgurl}"
           )
           embed.set_author(name="{} from the Demaratus Support Squad".format(
               ctx.message.author.display_name), icon_url=ctx.message.author.avatar_url)
