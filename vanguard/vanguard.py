@@ -4,8 +4,6 @@ import random
 from redbot.core.utils import menus, chat_formatting
 from redbot.core import commands, checks, Config, modlog
 
-from discord.utils import roles
-
 from validator_collection import validators
 from .vangem import Embed
 
@@ -169,7 +167,7 @@ class Vanguard(commands.Cog):
               
   def check_dem_devsquad(self, ctx, user=None):
     """Dev Squad Checks"""
-    role = discord.utils.get(self.vg.roles, id=777606882256093214)
+    role = ctx.guild.get_role(777606882256093214)
     if user is None:
         user = ctx.message.author
         checkuser = discord.utils.get(self.vg.members, id=user.id)
