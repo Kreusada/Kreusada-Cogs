@@ -4,7 +4,7 @@
   <img src="https://media.discordapp.net/attachments/763066391107862550/779263960289509416/demaratustwitter.png?width=1442&height=481" alt="Banner">
 </p>
 
-This is a repo made for [Demaratus.](https://discord.com/oauth2/authorize?client_id=766580519000473640&scope=bot&permissions=8).
+This is a repo made for [Demaratus.](https://discord.com/oauth2/authorize?client_id=766580519000473640&scope=bot&permissions=8)
 
 ## Available cogs list
 
@@ -24,7 +24,8 @@ Join my [support server](https://discord.gg/JmCFyq7).
 If you're having any important(s) issue(s), open an issue or pull request to this repo.
 <p align="center">
   <a href="https://discord.gg/JmCFyq7">
-    <img src="https://discordapp.com/api/guilds/744572173137477692/widget.json" alt="Support Server">
+    <img src="https://discord.com/api/guilds/744572173137477692/widget.png?style=banner4" alt="Support Server">
   </a>
 </p>
+
 ## Credits (AKA. Awesome peoples)
