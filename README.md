@@ -2,8 +2,6 @@
 
 <p align="center">
   <img src="https://media.discordapp.net/attachments/763066391107862550/779263960289509416/demaratustwitter.png?width=1442&height=481" alt="Banner">
-  <img src="https://img.shields.io/badge/Made%20for-Demaratus?logo=discord" alt="Made for Demaratus">
-  <img src="https://www.codefactor.io/repository/github/predeactor/predeactor-cogs/badge" alt="CodeFactor" />
 </p>
 
 This is a repo made for [Demaratus.](https://discord.com/oauth2/authorize?client_id=766580519000473640&scope=bot&permissions=8).
