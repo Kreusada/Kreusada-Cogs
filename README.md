@@ -15,7 +15,7 @@ This is a repo made for [Demaratus.](https://discord.com/oauth2/authorize?client
 | Edition         | A Red-inspired cog used to set the edition on your nickname                              | Kreusada                | 
 | MCOC            | Lot's of fun commands and games related to Marvel Contest of Champions                   | Kreusada, Jojo          |
 | Staff           | Alert staff by using the staff command.                                                  | Kreusada                |
-| Voicenick       | Configure a bot's nickname whilst they join a voice chat.                                | Kreusada, Snowflake     |
+| Hot Potato      | A spin-off custom fork of Russian Roulette                                               | Kreusada, Redjumpman    |
 
 ## Support
 
@@ -30,3 +30,5 @@ Join my [support server](https://discord.gg/JmCFyq7).
 ## Credits (AKA. Awesome peoples)
 
 * Jojo - Demaratus would only have half of its current features if it wasn't for Jojo. He's corrected me multiple times, and helped me to learn Python. Thankyou!
+* Authors - All authors included in the table above are greatly appreciated.
+* Contributors - All contributors are greatly appreciated too.
