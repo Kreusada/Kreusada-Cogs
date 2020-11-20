@@ -13,7 +13,7 @@ This is a repo made for [Demaratus.](https://discord.com/oauth2/authorize?client
 | Alliance        | A cog made full of alliance tools for Marvel Contest of Champions                        | Kreusada                |
 | Collectables    | Create and assign custom collectables to users.                                          | Otriux, Jojo, Kreusada  |
 | Edition         | A Red-inspired cog used to set the edition on your nickname                              | Kreusada                | 
-| MCOC            | lot's of fun commands and games related to Marvel Contest of Champions                   | Kreusada, Jojo          |
+| MCOC            | Lot's of fun commands and games related to Marvel Contest of Champions                   | Kreusada, Jojo          |
 | Staff           | Alert staff by using the staff command.                                                  | Kreusada                |
 | Voicenick       | Configure a bot's nickname whilst they join a voice chat.                                | Kreusada, Snowflake     |
 
