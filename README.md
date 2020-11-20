@@ -19,9 +19,8 @@ This is a repo made for [Demaratus.](https://discord.com/oauth2/authorize?client
 
 ## Support
 
-Join my [support server](https://discord.gg/JmCFyq7).
-
 If you're having any important(s) issue(s), open an issue or pull request to this repo.
+Join my [support server](https://discord.gg/JmCFyq7).
 <p align="center">
   <a href="https://discord.gg/JmCFyq7">
     <img src="https://discord.com/api/guilds/744572173137477692/widget.png?style=banner4" alt="Support Server">
@@ -29,3 +28,5 @@ If you're having any important(s) issue(s), open an issue or pull request to thi
 </p>
 
 ## Credits (AKA. Awesome peoples)
+
+* Jojo - Demaratus would only have half of its current features if it wasn't for Jojo. He's corrected me multiple times, and helped me to learn Python. Thankyou!
