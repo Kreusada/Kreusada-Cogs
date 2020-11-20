@@ -1,7 +1,12 @@
 import discord
 import random
-from validator_collection import validators
+
+from redbot.core.utils import menus, chat_formatting
 from redbot.core import commands, checks, Config, modlog
+
+from discord.utils import roles
+
+from validator_collection import validators
 from .vangem import Embed
 
 class Vanguard(commands.Cog):
