@@ -5,6 +5,7 @@
 </p>
 
 This is a repo made for [Demaratus.](https://discord.com/oauth2/authorize?client_id=766580519000473640&scope=bot&permissions=8)
+I also have a coreforks repo where I made **small** changes to certain cogs. You can find it [here.](https://github.com/kreus7/coreforks)
 
 ## Available cogs list
 
