@@ -187,12 +187,10 @@ class Vanguard(commands.Cog):
               image = ctx.message.attachments[0]
               imgurl = image.url
           else:
-              imagelist = "https://media.discordapp.net/attachments/758775890954944572/779118744155979787/demaratusfull.png?width=907&height=641"
-              imgurl = random.choice(imagelist)
-          thumbnail = "https://media.discordapp.net/attachments/758775890954944572/779118859651252254/vanguardskeindem1.png?width=641&height=641"
           embed = Embed.create(
             self, ctx, title='Demaratus Tips', description=content,
-            image=f"{imgurl}"
+            image="https://media.discordapp.net/attachments/758775890954944572/779118744155979787/demaratusfull.png?width=907&height=641",
+            thumbnail = "https://media.discordapp.net/attachments/758775890954944572/779118859651252254/vanguardskeindem1.png?width=641&height=641"
           )
           embed.set_author(name="{} from the Demaratus Support Squad".format(
               ctx.message.author.display_name), icon_url=ctx.message.author.avatar_url)
