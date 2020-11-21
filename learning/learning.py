@@ -61,10 +61,13 @@ class Learning(commands.Cog):
         ]
         randint_test = random.randint(1, 10)
         if randint_test == 300:
-                msg = "Jackpot"
+                msg = "Test"
         else:
                 msg = random.choice(randint_test)
         await ctx.send(msg)
+        
+    async def on_message(message.channel):
+        await message.channel.send("Test")
             
 #    @getroles.command()
 #    @commands.guild_only()
