@@ -66,7 +66,7 @@ class Learning(commands.Cog):
                 msg = random.choice(randint_test)
         await ctx.send(msg)
         
-    async def on_message(self, ctx, message):
+    async def on_message(self, ctx, message, discord.TextChannel):
         await ctx.send("Test")
             
 #    @getroles.command()
