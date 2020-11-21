@@ -65,7 +65,8 @@ class Learning(commands.Cog):
         else:
                 msg = random.choice(randint_test)
         await ctx.send(msg)
-        
+    
+    @client.event
     async def on_message(self, ctx, message, channel: discord.TextChannel):
         await ctx.send("Test")
             
