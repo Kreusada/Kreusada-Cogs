@@ -47,8 +47,23 @@ class DadJokes(commands.Cog):
     def set_channel(self):
         self.channel = self.bot.get_channel('725065939460030575')
         return
-
-
-def setup(bot):
-    n = DadJokes(bot)
-    bot.add_cog(n) # 🤨
+    
+    @commands.command()
+    async def bubblewrap(self, ctx):
+        """Pop some bubble wrap!"""
+        data = Embed.create(
+            self, ctx, title="Bubblewrap!",
+            description=(
+                "|| |||| |||| |||| |||| |||| ||\n"
+                "|| |||| |||| |||| |||| |||| ||\n"
+                "|| |||| |||| |||| |||| |||| ||\n"
+                "|| |||| |||| |||| |||| |||| ||\n"
+                "|| |||| |||| |||| |||| |||| ||\n"
+                "|| |||| |||| |||| |||| |||| ||\n"
+                "|| |||| |||| |||| |||| |||| ||\n"
+                "|| |||| |||| |||| |||| |||| ||\n"
+                "|| |||| |||| |||| |||| |||| ||\n"
+                "|| |||| |||| |||| |||| |||| ||\n"
+            )
+        )
+        await ctx.send(embed=data)
