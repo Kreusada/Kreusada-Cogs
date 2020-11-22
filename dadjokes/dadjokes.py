@@ -54,12 +54,12 @@ class DadJokes(commands.Cog):
         data = Embed.create(
             self, ctx, title="Bubblewrap!",
             description=(
-                "||pop||||pop||||pop||||pop||||pop||\n"
-                "||pop||||pop||||pop||||pop||||pop||\n"
-                "||pop||||pop||||pop||||pop||||pop||\n"
-                "||pop||||pop||||pop||||pop||||pop||\n"
-                "||pop||||pop||||pop||||pop||||pop||\n"
-                "||pop||||pop||||pop||||pop||||pop||\n"
+                "||pop||||pop||||pop||||pop||||pop||pop||||pop||||pop||||pop||||pop||\n"
+                "||pop||||pop||||pop||||pop||||pop||pop||||pop||||pop||||pop||||pop||\n"
+                "||pop||||pop||||pop||||pop||||pop||pop||||pop||||pop||||pop||||pop||\n"
+                "||pop||||pop||||pop||||pop||||pop||pop||||pop||||pop||||pop||||pop||\n"
+                "||pop||||pop||||pop||||pop||||pop||pop||||pop||||pop||||pop||||pop||\n"
+                "||pop||||pop||||pop||||pop||||pop||pop||||pop||||pop||||pop||||pop||\n"
             )
         )
         await ctx.send(embed=data)
