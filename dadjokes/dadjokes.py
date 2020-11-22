@@ -51,16 +51,15 @@ class DadJokes(commands.Cog):
     @commands.command()
     async def bubblewrap(self, ctx):
         """Pop some bubble wrap!"""
-        await ctx.send(
-            "**Bubblewrap!**"
-            "|| |||| |||| |||| |||| |||| ||\n"
-            "|| |||| |||| |||| |||| |||| ||\n"
-            "|| |||| |||| |||| |||| |||| ||\n"
-            "|| |||| |||| |||| |||| |||| ||\n"
-            "|| |||| |||| |||| |||| |||| ||\n"
-            "|| |||| |||| |||| |||| |||| ||\n"
-            "|| |||| |||| |||| |||| |||| ||\n"
-            "|| |||| |||| |||| |||| |||| ||\n"
-            "|| |||| |||| |||| |||| |||| ||\n"
-            "|| |||| |||| |||| |||| |||| ||\n"
+        data = Embed.create(
+            self, ctx, title="Bubblewrap!",
+            description=(
+                "||pop||||pop||||pop||||pop||||pop||\n"
+                "||pop||||pop||||pop||||pop||||pop||\n"
+                "||pop||||pop||||pop||||pop||||pop||\n"
+                "||pop||||pop||||pop||||pop||||pop||\n"
+                "||pop||||pop||||pop||||pop||||pop||\n"
+                "||pop||||pop||||pop||||pop||||pop||\n"
+            )
         )
+        await ctx.send(embed=data)
