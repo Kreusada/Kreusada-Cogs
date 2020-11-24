@@ -52,11 +52,11 @@ class HigherOrLower(commands.Cog):
     speccardQuan = ["jack", "queen", "king", "ace"]
     currency = await bank.get_currency_name(ctx.guild)
     cardQuan = random.randint(1, 14)
-    if cardQuan = 10:
+    if cardQuan == 10:
       speccardname = speccardQuan[0]
-    elif cardQuan = 11:
+    elif cardQuan == 11:
       speccardname = speccardQuan[1]
-    elif cardQuan = 12:
+    elif cardQuan == 12:
       speccardname = speccardQuan[2]
     else:
       speccardname = speccardQuan[3]
