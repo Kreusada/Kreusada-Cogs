@@ -2,8 +2,8 @@ import discord
 import requests
 from validator_collection import validators
 
-SCQ = ["jack", "queen", "king", "ace"]
-CLASSES = ["diamonds", "clubs", "hearts", "spades"]
+SCQ = ["Jack", "Queen", "King", "Ace"]
+CLASSES = ["Diamonds", "Clubs", "Hearts", "Spades"]
 
 
 class Embed:
