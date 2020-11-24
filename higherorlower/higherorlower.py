@@ -16,6 +16,15 @@ class HigherOrLower(commands.Cog):
       self, identifier=5865146514315491, force_registration=True
     )
 
+  @classmethod
+  def yes_or_no(
+      cls,
+      ctx: Optional[commands.Context] = None,
+      channel: Optional[discord.TextChannel] = None,
+      user: Optional[discord.abc.User] = None,
+      same_context = cls.same_context(ctx, channel, user)
+  )
+
   def predicate(self: MessagePredicate, m: discord.Message) -> bool:
     same_context = cls.same_context(ctx, channel, user)
     if not same_context(m):
