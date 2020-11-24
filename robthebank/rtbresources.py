@@ -2,9 +2,6 @@ import discord
 import requests
 from validator_collection import validators
 
-UNSUCRESP = [
-SUCRESP = [
-
 
 class Embed:
     def __init__(self, bot):
