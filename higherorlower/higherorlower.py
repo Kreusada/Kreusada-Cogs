@@ -53,6 +53,10 @@ class HigherOrLower(commands.Cog):
     currency = await bank.get_currency_name(ctx.guild)
     CardQuantity = [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
     numchoice = random.choice(CardQuantity)
+    jack = "jack"
+    queen = "queen"
+    king = "king"
+    ace = "ace"
     if numchoice == 1:
       await ctx.send(f"Starting with {numchoice}! Higher or lower?")
     elif numchoice == 2:
@@ -74,13 +78,13 @@ class HigherOrLower(commands.Cog):
     elif numchoice == 10:
       await ctx.send(f"Starting with {numchoice}! Higher or lower?")
     elif numchoice == 11:
-      await ctx.send(f"Starting with {numchoice}! Higher or lower?")
+      await ctx.send(f"Starting with {jack}! Higher or lower?")
     elif numchoice == 12:
-      await ctx.send(f"Starting with {numchoice}! Higher or lower?")
+      await ctx.send(f"Starting with {queen}! Higher or lower?")
     elif numchoice == 13:
-      await ctx.send(f"Starting with {numchoice}! Higher or lower?")
+      await ctx.send(f"Starting with {king}! Higher or lower?")
     elif numchoice == 14:
-      await ctx.send(f"Starting with {numchoice}! Higher or lower?")
+      await ctx.send(f"Starting with {ace}! Higher or lower?")
     else:
       await ctx.send("test")
     pass
