@@ -2,10 +2,10 @@ import discord
 import random
 import asyncio
 from random import randint
-from .rtbresources import Embed
 from discord.utils import get
 from redbot.core import commands, checks, bank, Config
 from redbot.core.utils.predicates import MessagePredicate
+from .rtbresources import Embed, RESU, UNSUCRESP, SUCRESP
 
 class RobTheBank(commands.Cog):
   """Rob the bank, gain or get fined!"""
