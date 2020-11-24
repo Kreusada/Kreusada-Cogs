@@ -29,7 +29,7 @@ class RobTheBank(commands.Cog):
 #  @commands.cooldown(1, 300, commands.BucketType.user)
   async def rob(self, ctx):
     """Attempt to rob the bank. Attempt."""
-    resu = random.randint(1,2,3,4,5,6)
+    resu = random.randint[1,2,3,4,5,6]
     status = f"{ctx.author.name} attempted to rob the bank..."
     if resu > 4:
       title = status
@@ -43,7 +43,7 @@ class RobTheBank(commands.Cog):
     await ctx.send(embed=data)
     
   @commands.group()
-  async def rtbset(self, ctx):
+  async def robset(self, ctx):
     """Configurations for robbing the bank."""
     
   @rtbset.command()
