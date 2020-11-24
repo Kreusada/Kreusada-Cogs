@@ -49,7 +49,8 @@ class HigherOrLower(commands.Cog):
   @commands.command(aliases = ["hol"])
   async def higherorlower(self, ctx):
     """Play higher or lower, win currency."""
-    data = Embed.create(self, ctx, title=f"Session started for **{ctx.author.name}**.")
+    data = Embed.create(self, ctx, title=f"Session started for **{ctx.author.name}**.",
+                       data.set_footer = "")
     sessionstart = await ctx.send(embed=data)
     currency = await bank.get_currency_name(ctx.guild)
     speccardQuan = SCQ
@@ -67,8 +68,7 @@ class HigherOrLower(commands.Cog):
     else:
       print("Something went wrong.")
     data = Embed.create(self, ctx, title=f"{cardQuan} is your first number.",
-                        description="Higher or lower? Type `h` or `l`."
-                       )
+                        description="Higher or lower? Type `h` or `l`.", data.set_author = "")
     await ctx.send(embed=data)
 
           
