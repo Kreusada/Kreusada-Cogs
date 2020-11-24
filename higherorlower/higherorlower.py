@@ -52,7 +52,7 @@ class HigherOrLower(commands.Cog):
     await ctx.send(f"Session started for **{ctx.author.name}**.")
     currency = await bank.get_currency_name(ctx.guild)
     cardQuan = random.randint(1, 14)
-      return await ctx.send(f"Testing: {cardQuan}")
+    await ctx.send(f"Testing: {cardQuan}")
     jack = "jack"
     queen = "queen"
     king = "king"
