@@ -68,12 +68,12 @@ class HigherOrLower(commands.Cog):
       print("Something went wrong.")
     data = Embed.create(self, ctx, title=f"{cardQuan} of {cardClass} is your first card.",
                         description="Higher or lower? Type `h` or `l`.")
-    await ctx.send(embed=data)
+    session = await ctx.send(embed=data)
     
   @commands.Cog.listener()
   async def on_message(self, message):
     if message.content.startswith('h'):
       channel = message.channel
-      await bot.wait_for(data)
+      await bot.wait_for(session)
       await channel.send("Test")
           
