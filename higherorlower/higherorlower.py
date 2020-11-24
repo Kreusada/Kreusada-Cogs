@@ -52,35 +52,35 @@ class HigherOrLower(commands.Cog):
 #    name_required = await self.config.guild(ctx.guild).required()
 #    required = get(ctx.guild.roles, name=name_required)
 #    amount = await self.config.guild(ctx.guild).amount()
-    for x in range(1, 15):
-      random.randint(x)
-    if x == 1:
+    CardQuantity = [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
+    numchoice = random.choice(CardQuantity)
+    if numchoice == 1:
       await ctx.send("Starting with 1! Higher or lower?")
-    if x == 2:
+    if numchoice == 2:
       await ctx.send("Starting with 1! Higher or lower?")
-    if x == 3:
+    if numchoice == 3:
       await ctx.send("Starting with 1! Higher or lower?")
-    if x == 4:
+    if numchoice == 4:
       await ctx.send("Starting with 1! Higher or lower?")
-    if x == 5:
+    if numchoice == 5:
       await ctx.send("Starting with 1! Higher or lower?")
-    if x == 6:
+    if numchoice == 6:
       await ctx.send("Starting with 1! Higher or lower?")
-    if x == 7:
+    if numchoice == 7:
       await ctx.send("Starting with 1! Higher or lower?")
-    if x == 8:
+    if numchoice == 8:
       await ctx.send("Starting with 1! Higher or lower?")
-    if x == 9:
+    if numchoice == 9:
       await ctx.send("Starting with 1! Higher or lower?")
-    if x == 10:
+    if numchoice == 10:
       await ctx.send("Starting with 1! Higher or lower?")
-    if x == 11:
+    if numchoice == 11:
       await ctx.send("Starting with 1! Higher or lower?")
-    if x == 12:
+    if numchoice == 12:
       await ctx.send("Starting with 1! Higher or lower?")
-    if x == 13:
+    if numchoice == 13:
       await ctx.send("Starting with 1! Higher or lower?")
-    if x == 14:
+    if numchoice == 14:
       await ctx.send("Starting with 1! Higher or lower?")
     else:
       await ctx.send("test")
