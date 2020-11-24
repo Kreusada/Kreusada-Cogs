@@ -23,7 +23,6 @@ class HigherOrLower(commands.Cog):
       channel: Optional[discord.TextChannel] = None,
       user: Optional[discord.abc.User] = None,
       same_context = cls.same_context(ctx, channel, user)
-  )
 
   def predicate(self: MessagePredicate, m: discord.Message) -> bool:
     same_context = cls.same_context(ctx, channel, user)
