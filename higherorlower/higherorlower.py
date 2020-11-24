@@ -56,31 +56,31 @@ class HigherOrLower(commands.Cog):
     numchoice = random.choice(CardQuantity)
     if numchoice == 1:
       await ctx.send("Starting with 1! Higher or lower?")
-    if numchoice == 2:
+    elif numchoice == 2:
       await ctx.send("Starting with 1! Higher or lower?")
-    if numchoice == 3:
+    elif numchoice == 3:
       await ctx.send("Starting with 1! Higher or lower?")
-    if numchoice == 4:
+    elif numchoice == 4:
       await ctx.send("Starting with 1! Higher or lower?")
-    if numchoice == 5:
+    elif numchoice == 5:
       await ctx.send("Starting with 1! Higher or lower?")
-    if numchoice == 6:
+    elif numchoice == 6:
       await ctx.send("Starting with 1! Higher or lower?")
-    if numchoice == 7:
+    elif numchoice == 7:
       await ctx.send("Starting with 1! Higher or lower?")
-    if numchoice == 8:
+    elif numchoice == 8:
       await ctx.send("Starting with 1! Higher or lower?")
-    if numchoice == 9:
+    elif numchoice == 9:
       await ctx.send("Starting with 1! Higher or lower?")
-    if numchoice == 10:
+    elif numchoice == 10:
       await ctx.send("Starting with 1! Higher or lower?")
-    if numchoice == 11:
+    elif numchoice == 11:
       await ctx.send("Starting with 1! Higher or lower?")
-    if numchoice == 12:
+    elif numchoice == 12:
       await ctx.send("Starting with 1! Higher or lower?")
-    if numchoice == 13:
+    elif numchoice == 13:
       await ctx.send("Starting with 1! Higher or lower?")
-    if numchoice == 14:
+    elif numchoice == 14:
       await ctx.send("Starting with 1! Higher or lower?")
     else:
       await ctx.send("test")
