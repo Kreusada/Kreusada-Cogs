@@ -66,6 +66,6 @@ class HigherOrLower(commands.Cog):
       cardQuan = cardQuan
     else:
       print("Something went wrong.")
-    await ctx.sessionstart.edit(f"{cardQuan}")
+    await ctx.message.edit(sessionstart=f"{cardQuan}")
 
           
