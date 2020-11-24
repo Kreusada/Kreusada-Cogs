@@ -55,33 +55,33 @@ class HigherOrLower(commands.Cog):
     CardQuantity = [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
     numchoice = random.choice(CardQuantity)
     if numchoice == 1:
-      await ctx.send(f"Starting with {}! Higher or lower?").format(numchoice)
+      await ctx.send(f"Starting with {numchoice}! Higher or lower?")
     elif numchoice == 2:
-      await ctx.send(f"Starting with {}! Higher or lower?").format(numchoice)
+      await ctx.send(f"Starting with {numchoice}! Higher or lower?")
     elif numchoice == 3:
-      await ctx.send(f"Starting with {}! Higher or lower?").format(numchoice)
+      await ctx.send(f"Starting with {numchoice}! Higher or lower?")
     elif numchoice == 4:
-      await ctx.send(f"Starting with {}! Higher or lower?").format(numchoice)
+      await ctx.send(f"Starting with {numchoice}! Higher or lower?")
     elif numchoice == 5:
-      await ctx.send(f"Starting with {}! Higher or lower?").format(numchoice)
+      await ctx.send(f"Starting with {numchoice}! Higher or lower?")
     elif numchoice == 6:
-      await ctx.send(f"Starting with {}! Higher or lower?").format(numchoice)
+      await ctx.send(f"Starting with {numchoice}! Higher or lower?")
     elif numchoice == 7:
-      await ctx.send(f"Starting with {}! Higher or lower?").format(numchoice)
+      await ctx.send(f"Starting with {numchoice}! Higher or lower?")
     elif numchoice == 8:
-      await ctx.send(f"Starting with {}! Higher or lower?").format(numchoice)
+      await ctx.send(f"Starting with {numchoice}! Higher or lower?")
     elif numchoice == 9:
-      await ctx.send(f"Starting with {}! Higher or lower?").format(numchoice)
+      await ctx.send(f"Starting with {numchoice}! Higher or lower?")
     elif numchoice == 10:
-      await ctx.send(f"Starting with {}! Higher or lower?").format(numchoice)
+      await ctx.send(f"Starting with {numchoice}! Higher or lower?")
     elif numchoice == 11:
-      await ctx.send(f"Starting with {}! Higher or lower?").format(numchoice)
+      await ctx.send(f"Starting with {numchoice}! Higher or lower?")
     elif numchoice == 12:
-      await ctx.send(f"Starting with {}! Higher or lower?").format(numchoice)
+      await ctx.send(f"Starting with {numchoice}! Higher or lower?")
     elif numchoice == 13:
-      await ctx.send(f"Starting with {}! Higher or lower?").format(numchoice)
+      await ctx.send(f"Starting with {numchoice}! Higher or lower?")
     elif numchoice == 14:
-      await ctx.send(f"Starting with {}! Higher or lower?").format(numchoice)
+      await ctx.send(f"Starting with {numchoice}! Higher or lower?")
     else:
       await ctx.send("test")
     pass
