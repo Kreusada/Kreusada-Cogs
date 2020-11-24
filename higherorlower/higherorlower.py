@@ -72,7 +72,7 @@ class HigherOrLower(commands.Cog):
     
   @commands.Cog.listener()
   async def on_message(message):
-  if message.content.startswith('h')
-  channel = message.channel
-  await channel.send("Test")
+    if message.content.startswith('h')
+    channel = message.channel
+    await channel.send("Test")
           
