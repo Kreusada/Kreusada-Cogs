@@ -36,7 +36,7 @@ class HigherOrLower(commands.Cog):
       cardQuan = cardQuan
     else:
       print("Something went wrong.")
-    pred = MessagePredicate.higher_or_lower(ctx)
+    pred = MessagePredicate.yes_or_no(ctx)
     currency = await bank.get_currency_name(ctx.guild)
     data = Embed.create(self, ctx, title=f"{roundone} of {cardClass} is your first card.",
                         description="Higher or lower? Type `higher` or `lower`.")
