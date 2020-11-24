@@ -15,6 +15,21 @@ class HigherOrLower(commands.Cog):
     self.config = Config.get_conf(
       self, identifier=5865146514315491, force_registration=True
     )
+
+  def predicate(self: MessagePredicate, m: discord.Message) -> bool:
+    same_context = cls.same_context(ctx, channel, user)
+    if not same_context(m):
+      return False
+    content = m.content.lower()
+    if content in ("higher", "high", "h"):
+      self.result = True
+    elif content in ("lower", "high", "l"):
+      self.result = False
+    else:
+      return False
+    return True
+
+        return cls(predicate)
     
   @commands.command(aliases = ["hol"])
   async def higherorlower(self, ctx):
