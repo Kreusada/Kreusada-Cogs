@@ -20,10 +20,10 @@ class HigherOrLower(commands.Cog):
   async def higherorlower(self, ctx):
     """Play higher or lower, win currency."""
     await ctx.send(f"Session started for **{ctx.author.name}**.")
-    currency = await bank.get_currency_name(ctx.guild)
     speccardQuan = SCQ
     cardClass = random.choice(CLASSES)
     cardQuan = random.randint(1, 14)
+    roundone = cardQuan
     if cardQuan == 11:
       cardQuan = speccardQuan[0]
     elif cardQuan == 12:
@@ -36,14 +36,20 @@ class HigherOrLower(commands.Cog):
       cardQuan = cardQuan
     else:
       print("Something went wrong.")
-    data = Embed.create(self, ctx, title=f"{cardQuan} of {cardClass} is your first card.",
-                        description="Higher or lower? Type `h` or `l`.")
-    session = await ctx.send(embed=data)
+    pred = MessagePredicate.higher_or_lower(ctx)
+    currency = await bank.get_currency_name(ctx.guild)
+    data = Embed.create(self, ctx, title=f"{roundone} of {cardClass} is your first card.",
+                        description="Higher or lower? Type `higher` or `lower`.")
+    await ctx.send(embed=data)
+    try:
+      await self.bot.wait_for("message", timeout=30, check=pred)
+    except asyncio.TimeoutError:
+      return await ctx.send(f"You took too long to decide. You need to start a new game using {ctx.clean_prefix}higherorlower.")
+    roundtwo = random.randint(1,14)
+    if pred.result:
+      if roundone > roundtwo:
+        await ctx.send("Testing")
+      else:
+        await ctx.send("Testing2")
     
-  @commands.Cog.listener()
-  async def on_message(self, message):
-    if message.content.startswith('h'):
-      channel = message.channel
-      await bot.wait_for(session)
-      await channel.send("Test")
           
