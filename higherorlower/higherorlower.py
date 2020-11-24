@@ -51,45 +51,11 @@ class HigherOrLower(commands.Cog):
     """Play higher or lower, win currency."""
     await ctx.send(f"Session started for **{ctx.author.name}**.")
     currency = await bank.get_currency_name(ctx.guild)
-    cardQuan = [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
-    choiceQuan = random.choice(cardQuan)
-    for i in range(len(choiceQuan)):
-      return await ctx.send(f"Testing: {i}")
-    
+    cardQuan = random.randint(1, 14)
+      return await ctx.send(f"Testing: {cardQuan}")
     jack = "jack"
     queen = "queen"
     king = "king"
     ace = "ace"
-    if numchoice == 1:
-      await ctx.send(f"Starting with {choiceQuan}! Higher or lower?")
-    elif numchoice == 2:
-      await ctx.send(f"Starting with {choiceQuan}! Higher or lower?")
-    elif numchoice == 3:
-      await ctx.send(f"Starting with {choiceQuan}! Higher or lower?")
-    elif numchoice == 4:
-      await ctx.send(f"Starting with {choiceQuan}! Higher or lower?")
-    elif numchoice == 5:
-      await ctx.send(f"Starting with {choiceQuan}! Higher or lower?")
-    elif numchoice == 6:
-      await ctx.send(f"Starting with {choiceQuan}! Higher or lower?")
-    elif numchoice == 7:
-      await ctx.send(f"Starting with {choiceQuan}! Higher or lower?")
-    elif numchoice == 8:
-      await ctx.send(f"Starting with {choiceQuan}! Higher or lower?")
-    elif numchoice == 9:
-      await ctx.send(f"Starting with {choiceQuan}! Higher or lower?")
-    elif numchoice == 10:
-      await ctx.send(f"Starting with {choiceQuan}! Higher or lower?")
-    elif numchoice == 11:
-      await ctx.send(f"Starting with {jack}! Higher or lower?")
-    elif numchoice == 12:
-      await ctx.send(f"Starting with {queen}! Higher or lower?")
-    elif numchoice == 13:
-      await ctx.send(f"Starting with {king}! Higher or lower?")
-    elif numchoice == 14:
-      await ctx.send(f"Starting with {ace}! Higher or lower?")
-    else:
-      await ctx.send("test")
-    pass
 
           
