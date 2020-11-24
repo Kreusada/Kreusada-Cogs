@@ -1,9 +1,8 @@
 import discord
 import random
 import asyncio
-
+from random import randint
 from discord.utils import get
-
 from redbot.core import commands, checks, bank, Config
 from redbot.core.utils.predicates import MessagePredicate
 
@@ -54,7 +53,7 @@ class HigherOrLower(commands.Cog):
 #    required = get(ctx.guild.roles, name=name_required)
 #    amount = await self.config.guild(ctx.guild).amount()
     for x in range(1, 15):
-      random.choice(x)
+      random.randint(x)
     if x == 1:
       await ctx.send("Starting with 1! Higher or lower?")
     if x == 2:
