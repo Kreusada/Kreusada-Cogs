@@ -3,7 +3,7 @@ import random
 import asyncio
 from random import randint
 from discord.utils import get
-from .resources import SCQ, CLASSES, Embed
+from .resources import SCQ, Embed
 from redbot.core import commands, checks, bank, Config
 from redbot.core.utils.predicates import MessagePredicate
 
@@ -49,10 +49,11 @@ class HigherOrLower(commands.Cog):
   @commands.command(aliases = ["hol"])
   async def higherorlower(self, ctx):
     """Play higher or lower, win currency."""
-    await ctx.send(f":triangular_flag_on_post: Session started for {ctx.author.name}.")
+    data = Embed.create(self, ctx, title=f"Session started for **{ctx.author.name}**.",
+                       footer_text="")
+    sessionstart = await ctx.send(embed=data)
     currency = await bank.get_currency_name(ctx.guild)
     speccardQuan = SCQ
-    cardClasses = random.choice(CLASSES)
     cardQuan = random.randint(1, 14)
     if cardQuan == 11:
       cardQuan = speccardQuan[0]
@@ -66,8 +67,8 @@ class HigherOrLower(commands.Cog):
       cardQuan = cardQuan
     else:
       print("Something went wrong.")
-    data = Embed.create(self, ctx, title=f"{cardQuan} of {cardClasses} is your first card.",
-                        description="Higher or lower? Type `h` or `l`.", author_text="")
+    data = Embed.create(self, ctx, title=f"{cardQuan} is your first number.",
+                        description="Higher or lower? Type `h` or `l`.")
     await ctx.send(embed=data)
 
           
