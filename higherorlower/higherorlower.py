@@ -74,5 +74,6 @@ class HigherOrLower(commands.Cog):
   async def on_message(self, message):
     if message.content.startswith('h'):
       channel = message.channel
+      await bot.wait_for(data)
       await channel.send("Test")
           
