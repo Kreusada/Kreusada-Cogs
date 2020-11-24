@@ -66,6 +66,9 @@ class HigherOrLower(commands.Cog):
       cardQuan = cardQuan
     else:
       print("Something went wrong.")
-    await ctx.message.edit(sessionstart=f"{cardQuan}")
+    data = Embed.create(self, ctx, title=f"{cardQuan} is your first number.",
+                        description="Higher or lower? Type `h` or `l`."
+                       )
+    await ctx.send(embed=data)
 
           
