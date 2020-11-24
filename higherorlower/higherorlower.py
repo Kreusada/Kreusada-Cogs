@@ -69,5 +69,10 @@ class HigherOrLower(commands.Cog):
     data = Embed.create(self, ctx, title=f"{cardQuan} of {cardClass} is your first card.",
                         description="Higher or lower? Type `h` or `l`.")
     await ctx.send(embed=data)
-
+    
+  @commands.Cog.listener()
+  async def on_message(message)
+  if message.content.startswith('h')
+  channel = message.channel
+  await channel.send("Test")
           
