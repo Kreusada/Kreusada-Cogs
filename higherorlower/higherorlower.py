@@ -3,7 +3,7 @@ import random
 import asyncio
 from random import randint
 from discord.utils import get
-from .resources import SCQ, Embed
+from .resources import SCQ, CLASSES, Embed
 from redbot.core import commands, checks, bank, Config
 from redbot.core.utils.predicates import MessagePredicate
 
