@@ -51,8 +51,10 @@ class HigherOrLower(commands.Cog):
     """Play higher or lower, win currency."""
     await ctx.send(f"Session started for **{ctx.author.name}**.")
     currency = await bank.get_currency_name(ctx.guild)
-    CardQuantity = [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
-    numchoice = random.choice(CardQuantity)
+    cardQuan = [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
+    numchoice = random.choice(cardQuan)
+    for i in range(len(cardQuan)):
+      await ctx.send(f"Testing: {[i]}")
     jack = "jack"
     queen = "queen"
     king = "king"
