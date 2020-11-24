@@ -24,18 +24,18 @@ class HigherOrLower(commands.Cog):
       user: Optional[discord.abc.User] = None,
       same_context = cls.same_context(ctx, channel, user)
 
-  def predicate(self: MessagePredicate, m: discord.Message) -> bool:
-    same_context = cls.same_context(ctx, channel, user)
-    if not same_context(m):
-      return False
-    content = m.content.lower()
-    if content in ("higher", "high", "h"):
-      self.result = True
-    elif content in ("lower", "high", "l"):
-      self.result = False
-    else:
-      return False
-    return True
+      def predicate(self: MessagePredicate, m: discord.Message) -> bool:
+        same_context = cls.same_context(ctx, channel, user)
+        if not same_context(m):
+          return False
+        content = m.content.lower()
+        if content in ("higher", "high", "h"):
+          self.result = True
+       elif content in ("lower", "high", "l"):
+          self.result = False
+       else:
+          return False
+        return True
 
         return cls(predicate)
     
