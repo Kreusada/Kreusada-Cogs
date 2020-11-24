@@ -13,7 +13,7 @@ class Embed:
     def create(self, ctx, color=discord.Color.red(), title='', description='', image=None,
                thumbnail=None, url=None, footer_text=None, footer_url=None, author_text=None):
         
-        DEMARATUS = 'https://media.discordapp.net/attachments/769165401879478302/780794079591661578/DEM2.png'
+        DEMARATUS = 'https://cdn.discordapp.com/attachments/769165401879478302/780802976205635634/vanguardskeindem1.png'
         if isinstance(ctx.message.channel, discord.abc.GuildChannel):
             color = ctx.message.author.color
         data = discord.Embed(color=color, title=title, url=url)
