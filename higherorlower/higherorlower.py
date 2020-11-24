@@ -71,7 +71,7 @@ class HigherOrLower(commands.Cog):
     await ctx.send(embed=data)
     
   @commands.Cog.listener()
-  async def on_message(message):
+  async def on_message(self, message):
     if message.content.startswith('h'):
       channel = message.channel
       await channel.send("Test")
