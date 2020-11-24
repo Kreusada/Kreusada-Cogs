@@ -54,7 +54,9 @@ class HigherOrLower(commands.Cog):
     cardQuan = [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
     numchoice = random.choice(cardQuan)
     for i in range(len(cardQuan)):
-      await ctx.send(f"Testing: {[i]}")
+      return await ctx.send(f"Testing: {i}")
+    break
+    
     jack = "jack"
     queen = "queen"
     king = "king"
