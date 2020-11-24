@@ -30,7 +30,7 @@ class RobTheBank(commands.Cog):
   async def rob(self, ctx):
     """Attempt to rob the bank. Attempt."""
     numbers = [1,2,3,4,5,6]
-    numbersrand = random.randint(numbers)
+    numbersrand = random.choice(numbers)
     status = f"{ctx.author.name} attempted to rob the bank..."
     if numbersrand > 4:
       title = status
