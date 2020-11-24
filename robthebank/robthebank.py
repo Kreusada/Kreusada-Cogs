@@ -29,9 +29,10 @@ class RobTheBank(commands.Cog):
 #  @commands.cooldown(1, 300, commands.BucketType.user)
   async def rob(self, ctx):
     """Attempt to rob the bank. Attempt."""
-    resu = random.randint[1,2,3,4,5,6]
+    numbers = [1,2,3,4,5,6]
+    numbersrand = random.randint(numbers)
     status = f"{ctx.author.name} attempted to rob the bank..."
-    if resu > 4:
+    if numbersrand > 4:
       title = status
       description = random.choice(UNSUCRESP)
       await bank.withdraw_credits(ctx.author, settings["Fine"])
