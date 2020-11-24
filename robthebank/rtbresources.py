@@ -2,6 +2,17 @@ import discord
 import requests
 from validator_collection import validators
 
+UNSUCRESP = [
+    "Oh {ctx.author.mention}! I caught you red handed there fella!",
+    "Get some good detective skills before trying to rob my bank! {ctx.author.mention}.",
+    "Oh, its you again... {ctx.author.name} is it? Well, if you'd give me a donut maybe I'd consider refunding your fine."
+]
+SUCRESP = [
+    ":loudspeaker: Dispatch, we've lost the suspect.",
+    "Looks like {ctx.author.name} made it out alive, somehow...",
+    "We let you loose on purpose, we wanted to test your.. ability to.. to run! To run.."
+]
+RESU = [1,2,3,4,5,6]
 
 class Embed:
     def __init__(self, bot):
