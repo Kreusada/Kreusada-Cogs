@@ -45,19 +45,21 @@ class HigherOrLower(commands.Cog):
 #      amount = predi.result
 #      await self.config.guild(ctx.guild).amount.set(amount)
 #      await ctx.send("Your currency payout has been set.")
-#      
   @commands.command(aliases = ["hol"])
   async def higherorlower(self, ctx):
     """Play higher or lower, win currency."""
     await ctx.send(f"Session started for **{ctx.author.name}**.")
+    speccardQuan = ["jack", "queen", "king", "ace"]
     currency = await bank.get_currency_name(ctx.guild)
     cardQuan = random.randint(1, 14)
-    for 11 in cardQuan:
-      11 == "jack"
+    if cardQuan = 10:
+      speccardname = speccardQuan[0]
+    elif cardQuan = 11:
+      speccardname = speccardQuan[1]
+    elif cardQuan = 12:
+      speccardname = speccardQuan[2]
+    else:
+      speccardname = speccardQuan[3]
     await ctx.send(f"{cardQuan}")
-    jack = "jack"
-    queen = "queen"
-    king = "king"
-    ace = "ace"
 
           
