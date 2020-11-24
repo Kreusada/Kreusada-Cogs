@@ -29,7 +29,7 @@ class RobTheBank(commands.Cog):
   @commands.cooldown(1, 300, commands.BucketType.user)
   async def rob(self, ctx):
     """Attempt to rob the bank. Attempt."""
-    resu = random.randint(RESU)
+    resu = random.randint(1,2,3,4,5,6)
     status = f"{ctx.author.name} attempted to rob the bank..."
     if resu > 4:
       title = status
