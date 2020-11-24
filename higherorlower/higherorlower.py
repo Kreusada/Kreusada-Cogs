@@ -25,7 +25,6 @@ class HigherOrLower(commands.Cog):
       same_context = cls.same_context(ctx, channel, user)
 
       def predicate(self: MessagePredicate, m: discord.Message) -> bool:
-        same_context = cls.same_context(ctx, channel, user)
         if not same_context(m):
           return False
         content = m.content.lower()
