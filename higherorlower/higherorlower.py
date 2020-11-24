@@ -49,17 +49,21 @@ class HigherOrLower(commands.Cog):
   async def higherorlower(self, ctx):
     """Play higher or lower, win currency."""
     await ctx.send(f"Session started for **{ctx.author.name}**.")
-    speccardQuan = ["jack", "queen", "king", "ace"]
     currency = await bank.get_currency_name(ctx.guild)
+    speccardQuan = ["jack", "queen", "king", "ace"]
     cardQuan = random.randint(1, 14)
-    if cardQuan == 10:
+    if cardQuan == 11:
       cardQuan = speccardQuan[0]
-    elif cardQuan == 11:
-      cardQuan = speccardQuan[1]
     elif cardQuan == 12:
+      cardQuan = speccardQuan[1]
+    elif cardQuan == 13:
       cardQuan = speccardQuan[2]
-    else:
+    elif cardQuan == 14:
       cardQuan = speccardQuan[3]
+    elif cardQuan < 11:
+      cardQuan = cardQuan
+    else:
+      print("Something went wrong.")
     await ctx.send(f"{cardQuan}")
 
           
