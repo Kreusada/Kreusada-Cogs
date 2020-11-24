@@ -49,12 +49,42 @@ class HigherOrLower(commands.Cog):
       
     @commands.command(aliases = ["hol"])
     async def higherorlower(self, ctx):
-      HOL = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"]
       currency = await bank.get_currency_name(ctx.guild)
       name_required = await self.config.guild(ctx.guild).required()
       required = get(ctx.guild.roles, name=name_required)
       amount = await self.config.guild(ctx.guild).amount()
-      if not required:
-        hold = random.choice(HOL)
-        await ctx.send("Starting with {}! Higher or lower?").format(random.choice(hold))
+      for x in range(1, 15):
+        random.choice(x)
+      if x == 1:
+        await ctx.send("Starting with 1! Higher or lower?")
+      if x == 2:
+        await ctx.send("Starting with 1! Higher or lower?")
+      if x == 3:
+        await ctx.send("Starting with 1! Higher or lower?")
+      if x == 4:
+        await ctx.send("Starting with 1! Higher or lower?")
+      if x == 5:
+        await ctx.send("Starting with 1! Higher or lower?")
+      if x == 6:
+        await ctx.send("Starting with 1! Higher or lower?")
+      if x == 7:
+        await ctx.send("Starting with 1! Higher or lower?")
+      if x == 8:
+        await ctx.send("Starting with 1! Higher or lower?")
+      if x == 9:
+        await ctx.send("Starting with 1! Higher or lower?")
+      if x == 10:
+        await ctx.send("Starting with 1! Higher or lower?")
+      if x == 11:
+        await ctx.send("Starting with 1! Higher or lower?")
+      if x == 12:
+        await ctx.send("Starting with 1! Higher or lower?")
+      if x == 13:
+        await ctx.send("Starting with 1! Higher or lower?")
+      if x == 14:
+        await ctx.send("Starting with 1! Higher or lower?")
+      else:
+        await ctx.send("test")
+      pass
+
           
