@@ -66,7 +66,7 @@ class HigherOrLower(commands.Cog):
       cardQuan = cardQuan
     else:
       print("Something went wrong.")
-    data = Embed.create(self, ctx, title="{} of {} is your first card".format(cardQuan.capitalize(), cardClass.capitalize()),
+    data = Embed.create(self, ctx, title=f"{cardQuan} of {cardClass} is your first card.",
                         description="Higher or lower? Type `h` or `l`.")
     await ctx.send(embed=data)
 
