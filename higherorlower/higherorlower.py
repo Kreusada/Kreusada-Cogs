@@ -17,26 +17,26 @@ class HigherOrLower(commands.Cog):
     )
 
   @classmethod
-  def yes_or_no(
+  def higher_or_lower(
       cls,
       ctx: Optional[commands.Context] = None,
       channel: Optional[discord.TextChannel] = None,
       user: Optional[discord.abc.User] = None,
       same_context = cls.same_context(ctx, channel, user)
 
-      def predicate(self: MessagePredicate, m: discord.Message) -> bool:
-        if not same_context(m):
-          return False
-        content = m.content.lower()
-        if content in ("higher", "high", "h"):
-          self.result = True
-       elif content in ("lower", "high", "l"):
-          self.result = False
-       else:
-          return False
-        return True
+  async def predicate(self: MessagePredicate, m: discord.Message) -> bool:
+    if not same_context(m):
+      return False
+    content = m.content.lower()
+    if content in ("higher", "high", "h"):
+      self.result = True
+   elif content in ("lower", "high", "l"):
+      self.result = False
+   else:
+      return False
+    return True
 
-        return cls(predicate)
+    return cls(predicate)
     
   @commands.command(aliases = ["hol"])
   async def higherorlower(self, ctx):
@@ -58,7 +58,7 @@ class HigherOrLower(commands.Cog):
       cardQuan = cardQuan
     else:
       print("Something went wrong.")
-    pred = MessagePredicate.yes_or_no(ctx)
+    pred = MessagePredicate.higher_or_lower(ctx)
     currency = await bank.get_currency_name(ctx.guild)
     data = Embed.create(self, ctx, title=f"{roundone} of {cardClass} is your first card.",
                         description="Higher or lower? Type `higher` or `lower`.")
