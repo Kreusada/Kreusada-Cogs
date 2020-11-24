@@ -19,10 +19,10 @@ class Learning(commands.Cog):
 
     @commands.command()
     async def quan(self, ctx):
-    cardQuan = [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
-    numchoice = random.choice(cardQuan)
-    for i in range(len(cardQuan)):
-        await ctx.send(f"Testing: [i]")
+        cardQuan = [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
+        numchoice = random.choice(cardQuan)
+        for i in range(len(cardQuan)):
+            await ctx.send(f"Testing: [i]")
         
     @learning.command()
     async def dmingcom(self, ctx):
