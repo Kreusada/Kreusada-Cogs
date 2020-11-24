@@ -3,6 +3,7 @@ import random
 import asyncio
 from random import randint
 from discord.utils import get
+from .resources import SCQ
 from redbot.core import commands, checks, bank, Config
 from redbot.core.utils.predicates import MessagePredicate
 
@@ -50,7 +51,7 @@ class HigherOrLower(commands.Cog):
     """Play higher or lower, win currency."""
     await ctx.send(f"Session started for **{ctx.author.name}**.")
     currency = await bank.get_currency_name(ctx.guild)
-    speccardQuan = ["jack", "queen", "king", "ace"]
+    speccardQuan = SCQ
     cardQuan = random.randint(1, 14)
     if cardQuan == 11:
       cardQuan = speccardQuan[0]
