@@ -47,44 +47,44 @@ class HigherOrLower(commands.Cog):
       await self.config.guild(ctx.guild).amount.set(amount)
       await ctx.send("Your currency payout has been set.")
       
-    @commands.command(aliases = ["hol"])
-    async def higherorlower(self, ctx):
-      currency = await bank.get_currency_name(ctx.guild)
-      name_required = await self.config.guild(ctx.guild).required()
-      required = get(ctx.guild.roles, name=name_required)
-      amount = await self.config.guild(ctx.guild).amount()
-      for x in range(1, 15):
-        random.choice(x)
-      if x == 1:
-        await ctx.send("Starting with 1! Higher or lower?")
-      if x == 2:
-        await ctx.send("Starting with 1! Higher or lower?")
-      if x == 3:
-        await ctx.send("Starting with 1! Higher or lower?")
-      if x == 4:
-        await ctx.send("Starting with 1! Higher or lower?")
-      if x == 5:
-        await ctx.send("Starting with 1! Higher or lower?")
-      if x == 6:
-        await ctx.send("Starting with 1! Higher or lower?")
-      if x == 7:
-        await ctx.send("Starting with 1! Higher or lower?")
-      if x == 8:
-        await ctx.send("Starting with 1! Higher or lower?")
-      if x == 9:
-        await ctx.send("Starting with 1! Higher or lower?")
-      if x == 10:
-        await ctx.send("Starting with 1! Higher or lower?")
-      if x == 11:
-        await ctx.send("Starting with 1! Higher or lower?")
-      if x == 12:
-        await ctx.send("Starting with 1! Higher or lower?")
-      if x == 13:
-        await ctx.send("Starting with 1! Higher or lower?")
-      if x == 14:
-        await ctx.send("Starting with 1! Higher or lower?")
-      else:
-        await ctx.send("test")
-      pass
+  @commands.command(aliases = ["hol"])
+  async def higherorlower(self, ctx):
+    currency = await bank.get_currency_name(ctx.guild)
+    name_required = await self.config.guild(ctx.guild).required()
+    required = get(ctx.guild.roles, name=name_required)
+    amount = await self.config.guild(ctx.guild).amount()
+    for x in range(1, 15):
+      random.choice(x)
+    if x == 1:
+      await ctx.send("Starting with 1! Higher or lower?")
+    if x == 2:
+      await ctx.send("Starting with 1! Higher or lower?")
+    if x == 3:
+      await ctx.send("Starting with 1! Higher or lower?")
+    if x == 4:
+      await ctx.send("Starting with 1! Higher or lower?")
+    if x == 5:
+      await ctx.send("Starting with 1! Higher or lower?")
+    if x == 6:
+      await ctx.send("Starting with 1! Higher or lower?")
+    if x == 7:
+      await ctx.send("Starting with 1! Higher or lower?")
+    if x == 8:
+      await ctx.send("Starting with 1! Higher or lower?")
+    if x == 9:
+      await ctx.send("Starting with 1! Higher or lower?")
+    if x == 10:
+      await ctx.send("Starting with 1! Higher or lower?")
+    if x == 11:
+      await ctx.send("Starting with 1! Higher or lower?")
+    if x == 12:
+      await ctx.send("Starting with 1! Higher or lower?")
+    if x == 13:
+      await ctx.send("Starting with 1! Higher or lower?")
+    if x == 14:
+      await ctx.send("Starting with 1! Higher or lower?")
+    else:
+      await ctx.send("test")
+    pass
 
           
