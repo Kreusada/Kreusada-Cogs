@@ -46,7 +46,7 @@ class RobTheBank(commands.Cog):
   async def robset(self, ctx):
     """Configurations for robbing the bank."""
     
-  @rtbset.command()
+  @robset.command()
   async def deposit(self, ctx, amount: int):
     """Set the amount you can steal from the bank."""
     if amount < 0:
@@ -56,7 +56,7 @@ class RobTheBank(commands.Cog):
     currency = await bank.get_currency_name(ctx.guild)
     await ctx.send(f"Deposits will now distribute **{amount} {currency}.**")
 
-  @rtbset.command()
+  @robset.command()
   async def fine(self, ctx, amount: int):
     """Set the amount users could be fined for."""
     if amount < 0:
