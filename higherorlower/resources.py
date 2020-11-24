@@ -3,6 +3,7 @@ import requests
 from validator_collection import validators
 
 SCQ = ["jack", "queen", "king", "ace"]
+CLASSES = ["diamonds", "clubs", "hearts", "spades"]
 
 
 class Embed:
