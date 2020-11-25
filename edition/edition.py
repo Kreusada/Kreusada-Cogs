@@ -2,8 +2,7 @@ import discord
 from redbot.core import commands, checks, Config
 
 class Edition(commands.Cog):
-   """Become an edition of someone!\n"""
-   """Inspired from the Red main server."""
+   """Become an edition of someone!"""
    
    @commands.command()
    async def editionset(self, ctx, user: str):
