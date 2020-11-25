@@ -69,7 +69,6 @@ class RobTheBank(commands.Cog):
   async def deposit(self, ctx, amount: int):
     """
     Set the amount you can steal from the bank.
-    
     Odds for and against acquiring money are 50/50.
     The default value for deposits are: `400`.
     We don't recommend going much higher than this.
@@ -85,7 +84,6 @@ class RobTheBank(commands.Cog):
   async def fine(self, ctx, amount: int):
     """
     Set the amount you can get fined for from the bank.
-    
     Odds for and against acquiring money are 50/50.
     The default value for fines are: `400`.
     We don't recommend going much higher than this.
