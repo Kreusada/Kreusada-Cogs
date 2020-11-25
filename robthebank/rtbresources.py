@@ -2,6 +2,8 @@ import discord
 import requests
 from validator_collection import validators
 
+currency = await bank.get_currency_name(ctx.guild)
+
 UNSUCRESP = [
     f"Oh I caught you red handed there! **You have been fined 400 {currency}.**",
     f"Get some good detective skills before trying to rob my bank! **You have been fined 400 {currency}.**",
