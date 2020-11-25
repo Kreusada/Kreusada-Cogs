@@ -29,6 +29,7 @@ class RobTheBank(commands.Cog):
 #  @commands.cooldown(1, 300, commands.BucketType.user)
   async def rob(self, ctx):
     """Attempt to rob the bank. Attempt."""
+    settings = await self.config.guild(ctx.guild).all()
     numbers = [1,2,3,4,5,6]
     numbersrand = random.choice(numbers)
     status = f"{ctx.author.name} attempted to rob the bank..."
