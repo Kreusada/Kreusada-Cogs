@@ -30,16 +30,17 @@ class RobTheBank(commands.Cog):
   async def rob(self, ctx):
     """Attempt to rob the bank. Attempt."""
     settings = await self.config.guild(ctx.guild).all()
-    currency = await bank.get_currency_name(ctx.guild)
     numbers = [1,2,3,4,5,6]
     numbersrand = random.choice(numbers)
     yestatus = f"{ctx.author.name} successfully robbed the bank."
     nostatus = f"{ctx.author.name} failed, dismally."
     if numbersrand > 4:
+      currency = await bank.get_currency_name(ctx.guild)
       title = nostatus
       description = random.choice(UNSUCRESP)
       await bank.withdraw_credits(ctx.author, settings["Fine"])
     else:
+      currency = await bank.get_currency_name(ctx.guild)
       title = yestatus
       description = random.choice(SUCRESP)
       await bank.deposit_credits(ctx.author, settings["Deposti"])
