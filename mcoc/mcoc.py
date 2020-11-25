@@ -33,7 +33,7 @@ class Mcoc(commands.Cog):
         return
 
     @commands.group()
-    async def support(self, ctx):
+    async def mcocsupport(self, ctx):
         """Cog support and information."""
 
     @support.command()
