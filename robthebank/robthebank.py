@@ -35,15 +35,17 @@ class RobTheBank(commands.Cog):
     yestatus = f"<:dollarbag:778687019944771616> {ctx.author.name} successfully robbed the bank."
     nostatus = f"<:dollarbag:778687019944771616> {ctx.author.name} failed, dismally."
     currency = await bank.get_currency_name(ctx.guild)
+    deposit = await self.config.guild(settings["Deposit"])
+    fine = await self.config.guild(settings["Fine"])
     no = [
-      f"Oh I caught you red handed there! **You have been fined 400 {currency}.**",
-      f"Get some good detective skills before trying to rob my bank! **You have been fined 400 {currency}.**",
-      f"Oh, its you again... {ctx.author.name} is it? **You have been fined 400 {currency}.**"
+      f"Oh I caught you red handed there! **You have been fined {fine} {currency}.**",
+      f"Get some good detective skills before trying to rob my bank! **You have been fined {fine} {currency}.**",
+      f"Oh, its you again... {ctx.author.name} is it? **You have been fined {fine} {currency}.**"
     ]
     yes = [
-      f":loudspeaker: Dispatch, we've lost the suspect. **You have kept 400 {currency} for yourself.**",
-      f"Looks like {ctx.author.name} made it out alive, somehow... **You have kept 400 {currency} for yourself.**",
-      f"We let you loose on purpose, we really did. **You have kept 400 {currency} for yourself.**"
+      f":loudspeaker: Dispatch, we've lost the suspect. **You have kept {fine} {currency} for yourself.**",
+      f"Looks like {ctx.author.name} made it out alive, somehow... **You have kept {fine} {currency} for yourself.**",
+      f"We let you loose on purpose, we really did. **You have kept {fine} {currency} for yourself.**"
     ]
     if numbersrand > 4:
       title = nostatus
