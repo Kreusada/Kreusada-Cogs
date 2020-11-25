@@ -37,12 +37,12 @@ class RobTheBank(commands.Cog):
     if numbersrand > 4:
       currency = await bank.get_currency_name(ctx.guild)
       title = nostatus
-      description = random.choice(UNSUCRESP)
+      description = random.choice(UNSUCRESP).format(currency)
       await bank.withdraw_credits(ctx.author, settings["Fine"])
     else:
       currency = await bank.get_currency_name(ctx.guild)
       title = yestatus
-      description = random.choice(SUCRESP)
+      description = random.choice(SUCRESP).format(currency)
       await bank.deposit_credits(ctx.author, settings["Deposti"])
     data = Embed.create(self, ctx, title=title, description=description)
     await ctx.send(embed=data)
