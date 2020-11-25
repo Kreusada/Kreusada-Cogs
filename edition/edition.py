@@ -27,4 +27,4 @@ class Edition(commands.Cog):
       except discord.Forbidden: 
          await ctx.send("Your nickname could not be changed, I don't have permissions or you are higher than me in the role heirarchy.")
       
-      await ctx.send(f"You are now an Edition of Kreusada. Your nickname was successfully changed to: ``{tag}``."
+      await ctx.send(f"You are now an Edition of Kreusada. Your nickname was successfully changed to: ``{tag}``.")
