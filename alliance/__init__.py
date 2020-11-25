@@ -7,5 +7,4 @@ __red_end_user_data_statement__ = (
 
 
 def setup(bot: Red):
-    cog = Alliance
-    bot.add_cog(cog)
+    bot.add_cog(Alliance)
