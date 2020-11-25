@@ -4,12 +4,12 @@ from redbot.core import commands, checks, Config
 class Edition(commands.Cog):
    """Become an edition of someone!"""
    
-   def __init__(self)
-   self.config = Config.get_conf(
-      self, 200730042020, force_registration=True)
-   self.config.register_guild(
-      edition=None
-   )
+   def __init__(self):
+      self.config = Config.get_conf(
+         self, 200730042020, force_registration=True)
+      self.config.register_guild(
+         edition=None
+      )
    
    @commands.command()
    async def editionset(self, ctx, user: str):
