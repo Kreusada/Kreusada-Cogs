@@ -5,10 +5,10 @@ class Edition(commands.Cog):
    """Edition"""
    
    @commands.command()
-   async def editionset(self, ctx, user: str)
-   """Who is your 'edition' guy?"""
-   await self.config.guild(ctx.guild).set_raw(edition)
-   await ctx.send("Edition 'guy' set.")
+   async def editionset(self, ctx, user: str):
+      """Who is your 'edition' guy?"""
+      await self.config.guild(ctx.guild).set_raw(edition)
+      await ctx.send("Edition 'guy' set.")
       
    @commands.command()
    async def edition(self, ctx, *, name: str = None): 
