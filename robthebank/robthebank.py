@@ -67,7 +67,13 @@ class RobTheBank(commands.Cog):
     
   @robset.command()
   async def deposit(self, ctx, amount: int):
-    """Set the amount you can steal from the bank."""
+    """
+    Set the amount you can steal from the bank.
+    
+    Odds for and against acquiring money are 50/50.
+    The default value for deposits are: `400`.
+    We don't recommend going much higher than this.
+    """
     if amount < 0:
       return await ctx.send("You wouldn't be robbing a bank if you didn't get any money!\n"
                             "Please enter a number equal to or greater than `1`.")
@@ -77,7 +83,13 @@ class RobTheBank(commands.Cog):
 
   @robset.command()
   async def fine(self, ctx, amount: int):
-    """Set the amount users could be fined for."""
+    """
+    Set the amount you can get fined for from the bank.
+    
+    Odds for and against acquiring money are 50/50.
+    The default value for fines are: `400`.
+    We don't recommend going much higher than this.
+    """
     if amount < 0:
       return await ctx.send("That's not how fines work :joy:\nPlease enter a number equal to or greater than `1`.")
     await self.config.guild(ctx.guild).Fine.set(amount)
