@@ -30,8 +30,8 @@ class Alliance(commands.Cog):
             embed = Embed.create(
                 self, ctx, title="Successful <:success:777167188816560168>",
                 description=f"""
-                You can set your nickname using `dem timezone <timezone>`.
-                For example: `dem timezone +4` or `dem timezone -12`.
+                You can set your nickname using `{ctx.clean_prefix}timezone <timezone>`.
+                For example: `{ctx.clean_prefix}timezone +4` or `{ctx.clean_prefix}timezone -12`.
                 Your timezone is no longer shown on your nickname (`{ctx.author.name}`)
                 """
             )
