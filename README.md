@@ -10,7 +10,7 @@ This is my repository for Red Discord-Bot. I built these cogs because these were
 Primarily, make sure you have `downloader` loaded. 
 - `[p]load Downloader`
 Next, let's add my repository to your system.
-- `[p]repo add kreusadacogs https://github.com/kreus7/kreusadacogs
+- `[p]repo add kreusadacogs https://github.com/kreus7/kreusadacogs`
 Finally, you can load cogs from my repo by executing the following command:
 - `[p]cog install kreusadacogs <cog>`
 Remember - don't include the `<>` when you use this command. Those characters are just to show you where to enter the cog name.
