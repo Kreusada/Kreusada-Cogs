@@ -132,19 +132,3 @@ class Collectables(commands.Cog):
         except Exception:
             return await ctx.send("{} doesn't have any collectables!".format(user.display_name))
         await self.page_logic(ctx, collectable_list, item="{}'s items".format(user.display_name))
-
-    @commands.command(name='99')
-    async def nine_nine(self, ctx):
-        """Responds with a random quote from Brooklyn 99
-
-        **Side note: this was in the original cog (before it was a red cog) by Otriux, the brains behind this cog's logic so I left it in here**"""
-        brooklyn_99_quotes = [
-            'I\'m the human form of the 💯 emoji.',
-            'Bingpot!',
-            (
-                'Cool. Cool cool cool cool cool cool cool, '
-                'no doubt no doubt no doubt no doubt.'
-            ),
-        ]
-
-        await ctx.send(random.choice(brooklyn_99_quotes))
