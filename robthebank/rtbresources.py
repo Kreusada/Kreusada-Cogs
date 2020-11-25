@@ -2,8 +2,6 @@ import discord
 import requests
 from validator_collection import validators
 
-RESU = [1,2,3,4,5,6]
-
 class Embed:
     def __init__(self, bot):
         self.bot = bot
