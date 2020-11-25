@@ -35,8 +35,8 @@ class RobTheBank(commands.Cog):
     yestatus = f"<:dollarbag:778687019944771616> {ctx.author.name} successfully robbed the bank."
     nostatus = f"<:dollarbag:778687019944771616> {ctx.author.name} failed, dismally."
     currency = await bank.get_currency_name(ctx.guild)
-    deposit = await self.config.guild(settings["Deposit"])
-    fine = await self.config.guild(settings["Fine"])
+    deposit = await self.config.guild(ctx.guild).Deposit()
+    fine = await self.config.guild(ctx.guild).Fine()
     no = [
       f"Oh I caught you red handed there! **You have been fined {fine} {currency}.**",
       f"Get some good detective skills before trying to rob my bank! **You have been fined {fine} {currency}.**",
