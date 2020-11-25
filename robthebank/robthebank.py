@@ -5,7 +5,7 @@ from random import randint
 from discord.utils import get
 from redbot.core import commands, checks, bank, Config
 from redbot.core.utils.predicates import MessagePredicate
-from .rtbresources import Embed, RESU, UNSUCRESP, SUCRESP
+from .rtbresources import Embed
 
 class RobTheBank(commands.Cog):
   """Rob the bank, gain or get fined!"""
@@ -24,6 +24,17 @@ class RobTheBank(commands.Cog):
   async def red_delete_data_for_user(self, **kwargs):
       """Nothing to delete."""
       return
+
+UNSUCRESP = [
+    f"Oh I caught you red handed there! **You have been fined 400 {currency}.**",
+    f"Get some good detective skills before trying to rob my bank! **You have been fined 400 {currency}.**",
+    f"Oh, its you again... {ctx.author.name} is it? **You have been fined 400 {currency}.**"
+]
+SUCRESP = [
+    f":loudspeaker: Dispatch, we've lost the suspect. **You have kept 400 {currency} for yourself.**",
+    f"Looks like {ctx.author.name} made it out alive, somehow... **You have kept 400 {currency} for yourself.**",
+    f"We let you loose on purpose, we really did. **You have kept 400 {currency} for yourself.**"
+]
    
   @commands.command()
 #  @commands.cooldown(1, 300, commands.BucketType.user)
@@ -34,13 +45,12 @@ class RobTheBank(commands.Cog):
     numbersrand = random.choice(numbers)
     yestatus = f"{ctx.author.name} successfully robbed the bank."
     nostatus = f"{ctx.author.name} failed, dismally."
+    currency = await bank.get_currency_name(ctx.guild)
     if numbersrand > 4:
-      currency = await bank.get_currency_name(ctx.guild)
       title = nostatus
       description = random.choice(UNSUCRESP).format(currency)
       await bank.withdraw_credits(ctx.author, settings["Fine"])
     else:
-      currency = await bank.get_currency_name(ctx.guild)
       title = yestatus
       description = random.choice(SUCRESP).format(currency)
       await bank.deposit_credits(ctx.author, settings["Deposti"])
