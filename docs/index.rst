@@ -11,6 +11,7 @@ Demaratus Change Logs
 ==================
 * :ref:`v2.1`
 * :ref:`v2.1.1`
+* :ref:`v2.1.2`
 
 Cog Support
 ==================
