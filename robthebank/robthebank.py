@@ -37,17 +37,17 @@ class RobTheBank(commands.Cog):
     currency = await bank.get_currency_name(ctx.guild)
     deposit = await self.config.guild(ctx.guild).Deposit()
     fine = await self.config.guild(ctx.guild).Fine()
-    subt = f"{fine} {currency} has been withdrawn from your bank account."
-    incr = f"{deposit} {currency} has been depositted into your bank account."
+    subt = f"<:success:777167188816560168> {fine} {currency} has been withdrawn from your bank account."
+    incr = f"<:success:777167188816560168> {deposit} {currency} has been added into your bank account."
     no = [
-      f"Oh I caught you red handed there! **You have been fined {fine} {currency}. {subt}**",
-      f"Get some good detective skills before trying to rob my bank! **You have been fined {fine} {currency}. {subt}**",
-      f"Oh, its you again... {ctx.author.name} is it? **You have been fined {fine} {currency}. {subt}**"
+      f"Oh I caught you red handed there! **You have been fined {fine} {currency}.**\n\n {subt}",
+      f"Get some good detective skills before trying to rob my bank! **You have been fined {fine} {currency}.**\n\n {subt}",
+      f"Oh, its you again... {ctx.author.name} is it? **You have been fined {fine} {currency}.**\n\n {subt}"
     ]
     yes = [
-      f":loudspeaker: Dispatch, we've lost the suspect. **You have earnt yourself {deposit} {currency}! {incr}**",
-      f"Looks like {ctx.author.name} made it out alive, somehow... **You have earnt yourself {deposit} {currency}! {incr}**",
-      f"We let you loose on purpose, we really did. **You have earnt yourself {deposit} {currency}! {incr}**"
+      f":loudspeaker: Dispatch, we've lost the suspect. **You have earnt yourself {deposit} {currency}!**\n\n {incr}",
+      f"Looks like {ctx.author.name} made it out alive, somehow... **You have earnt yourself {deposit} {currency}!**\n\n {incr}",
+      f"We let you loose on purpose, we really did. **You have earnt yourself {deposit} {currency}!**\n\n {incr}"
     ]
     if numbersrand > 4:
       title = nostatus
@@ -99,15 +99,15 @@ class RobTheBank(commands.Cog):
     """Shows the current settings for RobTheBank."""
     fin = await self.config.guild(ctx.guild).Fine()
     deposi = await self.config.guild(ctx.guild).Deposit()
-    if fin and deposi == 400:
-      s = "Standard"
-    else:
-      s = "Customized"
+#    if fin and deposi == 400:
+#      s = "Standard"
+#    else:
+#      s = "Customized"
     embed = Embed.create(self, ctx, title=f"{ctx.guild.name} Settings",
                          description=(
                            f"Deposit: **{deposi}**\n"
                            f"Fine: **{fin}**\n"
-                           f"Settings: **{s}**"
+                           #f"Settings: **{s}**"
                          )
                         )
     await ctx.send(embed=embed)
