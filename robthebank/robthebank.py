@@ -40,14 +40,14 @@ class RobTheBank(commands.Cog):
     subt = f"<:success:777167188816560168> {fine} {currency} has been withdrawn from your bank account."
     incr = f"<:success:777167188816560168> {deposit} {currency} has been added into your bank account."
     no = [
-      f"Oh I caught you red handed there! **You have been fined {fine} {currency}.**\n\n {subt}",
-      f"Get some good detective skills before trying to rob my bank! **You have been fined {fine} {currency}.**\n\n {subt}",
-      f"Oh, its you again... {ctx.author.name} is it? **You have been fined {fine} {currency}.**\n\n {subt}"
+      f"Oh I caught you red handed there!\n **You have been fined {fine} {currency}.**\n\n {subt}",
+      f"Get some good detective skills before trying to rob my bank!\n **You have been fined {fine} {currency}.**\n\n {subt}",
+      f"Oh, its you again... {ctx.author.name} is it?\n **You have been fined {fine} {currency}.**\n\n {subt}"
     ]
     yes = [
-      f":loudspeaker: Dispatch, we've lost the suspect. **You have earnt yourself {deposit} {currency}!**\n\n {incr}",
-      f"Looks like {ctx.author.name} made it out alive, somehow... **You have earnt yourself {deposit} {currency}!**\n\n {incr}",
-      f"We let you loose on purpose, we really did. **You have earnt yourself {deposit} {currency}!**\n\n {incr}"
+      f":loudspeaker: Dispatch, we've lost the suspect.\n **You have earnt yourself {deposit} {currency}!**\n\n {incr}",
+      f"Looks like {ctx.author.name} made it out alive, somehow...\n **You have earnt yourself {deposit} {currency}!**\n\n {incr}",
+      f"We let you loose on purpose, we really did.\n **You have earnt yourself {deposit} {currency}!**\n\n {incr}"
     ]
     if numbersrand > 4:
       title = nostatus
