@@ -105,6 +105,9 @@ class RobTheBank(commands.Cog):
                            f"Fine: **{fin}**"
                          )
                         )
-    await ctx.send(embed=embed)
+    if fin and deposi == 400:
+      await ctx.send(embed=embed, f"It looks like your guild is using the default settings. Your mods can use `{ctx.clean_prefix}robset` to modify these settings!")
+    else:
+      await ctx.send(embed=embed)
       
       
