@@ -24,13 +24,13 @@ class RobTheBank(commands.Cog):
   async def red_delete_data_for_user(self, **kwargs):
       """Nothing to delete."""
       return
-
-UNSUCRESP = [
+    
+  UNSUCRESP = [
     f"Oh I caught you red handed there! **You have been fined 400 {currency}.**",
     f"Get some good detective skills before trying to rob my bank! **You have been fined 400 {currency}.**",
     f"Oh, its you again... {ctx.author.name} is it? **You have been fined 400 {currency}.**"
 ]
-SUCRESP = [
+  SUCRESP = [
     f":loudspeaker: Dispatch, we've lost the suspect. **You have kept 400 {currency} for yourself.**",
     f"Looks like {ctx.author.name} made it out alive, somehow... **You have kept 400 {currency} for yourself.**",
     f"We let you loose on purpose, we really did. **You have kept 400 {currency} for yourself.**"
