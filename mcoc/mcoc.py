@@ -13,7 +13,7 @@ log = logging.getLogger(name="red.demaratus.mcoc")
 class Mcoc(commands.Cog):
     """Fun Games and Tools for Marvel Contest of Champions."""
 
-    __version__ = "1.1.1"
+    __version__ = "1.3.1"
 
     def __init__(self, bot):
         self.bot = bot
@@ -27,19 +27,14 @@ class Mcoc(commands.Cog):
                 "3": {}
             }
         )
+        
+    async def red_delete_data_for_user(self, **kwargs):
+        """Nothing to delete."""
+        return
 
     @commands.group()
     async def support(self, ctx):
         """Cog support and information."""
-
-    @support.command(name="server", aliases=["ss", ])
-    async def supportserver(self, ctx):
-        """Support Server invite link."""
-        embed = Embed.create(
-            self, ctx, title="Support Server",
-            description=f"[You can join our support server here](https://discord.gg/JmCFyq7)"
-        )
-        await ctx.send(embed=embed)
 
     @support.command()
     async def version(self, ctx):
