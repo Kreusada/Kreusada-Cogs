@@ -30,6 +30,7 @@ class RobTheBank(commands.Cog):
   async def rob(self, ctx):
     """Attempt to rob the bank. Attempt."""
     settings = await self.config.guild(ctx.guild).all()
+    currency = await bank.get_currency_name(ctx.guild)
     numbers = [1,2,3,4,5,6]
     numbersrand = random.choice(numbers)
     yestatus = f"{ctx.author.name} successfully robbed the bank."
@@ -46,6 +47,7 @@ class RobTheBank(commands.Cog):
     await ctx.send(embed=data)
     
   @commands.group()
+  @checks.mod()
   async def robset(self, ctx):
     """Configurations for robbing the bank."""
     
