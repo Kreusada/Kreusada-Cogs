@@ -99,16 +99,17 @@ class RobTheBank(commands.Cog):
     """Shows the current settings for RobTheBank."""
     fin = await self.config.guild(ctx.guild).Fine()
     deposi = await self.config.guild(ctx.guild).Deposit()
+    if fin and deposi == 400:
+      s = "Standard"
+    else:
+      s = "Customized"
     embed = Embed.create(self, ctx, title=f"{ctx.guild.name} Settings",
                          description=(
                            f"Deposit: **{deposi}**\n"
                            f"Fine: **{fin}**"
+                           f"Settings: **{s}**"
                          )
                         )
-    if fin and deposi == 400:
-      await ctx.send(embed=embed)
-      await ctx.send(f"It looks like your guild is using the default settings. Your mods can use `{ctx.clean_prefix}robset` to modify these settings!")
-    else:
       await ctx.send(embed=embed)
       
       
