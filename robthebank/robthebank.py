@@ -34,11 +34,11 @@ class RobTheBank(commands.Cog):
     numbersrand = random.choice(numbers)
     yestatus = f"<:dollarbag:778687019944771616> {ctx.author.name} successfully robbed the bank."
     nostatus = f"<:dollarbag:778687019944771616> {ctx.author.name} failed, dismally."
-    subt = f"{fine} {currency} has been withdrawn from your bank account."
-    incr = f"{deposit} {currency} has been depositted into your bank account."
     currency = await bank.get_currency_name(ctx.guild)
     deposit = await self.config.guild(ctx.guild).Deposit()
     fine = await self.config.guild(ctx.guild).Fine()
+    subt = f"{fine} {currency} has been withdrawn from your bank account."
+    incr = f"{deposit} {currency} has been depositted into your bank account."
     no = [
       f"Oh I caught you red handed there! **You have been fined {fine} {currency}. {subt}**",
       f"Get some good detective skills before trying to rob my bank! **You have been fined {fine} {currency}. {subt}**",
