@@ -101,8 +101,8 @@ class RobTheBank(commands.Cog):
     deposi = await self.config.guild(ctx.guild).Deposit()
     embed = Embed.create(self, ctx, title=f"{ctx.guild.name} Settings",
                          description=(
-                           f"Deposit amount: {deposi}"
-                           f"Fine amount: {fin}"
+                           f"Deposit: **{deposi}**\n"
+                           f"Fine: **{fin}**"
                          )
                         )
     await ctx.send(embed=embed)
