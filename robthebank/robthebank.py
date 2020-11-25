@@ -32,8 +32,8 @@ class RobTheBank(commands.Cog):
     settings = await self.config.guild(ctx.guild).all()
     numbers = [1,2,3,4,5,6]
     numbersrand = random.choice(numbers)
-    yestatus = f"{ctx.author.name} successfully robbed the bank."
-    nostatus = f"{ctx.author.name} failed, dismally."
+    yestatus = f"<:dollarbag:778687019944771616> {ctx.author.name} successfully robbed the bank."
+    nostatus = f"<:dollarbag:778687019944771616> {ctx.author.name} failed, dismally."
     currency = await bank.get_currency_name(ctx.guild)
     no = [
       f"Oh I caught you red handed there! **You have been fined 400 {currency}.**",
