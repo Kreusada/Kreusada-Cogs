@@ -110,6 +110,6 @@ class RobTheBank(commands.Cog):
                            f"Settings: **{s}**"
                          )
                         )
-      await ctx.send(embed=embed)
+    await ctx.send(embed=embed)
       
       
