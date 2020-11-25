@@ -28,9 +28,4 @@ class Embed:
             else:
                 print('Image URL Failure, code {}'.format(code))
                 print('Attempted URL:\n{}'.format(image))
-        if footer_text is None:
-            footer_text = "Demaratus | Higher or Lower"
-        if footer_url is None:
-            footer_url = DEMARATUS
-        data.set_footer(text=footer_text, icon_url=footer_url)
         return data
