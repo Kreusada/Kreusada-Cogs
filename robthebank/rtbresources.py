@@ -2,18 +2,6 @@ import discord
 import requests
 from validator_collection import validators
 
-currency = await bank.get_currency_name(ctx.guild)
-
-UNSUCRESP = [
-    f"Oh I caught you red handed there! **You have been fined 400 {}.**",
-    f"Get some good detective skills before trying to rob my bank! **You have been fined 400 {}.**",
-    f"Oh, its you again... {ctx.author.name} is it? **You have been fined 400 {}.**"
-]
-SUCRESP = [
-    f":loudspeaker: Dispatch, we've lost the suspect. **You have kept 400 {} for yourself.**",
-    f"Looks like {ctx.author.name} made it out alive, somehow... **You have kept 400 {} for yourself.**",
-    f"We let you loose on purpose, we really did. **You have kept 400 {} for yourself.**"
-]
 RESU = [1,2,3,4,5,6]
 
 class Embed:
