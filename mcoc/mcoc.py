@@ -36,7 +36,7 @@ class Mcoc(commands.Cog):
     async def mcocsupport(self, ctx):
         """Cog support and information."""
 
-    @support.command()
+    @mcocsupport.command()
     async def version(self, ctx):
         """Version of the mcoc cog"""
         embed = Embed.create(
