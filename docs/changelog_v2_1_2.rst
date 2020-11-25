@@ -12,6 +12,7 @@ Changelog Summary
 -----------------
 
 Demaratus 2.1.2 includes, along with a few major bug patches, the addition of twitter feeds, and a new cog called RobTheBank.
+
 Changelog
 ---------
 
