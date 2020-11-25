@@ -106,7 +106,7 @@ class RobTheBank(commands.Cog):
     embed = Embed.create(self, ctx, title=f"{ctx.guild.name} Settings",
                          description=(
                            f"Deposit: **{deposi}**\n"
-                           f"Fine: **{fin}**"
+                           f"Fine: **{fin}**\n"
                            f"Settings: **{s}**"
                          )
                         )
