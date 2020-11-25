@@ -4,6 +4,13 @@ from redbot.core import commands, checks, Config
 class Edition(commands.Cog):
    """Become an edition of someone!"""
    
+   def __init__(self)
+   self.config = Config.get_conf(
+      self, 200730042020, force_registration=True)
+   self.config.register_guild(
+      edition=None
+   )
+   
    @commands.command()
    async def editionset(self, ctx, user: str):
       """Who is your 'edition' guy?"""
@@ -16,14 +23,15 @@ class Edition(commands.Cog):
       if name is None: 
          await ctx.author.edit(nick=ctx.author.name) 
          return await ctx.send("Your nickname was reset.")
-      user = ctx.author
-      before = ctx.author.name
-      after = name
-      editioner = await self.config.guild(ctx.guild).get_raw(edition)
-      tag = "{} - {0} Edition".format(editioner, after)
-      try: 
-         await user.edit(nick=tag)
-      except discord.Forbidden: 
-         await ctx.send("Your nickname could not be changed, I don't have permissions or you are higher than me in the role heirarchy.")
+      if edition is not None:
+         user = ctx.author
+         before = ctx.author.name
+         after = name
+         editioner = await self.config.guild(ctx.guild).get_raw(edition)
+         tag = "{} - {0} Edition".format(editioner, after)
+         try: 
+            await user.edit(nick=tag)
+         except discord.Forbidden: 
+              await ctx.send("Your nickname could not be changed, I don't have permissions or you are higher than me in the role heirarchy.")
       
-      await ctx.send(f"You are now an Edition of Kreusada. Your nickname was successfully changed to: ``{tag}``.")
+         await ctx.send(f"You are now an Edition of Kreusada. Your nickname was successfully changed to: ``{tag}``.")
