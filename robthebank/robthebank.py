@@ -94,5 +94,17 @@ class RobTheBank(commands.Cog):
     currency = await bank.get_currency_name(ctx.guild)
     await ctx.send(f"Fines will now withdraw **{amount} {currency}.**")
     
+  @robset.command()
+  async def showsettings(self, ctx):
+    """Shows the current settings for RobTheBank."""
+    fin = await self.config.guild(ctx.guild).Fine()
+    deposi = await self.config.guild(ctx.guild).Deposit()
+    embed = Embed.create(self, ctx, title=f"{ctx.guild.name} Settings",
+                         description=(
+                           f"Deposit amount: {deposi}"
+                           f"Fine amount: {fin}"
+                         )
+                        )
+    await ctx.send(embed=embed)
       
       
