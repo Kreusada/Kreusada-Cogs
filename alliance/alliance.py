@@ -18,6 +18,10 @@ class Alliance(commands.Cog):
             role=None,
             channel=None
         )
+   
+    async def red_delete_data_for_user(self, **kwargs):
+        """Nothing to delete."""
+        return
 
     @commands.command()
     async def timezone(self, ctx, *, timezone: str = None):
