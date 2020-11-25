@@ -32,13 +32,14 @@ class RobTheBank(commands.Cog):
     settings = await self.config.guild(ctx.guild).all()
     numbers = [1,2,3,4,5,6]
     numbersrand = random.choice(numbers)
-    status = f"{ctx.author.name} attempted to rob the bank..."
+    yestatus = f"{ctx.author.name} successfully robbed the bank."
+    nostatus = f"{ctx.author.name} failed, dismally."
     if numbersrand > 4:
-      title = status
+      title = nostatus
       description = random.choice(UNSUCRESP)
       await bank.withdraw_credits(ctx.author, settings["Fine"])
     else:
-      title = status
+      title = yestatus
       description = random.choice(SUCRESP)
       await bank.deposit_credits(ctx.author, settings["Deposti"])
     data = Embed.create(self, ctx, title=title, description=description)
