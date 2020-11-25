@@ -67,7 +67,7 @@ class RobTheBank(commands.Cog):
     if amount < 0:
       return await ctx.send("You wouldn't be robbing a bank if you didn't get any money!\n"
                             "Please enter a number equal to or greater than `1`.")
-    await self.config.guild(ctx.guild).Deposti.set(amount)
+    await self.config.guild(ctx.guild).Deposit.set(amount)
     currency = await bank.get_currency_name(ctx.guild)
     await ctx.send(f"Deposits will now distribute **{amount} {currency}.**")
 
