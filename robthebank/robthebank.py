@@ -26,7 +26,7 @@ class RobTheBank(commands.Cog):
       return
    
   @commands.command()
-#  @commands.cooldown(1, 300, commands.BucketType.user)
+  @commands.cooldown(1, 300, commands.BucketType.user)
   async def rob(self, ctx):
     """Attempt to rob the bank. Attempt."""
     settings = await self.config.guild(ctx.guild).all()
