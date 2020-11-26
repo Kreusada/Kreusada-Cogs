@@ -41,7 +41,7 @@ class Gifts(commands.Cog):
         data.set_image(url=image)
         await ctx.send(embed=data)
     
-    @commands.command(aliases: ["c"])
+    @commands.command(aliases=["c"])
     async def collection(self, ctx):
         try:
             collection: dict = await self.config.user(ctx.author).collection.get_raw()
