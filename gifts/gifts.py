@@ -42,7 +42,7 @@ class Gifts(commands.Cog):
         await ctx.send(embed=data)
     
     @commands.command(aliases=["c"])
-    async def collection(self, ctx, prez: str = None):
+    async def collection(self, ctx):
         try:
             collection: dict = await self.config.user(ctx.author).collection.get_raw()
         except KeyError:
@@ -52,7 +52,7 @@ class Gifts(commands.Cog):
                 ["{} | {}".format(gift.capitalize(), value) for gift, value in collection.items()]
             )
             embed = discord.Embed(
-                title="f{ctx.author.name}'s Collection", color=ctx.author.color, description=random.choice(COLLS)
+                title=f"{ctx.author.name}'s Collection", color=ctx.author.color, description=random.choice(COLLS)
             )
             embed.add_field(name="Your Collection", value=collection)
         else:
