@@ -69,7 +69,7 @@ class Gifts(commands.Cog):
     async def g_logistics(self, ctx: commands.Context, gift: str, collection: dict) -> None:
         try:
             addon = 1
-        else:
+        except KeyError:
             addon = 0
         try:
             collection[gift] += addon
