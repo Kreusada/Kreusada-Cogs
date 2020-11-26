@@ -99,15 +99,15 @@ class RobTheBank(commands.Cog):
     """Shows the current settings for RobTheBank."""
     fin = await self.config.guild(ctx.guild).Fine()
     deposi = await self.config.guild(ctx.guild).Deposit()
-#    if fin and deposi == 400:
-#      s = "Standard"
-#    else:
-#      s = "Customized"
+    if fin == 400 and if deposi == 400:
+      s = "Standard"
+    else:
+      s = "Customized"
     embed = Embed.create(self, ctx, title=f"{ctx.guild.name} Settings",
                          description=(
                            f"Deposit: **{deposi}**\n"
                            f"Fine: **{fin}**\n"
-                           #f"Settings: **{s}**"
+                           #"Settings: **{s}**"
                          )
                         )
     await ctx.send(embed=embed)
