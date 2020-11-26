@@ -17,11 +17,6 @@ class Gifts(commands.Cog):
         self.bot = bot
         self.config = Config.get_conf(
             self, identifier=153607829, force_registration=True)
-        self.config.register_user(
-            collection ={
-                "prez": {}
-            }
-        )
         
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete."""
