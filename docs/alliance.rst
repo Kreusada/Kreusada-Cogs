@@ -14,7 +14,7 @@ The ``alliance`` cog is used to alert movement for your fellow alliancemates, as
 Alliance Setup
 ^^^^^^^^^^^^^^
 
-In `2.1.1<https://kreusadacogs.readthedocs.io/en/latest/changelog_v2_1_1.html#v2-1-1>`_, we have changed how ``alertset`` works. Now, settings roles and channels is **not** compulsory.
+In `2.1.1 <https://kreusadacogs.readthedocs.io/en/latest/changelog_v2_1_1.html#v2-1-1>`_, we have changed how ``alertset`` works. Now, settings roles and channels is **not** compulsory.
 
 **Setting your alliance role**
 
