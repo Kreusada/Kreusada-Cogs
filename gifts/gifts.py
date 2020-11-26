@@ -17,11 +17,7 @@ class Gifts(commands.Cog):
         self.bot = bot
         self.config = Config.get_conf(
             self, identifier=153607829, force_registration=True)
-        self.config.register_user(
-        )
-        self.config.register_user(
-            collectables={}
-        )
+        self.config.register_user("prez": {})
         
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete."""
@@ -42,7 +38,9 @@ class Gifts(commands.Cog):
         await ctx.send(embed=data)
     
     @commands.command(aliases=["c"])
-    async def collection(self, ctx):
+    async def collection(self, ctx, prez: str = None):
+        if prez is None:
+            prez = "prez"
         try:
             collection: dict = await self.config.user(ctx.author).collection.get_raw()
         except KeyError:
@@ -55,14 +53,14 @@ class Gifts(commands.Cog):
                 title="{ctx.author.name}'s Collection", color=ctx.author.color, description="Testing"
             )
             embed.add_field(name=random.choice(COLLS).format(value=roster)
-                            else:
-                                embed = discord.Embed(
-                                    title=random.choice(COLLN), color=ctx.author.color, description=(
-                                        "It appears that you haven't opened any gifts yet.\n"
-                                        "Collect some using `{ctx.clean_prefix}gift`!".
-                                     )
-                                  )
-                            await ctx.send(embed=embed)
+        else:
+            embed = discord.Embed(
+                title=random.choice(COLLN), color=ctx.author.color, description=(
+                    "It appears that you haven't opened any gifts yet.\n"
+                    "Collect some using `{ctx.clean_prefix}gift`!".
+                 )
+              )
+        await ctx.send(embed=embed)
 
     async def g_logistics(self, ctx: commands.Context, gift: str, collection: dict) -> None:
         int = int
