@@ -14,7 +14,7 @@ FEATUREDS = {
     "annihilus": "https://media.discordapp.net/attachments/745608075670585344/768766792050147348/Annihilus_featured.png",
     "antman": "https://media.discordapp.net/attachments/745608075670585344/768766789223972944/Ant-Man_featured.png",
     "apocalypse": "https://media.discordapp.net/attachments/763066391107862550/777109367719329823/gachachaseprize_256x256_apocalypse.png",
-    "aa": "https://media.discordapp.net/attachments/745608075670585344/768766799859941396/Archangel_featured.png",
+    "archangel": "https://media.discordapp.net/attachments/745608075670585344/768766799859941396/Archangel_featured.png",
     "beast": "https://media.discordapp.net/attachments/745608075670585344/768766795615436800/Beast_featured.png",
     "bishop": "https://media.discordapp.net/attachments/745608075670585344/768766827744460840/Bishop_featured.png",
     "black bolt": "https://media.discordapp.net/attachments/745608075670585344/768766800237953055/Black_Bolt_featured.png",
