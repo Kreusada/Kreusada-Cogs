@@ -52,13 +52,13 @@ class Gifts(commands.Cog):
                 title="{ctx.author.name}'s Collection", color=ctx.author.color, description="Testing"
             )
             embed.add_field(name=random.choice(COLLS).format(value=roster)
-        else:
-            embed = discord.Embed(
-                title=random.choice(COLLN), color=ctx.author.color, description=(
-                    "It appears that you haven't opened any gifts yet.\n"
-                    "Collect some using `{ctx.clean_prefix}gift`!".
-                    )
-                )
+                            else:
+                                embed = discord.Embed(
+                                    title=random.choice(COLLN), color=ctx.author.color, description=(
+                                        "It appears that you haven't opened any gifts yet.\n"
+                                        "Collect some using `{ctx.clean_prefix}gift`!".
+                                     )
+                                  )
                             await ctx.send(embed=embed)
 
     async def g_logistics(self, ctx: commands.Context, gift: str, collection: dict) -> None:
