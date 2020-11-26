@@ -1,8 +1,8 @@
 .. _staff:
 
-==================
-Alerting the Staff
-==================
+=====
+Staff
+=====
 
 ^^^^^^^^^^^
 How it works
