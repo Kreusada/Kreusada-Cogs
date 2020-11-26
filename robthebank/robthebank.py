@@ -107,7 +107,7 @@ class RobTheBank(commands.Cog):
                          description=(
                            f"Deposit: **{deposi}**\n"
                            f"Fine: **{fin}**\n"
-                           "Settings: **{s}**"
+                           f"Settings: **{s}**"
                          )
                         )
     await ctx.send(embed=embed)
