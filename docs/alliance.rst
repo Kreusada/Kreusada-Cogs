@@ -1,4 +1,4 @@
-.. _alliance::
+.. _alliance:
 
 ========
 Alliance
