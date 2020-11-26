@@ -43,20 +43,18 @@ class Gifts(commands.Cog):
     
     @commands.command(aliases=["c"])
     async def collection(self, ctx, prez: str = None):
-        if prez is None:
-            prez = "prez"
         try:
             collection: dict = await self.config.user(ctx.author).collection.get_raw()
         except KeyError:
             collection: dict = await self.config.user(ctx.author).collection.get_raw()
         if len(collection.values()) > 0:
             collection = "\n".join(
-                ["{} | {}".format(gift, value) for gift, value in collection.items()]
+                ["{} | {}".format(gift.capitalize(), value) for gift, value in collection.items()]
             )
             embed = discord.Embed(
-                title="{ctx.author.name}'s Collection", color=ctx.author.color, description="Testing"
+                title="f{ctx.author.name}'s Collection", color=ctx.author.color, description=random.choice(COLLS)
             )
-            embed.add_field(name=random.choice(COLLS), value=collection)
+            embed.add_field(name="Your Collection", value=collection)
         else:
             embed = discord.Embed(
                 title=random.choice(COLLN), color=ctx.author.color, description=(
