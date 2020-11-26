@@ -56,7 +56,7 @@ class Gifts(commands.Cog):
             embed = discord.Embed(
                 title="{ctx.author.name}'s Collection", color=ctx.author.color, description="Testing"
             )
-            embed.add_field(name=random.choice(COLLS).format(value=collection))
+            embed.add_field(name=random.choice(COLLS), value=collection)
         else:
             embed = discord.Embed(
                 title=random.choice(COLLN), color=ctx.author.color, description=(
