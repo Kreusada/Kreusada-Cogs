@@ -42,6 +42,6 @@ COLLN = [
 ]
 
 GIFTS = {
-  "sock": "https://lh3.googleusercontent.com/proxy/LE92TgJSMnQoLad6P0q20KGR0hZf9Ouo6VCOGwNPn5OkJdWQESBe943oRsQzVBUs-C-l34wJLkSBFfzZmlI3s2POJN8U7B3CnE3DXSAikGWKihuKEi5d",
-  "cookie": "https://assets.stickpng.com/images/580b57fbd9996e24bc43c0fc.png"
+  "a sock": "https://lh3.googleusercontent.com/proxy/LE92TgJSMnQoLad6P0q20KGR0hZf9Ouo6VCOGwNPn5OkJdWQESBe943oRsQzVBUs-C-l34wJLkSBFfzZmlI3s2POJN8U7B3CnE3DXSAikGWKihuKEi5d",
+  "a cookie": "https://assets.stickpng.com/images/580b57fbd9996e24bc43c0fc.png"
 }
