@@ -43,8 +43,7 @@ class Gifts(commands.Cog):
     
     @commands.command(aliases=["c"])
     async def collection(self, ctx):
-        try:
-            collection: dict = await self.config.user(ctx.author).collection.get_raw()
+        collection: dict = await self.config.user(ctx.author).collection.get_raw()
         if len(collection.values()) > 0:
             collection = "\n".join(
                 ["{} | {}".format(gift, value) for gift, value in collection.items()]
