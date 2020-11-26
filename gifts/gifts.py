@@ -4,10 +4,10 @@ import random
 import discord
 import asyncio
 import logging
-from .embed import Embed
 from discord.utils import get
 from redbot.core.utils import menus
 from redbot.core import commands, Config, bank, checks
+from .gdicts import COLLS, COLLN, GIFTS, Embed
 
 log = logging.getLogger('red.kreusada.gifts')
 log.setLevel(logging.INFO)
