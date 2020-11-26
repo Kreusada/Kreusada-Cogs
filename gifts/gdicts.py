@@ -31,13 +31,13 @@ class Embed:
 
 COLLS = [
   "Wow, look at all these beautiful gifts!",
-  "Consider yourself lucky, {}!".format(author.name),
+  "Consider yourself lucky!"
   "These are your gifts? May I have some? :pleading_face:"
 ]
 
 COLLN = [
   "Oh no! No gifts?! This is a tragedy.",
-  "Get yourself some free gifts {}!".format(author.name),
+  "Get yourself some free gifts!"
   "This is not a nice vibe. Where are those gifts!"
 ]
 
