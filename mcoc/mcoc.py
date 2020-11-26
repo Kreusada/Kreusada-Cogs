@@ -93,12 +93,7 @@ class Mcoc(commands.Cog):
                     )
                 )
             )
-        msg = await ctx.send(embed=embed)
-        control = menus.DEFAULT_CONTROLS if len(embeds) > 1 else {
-            "\N{CROSS MARK}": menus.close_menu
-        }
-        asyncio.create_task(menus.menu(ctx, embeds, control, message=msg))
-        menus.start_adding_reactions(msg, control.keys())
+        await ctx.send(embed=embed)
 
     @roster.command(name="4")
     async def four(self, ctx, star: str = None):
