@@ -21,6 +21,7 @@ class Gifts(commands.Cog):
             collection ={
                 "prez": {}
             }
+        )
         
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete."""
