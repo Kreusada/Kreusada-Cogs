@@ -67,9 +67,10 @@ class Gifts(commands.Cog):
         await ctx.send(embed=embed)
 
     async def g_logistics(self, ctx: commands.Context, gift: str, collection: dict) -> None:
-        int = int
         try:
             addon = 1
+        else:
+            addon = 0
         try:
             collection[gift] += addon
         except KeyError:
