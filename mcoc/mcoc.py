@@ -77,7 +77,7 @@ class Mcoc(commands.Cog):
             roster: dict = await self.config.user(ctx.author).roster.get_raw("5")
         if len(roster.values()) > 0:
             roster = "\n".join(
-                ["{} s{}".format(key, value) for key, value in roster.items()]
+                ["{} s{}".format(key.title(), value) for key, value in roster.items()]
             )
             embed = discord.Embed(
                 title="Crystal Roster: {} Star".format(star), color=ctx.author.color, description=":star::star::star::star::star:"
@@ -107,7 +107,7 @@ class Mcoc(commands.Cog):
             roster: dict = await self.config.user(ctx.author).roster.get_raw("4")
         if len(roster.values()) > 0:
             roster = "\n".join(
-                ["{} s{}".format(key, value) for key, value in roster.items()]
+                ["{} s{}".format(key.title(), value) for key, value in roster.items()]
             )
             embed = discord.Embed(
                 title="Crystal Roster: {} Star".format(star), color=ctx.author.color, description=":star::star::star::star:"
