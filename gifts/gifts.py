@@ -61,7 +61,7 @@ class Gifts(commands.Cog):
             embed = discord.Embed(
                 title=random.choice(COLLN), color=ctx.author.color, description=(
                     "It appears that you haven't opened any gifts yet.\n"
-                    "Collect some using `{ctx.clean_prefix}gift`!".
+                    "Collect some using `{ctx.clean_prefix}gift`!"
                  )
               )
         await ctx.send(embed=embed)
