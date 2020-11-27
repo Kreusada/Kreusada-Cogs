@@ -11,6 +11,7 @@ class Mjolnir(commands.Cog):
   }
   
   def __init__(self):
+    self.bot = bot
     self.config = Config.get_conf(self, 200730042020, force_registration=True)
     self.config.register_guild(**self.defaults)
     
