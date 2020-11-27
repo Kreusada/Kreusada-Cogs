@@ -61,7 +61,7 @@ class RobTheBank(commands.Cog):
     await ctx.send(embed=data)
     
   @commands.group()
-  @commands.has_permissions(**administrator)
+  @checks.mod()
   async def robset(self, ctx):
     """Configurations for robbing the bank."""
     
