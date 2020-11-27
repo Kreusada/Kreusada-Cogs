@@ -48,6 +48,7 @@ class Mjolnir(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.group()
+    @commands.has_permissions(**administrator)
     async def liftset(self, ctx):
         """Mjolnir configuration."""
 
