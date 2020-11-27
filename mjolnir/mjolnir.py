@@ -56,5 +56,7 @@ class Mjolnir(commands.Cog):
     try:
       await self.config.guild(ctx.guild).set_raw("role", value=role.id)
       await ctx.send(f"{role.mention} will now be granted for those who lift Thor's hammer. :hammer:.")
+    except discord.Forbidden:
+      await ctx.send("Hmm, I couldn't do that. Perhaps check my permissions?")
       
 
