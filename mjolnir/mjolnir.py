@@ -1,7 +1,7 @@
 import discord
 import random
 from redbot.core import commands, checks, Config, bank
-from mjolnirutils import lifted, failed
+from .mjolnirutils import lifted, failed
 
 class Mjolnir(commands.Cog):
   """Try and lift Thor's hammer!"""
@@ -28,12 +28,12 @@ class Mjolnir(commands.Cog):
     trylift_chance = round(random.uniform(0, 100), 2)
     if trylift_chance < 0.03:
       user = bot.get_user(ctx.author.id)
+      embed = Embed.create(self, ctx, title=f"{ctx.author.name} LIFTED THE HAMMER! :hammer::zap:", description=lifted)
       await user.send(f"**{bank} {currency} was added to your bank account in {ctx.guild.name}.")
-      await ctx.send(lifted)
       await bank.deposit_credits(ctx.author, settings["bank"])
       await member.add_roles(settings["role"])
     else:
-      await ctx.send(random.choice(failed))
+      embed = Embed.create(self, ctx, title=f"{ctx.author.name} attempted to lift the hammer. :hammer::zap:", description=random.choice(failed))
       
   @commands.group()
   async def liftset(self, ctx):
