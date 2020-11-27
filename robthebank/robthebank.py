@@ -99,7 +99,7 @@ class RobTheBank(commands.Cog):
     """Shows the current settings for RobTheBank."""
     fin = await self.config.guild(ctx.guild).Fine()
     deposi = await self.config.guild(ctx.guild).Deposit()
-    if fin and deposi == 400:
+    if fin == 400 and deposi == 400:
       s = "Standard"
     else:
       s = "Customized"
