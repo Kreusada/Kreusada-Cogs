@@ -25,13 +25,13 @@ class Mjolnir(commands.Cog):
     """Try and lift Thor's hammer!"""
     settings = await self.config.guild(ctx.guild).all()
     currency = await bank.get_currency_name(ctx.guild)
-    role = await self.config.guild(ctx.guild).role()
-    bank = await self.config.guild(ctx.guild).bank()
+    roler = await self.config.guild(ctx.guild).role()
+    bankr = await self.config.guild(ctx.guild).bank()
     trylift_chance = round(random.uniform(0, 100), 2)
     if trylift_chance < 0.03:
       user = bot.get_user(ctx.author.id)
       embed = Embed.create(self, ctx, title=f"{ctx.author.name} LIFTED THE HAMMER! :hammer::zap:", description=lifted)
-      await user.send(f"**{bank} {currency} was added to your bank account in {ctx.guild.name}.")
+      await user.send(f"**{bankr} {currency} was added to your bank account in {ctx.guild.name}.")
       await bank.deposit_credits(ctx.author, settings["bank"])
       await member.add_roles(settings["role"])
       await ctx.send(embed=embed)
