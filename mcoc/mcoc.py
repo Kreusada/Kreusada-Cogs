@@ -46,7 +46,7 @@ class Mcoc(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
-#    @commands.cooldown(1, 60, commands.BucketType.user)
+    @commands.cooldown(1, 60, commands.BucketType.user)
     async def crystal(self, ctx):
         """Chooses a random champion."""
         star = random.choice(['3', '4', '5'])
