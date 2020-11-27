@@ -1,0 +1,5 @@
+{
+    "author": ["Kreusada"],
+    "description": "Try to lift Thor's hammer!",
+    "install_msg": f"Thanks for installing `mjolnir`! Use `{ctx.clean_prefix}help Mjolnir` to get started!"    
+}
