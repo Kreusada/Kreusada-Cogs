@@ -6,5 +6,4 @@ __red_end_user_data_statement__ = (
 
 
 def setup(bot):
-    cog = Mjolnir(bot)
-    bot.add_cog(cog)
+    bot.add_cog(Mjolnir)
