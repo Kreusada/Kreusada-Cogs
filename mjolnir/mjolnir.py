@@ -48,6 +48,7 @@ class Mjolnir(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.group()
+    @checks.mod()
     async def liftset(self, ctx):
         """Mjolnir configuration."""
 

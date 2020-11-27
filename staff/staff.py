@@ -4,10 +4,11 @@ from datetime import datetime
 from redbot.core import commands, checks, Config, modlog
 from .staffembed import Embed
 
+
 class Staff(commands.Cog):
     """Cog for alerting Staff."""
 
-    def __init__(self,bot):
+    def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(
             self, 200730042020, force_registration=True)
@@ -16,7 +17,7 @@ class Staff(commands.Cog):
             "channel": None
         }
         self.config.register_guild(**default_guild)
-        
+
     @commands.group()
     async def staffset(self, ctx):
         """Staff notifier configuration."""
@@ -26,7 +27,7 @@ class Staff(commands.Cog):
     async def channel(self, ctx, channel: discord.TextChannel):
         """Sets the channel for staff to receive notifications."""
         await self.config.guild(ctx.guild).set_raw("channel", value=channel.id)
-        embed =Embed.create(
+        embed = Embed.create(
             self, ctx, title="Successful <:success:777167188816560168>",
             description=f"{channel.mention} will now receive notifications from users to notify the staff."
         )
@@ -51,15 +52,15 @@ class Staff(commands.Cog):
             await ctx.send(embed=embed)
 
     @commands.command()
-    #@commands.cooldown(1, 600, commands.BucketType.user)
+    # @commands.cooldown(1, 600, commands.BucketType.user)
     async def staff(self, ctx):
         """Notifies the staff."""
         embed = Embed.create(
             self, ctx, title='<:alert:777928824670388254> The Staff have been notified.',
-            description = (
+            description=(
                 "Please keep your cool, and if required, try to disperse the situation. "
                 "A member of our Staff team will be with you as soon as possible."
-                )
+            )
         )
         await ctx.send(embed=embed)
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
