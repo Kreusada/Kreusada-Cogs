@@ -18,7 +18,8 @@ class Mjolnir(commands.Cog):
     """Nothing to delete."""
     return
   
-  @commands.command(1, 300, commands.BucketType.user)
+  @commands.command()
+  @commands.cooldown(1, 300, commands.BucketType.user)
   async def trylift(self, ctx):
     """Try and lift Thor's hammer!"""
     settings = await self.config.guild(ctx.guild).all()
