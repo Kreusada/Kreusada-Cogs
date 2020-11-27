@@ -45,7 +45,7 @@ class Mjolnir(commands.Cog):
     """Mjolnir configuration."""
     
   @liftset.command()
-  async def bank(self, ctx):
+  async def bank(self, ctx, amount: int):
     """Decides whether users win currency from lifting mjolnir. Defaults to 0."""
     currency = await bank.get_currency_name(ctx.guild)
     if amount <= 0:
