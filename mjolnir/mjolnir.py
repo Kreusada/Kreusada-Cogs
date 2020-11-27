@@ -2,6 +2,7 @@ import discord
 import random
 from redbot.core import commands, checks, Config, bank
 from .mjolnirutils import lifted, failed
+from .mjolnirembed import Embed
 
 class Mjolnir(commands.Cog):
   """Try and lift Thor's hammer!"""
