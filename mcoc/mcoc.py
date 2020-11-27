@@ -166,18 +166,18 @@ class Mcoc(commands.Cog):
     @reset.command(name="roster3")
     async def _roster3(self, ctx):
         """Reset your 3 star roster."""
-        roster = await self.config.guild(ctx.guild).get_raw("3")
-        if roster is not None:
-            await self.removal(ctx, roster)
+        r3 = await self.config.guild(ctx.guild).get_raw("3")
+        if r3 is not None:
+            await self.removal(ctx, r3)
         else:
             await ctx.send("You don't have any 3 star champions in your roster!")
 
     @reset.command(name="roster4")
     async def _roster4(self, ctx):
         """Reset your 4 star roster."""
-        roster = await self.config.guild(ctx.guild).get_raw("4")
-        if roster is not None:
-            await self.removal(ctx, roster)
+        r4 = await self.config.guild(ctx.guild).get_raw("4")
+        if r4 is not None:
+            await self.removal(ctx, r4)
         else:
             await ctx.send("You don't have any 4 star champions in your roster!")
 
@@ -185,9 +185,9 @@ class Mcoc(commands.Cog):
     @reset.command(name="roster5")
     async def _roster5(self, ctx):
         """Reset your 5 star roster."""
-        roster = await self.config.guild(ctx.guild).get_raw("5")
-        if roster is not None:
-            await self.removal(ctx, roster)
+        r5 = await self.config.guild(ctx.guild).get_raw("5")
+        if r5 is not None:
+            await self.removal(ctx, r5)
         else:
             await ctx.send("You don't have any 5 star champions in your roster!")
         
