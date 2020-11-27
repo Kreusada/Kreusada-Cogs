@@ -55,6 +55,6 @@ class Mjolnir(commands.Cog):
     """Decides whether users win currency from lifting mjolnir."""
     try:
       await self.config.guild(ctx.guild).set_raw("role", value=role.id)
-      await ctx.send(f"{role.mention} will now be granted for those who lift Thor's hammer. :hammer:.
+      await ctx.send(f"{role.mention} will now be granted for those who lift Thor's hammer. :hammer:.")
       
 
