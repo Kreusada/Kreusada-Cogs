@@ -154,6 +154,43 @@ class Mcoc(commands.Cog):
                 )
             )
         await ctx.send(embed=embed)
+     
+    @commands.group()
+    async def rosterset(self, ctx):
+        """Additional roster configuration."""
+        
+    @rosterset.group()
+    async def reset(self, ctx):
+        """Reset your roster."""
+    
+    @reset.command(name="roster3")
+    async def _roster3(self, ctx):
+        """Reset your 3 star roster."""
+        roster = await self.config.guild(ctx.guild).get_raw("3")
+        if roster is not None:
+            await self.removal(ctx, roster)
+        else:
+            await ctx.send("You don't have any 3 star champions in your roster!")
+
+    @reset.command(name="roster4")
+    async def _roster4(self, ctx):
+        """Reset your 4 star roster."""
+        roster = await self.config.guild(ctx.guild).get_raw("4")
+        if roster is not None:
+            await self.removal(ctx, roster)
+        else:
+            await ctx.send("You don't have any 4 star champions in your roster!")
+
+
+    @reset.command(name="roster5")
+    async def _roster5(self, ctx):
+        """Reset your 5 star roster."""
+        roster = await self.config.guild(ctx.guild).get_raw("5")
+        if roster is not None:
+            await self.removal(ctx, roster)
+        else:
+            await ctx.send("You don't have any 5 star champions in your roster!")
+        
 
     @commands.group()
     async def battlechip(self, ctx):
@@ -337,3 +374,33 @@ class Mcoc(commands.Cog):
                 image=tiers[tier][group_num]
             )
             await ctx.send(embed=embed)
+
+    async def removal(self, ctx: commands.Context, action: str):
+        message = "Would you like to reset the {}?".format(action)
+        can_react = ctx.channel.permissions_for(ctx.me).add_reactions
+        if not can_react:
+            message += " (y/n)"
+        question: discord.Message = await ctx.send(message)
+        if can_react:
+            start_adding_reactions(
+                question, ReactionPredicate.YES_OR_NO_EMOJIS
+            )
+            pred = ReactionPredicate.yes_or_no(question, ctx.author)
+            event = "reaction_add"
+        else:
+            pred = MessagePredicate.yes_or_no(ctx)
+            event = "message"
+        try:
+            await ctx.bot.wait_for(event, check=pred, timeout=20)
+        except asyncio.TimeoutError:
+            await question.delete()
+            await ctx.send("Okay then :D")
+        if not pred.result:
+            await question.delete()
+            return await ctx.send("Canceled!")
+        else:
+            if can_react:
+                with suppress(discord.Forbidden):
+                    await question.clear_reactions()
+        await self.config.guild(ctx.guild).set_raw(action, value=None)
+        await ctx.send("Removed the {}!".format(action))
