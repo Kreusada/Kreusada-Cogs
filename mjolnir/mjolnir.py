@@ -32,8 +32,10 @@ class Mjolnir(commands.Cog):
       await user.send(f"**{bank} {currency} was added to your bank account in {ctx.guild.name}.")
       await bank.deposit_credits(ctx.author, settings["bank"])
       await member.add_roles(settings["role"])
+      await ctx.send(embed=embed)
     else:
       embed = Embed.create(self, ctx, title=f"{ctx.author.name} attempted to lift the hammer. :hammer::zap:", description=random.choice(failed))
+      await ctx.send(embed=embed)
       
   @commands.group()
   async def liftset(self, ctx):
