@@ -53,10 +53,15 @@ class Mcoc(commands.Cog):
     async def alias(self, ctx):
         """Shows the full list for crystal aliases."""
         await ctx.send(
-            "```rst\n"
-            f"+ grandmaster (gm)[{ctx.clean_prefix}crystal gm\n"
-            f"+ ultimate (u)[{ctx.clean_prefix}crystal u]\n\n"
-            "- Aliases are used to shorten the command, to make it easier for you! :D```"
+            "**Grandmaster Crystals**: Try using the alias below!"
+            "\n```diff\n"
+            f"+ {ctx.clean_prefix}crystal gm```"
+            "\n**Ultimate Crystals**: Try using the alias below!"
+            "\n```diff\n"
+            f"+ {ctx.clean_prefix}crystal u```"
+            "\n**What are aliases?**"
+            "\n```diff\n"
+            " - Aliases are different executables of the same command!```"
         )
         
     @crystal.command(aliases=["gm"])
