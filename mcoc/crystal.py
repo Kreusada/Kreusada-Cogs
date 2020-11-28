@@ -189,6 +189,6 @@ FEATUREDS = {
     "<:mutant:777119812140531712> wolverine": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_wolverine.png",
     "<:mutant:777119812140531712> wolverine weapon x": "https://vignette.wikia.nocookie.net/marvel-contestofchampions/images/b/b7/Wolverine_%28Weapon_X%29_featured.png/revision/latest?cb=20200601191347",
     "<:mutant:777119812140531712> wolverine x23": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_x23.png",
-    "<:science:777119812018896907> yellowjacket": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_yellowjacket.png"
+    "<:science:777119812018896907> yellowjacket": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_yellowjacket.png",
     "<:tech:777119812031741973> yondu": "https://auntm.ai/resources/ui/uigacha/featured/gachachaseprize_256x256_yondu.png"
 }
