@@ -133,8 +133,8 @@ class Mcoc(commands.Cog):
 
     @roster.command(name="3")
     async def three(self, ctx, star: str = None):
-        if await self.bot.is_owner(ctx.author) is True:
-            return await ctx.send("<:success:777167188816560168> - `You are eligible for a roster, the champions you collect now will be stored.`\n<:error:777117297273077760> - `This feature is currently unavailable.`")
+#        if await self.bot.is_owner(ctx.author) is False:
+#            return await ctx.send("<:success:777167188816560168> - `You are eligible for a roster, the champions you collect now will be stored.`\n<:error:777117297273077760> - `This feature is currently unavailable.`")
         if star is None:
             star = "3"
         try:
