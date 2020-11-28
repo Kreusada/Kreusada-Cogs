@@ -49,7 +49,13 @@ class Mcoc(commands.Cog):
     @commands.cooldown(1, 60, commands.BucketType.user)
     async def crystal(self, ctx):
         """Chooses a random champion."""
-        star = random.choice(['3', '4', '5'])
+        starr = round(random.uniform(0, 100), 2)
+        if starr < 2.4:
+            star = "5"
+        elif starr < 12:
+            star = "4"
+        else:
+            star = "3"
         key, image = (random.choice(list(FEATUREDS.items())))
         roster = await self.config.user(ctx.author).roster.get_raw()
         await self.roster_logistics(ctx, star, key, roster)
