@@ -42,7 +42,8 @@ class RobTheBank(commands.Cog):
     no = [
       f"Oh I caught you red handed there!\n **You have been fined {fine} {currency}.**\n\n {subt}",
       f"Get some good detective skills before trying to rob my bank!\n **You have been fined {fine} {currency}.**\n\n {subt}",
-      f"Oh, its you again... {ctx.author.name} is it?\n **You have been fined {fine} {currency}.**\n\n {subt}"
+      f"Oh, its you again... {ctx.author.name} is it?\n **You have been fined {fine} {currency}.**\n\n {subt}",
+      f"Ladies and gentlemen, we gottem.\n **You have been fined {fine} {currency}.**\n\n {subt}"
     ]
     yes = [
       f":loudspeaker: Dispatch, we've lost the suspect.\n **You have earnt yourself {deposit} {currency}!**\n\n {incr}",
