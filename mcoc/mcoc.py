@@ -55,16 +55,17 @@ class Mcoc(commands.Cog):
         await ctx.send(
             "**Grandmaster Crystals**: Try using the alias below!"
             "\n```diff\n"
-            f"+ {ctx.clean_prefix}crystal gm```"
+            f"+ {ctx.clean_prefix}crystal gm"
+            f"\n+ {ctx.clean_prefix}crystal g```"
             "\n**Ultimate Crystals**: Try using the alias below!"
             "\n```diff\n"
             f"+ {ctx.clean_prefix}crystal u```"
             "\n**What are aliases?**"
             "\n```diff\n"
-            " - Aliases are different executables of the same command!```"
+            "- Aliases are different executables of the same command!```"
         )
         
-    @crystal.command(aliases=["gm"])
+    @crystal.command(aliases=["gm", "g"])
     @commands.cooldown(1, 60, commands.BucketType.user)
     async def grandmaster(self, ctx):
         """Open a Grandmaster crystal."""
@@ -234,13 +235,12 @@ class Mcoc(commands.Cog):
             await self.removal(ctx, r5)
         else:
             await ctx.send("You don't have any 5 star champions in your roster!")
-        
-
-    @commands.group()
+            
+    @crystal.group()
     async def battlechip(self, ctx):
-        """Opens a battlechip crystal from MCOC."""
+        """Open a battlechip crystal."""
 
-    @battlechip.command()
+    @battlechip.command(aliases=["b"])
     @commands.cooldown(1, 30, commands.BucketType.user)
     async def basic(self, ctx):
         """Open a basic battlechip crystal."""
@@ -280,7 +280,7 @@ class Mcoc(commands.Cog):
                             description=description, image=link)
         await ctx.send(embed=data)
 
-    @battlechip.command()
+    @battlechip.command(aliases=["u"])
     async def uncollected(self, ctx):
         """Open an uncollected battlechip crystal."""
         drop_rate = round(random.uniform(0, 100), 2)
