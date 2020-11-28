@@ -54,6 +54,7 @@ class RobTheBank(commands.Cog):
     if numbersrand > 4:
       title = nostatus
       description = random.choice(no).format(currency)
+    try:
       await bank.withdraw_credits(ctx.author, settings["Fine"])
     except ValueError:
       await ctx.send(bankrupt)
