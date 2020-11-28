@@ -4,7 +4,7 @@ import asyncio
 import discord
 import random
 import logging
-from .mdtembed import Embed
+from .mcocresources import Embed
 from .crystal import FEATUREDS, BCB
 
 log = logging.getLogger(name="red.demaratus.mcoc")
@@ -65,7 +65,7 @@ class Mcoc(commands.Cog):
         await self.roster_logistics(ctx, star, key, roster)
         data = Embed.create(
             self, ctx, title='You got {}!'.format(key.title()),
-            description="⭐" * int(star)
+            description="⭐" * int(star), footer_text="Demaratus | Grandmaster Crystal"
         )
         data.set_image(url=image)
         await ctx.send(embed=data)
@@ -84,7 +84,7 @@ class Mcoc(commands.Cog):
         await self.roster_logistics(ctx, star, key, roster)
         data = Embed.create(
             self, ctx, title='You got {}!'.format(key.title()),
-            description="⭐" * int(star)
+            description="⭐" * int(star), footer_text="Demaratus | Ultimate Crystal"
         )
         data.set_image(url=image)
         await ctx.send(embed=data)
