@@ -49,6 +49,15 @@ class Mcoc(commands.Cog):
     async def crystal(self, ctx):
         """Chooses a random champion."""
         
+    @crystal.command()
+    async def alias(self, ctx):
+        """Shows the full list for crystal aliases."""
+        await ctx.send(
+            "```rst\n"
+            f"+ grandmaster (gm)[{ctx.clean_prefix}crystal gm\n"
+            f"+ ultimate (u)[{ctx.clean_prefix}crystal u]\n\n"
+            "- Aliases are used to shorten the command, to make it easier for you! :D```"
+        
     @crystal.command(aliases=["gm"])
     @commands.cooldown(1, 60, commands.BucketType.user)
     async def grandmaster(self, ctx):
