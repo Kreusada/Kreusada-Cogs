@@ -49,21 +49,11 @@ class Mcoc(commands.Cog):
     async def crystal(self, ctx):
         """Chooses a random champion."""
         
-    @crystal.command()
-    async def alias(self, ctx):
-        """Shows the full list for crystal aliases."""
-        await ctx.send(
-            "**Grandmaster Crystals**: Try using the alias below!"
-            "\n```diff\n"
-            f"+ {ctx.clean_prefix}crystal gm"
-            f"\n+ {ctx.clean_prefix}crystal g```"
-            "\n**Ultimate Crystals**: Try using the alias below!"
-            "\n```diff\n"
-            f"+ {ctx.clean_prefix}crystal u```"
-            "\n**What are aliases?**"
-            "\n```diff\n"
-            "- Aliases are different executables of the same command!```"
-        )
+    @commands.command()
+    async def mcocguide(self, ctx):
+        """A full guide to the commands of MCOC!"""
+        embed = Embed.create(self, ctx, title="MCOC Command Guide",
+                             description=
         
     @crystal.command(aliases=["gm", "g"])
     @commands.cooldown(1, 60, commands.BucketType.user)
