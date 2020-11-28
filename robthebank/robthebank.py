@@ -34,6 +34,7 @@ class RobTheBank(commands.Cog):
     numbersrand = random.choice(numbers)
     yestatus = f"<:dollarbag:778687019944771616> {ctx.author.name} successfully robbed the bank."
     nostatus = f"<:dollarbag:778687019944771616> {ctx.author.name} failed, dismally."
+    bankrupt = f"Oh no {ctx.author.name}! You were fined more than the cash you have!"
     currency = await bank.get_currency_name(ctx.guild)
     deposit = await self.config.guild(ctx.guild).Deposit()
     fine = await self.config.guild(ctx.guild).Fine()
@@ -54,6 +55,8 @@ class RobTheBank(commands.Cog):
       title = nostatus
       description = random.choice(no).format(currency)
       await bank.withdraw_credits(ctx.author, settings["Fine"])
+    except ValueError:
+      await ctx.send(bankrupt)
     else:
       title = yestatus
       description = random.choice(yes).format(currency)
