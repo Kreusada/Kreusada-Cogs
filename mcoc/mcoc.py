@@ -49,7 +49,7 @@ class Mcoc(commands.Cog):
     async def crystal(self, ctx):
         """Chooses a random champion."""
         
-    @crystal.command()
+    @crystal.command(aliases=["gm"])
     @commands.cooldown(1, 60, commands.BucketType.user)
     async def grandmaster(self, ctx):
         """Open a Grandmaster crystal."""
@@ -70,7 +70,7 @@ class Mcoc(commands.Cog):
         data.set_image(url=image)
         await ctx.send(embed=data)
 
-    @crystal.command()
+    @crystal.command(aliases=["u"])
     @commands.cooldown(1, 60, commands.BucketType.user)
     async def ultimate(self, ctx):
         """Open an Ultimate crystal."""
