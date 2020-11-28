@@ -45,14 +45,37 @@ class Mcoc(commands.Cog):
         )
         await ctx.send(embed=embed)
 
-    @commands.command()
-    @commands.cooldown(1, 60, commands.BucketType.user)
+    @commands.group()
     async def crystal(self, ctx):
         """Chooses a random champion."""
+        
+    @crystal.command()
+    @commands.cooldown(1, 60, commands.BucketType.user)
+    async def grandmaster(self, ctx):
+        """Open a Grandmaster crystal."""
         starr = round(random.uniform(0, 100), 2)
         if starr < 2.4:
             star = "5"
         elif starr < 12:
+            star = "4"
+        else:
+            star = "3"
+        key, image = (random.choice(list(FEATUREDS.items())))
+        roster = await self.config.user(ctx.author).roster.get_raw()
+        await self.roster_logistics(ctx, star, key, roster)
+        data = Embed.create(
+            self, ctx, title='You got {}!'.format(key.title()),
+            description="⭐" * int(star)
+        )
+        data.set_image(url=image)
+        await ctx.send(embed=data)
+
+    @crystal.command()
+    @commands.cooldown(1, 60, commands.BucketType.user)
+    async def ultimate(self, ctx):
+        """Open an Ultimate crystal."""
+        starr = round(random.uniform(0, 100), 2)
+        if starr < 20:
             star = "4"
         else:
             star = "3"
