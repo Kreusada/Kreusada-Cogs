@@ -22,7 +22,7 @@ FEATUREDS = {
     "<:skill:777119812102258708> black panther civil war": "https://media.discordapp.net/attachments/745608075670585344/768766800888070144/Black_Panther_Civil_War_featured.png",
     "<:skill:777119812102258708> black widow": "https://media.discordapp.net/attachments/745608075670585344/768766835100614656/Black_Widow_featured.png",
     "black widow claire voyant": "https://media.discordapp.net/attachments/745608075670585344/768766851311861790/Black_Widow_Claire_Voyant_featured.png",
-    "<:skill:777119812102258708> black widow deadly origin": "https://media.discordapp.net/attachments/763066391107862550/777110635451908126/gachachaseprize_256x256_black_widow_timely.png",
+    "<:skill:777119812102258708> black widow deadly origin": "https://static.wikia.nocookie.net/marvel-contestofchampions/images/4/4d/Black_Widow_%28Deadly_Origin%29_featured.png/revision/latest?cb=20200428083510",
     "<:skill:777119812102258708> blade": "https://media.discordapp.net/attachments/745608075670585344/768766856168734730/Blade_featured.png",
     "<:mutant:777119812140531712> cable": "https://media.discordapp.net/attachments/763066391107862550/777110835922206720/gachachaseprize_256x256_cable.png",
     "<:science:777119812018896907> captain america": "https://media.discordapp.net/attachments/763066391107862550/777110943120228362/gachachaseprize_256x256_captain_america.png",
