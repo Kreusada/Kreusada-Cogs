@@ -109,7 +109,7 @@ class Mcoc(commands.Cog):
             roster5: dict = await self.config.user(ctx.author).roster.get_raw("5")
         if len(roster5.values()) > 0:
             roster = "\n".join(
-                ["{} s{}".format(key.title(), value) for key, value in roster.items()]
+                ["{} s{}".format(key.title(), value) for key, value in roster5.items()]
             )
         elif star is None:
             star = "4"
@@ -119,7 +119,7 @@ class Mcoc(commands.Cog):
             roster4: dict = await self.config.user(ctx.author).roster.get_raw("4")
         if len(roster4.values()) > 0:
             roster = "\n".join(
-                ["{} s{}".format(key.title(), value) for key, value in roster.items()]
+                ["{} s{}".format(key.title(), value) for key, value in roster4.items()]
             )
         elif star is None:
             star = "3"
@@ -129,7 +129,7 @@ class Mcoc(commands.Cog):
             roster3: dict = await self.config.user(ctx.author).roster.get_raw("3")
         if len(roster3.values()) > 0:
             roster = "\n".join(
-                ["{} s{}".format(key.title(), value) for key, value in roster.items()]
+                ["{} s{}".format(key.title(), value) for key, value in roster3.items()]
             )
             embed = Embed.create(self, ctx, title=f"{ctx.author.name}'s Crystal Roster", color=ctx.author.color, description=":star::star::star::star::star:")
             embed.add_field(name="{} Stars".format(star), value=roster5, inline=True)
