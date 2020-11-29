@@ -53,19 +53,7 @@ class Alliance(commands.Cog):
             )
             await ctx.send(embed=embed)
         except discord.Forbidden:
-            embed = Embed.create(
-                self, ctx, title="Oopsies! <:error:777117297273077760>",
-                description="""
-                    Something went wrong during the setup process, I could not change your nickname.
-                    This may be due to the following errors:
-                    :x: `Invalid Permissions`
-                    :x: `Role Heirarchy`
-                    Please resolve these issues before I can set nicknames.
-                    If you are the server owner, the heirarchy between us cannot be justified.
-                    If problems continue, please ask for help in our [support server](https://discord.gg/JmCFyq7).
-                    """
-            )
-            await ctx.send(embed=embed)
+            await ctx.send("Something went wrong during the setup process, I could not change your nickname.")
 
     @commands.group(name="alliancealert", aliases=["aa", ])
     async def aa(self, ctx):
