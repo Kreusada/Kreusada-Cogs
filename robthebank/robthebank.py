@@ -45,6 +45,7 @@ class RobTheBank(commands.Cog):
         return
 
     @commands.command()
+    @commands.cooldown(1, 300, commands.BucketType.user)
     async def rob(self, ctx: commands.Context):
         """Attempt to rob the bank... **Attempt**"""
         if random.randint(1, 6) > 4:
