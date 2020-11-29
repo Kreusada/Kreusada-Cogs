@@ -146,66 +146,6 @@ class Mcoc(commands.Cog):
                 )
             )
         await ctx.send(embed=embed)
-
-    @roster.command(name="4")
-    async def four(self, ctx, star: str = None):
-        if await self.bot.is_owner(ctx.author) is False:
-            return await ctx.send("<:success:777167188816560168> - `You are eligible for a roster, the champions you collect now will be stored.`\n<:error:777117297273077760> - `This feature is currently unavailable.`")
-        if star is None:
-            star = "4"
-        try:
-            roster: dict = await self.config.user(ctx.author).roster.get_raw(star)
-        except KeyError:
-            roster: dict = await self.config.user(ctx.author).roster.get_raw("4")
-        if len(roster.values()) > 0:
-            roster = "\n".join(
-                ["{} s{}".format(key.title(), value) for key, value in roster.items()]
-            )
-            embed = discord.Embed(
-                title="Crystal Roster: {} Star".format(star), color=ctx.author.color, description=":star::star::star::star:"
-            )
-            embed.add_field(name="{}'s Roster :arrow_down:".format(
-                ctx.author.name), value=roster)
-        else:
-            embed = discord.Embed(
-                title="Crystal Roster: {} Star :star:".format(star), color=ctx.author.color, description=(
-                    "You don't have any {} star champions!\n"
-                    "Collect some using `{}crystal`!".format(
-                        star, ctx.clean_prefix
-                    )
-                )
-            )
-        await ctx.send(embed=embed)
-
-    @roster.command(name="3")
-    async def three(self, ctx, star: str = None):
-        if await self.bot.is_owner(ctx.author) is False:
-            return await ctx.send("<:success:777167188816560168> - `You are eligible for a roster, the champions you collect now will be stored.`\n<:error:777117297273077760> - `This feature is currently unavailable.`")
-        if star is None:
-            star = "3"
-        try:
-            roster: dict = await self.config.user(ctx.author).roster.get_raw(star)
-        except KeyError:
-            roster: dict = await self.config.user(ctx.author).roster.get_raw("3")
-        if len(roster.values()) > 0:
-            roster = "\n".join(
-                ["{} s{}".format(key.title(), value) for key, value in roster.items()]
-            )
-            embed = discord.Embed(
-                title="Crystal Roster: {} Star".format(star), color=ctx.author.color, description=":star::star::star:"
-            )
-            embed.add_field(name="{}'s Roster :arrow_down:".format(
-                ctx.author.name), value=roster)
-        else:
-            embed = discord.Embed(
-                title="Crystal Roster: {} Star :star:".format(star), color=ctx.author.color, description=(
-                    "<error:777117297273077760> You don't have any {} star champions!\n"
-                    "Collect some using `{}crystal`!".format(
-                        star, ctx.clean_prefix
-                    )
-                )
-            )
-        await ctx.send(embed=embed)
      
     @commands.group()
     async def rosterset(self, ctx):
