@@ -136,9 +136,9 @@ class Mcoc(commands.Cog):
                 ["{} s{}".format(key.title(), value) for key, value in roster3.items()]
             )
             embed = Embed.create(self, ctx, title=f"{ctx.author.name}'s Crystal Roster", color=ctx.author.color, description=":star::star::star::star::star:")
-            embed.add_field(name="{} Stars".format(value=roster5)
-            embed.add_field(name="{} Stars".format(value=roster4)
-            embed.add_field(name="{} Stars".format(value=roster3)
+            embed.add_field(name="{} Stars".format(star), value=roster5, inline=True)
+            embed.add_field(name="{} Stars".format(star), value=roster5, inline=True)
+            embed.add_field(name="{} Stars".format(star), value=roster5, inline=True)
             await ctx.send(embed=embed)
         else:
             embed = discord.Embed(
