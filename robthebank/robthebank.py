@@ -55,7 +55,8 @@ class RobTheBank(commands.Cog):
             try:
                 await bank.withdraw_credits(ctx.author, fine)
             except ValueError:
-                await ctx.send("Oh no! You were fined more cash than you have!")
+                await bank.set_balance(ctx.author, 0)
+                return await ctx.send("Oh no! You were fined more cash than you have!")
         else:
             deposit = await self.config.guild(ctx.guild).get_raw("Deposit")
             description = yes_no_returner(True, ctx) + \
