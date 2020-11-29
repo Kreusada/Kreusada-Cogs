@@ -114,6 +114,7 @@ class Mcoc(commands.Cog):
         if len(roster5.values()) > 0:
             roster = "\n".join(
                 ["{} s{}".format(key.title(), value) for key, value in roster5.items()]
+            )
         elif star is None:
             star = "4"
         try:
@@ -123,6 +124,7 @@ class Mcoc(commands.Cog):
         if len(roster4.values()) > 0:
             roster = "\n".join(
                 ["{} s{}".format(key.title(), value) for key, value in roster4.items()]
+            )
         elif star is None:
             star = "3"
         try:
