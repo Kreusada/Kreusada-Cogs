@@ -99,8 +99,10 @@ class RobTheBank(commands.Cog):
         deposit = await self.config.guild(ctx.guild).get_raw("Deposit")
         if fine == 400 and deposit == 400:
             s = "Standard"
+        elif fine and deposit == 400:
+            s = "Partly Custom"
         else:
-            s = "Customized"
+            s = "Custom"
         embed = self.embed.create(
             ctx, title="{}'s Settings".format(ctx.guild.name),
             description=(
