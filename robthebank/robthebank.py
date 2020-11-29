@@ -41,7 +41,7 @@ class RobTheBank(commands.Cog):
         return
 
     @commands.command()
-    @commands.cooldown(1, 300, commands.BucketType.user)
+#    @commands.cooldown(1, 300, commands.BucketType.user)
     async def rob(self, ctx: commands.Context):
         """Attempt to rob the bank... **Attempt**"""
         currency = await bank.get_currency_name(ctx.guild)
