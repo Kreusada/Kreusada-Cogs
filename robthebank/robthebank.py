@@ -44,10 +44,11 @@ class RobTheBank(commands.Cog):
     @commands.cooldown(1, 300, commands.BucketType.user)
     async def rob(self, ctx: commands.Context):
         """Attempt to rob the bank... **Attempt**"""
+        currency = await.bank.get_currency(ctx.guild)
         if random.randint(1, 6) > 4:
             fine = await self.config.guild(ctx.guild).get_raw("Fine")
             description = yes_no_returner(
-                False, ctx) + "**You have been fined {}**".format(fine)
+                False, ctx) + "**You have been fined {} {}!**".format(fine, currency)
             title = f"<:dollarbag:778687019944771616> {ctx.author.name} failed, dismally."
             try:
                 await bank.withdraw_credits(ctx.author, fine)
@@ -57,7 +58,7 @@ class RobTheBank(commands.Cog):
         else:
             deposit = await self.config.guild(ctx.guild).get_raw("Deposit")
             description = yes_no_returner(True, ctx) + \
-                "**You have earnt yourself {}!**".format(deposit)
+                "**You have earnt yourself {} {}!**".format(deposit, currency)
             title = f"<:dollarbag:778687019944771616> {ctx.author.name} successfully robbed the bank."
             await bank.deposit_credits(ctx.author, deposit)
         embed = self.embed.create(ctx, title=title, description=description)
