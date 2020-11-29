@@ -108,18 +108,33 @@ class Mcoc(commands.Cog):
         if star is None:
             star = "5"
         try:
-            roster: dict = await self.config.user(ctx.author).roster.get_raw(star)
+            roster5: dict = await self.config.user(ctx.author).roster.get_raw(star)
         except KeyError:
-            roster: dict = await self.config.user(ctx.author).roster.get_raw("5")
-        if len(roster.values()) > 0:
+            roster5: dict = await self.config.user(ctx.author).roster.get_raw("5")
+        if len(roster5.values()) > 0:
             roster = "\n".join(
-                ["{} s{}".format(key.title(), value) for key, value in roster.items()]
+                ["{} s{}".format(key.title(), value) for key, value in roster5.items()]
+        if star is None:
+            star = "4"
+        try:
+            roster4: dict = await self.config.user(ctx.author).roster.get_raw(star)
+        except KeyError:
+            roster4: dict = await self.config.user(ctx.author).roster.get_raw("4")
+        if len(roster4.values()) > 0:
+            roster = "\n".join(
+                ["{} s{}".format(key.title(), value) for key, value in roster4.items()]
+        if star is None:
+            star = "3"
+        try:
+            roster3: dict = await self.config.user(ctx.author).roster.get_raw(star)
+        except KeyError:
+            roster3: dict = await self.config.user(ctx.author).roster.get_raw("3")
+        if len(roster3.values()) > 0:
+            roster = "\n".join(
+                ["{} s{}".format(key.title(), value) for key, value in roster3.items()]
             )
-            embed = discord.Embed(
-                title="Crystal Roster: {} Star".format(star), color=ctx.author.color, description=":star::star::star::star::star:"
-            )
-            embed.add_field(name="{}'s Roster :arrow_down:".format(
-                ctx.author.name), value=roster)
+            embed = discord.Embed(title=f"{ctx.author.name}'s Crystal Roster", color=ctx.author.color, description=":star::star::star::star::star:")
+            embed.add_field(name="{}'s Roster :arrow_down:".format(value=roster)
         else:
             embed = discord.Embed(
                 title="Crystal Roster: {} Star :star:".format(star), color=ctx.author.color, description=(
@@ -163,8 +178,8 @@ class Mcoc(commands.Cog):
 
     @roster.command(name="3")
     async def three(self, ctx, star: str = None):
-#        if await self.bot.is_owner(ctx.author) is False:
-#            return await ctx.send("<:success:777167188816560168> - `You are eligible for a roster, the champions you collect now will be stored.`\n<:error:777117297273077760> - `This feature is currently unavailable.`")
+        if await self.bot.is_owner(ctx.author) is False:
+            return await ctx.send("<:success:777167188816560168> - `You are eligible for a roster, the champions you collect now will be stored.`\n<:error:777117297273077760> - `This feature is currently unavailable.`")
         if star is None:
             star = "3"
         try:
