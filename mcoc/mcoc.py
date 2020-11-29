@@ -53,7 +53,8 @@ class Mcoc(commands.Cog):
     async def mcocguide(self, ctx):
         """A full guide to the commands of MCOC!"""
         embed = Embed.create(self, ctx, title="MCOC Command Guide",
-                             description=
+                             description="Placeholding.")
+        await ctx.send(embed=embed)
         
     @crystal.command(aliases=["gm", "g"])
     @commands.cooldown(1, 60, commands.BucketType.user)
