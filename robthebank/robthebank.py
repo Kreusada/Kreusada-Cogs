@@ -1,13 +1,9 @@
 import discord
 import random
 import asyncio
-
-from redbot.core import (
-    commands, bank, Config
-)
+from redbot.core import commands, bank, Config
 
 
-# , **kwargs: dict):
 def yes_no_returner(fail: bool, ctx: commands.Context) -> str:
     yes = [
         ":loudspeaker: Dispatch, we've lost the suspect.\n",
