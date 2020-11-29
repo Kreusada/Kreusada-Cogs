@@ -44,7 +44,8 @@ class RobTheBank(commands.Cog):
     @commands.cooldown(1, 300, commands.BucketType.user)
     async def rob(self, ctx: commands.Context):
         """Attempt to rob the bank... **Attempt**"""
-        currency = await.bank.get_currency(ctx.guild)
+        currency = await bank.get_currency_name(ctx.guild)
+        settings = await self.config.guild(ctx.guild).all()
         if random.randint(1, 6) > 4:
             fine = await self.config.guild(ctx.guild).get_raw("Fine")
             description = yes_no_returner(
