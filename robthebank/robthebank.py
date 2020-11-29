@@ -97,7 +97,7 @@ class RobTheBank(commands.Cog):
         """Show the current settings for Rob the bank"""
         fine = await self.config.guild(ctx.guild).get_raw("Fine")
         deposit = await self.config.guild(ctx.guild).get_raw("Deposit")
-        if fin == 400 and deposit == 400:
+        if fine == 400 and deposit == 400:
             s = "Standard"
         else:
             s = "Customized"
