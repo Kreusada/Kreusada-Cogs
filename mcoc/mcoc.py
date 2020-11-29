@@ -114,7 +114,7 @@ class Mcoc(commands.Cog):
         if len(roster5.values()) > 0:
             roster = "\n".join(
                 ["{} s{}".format(key.title(), value) for key, value in roster5.items()]
-        if star is None:
+        elif star is None:
             star = "4"
         try:
             roster4: dict = await self.config.user(ctx.author).roster.get_raw(star)
@@ -123,7 +123,7 @@ class Mcoc(commands.Cog):
         if len(roster4.values()) > 0:
             roster = "\n".join(
                 ["{} s{}".format(key.title(), value) for key, value in roster4.items()]
-        if star is None:
+        elif star is None:
             star = "3"
         try:
             roster3: dict = await self.config.user(ctx.author).roster.get_raw(star)
