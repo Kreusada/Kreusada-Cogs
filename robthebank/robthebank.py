@@ -55,7 +55,7 @@ class RobTheBank(commands.Cog):
                 await bank.withdraw_credits(ctx.author, fine)
             except ValueError:
                 await bank.set_balance(ctx.author, 0)
-                return await ctx.send("Oh no! You were fined more cash than you have!")
+                return await ctx.send(f"Oh no! You were fined more cash than you have! Get some more using `{ctx.clean_prefix}payday`!")
         else:
             deposit = await self.config.guild(ctx.guild).get_raw("Deposit")
             description = yes_no_returner(True, ctx) + \
@@ -74,11 +74,11 @@ class RobTheBank(commands.Cog):
     async def deposit(self, ctx: commands.Context, amount: int):
         """Set the amount a user can steal"""
         if amount < 1:
-            await ctx.send("No point in stealing from a bank if you're not going to get anything from it")
+            await ctx.send("Stealing from a bank, but receiving no profit? That's not stealing my friend! Please enter a valid integer.")
         cur = await bank.get_currency_name(ctx.guild)
 
         await self.config.guild(ctx.guild).set_raw("Deposit", value=amount)
-        await ctx.send("Deposits will now give out {} {}".format(
+        await ctx.send("Deposits will now give out **{} {}**.".format(
             amount, cur
         ))
 
@@ -90,7 +90,7 @@ class RobTheBank(commands.Cog):
         cur = await bank.get_currency_name(ctx.guild)
 
         await self.config.guild(ctx.guild).set_raw("Fine", value=amount)
-        await ctx.send("Fines will now withdraw {} {}".format(amount, cur))
+        await ctx.send("Fines will now withdraw **{} {}**.".format(amount, cur))
 
     @rob_set.command()
     async def showsettings(self, ctx: commands.Context):
@@ -99,8 +99,6 @@ class RobTheBank(commands.Cog):
         deposit = await self.config.guild(ctx.guild).get_raw("Deposit")
         if fine == 400 and deposit == 400:
             s = "Standard"
-        elif fine and deposit == 400:
-            s = "Partly Custom"
         else:
             s = "Custom"
         embed = self.embed.create(
