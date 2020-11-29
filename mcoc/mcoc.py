@@ -96,15 +96,11 @@ class Mcoc(commands.Cog):
         data.set_image(url=image)
         await ctx.send(embed=data)
     
-    @commands.group(invoke_without_command=True)
-    async def roster(self, ctx):
-        """Access your crystal rosters."""
-        await ctx.send("You'll be pleased to know, roster is getting worked on right now, this is Kreusada's top priority.")
-    
-    @roster.command(name="5")
-    async def five(self, ctx, star: str = None):
+    @commands.command()
+    async def roster(self, ctx, star: str = None):
+        """View your champions obtained from crystals."""
         if await self.bot.is_owner(ctx.author) is False:
-            return await ctx.send(_("<:success:777167188816560168> - `You are eligible for a roster, the champions you collect now will be stored.`\n<:error:777117297273077760> - `This feature is currently unavailable.`"), delete_after=10)
+            return await ctx.send(_("Roster isn't available yet!"), delete_after=10)
         if star is None:
             star = "5"
         try:
@@ -113,7 +109,7 @@ class Mcoc(commands.Cog):
             roster5: dict = await self.config.user(ctx.author).roster.get_raw("5")
         if len(roster5.values()) > 0:
             roster = "\n".join(
-                ["{} s{}".format(key.title(), value) for key, value in roster5.items()]
+                ["{} s{}".format(key.title(), value) for key, value in roster.items()]
             )
         elif star is None:
             star = "4"
@@ -123,7 +119,7 @@ class Mcoc(commands.Cog):
             roster4: dict = await self.config.user(ctx.author).roster.get_raw("4")
         if len(roster4.values()) > 0:
             roster = "\n".join(
-                ["{} s{}".format(key.title(), value) for key, value in roster4.items()]
+                ["{} s{}".format(key.title(), value) for key, value in roster.items()]
             )
         elif star is None:
             star = "3"
@@ -133,7 +129,7 @@ class Mcoc(commands.Cog):
             roster3: dict = await self.config.user(ctx.author).roster.get_raw("3")
         if len(roster3.values()) > 0:
             roster = "\n".join(
-                ["{} s{}".format(key.title(), value) for key, value in roster3.items()]
+                ["{} s{}".format(key.title(), value) for key, value in roster.items()]
             )
             embed = Embed.create(self, ctx, title=f"{ctx.author.name}'s Crystal Roster", color=ctx.author.color, description=":star::star::star::star::star:")
             embed.add_field(name="{} Stars".format(star), value=roster5, inline=True)
