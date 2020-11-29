@@ -97,7 +97,7 @@ class Mcoc(commands.Cog):
         await ctx.send(embed=data)
     
     @commands.command()
-    async def roster(self, ctx):
+    async def roster(self, ctx, star: str = None):
         """View your champions obtained from crystals."""
         if await self.bot.is_owner(ctx.author) is False:
             return await ctx.send(_("Roster isn't available yet!"), delete_after=10)
