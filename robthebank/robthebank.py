@@ -93,14 +93,22 @@ class RobTheBank(commands.Cog):
         await ctx.send("Fines will now withdraw {} {}".format(amount, cur))
 
     @rob_set.command()
-    async def show_settings(self, ctx: commands.Context):
+    async def showsettings(self, ctx: commands.Context):
         """Show the current settings for Rob the bank"""
         fine = await self.config.guild(ctx.guild).get_raw("Fine")
         deposit = await self.config.guild(ctx.guild).get_raw("Deposit")
+        if fin == 400 and deposit == 400:
+            s = "Standard"
+        else:
+            s = "Customized"
         embed = self.embed.create(
-            ctx, title="{}'s Settings".format(ctx.guild.name))
-        embed.add_field(name="Fine", value=fine)
-        embed.add_field(name="Deposit", value=deposit)
+            ctx, title="{}'s Settings".format(ctx.guild.name),
+            description=(
+                f"Fine Expense: **{fine}**\n"
+                f"Deposit to Receive: **{deposit}**\n"
+                f"Setting Configuration: **{s}**"
+            )
+        )
         await ctx.send(embed=embed)
 
 
