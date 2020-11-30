@@ -2,7 +2,7 @@ import discord
 from redbot.core import commands, checks
 from redbot.cogs.downloader.converters import InstalledCog
 
-class Cogtools(commands.Cog):
+class CogTools(commands.Cog):
   """Tools for cogs."""
   
   def __init__(self, bot):
