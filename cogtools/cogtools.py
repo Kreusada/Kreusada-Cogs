@@ -4,7 +4,6 @@ from redbot.cogs.downloader.converters import InstalledCog
 
 class Cogtools(commands.Cog):
   
-
   @commands.is_owner()
   @commands.command()
   async def updr(ctx, *cogs: InstalledCog):
