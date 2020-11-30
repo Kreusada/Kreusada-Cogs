@@ -14,4 +14,10 @@ class L(commands.Cog):
         return
       
       if message.content.startswith("Demaratus"):
-        await message.channel.send("Hi")
+      async def updreload(self, ctx: commands.Context):
+          ctx.assume_yes = True
+          cog_upd_command = ctx.bot.get_command("cog update")
+          if cog_upd_command is None:
+              await ctx.send("Welp, that ain't gonna happen. \nYou need to `{}load downloader` first.".format(ctx.prefix))
+          else:
+              await ctx.invoke(cog_upd_command)
