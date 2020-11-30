@@ -1,5 +1,4 @@
-from .cogtools import Cogtools
+from .cogtools import CogTools
 
 def setup(bot):
-    cog = Cogtools
-    bot.add_cog(cog)
+    bot.add_cog(CogTools(bot))
