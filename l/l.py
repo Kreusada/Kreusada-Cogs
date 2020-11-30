@@ -2,7 +2,7 @@ import discord
 from redbot.core import commands, checks
 from redbot.cogs.downloader.converters import InstalledCog
 
-class l(commands.Cog):
+class L(commands.Cog):
   """private learning"""
   
   def __init__(self, bot):
