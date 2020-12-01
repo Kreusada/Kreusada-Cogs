@@ -7,15 +7,15 @@ Demaratus Central
 ==================
 * :ref:`info`
 
-Change Logs
+Demaratus Change Logs
 ==================
-* :ref:`v1.1`
+* :ref:`v2.1`
+* :ref:`v2.1.1`
+* :ref:`v2.1.2`
 
 Cog Support
 ==================
 
-* :ref:`admin`
-* :ref:`customcommands`
-* :ref:`fun`
+* :ref:`alliance`
 * :ref:`mcoc`
 * :ref:`staff`

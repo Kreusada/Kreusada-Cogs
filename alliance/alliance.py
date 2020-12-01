@@ -18,6 +18,10 @@ class Alliance(commands.Cog):
             role=None,
             channel=None
         )
+   
+    async def red_delete_data_for_user(self, **kwargs):
+        """Nothing to delete."""
+        return
 
     @commands.command()
     async def timezone(self, ctx, *, timezone: str = None):
@@ -30,8 +34,8 @@ class Alliance(commands.Cog):
             embed = Embed.create(
                 self, ctx, title="Successful <:success:777167188816560168>",
                 description=f"""
-                You can set your nickname using `dem timezone <timezone>`.
-                For example: `dem timezone +4` or `dem timezone -12`.
+                You can set your nickname using `{ctx.clean_prefix}timezone <timezone>`.
+                For example: `{ctx.clean_prefix}timezone +4` or `{ctx.clean_prefix}timezone -12`.
                 Your timezone is no longer shown on your nickname (`{ctx.author.name}`)
                 """
             )
@@ -49,104 +53,62 @@ class Alliance(commands.Cog):
             )
             await ctx.send(embed=embed)
         except discord.Forbidden:
-            embed = Embed.create(
-                self, ctx, title="Oopsies! <:error:777117297273077760>",
-                description="""
-                    Something went wrong during the setup process, I could not change your nickname.
-                    This may be due to the following errors:
-                    :x: `Invalid Permissions`
-                    :x: `Role Heirarchy`
-                    Please resolve these issues before I can set nicknames.
-                    If you are the server owner, the heirarchy between us cannot be justified.
-                    If problems continue, please ask for help in our [support server](https://discord.gg/JmCFyq7).
-                    """,
-            )
-            await ctx.send(embed=embed)
+            await ctx.send("Something went wrong during the setup process, I could not change your nickname.")
 
     @commands.group(name="alliancealert", aliases=["aa", ])
     async def aa(self, ctx):
         """Alert your fellow alliance mates for movement."""
-#        embed = Embed.create(
-#            self, ctx, title="Alert Help Menu",
-#            description=(
-#                "**Alert your fellow alliance mates for alliance activity.**\n\n"
-#                "`Syntax: {}alliancealert <alert_type>`\n\n"
-#                "**__Subcommands__**\n"
-#                "**aqglory** Announces for glory collection.\n"
-#                "**aqstart** Announces for AQ starting.\n"
-#                "**awattack** Announces for AW attack phase starting.\n"
-#                "**awdefeat** Announces for AW defeat.\n"
-#                "**awplacement** Announces for AW attack phase starting.\n"
-#                "**awvictory** Announces for AW Victory.\n\n"
-#                "**Additional Support**\n"
-#                "Contact us in our [support server](https://discord.gg/JmCFyq7).".format(
-#                    ctx.clean_prefix, ctx.clean_prefix
-#                )
-#            )
-#        )
-#        await ctx.send(embed=embed)
 
-    @commands.group(name="alliancealertset", aliases=["aas"])#,autohelp=False)
+    @commands.group(name="alertset", aliases=["aas", "as"])
     @commands.admin_or_permissions(manage_guild=True)
     async def aas(self, ctx):
-        """Alliance alert configuration."""
-#        embed = Embed.create(
-#            self, ctx, title="Configuration Help Menu",
-#            description=(
-#                "**channel** Set the channel for alerts to be sent to.\n"
-#                "**role** Set the role to be mentioned for alerts.\n\n"
-#                "Need more support? Contact us in our [support server](https://discord.gg/JmCFyq7)."
-#            )
-#        )
-#        await ctx.send(embed=embed)
-            
+        """Alliance alert settings"""
+
     @aas.command()
     async def showsettings(self, ctx):
-        """Shows the current alert settings."""
-        rol = await self.config.guild(ctx.guild).get_raw("role")
-        chan = await self.config.guild(ctx.guild).get_raw("channel")
-        role = ctx.guild.get_role(rol) if rol is not None\
-            else None
-        channel = ctx.guild.get_channel(chan) if chan is not None\
-            else None
-        embed = Embed.create(
-            self, ctx, title="{}'s Settings".format(ctx.guild.name),
-            description="**Role:** {}\n**Channel:** {}".format(
-                role, channel),
-            thumbnail=ctx.guild.icon_url
-        )
-        await ctx.send(embed=embed)
+      """Shows the curernt settings for alerts."""
+      rol = await self.config.guild(ctx.guild).get_raw("role")
+      chan = await self.config.guild(ctx.guild).get_raw("channel")
+      role = ctx.guild.get_role(rol) if rol is not None\
+          else None
+      channel = ctx.guild.get_channel(chan) if chan is not None\
+          else None
+      embed = Embed.create(
+          self, ctx, title="{}'s Settings".format(ctx.guild.name),
+          description="**Role:** {}\n**Channel:** {}".format(
+              role.mention, channel.mention)
+      )
+      await ctx.send(embed=embed)
 
     @aas.command()
     async def channel(self, ctx, channel: discord.TextChannel):
-        """Sets the discord channel for alerts to be sent to."""
-        await self.config.guild(ctx.guild).set_raw("channel", value=channel.id)
-        embed = Embed.create(
-            self, ctx, title="Successful <:success:777167188816560168>",
-            description="{} will now be the channel that the alerts will be sent to when Alliance events start".format(
-                channel.mention
-            )
-        )
-        await ctx.send(embed=embed)
+      """Configures the channel where alerts are sent."""
+      await self.config.guild(ctx.guild).set_raw("channel", value=channel.id)
+      embed = Embed.create(
+          self, ctx, title="Successful <:success:777167188816560168>",
+          description="{} will now be the channel that the alerts will be sent to when Alliance events start".format(
+              channel.mention)
+      )
+      await ctx.send(embed=embed)
 
-    @aas.command(invoke_without_command=True)
+    @aas.command()
     async def role(self, ctx, role: discord.Role):
-        """Sets the discord role to be notified for alerts."""
-        try:
-            await self.config.guild(ctx.guild).set_raw("role", value=role.id)
-            embed = Embed.create(
-                self, ctx, title="Successful <:success:777167188816560168>",
-                description=f"{role.mention} will now be mentioned when Alliance events start.",
-            )
-            await ctx.send(embed=embed)
-        except discord.Forbidden:
-            embed = Embed.create(
-                self, ctx, title="Oopsies! <:error:777117297273077760>",
-                description=f"Something went wrong during the setup process."
-            )
-            await ctx.send(embed=embed)
+      """Configures the role to be mentioned for alerts."""
+      try:
+          await self.config.guild(ctx.guild).set_raw("role", value=role.id)
+          embed = Embed.create(
+              self, ctx, title="Successful <:success:777167188816560168>",
+              description=f"{role.mention} will now be mentioned when Alliance events start.",
+          )
+          await ctx.send(embed=embed)
+      except discord.Forbidden:
+          embed = Embed.create(
+              self, ctx, title="Oopsies! <:error:777117297273077760>",
+              description=f"Something went wrong during the setup process."
+          )
+          await ctx.send(embed=embed)
 
-    @aa.group()
+    @aas.group()
     async def reset(self, ctx):
         """Reset the values for the alliance alert system"""
 
@@ -170,181 +132,133 @@ class Alliance(commands.Cog):
 
     @aa.command(aliases=["aqs"])
     async def aqstart(self, ctx):
-        """Alliance Quest has started!"""
-        embed = Embed.create(
-            self, ctx, title='<:info:777656123381383209> Alliance Quest has STARTED!',
-            image="https://media.discordapp.net/attachments/745608075670585344/772947661421805648/aqstarted.png?width=1441&height=480",
-            description="Time to join Alliance Quest."
-        )
-        await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
-    else:
-        embed = Embed.create(
-            self, ctx, title="Error! <:error:777117297273077760>",
-            description=(
-                "Your guild does not have a role set up for the alerts!\n"
-                "This is a requirement for alliance alerts.\n"
-                "To set up a role, use `{}alliancealert set role <role>`".format(ctx.clean_prefix)
+        """Alerts for alliance quest starting."""
+        role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
+        chan = await self.config.guild(ctx.guild).get_raw("channel")
+        channel = ctx.guild.get_channel(chan) if chan is not None\
+            else ctx.channel
+        if role is not None:
+            embed = Embed.create(
+                self, ctx, title='Alliance Quest has STARTED!',
+                image="https://media.discordapp.net/attachments/758775890954944572/779063680792789042/aqstarted.png?width=1442&height=481",
+                description="Time to join Alliance Quest."
             )
-        )
-        await ctx.send(embed=embed)
+            await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
+        else:
+            embed = Embed.create(
+                self, ctx, title='Alliance Quest has STARTED!',
+                image="https://media.discordapp.net/attachments/758775890954944572/779063680792789042/aqstarted.png?width=1442&height=481",
+                description="Time to join Alliance Quest."
+            )
+            await ctx.send(embed=embed)
 
-    @aa.command(invoke_without_command=True, pass_context=True, aliases=["aqg"])
+    @aa.command(aliases=["aqg"])
     async def aqglory(self, ctx):
-        """Collect your glory rewards."""
-        embed = Embed.create(
-            self, ctx, title='<:info:777656123381383209> The Alliance Quest cycle has ended.',
-            image = "https://media.discordapp.net/attachments/763066391107862550/777865235746783232/aqglory.png?width=1442&height=481",
-            description = "Collect your glory rewards.",
-            color = 0xffc64d
-        )
+        """Alerts for glory collection."""
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
         channel = ctx.guild.get_channel(chan) if chan is not None\
             else ctx.channel
         if role is not None:
             embed = Embed.create(
-                self, ctx, title='<:info:777656123381383209> The Alliance Quest cycle has ended.',
-                image = "https://media.discordapp.net/attachments/763066391107862550/777865235746783232/aqglory.png?width=1442&height=481",
-                description = "Collect your glory rewards.",
-                color = 0xffc64d
+                self, ctx, title='GLORY has arrived!',
+                image="https://media.discordapp.net/attachments/758775890954944572/779063679953141810/aqglory.png?width=1442&height=481",
+                description="That feeling of topping up your glory balance..."
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
             embed = Embed.create(
-                self, ctx, title="Error! <:error:777117297273077760>",
-                description=(
-                    "Your guild does not have a role set up for the alerts!\n"
-                    "This is a requirement for alliance alerts.\n"
-                    "To set up a role, use `{}alliancealert set role <role>`".format(ctx.clean_prefix)
-                )
+                self, ctx, title='GLORY has arrived!',
+                image="https://media.discordapp.net/attachments/758775890954944572/779063679953141810/aqglory.png?width=1442&height=481",
+                description="That feeling of topping up your glory balance..."
             )
             await ctx.send(embed=embed)
 
-    @aa.command(invoke_without_command=True, pass_context=True, aliases=["awv"])
-    async def awvictory(self, ctx):
-        """Alliance War ended in Victory."""
-        embed = Embed.create(
-            self, ctx, title='<:aha:777867124706246687> Alliance War has ended in VICTORY!',
-            image = "https://media.discordapp.net/attachments/763066391107862550/777865265882988564/awvictory.png?width=1442&height=481",
-            description = "Good job everyone!",
-            color = 0x59e1ac
-        )
+    @aa.command(aliases=["awp"])
+    async def awplace(self, ctx):
+        """Alerts for alliance war placement."""
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
         channel = ctx.guild.get_channel(chan) if chan is not None\
             else ctx.channel
         if role is not None:
             embed = Embed.create(
-                self, ctx, title='<:aha:777867124706246687> Alliance War has ended in VICTORY!',
-                image = "https://media.discordapp.net/attachments/763066391107862550/777865265882988564/awvictory.png?width=1442&height=481",
-                description = "Good job everyone!",
-                color = 0x59e1ac
+                self, ctx, title='Placement Phase has begun...',
+                image="https://media.discordapp.net/attachments/758775890954944572/779045289579249694/awplacement.png?width=962&height=321",
+                description="Place your defenders, and make sure you know where they're going!"
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
             embed = Embed.create(
-                self, ctx, title="Error! <:error:777117297273077760>",
-                description=(
-                    "Your guild does not have a role set up for the alerts!\n"
-                    "This is a requirement for alliance alerts.\n"
-                    "To set up a role, use `{}alliancealert set role <role>`".format(ctx.clean_prefix)
-                )
+                self, ctx, title='Placement Phase has begun...',
+                image="https://media.discordapp.net/attachments/758775890954944572/779045289579249694/awplacement.png?width=962&height=321",
+                description="Place your defenders, and make sure you know where they're going!"
             )
             await ctx.send(embed=embed)
 
-    @aa.command(invoke_without_command=True, pass_context=True, aliases=["awv, aww"])
-    async def awdefeat(self, ctx):
-        """Alliance War ended in Defeat."""
-        embed = Embed.create(
-            self, ctx, title='<:notlikecat:766419778822078524> Alliance War has ended in DEFEAT.',
-            image = "https://media.discordapp.net/attachments/763066391107862550/777865262329626635/awdefeat.png?width=1442&height=481",
-            description = "Better luck next time. :cry:",
-            color = 0xd32f2f
-        )
-        role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
-        chan = await self.config.guild(ctx.guild).get_raw("channel")
-        channel = ctx.guild.get_channel(chan) if chan is not None\
-            else ctx.channel
-        if role is not None:
-            embed = Embed.create(
-                self, ctx, title='<:notlikecat:766419778822078524> Alliance War has ended in DEFEAT.',
-                image = "https://media.discordapp.net/attachments/763066391107862550/777865262329626635/awdefeat.png?width=1442&height=481",
-                description = "Better luck next time. :cry:",
-                color = 0xd32f2f
-            )
-            await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
-        else:
-            embed = Embed.create(
-                self, ctx, title="Error! <:error:777117297273077760>",
-                description=(
-                    "Your guild does not have a role set up for the alerts!\n"
-                    "This is a requirement for alliance alerts.\n"
-                    "To set up a role, use `{}alliancealert set role <role>`".format(ctx.clean_prefix)
-                )
-            )
-            await ctx.send(embed=embed)
-
-    @aa.command(invoke_without_command=True, pass_context=True, aliases=["awa"])
+    @aa.command(aliases=["awa"])
     async def awattack(self, ctx):
-        """Alliance War attack phase."""
-        embed = Embed.create(
-            self, ctx, title='<:info:777656123381383209> Attack Phase has started!',
-            image = "https://media.discordapp.net/attachments/763066391107862550/777865273272565760/awattack.png?width=1442&height=481",
-            description = "Time to join attack phase. Check with officers in case you need to take a certain path.",
-            color = 0xffc64d
-        )
+        """Alerts for alliance war attack."""
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
         channel = ctx.guild.get_channel(chan) if chan is not None\
             else ctx.channel
         if role is not None:
             embed = Embed.create(
-                self, ctx, title='<:info:777656123381383209> Attack Phase has started!',
-                image = "https://media.discordapp.net/attachments/763066391107862550/777865273272565760/awattack.png?width=1442&height=481",
-                description = "Time to join attack phase. Check with officers in case you need to take a certain path.",
-                color = 0xffc64d
+                self, ctx, title='Attack Phase has begun...',
+                image="https://media.discordapp.net/attachments/758775890954944572/779045289268871169/awattack.png?width=962&height=321",
+                description="It's time to attack your opponent."
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
             embed = Embed.create(
-                self, ctx, title="Error! <:error:777117297273077760>",
-                description=(
-                    "Your guild does not have a role set up for the alerts!\n"
-                    "This is a requirement for alliance alerts.\n"
-                    "To set up a role, use `{}alliancealert set role <role>`".format(ctx.clean_prefix)
-                )
+                self, ctx, title='Attack Phase has begun...',
+                image="https://media.discordapp.net/attachments/758775890954944572/779045289268871169/awattack.png?width=962&height=321",
+                description="It's time to attack your opponent."
             )
             await ctx.send(embed=embed)
 
-    @aa.command(invoke_without_command=True, pass_context=True, aliases=["awp"])
-    async def awplacement(self, ctx):
-        """Alliance War placement phase."""
-        embed = Embed.create(
-            self, ctx, title='<:info:777656123381383209> Placement Phase has started!',
-            image = "https://media.discordapp.net/attachments/763066391107862550/777865276531671080/awplacement.png?width=1442&height=481",
-            description = "Time to place your defenders, Check with officers in case you place your defenders in a certain place.",
-            color = 0xffc64d
-        )
+    @aa.command(aliases=["awv"])
+    async def awvictory(self, ctx):
+        """Alerts for alliance war victory."""
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
         channel = ctx.guild.get_channel(chan) if chan is not None\
             else ctx.channel
         if role is not None:
             embed = Embed.create(
-                self, ctx, title='<:info:777656123381383209> Placement Phase has started!',
-                image = "https://media.discordapp.net/attachments/763066391107862550/777865276531671080/awplacement.png?width=1442&height=481",
-                description = "Time to place your defenders, Check with officers in case you place your defenders in a certain place.",
-                color = 0xffc64d
+                self, ctx, title='<:success:777167188816560168> Alliance War VICTORY',
+                image="https://media.discordapp.net/attachments/758775890954944572/779045290237231164/awvictory.png?width=962&height=321",
+                description="Give yourselves a pat on the back. Good job."
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
             embed = Embed.create(
-                self, ctx, title="Error! <:error:777117297273077760>",
-                description=(
-                    "Your guild does not have a role set up for the alerts!\n"
-                    "This is a requirement for alliance alerts.\n"
-                    "To set up a role, use `{}alliancealert set role <role>`".format(ctx.clean_prefix)
-                )
+                self, ctx, title='<:success:777167188816560168> Alliance War VICTORY',
+                image="https://media.discordapp.net/attachments/758775890954944572/779045290237231164/awvictory.png?width=962&height=321",
+                description="Give yourselves a pat on the back. Good job."
+            )
+            await ctx.send(embed=embed)
+
+    @aa.command(aliases=["awd"])
+    async def awdefeat(self, ctx):
+        """Alerts for alliance war defeat."""
+        role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
+        chan = await self.config.guild(ctx.guild).get_raw("channel")
+        channel = ctx.guild.get_channel(chan) if chan is not None\
+            else ctx.channel
+        if role is not None:
+            embed = Embed.create(
+                self, ctx, title='<:error:777117297273077760> Alliance War DEFEAT',
+                image="https://media.discordapp.net/attachments/758775890954944572/779045290270261288/awdefeat.png?width=962&height=321",
+                description="Unlucky, we'll get 'em next time."
+            )
+            await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
+        else:
+            embed = Embed.create(
+                self, ctx, title='<:error:777117297273077760> Alliance War DEFEAT',
+                image="https://media.discordapp.net/attachments/758775890954944572/779045290270261288/awdefeat.png?width=962&height=321",
+                description="Unlucky, we'll get 'em next time."
             )
             await ctx.send(embed=embed)
 

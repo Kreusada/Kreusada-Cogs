@@ -1,4 +1,4 @@
-.. _v1.1:
+.. _v2.1:
 
 Demaratus 2.1 (01/11/2020)
 ==========================
@@ -100,14 +100,6 @@ Contact Support
 ---------------
 
 You can receive support from the developers by joining our `Discord Development and Support Server <https://discord.gg/JmCFyq7>`_. Additionally, feel free to create issues or PRs on the `Kreusada's respository <https://github.com/KREUSADA/demaratus/>`_.
-
-Plans for the future
---------------------
-
-- Store user input and datas with config to develop currencies. No estimated ETA.
-- Add more fun games for the community to enjoy.
-- Bolster the UI of certain cogs such as moderation, to establish an improved authentic environment instead of standardred.
-- Create games that involve currencies and storing user and user input data.
 
 Recruitment
 -----------

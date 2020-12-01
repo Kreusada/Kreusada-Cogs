@@ -1,8 +1,8 @@
 .. _staff:
 
-==================
-Alerting the Staff
-==================
+=====
+Staff
+=====
 
 ^^^^^^^^^^^
 How it works
@@ -13,8 +13,6 @@ The ``staff`` cog is a cog used to alert the staff. It's that simple. This cog g
 ^^^^^^^^^^^
 Staff Setup
 ^^^^^^^^^^^
-
-.. warning:: It is vitally important that you use ``dem set addmodrole <your mod role>``, otherwise these ``staffset`` commands will not work.
 
 **Setting your staff role**
 
@@ -50,7 +48,7 @@ Staff Usage
 Downloading for your redbot
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-My license emanates that my cogs are free for distribution and modification. However, creditation must be provided, and ``info.json`` must remain unedited.
+My license emanates that my cogs are free for distribution and modification. However, claiming warranty or liability won't be accepted.
 
 **Adding Kreusada's repository to your system**
 
