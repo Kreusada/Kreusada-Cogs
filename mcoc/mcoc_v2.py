@@ -90,7 +90,7 @@ class Embed:
         self.bot = bot
 
     def create(
-        self, ctx: Union[commands.Context, discord.Member], title: str = None,
+        self, ctx: commands.Context = None, user: discord.Member = None, title: str = None,
         description: str = None, color: discord.Colour = discord.Colour.gold(), image: str = None
     ):
         DEMARATUS = 'https://cdn.discordapp.com/attachments/758775890954944572/768452440785027132/demaratuscircle.png'
@@ -100,8 +100,17 @@ class Embed:
         if description is not None:
             if len(description) < 1500:
                 data.description = description
-        data.set_author(name=ctx.message.author.display_name,
-                        icon_url=ctx.message.author.avatar_url)
+
+        if ctx:
+            author = ctx.author.name
+            author_url = ctx.author.avatar_url
+        elif user:
+            author = user.name
+            author_url = user.avatar_url
+        else:
+            author = self.bot.user.name
+            author_url = self.bot.user.avatar_url
+        data.set_author(name=author, icon_url=author_url)
         if image is not None:
             data.set_image(url=image)
         if footer_text is None:
