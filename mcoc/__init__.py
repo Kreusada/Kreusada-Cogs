@@ -1,5 +1,5 @@
 from redbot.core.bot import Red
-from .mcoc import Mcoc
+from .mcoc_v2 import Mcoc
 
 __red_end_user_data_statement__ = (
     "This cog does not persistently store data or metadata about users."
