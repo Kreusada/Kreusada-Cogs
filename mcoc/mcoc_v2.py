@@ -90,7 +90,7 @@ class Embed:
         self.bot = bot
 
     def create(
-        self, ctx: Union[commands.context, discord.Member], title: str = None,
+        self, ctx: Union[commands.Context, discord.Member], title: str = None,
         description: str = None, color: discord.Color = None, image: str = None
     ):
         DEMARATUS = 'https://cdn.discordapp.com/attachments/758775890954944572/768452440785027132/demaratuscircle.png'
