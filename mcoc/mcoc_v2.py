@@ -56,7 +56,7 @@ class Mcoc(commands.Cog):
             image, title = self.battlechip_logic()
             description = None
 
-        return self.embed.create(ctx=user, title=title, description=description, image=image)
+        return self.embed.create(user=user, title=title, description=description, image=image)
 
     def battlechip_logic(self) -> Tuple[str, str]:
         droprate = round(random.uniform(1, 100), 2)
