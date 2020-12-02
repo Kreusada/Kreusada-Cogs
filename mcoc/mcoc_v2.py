@@ -91,7 +91,7 @@ class Embed:
 
     def create(
         self, ctx: Union[commands.Context, discord.Member], title: str = None,
-        description: str = None, color: discord.Color = None, image: str = None
+        description: str = None, color: discord.Colour = discord.Colour.gold(), image: str = None
     ):
         DEMARATUS = 'https://cdn.discordapp.com/attachments/758775890954944572/768452440785027132/demaratuscircle.png'
         # if isinstance(ctx.message.channel, discord.abc.GuildChannel):
