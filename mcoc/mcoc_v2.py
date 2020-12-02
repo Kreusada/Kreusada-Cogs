@@ -113,9 +113,5 @@ class Embed:
         data.set_author(name=author, icon_url=author_url)
         if image is not None:
             data.set_image(url=image)
-        if footer_text is None:
-            footer_text = "Demaratus | MCOC Commands"
-        if footer_url is None:
-            footer_url = DEMARATUS
-        data.set_footer(text=footer_text, icon_url=footer_url)
+        data.set_footer(text="Demaratus | MCOC Commands", icon_url=DEMARATUS)
         return data
