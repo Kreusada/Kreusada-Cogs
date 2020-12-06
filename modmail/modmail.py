@@ -66,7 +66,7 @@ class ModMail(commands.Cog):
         if not message.content[0] in await self.bot.get_prefix(message) and channel is not None:
             embed = discord.Embed(self, message, title="Mod Mail 📬", description=message.content)
             await channel.send(embed=embed)
-        except discord.Forbidden:
+        else:
             await author.send("Something went wrong.")
 
 class Embed:
