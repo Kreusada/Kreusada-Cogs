@@ -34,7 +34,6 @@ class ModMail(commands.Cog):
     @commands.is_owner()
     async def modmail(self, ctx, toggle: discord.TextChannel = None):
         """Enable/disable the Mod mail"""
-
         if toggle is None:
             await ctx.send("Would you like to disable the Mod Mail? (y/n)")
             try:
@@ -48,4 +47,4 @@ class ModMail(commands.Cog):
                 msg = "Canceled the removal of the Mod Mail channel"
             return await ctx.send(msg)
         await self.config.set_raw("Channel", value=toggle.id)
-        await ctx.send("Channel changed to {}".format(toggle.mention))
+        await ctx.send("Channel set to {}".format(toggle.mention))
