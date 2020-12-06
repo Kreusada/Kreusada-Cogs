@@ -40,7 +40,7 @@ class ModMail(commands.Cog):
             await self.config.guild(ctx.guild).set_raw("role", value=role.id)
             embed = Embed.create(
                 self, ctx, title="Successful",
-                description=f"{role.name} will now be mentioned for modmail alerts.",
+                description=f"**{role.name}** will now be mentioned for modmail alerts.",
             )
             await ctx.send(embed=embed)
         except discord.Forbidden:
@@ -66,6 +66,8 @@ class ModMail(commands.Cog):
         if not message.content[0] in await self.bot.get_prefix(message) and channel is not None:
             embed = discord.Embed(self, message, title="Mod Mail 📬", description=message.content)
             await channel.send(embed=embed)
+        except discord.Forbidden:
+            await author.send("Something went wrong.")
 
 class Embed:
     def __init__(self, bot):
