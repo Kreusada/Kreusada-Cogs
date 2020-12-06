@@ -7,7 +7,8 @@ class ModMail(commands.Cog):
     """This cog allows you to see any dms your bot receives"""
 
     default_global = {
-        "Channel": None
+        "channel": None,
+        "role": None
     }
 
     def __init__(self, bot):
@@ -15,7 +16,42 @@ class ModMail(commands.Cog):
         self.config = Config.get_conf(
             self, 12386760762, force_registration=True)
         self.config.register_global(**self.default_global)
-
+        
+    @commands.group()
+    @checks.admin_or_permissions(manage_guild=True)
+    async def modmailset(self, ctx):
+        """Configure your modmail."""
+        return
+    
+    @modmailset.command()
+    async def channel(self, ctx, channel: discord.TextChannel):
+        """Sets the channel to receive notifications."""
+        await self.config.guild(ctx.guild).set_raw("channel", value=channel.id)
+        embed = Embed.create(
+            self, ctx, title="Successful",
+            description=f"{channel.mention} will now receive notifications from users who use the modmail."
+        )
+        await ctx.send(embed=embed)
+        
+    @modmailset.command()
+    async def role(self, ctx, role: discord.Role):
+        """Sets an optional role to be pinged for modmail."""
+        try:
+            await self.config.guild(ctx.guild).set_raw("role", value=role.id)
+            embed = Embed.create(
+                self, ctx, title="Successful",
+                description=f"`{role.mention}` will now be mentioned for modmail alerts.",
+            )
+            await ctx.send(embed=embed)
+        except discord.Forbidden:
+            embed = Embed.create(
+                self, ctx, title="Oopsies!",
+                description=f"Something went wrong during the setup process."
+            )
+            await ctx.send(embed=embed)
+            return
+        return
+    
     @commands.Cog.listener()
     async def on_message(self, message):
         if not isinstance(message.channel, discord.DMChannel):
@@ -25,26 +61,9 @@ class ModMail(commands.Cog):
         app = await self.bot.application_info()
         if message.author.id == app.owner.id:
             return
-        channel = self.bot.get_channel(await self.config.get_raw("Channel"))
+        channel = self.bot.get_channel(await self.config.get_raw("channel"))
+        role = self.bot.get_role(await self.config.get_raw("role"))
         if not message.content[0] in await self.bot.get_prefix(message) and channel is not None:
-            embed = discord.Embed(self, message, title="Mod Mail 📬", description=message.content, color=await ctx.embed_colour(), timestamp=datetime.now())
+            embed = discord.Embed(self, message, title="Mod Mail 📬", description=message.content)
             await channel.send(embed=embed)
-
-    @commands.command()
-    @commands.is_owner()
-    async def modmail(self, ctx, toggle: discord.TextChannel = None):
-        """Enable/disable the Mod mail"""
-        if toggle is None:
-            await ctx.send("Would you like to disable the Mod Mail? (y/n)")
-            try:
-                msg = await self.bot.wait_for("message", check=lambda message: message.author == ctx.author, timeout=30)
-                if msg.content[0].lower() == "y":
-                    await self.config.set_raw("Channel", value=None)
-                    msg = "Successfully removed the Mod Mail channel!"
-                elif msg.content[0].lower() == "n":
-                    msg = "Aborted the removal of the Mod Mail channel"
-            except TimeoutError:
-                msg = "Canceled the removal of the Mod Mail channel"
-            return await ctx.send(msg)
-        await self.config.set_raw("Channel", value=toggle.id)
-        await ctx.send("Channel set to {}".format(toggle.mention))
+        
