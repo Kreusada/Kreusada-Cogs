@@ -6,10 +6,6 @@ from redbot.core import commands, Config, checks
 class ModMail(commands.Cog):
     """This cog allows you to see any dms your bot receives"""
 
-class Embed:
-    def __init__(self, bot):
-        self.bot = bot
-
     default_global = {
         "channel": None,
         "role": None
@@ -72,6 +68,10 @@ class Embed:
             await channel.send(embed=embed)
         else:
             await author.send("Something went wrong.")
+
+class Embed:
+    def __init__(self, bot):
+        self.bot = bot
 
     def create(self, message, title="", description="", image: str = None, thumbnail: str = None) -> discord.Embed:
         data = discord.Embed(title=title, color=discord.Color.dark_magenta())
