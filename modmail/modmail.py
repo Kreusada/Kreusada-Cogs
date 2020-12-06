@@ -1,6 +1,6 @@
 import discord
 from datetime import datetime, timedelta
-from redbot.core import commands, Config
+from redbot.core import commands, Config, checks
 
 
 class ModMail(commands.Cog):
