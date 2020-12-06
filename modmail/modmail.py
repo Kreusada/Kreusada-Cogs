@@ -27,7 +27,7 @@ class ModMail(commands.Cog):
     async def channel(self, ctx, channel: discord.TextChannel):
         """Sets the channel to receive notifications."""
         await self.config.guild(ctx.guild).set_raw("channel", value=channel.id)
-        embed = Embed.create(
+        embed = discord.Embed(
             self, ctx, title="Successful",
             description=f"{channel.mention} will now receive notifications from users who use the modmail."
         )
@@ -38,7 +38,7 @@ class ModMail(commands.Cog):
         """Sets an optional role to be pinged for modmail."""
         try:
             await self.config.guild(ctx.guild).set_raw("role", value=role.id)
-            embed = Embed.create(
+            embed = discord.Embed(
                 self, ctx, title="Successful",
                 description=f"`{role.mention}` will now be mentioned for modmail alerts.",
             )
