@@ -1,5 +1,5 @@
 import discord
-from typing import literal
+from typing import Literal
 from datetime import datetime, timedelta
 from redbot.core import commands, Config, checks
 
