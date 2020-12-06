@@ -40,7 +40,7 @@ class ModMail(commands.Cog):
             await self.config.guild(ctx.guild).set_raw("role", value=role.id)
             embed = Embed.create(
                 self, ctx, title="Successful",
-                description=f"`{role.mention}` will now be mentioned for modmail alerts.",
+                description=f"{role.name} will now be mentioned for modmail alerts.",
             )
             await ctx.send(embed=embed)
         except discord.Forbidden:
@@ -84,7 +84,7 @@ class Embed:
             data.set_image(url=image)
         if thumbnail is not None:
             data.set_thumbnail(url=thumbnail)
-        data.set_footer(text="{0.name} modmail".format(
+        data.set_footer(text="{0.name} ModMail".format(
             self.bot.user), icon_url=self.bot.user.avatar_url)
         return data
         
