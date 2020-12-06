@@ -27,7 +27,7 @@ class ModMail(commands.Cog):
     async def channel(self, ctx, channel: discord.TextChannel):
         """Sets the channel to receive notifications."""
         await self.config.guild(ctx.guild).set_raw("channel", value=channel.id)
-        embed = discord.Embed(
+        embed = Embed.create(
             self, ctx, title="Successful",
             description=f"{channel.mention} will now receive notifications from users who use the modmail."
         )
@@ -38,7 +38,7 @@ class ModMail(commands.Cog):
         """Sets an optional role to be pinged for modmail."""
         try:
             await self.config.guild(ctx.guild).set_raw("role", value=role.id)
-            embed = discord.Embed(
+            embed = Embed.create(
                 self, ctx, title="Successful",
                 description=f"`{role.mention}` will now be mentioned for modmail alerts.",
             )
@@ -66,4 +66,25 @@ class ModMail(commands.Cog):
         if not message.content[0] in await self.bot.get_prefix(message) and channel is not None:
             embed = discord.Embed(self, message, title="Mod Mail 📬", description=message.content)
             await channel.send(embed=embed)
+
+class Embed:
+    def __init__(self, bot):
+        self.bot = bot
+
+    def create(self, message, title="", description="", image: str = None, thumbnail: str = None) -> discord.Embed:
+        """A modified version of JJW's embed maker to suit the `on_message` listener"""
+
+        data = discord.Embed(title=title, color=discord.Color.dark_magenta())
+        if description is not None:
+            if len(description) <= 1500:
+                data.description = description
+        data.set_author(name=message.author.display_name,
+                        icon_url=message.author.avatar_url)
+        if image is not None:
+            data.set_image(url=image)
+        if thumbnail is not None:
+            data.set_thumbnail(url=thumbnail)
+        data.set_footer(text="{0.name} modmail".format(
+            self.bot.user), icon_url=self.bot.user.avatar_url)
+        return data
         
