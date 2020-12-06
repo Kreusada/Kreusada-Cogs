@@ -1,5 +1,6 @@
-from redbot.core import commands, Config
 import discord
+from datetime import datetime, timedelta
+from redbot.core import commands, Config
 
 
 class ModMail(commands.Cog):
@@ -26,9 +27,8 @@ class ModMail(commands.Cog):
             return
         channel = self.bot.get_channel(await self.config.get_raw("Channel"))
         if not message.content[0] in await self.bot.get_prefix(message) and channel is not None:
-            emb = Embed.create(self, message, title="Mod Mail 📬",
-                               description=message.content)
-            await channel.send(embed=emb)
+            embed = discord.Embed(self, message, title="Mod Mail 📬", description=message.content, color=await ctx.embed_colour(), timestamp=datetime.now())
+            await channel.send(embed=embed)
 
     @commands.command()
     @commands.is_owner()
