@@ -8,7 +8,7 @@ class GoogleSearch(commands.Cog):
     self.bot = bot
   
   @commands.command()
-  async def search(self, ctx, *choices):
+  async def google(self, ctx, *choices):
     """Get a google URL."""
     search = [escape(s, mass_mentions=True) for s in search if s]
     if len(search) < 2:
