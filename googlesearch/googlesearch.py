@@ -4,6 +4,9 @@ from redbot.core import commands
 class GoogleSearch(commands.Cog):
   """Search google with simplified URLs."""
   
+  def __init__(self, bot):
+    self.bot = bot
+  
   @commands.command()
   async def choose(self, ctx, *choices):
     """Get a google URL."""
