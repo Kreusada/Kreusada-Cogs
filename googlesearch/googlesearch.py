@@ -8,7 +8,7 @@ class GoogleSearch(commands.Cog):
   async def choose(self, ctx, *choices):
     """Get a google URL."""
       search = [escape(s, mass_mentions=True) for s in search if s]
-      if len(choices) < 2:
+      if len(search) < 2:
           await ctx.send(_("Not enough options to pick from."))
       else:
-          await ctx.send(choices)
+          await ctx.send(search)
