@@ -14,25 +14,15 @@ class ChristmasCard(commands.Cog):
       if destination is None or destination.bot:
           await ctx.send(_("Invalid ID, user not found, or user is a bot."))
           return
-        prefixes = await ctx.bot.get_valid_prefixes()
-        prefix = re.sub(rf"<@!?{ctx.me.id}>", f"@{ctx.me.name}".replace("\\", r"\\"), prefixes[0])
-        description = _("Owner of {}").format(ctx.bot.user)
-        content = _("Send christmas cards using {}christmascard!").format(prefix)
-        if await ctx.embed_requested():
-            e = discord.Embed(colour=discord.Colour.red(), description=message)
-
-            e.set_footer(text=content)
-            if ctx.bot.user.avatar_url:
-                e.set_author(name=description, icon_url=ctx.bot.user.avatar_url)
-            else:
-                e.set_author(name=description)
-
-            try:
-                await destination.send(embed=e)
-            except discord.HTTPException:
-                await ctx.send(
-                    _("Sorry, I couldn't send a card to {}").format(destination)
-                )
+        description = _("Christmas Card from {}").format(ctx.author)
+        content = _("Send christmas cards using {}christmascard!").format(ctx.clean_prefix)
+        e = discord.Embed(colour=discord.Colour.red(), description=message)
+        e.set_footer(text=content)
+        e.set_author(ctx.author.name)
+        try:
+          await destination.send(embed=e)
+        except discord.HTTPException:
+          await ctx.send(_("Sorry, I couldn't send a card to {}").format(destination))
             else:
                 await ctx.send(_("Message delivered to {}").format(destination))
         else:
