@@ -24,7 +24,7 @@ class ChristmasCard(commands.Cog):
       await ctx.send(f"Message delivered to {destination}")
     response = "{}\nMessage:\n\n{}".format(description, message)
     try:
-        await destination.send(f"{box(response)}\n{content}"
+        await destination.send(f"{box(response)}\n{content}")
     except discord.HTTPException:
         await ctx.send(f"Sorry, I couldn't deliver your message to {destination}")
     else:
