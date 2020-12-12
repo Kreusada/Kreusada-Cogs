@@ -71,8 +71,10 @@ class Staff(commands.Cog):
         jumper_link = ctx.message.jump_url
         author_id = ctx.author.id
         now = datetime.now()
-        strftime = now.strftime("Today at %H:%M")
+        strftime = now.strftime("Today at %H:%M %p")
+        daytime = now.strftime("%d of %B, %Y")
         msgtime = f"\n**Occurance:** {strftime}"
+        date = f"\n**Date called:** {daytime}"
         authid = f"\n\n**Author ID:** {author_id}"
         chfmi = "Click here for more information"
         call = " has just called for the staff in "
@@ -80,7 +82,7 @@ class Staff(commands.Cog):
         if channel is not None:
             embed = Embed.create(
                 self, ctx, title=":warning: ALERT!",
-                description=f"**{ctx.author.name}**{call}{ctx.channel.mention}.{authid}{msgtime}{jumper_f}",
+                description=f"**{ctx.author.name}**{call}{ctx.channel.mention}.{date}{msgtime}{authid}{jumper_f}",
                 footer_text=f"{bot.user.name} | Staff",
                 footer_url=f"{bot.user.avatar_url}"
             )
