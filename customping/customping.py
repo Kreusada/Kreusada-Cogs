@@ -22,8 +22,11 @@ class CustomPing(commands.Cog):
     
   @commands.is_owner()  
   @commands.command()
-  async def pingset(self, ctx, *, response: str = "Pong."):
+  async def pingset(self, ctx, *, response: str = None):
     """Set your custom ping message."""
+    if response is None:
+      await self.config.response.set("Pong.")
+      return
     await self.config.response.set(response)
     response = await self.config.response()
     await ctx.send(f"Running `{ctx.clean_prefix}ping` will now respond with: ```diff\n+ {response}```")
