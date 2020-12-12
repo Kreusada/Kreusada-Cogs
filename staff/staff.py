@@ -52,7 +52,23 @@ class Staff(commands.Cog):
                 description=f"Something went wrong during the setup process."
             )
             await ctx.send(embed=embed)
-
+        return
+    
+    @staffset.command()
+    @checks.admin_or_permissions(manage_guild=True)
+    async def factoryreset(self, ctx):
+        """Resets the full staff configuration."""
+        role = await self.config.guild(ctx.guild).get_raw("channel")
+        channel = await self.config.guild(ctx.guild).get_raw("channel")
+        if role is not None and channel is not None:
+            await self.removal(ctx, "role", "channel")
+        elif role is None and channel is not None:
+            await self.removal(ctx, "channel")
+        elif role is not None and channel is None:
+            await self.removal(ctx, "role")
+        else:
+            await ctx.send("Something went wrong.")
+        
     @commands.command()
    # @commands.cooldown(1, 600, commands.BucketType.user)
     async def staff(self, ctx):
@@ -107,3 +123,33 @@ class Embed:
             data.set_thumbnail(url=thumbnail)
         if footer_text is None:
             footer_text = "Staff"
+
+        async def removal(self, ctx: commands.Context, action: str):
+        message = "Would you like to reset the {}?".format(action)
+        can_react = ctx.channel.permissions_for(ctx.me).add_reactions
+        if not can_react:
+            message += " (y/n)"
+        question: discord.Message = await ctx.send(message)
+        if can_react:
+            start_adding_reactions(
+                question, ReactionPredicate.YES_OR_NO_EMOJIS
+            )
+            pred = ReactionPredicate.yes_or_no(question, ctx.author)
+            event = "reaction_add"
+        else:
+            pred = MessagePredicate.yes_or_no(ctx)
+            event = "message"
+        try:
+            await ctx.bot.wait_for(event, check=pred, timeout=20)
+        except asyncio.TimeoutError:
+            await question.delete()
+            await ctx.send("Okay then :D")
+        if not pred.result:
+            await question.delete()
+            return await ctx.send("Canceled!")
+        else:
+            if can_react:
+                with suppress(discord.Forbidden):
+                    await question.clear_reactions()
+        await self.config.guild(ctx.guild).set_raw(action, value=None)
+        await ctx.send("Removed the {}!".format(action))
