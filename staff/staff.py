@@ -95,7 +95,7 @@ class Embed:
     def __init__(self, bot):
         self.bot = bot
 
-    def create(self, ctx, color=embed.colour(), title='', description='', image=None,
+    def create(self, ctx, color=discord.Color.red(), title='', description='', image=None,
                thumbnail=None, url=None, footer_text=None, footer_url=None, author_text=None):
         if isinstance(ctx.message.channel, discord.abc.GuildChannel):
             color = 0xe15d59
