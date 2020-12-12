@@ -70,8 +70,8 @@ class Staff(commands.Cog):
             else ctx.channel
         jumper_link = ctx.message.jump_url
         msgtime = f"**Occurance at:** {datetime.now()}"
-        msgid = f"\n**Message ID:**{ctx.message_id}"
-        authid = f"\n**Author ID:**{ctx.message_author}"
+        msgid = f"\n**Message ID:**{message.id}"
+        authid = f"\n**Author ID:**{message.author.id}"
         chfmi = "Click here for more information"
         call = " has just called for the staff in "
         jumper_f = "\n\n**[{}]({})**".format(chfmi, jumper_link)
