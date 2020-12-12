@@ -56,6 +56,7 @@ class Staff(commands.Cog):
    # @commands.cooldown(1, 600, commands.BucketType.user)
     async def staff(self, ctx):
         """Notifies the staff."""
+        message = ctx.message
         await message.add_reaction("✅")
         await author.send("We sent a report to the staff. Please be patient, they will be with you as soon as possible.")
         
