@@ -19,14 +19,14 @@ class FestiveCards(commands.Cog):
     """Send a card to someone!"""
   
   @card.group(autohelp=False, invoke_without_command=True)
-  async def viewoutput(self, ctx):
+  async def viewoutput(self):
     """Send a template version to your DM!"""
     await ctx.send(
       "Which card type would you like to see? Please run one of the following commands.\n"
       "This message will be deleted after **20 seconds**.\n"
-      "\n`❄️`: `{ctx.clean_prefix}card viewoutput christmas`"
-      "\n`🎂`: `{ctx.clean_prefix}card viewoutput birthday`"
-      "\n`🏥`: `{ctx.clean_prefix}card viewoutput getwellsoon`",
+      f"\n`❄️`: `{ctx.clean_prefix}card viewoutput christmas`"
+      f"\n`🎂`: `{ctx.clean_prefix}card viewoutput birthday`"
+      f"\n`🏥`: `{ctx.clean_prefix}card viewoutput getwellsoon`",
     delete_after=20)
     
   @viewoutput.command()
