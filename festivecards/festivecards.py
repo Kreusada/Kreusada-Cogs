@@ -30,6 +30,7 @@ class FestiveCards(commands.Cog):
         "\n`🎂`: **Birthday**"
         "\n`🏥`: **Get Well Soon**"
       )
+      user = ctx.author
       reactions = ReactionPredicate.with_emojis(("❄️", "🎂", "🏥"), message, user)
       start_adding_reactions(message, reactions)
       pred = ReactionPredicate.with_emojis(emojis, msg)
