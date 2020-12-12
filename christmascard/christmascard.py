@@ -3,6 +3,9 @@ from redbot.core import commands
 
 class ChristmasCard(commands.Cog):
   """Send someone a christmas card!"""
+  
+  def __init__(self, bot):
+    self.bot = bot
 
     @commands.command()
     async def christmascard(self, ctx: commands.Context, user_id: int, *, message: str):
