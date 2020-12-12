@@ -28,10 +28,12 @@ class FestiveCards(commands.Cog):
         "\ n`🎂`: **Birthday**"
         "\n`🏥`: **Get Well Soon**"
       )
-      reaction = await message.add_reaction("❄️", "🎂", "🏥")
+      reactions = ReactionPredicate.with_emojis(("❄️", "🎂", "🏥"), message, user)
+      start_adding_reactions(message, reactions)
+      pred = ReactionPredicate.with_emojis(emojis, msg)
       await asyncio.sleep(20)
-      await reaction.clear()
-      await reaction.clear.send(f"Timed out. Please try again using {ctx.clean_prefix}.")
+      await reactions.clear()
+      await reactions.clear.send(f"Timed out. Please try again using {ctx.clean_prefix}.")
     else:
       await ctx.send("I don't have permissions to add reactions.")
     
