@@ -27,7 +27,7 @@ class FestiveCards(commands.Cog):
         "Which card type would you like to see? Please react accordingly.\n"
         "These reactions will be removed after **20 seconds**.\n"
         "\n`❄️`: **Christmas**"
-        "\ n`🎂`: **Birthday**"
+        "\n`🎂`: **Birthday**"
         "\n`🏥`: **Get Well Soon**"
       )
       reactions = ReactionPredicate.with_emojis(("❄️", "🎂", "🏥"), message, user)
