@@ -100,7 +100,6 @@ class Embed:
         if isinstance(ctx.message.channel, discord.abc.GuildChannel):
             color = 0xe15d59
         data = discord.Embed(color=color, title=title, url=url)
-        botname = bot.user.name
         if description is not None:
             if len(description) < 1500:
                 data.description = description
@@ -109,7 +108,7 @@ class Embed:
         if thumbnail is not None:
             data.set_thumbnail(url=thumbnail)
         if footer_text is None:
-            footer_text = f"{botname} | Staff"
+            footer_text = "Staff"
         if footer_url is None:
             footer_url = bot.user.avatar_url
         data.set_footer(text=footer_text, icon_url=footer_url)
