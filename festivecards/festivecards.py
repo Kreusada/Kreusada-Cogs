@@ -39,8 +39,10 @@ class FestiveCards(commands.Cog):
     e.set_footer(text=foot)
     try:
       await author.send(embed=e)
-    else:
+    except discord.HTTPException:
       await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")
+    else:
+      await ctx.send("I sent a test message to your DMs!")
     
 
   @card.command()
