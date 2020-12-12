@@ -124,7 +124,7 @@ class Embed:
         if footer_text is None:
             footer_text = "Staff"
 
-        async def removal(self, ctx: commands.Context, action: str):
+    async def removal(self, ctx: commands.Context, action: str):
         message = "Would you like to reset the {}?".format(action)
         can_react = ctx.channel.permissions_for(ctx.me).add_reactions
         if not can_react:
