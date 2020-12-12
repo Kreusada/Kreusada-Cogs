@@ -1,5 +1,6 @@
 import discord
 import requests
+import asyncio
 from datetime import datetime, timedelta
 from validator_collection import validators
 from datetime import datetime
@@ -58,13 +59,15 @@ class Staff(commands.Cog):
         """Notifies the staff."""
         message = ctx.message
         author = ctx.author
+        await author.send("**:warning: We have sent a report to the staff team. They will be with you as soon as possible.**")
+        await asyncio.sleep(1)
         await message.add_reaction("✅")
-        await author.send("We sent a report to the staff. Please be patient, they will be with you as soon as possible.")
         
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
         channel = ctx.guild.get_channel(chan) if chan is not None\
             else ctx.channel
+        bot = self.bot
         jumper_link = ctx.message.jump_url
         author_id = ctx.author.id
         bun = bot.user.name
