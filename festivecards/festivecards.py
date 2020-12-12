@@ -33,7 +33,7 @@ class FestiveCards(commands.Cog):
       user = ctx.author
       reactions = ReactionPredicate.with_emojis(("❄️", "🎂", "🏥"), message, user)
       start_adding_reactions(message, reactions)
-      pred = ReactionPredicate.with_emojis(reactions, msg)
+      pred = ReactionPredicate.with_emojis(reactions, message)
       await asyncio.sleep(20)
       await reactions.clear()
       await reactions.clear.send(f"Timed out. Please try again using {ctx.clean_prefix}.")
