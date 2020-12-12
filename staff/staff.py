@@ -1,9 +1,9 @@
 import discord
+import requests
 from datetime import datetime, timedelta
 from validator_collection import validators
 from datetime import datetime
 from redbot.core import commands, checks, Config, modlog
-from .staffembed import Embed
 
 
 class Staff(commands.Cog):
@@ -18,6 +18,29 @@ class Staff(commands.Cog):
             "channel": None
         }
         self.config.register_guild(**default_guild)
+
+class Embed:
+    def __init__(self, bot):
+        self.bot = bot
+
+    def create(self, ctx, color=discord.Color.red(), title='', description='', image=None,
+               thumbnail=None, url=None, footer_text=None, footer_url=None, author_text=None):
+        if isinstance(ctx.message.channel, discord.abc.GuildChannel):
+            color = 0xe15d59
+        data = discord.Embed(color=color, title=title, url=url)
+        if description is not None:
+            if len(description) < 1500:
+                data.description = description
+        if image is not None:
+            data.set_image(url=image)
+        if thumbnail is not None:
+            data.set_thumbnail(url=thumbnail)
+        if footer_text is None:
+            footer_text = f"{bot.user.name} | Staff"
+        if footer_url is None:
+            footer_url = bot.user.avatar_url
+        data.set_footer(text=footer_text, icon_url=footer_url)
+        return data
 
     @commands.group()
     async def staffset(self, ctx):
@@ -78,7 +101,8 @@ class Staff(commands.Cog):
         if channel is not None:
             embed = Embed.create(
                 self, ctx, title='<:alert:777928824670388254> ALERT!',
-                description= f"**{ctx.author.name}**{call}{ctx.channel.mention}.{authid}{jumper_f}"
+                description= f"**{ctx.author.name}**{call}{ctx.channel.mention}.{authid}{jumper_f}",
+                color=color
             )
             await channel.send(content=f":warning: {role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
         else:
