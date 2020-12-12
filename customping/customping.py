@@ -26,6 +26,7 @@ class CustomPing(commands.Cog):
     """Set your custom ping message."""
     if response is None:
       await self.config.response.set("Pong.")
+      response = await self.config.response()
       await ctx.send(f"Running `{ctx.clean_prefix}ping` will now respond with the default: **{response}**")
       return
     await self.config.response.set(response)
