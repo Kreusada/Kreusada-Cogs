@@ -65,12 +65,7 @@ class FestiveCards(commands.Cog):
                       description="Dear `Username`,\n\n`Your message will go here`\n\nFrom {} :pray:".format(author),
                       colour=discord.Colour.red())
     e.set_footer(text=foot)
-    try:
-      await author.send(embed=e)
-    except discord.HTTPException:
-      await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")
-    else:
-      await ctx.send("I sent a test message to your DMs!")
+    await author.send(embed=e)
     
   @send.command()
   async def christmas(self, ctx: commands.Context, user_id: int, *, message: str):
