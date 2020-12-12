@@ -10,16 +10,16 @@ class ChristmasCard(commands.Cog):
     @commands.command()
     async def christmascard(self, ctx: commands.Context, user_id: int, *, message: str):
       """Send a christmas card to someone!"""
-        destination = self.bot.get_user(user_id)
-        if destination is None or destination.bot:
-            await ctx.send(
-                _(
-                    "Invalid ID, user not found, or user is a bot. "
-                    "You can only send messages to people I share "
-                    "a server with."
-                )
-            )
-            return
+      destination = self.bot.get_user(user_id)
+      if destination is None or destination.bot:
+          await ctx.send(
+              _(
+                  "Invalid ID, user not found, or user is a bot. "
+                  "You can only send messages to people I share "
+                  "a server with."
+              )
+          )
+          return
 
         prefixes = await ctx.bot.get_valid_prefixes()
         prefix = re.sub(rf"<@!?{ctx.me.id}>", f"@{ctx.me.name}".replace("\\", r"\\"), prefixes[0])
