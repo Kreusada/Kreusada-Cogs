@@ -1,7 +1,7 @@
 import discord
 from redbot.core import commands
 
-class ChristmasCard(commands.Cog):
+class FestiveCards(commands.Cog):
   """Send someone a christmas card!"""
   
   def __init__(self, bot):
