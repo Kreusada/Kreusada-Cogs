@@ -1,4 +1,4 @@
-from .christmascard import ChristmasCard
+from .christmascard import FestiveCards
 
 def setup(bot):
-  bot.add_cog(ChristmasCard(bot))
+  bot.add_cog(FestiveCards(bot))
