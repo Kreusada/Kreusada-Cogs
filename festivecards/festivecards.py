@@ -24,6 +24,6 @@ class FestiveCards(commands.Cog):
     try:
       await destination.send(embed=e)
     except discord.HTTPException:
-      await ctx.send("Sorry, I couldn't send a card to {}").format(user.name)
+      await ctx.send(f"Sorry, I couldn't send a card to **{user.name}.**")
     else:
-      await ctx.send(f"Message delivered to {user.name}")
+      await ctx.send(f"Christmas card delivered to **{user.name}!** :gift:")
