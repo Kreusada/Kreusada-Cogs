@@ -29,5 +29,5 @@ class ChristmasCard(commands.Cog):
           await destination.send("{}\n{}".format(box(response), content))
       except discord.HTTPException:
           await ctx.send(_("Sorry, I couldn't deliver your message to {}").format(destination))
-        else:
-            await ctx.send(_("Message delivered to {}").format(destination))
+      else:
+          await ctx.send(_("Message delivered to {}").format(destination))
