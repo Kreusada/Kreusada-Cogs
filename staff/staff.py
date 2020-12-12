@@ -69,16 +69,16 @@ class Staff(commands.Cog):
         channel = ctx.guild.get_channel(chan) if chan is not None\
             else ctx.channel
         jumper_link = ctx.message.jump_url
+        author_id = ctx.author.id
         msgtime = f"**Occurance at:** {datetime.now()}"
-        msgid = f"\n**Message ID:**{message.id}"
-        authid = f"\n**Author ID:**{message.author.id}"
+        authid = f"\n**Author ID:**{author_id}"
         chfmi = "Click here for more information"
         call = " has just called for the staff in "
         jumper_f = "\n\n**[{}]({})**".format(chfmi, jumper_link)
-        if role is not None:
+        if channel is not None:
             embed = Embed.create(
                 self, ctx, title='<:alert:777928824670388254> ALERT!',
-                description= f"**{ctx.author.name}**{call}{ctx.channel.mention}.{msgid}{authid}{jumper_f}"
+                description= f"**{ctx.author.name}**{call}{ctx.channel.mention}.{authid}{jumper_f}"
             )
             await channel.send(content=f":warning: {role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
         else:
