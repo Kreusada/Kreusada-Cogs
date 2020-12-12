@@ -77,7 +77,7 @@ class Staff(commands.Cog):
         if channel is not None:
             embed = Embed.create(
                 self, ctx, title=":warning: ALERT!",
-                description= f"**{ctx.author.name}**{call}{ctx.channel.mention}.{authid}{msgtime}{jumper_f}",
+                description=f"**{ctx.author.name}**{call}{ctx.channel.mention}.{authid}{msgtime}{jumper_f}",
                 footer_text=f"{bot.user.name} | Staff",
                 footer_url=f"{bot.user.avatar_url}"
             )
