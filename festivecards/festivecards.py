@@ -18,27 +18,29 @@ class FestiveCards(commands.Cog):
   async def send(self, ctx):
     """Send a card to someone!"""
   
-  @card.command()
+  @card.group(autohelp=False, invoke_without_command=True)
   async def viewoutput(self, ctx):
     """Send a template version to your DM!"""
-    can_react = ctx.channel.permissions_for(ctx.me).add_reactions
-    if can_react:
-      message = await ctx.send(
-        "Which card type would you like to see? Please react accordingly.\n"
-        "These reactions will be removed after **20 seconds**.\n"
-        "\n`❄️`: **Christmas**"
-        "\n`🎂`: **Birthday**"
-        "\n`🏥`: **Get Well Soon**"
-      )
-      user = ctx.author
-      reactions = ReactionPredicate.with_emojis(("❄️", "🎂", "🏥"), message, user)
-      start_adding_reactions(message, reactions)
-      pred = ReactionPredicate.with_emojis(reactions, message)
-      await asyncio.sleep(20)
-      await reactions.clear()
-      await reactions.clear.send(f"Timed out. Please try again using {ctx.clean_prefix}.")
+    await ctx.send(
+      "Which card type would you like to see? Please run one of the following commands.\n"
+      "This message will be deleted after **20 seconds**.\n"
+      "\n`❄️`: `{ctx.clean_prefix}card viewoutput christmas`"
+      "\n`🎂`: `{ctx.clean_prefix}card viewoutput birthday`"
+      "\n`🏥`: `{ctx.clean_prefix}card viewoutput getwellsoon`",
+    delete_after=20)
+    
+  @viewoutput.command()
+  async def christmas(self, ctx):
+    author = ctx.author.name
+    foot = (f"Send christmas cards using {ctx.clean_prefix}card!")
+    e = discord.Embed(title=f":christmas_tree: Christmas Card from {ctx.author} :christmas_tree:",
+                      description="Dear `Username`,\n\n`Your message will go here`\n\nFrom {} :gift:".format(author),
+                      colour=discord.Colour.red())
+    e.set_footer(text=foot)
+    try:
+      await author.send(embed=e)
     else:
-      await ctx.send("I don't have permissions to add reactions.")
+      await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")
     
 
   @card.command()
