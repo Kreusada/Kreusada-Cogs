@@ -67,6 +67,8 @@ class Staff(commands.Cog):
             else ctx.channel
         jumper_link = ctx.message.jump_url
         author_id = ctx.author.id
+        bun = bot.user.name
+        buau = bot.user.avatar_url
         msgtime = f"**Occurance at:** {datetime.now()}"
         authid = f"\n**Author ID:**{author_id}"
         chfmi = "Click here for more information"
@@ -76,8 +78,8 @@ class Staff(commands.Cog):
             embed = Embed.create(
                 self, ctx, title=":warning: ALERT!",
                 description= f"**{ctx.author.name}**{call}{ctx.channel.mention}.{authid}{msgtime}{jumper_f}",
-                footer_text=f"{bot.user.name} | Staff",
-                footer_url=f"{bot.user.avatar_url}",
+                footer_text=f"{bun} | Staff",
+                footer_url=f"{buau}",
             )
             await channel.send(content=f":warning: {role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
         else:
