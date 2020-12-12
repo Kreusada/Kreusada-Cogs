@@ -42,7 +42,7 @@ class FestiveCards(commands.Cog):
     else:
       await ctx.send("I sent a test message to your DMs!")
 
-  @commands.command()
+  @viewoutput.command()
   async def birthday(self, ctx):
     author = ctx.author.name
     foot = (f"Send birthday cards using {ctx.clean_prefix}card send birthday!")
