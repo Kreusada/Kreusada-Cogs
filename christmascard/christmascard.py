@@ -20,7 +20,7 @@ class ChristmasCard(commands.Cog):
               )
           )
           return
-
+        
         prefixes = await ctx.bot.get_valid_prefixes()
         prefix = re.sub(rf"<@!?{ctx.me.id}>", f"@{ctx.me.name}".replace("\\", r"\\"), prefixes[0])
         description = _("Owner of {}").format(ctx.bot.user)
