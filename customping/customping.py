@@ -40,3 +40,13 @@ class CustomPing(commands.Cog):
     else:
       response = resp
     await ctx.send(response)
+
+async def setup(bot):
+    if discord.version_info <= (1, 4):
+        raise CogLoadError("This cog requires d.py 1.4+ to work.")
+    cping = CustomPing(bot)
+    global _old_ping
+    _old_ping = bot.get_command("ping")
+    if _old_ping:
+        bot.remove_command(_old_ping.name)
+    bot.add_cog(cping)
