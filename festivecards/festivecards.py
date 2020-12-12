@@ -19,7 +19,7 @@ class FestiveCards(commands.Cog):
     """Send a card to someone!"""
   
   @card.group(autohelp=False, invoke_without_command=True)
-  async def viewoutput(self):
+  async def viewoutput(self, ctx):
     """Send a template version to your DM!"""
     await ctx.send(
       "Which card type would you like to see? Please run one of the following commands.\n"
