@@ -12,7 +12,7 @@ class RandomNitroBooster(commands.Cog):
     
   @commands.command()
   async def randomnitro(self, ctx):
-  nitroer = guild.premium_subscribers
-  nitroerrand = random.choice(nitroer)
-  await ctx.send(f"{nitroerrand.name}
+    nitroer = guild.premium_subscribers
+    nitroerrand = random.choice(nitroer)
+    await ctx.send(f"{nitroerrand.name}
   
