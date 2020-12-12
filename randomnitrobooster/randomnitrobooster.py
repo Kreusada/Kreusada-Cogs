@@ -13,5 +13,6 @@ class RandomNitroBooster(commands.Cog):
   @commands.command()
   async def randomnitro(self, ctx):
   nitroer = guild.premium_subscribers
-  await ctx.send(f"{random.choice(nitroer{name}))").format(name=.name)
+  nitroerrand = random.choice(nitroer)
+  await ctx.send(f"{nitroerrand.name}
   
