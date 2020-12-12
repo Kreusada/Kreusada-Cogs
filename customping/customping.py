@@ -37,7 +37,7 @@ class CustomPing(commands.Cog):
   @commands.command()
   async def pingshowsettings(self, ctx):
     """Shows the current ping settings."""
-    await self.config.response()
+    response = await self.config.response()
     await ctx.send(f"{box(response)}")
       
   @commands.command()
