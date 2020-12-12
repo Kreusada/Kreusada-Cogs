@@ -79,7 +79,7 @@ class Staff(commands.Cog):
             embed = Embed.create(
                 self, ctx, title='<:alert:777928824670388254> ALERT!',
                 description= f"**{ctx.author.name}**{call}{ctx.channel.mention}.{authid}{jumper_f}",
-                color=color
+                color=embed.colour()
             )
             await channel.send(content=f":warning: {role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
         else:
@@ -100,6 +100,7 @@ class Embed:
         if isinstance(ctx.message.channel, discord.abc.GuildChannel):
             color = 0xe15d59
         data = discord.Embed(color=color, title=title, url=url)
+        botname = bot.user.name
         if description is not None:
             if len(description) < 1500:
                 data.description = description
@@ -108,7 +109,7 @@ class Embed:
         if thumbnail is not None:
             data.set_thumbnail(url=thumbnail)
         if footer_text is None:
-            footer_text = f"{bot.user.name} | Staff"
+            footer_text = f"{botname} | Staff"
         if footer_url is None:
             footer_url = bot.user.avatar_url
         data.set_footer(text=footer_text, icon_url=footer_url)
