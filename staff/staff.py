@@ -57,7 +57,7 @@ class Staff(commands.Cog):
     async def staff(self, ctx):
         """Notifies the staff."""
         embed = Embed.create(
-            self, ctx, title='<:alert:777928824670388254> The Staff have been notified.',
+            self, ctx, title=':warning: The Staff have been notified.',
             description=(
                 "Please keep your cool, and if required, try to disperse the situation. "
                 "A member of our Staff team will be with you as soon as possible."
@@ -77,7 +77,7 @@ class Staff(commands.Cog):
         jumper_f = "\n\n**[{}]({})**".format(chfmi, jumper_link)
         if channel is not None:
             embed = Embed.create(
-                self, ctx, title='<:alert:777928824670388254> ALERT!',
+                self, ctx, title=':warning: ALERT!',
                 description= f"**{ctx.author.name}**{call}{ctx.channel.mention}.{authid}{msgtime}{jumper_f}",
                 footer_text=f"{bot.user.name} | Staff",
                 footer_url=bot.user.avatar_url
@@ -85,7 +85,7 @@ class Staff(commands.Cog):
             await channel.send(content=f":warning: {role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
         else:
             embed = Embed.create(
-                self, ctx, title="The Staff team have not completed the command setup. <:error:777117297273077760>",
+                self, ctx, title=":x: The Staff team have not completed the command setup.",
                 description=(
                     "This is a requirement for the staff command to function.\n"
                 )
