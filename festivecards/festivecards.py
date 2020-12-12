@@ -29,7 +29,7 @@ class FestiveCards(commands.Cog):
     description = message
     response = (f"{description}\nMessage:\n\n{message}")
     try:
-        await destination.send(f"{box(response)}\n{content}")
+        await destination.send(f"{box(response)}")
     except discord.HTTPException:
         await ctx.send(f"Sorry, I couldn't deliver your message to {destination}")
     else:
