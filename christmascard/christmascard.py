@@ -22,13 +22,12 @@ class ChristmasCard(commands.Cog):
         await destination.send(embed=e)
       except discord.HTTPException:
         await ctx.send(_("Sorry, I couldn't send a card to {}").format(destination))
-          else:
-              await ctx.send(_("Message delivered to {}").format(destination))
       else:
-          response = "{}\nMessage:\n\n{}".format(description, message)
-          try:
-              await destination.send("{}\n{}".format(box(response), content))
-          except discord.HTTPException:
-              await ctx.send(_("Sorry, I couldn't deliver your message to {}").format(destination))
-            else:
-                await ctx.send(_("Message delivered to {}").format(destination))
+          await ctx.send(_("Message delivered to {}").format(destination))
+      response = "{}\nMessage:\n\n{}".format(description, message)
+      try:
+          await destination.send("{}\n{}".format(box(response), content))
+      except discord.HTTPException:
+          await ctx.send(_("Sorry, I couldn't deliver your message to {}").format(destination))
+        else:
+            await ctx.send(_("Message delivered to {}").format(destination))
