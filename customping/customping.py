@@ -38,7 +38,8 @@ class CustomPing(commands.Cog):
   async def pingsettings(self, ctx):
     """Shows the current ping settings."""
     cb = "```"
-    header = f"{cb}cmd\n[ping response]:{cb}"
+    cmd = "cmd"
+    header = f"{cb}{cmd}\n[ping response]:{cb}"
     response = await self.config.response()
     await ctx.send(f"{box(header.title())}{box(response)}")
       
