@@ -64,6 +64,7 @@ class Staff(commands.Cog):
             )
         )
         await ctx.send(embed=embed)
+        
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
         channel = ctx.guild.get_channel(chan) if chan is not None\
@@ -79,17 +80,14 @@ class Staff(commands.Cog):
             embed = Embed.create(
                 self, ctx, title=":warning: ALERT!",
                 description= f"**{ctx.author.name}**{call}{ctx.channel.mention}.{authid}{msgtime}{jumper_f}",
-#                footer_text=f"{bot.user.name} | Staff",
-#                footer_url=f"{bot.user.avatar_url}",
-#                embed.set_footer(footer_text, footer_url)
+                footer_text=f"{bot.user.name} | Staff",
+                footer_url=f"{bot.user.avatar_url}",
             )
             await channel.send(content=f":warning: {role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
         else:
             embed = Embed.create(
                 self, ctx, title=":x: The Staff team have not completed the command setup.",
-                description=(
-                    "This is a requirement for the staff command to function.\n"
-                )
+                description="This is a requirement for the staff command to function.\n"
             )
             await ctx.send(embed=embed)
 
