@@ -2,7 +2,7 @@ import discord
 import asyncio
 from redbot.core import commands
 
-class FestiveCards(commands.Cog):
+class SendCards(commands.Cog):
   """Send someone a christmas card!"""
   
   def __init__(self, bot):
