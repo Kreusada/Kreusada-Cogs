@@ -78,8 +78,8 @@ class Staff(commands.Cog):
         if channel is not None:
             embed = Embed.create(
                 self, ctx, title='<:alert:777928824670388254> ALERT!',
-                description= f"**{ctx.author.name}**{call}{ctx.channel.mention}.{authid}{jumper_f}",
-                color=embed.colour()
+                description= f"**{ctx.author.name}**{call}{ctx.channel.mention}.{authid}{msgtime}{jumper_f}",
+                footer_text=f"{bot.user.name} | Staff"
             )
             await channel.send(content=f":warning: {role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
         else:
