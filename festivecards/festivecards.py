@@ -18,7 +18,7 @@ class FestiveCards(commands.Cog):
   async def send(self, ctx):
     """Send a card to someone!"""
   
-  @card.group(autohelp=False, invoke_without_command=True)
+  @card.group(autohelp=False)
   async def viewoutput(self, ctx):
     """Send a template version to your DM!"""
     await ctx.send(
@@ -30,7 +30,7 @@ class FestiveCards(commands.Cog):
     delete_after=20)
     
   @viewoutput.command()
-  async def christmas(self):
+  async def christmas(self, ctx):
     author = ctx.author.name
     foot = (f"Send christmas cards using {ctx.clean_prefix}card!")
     e = discord.Embed(title=f":christmas_tree: Christmas Card from {ctx.author} :christmas_tree:",
