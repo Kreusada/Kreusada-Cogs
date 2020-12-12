@@ -107,5 +107,3 @@ class Embed:
             data.set_thumbnail(url=thumbnail)
         if footer_text is None:
             footer_text = "Staff"
-        if footer_url is None:
-            footer_url = ""
