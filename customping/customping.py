@@ -35,7 +35,7 @@ class CustomPing(commands.Cog):
   async def ping(self, ctx):
     """Pong."""
     resp = await self.config.response()
-    if resp = None:
+    if resp is None:
       response = "Pong."
     else:
       response = resp
