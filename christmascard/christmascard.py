@@ -11,6 +11,7 @@ class ChristmasCard(commands.Cog):
   async def card(self, ctx: commands.Context, user_id: int, *, message: str):
     """Send a christmas card to someone!"""
     destination = self.bot.get_user(user_id)
+    user = destination
     if destination is None or destination.bot:
         await ctx.send("Invalid ID, user not found, or user is a bot.")
     foot = (f"Send christmas cards using {ctx.clean_prefix}card!")
