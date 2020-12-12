@@ -30,7 +30,7 @@ class FestiveCards(commands.Cog):
     delete_after=20)
     
   @viewoutput.command()
-  async def christmas(self, ctx):
+  async def christmas(self):
     author = ctx.author.name
     foot = (f"Send christmas cards using {ctx.clean_prefix}card!")
     e = discord.Embed(title=f":christmas_tree: Christmas Card from {ctx.author} :christmas_tree:",
