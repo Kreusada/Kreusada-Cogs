@@ -14,7 +14,7 @@ class ChristmasCard(commands.Cog):
     if destination is None or destination.bot:
         await ctx.send("Invalid ID, user not found, or user is a bot.")
     content = ("Send christmas cards using {}card!").format(ctx.clean_prefix)
-    e = discord.Embed(title=f"Christmas Card from {ctx.author}", description=message, colour=discord.Colour.red(), description=message)
+    e = discord.Embed(title=f"Christmas Card from {ctx.author}", description=message, colour=discord.Colour.red())
     e.set_footer(text=content)
     try:
       await destination.send(embed=e)
