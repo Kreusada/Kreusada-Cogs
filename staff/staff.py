@@ -58,10 +58,9 @@ class Staff(commands.Cog):
     async def staff(self, ctx):
         """Notifies the staff."""
         message = ctx.message
-        author = ctx.author
-        await author.send("**:warning: We have sent a report to the staff team. They will be with you as soon as possible.**")
-        await asyncio.sleep(1)
         await message.add_reaction("✅")
+        await asyncio.sleep(1)
+        await ctx.send("**:warning: We have sent a report to the staff team. They will be with you as soon as possible.**")
         
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
@@ -70,8 +69,6 @@ class Staff(commands.Cog):
         bot = self.bot
         jumper_link = ctx.message.jump_url
         author_id = ctx.author.id
-        bun = bot.user.name
-        buau = bot.user.avatar_url
         msgtime = f"**Occurance at:** {datetime.now()}"
         authid = f"\n**Author ID:**{author_id}"
         chfmi = "Click here for more information"
@@ -81,8 +78,8 @@ class Staff(commands.Cog):
             embed = Embed.create(
                 self, ctx, title=":warning: ALERT!",
                 description= f"**{ctx.author.name}**{call}{ctx.channel.mention}.{authid}{msgtime}{jumper_f}",
-                footer_text=f"{bun} | Staff",
-                footer_url=f"{buau}",
+                footer_text=f"{bot.user.name} | Staff",
+                footer_url=f"{bot.user.avatar_url}"
             )
             await channel.send(content=f":warning: {role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
         else:
