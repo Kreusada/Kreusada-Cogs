@@ -1,4 +1,5 @@
 from redbot.core import commands, Config
+import random
 
 class RandomNitroBooster(commands.Cog):
   """Get a random nitro booster."""
