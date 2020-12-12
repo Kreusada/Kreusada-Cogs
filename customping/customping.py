@@ -8,7 +8,7 @@ class CustomPing(commands.Cog):
   def __init__(self, bot):
     self.bot = bot
     self.config = Config.get_conf(self, identifier=59365034743, force_registration=True)
-    self.config.register_global(response=None)
+    self.config.register_global(response="Pong.")
     
   def cog_unload(self):
       global _old_ping
@@ -25,7 +25,7 @@ class CustomPing(commands.Cog):
     """Set your custom ping message."""
     if response is None:
       msg = await self.config.response()
-      if msg is None:
+      if msg is "Pong.":
         await ctx.send(f"Running `{ctx.clean_prefix}ping` will currently respond with: ```{msg}```")
         return
     else:
