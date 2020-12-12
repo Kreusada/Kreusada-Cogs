@@ -5,9 +5,6 @@ from datetime import datetime, timedelta
 from validator_collection import validators
 from datetime import datetime
 from redbot.core import commands, checks, Config, modlog
-from redbot.core.utils.menus import start_adding_reactions
-from redbot.core.utils.predicates import ReactionPredicate, MessagePredicate
-from contextlib import suppress
 
 
 class Staff(commands.Cog):
@@ -109,5 +106,4 @@ class Embed:
             data.set_image(url=image)
         if thumbnail is not None:
             data.set_thumbnail(url=thumbnail)
-        if footer_text is None:
-            footer_text = "Staff"
+        return data
