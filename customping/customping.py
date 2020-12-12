@@ -1,6 +1,7 @@
 import discord
 from redbot.core import Config, commands
 from redbot.core.utils import AsyncIter
+from redbot.core.utils.chat_formatting import box
 
 class CustomPing(commands.Cog):
   """Custom ping message."""
@@ -33,10 +34,17 @@ class CustomPing(commands.Cog):
     """Resets your ping response to `Pong.`"""
     await self.config.response.set("Pong.")
     await ctx.send(f"Done. Running `{ctx.clean_prefix}ping` will now respond with the default: ```diff\n+ {response}```")
+
+  @commands.is_owner()  
+  @commands.command()
+  async def pingshowsettings(self, ctx):
+    """Shows the current ping settings."""
+    await self.config.response()
+    await ctx.send(f"{box(response)}")
       
   @commands.command()
   async def ping(self, ctx):
-    """Pong."""
+    """Pong. Or not?"""
     resp = await self.config.response()
     if resp is None:
       response = "Pong."
