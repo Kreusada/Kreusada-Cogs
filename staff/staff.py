@@ -19,29 +19,6 @@ class Staff(commands.Cog):
         }
         self.config.register_guild(**default_guild)
 
-class Embed:
-    def __init__(self, bot):
-        self.bot = bot
-
-    def create(self, ctx, color=discord.Color.red(), title='', description='', image=None,
-               thumbnail=None, url=None, footer_text=None, footer_url=None, author_text=None):
-        if isinstance(ctx.message.channel, discord.abc.GuildChannel):
-            color = 0xe15d59
-        data = discord.Embed(color=color, title=title, url=url)
-        if description is not None:
-            if len(description) < 1500:
-                data.description = description
-        if image is not None:
-            data.set_image(url=image)
-        if thumbnail is not None:
-            data.set_thumbnail(url=thumbnail)
-        if footer_text is None:
-            footer_text = f"{bot.user.name} | Staff"
-        if footer_url is None:
-            footer_url = bot.user.avatar_url
-        data.set_footer(text=footer_text, icon_url=footer_url)
-        return data
-
     @commands.group()
     async def staffset(self, ctx):
         """Staff notifier configuration."""
@@ -113,3 +90,26 @@ class Embed:
                 )
             )
             await ctx.send(embed=embed)
+
+class Embed:
+    def __init__(self, bot):
+        self.bot = bot
+
+    def create(self, ctx, color=discord.Color.red(), title='', description='', image=None,
+               thumbnail=None, url=None, footer_text=None, footer_url=None, author_text=None):
+        if isinstance(ctx.message.channel, discord.abc.GuildChannel):
+            color = 0xe15d59
+        data = discord.Embed(color=color, title=title, url=url)
+        if description is not None:
+            if len(description) < 1500:
+                data.description = description
+        if image is not None:
+            data.set_image(url=image)
+        if thumbnail is not None:
+            data.set_thumbnail(url=thumbnail)
+        if footer_text is None:
+            footer_text = f"{bot.user.name} | Staff"
+        if footer_url is None:
+            footer_url = bot.user.avatar_url
+        data.set_footer(text=footer_text, icon_url=footer_url)
+        return data
