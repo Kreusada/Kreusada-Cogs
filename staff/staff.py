@@ -71,7 +71,8 @@ class Staff(commands.Cog):
         jumper_link = ctx.message.jump_url
         author_id = ctx.author.id
         now = datetime.now()
-        msgtime = f"\n**Occurance:** {now.strftime("Today at %H:%M")}"
+        strftime = now.strftime("Today at %H:%M")
+        msgtime = f"\n**Occurance:** {strftime}"
         authid = f"\n\n**Author ID:** {author_id}"
         chfmi = "Click here for more information"
         call = " has just called for the staff in "
