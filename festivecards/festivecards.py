@@ -7,8 +7,36 @@ class FestiveCards(commands.Cog):
   def __init__(self, bot):
     self.bot = bot
 
-  @commands.command()
-  async def card(self, ctx: commands.Context, user_id: int, *, message: str):
+  @commands.group()
+  async def card(self, ctx):
+    """Send a christmas card to someone!"""
+      
+  @card.group()
+  async def send(self, ctx):
+    """Send a card to someone!"""
+  
+  @card.command()
+  async def viewoutput(self, ctx):
+    """Send a template version to your DM!"""
+    can_react = ctx.channel.permissions_for(ctx.me).add_reactions
+    if can_react:
+      message = await ctx.send(
+        "Which card type would you like to see? Please react accordingly.\n"
+        "These reactions will be removed after **20 seconds**.\n"
+        "\n`❄️`: **Christmas**"
+        "\ n`🎂`: **Birthday**"
+        "\n`🏥`: **Get Well Soon**"
+      )
+      reaction = await message.add_reaction("❄️", "🎂", "🏥")
+      await asyncio.sleep(20)
+      await reaction.clear()
+      await reaction.clear.send(f"Timed out. Please try again using {ctx.clean_prefix}.")
+    else:
+      await ctx.send("I don't have permissions to add reactions.")
+    
+
+  @card.command()
+  async def christmas(self, ctx: commands.Context, user_id: int, *, message: str):
     """Send a christmas card to someone!"""
     destination = self.bot.get_user(user_id)
     author = ctx.author.name
