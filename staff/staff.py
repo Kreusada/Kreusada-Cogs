@@ -56,7 +56,7 @@ class Staff(commands.Cog):
     
     @staffset.command()
     @checks.admin_or_permissions(manage_guild=True)
-    async def factoryreset(self, ctx):
+    async def factoryreset(self, ctx: commands.Context):
         """Resets the full staff configuration."""
         role = await self.config.guild(ctx.guild).get_raw("channel")
         channel = await self.config.guild(ctx.guild).get_raw("channel")
