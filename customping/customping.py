@@ -1,7 +1,6 @@
 import discord
 from redbot.core import Config, commands
 from redbot.core.utils import AsyncIter
-from redbot.core.utils.chat_formatting import box
 
 class CustomPing(commands.Cog):
   """Custom ping message."""
@@ -38,8 +37,7 @@ class CustomPing(commands.Cog):
   async def pingsettings(self, ctx):
     """Shows the current ping settings."""
     response = await self.config.response()
-    boxing = f"[ping response]: {response}"
-    await ctx.send(f"{box(boxing, lang="ini")"
+    await ctx.send(f"The current ping response is **{response}**.")
     
   @commands.command()
   async def ping(self, ctx):
