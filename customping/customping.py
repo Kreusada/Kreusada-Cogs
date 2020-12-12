@@ -25,7 +25,14 @@ class CustomPing(commands.Cog):
     """Set your custom ping message."""
     await self.config.response.set(response)
     response = await self.config.response()
-    await ctx.send(f"Running `{ctx.clean_prefix}ping` will respond with: ```diff\n+ {response}```")
+    await ctx.send(f"Running `{ctx.clean_prefix}ping` will now respond with: ```diff\n+ {response}```")
+
+  @commands.is_owner()  
+  @commands.command()
+  async def pingreset(self, ctx):
+    """Resets your ping response to `Pong.`"""
+    await self.config.response.set("Pong.")
+    await ctx.send(f"Done. Running `{ctx.clean_prefix}ping` will now respond with the default: ```diff\n+ {response}```")
       
   @commands.command()
   async def ping(self, ctx):
