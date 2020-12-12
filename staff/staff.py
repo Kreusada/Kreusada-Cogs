@@ -57,6 +57,7 @@ class Staff(commands.Cog):
     async def staff(self, ctx):
         """Notifies the staff."""
         message = ctx.message
+        author = ctx.author
         await message.add_reaction("✅")
         await author.send("We sent a report to the staff. Please be patient, they will be with you as soon as possible.")
         
