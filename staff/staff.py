@@ -100,6 +100,7 @@ class Embed:
         if isinstance(ctx.message.channel, discord.abc.GuildChannel):
             color = 0xe15d59
         data = discord.Embed(color=color, title=title, url=url)
+        bot.user.name = bot.user.name
         if description is not None:
             if len(description) < 1500:
                 data.description = description
