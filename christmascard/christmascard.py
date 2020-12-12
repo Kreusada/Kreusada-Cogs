@@ -16,7 +16,7 @@ class ChristmasCard(commands.Cog):
         await ctx.send("Invalid ID, user not found, or user is a bot.")
     foot = (f"Send christmas cards using {ctx.clean_prefix}card!")
     e = discord.Embed(title=f":christmas_tree: Christmas Card from {ctx.author} :christmas_tree:", 
-                      description= f"Dear {user_id},\n\n {message}", colour=discord.Colour.red())
+                      description= f"Dear {user.name},\n\n {message}", colour=discord.Colour.red())
     e.set_footer(text=foot)
     try:
       await destination.send(embed=e)
@@ -24,6 +24,7 @@ class ChristmasCard(commands.Cog):
       await ctx.send("Sorry, I couldn't send a card to {}").format(destination)
     else:
       await ctx.send(f"Message delivered to {destination}")
+    description = message
     response = (f"{description}\nMessage:\n\n{message}")
     try:
         await destination.send(f"{box(response)}\n{content}")
