@@ -28,8 +28,9 @@ class CustomPing(commands.Cog):
       if msg is None:
         await ctx.send(f"Running `{ctx.clean_prefix}ping` will currently respond with: ```{msg}```")
         return
+    else:
       await self.config.response.set(response)
-      await ctx.send(f"Running `{ctx.clean_prefix}ping` will respond with: ```{msg}```")
+      await ctx.send(f"Running `{ctx.clean_prefix}ping` will now respond with: ```{msg}```")
       
   @commands.command()
   async def ping(self, ctx):
