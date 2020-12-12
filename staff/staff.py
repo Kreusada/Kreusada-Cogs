@@ -82,6 +82,7 @@ class Staff(commands.Cog):
                 footer_text=f"{bot.user.name} | Staff",
                 footer_url=f"{bot.user.avatar_url}",
                 embed.set_footer(footer_text, footer_url)
+            )
             await channel.send(content=f":warning: {role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
         else:
             embed = Embed.create(
