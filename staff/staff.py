@@ -76,12 +76,11 @@ class Staff(commands.Cog):
         call = " has just called for the staff in "
         jumper_f = "\n\n**[{}]({})**".format(chfmi, jumper_link)
         if channel is not None:
-            embed = Embed.create(
-                self, ctx, title=':warning: ALERT!',
+            embed = Embed.create(self, ctx, title=":warning: ALERT!",
                 description= f"**{ctx.author.name}**{call}{ctx.channel.mention}.{authid}{msgtime}{jumper_f}",
                 footer_text=f"{bot.user.name} | Staff",
-                footer_url=bot.user.avatar_url
-            )
+                footer_url=f"{bot.user.avatar_url}"
+                                )
             await channel.send(content=f":warning: {role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
         else:
             embed = Embed.create(
