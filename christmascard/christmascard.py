@@ -13,9 +13,10 @@ class ChristmasCard(commands.Cog):
     destination = self.bot.get_user(user_id)
     if destination is None or destination.bot:
         await ctx.send("Invalid ID, user not found, or user is a bot.")
-    content = (f":gift: Send christmas cards using `{ctx.clean_prefix}card`! :gift:")
-    e = discord.Embed(title=f":christmas_tree: Christmas Card from {ctx.author} :christmas_tree:", description=message, colour=discord.Colour.red())
-    e.set_footer(text=content)
+    foot = (f"Send christmas cards using {ctx.clean_prefix}card!")
+    e = discord.Embed(title=f":christmas_tree: Christmas Card from {ctx.author} :christmas_tree:", 
+                      description= f"Dear {user.name}, message, colour=discord.Colour.red())
+    e.set_footer(text=foot)
     try:
       await destination.send(embed=e)
     except discord.HTTPException:
