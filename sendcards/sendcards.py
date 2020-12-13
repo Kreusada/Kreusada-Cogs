@@ -24,11 +24,14 @@ class SendCards(commands.Cog):
     user = destination
     if destination is None or destination.bot:
         await ctx.send("Invalid ID, user not found, or user is a bot.")
-    foot = (f"Send christmas cards using {ctx.clean_prefix}card send christmas!")
-    e = discord.Embed(title=f":christmas_tree: Christmas Card from {ctx.author} :christmas_tree:", 
-                      description= "Dear {},\n\n{}\n\nFrom {} :gift:".format(user.name, message, author), 
-                      colour=discord.Colour.red())
-    e.set_footer(text=foot)
+    elif destination is author:
+      await ctx.send("Don't be sending cards to yourself! Perhaps use `{ctx.clean_prefix}card viewoutput christmas` if you want to see the output.")
+    else:
+      foot = (f"Send christmas cards using {ctx.clean_prefix}card send christmas!")
+      e = discord.Embed(title=f":christmas_tree: Christmas Card from {ctx.author} :christmas_tree:", 
+                        description= "Dear {},\n\n{}\n\nFrom {} :gift:".format(user.name, message, author), 
+                        colour=discord.Colour.red())
+      e.set_footer(text=foot)
     try:
       await destination.send(embed=e)
     except discord.HTTPException:
@@ -44,11 +47,14 @@ class SendCards(commands.Cog):
     user = destination
     if destination is None or destination.bot:
         await ctx.send("Invalid ID, user not found, or user is a bot.")
-    foot = (f"Send birthday cards using {ctx.clean_prefix}card send birthday!")
-    e = discord.Embed(title=f":tada: Birthday Card from {ctx.author} :tada:", 
-                      description= "Dear {},\n\n{}\n\nFrom {} :balloon:".format(user.name, message, author), 
-                      colour=discord.Colour.red())
-    e.set_footer(text=foot)
+    elif destination is author:
+      await ctx.send("Don't be sending cards to yourself! Perhaps use `{ctx.clean_prefix}card viewoutput birthday` if you want to see the output.")
+    else:
+      foot = (f"Send birthday cards using {ctx.clean_prefix}card send birthday!")
+      e = discord.Embed(title=f":tada: Birthday Card from {ctx.author} :tada:", 
+                       description= "Dear {},\n\n{}\n\nFrom {} :balloon:".format(user.name, message, author), 
+                       colour=discord.Colour.red())
+      e.set_footer(text=foot)
     try:
       await destination.send(embed=e)
     except discord.HTTPException:
@@ -64,7 +70,7 @@ class SendCards(commands.Cog):
     user = destination
     if destination is None or destination.bot:
         await ctx.send("Invalid ID, user not found, or user is a bot.")
-    elif destination is destination.author:
+    elif destination is author:
       await ctx.send("Don't be sending cards to yourself! Perhaps use `{ctx.clean_prefix}card viewoutput gws` if you want to see the output.")
     else:
       foot = (f"Send get well soon cards using {ctx.clean_prefix}card send getwellsoon!")
