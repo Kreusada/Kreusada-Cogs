@@ -112,7 +112,7 @@ class SendCards(commands.Cog):
       await ctx.send("I sent a test message to your DMs!")
 
   @viewoutput.command()
-  async def b(self, ctx):
+  async def birthday(self, ctx):
     author = ctx.author.name
     foot = (f"Send birthday cards using {ctx.clean_prefix}card send birthday!")
     e = discord.Embed(title=f":tada: Birthday Card from {ctx.author} :tada:",
