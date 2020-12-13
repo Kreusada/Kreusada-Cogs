@@ -16,4 +16,4 @@ class GoogleSearch(commands.Cog):
                       description="**[{}]({})**".format(chfmi, UKquerytemplate),
                       colour=discord.Colour.red())
     e.set_footer(text=footer)
-    await ctx.send(e=embed)
+    await ctx.send(embed=e)
