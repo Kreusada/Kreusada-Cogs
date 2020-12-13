@@ -2,7 +2,7 @@ import discord
 from redbot.core import commands
 from redbot.core.utils import AsyncIter
 from datetime import datetime, timedelta
-from .utils.chat_formatting import humanize_timedelta
+from .fancyuptime.delta_utils import humanize_timedelta
 
 class FancyUptime(commands.Cog):
   def __init__(self, bot):
