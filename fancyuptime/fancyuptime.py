@@ -17,6 +17,18 @@ class FancyUptime(commands.Cog):
         log.info(error)
       self.bot.add_command(_old_uptime)
 
+  def rgetattr(obj, attr, *args):
+      def _getattr(obj2, attr2):
+          return getattr(obj2, attr2, *args)
+
+      return functools.reduce(_getattr, [obj] + attr.split("."))
+
+  @commands.Cog.listener()
+  async def on_command(self, ctx: commands.Context):
+    self.upsert(
+    rgetattr(ctx, "guild.id", rgetattr(ctx, "channel.id", -1)), "processed_commands"
+    )
+
   @commands.command()
   async def uptime(self, ctx: commands.Context):
       """Shows [botname]'s uptime."""
@@ -24,10 +36,15 @@ class FancyUptime(commands.Cog):
       delta = datetime.utcnow() - self.bot.uptime
       uptime_str = humanize_timedelta(timedelta=delta) or ("Less than one second")
       bot = ctx.bot.user.name
-      e = discord.Embed(title=f"{bot}'s Uptime",
+      owner = [bot.get_user(i).name for i in bot._true_owner_ids]
+      count = commands_count=self.get("processed_commands")
+      e = discord.Embed(title=f":green_circle: {bot}'s Uptime",
                         description=(
                           f"{bot} has been up since **{since}**.\n"
-                          f"Therefore, it's been online for **{uptime_str}**."
+                          f"Therefore, it's been online for **{uptime_str}**.\n\n"
+                          f"**Bot Identification:** {ctx.bot.user.id}\n"
+                          f"**Bot Owner: {owner}\n"
+                          f"**Commands Processed since last restart: {count}\n"
                         )
                        )
       await ctx.send(embed=e)
