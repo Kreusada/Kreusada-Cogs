@@ -85,6 +85,53 @@ class SendCards(commands.Cog):
     else:
       await ctx.send(f"Get well soon card delivered to **{user.name}!** I hope they're okay too! :pray:")
 
+  @send.command()
+  async def valentine(self, ctx: commands.Context, user_id: int, *, message: str):
+    """Send a valentines card to someone!"""
+    destination = self.bot.get_user(user_id)
+    author = ctx.author.name
+    user = destination
+    if destination is None or destination.bot:
+        await ctx.send("Invalid ID, user not found, or user is a bot.")
+    elif destination is author:
+      await ctx.send("Don't be sending cards to yourself! Perhaps use `{ctx.clean_prefix}card viewoutput valentine` if you want to see the output.")
+    else:
+      foot = (f"Send valentine cards using {ctx.clean_prefix}card send valentine!")
+      romance = ":smiling_face_with_3_hearts:"
+      e = discord.Embed(title=f"{romance} Valentines Card from {ctx.author} {romance}", 
+                       description= "Dear {},\n\n{}\n\nWith love from {} {}".format(user.name, message, author, romance), 
+                        colour=discord.Colour.red())
+      e.set_footer(text=foot)
+    try:
+      await destination.send(embed=e)
+    except discord.HTTPException:
+      await ctx.send(f"Sorry, I couldn't send a card to **{user.name}.**")
+    else:
+      await ctx.send(f"Valentines card delivered to **{user.name}!** Hey {author}, stop blushing. :wink:")
+
+#  @send.command()
+#  async def giveaway(self, ctx: commands.Context, user_id: int, *, message: str):
+#    """Send a giveaway card to someone!"""
+#    destination = self.bot.get_user(user_id)
+#    author = ctx.author.name
+#    user = destination
+#    if destination is None or destination.bot:
+#        await ctx.send("Invalid ID, user not found, or user is a bot.")
+#    elif destination is author:
+#      await ctx.send("Don't be sending cards to yourself! Perhaps use `{ctx.clean_prefix}card viewoutput valentine` if you want to see the output.")
+#    else:
+#      foot = (f"Send giveaway cards using {ctx.clean_prefix}card send giveaway!")
+#      e = discord.Embed(title=f":confetti_ball: Valentines Card from {ctx.author} :confetti_ball:", 
+#                       description= "Dear {},\n\n{}\n\n{}\n\nFrom {} {}".format(user.name, giveaway, message, author), 
+#                        colour=discord.Colour.red())
+#      e.set_footer(text=foot)
+#    try:
+#      await destination.send(embed=e)
+#    except discord.HTTPException:
+#      await ctx.send(f"Sorry, I couldn't send a card to **{user.name}.**")
+#    else:
+#      await ctx.send(f"Valentines card delivered to **{user.name}!** *proceeds to make whistling noises*")
+
   @card.group(autohelp=False, invoke_without_command=True)
   async def viewoutput(self, ctx):
     """Send a template version to your DM!"""
@@ -129,6 +176,36 @@ class SendCards(commands.Cog):
     foot = (f"Send get well soon cards using {ctx.clean_prefix}card send getwellsoon!")
     e = discord.Embed(title=f":thermometer_face: Get Well Soon Card from {ctx.author} :thermometer_face:",
                       description="Dear `Username`,\n\n`Your message will go here`\n\nFrom {} :pray:".format(author),
+                      colour=discord.Colour.red())
+    e.set_footer(text=foot)
+    try:
+      await ctx.send(embed=e)
+    except discord.HTTPSException:
+      await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")
+
+  @viewoutput.command()
+  async def valentine(self, ctx):
+    """Preview the output from this card"""
+    author = ctx.author.name
+    foot = (f"Send valentine cards using {ctx.clean_prefix}card send valentine!")
+    romance = ":smiling_face_with_3_hearts:"
+    e = discord.Embed(title=f"{romance} Valentines Card from {ctx.author} {romance}",
+                      description="Dear `Username`,\n\n`Your message will go here`\n\nWith love from {} {}".format(author, romance),
+                      colour=discord.Colour.red())
+    e.set_footer(text=foot)
+    try:
+      await ctx.send(embed=e)
+    except discord.HTTPSException:
+      await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")
+
+  @viewoutput.command()
+  async def giveaway(self, ctx):
+    """Preview the output from this card"""
+    author = ctx.author.name
+    foot = (f"Send giveaway cards using {ctx.clean_prefix}card send giveaway!")
+    giveaway = "**I am giving away** "
+    e = discord.Embed(title=f":confetti_ball: Giveaway Card from {ctx.author} :confetti_ball:",
+                      description="Dear `Username`,\n\n{}`the item you want to give away`!`\n\nYour message will go here`\n\From {}".format(giveaway, author),
                       colour=discord.Colour.red())
     e.set_footer(text=foot)
     try:
