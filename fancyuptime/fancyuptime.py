@@ -12,7 +12,7 @@ async def setup(bot):
   global _old_uptime
   _old_uptime = bot.get_command("uptime")
   if _old_uptime:
-      bot.remove_command(_old_ping.name)
+      bot.remove_command(_old_uptime.name)
   bot.add_cog(fu)
        
   def cog_unload(self):
