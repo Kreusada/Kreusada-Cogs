@@ -120,11 +120,11 @@ class SendCards(commands.Cog):
                       colour=discord.Colour.red())
     e.set_footer(text=foot)
     try:
-      await author.send(embed=e)
+      await ctx.send("I sent a test message to your DMs!")
     except discord.HTTPException:
       await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")
     else:
-      await ctx.send("I sent a test message to your DMs!")
+      await author.send(embed=e)
 
   @viewoutput.command()
   async def g(self, ctx):
