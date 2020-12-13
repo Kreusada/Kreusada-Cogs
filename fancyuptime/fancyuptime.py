@@ -22,7 +22,7 @@ class FancyUptime(commands.Cog):
       """Shows [botname]'s uptime."""
       since = ctx.bot.uptime.strftime("%A the %d of %B, %Y")
       delta = datetime.utcnow() - self.bot.uptime
-      uptime_str = humanize_timedelta(timedelta=delta) or _("Less than one second")
+      uptime_str = humanize_timedelta(timedelta=delta) or ("Less than one second")
       bot = ctx.bot.user.name
       e = discord.Embed(title=f"{bot}'s Uptime",
                         description=(
