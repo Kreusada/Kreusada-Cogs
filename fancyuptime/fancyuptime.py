@@ -36,14 +36,12 @@ class FancyUptime(commands.Cog):
       delta = datetime.utcnow() - self.bot.uptime
       uptime_str = humanize_timedelta(timedelta=delta) or ("Less than one second")
       bot = ctx.bot.user.name
-      owner = [bot.get_user(i).name for i in bot._true_owner_ids]
       count = commands_count=self.get("processed_commands")
       e = discord.Embed(title=f":green_circle: {bot}'s Uptime",
                         description=(
                           f"{bot} has been up since **{since}**.\n"
                           f"Therefore, it's been online for **{uptime_str}**.\n\n"
                           f"**Bot Identification:** {ctx.bot.user.id}\n"
-                          f"**Bot Owner: {owner}\n"
                           f"**Commands Processed since last restart: {count}\n"
                         )
                        )
