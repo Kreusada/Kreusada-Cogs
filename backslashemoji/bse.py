@@ -8,6 +8,6 @@ class BackslashEmoji(commands.Cog):
     self.bot = bot
     
   @commands.command(aliases=["backslash", "backslashemoji"])
-  async def bse(self, ctx: commands.Context, str: emoji: Union[discord.Emoji, str]):
+  async def bse(self, ctx: commands.Context, emoji: Union[discord.Emoji, str]):
     """Convert a standard emoji into unicode."""
     await ctx.send(''.join(('\\',emoji)))
