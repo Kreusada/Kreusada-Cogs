@@ -23,7 +23,6 @@ Remember - don't include the `<>` when you use this command. Those characters ar
 
 
 ## Available cogs list
-- Cogs marked as incomplete have been temporarily removed from this repository, unless marked as ready to use.
 
 | Cog Name        | Description                                                              | Type         | Authors              | Status                                   |
 |-----------------|--------------------------------------------------------------------------|--------------|----------------------|------------------------------------------|
@@ -41,6 +40,20 @@ Remember - don't include the `<>` when you use this command. Those characters ar
 | sendcards       | Send christmas, birthday, valentine, giveaway or gws cards to DMs.       | Fun          | Kreusada             | Complete, bug-checked                    |
 | staff           | Alert the staff for emergencies.                                         | Tools        | Kreusada             | Complete, bug-checked                    |
 | voicenick       | Edit a bot's nickname when it joins the VC.                              | Tools, Audio | Kreusada, Snowflake  | Complete, UI changes imminent            |
+
+## Unavailable cogs list
+- Cogs listed below are marked as deprecated or undistributable, or are currently under developed or deprioritized.
+
+| Cog Name      | Description                                      | Type                      | Authors                | Status                 |
+|---------------|--------------------------------------------------|---------------------------|------------------------|------------------------|
+| city          | Grow your city's population within a channel.    | Fun                       | Kreusada               | Deprecated             |
+| collectables  | Assign custom collectables to users.             | Fun, Tools                | Jojo, Kreusada, Otriux | Deprecated             |
+| dadjokes      | Get dadjokes inside an embed.                    | Fun                       | Kreusada, JJW          | Undistributable        |
+| edition       | Inspired by edition nicknames at Red.            | Fun                       | Kreusada               | Temporarily Deprecated |
+| helpchannels  | Inspired by the help channels at Python Discord. | Tools, Server Structuring | Kreusada               | Temporarily Deprecated |
+| higherorlower | Play the classic higher or lower game.           | Fun                       | Kreusada               | Deprecated             |
+| projects      | Assign and review assignee workloads             | Tools                     | Kreusada               | Temporarily Deprecated |
+| rules         | Bring up server rules in a command.              | Tools,                    | Kreusada               | Temporarily Deprecated |
 
 ## Support
 
