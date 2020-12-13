@@ -28,8 +28,8 @@ class FancyUptime(commands.Cog):
                         description=(
                           f"{bot} has been up since **{since}**.\n"
                           f"Therefore, it's been online for **{uptime_str}**."
-                        ),
-                        colour=discord.Colour.Red())
+                        )
+                       )
       await ctx.send(embed=e)
 
 async def setup(bot):
