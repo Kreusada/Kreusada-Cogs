@@ -25,7 +25,7 @@ class SendCards(commands.Cog):
     if destination is None or destination.bot:
         await ctx.send("Invalid ID, user not found, or user is a bot.")
     else:
-      foot = (f"Send christmas cards using {ctx.clean_prefix}card send christmas!")
+      foot = (f"Send christmas cards using: {ctx.clean_prefix}card send christmas!")
       e = discord.Embed(title=f":christmas_tree: Christmas Card from {ctx.author} :christmas_tree:", 
                         description= "Dear {},\n\n{}\n\nFrom {} :gift:".format(user.name, message, author), 
                         colour=discord.Colour.red())
@@ -46,7 +46,7 @@ class SendCards(commands.Cog):
     if destination is None or destination.bot:
         await ctx.send("Invalid ID, user not found, or user is a bot.")
     else:
-      foot = (f"Send birthday cards using {ctx.clean_prefix}card send birthday!")
+      foot = (f"Send birthday cards using: {ctx.clean_prefix}card send birthday!")
       e = discord.Embed(title=f":tada: Birthday Card from {ctx.author} :tada:", 
                        description= "Dear {},\n\n{}\n\nFrom {} :balloon:".format(user.name, message, author), 
                        colour=discord.Colour.red())
@@ -67,7 +67,7 @@ class SendCards(commands.Cog):
     if destination is None or destination.bot:
         await ctx.send("Invalid ID, user not found, or user is a bot.")
     else:
-      foot = (f"Send get well soon cards using {ctx.clean_prefix}card send getwellsoon!")
+      foot = (f"Send get well soon cards using: {ctx.clean_prefix}card send getwellsoon!")
       e = discord.Embed(title=f":thermometer_face: Get Well Soon Card from {ctx.author} :thermometer_face:", 
                        description= "Dear {},\n\n{}\n\nFrom {} :pray:".format(user.name, message, author), 
                         colour=discord.Colour.red())
@@ -88,7 +88,7 @@ class SendCards(commands.Cog):
     if destination is None or destination.bot:
         await ctx.send("Invalid ID, user not found, or user is a bot.")
     else:
-      foot = (f"Send valentine cards using {ctx.clean_prefix}card send valentine!")
+      foot = (f"Send valentine cards using: {ctx.clean_prefix}card send valentine!")
       romance = ":smiling_face_with_3_hearts:"
       e = discord.Embed(title=f"{romance} Valentines Card from {ctx.author} {romance}", 
                        description= "Dear {},\n\n{}\n\nWith love from {} {}".format(user.name, message, author, romance), 
@@ -109,10 +109,7 @@ class SendCards(commands.Cog):
 #    user = destination
 #    if destination is None or destination.bot:
 #        await ctx.send("Invalid ID, user not found, or user is a bot.")
-#    elif destination is author:
-#      await ctx.send("Don't be sending cards to yourself! Perhaps use `{ctx.clean_prefix}card viewoutput valentine` if you want to see the output.")
-#    else:
-#      foot = (f"Send giveaway cards using {ctx.clean_prefix}card send giveaway!")
+#      foot = (f"Send giveaway cards using: {ctx.clean_prefix}card send giveaway!")
 #      e = discord.Embed(title=f":confetti_ball: Valentines Card from {ctx.author} :confetti_ball:", 
 #                       description= "Dear {},\n\n{}\n\n{}\n\nFrom {} {}".format(user.name, giveaway, message, author), 
 #                        colour=discord.Colour.red())
