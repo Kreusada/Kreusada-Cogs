@@ -105,11 +105,9 @@ class SendCards(commands.Cog):
                       colour=discord.Colour.red())
     e.set_footer(text=foot)
     try:
-      await author.send(embed=e)
-    except discord.HTTPException:
-      await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")
+      await ctx.send(embed=e)
     else:
-      await ctx.send("I sent a test message to your DMs!")
+      await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")
 
   @viewoutput.command()
   async def birthday(self, ctx):
@@ -120,11 +118,9 @@ class SendCards(commands.Cog):
                       colour=discord.Colour.red())
     e.set_footer(text=foot)
     try:
-      await ctx.send("I sent a test message to your DMs!")
-    except discord.HTTPException:
-      await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")
-    else:
       await ctx.send(embed=e)
+    else:
+      await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")
 
   @viewoutput.command()
   async def g(self, ctx):
@@ -136,8 +132,6 @@ class SendCards(commands.Cog):
                       colour=discord.Colour.red())
     e.set_footer(text=foot)
     try:
-      await author.send(embed=e)
-    except discord.HTTPException:
-      await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")
+      await ctx.send(embed=e)
     else:
-      await ctx.send("I sent a test message to your DMs!")
+      await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")
