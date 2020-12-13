@@ -24,8 +24,6 @@ class SendCards(commands.Cog):
     user = destination
     if destination is None or destination.bot:
         await ctx.send("Invalid ID, user not found, or user is a bot.")
-    elif destination is destination.author:
-      await ctx.send("Don't be sending cards to yourself! Perhaps use `{ctx.clean_prefix}card viewoutput christmas` if you want to see the output.")
     else:
       foot = (f"Send christmas cards using {ctx.clean_prefix}card send christmas!")
       e = discord.Embed(title=f":christmas_tree: Christmas Card from {ctx.author} :christmas_tree:", 
@@ -47,8 +45,6 @@ class SendCards(commands.Cog):
     user = destination
     if destination is None or destination.bot:
         await ctx.send("Invalid ID, user not found, or user is a bot.")
-    elif destination is author:
-      await ctx.send("Don't be sending cards to yourself! Perhaps use `{ctx.clean_prefix}card viewoutput birthday` if you want to see the output.")
     else:
       foot = (f"Send birthday cards using {ctx.clean_prefix}card send birthday!")
       e = discord.Embed(title=f":tada: Birthday Card from {ctx.author} :tada:", 
@@ -70,8 +66,6 @@ class SendCards(commands.Cog):
     user = destination
     if destination is None or destination.bot:
         await ctx.send("Invalid ID, user not found, or user is a bot.")
-    elif destination is author:
-      await ctx.send("Don't be sending cards to yourself! Perhaps use `{ctx.clean_prefix}card viewoutput gws` if you want to see the output.")
     else:
       foot = (f"Send get well soon cards using {ctx.clean_prefix}card send getwellsoon!")
       e = discord.Embed(title=f":thermometer_face: Get Well Soon Card from {ctx.author} :thermometer_face:", 
@@ -93,8 +87,6 @@ class SendCards(commands.Cog):
     user = destination
     if destination is None or destination.bot:
         await ctx.send("Invalid ID, user not found, or user is a bot.")
-    elif destination is author:
-      await ctx.send("Don't be sending cards to yourself! Perhaps use `{ctx.clean_prefix}card viewoutput valentine` if you want to see the output.")
     else:
       foot = (f"Send valentine cards using {ctx.clean_prefix}card send valentine!")
       romance = ":smiling_face_with_3_hearts:"
@@ -205,7 +197,7 @@ class SendCards(commands.Cog):
     foot = (f"Send giveaway cards using {ctx.clean_prefix}card send giveaway!")
     giveaway = "**I am giving away** "
     e = discord.Embed(title=f":confetti_ball: Giveaway Card from {ctx.author} :confetti_ball:",
-                      description="Dear `Username`,\n\n{}`the item you want to give away`!`\n\nYour message will go here`\n\From {}".format(giveaway, author),
+                      description="Dear `Username`,\n\n{}`the item you want to give away`!\n\n`Your message will go here`\n\nFrom {}".format(giveaway, author),
                       colour=discord.Colour.red())
     e.set_footer(text=foot)
     try:
