@@ -106,7 +106,7 @@ class SendCards(commands.Cog):
     e.set_footer(text=foot)
     try:
       await ctx.send(embed=e)
-    else:
+    except discord.HTTPSException:
       await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")
 
   @viewoutput.command()
@@ -119,7 +119,7 @@ class SendCards(commands.Cog):
     e.set_footer(text=foot)
     try:
       await ctx.send(embed=e)
-    else:
+    except discord.HTTPSException:
       await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")
 
   @viewoutput.command()
@@ -133,5 +133,5 @@ class SendCards(commands.Cog):
     e.set_footer(text=foot)
     try:
       await ctx.send(embed=e)
-    else:
+    except discord.HTTPSException:
       await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")
