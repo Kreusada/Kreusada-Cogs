@@ -1,0 +1,15 @@
+  {
+	"author": [
+		"Kreusada"
+	],
+	"description": "Backslash emojis into unicode.",
+    "install_msg": "Thanks for installing, have fun. Use **`[p]bse`**!",
+	"short": "Backslash emojis into unicode.",
+	"tags": [
+		"backslash",
+    "emoji",
+    "unicode"
+	],
+	"type": "COG",
+	"end_user_data_statement": "This cog does not persistently store data or metadata about users."
+}
