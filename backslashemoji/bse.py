@@ -1,5 +1,6 @@
 import discord
 from redbot.core import commands
+from typing import Union
 
 class BackslashEmoji(commands.Cog):
   """Haven't got a backslash on your keyboard?"""
