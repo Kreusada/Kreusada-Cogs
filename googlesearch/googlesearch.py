@@ -17,7 +17,7 @@ class GoogleSearch(commands.Cog):
     strftime = now.strftime("Today at %H:%M %p")
     footer = f"{strftime}"
     hassearched = f"{ctx.author.name} searched for: **{search_query.title()}**."
-    e = discord.Embed(title=":desktop: Google Search",
+    e = discord.Embed(title=":desktop:  Google Search",
                       description="{}\n\n**[{}]({})**".format(hassearched, chfmi, multipleargs),
                       colour=discord.Colour.red())
     e.set_footer(text=footer)
