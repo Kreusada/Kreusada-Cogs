@@ -2,9 +2,9 @@
 	"author": [
 		"Kreusada"
 	],
-	"description": "Backslash emojis into unicode.",
-    "install_msg": "Thanks for installing, have fun. Use **`[p]bse`**!",
-	"short": "Backslash emojis into unicode.",
+	"description": "Append backslashes to the start of input.",
+    "install_msg": "Thanks for installing, have fun. Use **`[p]abs`**!",
+	"short": "Append backslashes",
 	"tags": [
 		"backslash",
     "emoji",
