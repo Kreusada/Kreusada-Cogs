@@ -17,7 +17,7 @@ class SendCards(commands.Cog):
     """Send a card to someone!"""
     
   @send.command()
-  async def christmas(self, ctx: commands.Context, user_id: int, *, message: str):
+  async def christmas(self, ctx, user_id: int, *, message: str):
     """Send a christmas card to someone!"""
     destination = self.bot.get_user(user_id)
     author = ctx.author.name
@@ -40,7 +40,7 @@ class SendCards(commands.Cog):
       await ctx.send(f"Christmas card delivered to **{user.name}!** :gift:")
 
   @send.command()
-  async def birthday(self, ctx: commands.Context, user_id: int, *, message: str):
+  async def birthday(self, ctx, user_id: int, *, message: str):
     """Send a birthday card to someone!"""
     destination = self.bot.get_user(user_id)
     author = ctx.author.name
@@ -63,7 +63,7 @@ class SendCards(commands.Cog):
       await ctx.send(f"Birthday card delivered to **{user.name}!** :tada:")
 
   @send.command(aliases=["gws"])
-  async def getwellsoon(self, ctx: commands.Context, user_id: int, *, message: str):
+  async def getwellsoon(self, ctx, user_id: int, *, message: str):
     """Send a get well soon card to someone!"""
     destination = self.bot.get_user(user_id)
     author = ctx.author.name
@@ -86,7 +86,7 @@ class SendCards(commands.Cog):
       await ctx.send(f"Get well soon card delivered to **{user.name}!** I hope they're okay too! :pray:")
 
   @send.command()
-  async def valentine(self, ctx: commands.Context, user_id: int, *, message: str):
+  async def valentine(self, ctx, user_id: int, *, message: str):
     """Send a valentines card to someone!"""
     destination = self.bot.get_user(user_id)
     author = ctx.author.name
@@ -110,7 +110,7 @@ class SendCards(commands.Cog):
       await ctx.send(f"Valentines card delivered to **{user.name}!** Hey {author}, stop blushing. :wink:")
 
 #  @send.command()
-#  async def giveaway(self, ctx: commands.Context, user_id: int, *, message: str):
+#  async def giveaway(self, ctx, user_id: int, *, message: str):
 #    """Send a giveaway card to someone!"""
 #    destination = self.bot.get_user(user_id)
 #    author = ctx.author.name
