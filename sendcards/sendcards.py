@@ -3,14 +3,14 @@ import asyncio
 from redbot.core import commands
 
 class SendCards(commands.Cog):
-  """Send someone a christmas card!"""
+  """Send someone a card!"""
   
   def __init__(self, bot):
     self.bot = bot
 
   @commands.group()
   async def card(self, ctx):
-    """Send a christmas card to someone!"""
+    """General settings for cards."""
       
   @card.group()
   async def send(self, ctx):
