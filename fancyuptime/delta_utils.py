@@ -33,12 +33,12 @@ def humanize_timedelta(
 
     seconds = int(obj)
     periods = [
-        (_("year"), _("years"), 60 * 60 * 24 * 365),
-        (_("month"), _("months"), 60 * 60 * 24 * 30),
-        (_("day"), _("days"), 60 * 60 * 24),
-        (_("hour"), _("hours"), 60 * 60),
-        (_("minute"), _("minutes"), 60),
-        (_("second"), _("seconds"), 1),
+        (("year"), ("years"), 60 * 60 * 24 * 365),
+        (("month"), ("months"), 60 * 60 * 24 * 30),
+        (("day"), ("days"), 60 * 60 * 24),
+        (("hour"), ("hours"), 60 * 60),
+        (("minute"), ("minutes"), 60),
+        (("second"), ("seconds"), 1),
     ]
 
     strings = []
