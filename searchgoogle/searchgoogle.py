@@ -2,7 +2,7 @@ from redbot.core import commands
 from datetime import datetime
 import discord
 
-class GoogleSearch(commands.Cog):
+class SearchGoogle(commands.Cog):
   
   def __init__(self, bot):
     self.bot = bot
