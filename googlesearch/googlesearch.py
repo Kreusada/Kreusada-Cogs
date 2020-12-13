@@ -9,12 +9,12 @@ class GoogleSearch(commands.Cog):
   @commands.command()
   async def google(self, ctx, search_query: str):
     """Search google with a simple URL."""
-    querytemplate = f"https://www.google.co.uk/search?source=hp&ei=z07WX6SiGrXVgwfdpa3wAQ&q={search_query}"
-    chfmi = "Click here for more information"
+    querytemplate = f"https://www.google.co.uk/search?source=hp&ei=z07WX6SiGrXVgwfdpa3wAQ&q={search_query.title()}"
+    chfmi = "Click here for search results"
     footer = f"Search google by using: {ctx.clean_prefix}google <search_query>"
-    hassearched = f"{ctx.author.name} searched for... '{search_query.title()}'."
-    e = discord.Embed(title="<:google:787733816566349835> Google Search",
-                      description="{}\n\n**[{}]({})**".format(hassearched, chfmi, querytemplate),
+    hassearched = f"{ctx.author.name} searched for... **{search_query.title()}**."
+    e = discord.Embed(title="<:google:787733816566349835>  Google Search",
+                      description="{}\n**[{}]({})**".format(hassearched, chfmi, querytemplate),
                       colour=discord.Colour.red())
     e.set_footer(text=footer)
     await ctx.send(embed=e)
