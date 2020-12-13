@@ -12,7 +12,7 @@ class GoogleSearch(commands.Cog):
     joinwords = "%".join(search_query)
     querytemplate = f"https://www.google.com/search?q={joinwords}"
     chfmi = "Click here for more information"
-    footer = "Search google by using: {ctx.clean_prefix}google <search_query>"
+    footer = f"Search google by using: {ctx.clean_prefix}google <search_query>"
     e = discord.Embed(title=f"{ctx.author.name} searched for... {search_query}.",
                       description="**[{}]({})**".format(chfmi, querytemplate),
                       colour=discord.Colour.red())
