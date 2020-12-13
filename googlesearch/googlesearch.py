@@ -12,7 +12,7 @@ class GoogleSearch(commands.Cog):
     chfmi = "Click here for more information"
     foot = "Please note that this may only work for residents in the UK."
     e = discord.Embed(title=f"{ctx.author.name} searched for... {search_query}.",
-                      description=f"**[{}]({})**".format(chfmi, UKquerytemplate),
+                      description="**[{}]({})**".format(chfmi, UKquerytemplate),
                       colour=discord.Colour.red())
     e.set_footer(text=footer)
     await ctx.send(e=embed)
