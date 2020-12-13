@@ -124,7 +124,7 @@ class SendCards(commands.Cog):
     except discord.HTTPException:
       await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")
     else:
-      await author.send(embed=e)
+      await ctx.send(embed=e)
 
   @viewoutput.command()
   async def g(self, ctx):
