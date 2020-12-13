@@ -7,7 +7,7 @@ class GoogleSearch(commands.Cog):
     self.bot = bot
     
   @commands.command()
-  async def google(self, ctx, search_query: *args):
+  async def google(self, ctx, *, search_query):
     """Search google with a simple URL."""
     querytemplate = f"https://www.google.co.uk/search?source=hp&ei=z07WX6SiGrXVgwfdpa3wAQ&q={search_query.title()}"
     chfmi = "Click here for search results"
