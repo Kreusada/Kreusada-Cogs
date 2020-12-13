@@ -10,7 +10,7 @@ class GoogleSearch(commands.Cog):
   async def google(self, ctx, *, search_query):
     """Search google with a simple URL."""
     querytemplate = f"https://www.google.co.uk/search?source=hp&ei=z07WX6SiGrXVgwfdpa3wAQ&q={search_query.title()}"
-    multipleargs = "%20".join(querytemplate.title())
+    multipleargs = querytemplate.replace(' ', '%20')
     chfmi = "Click here for search results"
     footer = f"Search google by using: {ctx.clean_prefix}google <search_query>"
     hassearched = f"{ctx.author.name} searched for... **{multipleargs}**."
