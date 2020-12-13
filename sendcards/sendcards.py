@@ -24,7 +24,7 @@ class SendCards(commands.Cog):
     user = destination
     if destination is None or destination.bot:
         await ctx.send("Invalid ID, user not found, or user is a bot.")
-    elif destination is author:
+    elif destination is destination.author:
       await ctx.send("Don't be sending cards to yourself! Perhaps use `{ctx.clean_prefix}card viewoutput christmas` if you want to see the output.")
     else:
       foot = (f"Send christmas cards using {ctx.clean_prefix}card send christmas!")
