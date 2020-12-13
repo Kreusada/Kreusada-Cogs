@@ -130,9 +130,11 @@ class SendCards(commands.Cog):
     await ctx.send(
       "Which card type would you like to see? Please run one of the following commands.\n"
       "This message will be deleted after **20 seconds**.\n"
-      f"\n`❄️`: `{ctx.clean_prefix}card viewoutput christmas`"
-      f"\n`🎂`: `{ctx.clean_prefix}card viewoutput birthday`"
-      f"\n`🏥`: `{ctx.clean_prefix}card viewoutput getwellsoon`",
+      f"\n`❄️`: `{ctx.clean_prefix}card viewoutput c`"
+      f"\n`🎂`: `{ctx.clean_prefix}card viewoutput b`"
+      f"\n`🎊`: `{ctx.clean_prefix}card viewoutput c`"
+      f"\n`❤️`: `{ctx.clean_prefix}card viewoutput v`"
+      f"\n`🏥`: `{ctx.clean_prefix}card viewoutput gws`",
     delete_after=20)
     
   @viewoutput.command()
