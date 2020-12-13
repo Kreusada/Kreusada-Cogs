@@ -17,7 +17,7 @@ class SendCards(commands.Cog):
     """Send a card to someone!"""
     
   @send.command()
-  async def christmas(self, ctx, user_id: int, *, message: str):
+  async def christmas(self, ctx: commands.Context, user_id: int, *, message: str)
     """Send a christmas card to someone!"""
     destination = self.bot.get_user(user_id)
     author = ctx.author.name
@@ -40,7 +40,7 @@ class SendCards(commands.Cog):
       await ctx.send(f"Christmas card delivered to **{user.name}!** :gift:")
 
   @send.command()
-  async def birthday(self, ctx, user_id: int, *, message: str):
+  async def birthday(self, ctx: commands.Context, user_id: int, *, message: str)
     """Send a birthday card to someone!"""
     destination = self.bot.get_user(user_id)
     author = ctx.author.name
@@ -63,7 +63,7 @@ class SendCards(commands.Cog):
       await ctx.send(f"Birthday card delivered to **{user.name}!** :tada:")
 
   @send.command(aliases=["gws"])
-  async def getwellsoon(self, ctx, user_id: int, *, message: str):
+  async def getwellsoon(self, ctx: commands.Context, user_id: int, *, message: str)
     """Send a get well soon card to someone!"""
     destination = self.bot.get_user(user_id)
     author = ctx.author.name
@@ -86,7 +86,7 @@ class SendCards(commands.Cog):
       await ctx.send(f"Get well soon card delivered to **{user.name}!** I hope they're okay too! :pray:")
 
   @send.command()
-  async def valentine(self, ctx, user_id: int, *, message: str):
+  async def valentine(self, ctx: commands.Context, user_id: int, *, message: str)
     """Send a valentines card to someone!"""
     destination = self.bot.get_user(user_id)
     author = ctx.author.name
@@ -144,7 +144,7 @@ class SendCards(commands.Cog):
     delete_after=20)
     
   @viewoutput.command()
-  async def christmas(self, ctx):
+  async def c(self, ctx):
     author = ctx.author.name
     foot = (f"Send christmas cards using {ctx.clean_prefix}card!")
     e = discord.Embed(title=f":christmas_tree: Christmas Card from {ctx.author} :christmas_tree:",
@@ -157,7 +157,7 @@ class SendCards(commands.Cog):
       await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")
 
   @viewoutput.command()
-  async def birthday(self, ctx):
+  async def b(self, ctx):
     author = ctx.author.name
     foot = (f"Send birthday cards using {ctx.clean_prefix}card send birthday!")
     e = discord.Embed(title=f":tada: Birthday Card from {ctx.author} :tada:",
@@ -169,8 +169,8 @@ class SendCards(commands.Cog):
     except discord.HTTPSException:
       await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")
 
-  @viewoutput.command(aliases=["gws"])
-  async def getwellsoon(self, ctx):
+  @viewoutput.command()
+  async def gws(self, ctx):
     """Preview the output from this card"""
     author = ctx.author.name
     foot = (f"Send get well soon cards using {ctx.clean_prefix}card send getwellsoon!")
@@ -184,7 +184,7 @@ class SendCards(commands.Cog):
       await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")
 
   @viewoutput.command()
-  async def valentine(self, ctx):
+  async def v(self, ctx):
     """Preview the output from this card"""
     author = ctx.author.name
     foot = (f"Send valentine cards using {ctx.clean_prefix}card send valentine!")
@@ -199,7 +199,7 @@ class SendCards(commands.Cog):
       await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")
 
   @viewoutput.command()
-  async def giveaway(self, ctx):
+  async def g(self, ctx):
     """Preview the output from this card"""
     author = ctx.author.name
     foot = (f"Send giveaway cards using {ctx.clean_prefix}card send giveaway!")
