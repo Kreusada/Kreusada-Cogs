@@ -1,6 +1,6 @@
 import datetime
 import discord
-from typing import Optional
+from typing import Optional, SupportsInt
 
 def humanize_timedelta(
     *, timedelta: Optional[datetime.timedelta] = None, seconds: Optional[SupportsInt] = None
