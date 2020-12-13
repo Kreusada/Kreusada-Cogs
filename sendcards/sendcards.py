@@ -97,7 +97,7 @@ class SendCards(commands.Cog):
     delete_after=20)
     
   @viewoutput.command()
-  async def c(self, ctx):
+  async def christmas(self, ctx):
     author = ctx.author.name
     foot = (f"Send christmas cards using {ctx.clean_prefix}card!")
     e = discord.Embed(title=f":christmas_tree: Christmas Card from {ctx.author} :christmas_tree:",
@@ -122,8 +122,8 @@ class SendCards(commands.Cog):
     except discord.HTTPSException:
       await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")
 
-  @viewoutput.command()
-  async def g(self, ctx):
+  @viewoutput.command(aliases=["gws"])
+  async def getwellsoon(self, ctx):
     """Preview the output from this card"""
     author = ctx.author.name
     foot = (f"Send get well soon cards using {ctx.clean_prefix}card send getwellsoon!")
