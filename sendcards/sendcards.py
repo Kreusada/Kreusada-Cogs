@@ -102,7 +102,7 @@ class SendCards(commands.Cog):
     if destination is None or destination.bot:
         await ctx.send("Invalid ID, user not found, or user is a bot.")
     foot = (f"Send birthday cards using {ctx.clean_prefix}card send birthday!")
-    e = discord.Embed(title=f":tada: Christmas Card from {ctx.author} :tada:", 
+    e = discord.Embed(title=f":tada: Birthday Card from {ctx.author} :tada:", 
                       description= "Dear {},\n\n{}\n\nFrom {} :balloon:".format(user.name, message, author), 
                       colour=discord.Colour.red())
     e.set_footer(text=foot)
@@ -122,7 +122,7 @@ class SendCards(commands.Cog):
     if destination is None or destination.bot:
         await ctx.send("Invalid ID, user not found, or user is a bot.")
     foot = (f"Send get well soon cards using {ctx.clean_prefix}card send getwellsoon!")
-    e = discord.Embed(title=f":thermometer_face: Christmas Card from {ctx.author} :thermometer_face:", 
+    e = discord.Embed(title=f":thermometer_face: Get Well Soon Card from {ctx.author} :thermometer_face:", 
                       description= "Dear {},\n\n{}\n\nFrom {} :pray:".format(user.name, message, author), 
                       colour=discord.Colour.red())
     e.set_footer(text=foot)
