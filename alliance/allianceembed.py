@@ -21,7 +21,7 @@ class Embed:
             data.set_thumbnail(url=thumbnail)
         if footer_text is None:
             footer_text = "Alliance Tools"
+        return data
 #        if footer_url is None:
 #            footer_url = DEMARATUS
 #        data.set_footer(text=footer_text, icon_url=footer_url)
-#        return data
