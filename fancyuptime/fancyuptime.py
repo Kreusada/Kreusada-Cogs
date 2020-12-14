@@ -26,8 +26,8 @@ class FancyUptime(commands.Cog):
       uptime_str = humanize_timedelta(timedelta=delta) or ("Less than one second")
       bot = ctx.bot.user.name
       users = len(self.bot.users)
-      servers = (len(bot.guilds))
-      commandscount = len(set(bot.walk_commands()))
+      servers = str(len(self.bot.guilds))
+      commandscount = len(set(self.bot.walk_commands()))
       now = datetime.now()
       strftime = now.strftime("Today at %H:%M %p")
       e = discord.Embed(title=f":green_circle:  {bot}'s Uptime",
