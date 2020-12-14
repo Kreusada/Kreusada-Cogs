@@ -25,7 +25,7 @@ class FancyUptime(commands.Cog):
       uptime_str = humanize_timedelta(timedelta=delta) or ("Less than one second")
       bot = ctx.bot.user.name
       users = len(self.bot.users)
-      servers = len(bot.guilds)
+      servers = str(len(bot.guilds))
       commandscount = len(set(bot.walk_commands()))
       now = datetime.now()
       strftime = now.strftime("Today at %H:%M %p")
