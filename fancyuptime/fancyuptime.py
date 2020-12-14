@@ -7,7 +7,7 @@ from .delta_utils import humanize_timedelta
 class FancyUptime(commands.Cog):
   def __init__(self, bot):
     self.bot = bot
-    self.config = Config.get_conf(self, identifier=59365034743, force_registration=True)
+    self.config = Config.get_conf(self, identifier=59465034743, force_registration=True)
        
   def cog_unload(self):
     global _old_uptime
@@ -26,7 +26,7 @@ class FancyUptime(commands.Cog):
       uptime_str = humanize_timedelta(timedelta=delta) or ("Less than one second")
       bot = ctx.bot.user.name
       users = len(self.bot.users)
-      servers = (len(bot.guilds)
+      servers = (len(bot.guilds))
       commandscount = len(set(bot.walk_commands()))
       now = datetime.now()
       strftime = now.strftime("Today at %H:%M %p")
