@@ -19,7 +19,7 @@ class AntiBotRole(commands.Cog):
       e.set_author(name=bot.user.name, icon_url=bot.user.avatar_url)                  
       await ctx.send(embed=e)
     else:
-      await ctx.send(f"Please enter a valid bot ID. **{bot_id} was not recognised.**")
+      await ctx.send(f"Please enter a valid bot ID.\n**{bot_id} was not recognised.**")
     
 def setup(bot):
   bot.add_cog(AntiBotRole(bot))
