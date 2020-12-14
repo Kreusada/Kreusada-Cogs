@@ -1,0 +1,1 @@
+from .fancyuptime import setup

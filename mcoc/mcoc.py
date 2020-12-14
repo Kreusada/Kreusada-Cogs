@@ -99,56 +99,55 @@ class Mcoc(commands.Cog):
     @commands.command()
     async def roster(self, ctx, star: str = None):
         """View your champions obtained from crystals."""
-        pass  # Wtf
-        # if await self.bot.is_owner(ctx.author) is False:
-        #     return await ctx.send(_("Roster isn't available yet!"), delete_after=10)
-        # if star is None:
-        #     star = "5"
-        # try:
-        #     roster5: dict = await self.config.user(ctx.author).roster.get_raw(star)
-        # except KeyError:
-        #     roster5: dict = await self.config.user(ctx.author).roster.get_raw("5")
-        # if len(roster5.values()) > 0:
-        #     roster = "\n".join(
-        #         ["{} s{}".format(key.title(), value) for key, value in roster5.items()]
-        #     )
-        # elif star is None:
-        #     star = "4"
-        # try:
-        #     roster4: dict = await self.config.user(ctx.author).roster.get_raw(star)
-        # except KeyError:
-        #     roster4: dict = await self.config.user(ctx.author).roster.get_raw("4")
-        # if len(roster4.values()) > 0:
-        #     roster = "\n".join(
-        #         ["{} s{}".format(key.title(), value) for key, value in roster4.items()]
-        #     )
-        # elif star is None:
-        #     star = "3"
-        # try:
-        #     roster3: dict = await self.config.user(ctx.author).roster.get_raw(star)
-        # except KeyError:
-        #     roster3: dict = await self.config.user(ctx.author).roster.get_raw("3")
-        # if len(roster3.values()) > 0:
-        #     roster = "\n".join(
-        #         ["{} s{}".format(key.title(), value) for key, value in roster3.items()]
-        #     )
-        #     embed = Embed.create(self, ctx, title=f"{ctx.author.name}'s Crystal Roster", color=ctx.author.color,
-        #                          description=f"Use `{ctx.clean_prefix}crystal` to open some crystals!")
-        #     embed.add_field(name="{} Stars".format(star), value=roster5, inline=True)
-        #     embed.add_field(name="{} Stars".format(star), value=roster4, inline=True)
-        #     embed.add_field(name="{} Stars".format(star), value=roster3, inline=True)
-        #     await ctx.send(embed=embed)
-        # else:
-        #     embed = discord.Embed(
-        #         title="Crystal Roster: {} Star :star:".format(star), color=ctx.author.color, description=(
-        #             "You don't have any {} star champions!\n"
-        #             "Collect some using `{}crystal`!".format(
-        #                 star, ctx.clean_prefix
-        #             )
-        #         )
-        #     )
-        # await ctx.send(embed=embed)
-
+        if await self.bot.is_owner(ctx.author) is False:
+            return await ctx.send("Roster isn't available yet!", delete_after=10)
+        if star is None:
+            star = "5"
+        try:
+            roster5: dict = await self.config.user(ctx.author).roster.get_raw(star)
+        except KeyError:
+            roster5: dict = await self.config.user(ctx.author).roster.get_raw("5")
+        if len(roster5.values()) > 0:
+            roster = "\n".join(
+                ["{} s{}".format(key.title(), value) for key, value in roster5.items()]
+            )
+        elif star is None:
+            star = "4"
+        try:
+            roster4: dict = await self.config.user(ctx.author).roster.get_raw(star)
+        except KeyError:
+            roster4: dict = await self.config.user(ctx.author).roster.get_raw("4")
+        if len(roster4.values()) > 0:
+            roster = "\n".join(
+                ["{} s{}".format(key.title(), value) for key, value in roster4.items()]
+            )
+        elif star is None:
+            star = "3"
+        try:
+            roster3: dict = await self.config.user(ctx.author).roster.get_raw(star)
+        except KeyError:
+            roster3: dict = await self.config.user(ctx.author).roster.get_raw("3")
+        if len(roster3.values()) > 0:
+            roster = "\n".join(
+                ["{} s{}".format(key.title(), value) for key, value in roster3.items()]
+            )
+            embed = Embed.create(self, ctx, title=f"{ctx.author.name}'s Crystal Roster", color=ctx.author.color, 
+                                 description=f"Use `{ctx.clean_prefix}crystal` to open some crystals!")
+            embed.add_field(name="{} Stars".format(star), value=roster5, inline=True)
+            embed.add_field(name="{} Stars".format(star), value=roster4, inline=True)
+            embed.add_field(name="{} Stars".format(star), value=roster3, inline=True)
+            await ctx.send(embed=embed)
+        else:
+            embed = discord.Embed(
+                title="Crystal Roster: {} Star :star:".format(star), color=ctx.author.color, description=(
+                    "You don't have any {} star champions!\n"
+                    "Collect some using `{}crystal`!".format(
+                        star, ctx.clean_prefix
+                    )
+                )
+            )
+        await ctx.send(embed=embed)
+     
     @commands.group()
     async def rosterset(self, ctx):
         """Additional roster configuration."""

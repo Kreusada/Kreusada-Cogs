@@ -1,0 +1,13 @@
+  {
+	"author": [
+		"Kreusada"
+	],
+	"description": "An authentic looking uptime message.",
+    "install_msg": "Thanks for installing, have fun. Use `[p]uptime`!",
+	"short": "Bot uptime, customised.",
+	"tags": [
+		"uptime"
+	],
+	"type": "COG",
+	"end_user_data_statement": "This cog does not persistently store data or metadata about users."
+}

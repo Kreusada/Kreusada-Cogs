@@ -1,8 +1,10 @@
 import discord
+import requests
+import asyncio
+from datetime import datetime, timedelta
 from validator_collection import validators
 from datetime import datetime
 from redbot.core import commands, checks, Config, modlog
-from .staffembed import Embed
 
 
 class Staff(commands.Cog):
@@ -50,34 +52,62 @@ class Staff(commands.Cog):
                 description=f"Something went wrong during the setup process."
             )
             await ctx.send(embed=embed)
-
+        return
+        
     @commands.command()
-    # @commands.cooldown(1, 600, commands.BucketType.user)
+   # @commands.cooldown(1, 600, commands.BucketType.user)
     async def staff(self, ctx):
         """Notifies the staff."""
-        embed = Embed.create(
-            self, ctx, title='<:alert:777928824670388254> The Staff have been notified.',
-            description=(
-                "Please keep your cool, and if required, try to disperse the situation. "
-                "A member of our Staff team will be with you as soon as possible."
-            )
-        )
-        await ctx.send(embed=embed)
+        message = ctx.message
+        await message.add_reaction("✅")
+        await asyncio.sleep(1)
+        await ctx.send("**:warning: We have sent a report to the staff team. They will be with you as soon as possible.**")
+        
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
         channel = ctx.guild.get_channel(chan) if chan is not None\
             else ctx.channel
-        if role is not None:
+        bot = self.bot
+        jumper_link = ctx.message.jump_url
+        author_id = ctx.author.id
+        now = datetime.now()
+        strftime = now.strftime("%H:%M %p")
+        daytime = now.strftime("%d of %B, %Y")
+        msgtime = f"**Time called:** {strftime}"
+        date = f"**Date called:** {daytime}"
+        authid = f"**Author ID:** {author_id}"
+        chfmi = "Click here for more information"
+        call = " has just called for the staff in "
+        jumper_f = "**[{}]({})**".format(chfmi, jumper_link)
+        if channel is not None:
             embed = Embed.create(
-                self, ctx, title='<:alert:777928824670388254> ALERT!',
-                description=f"**{ctx.author.name}** has just called for the staff in {ctx.channel.mention}.\n\n"
+                self, ctx, title=":warning: ALERT!",
+                description=f"**{ctx.author.name}**{call}{ctx.channel.mention}.\n\n{date}\n{msgtime}\n\n{authid}\n\n{jumper_f}",
+                footer_text=f"{bot.user.name} | Staff",
+                footer_url=f"{bot.user.avatar_url}"
             )
-            await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
+            await channel.send(content=f":warning: {role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
         else:
             embed = Embed.create(
-                self, ctx, title="The Staff team have not completed the command setup. <:error:777117297273077760>",
-                description=(
-                    "This is a requirement for the staff command to function.\n"
-                )
+                self, ctx, title=":x: The Staff team have not completed the command setup.",
+                description="This is a requirement for the staff command to function.\n"
             )
             await ctx.send(embed=embed)
+
+class Embed:
+    def __init__(self, bot):
+        self.bot = bot
+
+    def create(self, ctx, color=discord.Color.red(), title='', description='', image=None,
+               thumbnail=None, url=None, footer_text=None, footer_url=None, author_text=None):
+        if isinstance(ctx.message.channel, discord.abc.GuildChannel):
+            color = 0xe15d59
+        data = discord.Embed(color=color, title=title, url=url)
+        if description is not None:
+            if len(description) < 1500:
+                data.description = description
+        if image is not None:
+            data.set_image(url=image)
+        if thumbnail is not None:
+            data.set_thumbnail(url=thumbnail)
+        return data
