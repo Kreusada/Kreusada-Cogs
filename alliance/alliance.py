@@ -7,18 +7,24 @@ from contextlib import suppress
 import asyncio
 from .allianceembed import Embed
 
+import logging
+
+log = logging.getLogger("red.jojo.demaratus")
+
 
 class Alliance(commands.Cog):
     """Tools for your alliance on MCOC."""
 
-    def __init__(self):
+    def __init__(self, bot):
+        self.bot = bot
         self.config = Config.get_conf(
             self, 200730042020, force_registration=True)
         self.config.register_guild(
             role=None,
             channel=None
         )
-   
+        self.embed = Embed(self.bot)
+
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete."""
         return
@@ -31,14 +37,13 @@ class Alliance(commands.Cog):
         """
         if timezone is None:
             await ctx.author.edit(nick=ctx.author.name)
-            embed = Embed.create(
-                self, ctx, title="Successful <:success:777167188816560168>",
-                description=f"""
+            embed = self.embed.create(ctx, title="Successful <:success:777167188816560168>",
+                                      description=f"""
                 You can set your nickname using `{ctx.clean_prefix}timezone <timezone>`.
                 For example: `{ctx.clean_prefix}timezone +4` or `{ctx.clean_prefix}timezone -12`.
                 Your timezone is no longer shown on your nickname (`{ctx.author.name}`)
                 """
-            )
+                                      )
             return await ctx.send(embed=embed)
         user = ctx.author
         before = ctx.author.name
@@ -46,11 +51,10 @@ class Alliance(commands.Cog):
         tag = "{0} [{1}]".format(before, after)
         try:
             await user.edit(nick=tag)
-            embed = Embed.create(
-                self, ctx, title="Successful <:success:777167188816560168>",
-                description="Your timezone is now displayed on your nickname as: ``{}``".format(
-                    tag),
-            )
+            embed = self.embed.create(ctx, title="Successful <:success:777167188816560168>",
+                                      description="Your timezone is now displayed on your nickname as: ``{}``".format(
+                                          tag),
+                                      )
             await ctx.send(embed=embed)
         except discord.Forbidden:
             await ctx.send("Something went wrong during the setup process, I could not change your nickname.")
@@ -66,47 +70,47 @@ class Alliance(commands.Cog):
 
     @aas.command()
     async def showsettings(self, ctx):
-      """Shows the curernt settings for alerts."""
-      rol = await self.config.guild(ctx.guild).get_raw("role")
-      chan = await self.config.guild(ctx.guild).get_raw("channel")
-      role = ctx.guild.get_role(rol) if rol is not None\
-          else None
-      channel = ctx.guild.get_channel(chan) if chan is not None\
-          else None
-      embed = Embed.create(
-          self, ctx, title="{}'s Settings".format(ctx.guild.name),
-          description="**Role:** {}\n**Channel:** {}".format(
-              role.mention, channel.mention)
-      )
-      await ctx.send(embed=embed)
+        """Shows the curernt settings for alerts."""
+        rol = await self.config.guild(ctx.guild).get_raw("role")
+        chan = await self.config.guild(ctx.guild).get_raw("channel")
+        role = ctx.guild.get_role(rol) if rol is not None\
+            else None
+        channel = ctx.guild.get_channel(chan) if chan is not None\
+            else None
+        embed = self.embed.create(
+            self, ctx, title="{}'s Settings".format(ctx.guild.name),
+            description="**Role:** {}\n**Channel:** {}".format(
+                role.mention, channel.mention)
+        )
+        await ctx.send(embed=embed)
 
     @aas.command()
     async def channel(self, ctx, channel: discord.TextChannel):
-      """Configures the channel where alerts are sent."""
-      await self.config.guild(ctx.guild).set_raw("channel", value=channel.id)
-      embed = Embed.create(
-          self, ctx, title="Successful <:success:777167188816560168>",
-          description="{} will now be the channel that the alerts will be sent to when Alliance events start".format(
-              channel.mention)
-      )
-      await ctx.send(embed=embed)
+        """Configures the channel where alerts are sent."""
+        await self.config.guild(ctx.guild).set_raw("channel", value=channel.id)
+        embed = self.embed.create(
+            ctx, title="Successful <:success:777167188816560168>",
+            description="{} will now be the channel that the alerts will be sent to when Alliance events start".format(
+                channel.mention)
+        )
+        log.info(embed)
+        await ctx.send(embed=embed)
 
     @aas.command()
     async def role(self, ctx, role: discord.Role):
-      """Configures the role to be mentioned for alerts."""
-      try:
-          await self.config.guild(ctx.guild).set_raw("role", value=role.id)
-          embed = Embed.create(
-              self, ctx, title="Successful <:success:777167188816560168>",
-              description=f"{role.mention} will now be mentioned when Alliance events start.",
-          )
-          await ctx.send(embed=embed)
-      except discord.Forbidden:
-          embed = Embed.create(
-              self, ctx, title="Oopsies! <:error:777117297273077760>",
-              description=f"Something went wrong during the setup process."
-          )
-          await ctx.send(embed=embed)
+        """Configures the role to be mentioned for alerts."""
+        try:
+            await self.config.guild(ctx.guild).set_raw("role", value=role.id)
+            embed = self.embed.create(ctx, title="Successful <:success:777167188816560168>",
+                                      description=f"{role.mention} will now be mentioned when Alliance events start.",
+                                      )
+            await ctx.send(embed=embed)
+        except discord.Forbidden:
+            embed = self.embed.create(
+                ctx, title="Oopsies! <:error:777117297273077760>",
+                description=f"Something went wrong during the setup process."
+            )
+            await ctx.send(embed=embed)
 
     @aas.group()
     async def reset(self, ctx):
@@ -138,15 +142,15 @@ class Alliance(commands.Cog):
         channel = ctx.guild.get_channel(chan) if chan is not None\
             else ctx.channel
         if role is not None:
-            embed = Embed.create(
-                self, ctx, title='Alliance Quest has STARTED!',
+            embed = self.embed.create(
+                ctx, title='Alliance Quest has STARTED!',
                 image="https://media.discordapp.net/attachments/758775890954944572/779063680792789042/aqstarted.png?width=1442&height=481",
                 description="Time to join Alliance Quest."
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
-            embed = Embed.create(
-                self, ctx, title='Alliance Quest has STARTED!',
+            embed = self.embed.create(
+                ctx, title='Alliance Quest has STARTED!',
                 image="https://media.discordapp.net/attachments/758775890954944572/779063680792789042/aqstarted.png?width=1442&height=481",
                 description="Time to join Alliance Quest."
             )
@@ -160,15 +164,15 @@ class Alliance(commands.Cog):
         channel = ctx.guild.get_channel(chan) if chan is not None\
             else ctx.channel
         if role is not None:
-            embed = Embed.create(
-                self, ctx, title='GLORY has arrived!',
+            embed = self.embed.create(
+                ctx, title='GLORY has arrived!',
                 image="https://media.discordapp.net/attachments/758775890954944572/779063679953141810/aqglory.png?width=1442&height=481",
                 description="That feeling of topping up your glory balance..."
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
-            embed = Embed.create(
-                self, ctx, title='GLORY has arrived!',
+            embed = self.embed.create(
+                ctx, title='GLORY has arrived!',
                 image="https://media.discordapp.net/attachments/758775890954944572/779063679953141810/aqglory.png?width=1442&height=481",
                 description="That feeling of topping up your glory balance..."
             )
@@ -182,15 +186,15 @@ class Alliance(commands.Cog):
         channel = ctx.guild.get_channel(chan) if chan is not None\
             else ctx.channel
         if role is not None:
-            embed = Embed.create(
-                self, ctx, title='Placement Phase has begun...',
+            embed = self.embed.create(
+                ctx, title='Placement Phase has begun...',
                 image="https://media.discordapp.net/attachments/758775890954944572/779045289579249694/awplacement.png?width=962&height=321",
                 description="Place your defenders, and make sure you know where they're going!"
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
-            embed = Embed.create(
-                self, ctx, title='Placement Phase has begun...',
+            embed = self.embed.create(
+                ctx, title='Placement Phase has begun...',
                 image="https://media.discordapp.net/attachments/758775890954944572/779045289579249694/awplacement.png?width=962&height=321",
                 description="Place your defenders, and make sure you know where they're going!"
             )
@@ -204,15 +208,15 @@ class Alliance(commands.Cog):
         channel = ctx.guild.get_channel(chan) if chan is not None\
             else ctx.channel
         if role is not None:
-            embed = Embed.create(
-                self, ctx, title='Attack Phase has begun...',
+            embed = self.embed.create(
+                ctx, title='Attack Phase has begun...',
                 image="https://media.discordapp.net/attachments/758775890954944572/779045289268871169/awattack.png?width=962&height=321",
                 description="It's time to attack your opponent."
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
-            embed = Embed.create(
-                self, ctx, title='Attack Phase has begun...',
+            embed = self.embed.create(
+                ctx, title='Attack Phase has begun...',
                 image="https://media.discordapp.net/attachments/758775890954944572/779045289268871169/awattack.png?width=962&height=321",
                 description="It's time to attack your opponent."
             )
@@ -226,15 +230,15 @@ class Alliance(commands.Cog):
         channel = ctx.guild.get_channel(chan) if chan is not None\
             else ctx.channel
         if role is not None:
-            embed = Embed.create(
-                self, ctx, title='<:success:777167188816560168> Alliance War VICTORY',
+            embed = self.embed.create(
+                ctx, title='<:success:777167188816560168> Alliance War VICTORY',
                 image="https://media.discordapp.net/attachments/758775890954944572/779045290237231164/awvictory.png?width=962&height=321",
                 description="Give yourselves a pat on the back. Good job."
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
-            embed = Embed.create(
-                self, ctx, title='<:success:777167188816560168> Alliance War VICTORY',
+            embed = self.embed.create(
+                ctx, title='<:success:777167188816560168> Alliance War VICTORY',
                 image="https://media.discordapp.net/attachments/758775890954944572/779045290237231164/awvictory.png?width=962&height=321",
                 description="Give yourselves a pat on the back. Good job."
             )
@@ -248,15 +252,15 @@ class Alliance(commands.Cog):
         channel = ctx.guild.get_channel(chan) if chan is not None\
             else ctx.channel
         if role is not None:
-            embed = Embed.create(
-                self, ctx, title='<:error:777117297273077760> Alliance War DEFEAT',
+            embed = self.embed.create(
+                ctx, title='<:error:777117297273077760> Alliance War DEFEAT',
                 image="https://media.discordapp.net/attachments/758775890954944572/779045290270261288/awdefeat.png?width=962&height=321",
                 description="Unlucky, we'll get 'em next time."
             )
             await channel.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=embed)
         else:
-            embed = Embed.create(
-                self, ctx, title='<:error:777117297273077760> Alliance War DEFEAT',
+            embed = self.embed.create(
+                ctx, title='<:error:777117297273077760> Alliance War DEFEAT',
                 image="https://media.discordapp.net/attachments/758775890954944572/779045290270261288/awdefeat.png?width=962&height=321",
                 description="Unlucky, we'll get 'em next time."
             )

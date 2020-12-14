@@ -4,7 +4,6 @@ import asyncio
 import discord
 import random
 import logging
-from .mcocresources import Embed
 from .crystal import FEATUREDS, BCB
 
 log = logging.getLogger(name="red.demaratus.mcoc")
@@ -17,6 +16,7 @@ class Mcoc(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        self.embed = Embed(self.bot)
         self.config = Config.get_conf(
             self, identifier=153607829, force_registration=True
         )
@@ -27,7 +27,7 @@ class Mcoc(commands.Cog):
                 "3": {}
             }
         )
-        
+
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete."""
         return
@@ -48,14 +48,14 @@ class Mcoc(commands.Cog):
     @commands.group()
     async def crystal(self, ctx):
         """Chooses a random champion."""
-        
+
     @commands.command()
     async def mcocguide(self, ctx):
         """A full guide to the commands of MCOC!"""
         embed = Embed.create(self, ctx, title="MCOC Command Guide",
                              description="Placeholding.")
         await ctx.send(embed=embed)
-        
+
     @crystal.command(aliases=["gm", "g"])
     @commands.cooldown(1, 60, commands.BucketType.user)
     async def grandmaster(self, ctx):
@@ -95,7 +95,7 @@ class Mcoc(commands.Cog):
         )
         data.set_image(url=image)
         await ctx.send(embed=data)
-    
+
     @commands.command()
     async def roster(self, ctx, star: str = None):
         """View your champions obtained from crystals."""
@@ -151,11 +151,11 @@ class Mcoc(commands.Cog):
     @commands.group()
     async def rosterset(self, ctx):
         """Additional roster configuration."""
-        
+
     @rosterset.group()
     async def reset(self, ctx):
         """Reset your roster."""
-    
+
     @reset.command(name="roster3")
     async def _roster3(self, ctx):
         """Reset your 3 star roster."""
@@ -174,7 +174,6 @@ class Mcoc(commands.Cog):
         else:
             await ctx.send("You don't have any 4 star champions in your roster!")
 
-
     @reset.command(name="roster5")
     async def _roster5(self, ctx):
         """Reset your 5 star roster."""
@@ -183,7 +182,7 @@ class Mcoc(commands.Cog):
             await self.removal(ctx, r5)
         else:
             await ctx.send("You don't have any 5 star champions in your roster!")
-            
+
     @crystal.group()
     async def battlechip(self, ctx):
         """Open a battlechip crystal."""
@@ -396,3 +395,28 @@ class Mcoc(commands.Cog):
                     await question.clear_reactions()
         await self.config.guild(ctx.guild).set_raw(action, value=None)
         await ctx.send("Removed the {}!".format(action))
+
+
+class Embed:
+    def __init__(self, bot):
+        self.bot = bot
+
+    def create(self, ctx, color=discord.Color.red(), title='', description='', image=None,
+               thumbnail=None, url=None, footer_text=None, footer_url=None, author_text=None):
+        DEMARATUS = 'https://cdn.discordapp.com/attachments/758775890954944572/768452440785027132/demaratuscircle.png'
+        if isinstance(ctx.message.channel, discord.abc.GuildChannel):
+            color = ctx.message.author.color
+        data = discord.Embed(color=color, title=title, url=url)
+        if description is not None:
+            if len(description) < 1500:
+                data.description = description
+        data.set_author(name=ctx.message.author.display_name,
+                        icon_url=ctx.message.author.avatar_url)
+        if image is not None:
+            data.set_image(url=image)
+        if footer_text is None:
+            footer_text = "Demaratus | MCOC Commands"
+        if footer_url is None:
+            footer_url = DEMARATUS
+        data.set_footer(text=footer_text, icon_url=footer_url)
+        return data
