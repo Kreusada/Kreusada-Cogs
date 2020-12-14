@@ -26,6 +26,8 @@ class FancyUptime(commands.Cog):
       uptime_str = humanize_timedelta(timedelta=delta) or ("Less than one second")
       bot = ctx.bot.user
       guild = ctx.guild
+      ownerid = bot.owner_ids
+      owner = bot.get_user(ownerid)
       users = len(self.bot.users)
       servers = str(len(self.bot.guilds))
       commandsavail = len(set(self.bot.walk_commands()))
@@ -37,6 +39,7 @@ class FancyUptime(commands.Cog):
                           f"Therefore, it's been online for **{uptime_str}**."
                         ),
                         color=0x59e1ac)
+      e.add_field(name="Instance Owner:", value=owner.name, inline=True)
       e.add_field(name="Instance name:", value=bot.name, inline=True)
       e.add_field(name="Instance ID:", value=bot.id, inline=True)
       e.add_field(name="Current guild:", value=guild, inline=True)
