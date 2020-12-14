@@ -26,21 +26,22 @@ class FancyUptime(commands.Cog):
       bot = ctx.bot.user.name
       users = len(self.bot.users)
       servers = len(bot.guilds)
+      commandscount = len(set(bot.walk_commands()))
       now = datetime.now()
       strftime = now.strftime("Today at %H:%M %p")
       e = discord.Embed(title=f":green_circle:  {bot}'s Uptime",
                         description=(
                           f"{bot} has been up since **{since}**.\n"
                           f"Therefore, it's been online for **{uptime_str}**.\n\n"
-                          f"**Instance Name:** {ctx.bot.user}\n"
+                          f"**Instance name:** {ctx.bot.user}\n"
                           f"**Instance ID:** {ctx.bot.user.id}\n"
-                          f"**Current Guild:** {ctx.guild}\n"
-                          f"**Number of Servers:** {servers}\n"
-                          f"**Unique Users:** {servers}"
+                          f"**Current guild:** {ctx.guild}\n"
+                          f"**Number of servers:** {servers}\n"
+                          f"**Unique users:** {servers}\n"
+                          f"**Commands processed since last restart:** {servers}\n"
                         ),
-                        color=0x23fb31,
-                        e.set_footer(text=f"{strftime}")
-                       )
+                        color=0x23fb31)
+      e.set_footer(text=f"{strftime}")
       await ctx.send(embed=e)
 
 async def setup(bot):
