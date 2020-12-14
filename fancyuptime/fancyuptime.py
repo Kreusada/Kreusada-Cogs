@@ -1,11 +1,8 @@
 import discord
-from typing import Union
 from redbot.core import commands, Config
 from redbot.core.utils import AsyncIter
 from datetime import datetime, timedelta
 from .delta_utils import humanize_timedelta
-from .commandsp_utils import rgetattr, threadexec
-from .fu_events import SELECT_TEMP_GLOBAL, SELECT_TEMP_SINGLE
 
 class FancyUptime(commands.Cog):
   def __init__(self, bot):
@@ -21,25 +18,6 @@ class FancyUptime(commands.Cog):
         log.info(error)
       self.bot.add_command(_old_uptime)
 
-  def get(self, key, id=None, raw: bool = False) -> Union[int, str]:
-      if id is None:
-          query = SELECT_TEMP_GLOBAL
-          condition = {"event": key}
-      else:
-          query = SELECT_TEMP_SINGLE
-          condition = {"event": key, "guild_id": id}
-      output = threadexec(self.cursor.execute, query, condition)
-      result = list(output)
-      if raw:
-          return result[0][0] if result else 0
-      return humanize_number(result[0][0] if result else 0)
-
-  @commands.Cog.listener()
-  async def on_command(self, ctx: commands.Context):
-      self.upsert(
-          rgetattr(ctx, "guild.id", rgetattr(ctx, "channel.id", -1)), "processed_commands"
-      )
-
   @commands.command()
   async def uptime(self, ctx: commands.Context):
       """Shows [botname]'s uptime."""
@@ -51,7 +29,6 @@ class FancyUptime(commands.Cog):
       users = len(self.bot.users)
       servers = str(len(self.bot.guilds))
       commandsavail = len(set(self.bot.walk_commands()))
-      commands_count = self.get("processed_commands")
       now = datetime.now()
       strftime = now.strftime("Today at %H:%M %p")
       e = discord.Embed(title=f":green_circle:  {bot}'s Uptime",
@@ -66,7 +43,6 @@ class FancyUptime(commands.Cog):
       e.add_field(name="Number of servers:", value=servers, inline=True)
       e.add_field(name="Unique users:", value=users, inline=True)
       e.add_field(name="Commands available:", value=commandsavail, inline=True)
-      e.add_field(name="Commands count:", value=commands_count, inline=True)
       e.set_footer(text=f"{strftime}")
       await ctx.send(embed=e)
 
