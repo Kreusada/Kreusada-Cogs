@@ -33,7 +33,7 @@ class FancyUptime(commands.Cog):
       strftime = now.strftime("Today at %H:%M %p")
       e = discord.Embed(title=f":green_circle:  {bot}'s Uptime",
                         description=(
-                          f"{bot} has been up since **{since}**.\n"
+                          f"**{bot.name}** has been up since **{since}**.\n"
                           f"Therefore, it's been online for **{uptime_str}**."
                         ),
                         color=0x59e1ac)
@@ -42,7 +42,7 @@ class FancyUptime(commands.Cog):
       e.add_field(name="Current guild:", value=guild, inline=True)
       e.add_field(name="Number of servers:", value=servers, inline=True)
       e.add_field(name="Unique users:", value=users, inline=True)
-      e.add_field(name="Commands available", value=commandsavail, inline=True)
+      e.add_field(name="Commands available:", value=commandsavail, inline=True)
       e.set_footer(text=f"{strftime}")
       await ctx.send(embed=e)
 
