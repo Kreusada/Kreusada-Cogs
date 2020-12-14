@@ -1,4 +1,5 @@
 import discord
+from typing import Union
 from redbot.core import commands, Config
 from redbot.core.utils import AsyncIter
 from datetime import datetime, timedelta
