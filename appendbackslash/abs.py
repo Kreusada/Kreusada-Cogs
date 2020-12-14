@@ -1,6 +1,5 @@
 import discord
-from typing import Union
-from redbot.core import commands, Config
+from redbot.core import commands
 
 class AppendBackslash(commands.Cog):
   """Haven't got a backslash on your keyboard?"""
