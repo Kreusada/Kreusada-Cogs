@@ -33,6 +33,12 @@ class FancyUptime(commands.Cog):
           return result[0][0] if result else 0
       return humanize_number(result[0][0] if result else 0)
 
+  @commands.Cog.listener()
+  async def on_command(self, ctx: commands.Context):
+      self.upsert(
+          rgetattr(ctx, "guild.id", rgetattr(ctx, "channel.id", -1)), "processed_commands"
+      )
+
   @commands.command()
   async def uptime(self, ctx: commands.Context):
       """Shows [botname]'s uptime."""
