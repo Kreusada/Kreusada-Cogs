@@ -27,7 +27,7 @@ class FancyUptime(commands.Cog):
       bot = ctx.bot.user.name
       users = len(self.bot.users)
       servers = str(len(self.bot.guilds))
-      commandscount = len(set(self.bot.walk_commands()))
+      commandsavail = len(set(self.bot.walk_commands()))
       now = datetime.now()
       strftime = now.strftime("Today at %H:%M %p")
       e = discord.Embed(title=f":green_circle:  {bot}'s Uptime",
@@ -39,7 +39,7 @@ class FancyUptime(commands.Cog):
                           f"**Current guild:** {ctx.guild}\n"
                           f"**Number of servers:** {servers}\n"
                           f"**Unique users:** {users}\n"
-                          f"**Commands processed since last restart:** {commandscount}\n"
+                          f"**Commands available:** {commandsavail}\n"
                         ),
                         color=0x23fb31)
       e.set_footer(text=f"{strftime}")
