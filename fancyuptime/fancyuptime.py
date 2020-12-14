@@ -41,7 +41,7 @@ class FancyUptime(commands.Cog):
                           f"**Unique users:** {users}\n"
                           f"**Commands available:** {commandsavail}\n"
                         ),
-                        color=0x23fb31)
+                        color=0x59e1ac)
       e.set_footer(text=f"{strftime}")
       await ctx.send(embed=e)
 
