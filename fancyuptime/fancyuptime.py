@@ -25,6 +25,7 @@ class FancyUptime(commands.Cog):
       delta = datetime.utcnow() - self.bot.uptime
       uptime_str = humanize_timedelta(timedelta=delta) or ("Less than one second")
       bot = ctx.bot.user
+      botname = ctx.bot.user.name
       guild = ctx.guild
       users = len(self.bot.users)
       servers = str(len(self.bot.guilds))
@@ -33,7 +34,7 @@ class FancyUptime(commands.Cog):
       strftime = now.strftime("Today at %H:%M %p")
       e = discord.Embed(title=f":green_circle:  {bot}'s Uptime",
                         description=(
-                          f"**{bot.name}** has been up since **{since}**.\n"
+                          f"**{botname}** has been up since **{since}**.\n"
                           f"Therefore, it's been online for **{uptime_str}**."
                         ),
                         color=0x59e1ac)
