@@ -16,7 +16,7 @@ class AntiBotRole(commands.Cog):
       e = discord.Embed(title=f"{user.name} Invite Link (Without Role)",
                         description="**ID: {}**\n\n**[{}]({})**".format(user.id, chti, inv),
                         color=0xb7fff3)
-      e.set_author(name=bot.user.name, icon=bot.user.avatar_url)                  
+      e.set_author(name=bot.user.name, icon_url=bot.user.avatar_url)                  
       await ctx.send(embed=e)
     else:
       await ctx.send(f"Please enter a valid bot ID. **{bot_id} was not recognised.**")
