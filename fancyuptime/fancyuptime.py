@@ -17,12 +17,6 @@ class FancyUptime(commands.Cog):
         log.info(error)
       self.bot.add_command(_old_uptime)
 
-  @commands.Cog.listener()
-  async def on_command(self, ctx: commands.Context):
-    self.upsert(
-    rgetattr(ctx, "guild.id", rgetattr(ctx, "channel.id", -1)), "processed_commands"
-    )
-
   @commands.command()
   async def uptime(self, ctx: commands.Context):
       """Shows [botname]'s uptime."""
@@ -30,12 +24,22 @@ class FancyUptime(commands.Cog):
       delta = datetime.utcnow() - self.bot.uptime
       uptime_str = humanize_timedelta(timedelta=delta) or ("Less than one second")
       bot = ctx.bot.user.name
-      e = discord.Embed(title=f":green_circle: {bot}'s Uptime",
+      users = len(self.bot.users)
+      servers = len(bot.guilds)
+      now = datetime.now()
+      strftime = now.strftime("Today at %H:%M %p")
+      e = discord.Embed(title=f":green_circle:  {bot}'s Uptime",
                         description=(
                           f"{bot} has been up since **{since}**.\n"
                           f"Therefore, it's been online for **{uptime_str}**.\n\n"
-                          f"**Bot Identification:** {ctx.bot.user.id}\n"
-                        )
+                          f"**Instance Name:** {ctx.bot.user}\n"
+                          f"**Instance ID:** {ctx.bot.user.id}\n"
+                          f"**Current Guild:** {ctx.guild}\n"
+                          f"**Number of Servers:** {servers}\n"
+                          f"**Unique Users:** {servers}"
+                        ),
+                        color=0x23fb31,
+                        e.set_footer(text=f"{strftime}")
                        )
       await ctx.send(embed=e)
 
