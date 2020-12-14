@@ -18,11 +18,18 @@ class FancyUptime(commands.Cog):
         log.info(error)
       self.bot.add_command(_old_uptime)
 
-  def rgetattr(obj, attr, *args):
-      def _getattr(obj2, attr2):
-          return getattr(obj2, attr2, *args)
-
-      return functools.reduce(_getattr, [obj] + attr.split("."))
+  def get(self, key, id=None, raw: bool = False) -> Union[int, str]:
+      if id is None:
+          query = SELECT_TEMP_GLOBAL
+          condition = {"event": key}
+      else:
+          query = SELECT_TEMP_SINGLE
+          condition = {"event": key, "guild_id": id}
+      output = threadexec(self.cursor.execute, query, condition)
+      result = list(output)
+      if raw:
+          return result[0][0] if result else 0
+      return humanize_number(result[0][0] if result else 0)
               
   @commands.Cog.listener()
   async def on_command(self, ctx: commands.Context):
