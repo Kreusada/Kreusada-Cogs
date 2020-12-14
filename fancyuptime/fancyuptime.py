@@ -24,7 +24,8 @@ class FancyUptime(commands.Cog):
       since = ctx.bot.uptime.strftime("%A the %d of %B, %Y")
       delta = datetime.utcnow() - self.bot.uptime
       uptime_str = humanize_timedelta(timedelta=delta) or ("Less than one second")
-      bot = ctx.bot.user.name
+      bot = ctx.bot.user
+      guild = ctx.guild
       users = len(self.bot.users)
       servers = str(len(self.bot.guilds))
       commandsavail = len(set(self.bot.walk_commands()))
@@ -33,15 +34,15 @@ class FancyUptime(commands.Cog):
       e = discord.Embed(title=f":green_circle:  {bot}'s Uptime",
                         description=(
                           f"{bot} has been up since **{since}**.\n"
-                          f"Therefore, it's been online for **{uptime_str}**.\n\n"
-                          f"**Instance name:** {ctx.bot.user}\n"
-                          f"**Instance ID:** {ctx.bot.user.id}\n"
-                          f"**Current guild:** {ctx.guild}\n"
-                          f"**Number of servers:** {servers}\n"
-                          f"**Unique users:** {users}\n"
-                          f"**Commands available:** {commandsavail}\n"
+                          f"Therefore, it's been online for **{uptime_str}**."
                         ),
                         color=0x59e1ac)
+      e.add_field(name="Instance name:", value=bot.name, inline=True)
+      e.add_field(name="Instance ID:", value=bot.id, inline=True)
+      e.add_field(name="Current guild:", value=guild, inline=True)
+      e.add_field(name="Number of servers:", value=servers, inline=True)
+      e.add_field(name="Unique users:", value=users, inline=True)
+      e.add_field(name="Commands available", value=commandsavail, inline=True)
       e.set_footer(text=f"{strftime}")
       await ctx.send(embed=e)
 
