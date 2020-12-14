@@ -10,6 +10,7 @@ class AntiBotRole(commands.Cog):
   async def invbot(self, ctx, bot_id: int):
     user = self.bot.get_user(bot_id)
     if user.bot is True:
+      bot = self.bot
       inv = f"https://discord.com/oauth2/authorize?client_id={bot_id}&scope=bot"
       chti = "Click here to invite"
       e = discord.Embed(title=f"{user.name} Invite Link (Without Role)",
