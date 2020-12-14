@@ -18,6 +18,18 @@ class FancyUptime(commands.Cog):
         log.info(error)
       self.bot.add_command(_old_uptime)
 
+  def rgetattr(obj, attr, *args):
+      def _getattr(obj2, attr2):
+          return getattr(obj2, attr2, *args)
+
+      return functools.reduce(_getattr, [obj] + attr.split("."))
+              
+  @commands.Cog.listener()
+  async def on_command(self, ctx: commands.Context):
+      self.upsert(
+          rgetattr(ctx, "guild.id", rgetattr(ctx, "channel.id", -1)), "processed_commands"
+      )
+
   @commands.command()
   async def uptime(self, ctx: commands.Context):
       """Shows [botname]'s uptime."""
@@ -29,6 +41,7 @@ class FancyUptime(commands.Cog):
       users = len(self.bot.users)
       servers = str(len(self.bot.guilds))
       commandsavail = len(set(self.bot.walk_commands()))
+      commands_count = self.get("processed_commands")
       now = datetime.now()
       strftime = now.strftime("Today at %H:%M %p")
       e = discord.Embed(title=f":green_circle:  {bot}'s Uptime",
@@ -43,6 +56,7 @@ class FancyUptime(commands.Cog):
       e.add_field(name="Number of servers:", value=servers, inline=True)
       e.add_field(name="Unique users:", value=users, inline=True)
       e.add_field(name="Commands available:", value=commandsavail, inline=True)
+      e.add_field(name="Commands count:", value=commands_count, inline=True)
       e.set_footer(text=f"{strftime}")
       await ctx.send(embed=e)
 
