@@ -14,7 +14,7 @@ class AntiBotRole(commands.Cog):
       chti = "Click here to invite"
       e = discord.Embed(title=f"{user.name} Invite Link (Without Role)",
                         description="**ID: {}**\n\n**[{}]({})**".format(user.id, chti, inv),
-                        color=x0b7fff3)
+                        color=0xb7fff3)
       e.set_author(name=bot.user.name, icon=bot.user.avatar_url)                  
       await ctx.send(embed=e)
     else:
