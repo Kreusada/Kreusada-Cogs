@@ -26,7 +26,7 @@ class FancyUptime(commands.Cog):
       uptime_str = humanize_timedelta(timedelta=delta) or ("Less than one second")
       bot = ctx.bot.user.name
       users = len(self.bot.users)
-      #servers = (len(bot.guilds))
+      servers = (len(bot.guilds))
       commandscount = len(set(bot.walk_commands()))
       now = datetime.now()
       strftime = now.strftime("Today at %H:%M %p")
@@ -37,9 +37,9 @@ class FancyUptime(commands.Cog):
                           f"**Instance name:** {ctx.bot.user}\n"
                           f"**Instance ID:** {ctx.bot.user.id}\n"
                           f"**Current guild:** {ctx.guild}\n"
-                          #f"**Number of servers:** {servers}\n"
-                          f"**Unique users:** {servers}\n"
-                          f"**Commands processed since last restart:** {servers}\n"
+                          f"**Number of servers:** {servers}\n"
+                          f"**Unique users:** {users}\n"
+                          f"**Commands processed since last restart:** {commandscount}\n"
                         ),
                         color=0x23fb31)
       e.set_footer(text=f"{strftime}")
