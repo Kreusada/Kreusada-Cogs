@@ -3,6 +3,8 @@ from redbot.core import commands, Config
 from redbot.core.utils import AsyncIter
 from datetime import datetime, timedelta
 from .delta_utils import humanize_timedelta
+from .commandsp_utils import rgetattr, threadexec
+from .fu_events import SELECT_TEMP_GLOBAL, SELECT_TEMP_SINGLE
 
 class FancyUptime(commands.Cog):
   def __init__(self, bot):
@@ -30,12 +32,6 @@ class FancyUptime(commands.Cog):
       if raw:
           return result[0][0] if result else 0
       return humanize_number(result[0][0] if result else 0)
-              
-  @commands.Cog.listener()
-  async def on_command(self, ctx: commands.Context):
-      self.upsert(
-          rgetattr(ctx, "guild.id", rgetattr(ctx, "channel.id", -1)), "processed_commands"
-      )
 
   @commands.command()
   async def uptime(self, ctx: commands.Context):
