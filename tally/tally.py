@@ -31,7 +31,7 @@ class Tally(commands.Cog):
     usertally += 1
     await self.config.guild(ctx.guild).COUNT.set(guildtally)
     await self.config.user(ctx.author).CONTRIBUTIONS.set(usertally)
-    await ctx.send(f"** +1 from {ctx.author.name}.**\n\n**{ctx.guild.name}** is now at **{guildtally}**.")
+    await ctx.send(f"** +1 from {ctx.author.name}.**\n**{ctx.guild.name}** is now at **{guildtally}**.")
 
   @tallyset.command()
   async def forceadd(self, ctx, amount: int):
@@ -59,7 +59,7 @@ class Tally(commands.Cog):
     guildtally = await self.config.guild(ctx.guild).COUNT()
     usertally = await self.config.user(ctx.author).CONTRIBUTIONS()
     embed = discord.Embed(title=f"{ctx.guild.name}'s Tallyboard",
-                          description=f"Total tally: **{guildtally}**\nContributions from you: **{usertally}**",
+                          description=f"Total tally: **{guildtally}**\nContributions from you (lifetime): **{usertally}**",
                           color=0xeb8a86)
     await ctx.send(embed=embed)
 
