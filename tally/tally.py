@@ -40,12 +40,14 @@ class Tally(commands.Cog):
     guildtally += amount
     await self.config.guild(ctx.guild).COUNT.set(guildtally)
     await ctx.message.add_reaction("✅")
+    await ctx.send(f"New total: **{guildtally}**.")
 
   @tallyset.command()
   async def forceset(self, ctx, amount: int):
     """FORCE set custom points. Admins can only access this command."""
-    await self.config.guild(ctx.guild).COUNT.set(amount)
+    sett = await self.config.guild(ctx.guild).COUNT.set(amount)
     await ctx.message.add_reaction("✅")
+    await ctx.send(f"New total: **{sett}**.")
     
   @tallyset.command()
   async def reset(self, ctx):
