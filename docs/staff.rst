@@ -1,8 +1,8 @@
 .. _staff:
 
-=====
-Staff
-=====
+==========
+Cog: Staff
+==========
 
 ^^^^^^^^^^^
 How it works
@@ -20,7 +20,7 @@ Staff roles are required to notify your staff.
 
 .. code-block:: none 
 
-      dem staffset role <role>
+      [p]staffset role <role>
 
 When the staff command is used, this configured role will be mentioned, allowing for staff to be notified straight away.
 
@@ -30,7 +30,7 @@ Set your staff channel to a private mod/admin channel.
 
 .. code-block:: none
 
-      dem staffset role <role>
+      [p]staffset role <role>
 
 When the staff command is used, this configured channel host a message containing the alert, the mention, the location of which the ``staff`` command was used, and the user who executed the command.
 
@@ -42,7 +42,7 @@ Staff Usage
 
 .. code-block:: none
 
-      dem staff
+     [p]staff
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Downloading for your redbot
