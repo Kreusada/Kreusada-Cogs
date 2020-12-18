@@ -43,7 +43,7 @@ Example Usage
 
     \n
     
-- :code:`[p]abs :white_check_mark:
+- :code:`[p]abs :white_check_mark:`
 
 .. code-block:: bash
 
@@ -72,7 +72,7 @@ Code
 
 Here is the code that I used to create this cog.
 
-..code-block:: python
+.. code-block:: python
 
     import discord
     from redbot.core import commands
