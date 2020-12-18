@@ -67,7 +67,7 @@ class Tally(commands.Cog):
     usertally = await self.config.user(ctx.author).CONTRIBUTIONS()
     current = await self.config.user(ctx.author).CONT_CURRENTCOUNT()
     embed = discord.Embed(title=f"{ctx.guild.name}'s Tallyboard",
-                          description=f"Total tally: **{guildtally}**\nContributions from you: **{usertally}**\nLifetime contributions from {ctx.author.name}: **{current}**",
+                          description=f"Total tally: **{guildtally}**\nContributions from you: **{current}**\nLifetime contributions from {ctx.author.name}: **{usertally}**",
                           color=0xeb8a86)
     await ctx.send(embed=embed)
 
