@@ -13,7 +13,10 @@ default_guild = {
 }
   
 class ForceDown(commands.Cog):
-  """Get your number down to 0."""
+  """
+  ForceDown: Get your number to 0 to win some cash!
+  ForceDown is a came which involves lowering your number to 0, to win currency.
+  """
   
   def __init__(self, bot):
     self.bot = bot
