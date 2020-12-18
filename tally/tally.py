@@ -7,7 +7,7 @@ default_guild = {
   "CHANNEL": None,
 }
 default_user = {
-  "CONTRIBUTIONS": 0
+  "CONTRIBUTIONS": 0,
   "CONT_CURRENTCOUNT": 0
 }
 
