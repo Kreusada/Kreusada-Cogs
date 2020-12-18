@@ -1,7 +1,7 @@
 .. _appendbackslash:
 
 ====================
-COG: AppendBackslash
+Cog: AppendBackslash
 ====================
 
 -------
@@ -29,7 +29,7 @@ Now, you can add the :code:`AppendBackslash` cog into your system.
 Usage
 -----
 
-- :code:`[p]abs <object_to_append`
+- :code:`[p]abs <object_to_append>`
 
 No, :code:`abs` doesn't get you abdominals, it stands for append backslash. Sorry about that guys.
 
