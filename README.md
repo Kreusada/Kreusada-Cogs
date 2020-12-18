@@ -26,7 +26,7 @@ Remember - don't include the `<>` when you use this command. Those characters ar
 
 | Cog Name        | Description                                                            | Type                        | Author     | Status           | Bug-Proofed    | Rating                  |
 |-----------------|------------------------------------------------------------------------|-----------------------------|------------|------------------|----------------|-------------------------|
-| antibotrole     | Invite a bot to a guild, without their permissions role.               | Utility                     | Kreusada   | Ready for use    | Pending        | No ratings provided yet |
+| antibotrole     | Invite a bot to a guild, without their permissions role.               | Utility                     | Kreusada   | Ready for use    | Yes            | No ratings provided yet |
 | appendbackslash | Append a backslash to the start of an object.                          | Utility                     | Kreusada   | Ready for use    | Yes            | No ratings provided yet |
 | customping      | Replace "Pong." with a custom message such as "Howdy!"                 | Utility, Core Customization | Kreusada   | Ready for use    | Yes            | No ratings provided yet |
 | fancyuptime     | Display uptime with authentic formatting and additional information.   | Utility, Core Customization | Kreusada   | Ready for use    | Yes            | No ratings provided yet |
