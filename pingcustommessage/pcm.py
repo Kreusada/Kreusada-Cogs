@@ -2,7 +2,7 @@ import discord
 from redbot.core import Config, commands
 from redbot.core.utils import AsyncIter
 
-class CustomPing(commands.Cog):
+class PingCustomMessage(commands.Cog):
   """Custom ping message."""
   
   def __init__(self, bot):
@@ -52,7 +52,7 @@ class CustomPing(commands.Cog):
 async def setup(bot):
     if discord.version_info <= (1, 4):
         raise CogLoadError("This cog requires d.py 1.4+ to work.")
-    cping = CustomPing(bot)
+    cping = PingCustomMessage(bot)
     global _old_ping
     _old_ping = bot.get_command("ping")
     if _old_ping:
