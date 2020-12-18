@@ -23,7 +23,7 @@ class Tally(commands.Cog):
     """Configure settings for your server's tally."""
     
   @commands.command()
-  async def tally(self, ctx, amount: int = 1):
+  async def tally(self, ctx, amount: float = 1):
     """Add a point to the guild's tally."""
     guildtally = await self.config.guild(ctx.guild).COUNT()
     usertally = await self.config.user(ctx.author).CONTRIBUTIONS()
