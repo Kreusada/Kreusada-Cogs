@@ -32,7 +32,7 @@ class FancyUptime(commands.Cog):
       commandsavail = len(set(self.bot.walk_commands()))
       now = datetime.now()
       strftime = now.strftime("Today at %H:%M %p")
-      e = discord.Embed(title=f":green_circle:  {bot}'s Uptime",
+      e = discord.Embed(title=f":green_circle:  {botname}'s Uptime",
                         description=(
                           f"**{botname}** has been up since **{since}**.\n"
                           f"Therefore, it's been online for **{uptime_str}**."
