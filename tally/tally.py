@@ -8,6 +8,7 @@ default_guild = {
 }
 default_user = {
   "CONTRIBUTIONS": 0
+  "CONT_CURRENTCOUNT": 0
 }
 
 class Tally(commands.Cog):
@@ -27,14 +28,17 @@ class Tally(commands.Cog):
     """Add a point to the guild's tally."""
     guildtally = await self.config.guild(ctx.guild).COUNT()
     usertally = await self.config.user(ctx.author).CONTRIBUTIONS()
+    current = await self.config.user(ctx.author).CONT_CURRENTCOUNT()
     guildtally += amount
     usertally += amount
+    current += amount
     await self.config.guild(ctx.guild).COUNT.set(guildtally)
     await self.config.user(ctx.author).CONTRIBUTIONS.set(usertally)
+    await self.config.user(ctx.author).CONT_CURRENTCOUNT.set(current)
     await ctx.send(f"** +{amount} from {ctx.author.name}.**\n**{ctx.guild.name}** is now at **{guildtally}**.")
 
   @tallyset.command()
-  async def forceadd(self, ctx, amount: int):
+  async def forceadd(self, ctx, amount: float):
     """FORCE add custom points. Admins can only access this command."""
     guildtally = await self.config.guild(ctx.guild).COUNT()
     guildtally += amount
@@ -43,7 +47,7 @@ class Tally(commands.Cog):
     await ctx.send(f"New total: **{guildtally}**.")
 
   @tallyset.command()
-  async def forceset(self, ctx, amount: int):
+  async def forceset(self, ctx, amount: float):
     """FORCE set custom points. Admins can only access this command."""
     sett = await self.config.guild(ctx.guild).COUNT.set(amount)
     await ctx.message.add_reaction("✅")
@@ -53,6 +57,7 @@ class Tally(commands.Cog):
   async def reset(self, ctx):
     """Reset the guild's tally."""
     await self.config.guild(ctx.guild).COUNT.set(0)
+    await self.config.guild(ctx.guild).CONT_CURRENTCOUNT.set(0)
     await ctx.message.add_reaction("✅")
     
   @commands.command()
@@ -60,8 +65,9 @@ class Tally(commands.Cog):
     """Review the servers current tallyboard."""
     guildtally = await self.config.guild(ctx.guild).COUNT()
     usertally = await self.config.user(ctx.author).CONTRIBUTIONS()
+    current = await self.config.user(ctx.author).CONT_CURRENTCOUNT()
     embed = discord.Embed(title=f"{ctx.guild.name}'s Tallyboard",
-                          description=f"Total tally: **{guildtally}**\nContributions from you (lifetime): **{usertally}**",
+                          description=f"Total tally: **{guildtally}**\nContributions from you: **{usertally}**\nLifetime contributions from {ctx.author.name}: **{current}**",
                           color=0xeb8a86)
     await ctx.send(embed=embed)
 
