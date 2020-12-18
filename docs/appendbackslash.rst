@@ -9,7 +9,7 @@ Outline
 -------
 
 :code:`AppendBackslash` is a cog that ultimately allows you to append backslashes to the start of any given string.
- This can be useful for those who don't have backslashes on their keyboard, or if you want to get a raw version of an emoji.
+This can be useful for those who don't have backslashes on their keyboard, or if you want to get a raw version of an emoji.
 
 ------------
 Installation
@@ -54,7 +54,7 @@ Emoji Usage
 -----------
 
 When you backslash an emoji, you convert the emoji into it's raw form, meaning that you can paste this emoji rather than its 'colon'ed equivalent.
- You will be able to notice the difference below:
+You will be able to notice the difference below:
 
 .. code-block:: python
 
