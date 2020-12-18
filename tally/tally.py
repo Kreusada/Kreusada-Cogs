@@ -57,7 +57,7 @@ class Tally(commands.Cog):
   async def reset(self, ctx):
     """Reset the guild's tally."""
     await self.config.guild(ctx.guild).COUNT.set(0)
-    await self.config.guild(ctx.guild).CONT_CURRENTCOUNT.set(0)
+#    await self.config.guild(ctx.guild).CONT_CURRENTCOUNT.set(0)
     await ctx.message.add_reaction("✅")
     
   @commands.command()
@@ -67,7 +67,7 @@ class Tally(commands.Cog):
     usertally = await self.config.user(ctx.author).CONTRIBUTIONS()
     current = await self.config.user(ctx.author).CONT_CURRENTCOUNT()
     embed = discord.Embed(title=f"{ctx.guild.name}'s Tallyboard",
-                          description=f"Total tally: **{guildtally}**\nContributions from you: **{current}**\nLifetime contributions from {ctx.author.name}: **{usertally}**",
+                          description=f"Total tally: **{guildtally}**\nLifetime contributions from you: **{current}**",#\nLifetime contributions from {ctx.author.name}: **{usertally}**",
                           color=0xeb8a86)
     await ctx.send(embed=embed)
 
