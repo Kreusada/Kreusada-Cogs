@@ -1,7 +1,7 @@
-<h1 align="center">Kreusada Cogs</h1>
+<h1 align="center">kreusadacogs</h1>
 
 <p align="center">
-  <img src="https://media.discordapp.net/attachments/769165401879478302/787806081727987742/kreusadatwitter2.png?width=1440&height=480" alt="Banner">
+  <img src="https://imgur.com/a/YqTteT3" alt="Banner">
 </p>
 
 This is my repository for Red Discord-Bot. I built these cogs because these were the features that I wanted for my bot, [Demaratus.](https://discord.com/oauth2/authorize?client_id=766580519000473640&scope=bot&permissions=8)
