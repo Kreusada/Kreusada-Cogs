@@ -11,7 +11,6 @@ CROSS = "\N{CROSS MARK}"
 default_guild = {
   "CHANNEL": None,
   "FOOTERDATE": False,
-#  "ROLEMENTION": None,
   "COGCREATOR": None,
   "DESCRIPTION": False,
   "PREREQS": False,
@@ -36,7 +35,6 @@ class PublishCogs(commands.Cog):
     descr = await self.config.guild(ctx.guild).DESCRIPTION()
     reqs = await self.config.guild(ctx.guild).PREREQS()
     inst = await self.config.guild(ctx.guild).INSTGUIDE()
-    role = await self.config.guild(ctx.guild).ROLEMENTION()
     footerdate = role = await self.config.guild(ctx.guild).FOOTERDATE()
     cog = discord.utils.get(ctx.guild.roles, id=cog)
     chan = discord.utils.get(ctx.guild.channels, id=chan)
@@ -119,9 +117,6 @@ class PublishCogs(commands.Cog):
       e.set_footer(text=strftime)
     else: 
       pass
-#    if role is not None:
-#      await chan.send(f"{role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=e)
-#    else:
     await chan.send(embed=e)
 
   @publishcogset.command()
@@ -141,14 +136,6 @@ class PublishCogs(commands.Cog):
       await self.config.guild(ctx.guild).FOOTERDATE.set(True)
     else:
       await self.config.guild(ctx.guild).FOOTERDATE.set(False)
-  
-#  @publishcogset.command()
-#  @commands.mod_or_permissions(administrator=True)
-#  async def rolemention(self, ctx, role: discord.Role):
-#    """Configure a role to be mentioned for new cogs."""
-#    await self.config.guild(ctx.guild).ROLEMENTION.set(role.id)
-#    await ctx.message.add_reaction("✅")
-#    await ctx.send(f"{role.mention} will now be mentioned when there is a new cog.")
   
   @publishcogset.command()
   @commands.mod_or_permissions(administrator=True)
@@ -196,7 +183,6 @@ class PublishCogs(commands.Cog):
     descr = await self.config.guild(ctx.guild).DESCRIPTION()
     reqs = await self.config.guild(ctx.guild).PREREQS()
     inst = await self.config.guild(ctx.guild).INSTGUIDE()
-    role = await self.config.guild(ctx.guild).ROLEMENTION()
     chan = discord.utils.get(ctx.guild.channels, id=chan)
     cog = discord.utils.get(ctx.guild.roles, id=cog)
     role = discord.utils.get(ctx.guild.roles, id=role)    
@@ -205,11 +191,6 @@ class PublishCogs(commands.Cog):
       c = No
     elif chan is not None:
       c = chan.mention
-    else: pass
-    if role is None:
-      r = No
-    elif role is not None:
-      r = role.mention
     else: pass
     if cog is None:
       co = No
@@ -220,7 +201,6 @@ class PublishCogs(commands.Cog):
     embed = discord.Embed(title=title)
     embed.add_field(name="Channel", value=c, inline=True)
     embed.add_field(name="Cog Creator Role", value=co, inline=True)
-    embed.add_field(name="Role Pinged", value=r, inline=True)
     embed.add_field(name="Description", value=descr, inline=True)
     embed.add_field(name="Pre-requirements", value=reqs, inline=True)
     embed.add_field(name="Install Guide", value=inst, inline=True)
