@@ -7,4 +7,5 @@ Cog Support
 ==================
 
 * :ref:`appendbackslash`
+* :ref:`fancyuptime`
 * :ref:`staff`
