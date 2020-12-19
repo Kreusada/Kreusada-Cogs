@@ -34,8 +34,8 @@ class FancyUptime(commands.Cog):
       strftime = now.strftime("Today at %H:%M %p")
       e = discord.Embed(title=f":green_circle:  {botname}'s Uptime",
                         description=(
-                          f"**{botname}** has been up since **{since}**.\n"
-                          f"Therefore, it's been online for **{uptime_str}**."
+                          f"**{botname}** has been up since...\n **{since}**.\n"
+                          f"Therefore, it's been online for...\n **{uptime_str}**."
                         ),
                         color=0x59e1ac)
       e.add_field(name="Instance name:", value=bot.name, inline=True)
