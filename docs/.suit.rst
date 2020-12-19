@@ -1,0 +1,104 @@
+.. _cogname:
+
+====================
+Cog: CogName
+====================
+
+-------
+Outline
+-------
+
+:code:`CogName` <explanation>
+This can be useful for <explanation>
+<additional outlining content>
+
+------------
+Installation
+------------
+
+Make sure you have :code:`Downloader` loaded!
+
+:code:`[p]load Downloader`
+
+Let's add Kreusada's repository firstly:
+
+:code:`[p]repo add kreusadacogs https://github.com/kreus7/kreusadacogs`
+
+Now, you can add the :code:`CogName` cog into your system.
+
+:code:`[p]cog install kreusadacogs cogname`
+
+-----
+Usage
+-----
+
+- :code:`[p]cogname`
+
+<Explaining the usage shown above.>
+
+- :code:`[p]cogname add <quantity>`
+
+<Explaining the usage shown above. Explain predicates, int and float strings, and additional content.>
+
+-------------
+Example Usage
+-------------
+
+- :code:`[p]cogname add 15`
+
+.. code-block:: bash
+
+    <output>
+    
+- :code:`[p]cogname del 15`
+
+.. code-block:: bash
+
+    <output>
+    
+-----------
+Further Usage/Explanation
+-----------
+
+<Explain the usage here>
+
+.. code-block:: python
+
+    await ctx.message.add_reaction("✅")
+    await ctx.send("✅")
+    
+----
+Code
+----
+
+<Show the code used for this cog.>
+
+.. code-block:: python
+
+    import discord
+    from redbot.core import commands
+    
+    class Ping(commands.Cog):
+      
+      def __init__(self, bot):
+        self.bot = bot
+      
+      @commands.command()
+      async def ping(self, ctx):
+        await ctx.send("Pong.")
+
+-------
+Support
+-------
+
+As always, you can join my `support server <https://discord.gg/JmCFyq7>`_ if you need help!
+
+- Kreusada
+
+.. note:: This :code:`.suit.rst` was created a brief guide if I ever need syntax help. This is, a note block, btw.
+
+.. warning:: Warning Block
+
+.. attention:: Attention Block
+
+.. tip:: Tip Block
