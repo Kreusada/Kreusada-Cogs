@@ -25,6 +25,8 @@ Let's add Kreusada's repository firstly:
 
 Now, you can add the :code:`AppendBackslash` cog into your system.
 
+:code:`[p]cog install kreusadacogs appendbackslash`
+
 -----
 Usage
 -----
