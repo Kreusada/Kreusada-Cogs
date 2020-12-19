@@ -120,7 +120,7 @@ class PublishCogs(commands.Cog):
     else: 
       pass
     if role is not None:
-      await chan.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=e)
+      await chan.send(f"{role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=e)
     else:
       await chan.send(embed=e)
 
