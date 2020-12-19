@@ -11,7 +11,7 @@ CROSS = "\N{CROSS MARK}"
 default_guild = {
   "CHANNEL": None,
   "FOOTERDATE": False,
-  "ROLEMENTION": None,
+#  "ROLEMENTION": None,
   "COGCREATOR": None,
   "DESCRIPTION": False,
   "PREREQS": False,
@@ -93,7 +93,7 @@ class PublishCogs(commands.Cog):
       pass
     await ctx.author.send("Perfect! We're all done. Check your guild's channel to see the results!")
     now = datetime.now()
-    strftime = now.strftime("Today %H:%M %p")
+    strftime = now.strftime("Today at %H:%M %p")
     if inst is True:
       instrepo = f"`[p]repo add {repolink.content.split('/')[3]} {repolink.content}`"
       instcog = f"`[p]cog install {repolink.content.split('/')[3]} {cogname.content}`"
@@ -119,10 +119,10 @@ class PublishCogs(commands.Cog):
       e.set_footer(text=strftime)
     else: 
       pass
-    if role is not None:
-      await chan.send(f"{role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=e)
-    else:
-      await chan.send(embed=e)
+#    if role is not None:
+#      await chan.send(f"{role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=e)
+#    else:
+    await chan.send(embed=e)
 
   @publishcogset.command()
   @commands.mod_or_permissions(administrator=True)
@@ -142,13 +142,13 @@ class PublishCogs(commands.Cog):
     else:
       await self.config.guild(ctx.guild).FOOTERDATE.set(False)
   
-  @publishcogset.command()
-  @commands.mod_or_permissions(administrator=True)
-  async def rolemention(self, ctx, role: discord.Role):
-    """Configure a role to be mentioned for new cogs."""
-    await self.config.guild(ctx.guild).ROLEMENTION.set(role.id)
-    await ctx.message.add_reaction("✅")
-    await ctx.send(f"{role.mention} will now be mentioned when there is a new cog.")
+#  @publishcogset.command()
+#  @commands.mod_or_permissions(administrator=True)
+#  async def rolemention(self, ctx, role: discord.Role):
+#    """Configure a role to be mentioned for new cogs."""
+#    await self.config.guild(ctx.guild).ROLEMENTION.set(role.id)
+#    await ctx.message.add_reaction("✅")
+#    await ctx.send(f"{role.mention} will now be mentioned when there is a new cog.")
   
   @publishcogset.command()
   @commands.mod_or_permissions(administrator=True)
