@@ -39,7 +39,6 @@ class FancyUptime(commands.Cog):
                         ),
                         color=0x59e1ac)
       e.add_field(name="Instance name:", value=bot.name, inline=True)
-      e.add_field(name="Instance ID:", value=bot.id, inline=True)
       e.add_field(name="Current guild:", value=guild, inline=True)
       e.add_field(name="Number of servers:", value=servers, inline=True)
       e.add_field(name="Unique users:", value=users, inline=True)
