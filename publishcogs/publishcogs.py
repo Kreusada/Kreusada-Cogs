@@ -221,9 +221,9 @@ class PublishCogs(commands.Cog):
     embed.add_field(name="Channel", value=c, inline=True)
     embed.add_field(name="Cog Creator Role", value=co, inline=True)
     embed.add_field(name="Role Pinged", value=r, inline=True)
-    embed.add_field(name="Description Enabled", value=descr, inline=True)
-    embed.add_field(name="Pre-requirements Enabled", value=reqs, inline=True)
-    embed.add_field(name="Install Guide Enabled", value=inst, inline=True)
+    embed.add_field(name="Description", value=descr, inline=True)
+    embed.add_field(name="Pre-requirements", value=reqs, inline=True)
+    embed.add_field(name="Install Guide", value=inst, inline=True)
     return await ctx.send(embed=embed)
   
   @publishcogset.command()
