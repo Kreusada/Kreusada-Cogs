@@ -40,6 +40,7 @@ class PublishCogs(commands.Cog):
     footerdate = role = await self.config.guild(ctx.guild).FOOTERDATE()
     cog = discord.utils.get(ctx.guild.roles, id=cog)
     chan = discord.utils.get(ctx.guild.channels, id=chan)
+    role = discord.utils.get(ctx.guild.roles, id=role)
     if cog not in ctx.author.roles:
       return await ctx.send("It doesn't look like you have the cog creator role.")
     if not chan:
@@ -119,7 +120,7 @@ class PublishCogs(commands.Cog):
     else: 
       pass
     if role is True:
-      await chan.send(f"{role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=e)
+      await chan.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=e)
     else:
       await chan.send(embed=e)
 
