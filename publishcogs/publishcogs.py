@@ -123,14 +123,14 @@ class PublishCogs(commands.Cog):
     else:
       await chan.send(embed=e)
 
-  @newcogset.command()
+  @publishcogset.command()
   async def channel(self, ctx, channel: discord.TextChannel):
     """Configure the channel where new cogs will be posted."""
     await self.config.guild(ctx.guild).CHANNEL.set(channel.id)
     await ctx.message.add_reaction("✅")
     await ctx.send(f"{channel.mention} will now be where new cogs are sent.")
   
-  @newcogset.command()
+  @publishcogset.command()
   async def footerdate(self, ctx):
     """Enable date and time display in new cog messages."""
     pred = await self.predicate_toggle(ctx, "the footer time")
@@ -139,21 +139,21 @@ class PublishCogs(commands.Cog):
     else:
       await self.config.guild(ctx.guild).FOOTERDATE.set(False)
   
-  @newcogset.command()
+  @publishcogset.command()
   async def rolemention(self, ctx, role: discord.Role):
     """Configure a role to be mentioned for new cogs."""
     await self.config.guild(ctx.guild).ROLEMENTION.set(role.id)
     await ctx.message.add_reaction("✅")
     await ctx.send(f"{role.mention} will now be mentioned when there is a new cog.")
   
-  @newcogset.command()
+  @publishcogset.command()
   async def cogcreator(self, ctx, role: discord.Role):
     """Configure your cog creator role."""
     await self.config.guild(ctx.guild).COGCREATOR.set(role.id)
     await ctx.message.add_reaction("✅")
     await ctx.send(f"{role.mention} will now be considered as the Cog Creator role.")
   
-  @newcogset.command()
+  @publishcogset.command()
   async def description(self, ctx):
     """Enable cogs to have descriptions."""
     pred = await self.predicate_toggle(ctx, "the description")
@@ -162,7 +162,7 @@ class PublishCogs(commands.Cog):
     else:
       await self.config.guild(ctx.guild).DESCRIPTION.set(False)
   
-  @newcogset.command()
+  @publishcogset.command()
   async def prerequirements(self, ctx):
     """Enable specifications for pre-requirements."""
     pred = await self.predicate_toggle(ctx, "the pre-requirements")
@@ -171,7 +171,7 @@ class PublishCogs(commands.Cog):
     else:
       await self.config.guild(ctx.guild).PREREQS.set(False)
   
-  @newcogset.command()
+  @publishcogset.command()
   async def installguide(self, ctx):
     """Enable whether the cog creator can add an install guide."""
     pred = await self.predicate_toggle(ctx, "the install guide")
@@ -180,7 +180,7 @@ class PublishCogs(commands.Cog):
     else:
       await self.config.guild(ctx.guild).INSTGUIDE.set(False)
   
-  @newcogset.command()
+  @publishcogset.command()
   async def showsettings(self, ctx):
     """Show the current settings for publishing cogs."""
     cog = await self.config.guild(ctx.guild).COGCREATOR()
@@ -218,7 +218,7 @@ class PublishCogs(commands.Cog):
     embed.add_field(name="Install Guide Enabled", value=inst, inline=True)
     return await ctx.send(embed=embed)
   
-  @newcogset.command()
+  @publishcogset.command()
   async def setall(self, ctx):
     """Toggle all toggleable settings."""
     pred = await self.predicate_toggle_all(ctx, "all the settings")
