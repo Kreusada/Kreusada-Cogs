@@ -119,7 +119,7 @@ class PublishCogs(commands.Cog):
       e.set_footer(text=strftime)
     else: 
       pass
-    if role is True:
+    if role is not None:
       await chan.send(content=role.mention, allowed_mentions=discord.AllowedMentions(roles=True), embed=e)
     else:
       await chan.send(embed=e)
