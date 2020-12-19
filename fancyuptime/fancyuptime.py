@@ -38,11 +38,11 @@ class FancyUptime(commands.Cog):
                           f"Therefore, it's been online for **{uptime_str}**."
                         ),
                         color=0x59e1ac)
-      e.add_field(name="Instance name:", value=bot.name, inline=True)
-      e.add_field(name="Current guild:", value=guild, inline=True)
-      e.add_field(name="Number of servers:", value=servers, inline=True)
-      e.add_field(name="Unique users:", value=users, inline=True)
-      e.add_field(name="Commands available:", value=commandsavail, inline=True)
+      e.add_field(name="Instance name:", value=bot.name, inline=False)
+      e.add_field(name="Current guild:", value=guild, inline=False)
+      e.add_field(name="Number of guilds:", value=servers, inline=False)
+      e.add_field(name="Unique users:", value=users, inline=False)
+      e.add_field(name="Commands available:", value=commandsavail, inline=False)
       e.set_footer(text=f"{strftime}")
       await ctx.send(embed=e)
 
