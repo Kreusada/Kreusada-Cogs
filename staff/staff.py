@@ -59,15 +59,10 @@ class Staff(commands.Cog):
     async def staff(self, ctx):
         """Notifies the staff."""
         message = ctx.message
-        role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
-        chan = await self.config.guild(ctx.guild).get_raw("channel")
-        channel = ctx.guild.get_channel(chan)
-        if channel is not None:
-            await message.add_reaction("✅")
-            return await ctx.send("We have sent a report to the staff team. They will be with you as soon as possible.")
-        else:
-            await message.add_reaction("❌")
-            return await ctx.send("The staff team have not yet configured a channel.")
+        role = await self.config.guild(ctx.guild).role()
+        channel = await self.config.guild(ctx.guild).channel()
+        channel = discord.utils.get(ctx.guild.channels, id=chan)
+        role = discord.utils.get(ctx.guild.roles, id=role)
         bot = self.bot
         jumper_link = ctx.message.jump_url
         author_id = ctx.author.id
@@ -86,10 +81,17 @@ class Staff(commands.Cog):
             footer_text=f"{bot.user.name} | Staff",
             footer_url=f"{bot.user.avatar_url}"
         )
-        if role is not None:
-            return await channel.send(content=f":warning: {role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
+        if channel is not None:
+            await message.add_reaction("✅")
+            await ctx.send("We have sent a report to the staff team. They will be with you as soon as possible.")
+            if role is not None:
+                return await channel.send(content=f":warning: {role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
+            else:
+                await channel.send(allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
+            return
         else:
-            await channel.send(allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
+            await message.add_reaction("❌")
+            return await ctx.send("The staff team have not yet configured a channel.")
 
 class Embed:
     def __init__(self, bot):
