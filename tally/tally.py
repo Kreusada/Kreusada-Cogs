@@ -56,8 +56,7 @@ class Tally(commands.Cog):
   async def channel(self, ctx, channel: discord.TextChannel = None):
     """Set the channel for tallies."""
     chan = await self.config.guild(ctx.guild).CHANNEL()
-    await self.config.guild(ctx.guild).CHANNEL.set(channel.id)
-    await ctx.send(f"I will now only send tallies to {chan.mention}.")
+    await ctx.send(f"I will now only send tallies to {channel.mention}.")
     
   @commands.command()
   async def tallyboard(self, ctx):
