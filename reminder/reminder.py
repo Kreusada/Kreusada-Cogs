@@ -20,7 +20,7 @@ class Reminder(commands.Cog):
   async def me(self, ctx, seconds: int, *, message: str):
     """Remind yourself for later!"""
     reminder = f"{box(message, lang='cmd')}"
-    await ctx.send(f"Okay {ctx.author.name}, I will remind you this in {seconds}s!")
+    await ctx.send(f"Okay {ctx.author.name}, I will remind you this in **{seconds} seconds**!")
     await asyncio.sleep(seconds)
     embed = discord.Embed(title=f"{CLOCK} Reminder!", description=f"{ctx.author.name}, you asked me [here]({ctx.message.jump_url}) to remind you about: {reminder}", color=0xff5151)
     embed.set_footer(text=f"⏰ You asked me this {seconds} seconds ago.")
