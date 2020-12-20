@@ -56,6 +56,7 @@ class PublishCogs(commands.Cog):
       return await ctx.send("I am not able to DM you.")
     
     def check(m): return m.author == ctx.author and m.channel == ctx.author.dm_channel
+    def repo_check(m): return m.author.id == ctx.author.id and m.channel == ctx.author.dm_channel and m.content.startswith("https://github.")
     
     try: 
       cogname = await self.bot.wait_for("message", timeout=200, check=check)
@@ -84,7 +85,7 @@ class PublishCogs(commands.Cog):
         f"{CROSS} `https://github.com/username/reponame/cogname`"
       )
       try: 
-        repolink = await self.bot.wait_for("message", timeout=200, check=check)
+        repolink = await self.bot.wait_for("message", timeout=200, check=repo_check)
       except asyncio.TimeoutError:
         return await author.send("You took too long to answer.")
     else:
