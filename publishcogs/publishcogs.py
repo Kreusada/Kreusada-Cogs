@@ -10,11 +10,11 @@ CROSS = "\N{CROSS MARK}"
 
 default_guild = {
   "CHANNEL": None,
-  "FOOTERDATE": False,
+  "FOOTERDATE": True,
   "COGCREATOR": None,
-  "DESCRIPTION": False,
-  "PREREQS": False,
-  "INSTGUIDE": False
+  "DESCRIPTION": True,
+  "PREREQS": True,
+  "INSTGUIDE": True
 }
 
 class PublishCogs(commands.Cog):
