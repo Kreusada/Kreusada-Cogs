@@ -24,8 +24,10 @@ class Reminder(commands.Cog):
     await asyncio.sleep(seconds)
     embed = discord.Embed(title=f"{CLOCK} Reminder!", description=f"{ctx.author.name}, you asked me [here]({ctx.message.jump_url}) to remind you about: {reminder}", color=0xff5151)
     embed.set_footer(text=f"⏰ You asked me this {seconds} seconds ago.")
-    try: await ctx.author.send(embed=embed)
-    except discord.Forbidden: await ctx.send(content=f"I don't have permissions to send DMs to you, so I'll send here instead, {ctx.author.mention}.", embed=embed)
+    try: 
+      await ctx.author.send(embed=embed)
+    except discord.Forbidden: 
+      await ctx.send(content=f"I don't have permissions to send DMs to you, so I'll send here instead, {ctx.author.mention}.", embed=embed)
 
   @remind.command()
   async def user(self, ctx, user_id: int, seconds: int, *, message: str):
@@ -34,7 +36,6 @@ class Reminder(commands.Cog):
     user = self.bot.get_user(user_id)
     await ctx.send(f"Okay {ctx.author.name}, I will remind {user.name} about this in **{seconds} seconds**!")
     await asyncio.sleep(seconds)
-    else:
       embed = discord.Embed(title=f"{CLOCK} Reminder!", description=f"{ctx.author.name}, wanted to remind you [here]({ctx.message.jump_url}) about: {reminder}", color=0xff5151)
       embed.set_footer(text=f"{CLOCK} {ctx.author.name} requested this {seconds} seconds ago.")
     try: 
