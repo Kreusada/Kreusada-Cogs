@@ -200,12 +200,12 @@ class PublishCogs(commands.Cog):
       co = cog.mention
     else: pass
     title = f"Settings for **{ctx.guild.name}**:"
-    embed = discord.Embed(title=title)
-    embed.add_field(name="Channel", value=c, inline=True)
-    embed.add_field(name="Cog Creator Role", value=co, inline=True)
-    embed.add_field(name="Description", value=descr, inline=True)
-    embed.add_field(name="Pre-requirements", value=reqs, inline=True)
-    embed.add_field(name="Install Guide", value=inst, inline=True)
+    embed = discord.Embed(title=title, color=0xff5151)
+    embed.add_field(name="Channel", value=c, inline=False)
+    embed.add_field(name="Cog Creator Role", value=co, inline=False)
+    embed.add_field(name="Description", value=descr, inline=False)
+    embed.add_field(name="Pre-requirements", value=reqs, inline=False)
+    embed.add_field(name="Install Guide", value=inst, inline=False)
     return await ctx.send(embed=embed)
   
   @publishcogset.command()
