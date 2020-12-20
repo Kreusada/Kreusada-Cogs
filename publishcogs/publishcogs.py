@@ -80,7 +80,7 @@ class PublishCogs(commands.Cog):
       pass
     if inst is not False:
       await ctx.author.send(
-        "Could you send me a link to your repository?\n"
+        "Could you send me a link to your repository? I will only listen for valid repository URLs.\n"
         f"{CHECK} `https://github.com/username/reponame`\n"
         f"{CROSS} `https://github.com/username/reponame/cogname`"
       )
