@@ -62,7 +62,6 @@ class Staff(commands.Cog):
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
         channel = ctx.guild.get_channel(chan)
-        await asyncio.sleep(1)
         if channel is not None:
             await message.add_reaction("✅")
             return await ctx.send("We have sent a report to the staff team. They will be with you as soon as possible.")
@@ -81,23 +80,16 @@ class Staff(commands.Cog):
         chfmi = "Click here for more information"
         call = " has just called for the staff in "
         jumper_f = "**[{}]({})**".format(chfmi, jumper_link)
-        if channel is not None:
-            embed = Embed.create(
-                self, ctx, title=":warning: ALERT!",
-                description=f"**{ctx.author.name}**{call}{ctx.channel.mention}.\n\n{date}\n{msgtime}\n\n{authid}\n\n{jumper_f}",
-                footer_text=f"{bot.user.name} | Staff",
-                footer_url=f"{bot.user.avatar_url}"
-            )
-            if role is not None:
-                return await channel.send(content=f":warning: {role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
-            else:
-                await channel.send(allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
+        embed = Embed.create(
+            self, ctx, title=":warning: ALERT!",
+            description=f"**{ctx.author.name}**{call}{ctx.channel.mention}.\n\n{date}\n{msgtime}\n\n{authid}\n\n{jumper_f}",
+            footer_text=f"{bot.user.name} | Staff",
+            footer_url=f"{bot.user.avatar_url}"
+        )
+        if role is not None:
+            return await channel.send(content=f":warning: {role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
         else:
-            embed = Embed.create(
-                self, ctx, title=":x: The Staff team have not completed the command setup.",
-                description="This is a requirement for the staff command to function.\n"
-            )
-            await ctx.send(embed=embed)
+            await channel.send(allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
 
 class Embed:
     def __init__(self, bot):
