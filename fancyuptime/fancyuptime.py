@@ -32,7 +32,7 @@ class FancyUptime(commands.Cog):
       commandsavail = len(set(self.bot.walk_commands()))
       now = datetime.now()
       strftime = now.strftime("Today at %H:%M %p")
-      appinfo = await self.bot.application_info()
+      app_info = await self.bot.application_info()
       if app_info.team:
         owner = app_info.team.name
       else:
