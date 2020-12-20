@@ -61,8 +61,10 @@ class Staff(commands.Cog):
         message = ctx.message
         await message.add_reaction("✅")
         await asyncio.sleep(1)
-        await ctx.send("**:warning: We have sent a report to the staff team. They will be with you as soon as possible.**")
-        
+        if channel is not None:
+            return await ctx.send(":warning: We have sent a report to the staff team. They will be with you as soon as possible.")
+        else:
+            return await ctx.send(":x: The staff team have not yet configured a channel.")
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
         channel = ctx.guild.get_channel(chan) if chan is not None\
@@ -86,7 +88,10 @@ class Staff(commands.Cog):
                 footer_text=f"{bot.user.name} | Staff",
                 footer_url=f"{bot.user.avatar_url}"
             )
-            await channel.send(content=f":warning: {role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
+            if role is not None:
+                return await channel.send(content=f":warning: {role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
+            else:
+                await channel.send(allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
         else:
             embed = Embed.create(
                 self, ctx, title=":x: The Staff team have not completed the command setup.",
