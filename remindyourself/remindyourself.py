@@ -6,7 +6,7 @@ from redbot.core.utils.chat_formatting import box
 
 CLOCK = "\N{ALARM CLOCK}"
 
-class RemindMe(commands.Cog):
+class RemindYourself(commands.Cog):
   """Remind yourself for later!"""
   
   def __init__(self, bot):
