@@ -59,16 +59,16 @@ class Staff(commands.Cog):
     async def staff(self, ctx):
         """Notifies the staff."""
         message = ctx.message
-        await message.add_reaction("✅")
-        await asyncio.sleep(1)
-        if channel is not None:
-            return await ctx.send(":warning: We have sent a report to the staff team. They will be with you as soon as possible.")
-        else:
-            return await ctx.send(":x: The staff team have not yet configured a channel.")
         role = ctx.guild.get_role(await self.config.guild(ctx.guild).get_raw("role"))
         chan = await self.config.guild(ctx.guild).get_raw("channel")
-        channel = ctx.guild.get_channel(chan) if chan is not None\
-            else ctx.channel
+        channel = ctx.guild.get_channel(chan)
+        await asyncio.sleep(1)
+        if channel is not None:
+            await message.add_reaction("✅")
+            return await ctx.send("We have sent a report to the staff team. They will be with you as soon as possible.")
+        else:
+            await message.add_reaction("❌")
+            return await ctx.send("The staff team have not yet configured a channel.")
         bot = self.bot
         jumper_link = ctx.message.jump_url
         author_id = ctx.author.id
