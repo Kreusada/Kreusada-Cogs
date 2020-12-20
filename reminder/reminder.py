@@ -1,6 +1,5 @@
 import discord
 import asyncio
-from typing import Optional
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import box
 
@@ -14,7 +13,7 @@ class Reminder(commands.Cog):
     return
 
   @commands.command()
-  async def remind(self, ctx, Optional[user_id: int] = None, seconds: int, *, message: str):
+  async def remind(self, ctx, user_id: int = None, seconds: int, *, message: str):
     """Remind yourself, or a discord user."""
     reminder = f"{box(message, lang='cmd')}"
     user = self.bot.get_user(user_id)
