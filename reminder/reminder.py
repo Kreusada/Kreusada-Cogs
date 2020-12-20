@@ -36,8 +36,8 @@ class Reminder(commands.Cog):
     user = self.bot.get_user(user_id)
     await ctx.send(f"Okay {ctx.author.name}, I will remind {user.name} about this in **{seconds} seconds**!")
     await asyncio.sleep(seconds)
-      embed = discord.Embed(title=f"{CLOCK} Reminder!", description=f"{ctx.author.name}, wanted to remind you [here]({ctx.message.jump_url}) about: {reminder}", color=0xff5151)
-      embed.set_footer(text=f"{CLOCK} {ctx.author.name} requested this {seconds} seconds ago.")
+    embed = discord.Embed(title=f"{CLOCK} Reminder!", description=f"{ctx.author.name}, wanted to remind you [here]({ctx.message.jump_url}) about: {reminder}", color=0xff5151)
+    embed.set_footer(text=f"{CLOCK} {ctx.author.name} requested this {seconds} seconds ago.")
     try: 
       await user.send(embed=embed)
     except discord.Forbidden: 
