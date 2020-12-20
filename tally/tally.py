@@ -37,6 +37,7 @@ class Tally(commands.Cog):
       await ctx.send(f"** +{amount} from {ctx.author.name}.**\n**{ctx.guild.name}** is now at **{guildtally}**.")
     else:
       await channel.send(f"** +{amount} from {ctx.author.name}.**\n**{ctx.guild.name}** is now at **{guildtally}**.")
+      await ctx.send(f"Seeing as this is not the correct channel, I posted my response to {channel.mention}.")
 
   @tallyset.command()
   async def forceset(self, ctx, amount: float):
