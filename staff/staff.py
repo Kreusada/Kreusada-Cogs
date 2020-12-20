@@ -61,7 +61,7 @@ class Staff(commands.Cog):
         message = ctx.message
         role = await self.config.guild(ctx.guild).role()
         channel = await self.config.guild(ctx.guild).channel()
-        channel = discord.utils.get(ctx.guild.channels, id=chan)
+        channel = discord.utils.get(ctx.guild.channels, id=channel)
         role = discord.utils.get(ctx.guild.roles, id=role)
         bot = self.bot
         jumper_link = ctx.message.jump_url
