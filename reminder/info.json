@@ -3,7 +3,7 @@
 		"Kreusada"
 	],
 	"description": "Remind yourself in a certain amount of time.",
-    "install_msg": "Thanks for installing, have fun. Use `[p]remindme`!",
+    "install_msg": "Thanks for installing, have fun. Use `[p]remind`!",
 	"short": "Reminder cog.",
 	"tags": [
 		"reminder",
