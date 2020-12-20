@@ -10,7 +10,6 @@ class Reminder(commands.Cog):
   
   def __init__(self, bot):
     self.bot = bot
-    return
 
   @commands.command()
   async def remind(self, ctx, user_id: int = None, seconds: int, *, message: str):
