@@ -80,14 +80,14 @@ class PublishCogs(commands.Cog):
       pass
     if inst is not False:
       await ctx.author.send(
-        "Could you send me a link to your repository? I will only listen for valid repository URLs.\n"
+        "Could you send me a link to your repository?\n"
         f"{CHECK} `https://github.com/username/reponame`\n"
         f"{CROSS} `https://github.com/username/reponame/cogname`"
       )
       try: 
         repolink = await self.bot.wait_for("message", timeout=200, check=repo_check)
       except asyncio.TimeoutError:
-        return await author.send("You took too long to answer.")
+        return await author.send("You took too long to provide a valid repository URL.")
     else:
       pass
     await ctx.author.send("Perfect! We're all done. Check your guild's channel to see the results!")
