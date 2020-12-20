@@ -1,5 +1,6 @@
 import discord
 import asyncio
+from typing import Optional
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import box
 
