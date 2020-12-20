@@ -21,7 +21,7 @@ class FancyUptime(commands.Cog):
   @commands.command()
   async def uptime(self, ctx: commands.Context):
       """Shows [botname]'s uptime."""
-      since = ctx.bot.uptime.strftime("%A the %d of %B, %Y")
+      since = ctx.bot.uptime.strftime("%d of %B, %Y")
       delta = datetime.utcnow() - self.bot.uptime
       uptime_str = humanize_timedelta(timedelta=delta) or ("Less than one second")
       bot = ctx.bot.user
@@ -39,8 +39,8 @@ class FancyUptime(commands.Cog):
         owner = app_info.owner
       e = discord.Embed(title=f":green_circle:  {botname}'s Uptime",
                         description=(
-                          f"**{botname}** has been up since {since}. "
-                          f"Therefore, it's been online for {uptime_str}."
+                          f"**Since:** {since}. "
+                          f"**For:** {uptime_str}."
                         ),
                         color=0x59e1ac)
       e.add_field(name="Instance name:", value=bot.name, inline=True)
