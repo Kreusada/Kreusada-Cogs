@@ -39,7 +39,7 @@ class FancyUptime(commands.Cog):
         owner = app_info.owner
       e = discord.Embed(title=f":green_circle:  {botname}'s Uptime",
                         description=(
-                          f"**Since:** {since}. "
+                          f"**Since:** {since}.\n"
                           f"**For:** {uptime_str}."
                         ),
                         color=0x59e1ac)
