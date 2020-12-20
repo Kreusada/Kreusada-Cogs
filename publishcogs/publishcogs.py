@@ -117,7 +117,10 @@ class PublishCogs(commands.Cog):
       e.set_footer(text=strftime)
     else: 
       pass
-    await chan.send(embed=e)
+    try:
+      await chan.send(embed=e)
+    except discord.Forbidden:
+      await ctx.author.send(f"Doesn't look like I have permission to post in {chan.mention}. I'm sorry!")
 
   @publishcogset.command()
   @commands.mod_or_permissions(administrator=True)
