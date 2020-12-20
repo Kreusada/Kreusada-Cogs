@@ -187,8 +187,7 @@ class PublishCogs(commands.Cog):
     reqs = await self.config.guild(ctx.guild).PREREQS()
     inst = await self.config.guild(ctx.guild).INSTGUIDE()
     chan = discord.utils.get(ctx.guild.channels, id=chan)
-    cog = discord.utils.get(ctx.guild.roles, id=cog)
-    role = discord.utils.get(ctx.guild.roles, id=role)    
+    cog = discord.utils.get(ctx.guild.roles, id=cog)    
     No = "Not setup yet."
     if chan is None:
       c = No
