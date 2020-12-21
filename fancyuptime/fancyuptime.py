@@ -21,7 +21,7 @@ class FancyUptime(commands.Cog):
   @commands.command()
   async def uptime(self, ctx: commands.Context):
       """Shows [botname]'s uptime."""
-      since = ctx.bot.uptime.strftime("%d/%m/%Y")
+      since = ctx.bot.uptime.strftime("%d/%m/%Y | %H:%M")
       delta = datetime.utcnow() - self.bot.uptime
       uptime_str = humanize_timedelta(timedelta=delta) or ("Less than one second")
       bot = ctx.bot.user
