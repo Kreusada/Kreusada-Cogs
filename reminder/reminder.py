@@ -17,7 +17,7 @@ class Reminder(commands.Cog):
     pass
 
   @remind.command()
-  async def me(self, ctx, hours: int, *, message: str):
+  async def me(self, ctx, hours: float, *, message: str):
     """Remind yourself for later!"""
     if hours < 1:
       hours *= 60
@@ -37,7 +37,7 @@ class Reminder(commands.Cog):
       await ctx.send(content=f"I don't have permissions to send DMs to you, so I'll send here instead, {ctx.author.mention}.", embed=embed)
 
   @remind.command()
-  async def user(self, ctx, user_id: int, hours: int, *, message: str):
+  async def user(self, ctx, user_id: int, hours: float, *, message: str):
     """Remind a Discord user."""
     if hours < 1:
       hours *= 60
