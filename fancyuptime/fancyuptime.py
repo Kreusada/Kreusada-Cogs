@@ -37,12 +37,9 @@ class FancyUptime(commands.Cog):
         owner = app_info.team.name
       else:
         owner = app_info.owner
-      e = discord.Embed(title=f":green_circle:  {botname}'s Uptime",
-                        description=(
-                          f"**Since:** {since}.\n"
-                          f"**For:** {uptime_str}."
-                        ),
-                        color=0x59e1ac)
+      e = discord.Embed(title=f":green_circle:  {botname}'s Uptime", color=0x59e1ac)
+      e.add_field(name=f"{botname} has been up since...", value=since, inline=False)
+      e.add_field(name=f"Therefore, {botname} has been up for...", value=uptime_str, inline=False)
       e.add_field(name="Instance name:", value=bot.name, inline=True)
       e.add_field(name="Instance owner:", value=owner, inline=True)
       e.add_field(name="Current guild:", value=guild, inline=True)
