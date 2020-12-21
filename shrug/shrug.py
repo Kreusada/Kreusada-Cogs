@@ -10,4 +10,6 @@ class Shrug(commands.Cog):
   @commands.command()
   async def shrug(self, ctx, *, message: str):
     """¯\_(ツ)_/¯"""
-    await ctx.send(''.join((message, ' ¯\_(ツ)_/¯')))
+    user = f"**From {ctx.author.name}:**"
+    await message.delete()
+    await ctx.send(''.join((user, message, ' ¯\_(ツ)_/¯')))
