@@ -58,7 +58,7 @@ class TextManipulator(commands.Cog):
     return
   
   @commands.command()
-  async def removecommas(self, ctx, list: str):
+  async def removecommas(self, ctx, *, list: str):
     """Remove commas from text."""
     await ctx.send(f"`{list.replace(',', '')}`")
 
