@@ -8,6 +8,6 @@ class Shrug(commands.Cog):
     self.bot = bot
     
   @commands.command()
-  async def shrug(self, ctx, message: str):
+  async def shrug(self, ctx, *, message: str):
     """¯\_(ツ)_/¯"""
     await ctx.send(''.join((message, '¯\_(ツ)_/¯')))
