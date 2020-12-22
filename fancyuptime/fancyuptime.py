@@ -21,7 +21,7 @@ class FancyUptime(commands.Cog):
   @commands.command()
   async def uptime(self, ctx: commands.Context):
       """Shows [botname]'s uptime."""
-      since = ctx.bot.uptime.strftime("%A the %d of %B, %Y")
+      since = ctx.bot.uptime.strftime("%d/%m/%Y - %H:%M")
       delta = datetime.utcnow() - self.bot.uptime
       uptime_str = humanize_timedelta(timedelta=delta) or ("Less than one second")
       bot = ctx.bot.user
@@ -32,18 +32,21 @@ class FancyUptime(commands.Cog):
       commandsavail = len(set(self.bot.walk_commands()))
       now = datetime.now()
       strftime = now.strftime("Today at %H:%M %p")
-      e = discord.Embed(title=f":green_circle:  {bot}'s Uptime",
-                        description=(
-                          f"**{botname}** has been up since **{since}**.\n"
-                          f"Therefore, it's been online for **{uptime_str}**."
-                        ),
-                        color=0x59e1ac)
+      app_info = await self.bot.application_info()
+      if app_info.team:
+        owner = app_info.team.name
+      else:
+        owner = app_info.owner
+      e = discord.Embed(title=f":green_circle:  {botname}'s Uptime", color=0x59e1ac)
+      e.add_field(name=f"{botname} has been up since...", value=since, inline=False)
+      e.add_field(name=f"Therefore, {botname} has been up for...", value=uptime_str, inline=False)
       e.add_field(name="Instance name:", value=bot.name, inline=True)
-      e.add_field(name="Instance ID:", value=bot.id, inline=True)
+      e.add_field(name="Instance owner:", value=owner, inline=True)
       e.add_field(name="Current guild:", value=guild, inline=True)
-      e.add_field(name="Number of servers:", value=servers, inline=True)
+      e.add_field(name="Number of guilds:", value=servers, inline=True)
       e.add_field(name="Unique users:", value=users, inline=True)
       e.add_field(name="Commands available:", value=commandsavail, inline=True)
+      e.set_thumbnail(url=bot.avatar_url)
       e.set_footer(text=f"{strftime}")
       await ctx.send(embed=e)
 
