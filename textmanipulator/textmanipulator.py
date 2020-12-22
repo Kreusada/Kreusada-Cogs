@@ -73,7 +73,7 @@ class TextManipulator(commands.Cog):
   async def escapemarkdown(self, ctx, *, words: str):
     """Escape markdown."""
     makeraw = discord.utils.escape_markdown(words)
-    await ctx.send(makeraw))
+    await ctx.send(makeraw)
     
   @commands.command()
   async def replace(self, ctx, characters: str, replacers: str, *, message: str):
