@@ -39,7 +39,7 @@ class Ping(commands.Cog):
   async def pingsettings(self, ctx):
     """Shows the current ping settings."""
     response = await self.config.response()
-    if '{name}' in resp:
+    if '{name}' in response:
       await ctx.send(
         f"The current ping response is **{response}**.\n"
         "**{name}** will represent the command author."
