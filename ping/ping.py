@@ -21,16 +21,18 @@ class Ping(commands.Cog):
     
   @commands.is_owner()  
   @commands.command()
-  async def pingset(self, ctx, *, response: str = None):
-    """Set your custom ping message."""
-    if response is None:
-      await self.config.response.set("Pong.")
-      response = await self.config.response()
-      await ctx.send(f"Running `{ctx.clean_prefix}ping` will now respond with the default: **{response}**")
-      return
-    await self.config.response.set(response)
-    response = await self.config.response()
-    await ctx.send(f"Running `{ctx.clean_prefix}ping` will now respond with: **{response}**")
+  async def pingset(self, ctx, *, response: str):
+    """
+    Set your custom ping message.
+    You can use {name} to represent the author.
+    """
+    if '{name}' in response:
+      name = ctx.author
+      await self.config.response.set(response)
+      await ctx.send("Running `{}ping` will now respond with: {}".format(ctx.clean_prefix, response.replace('{name}', "`user`")))
+    else:
+      await self.config.response.set(response)
+      await ctx.send(f"Running `{ctx.clean_prefix}ping` will now respond with: **{response}**")
 
   @commands.is_owner()  
   @commands.command()
@@ -45,6 +47,8 @@ class Ping(commands.Cog):
     resp = await self.config.response()
     if resp is None:
       response = "Pong."
+    elif '{name}' in resp:
+      response = resp.replace('{name}', ctx.author.name)
     else:
       response = resp
     await ctx.send(response)
