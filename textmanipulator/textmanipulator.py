@@ -79,8 +79,8 @@ class TextManipulator(commands.Cog):
   async def replace(self, ctx, characters: str, replacers: str, *, message: str):
     """
     Replace any given character in a message.
-    **characters** The characters you want to replace.
-    **replacers** The characters which replace yor characters (above).
-    **message** The message where the above takes place.
+    `characters` The characters you want to replace.
+    `replacers` The characters which replace yor characters (above).
+    `message` The message where the above takes place.
     """
     await ctx.send(f"`{message.replace(characters, replacers)}`")
