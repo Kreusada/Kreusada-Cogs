@@ -7,9 +7,9 @@
 	"short": "Search Websites",
 	"tags": [
 		"Google",
-    "search",
-    "internet",
-    "pinterest"
+    		"search",
+    		"internet",
+    		"pinterest"
 	],
 	"type": "COG",
 	"end_user_data_statement": "This cog does not persistently store data or metadata about users."
