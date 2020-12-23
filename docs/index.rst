@@ -17,7 +17,7 @@ Useful Links
 WALL-E Support
 ==============
 
-Nothing here just yet!
+* :ref:`supportserver`
 
 Cog Support
 ==================
