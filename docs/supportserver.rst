@@ -18,14 +18,14 @@ Roles
 
 Our roles are carefully hoisted and given to those who deserve them.
 
-* Retired Staff: Invisisble color, not hoisted.
-* Staff: Invisible color, not hoisted.
-* Developers: 728ad5 color, not hoisted.
-* Contributor: b276ee color, hoisted.
-* Patron: 5aa9ff color, hoisted.
-* Red Friends: e72626 color, not hoisted.
-* Nitro: f789e0 color, not hoisted.
-* Legacy: f3d095 color, hoisted.
+* :code:`Retired Staff`: Invisisble color, not hoisted.
+* :code:`Staff`: Invisible color, not hoisted.
+* :code:`Developers`: 728ad5 color, not hoisted.
+* :code:`Contributor`: b276ee color, hoisted.
+* :code:`Patron`: 5aa9ff color, hoisted.
+* :code:`Red Friends`: e72626 color, not hoisted.
+* :code:`Nitro`: f789e0 color, not hoisted.
+* :code:`Legacy`: f3d095 color, hoisted.
 
 Legacy is given to those who were in the support server whilst the instance was known as Demaratus.
 If a Red Friend is not a contributor or legacy, none of their roles are hoisted.
