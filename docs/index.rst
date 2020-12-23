@@ -8,4 +8,5 @@ Cog Support
 
 * :ref:`appendbackslash`
 * :ref:`fancyuptime`
+* :ref:`publishcogs`
 * :ref:`staff`
