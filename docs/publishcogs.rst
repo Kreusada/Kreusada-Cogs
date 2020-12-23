@@ -1,4 +1,4 @@
-.. _publishcogs::
+.. _publishcogs:
 
 ================
 Cog: PublishCogs
