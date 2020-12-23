@@ -66,14 +66,6 @@ Setup: Footerdate
 
 This is not a requirement. Running this command will bring you to a yes or no predicate which will determine your settings.
 
-------------------
-Setup: Role Mention
-------------------
-
-- :code:`[p]publishcogset rolemention`
-
-This is not a requirement. Running this command will bring you to a yes or no predicate which will determine your settings.
-
 -----------------------
 Setup: Cog Creator Role
 -----------------------
