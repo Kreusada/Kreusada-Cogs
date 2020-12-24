@@ -1,8 +1,8 @@
 .. _preview:
 
-============
-Cog: CogName
-============
+====================
+Contributing Preview
+====================
 
 -------
 Outline
