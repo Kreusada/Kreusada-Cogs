@@ -71,7 +71,7 @@ Further Usage/Explanation
 Code
 ----
 
-<Show the code used for this cog.>
+Do not show the code in cog guides. However, this shall remain for reference.
 
 .. code-block:: python
 
