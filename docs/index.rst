@@ -17,7 +17,6 @@ Useful Links
 WALL-E Support
 ==============
 
-* :ref:`contributing`
 * :ref:`policies`
 * :ref:`supportserver`
 
@@ -29,3 +28,9 @@ Cog Support
 * :ref:`fancyuptime`
 * :ref:`publishcogs`
 * :ref:`staff`
+
+Contributing
+============
+
+* :ref:`preview`
+* :ref:`contributing`
