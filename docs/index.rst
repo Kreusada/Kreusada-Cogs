@@ -17,6 +17,7 @@ Useful Links
 WALL-E Support
 ==============
 
+* :ref:`contributing`
 * :ref:`policies`
 * :ref:`supportserver`
 
