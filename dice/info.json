@@ -3,7 +3,7 @@
 		"Kreusada"
 	],
 	"description": "Roll dice with a custom number of sides",
-    "install_msg": "Thanks for installing, have fun. Use `[p]dice` to get started!",
+    "install_msg": "Thanks for installing, have fun. Use `[p]dice` to get started! Check our docs for more information: https://kreusadacogs.readthedocs.io/en/latest/dice.html#dice",
 	"short": "Roll dice.",
 	"tags": [
 		"dice",
