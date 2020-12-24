@@ -5,7 +5,7 @@ As a disclaimer, this requires no coding knowledge whatsoever, only partial know
 
 ## How do I get started?
 
-- Head over to the [contributor's template](https://github.com/kreus7/kreusadacogs/tree/master/docs/contributors) and copy all the text in the file.
+- Head over to the [contributor's template](https://github.com/kreus7/kreusadacogs/blob/master/docs/contributors/contributing.rst) and copy all the text in the file.
 - Allocate over to [here](https://github.com/kreus7/kreusadacogs/tree/master/docs) and click add file, then create new file.
 - Paste the contributor's template into this file, and make all the necessary edits for the cog you are authoring.
 - Name the file as the cog's name you are authoring, followed by `.rst`.
