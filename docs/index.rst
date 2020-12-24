@@ -24,6 +24,7 @@ Cog Support
 ==================
 
 * :ref:`appendbackslash`
+* :ref:`dice`
 * :ref:`fancyuptime`
 * :ref:`publishcogs`
 * :ref:`staff`
