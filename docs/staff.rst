@@ -4,15 +4,31 @@
 Cog: Staff
 ==========
 
-^^^^^^^^^^^
-How it works
-^^^^^^^^^^^
+-------
+Outline
+-------
 
 The ``staff`` cog is a cog used to alert the staff. It's that simple. This cog guide will give you the setup instructions.
 
-^^^^^^^^^^^
+------------
+Installation
+------------
+
+Make sure you have :code:`Downloader` loaded!
+
+:code:`[p]load Downloader`
+
+Let's add Kreusada's repository firstly:
+
+:code:`[p]repo add kreusadacogs https://github.com/kreus7/kreusadacogs`
+
+Now, you can add the :code:`CogName` cog into your system.
+
+:code:`[p]cog install kreusadacogs cogname`
+
+-----------
 Staff Setup
-^^^^^^^^^^^
+-----------
 
 **Setting your staff role**
 
@@ -44,23 +60,10 @@ Staff Usage
 
      [p]staff
 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Downloading for your redbot
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------
+Support
+-------
 
-My license emanates that my cogs are free for distribution and modification. However, claiming warranty or liability won't be accepted.
+As always, you can join my `support server <https://discord.gg/JmCFyq7>`_ if you need help!
 
-**Adding Kreusada's repository to your system**
-
-- ``[p]repo add kreusada https://github.com/kreus7/demaratus``
-
-**Installing staff into your cogs**
-
-- ``[p]cog install kreusada staff``
-
-^^^^^^^^^^^^^^^^^^
-Additional Support
-^^^^^^^^^^^^^^^^^^
-
-You can join our support server `here <https://discord.gg/JmCFyq7>`_.
-This cog and cog guide was created by Kreusada for Demaratus.
+- Kreusada
