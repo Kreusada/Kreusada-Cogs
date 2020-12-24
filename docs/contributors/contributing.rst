@@ -17,6 +17,22 @@ Prerequirements
 As far as I know, none of my cogs so far contain prerequirements. However, if the cog you are documenting does require some prequirements, be sure to mention them here.
 If you are unsure, feel free to reach out to Kreusada on Discord.
 
+------------
+Installation
+------------
+
+Make sure you have :code:`Downloader` loaded!
+
+:code:`[p]load Downloader`
+
+Let's add Kreusada's repository firstly:
+
+:code:`[p]repo add kreusadacogs https://github.com/kreus7/kreusadacogs`
+
+Now, you can add the :code:`CogName` cog into your system.
+
+:code:`[p]cog install kreusadacogs cogname`
+
 ------
 Usage
 ------
