@@ -23,7 +23,7 @@ How do I get started?
 * Now you should be at a page where there's a button which says `Create pull request`. Click it and add any additional details in the description.
 * You have now created a Pull Request with your documentation. Wait for a reviewer or the QA to make reviews and add comments for changes.
 
-* If you are new to github and get very confused, you can always ask for help with this [here](https://discord.gg/JmCFyq7).
+* If you are new to github and get very confused, you can always ask for help with this `here <https://discord.gg/JmCFyq7>`_.
 
 -------------------------
 Contributing Expectations
@@ -39,7 +39,7 @@ Contributing Tips
 ------------------
 
 * Don't try and write about a large cog, unless you know how it works inside out. For those starting out, pick an easy cog to write about.
-* If you're unsure about anything we are happy to help you. Join us in the [support server](https://discord.gg/JmCFyq7).
+* If you're unsure about anything we are happy to help you. Join us in the `support server <https://discord.gg/JmCFyq7>`_.
 
 ---------------------
 Contributing Outline
