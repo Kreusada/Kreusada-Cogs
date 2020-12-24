@@ -8,3 +8,7 @@ All the Cog Guide documentations will include:
 - Usage - How would one use this cog? 
 - Setup usage - How would one setup this cog if applicable? If setup is not required, do not include this field.
 - Support - How would one reach out for support if they need further assistance?
+
+## Looking to contribute?
+
+Please read [here](https://github.com/kreus7/kreusadacogs/tree/master/docs/contributors).
