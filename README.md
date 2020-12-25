@@ -1,10 +1,10 @@
 <h1 align="center">kreusadacogs</h1>
 
 <p align="center">
-  <img src="https://imgur.com/a/YqTteT3" alt="Banner">
+  <img src="https://cdn.discordapp.com/attachments/133251234164375552/792046393178456114/kreusadatwitter2.png" alt="Banner">
 </p>
 
-This is my repository for Red Discord-Bot. I built these cogs because these were the features that I wanted for my bot, [Demaratus.](https://discord.com/oauth2/authorize?client_id=766580519000473640&scope=bot&permissions=8)
+This is my repository for Red Discord-Bot. I built these cogs because these were the features that I wanted for my bot, [WALL-E.](https://discord.com/oauth2/authorize?client_id=766580519000473640&scope=bot&permissions=8)
 
 ## Installation
 Primarily, make sure you have `downloader` loaded. 
