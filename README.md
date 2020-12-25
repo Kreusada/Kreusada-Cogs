@@ -1,5 +1,3 @@
-<h1 align="center">kreusadacogs</h1>
-
 <h1 align="center">
   <br>
   <a href="https://github.com/kreus7/kreusadacogs/master"><img src="https://media.discordapp.net/attachments/777984845934362634/792047536714154044/kreusadatwitter.png" alt="KreusadaCogs"></a>
