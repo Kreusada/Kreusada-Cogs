@@ -1,8 +1,12 @@
 <h1 align="center">kreusadacogs</h1>
 
-<p align="center">
-  <img src="https://cdn.discordapp.com/attachments/133251234164375552/792046393178456114/kreusadatwitter2.png" alt="Banner">
-</p>
+<h1 align="center">
+  <br>
+  <a href="https://github.com/kreus7/kreusadacogs/master"><img src="https://cdn.discordapp.com/attachments/133251234164375552/792046393178456114/kreusadatwitter2.png" alt="KreusadaCogs"></a>
+  <br>
+  Cogs for Red-DiscordBot
+  <br>
+</h1>
 
 This is my repository for Red Discord-Bot. I built these cogs because these were the features that I wanted for my bot, [WALL-E.](https://discord.com/oauth2/authorize?client_id=766580519000473640&scope=bot&permissions=8)
 
