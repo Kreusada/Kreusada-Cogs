@@ -1,7 +1,7 @@
 {
     "author" : ["Kreusada (kreusada#0518)"],
-    "install_msg" : "Thanks for adding my repository. Please go to my cog support channel in my support server for any help: https://discord.gg/JmCFyq7.",
+    "install_msg" : "Thanks for adding my repository! Please go to my cog support channel in my support server for any help: https://discord.gg/JmCFyq7.",
     "name" : "kreusadacogs",
-    "short" : "Games, gambling and tool related cogs from Kreusada.",
-    "description" : "Games, gambling and tool related cogs from Kreusada."
+    "short" : "Cogs by Kreusada for Red-DiscordBot V3.",
+    "description" : "Cogs by Kreusada for Red-DiscordBot V3.",
 }
