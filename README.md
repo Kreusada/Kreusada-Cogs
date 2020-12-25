@@ -2,7 +2,7 @@
 
 <h1 align="center">
   <br>
-  <a href="https://github.com/kreus7/kreusadacogs/master"><img src="https://cdn.discordapp.com/attachments/133251234164375552/792046393178456114/kreusadatwitter2.png" alt="KreusadaCogs"></a>
+  <a href="https://github.com/kreus7/kreusadacogs/master"><img src="https://media.discordapp.net/attachments/777984845934362634/792047536714154044/kreusadatwitter.png" alt="KreusadaCogs"></a>
   <br>
   Cogs for Red-DiscordBot
   <br>
