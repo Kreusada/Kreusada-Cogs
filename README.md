@@ -26,19 +26,33 @@ Remember - don't include the `<>` when you use this command. Those characters ar
 ## Available Cogs Guide
 
 Cog Name - The name of the cog.
+
 Description - The description for the cog.
+
 Status - The status for the cog:
+
       ¬ Alpha - This cog is checked and 100% good to go.
+      
       ¬ Beta - This cog is new therefore errors are prone.
+      
       ¬ Creta - This cog is new, but simple or already checked.
+      
       ¬ Delta - This cog could potentially be prone although it may not have been identified, pending reviews.
+      
       ¬ Echo - This cog is fine, but outdated, and pending checks.
+      
       ¬ Flagged - This cog is confirmed to contain errors, or things aren't working as intended.
+
 Author - Who made the cog.
+
 Bug-Proofed - Whether the cog has been checked.
+      
       ¬ Checked - The cog has been checked and no faults have been found. The chance for errors are very slim.
+      
       ¬ Prone - The cog has not been checked and is therefore prone to error. However, this doesn't mean the cog is faulty.
+      
       ¬ Identified - The cog has been flagged and errors have been identified. Advised against use.
+
 Ratings - The public rating for these cogs. Coming soon with the CogFeedbacker cog.
 
 ## Available cogs list
