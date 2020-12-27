@@ -1,8 +1,6 @@
 import discord
 import asyncio
 from datetime import datetime, timedelta
-from validator_collection import validators
-from datetime import datetime
 from redbot.core import commands, checks, Config, modlog
 
 
