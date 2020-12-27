@@ -1,5 +1,4 @@
 import discord
-import requests
 import asyncio
 from datetime import datetime, timedelta
 from validator_collection import validators
@@ -29,8 +28,8 @@ class Staff(commands.Cog):
     async def channel(self, ctx, channel: discord.TextChannel):
         """Sets the channel for staff to receive notifications."""
         await self.config.guild(ctx.guild).set_raw("channel", value=channel.id)
-        embed = Embed.create(
-            self, ctx, title="Successful <:success:777167188816560168>",
+        embed = discord.Embed(
+            title="Successful :white_check_mark:",
             description=f"{channel.mention} will now receive notifications from users to notify the staff."
         )
         await ctx.send(embed=embed)
@@ -41,14 +40,14 @@ class Staff(commands.Cog):
         """Sets the Staff role."""
         try:
             await self.config.guild(ctx.guild).set_raw("role", value=role.id)
-            embed = Embed.create(
-                self, ctx, title="Successful <:success:777167188816560168>",
+            embed = discord.Embed(
+                self, ctx, title="Successful :white_check_mark:",
                 description=f"{role.mention} will now be considered as the Staff role.",
             )
             await ctx.send(embed=embed)
         except discord.Forbidden:
-            embed = Embed.create(
-                self, ctx, title="Oopsies! <:error:777117297273077760>",
+            embed = discord.Embed(
+                title="Oopsies! :x:",
                 description=f"Something went wrong during the setup process."
             )
             await ctx.send(embed=embed)
@@ -75,8 +74,8 @@ class Staff(commands.Cog):
         chfmi = "Click here for more information"
         call = " has just called for the staff in "
         jumper_f = "**[{}]({})**".format(chfmi, jumper_link)
-        embed = Embed.create(
-            self, ctx, title=":warning: ALERT!",
+        embed = discord.Embed(
+            title=":warning: ALERT!",
             description=f"**{ctx.author.name}**{call}{ctx.channel.mention}.\n\n{date}\n{msgtime}\n\n{authid}\n\n{jumper_f}",
             footer_text=f"{bot.user.name} | Staff",
             footer_url=f"{bot.user.avatar_url}"
@@ -92,21 +91,3 @@ class Staff(commands.Cog):
         else:
             await message.add_reaction("❌")
             return await ctx.send("The staff team have not yet configured a channel.")
-
-class Embed:
-    def __init__(self, bot):
-        self.bot = bot
-
-    def create(self, ctx, color=discord.Color.red(), title='', description='', image=None,
-               thumbnail=None, url=None, footer_text=None, footer_url=None, author_text=None):
-        if isinstance(ctx.message.channel, discord.abc.GuildChannel):
-            color = 0xe15d59
-        data = discord.Embed(color=color, title=title, url=url)
-        if description is not None:
-            if len(description) < 1500:
-                data.description = description
-        if image is not None:
-            data.set_image(url=image)
-        if thumbnail is not None:
-            data.set_thumbnail(url=thumbnail)
-        return data
