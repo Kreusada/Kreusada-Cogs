@@ -39,7 +39,7 @@ class Staff(commands.Cog):
         try:
             await self.config.guild(ctx.guild).set_raw("role", value=role.id)
             embed = discord.Embed(
-                self, ctx, title="Successful :white_check_mark:",
+                title="Successful :white_check_mark:",
                 description=f"{role.mention} will now be considered as the Staff role.",
             )
             await ctx.send(embed=embed)
