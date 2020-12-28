@@ -24,12 +24,18 @@ class PingOveride(commands.Cog):
   async def pingset(self, ctx, *, response: str):
     """
     Set your custom ping message.
+    
     You can use {name} to represent the author.
+    You can use {nick} to represent the author's nickname.
     """
     if '{name}' in response:
       name = ctx.author
       await self.config.response.set(response)
-      await ctx.send("Running `{}ping` will now respond with: {}".format(ctx.clean_prefix, response.replace('{name}', "`user`")))
+      await ctx.send("Running `{}ping` will now respond with: {}".format(ctx.clean_prefix, response.replace('{name}', "(user's name)")))
+    elif '{nick}' in response:
+      nick = ctx.author.nick
+      await self.config.response.set(response)
+      await ctx.send("Running `{}ping` will now respond with: {}".format(ctx.clean_prefix, response.replace('{nick}', "(user's nickname)")))
     else:
       await self.config.response.set(response)
       await ctx.send(f"Running `{ctx.clean_prefix}ping` will now respond with: **{response}**")
@@ -41,11 +47,16 @@ class PingOveride(commands.Cog):
     response = await self.config.response()
     if '{name}' in response:
       await ctx.send(
-        f"The current ping response is **{response}**.\n"
+        f"The current ping response is: **{response}**.\n"
         "**{name}** will represent the command author."
       )
+    if '{nick}' in response:
+      await ctx.send(
+        f"The current ping response is: **{response}**.\n"
+        "**{nick}** will represent the command author's nickname."
+      )
     else:
-      await ctx.send(f"The current ping response is **{response}**.")
+      await ctx.send(f"The current ping response is: **{response}**.")
     
   @commands.command()
   async def ping(self, ctx):
@@ -55,6 +66,8 @@ class PingOveride(commands.Cog):
       response = "Pong."
     elif '{name}' in resp:
       response = resp.replace('{name}', ctx.author.name)
+    elif '{nick}' in resp:
+      response = resp.replace('{nick}', ctx.author.nick)
     else:
       response = resp
     await ctx.send(response)
