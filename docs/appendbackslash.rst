@@ -67,29 +67,6 @@ You will be able to notice the difference below:
 
     await ctx.message.add_reaction(":white_check_mark:")
     await ctx.send(":white_check_mark:")
-    
-----
-Code
-----
-
-Here is the code that I used to create this cog.
-
-.. code-block:: python
-
-    import discord
-    from redbot.core import commands
-
-    class AppendBackslash(commands.Cog):
-      """Haven't got a backslash on your keyboard?"""
-  
-      def __init__(self, bot):
-        self.bot = bot
-    
-     @commands.command(name="abs", aliases=["backslash", "backslashemoji"])
-     async def appendbackslash(self, ctx, object_to_append: str):
-        """Append a backslash to an object."""
-        ota = object_to_append
-        await ctx.send(''.join(('\\',ota)))
 
 -------
 Support

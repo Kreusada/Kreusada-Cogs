@@ -3,7 +3,7 @@
 		"Kreusada"
 	],
 	"description": "An authentic looking uptime message.",
-    "install_msg": "Thanks for installing, have fun. Use `[p]uptime`!",
+    "install_msg": "Thanks for installing, have fun. Use `[p]uptime`! Check out our docs for more info: https://kreusadacogs.readthedocs.io/en/latest/fancyuptime.html#fancyuptime",
 	"short": "Bot uptime, customised.",
 	"tags": [
 		"uptime"

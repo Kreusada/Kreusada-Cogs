@@ -3,6 +3,7 @@ import random
 import asyncio
 from redbot.core import commands, bank, Config
 
+DOL = ":dollar:"
 
 def yes_no_returner(fail: bool, ctx: commands.Context) -> str:
     yes = [
@@ -50,7 +51,7 @@ class RobTheBank(commands.Cog):
             fine = await self.config.guild(ctx.guild).get_raw("Fine")
             description = yes_no_returner(
                 False, ctx) + "**You have been fined {} {}!**".format(fine, currency)
-            title = f"<:dollarbag:778687019944771616> {ctx.author.name} failed, dismally."
+            title = f"{DOL} {ctx.author.name} failed, dismally."
             try:
                 await bank.withdraw_credits(ctx.author, fine)
             except ValueError:
@@ -60,7 +61,7 @@ class RobTheBank(commands.Cog):
             deposit = await self.config.guild(ctx.guild).get_raw("Deposit")
             description = yes_no_returner(True, ctx) + \
                 "**You have earnt yourself {} {}!**".format(deposit, currency)
-            title = f"<:dollarbag:778687019944771616> {ctx.author.name} successfully robbed the bank."
+            title = f"{DOL} {ctx.author.name} successfully robbed the bank."
             await bank.deposit_credits(ctx.author, deposit)
         embed = self.embed.create(ctx, title=title, description=description)
         await ctx.send(embed=embed)

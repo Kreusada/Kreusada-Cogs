@@ -1,10 +1,12 @@
-<h1 align="center">kreusadacogs</h1>
+<h1 align="center">
+  <br>
+  <a href="https://github.com/kreus7/kreusadacogs/master"><img src="https://media.discordapp.net/attachments/777984845934362634/792052299698012200/cogbanner.png" alt="KreusadaCogs"></a>
+  <br>
+  KreusadaCogs - V3 Cogs for Red-DiscordBot
+  <br>
+</h1>
 
-<p align="center">
-  <img src="https://imgur.com/a/YqTteT3" alt="Banner">
-</p>
-
-This is my repository for Red Discord-Bot. I built these cogs because these were the features that I wanted for my bot, [Demaratus.](https://discord.com/oauth2/authorize?client_id=766580519000473640&scope=bot&permissions=8)
+This is my repository for Red Discord-Bot. I built these cogs because these were the features that I wanted for my bot, [WALL-E.](https://discord.com/oauth2/authorize?client_id=766580519000473640&scope=bot&permissions=8)
 
 ## Installation
 Primarily, make sure you have `downloader` loaded. 
@@ -21,25 +23,59 @@ Finally, you can load cogs from my repo by executing the following command:
 
 Remember - don't include the `<>` when you use this command. Those characters are just to show you where to enter the cog name.
 
+## Available Cogs Guide
+
+Cog Name - The name of the cog.
+
+Description - The description for the cog.
+
+Status - The status for the cog:
+
+      ¬ Alpha - This cog is checked and 100% good to go.
+      
+      ¬ Beta - This cog is new therefore errors are prone.
+      
+      ¬ Creta - This cog is new, but simple or already checked.
+      
+      ¬ Delta - This cog could potentially be prone although it may not have been identified, pending reviews.
+      
+      ¬ Echo - This cog is fine, but outdated, and pending checks.
+      
+      ¬ Flagged - This cog is confirmed to contain errors, or things aren't working as intended.
+
+Author - Who made the cog.
+
+Bug-Proofed - Whether the cog has been checked.
+      
+      ¬ Checked - The cog has been checked and no faults have been found. The chance for errors are very slim.
+      
+      ¬ Prone - The cog has not been checked and is therefore prone to error. However, this doesn't mean the cog is faulty.
+      
+      ¬ Identified - The cog has been flagged and errors have been identified. Advised against use.
+
+Ratings - The public rating for these cogs. Coming soon with the CogFeedbacker cog.
 
 ## Available cogs list
 
-| Cog Name        | Description                                                            | Type                        | Author     | Status           | Bug-Proofed    | Rating                  |
-|-----------------|------------------------------------------------------------------------|-----------------------------|------------|------------------|----------------|-------------------------|
-| antibotrole     | Invite a bot to a guild, without their permissions role.               | Utility                     | Kreusada   | Ready for use    | Yes            | No ratings provided yet |
-| appendbackslash | Append a backslash to the start of an object.                          | Utility                     | Kreusada   | Ready for use    | Yes            | No ratings provided yet |
-| customping      | Replace "Pong." with a custom message such as "Howdy!"                 | Utility, Core Customization | Kreusada   | Ready for use    | Yes            | No ratings provided yet |
-| fancyuptime     | Display uptime with authentic formatting and additional information.   | Utility, Core Customization | Kreusada   | Ready for use    | Yes            | No ratings provided yet |
-| forcedown       | Get your number down to 0, to win big cash!                            | Economy, Fun                | Kreusada   | Ready for use    | Prone, pending | No ratings provided yet |
-| hotpotato       | A custom fork of redjumpman's russian roulette.                        | Economy, Fun                | Redjumpman | Ready for use    | Yes            | No ratings provided yet |
-| mjolnir         | Are you worthy of lifting Thor's hammer?                               | Fun                         | Kreusada   | Ready for use    | Yes            | No ratings provided yet |
-| robthebank      | Rob the bank, gain or get fined!                                       | Economy, Fun                | Kreusada   | Ready for use    | Re-pending     | No ratings provided yet |
-| searchengine    | Search Google, Pinterest, and other sites without the API.             | Utility                     | Kreusada   | Ready for use    | Yes            | No ratings provided yet |
-| sendcards       | Send birthday, christmas, valentine and get well soon cards in DMs!    | Utility, Fun                | Kreusada   | Ready for use    | Yes            | No ratings provided yet |
-| staff           | Alert the staff for conspicuous activity.                              | Utility, Moderation         | Kreusada   | Ready for use    | Yes            | No ratings provided yet |
-| tally           | Tally a number in your guild, resettable.                              | Utility, Fun                | Kreusada   | Ready for use    | Prone, Pending | No ratings provided yet |
-| textmanipulator | Manipulate text - Change case, formatting and word/character counts.   | Utility                     | Kreusada   | Ready for use    | Yes            | No ratings provided yet |
-| voicenick       | Change the bots nickname, and add a role to them, when they join a VC. | Utility, Audio              | Kreusada   | Pending re-write | Pending        | No ratings provided yet |
+| Cog Name        | Description                                                       | Status  | Author              | Type    | Bug-Proofed | Ratings     |
+|-----------------|-------------------------------------------------------------------|---------|---------------------|---------|-------------|-------------|
+| antibotrole     | Invite a Discord bot without their permissions role.              | Flagged | Kreusada            | Utility | Identified  | Coming soon |
+| appendbackslash | Append a backslash to the beginning of a string.                  | Alpha   | Kreusada            | Utility | Checked     | Coming soon |
+| dice            | Role dice!                                                        | Creta   | Kreusada            | Fun     | Checked     | Coming soon |
+| fancyuptime     | Uptime but with additional statistics and inside an embed.        | Alpha   | Kreusada            | Utility | Checked     | Coming soon |
+| forcedown       | Economy game which involves lowering your number to win cash.     | Delta   | Kreusada            | Economy | Prone       | Coming soon |
+| mjolnir         | Attempt to lift Thor's hammer.                                    | Delta   | Kreusada            | Fun     | Prone       | Coming soon |
+| pingoveride     | Replace "Pong." with your own response!                           | Creta   | Kreusada            | Utility | Checked     | Coming soon |
+| publishcogs     | Publish your new cogs to a channel.                               | Beta    | Kreusada            | Utility | Prone       | Coming soon |
+| reminder        | Remind yourself.                                                  | Beta    | Kreusada            | Utility | Checked     | Coming soon |
+| robthebank      | Rob the bank, gain or lose cash!                                  | Delta   | Kreusada            | Economy | Checked     | Coming soon |
+| searchengine    | Search Google, Pinterest or Redbubble.                            | Alpha   | Kreusada            | Utility | Checked     | Coming soon |
+| sendcards       | Send christmas, birthday, valentines and get well soon cards.     | Alpha   | Kreusada            | Fun     | Checked     | Coming soon |
+| shoppingcart    | Add items to your shopping list.                                  | Beta    | Kreusada            | Utility | Prone       | Coming soon |
+| staff           | Alert staff for inconspicuous activity.                           | Alpha   | Kreusada            | Utility | Checked     | Coming soon |
+| tally           | Tallying system for your guild.                                   | Flagged | Kreusada            | Fun     | Identified  | Coming soon |
+| textmanipulator | Manipulate text with handy, reliable tools.                       | Alpha   | Kreusada            | Utility | Checked     | Coming soon |
+| voicenick       | Give a bot a role and/or a nickname when they join and leave VCs. | Echo    | Kreusada, Snowflake | Utility | Prone       | Coming soon |
 
 ## Unavailable cogs list
 - Cogs listed below are marked as deprecated or undistributable, or are currently under developed or deprioritized.

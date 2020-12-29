@@ -1,8 +1,10 @@
-.. _publishcogs::
+.. _publishcogs:
 
 ================
 Cog: PublishCogs
 ================
+
+.. note:: My wonderful WALL-E users... PublishCogs is available on the bot!
 
 -------
 Outline
@@ -64,14 +66,6 @@ Setup: Footerdate
 
 This is not a requirement. Running this command will bring you to a yes or no predicate which will determine your settings.
 
-------------------
-Setup: Role Mention
-------------------
-
-- :code:`[p]publishcogset rolemention`
-
-This is not a requirement. Running this command will bring you to a yes or no predicate which will determine your settings.
-
 -----------------------
 Setup: Cog Creator Role
 -----------------------
@@ -117,7 +111,6 @@ Setup: Set All
 - :code:`[p]publishcogset setall`
 
 This command will toggle all toggleable commands on, or off! Running this command will bring you to a yes or no predicate which will determine your settings.
-
 
 
 
