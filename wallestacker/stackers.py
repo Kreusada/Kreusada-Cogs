@@ -32,6 +32,7 @@ class WalleStacker(commands.Cog):
         }
 
     @commands.command()
+    @commands.cooldown(1, 50, commands.BucketType.user)
     async def stack(self, ctx):
         """Stack WALL-E trash!"""
         stackglob = await self.config.stack()
