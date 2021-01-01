@@ -38,6 +38,7 @@ class Edition(commands.Cog):
 
 
     @commands.command()
+    @commands.mod_or_permissions(administrator=True)
     async def editionset(self, ctx, editioner: discord.Member):
         """Sets the editioner."""
         await self.config.guild(ctx.guild).editioner.set(editioner.id)
