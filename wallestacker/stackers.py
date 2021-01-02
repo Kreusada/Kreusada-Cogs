@@ -49,13 +49,16 @@ class WalleStacker(commands.Cog):
         stackglob += 1
         stackuser += 1
         stackguild += 1
-        await self.config.stack.set(stackglob)
-        await self.config.user(ctx.author).stack.set(stackuser)
-        await self.config.guild(ctx.guild).stack.set(stackguild)
-        await ctx.send(
-            f"{ctx.author.name} contributes towards the trash stack. {self.stackems['stack']}"
-            f"\nYou can see the StackBoard by using `{ctx.clean_prefix}stackboard`."
-            )
+        if stackglob > 1000000:
+            await ctx.send("You've reached the maximum stack, amazing! Thanks for using WALL-E Stacker!")
+        else:
+            await self.config.stack.set(stackglob)
+            await self.config.user(ctx.author).stack.set(stackuser)
+            await self.config.guild(ctx.guild).stack.set(stackguild)
+            await ctx.send(
+                f"{ctx.author.name} contributes towards the trash stack. {self.stackems['stack']}"
+                f"\nYou can see the StackBoard by using `{ctx.clean_prefix}stackboard`."
+                )
 
     @commands.command()
     async def stackboard(self, ctx):
