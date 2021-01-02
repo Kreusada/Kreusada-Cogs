@@ -42,35 +42,34 @@ Caparano (Andreas) is retired, YanaleraPreda is long retired, and Adnayekken opt
 Our Channels
 ------------
 
+**Information**
+
 * :code:`#rules` - Rules for the server.
-
-**Announcements**
-
 * :code:`#wall-e-news` - News and updates for WALL-E.
 * :code:`#community-news` - News for the community.
 * :code:`#new-cogs` - New cogs from Red, and our Cog Creators.
+
+**Support**
+
+* :code:`#support-walle` - Here is where you ask for WALL-E support, after you've read the docs!
+* :code:`#support-jojocogs` - Jojo's cog support channel.
+* :code:`#cogs-kreusadacogs` - Kreusada's cog support channel.
 
 **Community**
 
 * :code:`#general` - General chat.
 * :code:`#github` - Github updates.
 * :code:`#modlog` - The modlog channel we never end up using.
+* :code:`#monitor` - Updates for when WALL-E joins and leaves guilds.
 * :code:`#starboard` - Guild starboard.
 * :code:`#staff-only` - Staff only chat.
 
 **Testing Zone**
 
 * :code:`#testing` - Used for testing WALL-E, Eve, or the Staff's bots.
-* :code:`#yourbot-testing` - If you want to invite your bot to the server, this is the only channel they can access.
+* :code:`#other-testing` - If you want to invite your bot to the server, this is the only channel they can access.
 * :code:`#elaborate-testing` - Expansive testing. Available to Red friends, Contributors and those with the Elaborate Pass.
 * :code:`#voice-testing` - Used for testing in voice.
-
-**Support Zone**
-
-* :code:`#support-walle` - Here is where you ask for WALL-E support, after you've read the docs!
-* :code:`#support-jojobot` - Used for Jojo's bot support.
-* :code:`#cogs-jojo` - Jojo's cog support channel.
-* :code:`#cogs-kreusada` - Kreusada's cog support channel.
 
 **Coding**
 
@@ -87,7 +86,10 @@ Our Channels
 
 **Voice**
 
-* :code:`#general` - General VOICE.
+* :code:`🧸 WALL-E's Speaker` - Music Voice Chat.
+* :code:`🎤 General` - General Voice Chat.
+* :code:`🎮 Gaming` - Gaming Voice Chat.
+* :code:`🚫 Private` - Private Voice Chat.
 
 -------
 Queries
