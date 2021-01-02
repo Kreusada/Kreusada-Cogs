@@ -12,6 +12,12 @@ class Edition(commands.Cog):
         self.config = Config.get_conf(self, 43958345, force_registration=True)
         self.config.register_guild(editioner=None)
 
+    async def red_delete_data_for_user(self, **kwargs):
+        """
+        Nothing to delete
+        """
+        return
+
     @commands.command()
     async def edition(self, ctx, type: str):
         """

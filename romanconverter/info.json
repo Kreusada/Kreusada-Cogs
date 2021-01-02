@@ -5,6 +5,7 @@
 	"description": "Convert roman numerals to numbers, and vise versa. Results may become unprecedented above 10,000.",
     "install_msg": "Thanks for installing, have fun.",
 	"short": "Roman numerals.",
+	"name": "RomanConverter",
 	"tags": [
 		"roman",
     "numerals",

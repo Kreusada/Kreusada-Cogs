@@ -18,6 +18,12 @@ class FancyUptime(commands.Cog):
         log.info(error)
       self.bot.add_command(_old_uptime)
 
+  async def red_delete_data_for_user(self, **kwargs):
+      """
+      Nothing to delete
+      """
+      return
+
   @commands.command()
   async def uptime(self, ctx: commands.Context):
       """Shows [botname]'s uptime."""

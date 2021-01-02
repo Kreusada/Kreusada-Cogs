@@ -24,12 +24,20 @@ class WalleStacker(commands.Cog):
         if self.emojis:
             self.emojis.cancel()
 
+    async def red_delete_data_for_user(self, **kwargs):
+        """
+        Nothing to delete
+        """
+        return
+
     async def init(self):
         await self.bot.wait_until_ready()
         self.stackems = {
             "stack": discord.utils.get(self.bot.emojis, id=794141784577802250),
             "stackboard": discord.utils.get(self.bot.emojis, id=791308063935168522)
         }
+
+# Thanks for this logic above, Flare!
 
     @commands.command()
     @commands.cooldown(1, 50, commands.BucketType.user)

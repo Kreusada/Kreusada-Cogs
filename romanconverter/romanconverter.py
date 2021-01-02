@@ -7,6 +7,12 @@ class RomanConverter(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    async def red_delete_data_for_user(self, **kwargs):
+        """
+        Nothing to delete
+        """
+        return
+
     async def roman(self, number):
         val = [
             1000, 900, 500, 400,

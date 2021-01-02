@@ -4,6 +4,7 @@ from redbot.core.bot import Red
 
 
 class VoiceNick(commands.Cog):
+    """Configure a nickname and role for a bot in a VC."""
     def __init__(self, bot: Red):
         self.config = Config.get_conf(self, identifier=202005118)
         self.currently_checking = []
@@ -13,7 +14,11 @@ class VoiceNick(commands.Cog):
         }
         self.config.register_guild(**default_guild)
 
-# Commands
+    async def red_delete_data_for_user(self, **kwargs):
+        """
+        Nothing to delete
+        """
+        return
 
     @commands.command(name="voicenickrole", aliases=["vnr"], help="Set a role to be given when a bot joins a voice.")
     @commands.has_permissions(administrator=True)
@@ -31,8 +36,6 @@ class VoiceNick(commands.Cog):
             else:
                 await self.config.guild(ctx.guild).hoist_role.set(role.id)
                 await ctx.send(f"{role.mention} was set as voice nick role.")
-
-# Events
 
     @commands.Cog.listener("on_voice_state_update")
     async def voicenick_handler(self, member, before, after):

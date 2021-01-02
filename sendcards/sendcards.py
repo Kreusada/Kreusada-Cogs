@@ -12,6 +12,12 @@ class SendCards(commands.Cog):
   def __init__(self, bot):
     self.bot = bot
 
+  async def red_delete_data_for_user(self, **kwargs):
+      """
+      Nothing to delete
+      """
+      return
+
   @commands.group()
   async def card(self, ctx):
     """General settings for cards."""

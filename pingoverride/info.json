@@ -3,8 +3,9 @@
 		"Kreusada"
 	],
 	"description": "Override the default ping response with a custom message.",
-    "install_msg": "Thanks for installing. Use **`[p]help PingOveride`** for more help!",
+    "install_msg": "Thanks for installing. Use `[p]help PingOverride` for more help!",
 	"short": "Custom ping response.",
+	"name": "PingOverride",
 	"tags": [
 		"ping",
     "pong",

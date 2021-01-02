@@ -1,1 +1,0 @@
-from .antibotrole import setup
