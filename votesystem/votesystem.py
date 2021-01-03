@@ -1,3 +1,4 @@
+# This cog functions just fine, but it's logic is questionable given that I haven't used any proper listeners
 import discord
 import asyncio
 from redbot.core import commands
@@ -29,11 +30,8 @@ class VoteSystem(commands.Cog):
         """
         Start up and down reactions in a channel.
 
-        
         `channel`: The channel where all messages will have up and down arrows added to.
-
         """
-
         await ctx.send(
             f"Started. {self.votes['up']} and {self.votes['down']} emojis will "
             f"be added to each message in {channel.mention}.\nYou can discontinue "
