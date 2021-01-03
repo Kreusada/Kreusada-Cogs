@@ -5,6 +5,7 @@
 	"description": "Lower your number to win cash.",
     "install_msg": "Thanks for installing, have fun. Use `[p]help ForceDown`\n**I strongly suggest keeping to the current guild settings. However, if you really want to modify them, you can do so by using** `[p]fdset`.",
 	"short": "Lower number for cash.",
+	"name": "ForceDown",
 	"tags": [
 		"number",
     "economy"

@@ -5,6 +5,7 @@
 	"description": "Append backslashes to the start of input.",
     "install_msg": "Thanks for installing, have fun. Check out our docs if you need any support: https://kreusadacogs.readthedocs.io/en/latest/appendbackslash.html#appendbackslash",
 	"short": "Append backslashes",
+	"name": "AppendBackslash",
 	"tags": [
 		"backslash",
     "emoji",

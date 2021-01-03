@@ -1,0 +1,15 @@
+{
+	"author": [
+		"Kreusada"
+	],
+	"description": "Vote system for a particular channel. All messages sent within one channel will have an up or down arrow applied to them.",
+    "install_msg": "Thanks for installing, have fun.",
+	"short": "Vote system.",
+	"name": "VoteSystem",
+	"tags": [
+		"Vote",
+		"Poll"
+	],
+	"type": "COG",
+	"end_user_data_statement": "This cog does not persistently store data or metadata about users."
+}

@@ -2,7 +2,7 @@ import discord
 from redbot.core import commands, Config
 from redbot.core.utils import AsyncIter
 from datetime import datetime, timedelta
-from .delta_utils import humanize_timedelta
+from redbot.core.utils.chat_formatting import humanize_timedelta
 
 class FancyUptime(commands.Cog):
   def __init__(self, bot):
@@ -17,6 +17,12 @@ class FancyUptime(commands.Cog):
       except Exception as error:
         log.info(error)
       self.bot.add_command(_old_uptime)
+
+  async def red_delete_data_for_user(self, **kwargs):
+      """
+      Nothing to delete
+      """
+      return
 
   @commands.command()
   async def uptime(self, ctx: commands.Context):

@@ -8,10 +8,17 @@ CART = "\N{SHOPPING TROLLEY}"
 
 class ShoppingCart(commands.Cog):
     """Add items to your shopping list."""
+    
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, 1234567890, force_registration=True)
         self.config.register_user(items={})
+
+    async def red_delete_data_for_user(self, **kwargs):
+        """
+        Nothing to delete
+        """
+        return
     
     @commands.group()
     async def shopping(self, ctx):

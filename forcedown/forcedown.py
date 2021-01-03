@@ -11,6 +11,8 @@ default_guild = {
   "forcedownguild": 100,
   "quantity": 1
 }
+
+# ForceDown was a custom game requested by Pootle on Discord. Thanks Pootle!
   
 class ForceDown(commands.Cog):
   """
@@ -23,9 +25,15 @@ class ForceDown(commands.Cog):
     self.config = Config.get_conf(self, 348736583543, force_registration=True)
     self.config.register_user(**default_user)
     self.config.register_guild(**default_guild)
+
+  async def red_delete_data_for_user(self, **kwargs):
+      """
+      Nothing to delete
+      """
+      return
     
   @commands.command()
-#  @commands.cooldown(1, 600, commands.BucketType.user)
+  @commands.cooldown(1, 600, commands.BucketType.user)
   async def fd(self, ctx):
     """Forcedown your total to zero!"""
     now = datetime.now()

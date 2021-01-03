@@ -18,10 +18,18 @@ default_guild = {
 }
 
 class PublishCogs(commands.Cog):
+  """Publish your newly made cogs to a channel."""
+  
   def __init__(self, bot):
     self.bot = bot
     self.config = Config.get_conf(self, identifier=3924082348, force_registration=True)
     self.config.register_guild(**default_guild)
+
+  async def red_delete_data_for_user(self, **kwargs):
+      """
+      Nothing to delete
+      """
+      return
     
   @commands.group()
   async def publishcogset(self, ctx):

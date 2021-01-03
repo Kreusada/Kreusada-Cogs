@@ -1,6 +1,6 @@
-from .forcedown import ForceDown
+from .romanconverter import RomanConverter
 
 __red_end_user_data_statement__ = "This cog does not persistently store data about users."
 
 def setup(bot):
-  bot.add_cog(ForceDown(bot))
+    bot.add_cog(RomanConverter(bot))

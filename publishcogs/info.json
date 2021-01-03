@@ -5,6 +5,7 @@
 	"description": "Publish your new cogs to a specific channel.",
     "install_msg": "Thanks for installing, have fun. Use `[p]help PublishCogs`! This cog is complex and could get confusing upon setup. Stuck along the way? Check out our documentation: https://kreusadacogs.readthedocs.io/en/latest/publishcogs.html#publishcogs",
 	"short": "Publish new cogs in your guild.",
+	"name": "PublishCogs",
 	"tags": [
 		"cogs",
     "publish"
