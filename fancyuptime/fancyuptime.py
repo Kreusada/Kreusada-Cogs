@@ -1,6 +1,5 @@
 import discord
 from redbot.core import commands, Config
-from redbot.core.utils import AsyncIter
 from datetime import datetime, timedelta
 from redbot.core.utils.chat_formatting import humanize_timedelta
 
