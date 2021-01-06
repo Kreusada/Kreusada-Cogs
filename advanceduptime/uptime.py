@@ -3,7 +3,7 @@ from redbot.core import commands, Config
 from datetime import datetime, timedelta
 from redbot.core.utils.chat_formatting import humanize_timedelta
 
-class FancyUptime(commands.Cog):
+class AdvancedUptime(commands.Cog):
   def __init__(self, bot):
     self.bot = bot
     self.config = Config.get_conf(self, identifier=59465034743, force_registration=True)
@@ -56,7 +56,7 @@ class FancyUptime(commands.Cog):
       await ctx.send(embed=e)
 
 async def setup(bot):
-  fu = FancyUptime(bot)
+  fu = AdvancedUptime(bot)
   global _old_uptime
   _old_uptime = bot.get_command("uptime")
   if _old_uptime:
