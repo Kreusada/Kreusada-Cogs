@@ -23,13 +23,14 @@ class Edition(commands.Cog):
         """
         Become an edition of the editioner!
 
-        **Nickname Formatting Arguments**
-        `Editioner`: The name of the guild's editioner.
+        **Arguments**
         `Type`: The custom name from your input.
 
-        **Nickname Edit**
+        **Nickname Edit Format**
         `Editioner - Type Edition`
-
+        
+        **What is Editioner?**
+        `Editioner`: The name of the editioner set using `[p]editionset`.
         """
         editioner = await self.config.guild(ctx.guild).editioner()
         editioner = discord.utils.get(ctx.guild.members, id=editioner)
@@ -41,6 +42,8 @@ class Edition(commands.Cog):
                 await ctx.send(f"Done. Your nickname is now `{editioner.name.capitalize()} - {type} Edition`.")
             except discord.Forbidden:
                 await ctx.send("I don't have permission to change your nickname.")
+            except HTTPException:
+                await ctx.send("Your new nickname exceeds the 32 character limit.")
 
 
     @commands.command()
