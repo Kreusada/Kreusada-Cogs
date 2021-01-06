@@ -18,13 +18,11 @@ WALL-E Support
 ==============
 
 * :ref:`policies`
-* :ref:`supportserver`
 
 Cog Support
 ==================
 
 * :ref:`appendbackslash`
-* :ref:`dice`
 * :ref:`fancyuptime`
 * :ref:`publishcogs`
 * :ref:`staff`
@@ -32,5 +30,4 @@ Cog Support
 Contributing
 ============
 
-* :ref:`preview`
 * :ref:`contributing`
