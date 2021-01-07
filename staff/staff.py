@@ -12,8 +12,8 @@ class Staff(commands.Cog):
         self.config = Config.get_conf(
             self, 200730042020, force_registration=True)
         default_guild = {
-            "role": None,
-            "channel": None
+            role: None,
+            channel: None
         }
         self.config.register_guild(**default_guild)
 
