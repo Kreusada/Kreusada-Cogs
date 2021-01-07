@@ -58,7 +58,7 @@ class Staff(commands.Cog):
         return
         
     @commands.command()
-   # @commands.cooldown(1, 600, commands.BucketType.user)
+    @commands.cooldown(1, 600, commands.BucketType.user)
     async def staff(self, ctx, reason: str = None):
         """Notifies the staff."""
         message = ctx.message
