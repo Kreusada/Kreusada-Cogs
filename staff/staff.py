@@ -29,33 +29,40 @@ class Staff(commands.Cog):
 
     @staffset.command()
     @checks.admin_or_permissions(manage_guild=True)
-    async def channel(self, ctx, channel: discord.TextChannel):
+    async def channel(self, ctx, channel: discord.TextChannel = None):
         """Sets the channel for staff to receive notifications."""
-        await self.config.guild(ctx.guild).set_raw("channel", value=channel.id)
-        embed = discord.Embed(
-            title="Successful :white_check_mark:",
-            description=f"{channel.mention} will now receive notifications from users to notify the staff."
-        )
-        await ctx.send(embed=embed)
+        if channel is None:
+            await ctx.send("No channel was specified. Channel reset.")
+            await self.config.guild(ctx.guild).set.channel(None)
+        else:
+            await self.config.guild(ctx.guild).set.channel(channel.id)
+            embed = discord.Embed(
+                title="Successful :white_check_mark:",
+                description=f"{channel.mention} will now receive notifications from users to notify the staff."
+            )
+            await ctx.send(embed=embed)
 
     @staffset.command()
     @checks.admin_or_permissions(manage_guild=True)
     async def role(self, ctx, role: discord.Role):
         """Sets the Staff role."""
-        try:
-            await self.config.guild(ctx.guild).set_raw("role", value=role.id)
-            embed = discord.Embed(
-                title="Successful :white_check_mark:",
-                description=f"{role.mention} will now be considered as the Staff role.",
-            )
-            await ctx.send(embed=embed)
-        except discord.Forbidden:
-            embed = discord.Embed(
-                title="Oopsies! :x:",
-                description=f"Something went wrong during the setup process."
-            )
-            await ctx.send(embed=embed)
-        return
+        if channel is None:
+            await ctx.send("No role was specified. Role reset.")
+            await self.config.guild(ctx.guild).set.role(None)
+        else:
+            try:
+                await self.config.guild(ctx.guild).set_raw("role", value=role.id)
+                embed = discord.Embed(
+                    title="Successful :white_check_mark:",
+                    description=f"{role.mention} will now be considered as the Staff role.",
+                )
+                await ctx.send(embed=embed)
+            except discord.Forbidden:
+                embed = discord.Embed(
+                    title="Oopsies! :x:",
+                    description=f"Something went wrong during the setup process."
+                )
+                await ctx.send(embed=embed)
         
     @commands.command()
     @commands.cooldown(1, 600, commands.BucketType.user)
