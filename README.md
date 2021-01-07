@@ -27,24 +27,16 @@ Remember - don't include the `<>` when you use this command. Those characters ar
 
 | Cog Name        | Description                                                   | Author              | Type    |
 |-----------------|---------------------------------------------------------------|---------------------|---------|
-| antibotrole     | Invite a Discord bot without their permissions role.          | Kreusada            | Utility |
-| appendbackslash | Append a backslash to the beginning of a string.              | Kreusada            | Utility |
+| advanceduptime  | Uptime but with additional statistics and inside an embed.    | Kreusada            | Utility |
 | edition         | Inspired by Twentysix Edition at Red.                         | Kreusada            | Fun     |
-| fancyuptime     | Uptime but with additional statistics and inside an embed.    | Kreusada            | Utility |
-| forcedown       | Economy game which involves lowering your number to win cash. | Kreusada            | Economy |
-| mjolnir         | Attempt to lift Thor's hammer.                                | Kreusada            | Fun     |
 | pingoverride    | Replace "Pong." with your own response!                       | Kreusada            | Utility |
 | publishcogs     | Publish your new cogs to a channel.                           | Kreusada            | Utility |
-| reminder        | Remind yourself.                                              | Kreusada            | Utility |
 | robthebank      | Rob the bank, gain or lose cash!                              | Kreusada            | Economy |
 | romanconverter  | Convert to roman numerals, and vise versa.                    | Kreusada            | Utility |
 | searchengine    | Search Google, Pinterest or Redbubble.                        | Kreusada            | Utility |
 | sendcards       | Send christmas, birthday, valentines and get well soon cards. | Kreusada            | Fun     |
-| shoppingcart    | Add items to your shopping list.                              | Kreusada            | Utility |
 | staff           | Alert staff for inconspicuous activity.                       | Kreusada            | Utility |
 | textmanipulator | Manipulate text and words with tools.                         | Kreusada            | Utility |
-| voicenick       | Provide a bot with a nickchange and role when they join VC.   | Kreusada, Snowflake | Utility |
-| wallestacker    | Help WALL-E to stack up his trash!                            | Kreusada            | Fun     |
 
 ## Support
 
