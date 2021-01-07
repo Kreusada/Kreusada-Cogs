@@ -73,7 +73,7 @@ class Staff(commands.Cog):
             title=":warning: ALERT!",
             description=f"**{ctx.author.name}** has just called for the staff in {ctx.channel.mention}!",
             color=0xffff33)
-            embed.set_footer(text=f"{bot.user.name} | Staff", icon_url=f"{bot.user.avatar_url}")
+        embed.set_footer(text=f"{bot.user.name} | Staff", icon_url=bot.user.avatar_url)
         if channel is not None:
             await message.add_reaction("✅")
             await ctx.send("We have sent a report to the staff team. They will be with you as soon as possible.")
