@@ -22,6 +22,8 @@ class Edition(commands.Cog):
     async def edition(self, ctx, type: str):
         """
         Become an edition of the editioner!
+        
+        Server owner nicknames cannot be changed.
 
         **Arguments**
         `Type`: The custom name from your input.
