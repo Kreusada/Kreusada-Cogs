@@ -1,5 +1,6 @@
 import discord
 import asyncio
+from typing import Optional
 from datetime import datetime, timedelta
 from redbot.core import commands, checks, Config, modlog
 
@@ -22,6 +23,11 @@ class Staff(commands.Cog):
         Nothing to delete
         """
         return
+
+    def slash(text: str):
+        now = datetime.now()
+        S = now.strftime("%d/%m/%y")
+        return(f"{text} {S}")
 
     @commands.group()
     async def staffset(self, ctx):
@@ -59,20 +65,27 @@ class Staff(commands.Cog):
         
     @commands.command()
    # @commands.cooldown(1, 600, commands.BucketType.user)
-    async def staff(self, ctx):
+    async def staff(self, ctx, reason: str = None):
         """Notifies the staff."""
         message = ctx.message
-        role = await self.config.guild(ctx.guild).role()
-        channel = await self.config.guild(ctx.guild).channel()
-        channel = discord.utils.get(ctx.guild.channels, id=channel)
-        role = discord.utils.get(ctx.guild.roles, id=role)
-        jumper_link = ctx.message.jump_url
-        author_id = ctx.author.id
-        jumper_f = "**[Click here for context]({})**".format(jumper_link)
+        channel = discord.utils.get(ctx.guild.channels, id=await self.config.guild(ctx.guild).channel())
+        role = discord.utils.get(ctx.guild.roles, id=await self.config.guild(ctx.guild).role())
+        jumper_f = "[Click here for context]({})".format(ctx.message.jump_url)
+        now = datetime.now()
+        D = now.strftime("%d/%m/%y")
         embed = discord.Embed(
-            title=":warning: ALERT!",
-            description=f"**{ctx.author.name}** has just called for the staff in {ctx.channel.mention}!",
-            color=0xffff33)
+            title="Staff Attention Pending",
+            description="[Click here for context]({})".format(ctx.message.jump_url),
+            color=await ctx.embed_colour()
+        )
+        embed.add_field(name="Member", value=ctx.author.mention, inline=True)
+        embed.add_field(name="Channel", value=ctx.channel.mention, inline=True)
+        embed.add_field(name="Date", value=D, inline=True)
+        if reason is not None:
+            embed.add_field(name="Reason", value=reason, inline=False)
+        else:
+            pass
+        embed.set_author(name=f"{ctx.author} | {ctx.author.id}", icon_url=ctx.author.avatar_url)
         embed.set_footer(text=f"{self.bot.user.name} | Staff", icon_url=self.bot.user.avatar_url)
         if channel is not None:
             await message.add_reaction("✅")
