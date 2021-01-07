@@ -11,11 +11,7 @@ class Staff(commands.Cog):
         self.bot = bot
         self.config = Config.get_conf(
             self, 200730042020, force_registration=True)
-        default_guild = {
-            role: None,
-            channel: None
-        }
-        self.config.register_guild(**default_guild)
+        self.config.register_guild(role=None, channel=None)
 
     async def red_delete_data_for_user(self, **kwargs):
         """
@@ -33,9 +29,9 @@ class Staff(commands.Cog):
         """Sets the channel for staff to receive notifications."""
         if channel is None:
             await ctx.send("No channel was specified. Channel reset.")
-            await self.config.guild(ctx.guild).set.channel(None)
+            await self.config.guild(ctx.guild).channel.set(None)
         else:
-            await self.config.guild(ctx.guild).set.channel(channel.id)
+            await self.config.guild(ctx.guild).channel.set(channel.id)
             embed = discord.Embed(
                 title="Successful :white_check_mark:",
                 description=f"{channel.mention} will now receive notifications from users to notify the staff."
@@ -48,10 +44,10 @@ class Staff(commands.Cog):
         """Sets the Staff role."""
         if role is None:
             await ctx.send("No role was specified. Role reset.")
-            await self.config.guild(ctx.guild).set.role(None)
+            await self.config.guild(ctx.guild).role.set(None)
         else:
             try:
-                await self.config.guild(ctx.guild).set_raw("role", value=role.id)
+                await self.config.guild(ctx.guild).role.set(role.id)
                 embed = discord.Embed(
                     title="Successful :white_check_mark:",
                     description=f"{role.mention} will now be considered as the Staff role.",
