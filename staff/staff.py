@@ -46,7 +46,7 @@ class Staff(commands.Cog):
     @checks.admin_or_permissions(manage_guild=True)
     async def role(self, ctx, role: discord.Role = None):
         """Sets the Staff role."""
-        if channel is None:
+        if role is None:
             await ctx.send("No role was specified. Role reset.")
             await self.config.guild(ctx.guild).set.role(None)
         else:
