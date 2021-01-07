@@ -66,24 +66,14 @@ class Staff(commands.Cog):
         channel = await self.config.guild(ctx.guild).channel()
         channel = discord.utils.get(ctx.guild.channels, id=channel)
         role = discord.utils.get(ctx.guild.roles, id=role)
-        bot = self.bot
         jumper_link = ctx.message.jump_url
         author_id = ctx.author.id
-        now = datetime.now()
-        strftime = now.strftime("%H:%M %p")
-        daytime = now.strftime("%d of %B, %Y")
-        msgtime = f"**Time called:** {strftime}"
-        date = f"**Date called:** {daytime}"
-        authid = f"**Author ID:** {author_id}"
-        chfmi = "Click here for more information"
-        call = " has just called for the staff in "
-        jumper_f = "**[{}]({})**".format(chfmi, jumper_link)
+        jumper_f = "**[Click here for context]({})**".format(jumper_link)
         embed = discord.Embed(
             title=":warning: ALERT!",
-            description=f"**{ctx.author.name}**{call}{ctx.channel.mention}.\n\n{date}\n{msgtime}\n\n{authid}\n\n{jumper_f}",
-            footer_text=f"{bot.user.name} | Staff",
-            footer_url=f"{bot.user.avatar_url}"
-        )
+            description=f"**{ctx.author.name}** has just called for the staff in {ctx.channel.mention}!",
+            color=0xffff33)
+            embed.set_footer(text=f"{bot.user.name} | Staff", icon_url=f"{bot.user.avatar_url}")
         if channel is not None:
             await message.add_reaction("✅")
             await ctx.send("We have sent a report to the staff team. They will be with you as soon as possible.")
