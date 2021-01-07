@@ -1,6 +1,5 @@
 import discord
 import asyncio
-from typing import Optional
 from datetime import datetime, timedelta
 from redbot.core import commands, checks, Config, modlog
 
@@ -23,11 +22,6 @@ class Staff(commands.Cog):
         Nothing to delete
         """
         return
-
-    def slash(text: str):
-        now = datetime.now()
-        S = now.strftime("%d/%m/%y")
-        return(f"{text} {S}")
 
     @commands.group()
     async def staffset(self, ctx):
