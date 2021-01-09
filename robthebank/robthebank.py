@@ -1,13 +1,12 @@
 import discord
 import random
-import asyncio
 from redbot.core import commands, bank, Config
 
 DOL = ":dollar:"
 
 def yes_no_returner(fail: bool, ctx: commands.Context) -> str:
     yes = [
-        ":loudspeaker: Dispatch, we've lost the suspect.\n",
+        "Dispatch, we've lost the suspect.\n",
         f"Looks like {ctx.author.name} made it out alive, somehow...\n",
         "We let you loose on purpose, we really did.\n"
     ]
@@ -29,7 +28,6 @@ class RobTheBank(commands.Cog):
             "Deposit": 400
         }
         self.bot = bot
-        self.embed = Embed(self.bot)
         self.config = Config.get_conf(
             self, identifier=5865146514315491, force_registration=True
         )
@@ -60,10 +58,10 @@ class RobTheBank(commands.Cog):
         else:
             deposit = await self.config.guild(ctx.guild).get_raw("Deposit")
             description = yes_no_returner(True, ctx) + \
-                "**You have earnt yourself {} {}!**".format(deposit, currency)
+                "\n**You have earnt yourself {} {}!**".format(deposit, currency)
             title = f"{DOL} {ctx.author.name} successfully robbed the bank."
             await bank.deposit_credits(ctx.author, deposit)
-        embed = self.embed.create(ctx, title=title, description=description)
+        embed = discord.Embed(title=title, description=description, color=0x85bb65)
         await ctx.send(embed=embed)
 
     @commands.group(name="robset")
@@ -111,24 +109,3 @@ class RobTheBank(commands.Cog):
             )
         )
         await ctx.send(embed=embed)
-
-
-class Embed:
-    def __init__(self, bot):
-        self.bot = bot
-
-    def create(self, ctx, color=discord.Color.red(), title='', description='', image=None,
-               thumbanil: str = None) -> discord.Embed:
-        if isinstance(ctx.message.channel, discord.abc.GuildChannel):
-            color = ctx.message.author.color
-        data = discord.Embed(color=color, title=title)  # , url=url)
-        if description is not None:
-            if len(description) < 1500:
-                data.description = description
-        data.set_author(
-            name=ctx.author.display_name,
-            icon_url=ctx.message.author.avatar_url
-        )
-        if image is not None:
-            data.set_image(url=image)
-        return data
