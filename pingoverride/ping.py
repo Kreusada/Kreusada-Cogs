@@ -77,8 +77,6 @@ class PingOverride(commands.Cog):
     await ctx.send(response)
 
 async def setup(bot):
-    if discord.version_info <= (1, 4):
-        raise CogLoadError("This cog requires d.py 1.4+ to work.")
     cping = PingOverride(bot)
     global _old_ping
     _old_ping = bot.get_command("ping")
