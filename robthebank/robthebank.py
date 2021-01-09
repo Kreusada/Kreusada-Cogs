@@ -48,7 +48,7 @@ class RobTheBank(commands.Cog):
             fine = await self.config.guild(ctx.guild).get_raw("Fine")
             description = yes_no_returner(
                 False, ctx) + "**You have been fined {} {}!**".format(fine, currency)
-            title = f"{DOL} {ctx.author.name} failed, dismally."
+            title = f"{ctx.author.name} failed, dismally."
             try:
                 await bank.withdraw_credits(ctx.author, fine)
             except ValueError:
