@@ -47,7 +47,7 @@ class RobTheBank(commands.Cog):
         if random.randint(1, 6) > 4:
             fine = await self.config.guild(ctx.guild).get_raw("Fine")
             description = yes_no_returner(
-                False, ctx) + "**You have been fined {} {}!**".format(fine, currency)
+                False, ctx) + "You have been fined {} {}!".format(fine, currency)
             title = f"{ctx.author.name} failed, dismally."
             try:
                 await bank.withdraw_credits(ctx.author, fine)
