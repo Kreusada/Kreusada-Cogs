@@ -7,7 +7,7 @@ DOL = ":dollar:"
 def yes_no_returner(fail: bool, ctx: commands.Context) -> str:
     """A bool-returner which will choose a random response."""
     yes = [
-        ":loudspeaker: Dispatch, we've lost the suspect.\n",
+        "Dispatch, we've lost the suspect.\n",
         f"Looks like {ctx.author.name} made it out alive, somehow...\n",
         "We let you loose on purpose, we really did.\n"
     ]
@@ -59,7 +59,7 @@ class RobTheBank(commands.Cog):
         else:
             deposit = await self.config.guild(ctx.guild).get_raw("Deposit")
             description = yes_no_returner(True, ctx) + \
-                "**You have earnt yourself {} {}!**".format(deposit, currency)
+                "\n**You have earnt yourself {} {}!**".format(deposit, currency)
             title = f"{DOL} {ctx.author.name} successfully robbed the bank."
             await bank.deposit_credits(ctx.author, deposit)
         embed = discord.Embed(title=title, description=description, color=0x85bb65)

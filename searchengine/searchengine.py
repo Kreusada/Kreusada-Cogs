@@ -13,7 +13,12 @@ class SearchEngine(commands.Cog):
       """
       return
     
-  @commands.command()
+  @commands.group()
+  async def search(self, ctx):
+    """Search websites."""
+    pass
+    
+  @search.command()
   async def google(self, ctx, *, search_query):
     """Search google."""
     querytemplate = f"https://www.google.co.uk/search?source=hp&ei=z07WX6SiGrXVgwfdpa3wAQ&q={search_query.capitalize()}"
@@ -30,7 +35,7 @@ class SearchEngine(commands.Cog):
     e.set_thumbnail(url="https://media.discordapp.net/attachments/769165401879478302/787742449987878972/google_icon_131222.png")
     await ctx.send(embed=e)
 
-  @commands.command()
+  @search.command()
   async def pinterest(self, ctx, *, search_query):
     """Search pinterest."""
     querytemplate = f"https://www.pinterest.co.uk/search/pins/?q={search_query.capitalize()}"
@@ -47,7 +52,7 @@ class SearchEngine(commands.Cog):
     e.set_thumbnail(url="https://media.discordapp.net/attachments/769165401879478302/787754393873154069/social_pinterest_icon_131227.png")
     await ctx.send(embed=e)
 
-  @commands.command()
+  @search.command()
   async def redbubble(self, ctx, *, search_query):
     """Search redbubble."""
     querytemplate = f"https://www.redbubble.com/shop/?query={search_query.capitalize()}"
