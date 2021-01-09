@@ -14,6 +14,7 @@ class RomanConverter(commands.Cog):
         return
 
     async def roman(self, number):
+        """Number to roman numeral"""
         val = [
             1000, 900, 500, 400,
             100, 90, 50, 40,
@@ -36,6 +37,7 @@ class RomanConverter(commands.Cog):
         return output
 
     async def number(self, roman_numeral):
+        """Roman number to number."""
         rom_val = {
             'I': 1, 'i': 1, 'V': 5, 'v': 5, 
             'X': 10, 'x': 10, 'L': 50, 'l': 50, 

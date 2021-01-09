@@ -236,6 +236,7 @@ class PublishCogs(commands.Cog):
       await self.config.guild(ctx.guild).INSTGUIDE.set(False)
     
   async def predicate_toggle(self, ctx: commands.Context, toggle: str) -> bool:
+    """Used for enabling settings."""
     msg = await ctx.send(f"Would you like to enable {toggle}?")
     pred = ReactionPredicate.yes_or_no(msg, ctx.author)
     start_adding_reactions(msg, ReactionPredicate.YES_OR_NO_EMOJIS)
@@ -255,6 +256,7 @@ class PublishCogs(commands.Cog):
       return True
 
   async def predicate_toggle_all(self, ctx: commands.Context, toggle: str) -> bool:
+    """Used for enabling ALL settings."""
     msg = await ctx.send(f"Would you like to enable {toggle}?")
     pred = ReactionPredicate.yes_or_no(msg, ctx.author)
     start_adding_reactions(msg, ReactionPredicate.YES_OR_NO_EMOJIS)
@@ -274,6 +276,7 @@ class PublishCogs(commands.Cog):
       return True
 
   async def session_establishment(self, ctx: commands.Context):
+    """Predicate used to confirm DMs."""
     msg = await ctx.send(f"Are you sure you would like to publish your cog? I will send you some DMs.")
     pred = ReactionPredicate.yes_or_no(msg, ctx.author)
     start_adding_reactions(msg, ReactionPredicate.YES_OR_NO_EMOJIS)

@@ -15,7 +15,7 @@ class SearchEngine(commands.Cog):
     
   @commands.command()
   async def google(self, ctx, *, search_query):
-    """Search google with a simple URL."""
+    """Search google."""
     querytemplate = f"https://www.google.co.uk/search?source=hp&ei=z07WX6SiGrXVgwfdpa3wAQ&q={search_query.capitalize()}"
     multipleargs = querytemplate.replace(' ', '%20')
     chfmi = "Click here for search results"
@@ -32,7 +32,7 @@ class SearchEngine(commands.Cog):
 
   @commands.command()
   async def pinterest(self, ctx, *, search_query):
-    """Search pinterest with a simple URL."""
+    """Search pinterest."""
     querytemplate = f"https://www.pinterest.co.uk/search/pins/?q={search_query.capitalize()}"
     multipleargs = querytemplate.replace(' ', '%20')
     chfmi = "Click here for search results"
@@ -49,7 +49,7 @@ class SearchEngine(commands.Cog):
 
   @commands.command()
   async def redbubble(self, ctx, *, search_query):
-    """Search redbubble with a simple URL."""
+    """Search redbubble."""
     querytemplate = f"https://www.redbubble.com/shop/?query={search_query.capitalize()}"
     multipleargs = querytemplate.replace(' ', '%20')
     chfmi = "Click here for search results"

@@ -4,6 +4,8 @@ from datetime import datetime, timedelta
 from redbot.core.utils.chat_formatting import humanize_timedelta
 
 class AdvancedUptime(commands.Cog):
+  """Show [botname]'s uptime, with extra stats."""
+  
   def __init__(self, bot):
     self.bot = bot
     self.config = Config.get_conf(self, identifier=59465034743, force_registration=True)
