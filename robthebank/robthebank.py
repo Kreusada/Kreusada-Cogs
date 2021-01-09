@@ -2,8 +2,6 @@ import discord
 import random
 from redbot.core import commands, bank, Config
 
-DOL = ":dollar:"
-
 def yes_no_returner(fail: bool, ctx: commands.Context) -> str:
     """A bool-returner which will choose a random response."""
     yes = [
@@ -59,10 +57,11 @@ class RobTheBank(commands.Cog):
         else:
             deposit = await self.config.guild(ctx.guild).get_raw("Deposit")
             description = yes_no_returner(True, ctx) + \
-                "\n**You have earnt yourself {} {}!**".format(deposit, currency)
-            title = f"{DOL} {ctx.author.name} successfully robbed the bank."
+                "You have earnt yourself {} {}!".format(deposit, currency)
+            title = f"{ctx.author.name} successfully robbed the bank."
             await bank.deposit_credits(ctx.author, deposit)
         embed = discord.Embed(title=title, description=description, color=0x85bb65)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
         await ctx.send(embed=embed)
 
     @commands.group(name="robset")
