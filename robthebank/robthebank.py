@@ -101,7 +101,7 @@ class RobTheBank(commands.Cog):
             s = "Standard"
         else:
             s = "Custom"
-        embed = discord.Embed()
+        embed = discord.Embed(
             title="{}'s Settings".format(ctx.guild.name),
             description=(
                 f"Fine Expense: **{fine}**\n"
