@@ -3,6 +3,7 @@ from datetime import datetime
 import discord
 
 class SearchEngine(commands.Cog):
+  """Search multiple websites for queries."""
   
   def __init__(self, bot):
     self.bot = bot
