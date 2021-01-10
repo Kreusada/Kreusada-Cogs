@@ -13,12 +13,7 @@ class SearchEngine(commands.Cog):
       """
       return
     
-  @commands.group()
-  async def search(self, ctx):
-    """Search websites."""
-    pass
-    
-  @search.command()
+  @commands.command()
   async def google(self, ctx, *, search_query):
     """Search google."""
     querytemplate = f"https://www.google.co.uk/search?source=hp&ei=z07WX6SiGrXVgwfdpa3wAQ&q={search_query.capitalize()}"
@@ -28,14 +23,14 @@ class SearchEngine(commands.Cog):
     strftime = now.strftime("Today at %H:%M %p")
     footer = f"{strftime}"
     hassearched = f"{ctx.author.name} searched for: **{search_query}**."
-    e = discord.Embed(title=":desktop:  Google Search",
+    e = discord.Embed(title="Google Search",
                       description="{}\n\n**[{}]({})**".format(hassearched, chfmi, multipleargs),
                       colour=discord.Colour.red())
     e.set_footer(text=footer)
     e.set_thumbnail(url="https://media.discordapp.net/attachments/769165401879478302/787742449987878972/google_icon_131222.png")
     await ctx.send(embed=e)
 
-  @search.command()
+  @commands.command()
   async def pinterest(self, ctx, *, search_query):
     """Search pinterest."""
     querytemplate = f"https://www.pinterest.co.uk/search/pins/?q={search_query.capitalize()}"
@@ -45,14 +40,14 @@ class SearchEngine(commands.Cog):
     strftime = now.strftime("Today at %H:%M %p")
     footer = f"{strftime}"
     hassearched = f"{ctx.author.name} searched for: **{search_query}**."
-    e = discord.Embed(title=":desktop:  Pinterest Search",
+    e = discord.Embed(title="Pinterest Search",
                       description="{}\n\n**[{}]({})**".format(hassearched, chfmi, multipleargs),
                       colour=discord.Colour.red())
     e.set_footer(text=footer)
     e.set_thumbnail(url="https://media.discordapp.net/attachments/769165401879478302/787754393873154069/social_pinterest_icon_131227.png")
     await ctx.send(embed=e)
 
-  @search.command()
+  @commands.command()
   async def redbubble(self, ctx, *, search_query):
     """Search redbubble."""
     querytemplate = f"https://www.redbubble.com/shop/?query={search_query.capitalize()}"
@@ -62,7 +57,7 @@ class SearchEngine(commands.Cog):
     strftime = now.strftime("Today at %H:%M %p")
     footer = f"{strftime}"
     hassearched = f"{ctx.author.name} searched for: **{search_query}**."
-    e = discord.Embed(title=":desktop:  Redbubble Search",
+    e = discord.Embed(title="Redbubble Search",
                       description="{}\n\n**[{}]({})**".format(hassearched, chfmi, multipleargs),
                       colour=discord.Colour.red())
     e.set_footer(text=footer)
