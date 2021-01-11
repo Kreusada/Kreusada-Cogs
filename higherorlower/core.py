@@ -42,7 +42,7 @@ class HigherOrLower(commands.Cog):
         await ctx.send(f"Let's get started {ctx.author.name}. Remember to answer with either `higher` or `lower`.")
 
         def check(x):
-            return x.author == ctx.author and x.channel == ctx.channel and x.content.startswith("higher") or x.content.startswith("lower")
+            return x.author == ctx.author and x.channel == ctx.channel and x.content.startswith(("higher"m "lower", "h", "l"))
 
         for i in range(9):
             draw = await self.config.user(ctx.author).draw()
@@ -55,7 +55,7 @@ class HigherOrLower(commands.Cog):
             E = await embed(ctx.author.name, A, await self.config.user(ctx.author).image())
             await ctx.send(embed=E)
             choice = await self.bot.wait_for("message", timeout=40, check=check)
-            if choice.content.startswith("higher") and B > A:
+            if choice.content.lower().startswith(("higher", "lower")) and B > A:
                 e = discord.Embed(description=f"✅ Great work! The next number is...", color=0x00FF00)
                 if banke is True:
                     await bank.deposit_credits(ctx.author, per)
@@ -63,7 +63,7 @@ class HigherOrLower(commands.Cog):
                 await ctx.send(embed=e)
                 await self.config.user(ctx.author).draw.set(B)
                 continue
-            elif choice.content.startswith("lower") and B < A:
+            elif choice.content.startswith(("lower", "l")) and B < A:
                 e = discord.Embed(description=f"✅ Great work! The next number is...", color=0x00FF00)
                 if banke is True:
                     e.set_footer(text=f"+{per} has been added to your bank account.")
