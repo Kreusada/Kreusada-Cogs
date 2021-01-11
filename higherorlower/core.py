@@ -43,7 +43,7 @@ class HigherOrLower(commands.Cog):
         await ctx.send(f"Let's get started {ctx.author.name}. Remember to answer with either `higher` or `lower`.")
 
         def check(x):
-            return x.author == ctx.author and x.channel == ctx.channel and x.content.startswith(("higher", "lower", "h", "l"))
+            return x.author == ctx.author and x.channel == ctx.channel and x.content.startswith(("h", "l"))
 
         for i in range(9):
             draw = await self.config.user(ctx.author).draw()
@@ -56,7 +56,7 @@ class HigherOrLower(commands.Cog):
             E = await embed(ctx.author.name, A, await self.config.user(ctx.author).image(), await self.config.user(ctx.author).count())
             await ctx.send(embed=E)
             choice = await self.bot.wait_for("message", timeout=40, check=check)
-            if choice.content.lower().startswith(("higher", "lower")) and B > A:
+            if choice.content.lower().startswith(("h")) and B > A:
                 e = discord.Embed(description=f"✅ Great work! The next number is...", color=0x00FF00)
                 if banke is True:
                     await bank.deposit_credits(ctx.author, per)
@@ -65,7 +65,7 @@ class HigherOrLower(commands.Cog):
                 await self.config.user(ctx.author).draw.set(B)
                 await self.config.user(ctx.author).count.set(+1)
                 continue
-            elif choice.content.startswith(("lower", "l")) and B < A:
+            elif choice.content.startswith(("l")) and B < A:
                 e = discord.Embed(description=f"✅ Great work! The next number is...", color=0x00FF00)
                 if banke is True:
                     e.set_footer(text=f"+{per} has been added to your bank account.")
@@ -74,7 +74,7 @@ class HigherOrLower(commands.Cog):
                 await self.config.user(ctx.author).draw.set(B)
                 await self.config.user(ctx.author).count.set(+1)
                 continue
-            elif choice.content.startswith("higher") and B == A or choice.content.startswith("lower") and B == A:
+            elif choice.content.startswith("h") and B == A or choice.content.startswith("l") and B == A:
                 e = discord.Embed(description=f"😌 The results were the same! The next number is...", color=0xFFFF00)
                 if banke is True:
                     e.set_footer(text=f"+{per} has been added to your bank account.")
