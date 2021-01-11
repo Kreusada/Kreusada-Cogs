@@ -25,7 +25,7 @@ class HigherOrLower(commands.Cog):
             wins=0,
             draw=None,
             image=False,
-            count=0
+            count=1
             )
 
     @commands.command()
@@ -105,7 +105,7 @@ class HigherOrLower(commands.Cog):
         e = discord.Embed(description=f"❌ Oh no {ctx.author.name}! The next card was a {B}.", color=0xFF0000)
         await ctx.send(embed=e)
         await self.config.user(ctx.author).draw.set(None)
-        await self.config.user(ctx.author).count.set(0)
+        await self.config.user(ctx.author).count.set(1)
 
     @commands.group()
     async def holset(self, ctx):
