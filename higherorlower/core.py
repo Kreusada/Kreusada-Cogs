@@ -18,7 +18,8 @@ class HigherOrLower(commands.Cog):
         self.config.register_guild(
             bank=False,
             round=0,
-            per=0
+            per=0,
+            count=0
             )
         self.config.register_user(
             score=0, 
@@ -52,7 +53,7 @@ class HigherOrLower(commands.Cog):
                 A = draw
             B = randint(2, 14)
             await sleep(1)
-            E = await embed(ctx.author.name, A, await self.config.user(ctx.author).image())
+            E = await embed(ctx.author.name, A, await self.config.user(ctx.author).image(), await self.config.user(ctx.author).count())
             await ctx.send(embed=E)
             choice = await self.bot.wait_for("message", timeout=40, check=check)
             if choice.content.lower().startswith(("higher", "lower")) and B > A:
