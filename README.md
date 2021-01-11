@@ -29,6 +29,7 @@ Remember - don't include the `<>` when you use this command. Those characters ar
 |-----------------|---------------------------------------------------------------|---------------------|---------|
 | advanceduptime  | Uptime but with additional statistics and inside an embed.    | Kreusada            | Utility |
 | edition         | Inspired by Twentysix Edition at Red.                         | Kreusada            | Fun     |
+| higherorlower   | Play the classic higher or lower cards game.                  | Kreusada            | Fun     |
 | pingoverride    | Replace "Pong." with your own response!                       | Kreusada            | Utility |
 | publishcogs     | Publish your new cogs to a channel.                           | Kreusada            | Utility |
 | robthebank      | Rob the bank, gain or lose cash!                              | Kreusada            | Economy |
