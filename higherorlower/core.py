@@ -63,6 +63,7 @@ class HigherOrLower(commands.Cog):
                     e.set_footer(text=f"+{per} has been added to your bank account.")
                 await ctx.send(embed=e)
                 await self.config.user(ctx.author).draw.set(B)
+                await self.config.user(ctx.author).count.set(+1)
                 continue
             elif choice.content.startswith(("lower", "l")) and B < A:
                 e = discord.Embed(description=f"✅ Great work! The next number is...", color=0x00FF00)
@@ -71,6 +72,7 @@ class HigherOrLower(commands.Cog):
                     await bank.deposit_credits(ctx.author, per)
                 await ctx.send(embed=e)
                 await self.config.user(ctx.author).draw.set(B)
+                await self.config.user(ctx.author).count.set(+1)
                 continue
             elif choice.content.startswith("higher") and B == A or choice.content.startswith("lower") and B == A:
                 e = discord.Embed(description=f"😌 The results were the same! The next number is...", color=0xFFFF00)
@@ -79,6 +81,7 @@ class HigherOrLower(commands.Cog):
                     await bank.deposit_credits(ctx.author, per)
                 await ctx.send(embed=e)
                 await self.config.user(ctx.author).draw.set(B)
+                await self.config.user(ctx.author).count.set(+1)
                 continue
             else:
                 break
@@ -102,6 +105,7 @@ class HigherOrLower(commands.Cog):
         e = discord.Embed(description=f"❌ Oh no {ctx.author.name}! The next card was a {B}.", color=0xFF0000)
         await ctx.send(embed=e)
         await self.config.user(ctx.author).draw.set(None)
+        await self.config.user(ctx.author).count.set(0)
 
     @commands.group()
     async def holset(self, ctx):
