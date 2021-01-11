@@ -18,14 +18,14 @@ class HigherOrLower(commands.Cog):
         self.config.register_guild(
             bank=False,
             round=0,
-            per=0,
-            count=0
+            per=0
             )
         self.config.register_user(
             score=0, 
             wins=0,
             draw=None,
-            image=False
+            image=False,
+            count=0
             )
 
     @commands.command()
