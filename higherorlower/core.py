@@ -64,20 +64,11 @@ class HigherOrLower(commands.Cog):
                 await self.config.user(ctx.author).draw.set(None)
                 await self.config.user(ctx.author).count.set(1)
                 break
-            if choice.content.lower().startswith(("h")) and B > A:
+            if choice.content.lower().startswith(("h")) and B > A or choice.content.startswith(("l")) and B < A:
                 e = discord.Embed(description=f"✅ Great work! The next number is...", color=0x00FF00)
                 if banke is True:
                     await bank.deposit_credits(ctx.author, per)
                     e.set_footer(text=f"+{per} has been added to your bank account.")
-                await ctx.send(embed=e)
-                await self.config.user(ctx.author).draw.set(B)
-                await self.config.user(ctx.author).count.set(+1)
-                continue
-            elif choice.content.startswith(("l")) and B < A:
-                e = discord.Embed(description=f"✅ Great work! The next number is...", color=0x00FF00)
-                if banke is True:
-                    e.set_footer(text=f"+{per} has been added to your bank account.")
-                    await bank.deposit_credits(ctx.author, per)
                 await ctx.send(embed=e)
                 await self.config.user(ctx.author).draw.set(B)
                 await self.config.user(ctx.author).count.set(+1)
@@ -109,10 +100,12 @@ class HigherOrLower(commands.Cog):
                 break
         else:
             if banke is True:
-                description = f"🎉 You MADE IT {ctx.author.name}!! Awesome work!\n{round} {currency} has been added to your bank account."
-            E = discord.Embed(description=f"🎉 You MADE IT {ctx.author.name}!! Awesome work!")
-            if banke is True:
                 await self.config.guild(ctx.guild).deposit_credits(ctx.author, round)
+                description = f"🎉 You MADE IT {ctx.author.name}!! Awesome work!\n{round} {currency} has been added to your bank account."
+                E = discord.Embed(description=description)
+                await ctx.send(embed=E)
+            E = discord.Embed(description=f"🎉 You MADE IT {ctx.author.name}!! Awesome work!")
+            await ctx.send(embed=E)
             await self.config.user(ctx.author).draw.set(None)
 
     @commands.group()
