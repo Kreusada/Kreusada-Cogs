@@ -6,7 +6,7 @@ from .cards import (
     QUEEN, KING, ACE, HONORS
 )
 
-async def embed(a: discord.Member, n: int, config: bool, count: int):
+async def embed(a: discord.Member, n: int, config: bool, count: int, qs: int):
     if n == 2:
         image = choice(C2)
         num = n
@@ -47,7 +47,7 @@ async def embed(a: discord.Member, n: int, config: bool, count: int):
         image = choice(ACE)
         num = "Ace (14)"
     embed = discord.Embed(title=f"{a}, your card is a {num}.", description="Higher or Lower?", color=0xFF0000)
-    embed.set_footer(text=f"Cards: {count}/9")
+    embed.set_footer(text=f"Cards: {count}/{qs}")
     if config is True:
         embed.set_image(url=image)
     else:
