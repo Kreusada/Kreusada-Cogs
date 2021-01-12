@@ -39,7 +39,7 @@ class HigherOrLower(commands.Cog):
         currency = await bank.get_currency_name(ctx.guild)
         per = await self.config.guild(ctx.guild).per()
         round = await self.config.guild(ctx.guild).round()
-        qs = await self.config.guild(ctx.guild).out()
+        qs = await self.config.guild(ctx.guild).qs()
         await ctx.send(f"Let's get started {ctx.author.name}. Remember to answer with either `higher` or `lower`.")
 
         def check(x):
