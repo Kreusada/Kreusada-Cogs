@@ -17,8 +17,7 @@ Useful Links
 Cog Support
 ==================
 
-* :ref:`appendbackslash`
-* :ref:`fancyuptime`
+* :ref:`advanceduptime`
 * :ref:`higherorlower`
 * :ref:`publishcogs`
 * :ref:`staff`

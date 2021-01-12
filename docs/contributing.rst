@@ -60,4 +60,4 @@ We have this outline to ensure that our guides stay uniform, and are therefore e
 Where will my contribution go?
 ----------------------------
 
-Great question! Your cog guide contribution will be published `here <https://kreusadacogs.readthedocs.io/en/latest/>`_ within 15 minutes of a QA check pull request.
+Great question! Your cog guide contribution will be published `here <https://kreusadacogs.readthedocs.io/en/latest/>`_ within 15 minutes of a successful review.

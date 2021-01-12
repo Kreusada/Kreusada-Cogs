@@ -4,8 +4,6 @@
 Cog: PublishCogs
 ================
 
-.. note:: My wonderful WALL-E users... PublishCogs is available on the bot!
-
 -------
 Outline
 -------
