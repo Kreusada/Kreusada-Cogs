@@ -106,10 +106,10 @@ class HigherOrLower(commands.Cog):
             if banke is True:
                 await bank.deposit_credits(ctx.author, round)
                 description = f"🎉 You MADE IT {ctx.author.name}!! Awesome work!\n{round} {currency} has been added to your bank account."
-                E = discord.Embed(description=description, color=0xFF0000)
+                E = discord.Embed(description=description, color=0x00FF00)
                 await ctx.send(embed=E)
             else:
-                E = discord.Embed(description=f"🎉 You MADE IT {ctx.author.name}!! Awesome work!", color=0xFF0000)
+                E = discord.Embed(description=f"🎉 You MADE IT {ctx.author.name}!! Awesome work!", color=0x00FF00)
                 await ctx.send(embed=E)
             await self.config.user(ctx.author).draw.set(None)
             await self.config.user(ctx.author).count.set(1)
