@@ -71,7 +71,9 @@ class HigherOrLower(commands.Cog):
                     e.set_footer(text=f"+{per} has been added to your bank account.")
                 await ctx.send(embed=e)
                 await self.config.user(ctx.author).draw.set(B)
-                await self.config.user(ctx.author).count.set(+1)
+                count = await self.config.user(ctx.author).count()
+                count += 1
+                await self.config.user(ctx.author).count.set(count)
                 continue
             elif choice.content.startswith("h") and B == A or choice.content.startswith("l") and B == A:
                 e = discord.Embed(description=f"😌 The results were the same! The next number is...", color=0xFFFF00)
@@ -80,7 +82,9 @@ class HigherOrLower(commands.Cog):
                     await bank.deposit_credits(ctx.author, per)
                 await ctx.send(embed=e)
                 await self.config.user(ctx.author).draw.set(B)
-                await self.config.user(ctx.author).count.set(+1)
+                count = await self.config.user(ctx.author).count()
+                count += 1
+                await self.config.user(ctx.author).count.set(count)
                 continue
             else:
                 if B == 11:
