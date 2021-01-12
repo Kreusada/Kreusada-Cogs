@@ -108,8 +108,9 @@ class HigherOrLower(commands.Cog):
                 description = f"🎉 You MADE IT {ctx.author.name}!! Awesome work!\n{round} {currency} has been added to your bank account."
                 E = discord.Embed(description=description)
                 await ctx.send(embed=E)
-            E = discord.Embed(description=f"🎉 You MADE IT {ctx.author.name}!! Awesome work!")
-            await ctx.send(embed=E)
+            else:
+                E = discord.Embed(description=f"🎉 You MADE IT {ctx.author.name}!! Awesome work!")
+                await ctx.send(embed=E)
             await self.config.user(ctx.author).draw.set(None)
 
     @commands.group()
