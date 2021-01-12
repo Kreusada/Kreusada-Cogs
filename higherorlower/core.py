@@ -1,5 +1,5 @@
 import discord
-from asyncio import sleep
+from asyncio import sleep, TimeoutError
 from random import randint
 from redbot.core import bank, commands, Config
 from redbot.core.utils.chat_formatting import bold as b
@@ -58,7 +58,7 @@ class HigherOrLower(commands.Cog):
             await ctx.send(embed=E)
             try:
                 choice = await self.bot.wait_for("message", timeout=40, check=check)
-            except asyncio.TimeoutError:
+            except TimeoutError:
                 e = discord.Embed(description=msg + "You took too long to respond.", color=0xFF0000)
                 await self.config.user(ctx.author).draw.set(None)
                 await self.config.user(ctx.author).count.set(1)
@@ -105,6 +105,7 @@ class HigherOrLower(commands.Cog):
                 await ctx.send(embed=e)
                 await self.config.user(ctx.author).draw.set(None)
                 await self.config.user(ctx.author).count.set(1)
+                break
         else:
             if banke is True:
                 description = f"🎉 You MADE IT {ctx.author.name}!! Awesome work!\n{round} {currency} has been added to your bank account."
