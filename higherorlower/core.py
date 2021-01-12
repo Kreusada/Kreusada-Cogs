@@ -47,6 +47,7 @@ class HigherOrLower(commands.Cog):
 
         for i in range(9):
             draw = await self.config.user(ctx.author).draw()
+            msg = f"❌ Oh no {ctx.author.name}! "
             if not draw:
                 A = randint(2, 14)
             else:
@@ -55,7 +56,13 @@ class HigherOrLower(commands.Cog):
             await sleep(1)
             E = await embed(ctx.author.name, A, await self.config.user(ctx.author).image(), await self.config.user(ctx.author).count())
             await ctx.send(embed=E)
-            choice = await self.bot.wait_for("message", timeout=40, check=check)
+            try:
+                choice = await self.bot.wait_for("message", timeout=40, check=check)
+            except asyncio.TimeoutError:
+                e = discord.Embed(description=msg + "You took too long to respond.", color=0xFF0000)
+                await self.config.user(ctx.author).draw.set(None)
+                await self.config.user(ctx.author).count.set(1)
+                break
             if choice.content.lower().startswith(("h")) and B > A:
                 e = discord.Embed(description=f"✅ Great work! The next number is...", color=0x00FF00)
                 if banke is True:
@@ -84,7 +91,20 @@ class HigherOrLower(commands.Cog):
                 await self.config.user(ctx.author).count.set(+1)
                 continue
             else:
-                break
+                if B == 11:
+                    B = "Jack"
+                elif B == 12:
+                    B = "Queen"
+                elif B == 13:
+                    B = "King"
+                elif B == 14:
+                    B = "Ace"
+                else:
+                    B = B
+                e = discord.Embed(description=f"❌ Oh no {ctx.author.name}! The next card was a {B}.", color=0xFF0000)
+                await ctx.send(embed=e)
+                await self.config.user(ctx.author).draw.set(None)
+                await self.config.user(ctx.author).count.set(1)
         else:
             if banke is True:
                 description = f"🎉 You MADE IT {ctx.author.name}!! Awesome work!\n{round} {currency} has been added to your bank account."
@@ -92,20 +112,6 @@ class HigherOrLower(commands.Cog):
             if banke is True:
                 await self.config.guild(ctx.guild).deposit_credits(ctx.author, round)
             await self.config.user(ctx.author).draw.set(None)
-        if B == 11:
-            B = "Jack"
-        elif B == 12:
-            B = "Queen"
-        elif B == 13:
-            B = "King"
-        elif B == 14:
-            B = "Ace"
-        else:
-            B = B
-        e = discord.Embed(description=f"❌ Oh no {ctx.author.name}! The next card was a {B}.", color=0xFF0000)
-        await ctx.send(embed=e)
-        await self.config.user(ctx.author).draw.set(None)
-        await self.config.user(ctx.author).count.set(1)
 
     @commands.group()
     async def holset(self, ctx):
