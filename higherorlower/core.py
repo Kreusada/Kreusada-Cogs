@@ -1,5 +1,5 @@
 import discord
-import asyncio
+from asyncio import sleep, TimeoutError
 from random import randint
 from redbot.core import bank, commands, Config
 from redbot.core.utils.chat_formatting import bold as b
@@ -53,13 +53,14 @@ class HigherOrLower(commands.Cog):
             else:
                 A = draw
             B = randint(2, 14)
-            await asyncio.sleep(1)
+            await sleep(1)
             E = await embed(ctx.author.name, A, await self.config.user(ctx.author).image(), await self.config.user(ctx.author).count())
             await ctx.send(embed=E)
             try:
                 choice = await self.bot.wait_for("message", timeout=40, check=check)
-            except asyncio.TimeoutError:
+            except TimeoutError:
                 e = discord.Embed(description=msg + "You took too long to respond.", color=0xFF0000)
+                await ctx.send(embed=e)
                 await self.config.user(ctx.author).draw.set(None)
                 await self.config.user(ctx.author).count.set(1)
                 break
