@@ -1,16 +1,10 @@
 {
-	"author": [
-		"Kreusada"
-	],
+	"author": "Kreusada",
 	"description": "Cog for setting your nickname as an edition for someone. Inspired by the Twentysix Edition at Red.",
-    "install_msg": "Thanks for installing, have fun.",
+    "install_msg": "Thanks for installing, have fun. Use `[p]help Edition`.",
 	"short": "Edition nickname",
 	"name": "Edition",
-	"tags": [
-		"edition",
-    "nick",
-    "nikcname"
-	],
+	"tags": ["Edition", "Nick", "Nickname"],
 	"type": "COG",
 	"end_user_data_statement": "This cog does not persistently store data or metadata about users."
 }
