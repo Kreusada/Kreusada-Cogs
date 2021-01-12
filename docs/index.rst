@@ -14,16 +14,12 @@ Useful Links
 * `Support Server <https://discord.gg/JmCFyq7>`_
 * `Raw Docs <https://github.com/kreus7/kreusadacogs/tree/master/docs>`_
 
-WALL-E Support
-==============
-
-* :ref:`policies`
-
 Cog Support
 ==================
 
 * :ref:`appendbackslash`
 * :ref:`fancyuptime`
+* :ref:`higherorlower`
 * :ref:`publishcogs`
 * :ref:`staff`
 
