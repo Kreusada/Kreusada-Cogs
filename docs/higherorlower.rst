@@ -118,3 +118,5 @@ Feel free to visit my cog support channel in my `support server <https://discord
 
 
 **HigherOrLower** was released 11/01/2021.
+
+`Home <https://kreusadacogs.readthedocs.io/en/latest/index.html>`_ | `Support Server <https://discord.gg/JmCFyq7>`_

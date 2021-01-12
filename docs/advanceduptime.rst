@@ -1,7 +1,7 @@
 .. _advanceduptime:
 
 ====================
-Cog: AdvancedUptime
+AdvancedUptime
 ====================
 
 -------
@@ -44,3 +44,5 @@ Support
 As always, you can join my `support server <https://discord.gg/JmCFyq7>`_ if you need help!
 
 - Kreusada
+
+`Home <https://kreusadacogs.readthedocs.io/en/latest/index.html>`_ | `Support Server <https://discord.gg/JmCFyq7>`_

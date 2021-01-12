@@ -61,3 +61,5 @@ Where will my contribution go?
 ----------------------------
 
 Great question! Your cog guide contribution will be published `here <https://kreusadacogs.readthedocs.io/en/latest/>`_ within 15 minutes of a successful review.
+
+`Home <https://kreusadacogs.readthedocs.io/en/latest/index.html>`_ | `Support Server <https://discord.gg/JmCFyq7>`_

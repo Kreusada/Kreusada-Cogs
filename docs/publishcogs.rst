@@ -1,7 +1,7 @@
 .. _publishcogs:
 
 ================
-Cog: PublishCogs
+PublishCogs
 ================
 
 -------
@@ -110,8 +110,4 @@ Setup: Set All
 
 This command will toggle all toggleable commands on, or off! Running this command will bring you to a yes or no predicate which will determine your settings.
 
-
-
-
-
-
+`Home <https://kreusadacogs.readthedocs.io/en/latest/index.html>`_ | `Support Server <https://discord.gg/JmCFyq7>`_
