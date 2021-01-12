@@ -104,7 +104,7 @@ class HigherOrLower(commands.Cog):
                 break
         else:
             if banke is True:
-                await self.config.guild(ctx.guild).deposit_credits(ctx.author, round)
+                await bank.deposit_credits(ctx.author, round)
                 description = f"🎉 You MADE IT {ctx.author.name}!! Awesome work!\n{round} {currency} has been added to your bank account."
                 E = discord.Embed(description=description)
                 await ctx.send(embed=E)
