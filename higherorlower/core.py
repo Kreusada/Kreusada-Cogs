@@ -18,11 +18,10 @@ class HigherOrLower(commands.Cog):
         self.config.register_guild(
             bank=False,
             round=0,
-            per=0
+            per=0,
+            qs=9
             )
         self.config.register_user(
-            score=0, 
-            wins=0,
             draw=None,
             image=False,
             count=1
@@ -40,12 +39,13 @@ class HigherOrLower(commands.Cog):
         currency = await bank.get_currency_name(ctx.guild)
         per = await self.config.guild(ctx.guild).per()
         round = await self.config.guild(ctx.guild).round()
+        qs = await self.config.guild(ctx.guild).out()
         await ctx.send(f"Let's get started {ctx.author.name}. Remember to answer with either `higher` or `lower`.")
 
         def check(x):
             return x.author == ctx.author and x.channel == ctx.channel and x.content.lower().startswith(("h", "l"))
 
-        for i in range(9):
+        for i in range(int(qs)):
             draw = await self.config.user(ctx.author).draw()
             msg = f"❌ Oh no {ctx.author.name}! "
             if not draw:
@@ -54,7 +54,7 @@ class HigherOrLower(commands.Cog):
                 A = draw
             B = randint(2, 14)
             await sleep(1)
-            E = await embed(ctx.author.name, A, await self.config.user(ctx.author).image(), await self.config.user(ctx.author).count())
+            E = await embed(ctx.author.name, A, await self.config.user(ctx.author).image(), await self.config.user(ctx.author).count(), qs)
             await ctx.send(embed=E)
             try:
                 choice = await self.bot.wait_for("message", timeout=40, check=check)
@@ -127,6 +127,23 @@ class HigherOrLower(commands.Cog):
             await self.config.guild(ctx.guild).per.set(payout)
             await ctx.send(f"Done. Users will now receive {payout} {currency} when they correctly guess a card.")
 
+    @holset.command()
+    @commands.mod_or_permissions(administrator=True)
+    async def total(self, ctx, cards: int):
+        """
+        Set the total of answered cards needed to win.
+        
+        This value defaults to 9.
+        """
+        currency = await bank.get_currency_name(ctx.guild)
+        if cards <= 3:
+            await ctx.send(f"Setting the required cards to {int(cards)} would be too easy. Please go higher.")
+        elif cards >= 20:
+            await ctx.send(f"Setting the required cards to {int(cards)}... would that even be possible? Please go lower.")
+        else:
+            await self.config.guild(ctx.guild).qs.set(cards)
+            await ctx.send(f"Users will now have to answer {int(cards)} cards correctly before winning.")
+            
     @holset.command()
     @commands.mod_or_permissions(administrator=True)
     async def roundpayout(self, ctx, payout: int):
