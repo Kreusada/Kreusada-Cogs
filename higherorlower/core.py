@@ -43,7 +43,7 @@ class HigherOrLower(commands.Cog):
         await ctx.send(f"Let's get started {ctx.author.name}. Remember to answer with either `higher` or `lower`.")
 
         def check(x):
-            return x.author == ctx.author and x.channel == ctx.channel and x.content.startswith(("h", "l"))
+            return x.author == ctx.author and x.channel == ctx.channel and x.content.lower().startswith(("h", "l"))
 
         for i in range(9):
             draw = await self.config.user(ctx.author).draw()
