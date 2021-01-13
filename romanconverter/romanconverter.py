@@ -1,6 +1,11 @@
 import discord
 from redbot.core import commands
+from redbot.core import commands
+from redbot.core.i18n import Translator, cog_i18n
 
+_ = Translator("RomanConverter", __file__)
+
+@cog_i18n(_)
 class RomanConverter(commands.Cog):
     """Convert integers to roman numerals."""
 

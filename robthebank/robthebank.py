@@ -2,6 +2,11 @@ import discord
 import random
 from redbot.core import commands, bank, Config
 
+from redbot.core import commands
+from redbot.core.i18n import Translator, cog_i18n
+
+_ = Translator("RobTheBank", __file__)
+
 def yes_no_returner(fail: bool, ctx: commands.Context) -> str:
     """A bool-returner which will choose a random response."""
     yes = [
@@ -17,7 +22,7 @@ def yes_no_returner(fail: bool, ctx: commands.Context) -> str:
     ]
     return random.choice(yes) if fail else random.choice(no)
 
-
+@cog_i18n(_)
 class RobTheBank(commands.Cog):
     """Rob the bank. Gain or get fired"""
 

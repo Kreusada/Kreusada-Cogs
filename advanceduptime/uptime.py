@@ -3,6 +3,12 @@ from redbot.core import commands, Config
 from datetime import datetime, timedelta
 from redbot.core.utils.chat_formatting import humanize_timedelta
 
+from redbot.core import commands
+from redbot.core.i18n import Translator, cog_i18n
+
+_ = Translator("AdvancedUptime", __file__)
+
+@cog_i18n(_)
 class AdvancedUptime(commands.Cog):
   """Show [botname]'s uptime, with extra stats."""
   

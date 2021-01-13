@@ -4,6 +4,10 @@ from datetime import datetime, timedelta
 from redbot.core import commands, checks, Config
 from redbot.core.utils.predicates import ReactionPredicate
 from redbot.core.utils.menus import start_adding_reactions
+from redbot.core import commands
+from redbot.core.i18n import Translator, cog_i18n
+
+_ = Translator("AdvancedUptime", __file__)
 
 CHECK = "\N{WHITE HEAVY CHECK MARK}"
 CROSS = "\N{CROSS MARK}"
@@ -17,6 +21,7 @@ default_guild = {
   "INSTGUIDE": True
 }
 
+@cog_i18n(_)
 class PublishCogs(commands.Cog):
   """Publish your newly made cogs to a channel."""
   

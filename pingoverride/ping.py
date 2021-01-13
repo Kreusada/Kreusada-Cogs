@@ -1,7 +1,12 @@
 import discord
 from redbot.core import Config, commands
-from redbot.core.utils import AsyncIter
 
+from redbot.core import commands
+from redbot.core.i18n import Translator, cog_i18n
+
+_ = Translator("PingOverride", __file__)
+
+@cog_i18n(_)
 class PingOverride(commands.Cog):
   """Custom ping message."""
   

@@ -2,6 +2,12 @@ import discord
 import asyncio
 from redbot.core import commands
 
+from redbot.core import commands
+from redbot.core.i18n import Translator, cog_i18n
+
+_ = Translator("SendCards", __file__)
+
+@cog_i18n(_)
 class SendCards(commands.Cog):
   """Send someone a card!"""
   

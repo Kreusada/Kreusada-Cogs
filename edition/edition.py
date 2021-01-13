@@ -1,6 +1,12 @@
 import discord
 from redbot.core import commands, checks, Config
 
+from redbot.core import commands
+from redbot.core.i18n import Translator, cog_i18n
+
+_ = Translator("Edition", __file__)
+
+@cog_i18n(_)
 class Edition(commands.Cog):
     """
     Set your nickname as an edition of someone!

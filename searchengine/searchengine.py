@@ -2,6 +2,12 @@ from redbot.core import commands
 from datetime import datetime
 import discord
 
+from redbot.core import commands
+from redbot.core.i18n import Translator, cog_i18n
+
+_ = Translator("SearchEngine", __file__)
+
+@cog_i18n(_)
 class SearchEngine(commands.Cog):
   """Search multiple websites for queries."""
   

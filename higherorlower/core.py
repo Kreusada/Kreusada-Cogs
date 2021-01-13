@@ -7,6 +7,12 @@ from redbot.core.utils.chat_formatting import bold as b
 from .generators import embed
 from .cards import BACKALL
 
+from redbot.core import commands
+from redbot.core.i18n import Translator, cog_i18n
+
+_ = Translator("HigherOrLower", __file__)
+
+@cog_i18n(_)
 class HigherOrLower(commands.Cog):
     """
     Play the higher or lower card game!
@@ -40,7 +46,7 @@ class HigherOrLower(commands.Cog):
         per = await self.config.guild(ctx.guild).per()
         round = await self.config.guild(ctx.guild).round()
         qs = await self.config.guild(ctx.guild).qs()
-        await ctx.send(f"Let's get started {ctx.author.name}. Remember to answer with either `higher` or `lower`.")
+        await ctx.send(f"Let's get started {ctx.author.name}. Remember to answer with either `higher`, `h`, `lower` or `l`.")
 
         def check(x):
             return x.author == ctx.author and x.channel == ctx.channel and x.content.lower().startswith(("h", "l"))
