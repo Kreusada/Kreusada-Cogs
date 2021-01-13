@@ -21,8 +21,3 @@ Cog Support
 * :ref:`higherorlower`
 * :ref:`publishcogs`
 * :ref:`staff`
-
-Contributing
-============
-
-* :ref:`contributing`
