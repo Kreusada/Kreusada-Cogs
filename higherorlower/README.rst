@@ -1,4 +1,4 @@
-Higher Or Lower
+HigherOrLower
 ===============
 
 -------
@@ -74,6 +74,7 @@ cards your guild members have to work through to win.
 
   [p]holset togglebank <bool>
   
+This command is locked to moderators or administrators.
 This command allows users to receive credits for each card they answer, or each round they complete. On installation, this setting's 
 default is off. You must specify either :code:`true` or :code:`false`, if not, the boolean will default to :code:`false`.
 
@@ -87,6 +88,7 @@ Although you may have enabled the bank, the per card, and per round payouts defa
 
   [p]holset perpayout
   
+This command is locked to moderators or administrators.
 Sets the amount of credits that a user will receive per card that they correctly answer. On installation, this setting's default is 0.
 The bank must be loaded through :code:`[p]load bank`, and it must be enabled via :code:`[p]holset togglebank true`, for transactions to take place.
 You cannot specify a deposit above 1000.
@@ -95,6 +97,7 @@ You cannot specify a deposit above 1000.
 
   [p]holset roundpayout
   
+This command is locked to moderators or administrators.
 Sets the amount of credits that a user will receive per round that they complete. On installation, this setting's default is 0.
 The bank must be loaded through :code:`[p]load bank`, and it must be enabled via :code:`[p]holset togglebank true`, for transactions to take place.
 You cannot specify a deposit above 100000.
@@ -115,3 +118,4 @@ Feel free to visit my cog support channel in my `support server <https://discord
 
 
 **HigherOrLower** was released 11/01/2021.
+
