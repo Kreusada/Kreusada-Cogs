@@ -1,5 +1,5 @@
 {
-	"author": "Kreusada",
+	"author": ["Kreusada"],
 	"description": "Publish your new cogs to a specific channel.",
     "install_msg": "Thanks for installing, have fun. Use `[p]help PublishCogs`! This cog is complex and could get confusing upon setup. Stuck along the way? Check out my documentation: https://kreusadacogs.readthedocs.io/en/latest/publishcogs.html#publishcogs",
 	"short": "Publish new cogs in your guild.",

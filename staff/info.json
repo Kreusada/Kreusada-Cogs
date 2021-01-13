@@ -1,5 +1,5 @@
 {
-	"author": "Kreusada",
+	"author": ["Kreusada"],
 	"description": "Alert staff for inconspicuous activity.",
     "install_msg": "Thanks for installing, have fun. Use `[p]help Staff`.",
 	"short": "Alert the staff.",

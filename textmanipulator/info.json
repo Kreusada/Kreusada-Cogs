@@ -1,5 +1,5 @@
 {
-	"author": "Kreusada",
+	"author": ["Kreusada"],
 	"description": "Manipulate text with different tools.",
     "install_msg": "Thanks for installing, have fun. Use `[p]help TextManipulator`!",
 	"short": "Manipulate text.",

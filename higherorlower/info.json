@@ -1,5 +1,5 @@
 {
-	"author": "Kreusada",
+	"author": ["Kreusada"],
 	"description": "Play the higher or lower card game.",
     "install_msg": "Thanks for installing, have fun. Use `[p]help HigherOrLower`!",
 	"short": "Higher or Lower",
