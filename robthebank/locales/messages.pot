@@ -1,0 +1,37 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2021-01-13 17:48-0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: redgettext 3.3\n"
+
+#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\robthebank\robthebank.py:44
+#, docstring
+msgid "Attempt to rob the bank... **Attempt**"
+msgstr ""
+
+#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\robthebank\robthebank.py:70
+#, docstring
+msgid "Configurations for robbing the bank"
+msgstr ""
+
+#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\robthebank\robthebank.py:74
+#, docstring
+msgid "Set the amount a user can steal"
+msgstr ""
+
+#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\robthebank\robthebank.py:86
+#, docstring
+msgid "Set the fine amount"
+msgstr ""
+
+#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\robthebank\robthebank.py:96
+#, docstring
+msgid "Show the current settings for Rob the bank"
+msgstr ""
