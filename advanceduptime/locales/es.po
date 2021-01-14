@@ -14,6 +14,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: es\n"
 
-#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\advanceduptime\uptime.py:30
+#: advanceduptime\uptime.py:30
 msgid "Shows [botname]'s uptime."
 msgstr "Muestra el tiempo de actividad de [botname]."
