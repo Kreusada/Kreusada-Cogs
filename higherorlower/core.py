@@ -1,14 +1,11 @@
 import discord
-from asyncio import sleep, TimeoutError
 from random import randint
+from asyncio import sleep, TimeoutError
 from redbot.core import bank, commands, Config
+from redbot.core.i18n import Translator, cog_i18n
 from redbot.core.utils.chat_formatting import bold as b
-
 from .generators import embed
 from .cards import BACKALL
-
-from redbot.core import commands
-from redbot.core.i18n import Translator, cog_i18n
 
 _ = Translator("HigherOrLower", __file__)
 
@@ -16,6 +13,8 @@ _ = Translator("HigherOrLower", __file__)
 class HigherOrLower(commands.Cog):
     """
     Play the higher or lower card game!
+    
+    For more information, take a read [here](https://kreusadacogs.readthedocs.io/en/latest/higherorlower.html#higherorlower).
     """
 
     def __init__(self, bot):
@@ -39,7 +38,7 @@ class HigherOrLower(commands.Cog):
         Play higher or lower!
 
         Guess if the next number will be higher or lower based on a standard pack of cards.
-        For more information, please take a look [here](http://www.higherlowergame.com/how-to-play).
+        For more information, please take a look [here](https://kreusadacogs.readthedocs.io/en/latest/higherorlower.html#higherorlower).
         """
         banke = await self.config.guild(ctx.guild).bank()
         currency = await bank.get_currency_name(ctx.guild)
