@@ -1,4 +1,4 @@
-#
+﻿#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: bg_BG\n"
 
-#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\higherorlower\core.py:32
+#: higherorlower\core.py:32
 msgid ""
 "\n"
 "        Play higher or lower!\n"
@@ -34,15 +34,15 @@ msgstr ""
 "higherlowergame.com/how-to-play).\n"
 "        "
 
-#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\higherorlower\core.py:119
+#: higherorlower\core.py:119
 msgid "Settings for higher or lower."
 msgstr "Настройки за по-висока или по-ниска."
 
-#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\higherorlower\core.py:124
+#: higherorlower\core.py:124
 msgid "Sets the bank payout per answer."
 msgstr "Задава изплащането на банката за отговор."
 
-#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\higherorlower\core.py:135
+#: higherorlower\core.py:135
 msgid ""
 "\n"
 "        Set the total of answered cards needed to win.\n"
@@ -56,15 +56,15 @@ msgstr ""
 "Тази стойност по подразбиране е 9.\n"
 "        "
 
-#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\higherorlower\core.py:152
+#: higherorlower\core.py:152
 msgid "Sets the bank payout if all 9 cards are correctly guessed."
 msgstr "Задава изплащането на банката, ако всички 9 карти са правилно познани."
 
-#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\higherorlower\core.py:163
+#: higherorlower\core.py:163
 msgid "Toggle the bank ON. Defaults to False."
 msgstr "Включване на банката. По подразбиране е false."
 
-#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\higherorlower\core.py:182
+#: higherorlower\core.py:182
 msgid ""
 "\n"
 "        Specify whether you would like an image card.\n"

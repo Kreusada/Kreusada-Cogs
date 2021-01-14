@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: nl\n"
 
-#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\higherorlower\core.py:32
+#: higherorlower\core.py:32
 msgid ""
 "\n"
 "        Play higher or lower!\n"
@@ -34,15 +34,15 @@ msgstr ""
 "higherlowergame.com/how-to-play).\n"
 "        "
 
-#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\higherorlower\core.py:119
+#: higherorlower\core.py:119
 msgid "Settings for higher or lower."
 msgstr "Instellingen voor hoger of lager."
 
-#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\higherorlower\core.py:124
+#: higherorlower\core.py:124
 msgid "Sets the bank payout per answer."
 msgstr "Hiermee stelt u de uitbetaling van de bank per antwoord in."
 
-#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\higherorlower\core.py:135
+#: higherorlower\core.py:135
 msgid ""
 "\n"
 "        Set the total of answered cards needed to win.\n"
@@ -56,16 +56,16 @@ msgstr ""
 "Deze waarde wordt standaard ingesteld op 9.\n"
 "        "
 
-#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\higherorlower\core.py:152
+#: higherorlower\core.py:152
 msgid "Sets the bank payout if all 9 cards are correctly guessed."
 msgstr ""
 "Stelt de uitbetaling van de bank in als alle 9 kaarten correct zijn geraden."
 
-#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\higherorlower\core.py:163
+#: higherorlower\core.py:163
 msgid "Toggle the bank ON. Defaults to False."
 msgstr "Schakel de bank in. Standaardinstellingen op False."
 
-#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\higherorlower\core.py:182
+#: higherorlower\core.py:182
 msgid ""
 "\n"
 "        Specify whether you would like an image card.\n"
