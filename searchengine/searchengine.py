@@ -25,10 +25,8 @@ class SearchEngine(commands.Cog):
     """Search google."""
     querytemplate = f"https://www.google.co.uk/search?source=hp&ei=z07WX6SiGrXVgwfdpa3wAQ&q={search_query.capitalize()}"
     querytemplate = querytemplate.replace(' ', '%20')
-    footer = ctx.message.created_at
-    hassearched = f"{ctx.author.name} searched for: **{search_query}**."
     e = discord.Embed(description=(
-      "[Click here for search results](querytemplate)"
+      f"[Click here for search results]({querytemplate})"
     ), colour=discord.Colour.red(), timestamp=ctx.message.created_at)
     e.add_field(name="Engine", value="Google", inline=True)
     e.add_field(name="Author", value=ctx.author.name, inline=True)
@@ -40,10 +38,8 @@ class SearchEngine(commands.Cog):
     """Search pinterest."""
     querytemplate = f"https://www.pinterest.co.uk/search/pins/?q={search_query.capitalize()}"
     querytemplate = querytemplate.replace(' ', '%20')
-    footer = ctx.message.created_at
-    hassearched = f"{ctx.author.name} searched for: **{search_query}**."
     e = discord.Embed(description=(
-      "[Click here for search results](querytemplate)"
+      f"[Click here for search results]({querytemplate})"
     ), colour=discord.Colour.red(), timestamp=ctx.message.created_at)
     e.add_field(name="Engine", value="Pinterest", inline=True)
     e.add_field(name="Author", value=ctx.author.name, inline=True)
@@ -55,10 +51,8 @@ class SearchEngine(commands.Cog):
     """Search redbubble."""
     querytemplate = f"https://www.redbubble.com/shop/?query={search_query.capitalize()}"
     querytemplate = querytemplate.replace(' ', '%20')
-    footer = ctx.message.created_at
-    hassearched = f"{ctx.author.name} searched for: **{search_query}**."
     e = discord.Embed(description=(
-      "[Click here for search results](querytemplate)"
+      f"[Click here for search results]({querytemplate})"
     ), colour=discord.Colour.red(), timestamp=ctx.message.created_at)
     e.add_field(name="Engine", value="RedBubble", inline=True)
     e.add_field(name="Author", value=ctx.author.name, inline=True)
