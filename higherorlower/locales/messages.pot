@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: redgettext 3.3\n"
 
-#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\higherorlower\core.py:32
+#: higherorlower\core.py:32
 #, docstring
 msgid ""
 "\n"
@@ -22,17 +22,17 @@ msgid ""
 "        "
 msgstr ""
 
-#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\higherorlower\core.py:119
+#: higherorlower\core.py:119
 #, docstring
 msgid "Settings for higher or lower."
 msgstr ""
 
-#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\higherorlower\core.py:124
+#: higherorlower\core.py:124
 #, docstring
 msgid "Sets the bank payout per answer."
 msgstr ""
 
-#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\higherorlower\core.py:135
+#: higherorlower\core.py:135
 #, docstring
 msgid ""
 "\n"
@@ -42,17 +42,17 @@ msgid ""
 "        "
 msgstr ""
 
-#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\higherorlower\core.py:152
+#: higherorlower\core.py:152
 #, docstring
 msgid "Sets the bank payout if all 9 cards are correctly guessed."
 msgstr ""
 
-#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\higherorlower\core.py:163
+#: higherorlower\core.py:163
 #, docstring
 msgid "Toggle the bank ON. Defaults to False."
 msgstr ""
 
-#: C:\Users\Jack\Desktop\GitHub\kreusadacogs\higherorlower\core.py:182
+#: higherorlower\core.py:182
 #, docstring
 msgid ""
 "\n"
