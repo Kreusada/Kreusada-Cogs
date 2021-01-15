@@ -28,13 +28,11 @@ class SearchEngine(commands.Cog):
     footer = ctx.message.created_at
     hassearched = f"{ctx.author.name} searched for: **{search_query}**."
     e = discord.Embed(description=(
-      f"**Engine:** Pinterest\n"
-      f"**Search query:** {search_query}\n"
-      f"**Author**: {ctx.author.name}\n"
-      f"**Search results:** [Click here]({querytemplate})"
-    ),
-    colour=discord.Colour.red(),
-    timestamp=ctx.message.created_at)
+      "[Click here for search results](querytemplate)"
+    ), colour=discord.Colour.red(), timestamp=ctx.message.created_at)
+    e.add_field(name="Engine", value="Google", inline=True)
+    e.add_field(name="Author", value=ctx.author.name, inline=True)
+    e.add_field(name="Search Query", value=search_query, inline=False)
     await ctx.send(embed=e)
 
   @commands.command()
@@ -45,13 +43,11 @@ class SearchEngine(commands.Cog):
     footer = ctx.message.created_at
     hassearched = f"{ctx.author.name} searched for: **{search_query}**."
     e = discord.Embed(description=(
-      f"**Engine:** Pinterest\n"
-      f"**Search query:** {search_query}\n"
-      f"**Author**: {ctx.author.name}\n"
-      f"**Search results:** [Click here]({querytemplate})"
-    ),
-    colour=discord.Colour.red(),
-    timestamp=ctx.message.created_at)
+      "[Click here for search results](querytemplate)"
+    ), colour=discord.Colour.red(), timestamp=ctx.message.created_at)
+    e.add_field(name="Engine", value="Pinterest", inline=True)
+    e.add_field(name="Author", value=ctx.author.name, inline=True)
+    e.add_field(name="Search Query", value=search_query, inline=False)
     await ctx.send(embed=e)
 
   @commands.command()
@@ -62,13 +58,11 @@ class SearchEngine(commands.Cog):
     footer = ctx.message.created_at
     hassearched = f"{ctx.author.name} searched for: **{search_query}**."
     e = discord.Embed(description=(
-      f"**Engine:** Pinterest\n"
-      f"**Search query:** {search_query}\n"
-      f"**Author**: {ctx.author.name}\n"
-      f"**Search results:** [Click here]({querytemplate})"
-    ),
-    colour=discord.Colour.red(),
-    timestamp=ctx.message.created_at)
+      "[Click here for search results](querytemplate)"
+    ), colour=discord.Colour.red(), timestamp=ctx.message.created_at)
+    e.add_field(name="Engine", value="RedBubble", inline=True)
+    e.add_field(name="Author", value=ctx.author.name, inline=True)
+    e.add_field(name="Search Query", value=search_query, inline=False)
     await ctx.send(embed=e)
 
 
