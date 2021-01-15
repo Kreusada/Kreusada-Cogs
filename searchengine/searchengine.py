@@ -28,10 +28,10 @@ class SearchEngine(commands.Cog):
     footer = ctx.message.created_at
     hassearched = f"{ctx.author.name} searched for: **{search_query}**."
     e = discord.Embed(description=(
-      f"Engine: Pinterest\n"
-      f"Search Query: {search_query}\n"
-      f"Author: {ctx.author.name}\n"
-      f"Search results: [Click here]({querytemplate})"
+      f"**Engine:** Pinterest\n"
+      f"**Search query:** {search_query}\n"
+      f"**Author**: {ctx.author.name}\n"
+      f"**Search results:** [Click here]({querytemplate})"
     ),
     colour=discord.Colour.red(),
     timestamp=ctx.message.created_at)
@@ -45,10 +45,10 @@ class SearchEngine(commands.Cog):
     footer = ctx.message.created_at
     hassearched = f"{ctx.author.name} searched for: **{search_query}**."
     e = discord.Embed(description=(
-      f"Engine: Pinterest\n"
-      f"Search Query: {search_query}\n"
-      f"Author: {ctx.author.name}\n"
-      f"Search results: [Click here]({querytemplate})"
+      f"**Engine:** Pinterest\n"
+      f"**Search query:** {search_query}\n"
+      f"**Author**: {ctx.author.name}\n"
+      f"**Search results:** [Click here]({querytemplate})"
     ),
     colour=discord.Colour.red(),
     timestamp=ctx.message.created_at)
@@ -62,10 +62,10 @@ class SearchEngine(commands.Cog):
     footer = ctx.message.created_at
     hassearched = f"{ctx.author.name} searched for: **{search_query}**."
     e = discord.Embed(description=(
-      f"Engine: Pinterest\n"
-      f"Search Query: {search_query}\n"
-      f"Author: {ctx.author.name}\n"
-      f"Search results: [Click here]({querytemplate})"
+      f"**Engine:** Pinterest\n"
+      f"**Search query:** {search_query}\n"
+      f"**Author**: {ctx.author.name}\n"
+      f"**Search results:** [Click here]({querytemplate})"
     ),
     colour=discord.Colour.red(),
     timestamp=ctx.message.created_at)
