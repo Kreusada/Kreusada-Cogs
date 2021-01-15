@@ -40,12 +40,10 @@ class AdvancedUptime(commands.Cog):
       users = len(self.bot.users)
       servers = str(len(self.bot.guilds))
       commandsavail = len(set(self.bot.walk_commands()))
-      now = datetime.now()
-      strftime = now.strftime("Today at %H:%M %p")
       app_info = await self.bot.application_info()
       if app_info.team: owner = app_info.team.name
       else: owner = app_info.owner
-      e = discord.Embed(title=f":green_circle:  {botname}'s Uptime", color=0x59e1ac)
+      e = discord.Embed(title=f":green_circle:  {botname}'s Uptime", color=0x59e1ac, timestamp=ctx.message.created_at)
       e.add_field(name=f"Therefore, {botname} has been up for...", value=uptime_str, inline=False)
       e.add_field(name="Instance name:", value=ctx.bot.user, inline=True)
       e.add_field(name="Instance owner:", value=owner, inline=True)
@@ -54,7 +52,6 @@ class AdvancedUptime(commands.Cog):
       e.add_field(name="Unique users:", value=users, inline=True)
       e.add_field(name="Commands available:", value=commandsavail, inline=True)
       e.set_thumbnail(url=ctx.bot.user.avatar_url)
-      e.set_footer(text=f"{strftime}")
       await ctx.send(embed=e)
 
 async def setup(bot):
