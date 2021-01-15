@@ -55,3 +55,4 @@ Join my [support server](https://discord.gg/JmCFyq7).
 * Sauri - Learnt how to use `bot.wait_for` via your application cog. Gracias!
 * Flare - Learnt from his userinfo cog, how to replace a command in core, and then reverse those changes on unload. Merci!
 * Adnayekken - Helped me to understand the os and sys modules (although I haven't used them). Danke!
+* Tobotimus - Lots of kind and motivational words to help my progression as a developer. 
