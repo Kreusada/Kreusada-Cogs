@@ -28,13 +28,13 @@ class SearchEngine(commands.Cog):
     footer = ctx.message.created_at
     hassearched = f"{ctx.author.name} searched for: **{search_query}**."
     e = discord.Embed(description=(
-      f"Engine: Google\n"
+      f"Engine: Pinterest\n"
       f"Search Query: {search_query}\n"
       f"Author: {ctx.author.name}\n"
-      f"Search results: {querytemplate}"
+      f"Search results: [Click here]({querytemplate})"
     ),
-    colour=discord.Colour.red())
-    e.set_footer(text=footer)
+    colour=discord.Colour.red(),
+    timestamp=ctx.message.created_at)
     await ctx.send(embed=e)
 
   @commands.command()
@@ -48,10 +48,10 @@ class SearchEngine(commands.Cog):
       f"Engine: Pinterest\n"
       f"Search Query: {search_query}\n"
       f"Author: {ctx.author.name}\n"
-      f"Search results: {querytemplate}"
+      f"Search results: [Click here]({querytemplate})"
     ),
-    colour=discord.Colour.red())
-    e.set_footer(text=footer)
+    colour=discord.Colour.red(),
+    timestamp=ctx.message.created_at)
     await ctx.send(embed=e)
 
   @commands.command()
@@ -62,13 +62,13 @@ class SearchEngine(commands.Cog):
     footer = ctx.message.created_at
     hassearched = f"{ctx.author.name} searched for: **{search_query}**."
     e = discord.Embed(description=(
-      f"Engine: RedBubble\n"
+      f"Engine: Pinterest\n"
       f"Search Query: {search_query}\n"
       f"Author: {ctx.author.name}\n"
-      f"Search results: {querytemplate}"
+      f"Search results: [Click here]({querytemplate})"
     ),
-    colour=discord.Colour.red())
-    e.set_footer(text=footer)
+    colour=discord.Colour.red(),
+    timestamp=ctx.message.created_at)
     await ctx.send(embed=e)
 
 
