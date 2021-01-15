@@ -49,6 +49,9 @@ Join my [support server](https://discord.gg/JmCFyq7).
   </a>
 </p>
 
-## Credits (AKA. Awesome peoples)
+## Credits
 
-* Jojo - Jojo has corrected me multiple times, and helped me to learn Python. Thankyou!
+* Jojo - Got me started with python, and helped me a lot in my early stages. Thankyou!
+* Sauri - Learnt how to use `bot.wait_for` via your application cog. Gracias!
+* Flare - Learnt from his userinfo cog, how to replace a command in core, and then reverse those changes on unload. Merci!
+* Adnayekken - Helped me to understand the os and sys modules (although I haven't used them). Danke!
