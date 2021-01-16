@@ -8,6 +8,10 @@
 
 This is my repository for Red Discord-Bot. I built these cogs because these were the features that I wanted for my bot, [WALL-E.](https://discord.com/oauth2/authorize?client_id=766580519000473640&scope=bot&permissions=8)
 
+## Alerts
+
+Nothing 'cog-breaking' to know about right now!
+
 ## Installation
 Primarily, make sure you have `downloader` loaded. 
 
@@ -38,6 +42,10 @@ Remember - don't include the `<>` when you use this command. Those characters ar
 | sendcards       | Send christmas, birthday, valentines and get well soon cards. | Kreusada            | Fun     |
 | staff           | Alert staff for inconspicuous activity.                       | Kreusada            | Utility |
 | textmanipulator | Manipulate text and words with tools.                         | Kreusada            | Utility |
+
+## Roadmap
+
+* Plans are being made to add custom responses to PingOverride if the requester is a certain user.
 
 ## Support
 
