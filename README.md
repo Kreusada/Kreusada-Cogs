@@ -10,7 +10,8 @@ This is my repository for Red Discord-Bot. I built these cogs because these were
 
 ## Alerts
 
-Nothing 'cog-breaking' to know about right now!
+My Discord bot is currently pending verification, therefore I might be less able to make changes to cogs until it becomes verified.
+Other than that, none of my cogs are currently flagged as not working!
 
 ## Installation
 Primarily, make sure you have `downloader` loaded. 
