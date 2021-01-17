@@ -56,6 +56,7 @@ class BankThief(commands.Cog):
         """Settings for BankThief."""
 
     @robset.command()
+    @commands.admin_or_permissions(administrator=True)
     async def disable(self, ctx, true_or_false: bool):
         """Set the price for crooks."""
         if true_or_false is False:
@@ -84,18 +85,21 @@ class BankThief(commands.Cog):
 
     @robset.command()
     @commands.cooldown(1, 100, commands.BucketType.user)
+    @commands.admin_or_permissions(administrator=True)
     async def crookcost(self, ctx, price: int):
         """Set the price for crooks."""
         await self.config.guild(ctx.guild).crookcost.set(price)
         await ctx.send(f"The cost to purchase a crook has been set to {price}.")
 
     @robset.command(name="max")
+    @commands.admin_or_permissions(administrator=True)
     async def _max(self, ctx, price: int):
         """Set the maximum rob amount possible."""
         await self.config.guild(ctx.guild).maximum.set(price)
         await ctx.send(f"The maximum rob amount has been set to {price}.")
 
     @robset.command(name="min")
+    @commands.admin_or_permissions(administrator=True)
     async def _min(self, ctx, price: int):
         """Set the maximum rob amount possible."""
         await self.config.guild(ctx.guild).minimum.set(price)
