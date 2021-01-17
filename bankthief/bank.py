@@ -83,6 +83,7 @@ class BankThief(commands.Cog):
             await ctx.send(f"BankThief is disabled. You can re-enable it by using `{ctx.clean_prefix}robset disable false`.")
 
     @robset.command()
+    @commands.cooldown(1, 100, commands.BucketType.user)
     async def crookcost(self, ctx, price: int):
         """Set the price for crooks."""
         await self.config.guild(ctx.guild).crookcost.set(price)
