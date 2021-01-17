@@ -76,15 +76,15 @@ class PingOverride(commands.Cog):
         nick = ctx.author.name
       else:
         nick = ctx.author.nick
-      if resp is None:
-        response = "Pong."
-      elif '{name}' in resp:
-        response = resp.replace('{name}', ctx.author.name)
-      elif '{nick}' in resp:
-        response = resp.replace('{nick}', nick)
-      else:
-        response = resp
-      await ctx.send(response)
+    if resp is None:
+      response = "Pong."
+    elif '{name}' in resp:
+      response = resp.replace('{name}', ctx.author.name)
+    elif '{nick}' in resp:
+      response = resp.replace('{nick}', nick)
+    else:
+      response = resp
+    await ctx.send(response)
 
 async def setup(bot):
     cping = PingOverride(bot)
