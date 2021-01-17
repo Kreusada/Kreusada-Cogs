@@ -226,7 +226,7 @@ class BankThief(commands.Cog):
             f"Unsuccessful robberies: {n}\n"
             f"Close robberies: {a}\n"
         )
-        await ctx.send(f"{box(text=f'[Stats for {ctx.author.name} in {ctx.guild.name}]', lang='ini')}{box(text, lang='yaml')}")
+        await ctx.send(f"{box(text=f'[Stats for {person.name} in {ctx.guild.name}]', lang='ini')}{box(text, lang='yaml')}")
 
 
 
