@@ -26,6 +26,7 @@ class PingOverride(commands.Cog):
     
   @commands.is_owner()  
   @commands.command()
+  @commands.guild_only()
   async def pingset(self, ctx, *, response: str):
     """
     Set your custom ping message.
@@ -47,6 +48,7 @@ class PingOverride(commands.Cog):
 
   @commands.is_owner()  
   @commands.command()
+  @commands.guild_only()
   async def pingsettings(self, ctx):
     """Shows the current ping settings."""
     response = await self.config.response()
@@ -67,19 +69,22 @@ class PingOverride(commands.Cog):
   async def ping(self, ctx):
     """Pong. Or not?"""
     resp = await self.config.response()
-    if ctx.author.nick is None:
+    if ctx.channel == ctx.author.dm_channel:
       nick = ctx.author.name
     else:
-      nick = ctx.author.nick
-    if resp is None:
-      response = "Pong."
-    elif '{name}' in resp:
-      response = resp.replace('{name}', ctx.author.name)
-    elif '{nick}' in resp:
-      response = resp.replace('{nick}', nick)
-    else:
-      response = resp
-    await ctx.send(response)
+      if ctx.author.nick is None:
+        nick = ctx.author.name
+      else:
+        nick = ctx.author.nick
+      if resp is None:
+        response = "Pong."
+      elif '{name}' in resp:
+        response = resp.replace('{name}', ctx.author.name)
+      elif '{nick}' in resp:
+        response = resp.replace('{nick}', nick)
+      else:
+        response = resp
+      await ctx.send(response)
 
 async def setup(bot):
     cping = PingOverride(bot)
