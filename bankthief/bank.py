@@ -26,6 +26,9 @@ STATS_CHECK = f"You can check your stats by using `[p]robstats`."
 @cog_i18n(_)
 class BankThief(commands.Cog):
     """Rob other users."""
+    
+    __author__ = ["Kreusada"]
+    __version__ = "2.0.0"
 
     def __init__(self, bot):
         self.bot = bot
