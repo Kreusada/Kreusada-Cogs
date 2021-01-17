@@ -7,7 +7,7 @@ from redbot.core.utils.menus import start_adding_reactions
 from redbot.core import commands
 from redbot.core.i18n import Translator, cog_i18n
 
-_ = Translator("AdvancedUptime", __file__)
+_ = Translator("PublishCogs", __file__)
 
 CHECK = "\N{WHITE HEAVY CHECK MARK}"
 CROSS = "\N{CROSS MARK}"
@@ -37,10 +37,12 @@ class PublishCogs(commands.Cog):
       return
     
   @commands.group()
-  async def publishcogset(self, ctx):
-    """Configure settings for new cogs."""
+  @commands.guild_only()
+  async def cogset(self, ctx):
+    """Configure settings for publishing and updating cogs."""
     
   @commands.command()
+  @commands.guild_only()
   async def publishcog(self, ctx: commands.Context):
     """Publish your cog!"""
     cog = await self.config.guild(ctx.guild).COGCREATOR()
@@ -48,23 +50,20 @@ class PublishCogs(commands.Cog):
     descr = await self.config.guild(ctx.guild).DESCRIPTION()
     reqs = await self.config.guild(ctx.guild).PREREQS()
     inst = await self.config.guild(ctx.guild).INSTGUIDE()
-    footerdate = role = await self.config.guild(ctx.guild).FOOTERDATE()
+    footerdate = await self.config.guild(ctx.guild).FOOTERDATE()
     cog = discord.utils.get(ctx.guild.roles, id=cog)
     chan = discord.utils.get(ctx.guild.channels, id=chan)
-    role = discord.utils.get(ctx.guild.roles, id=role)
     if cog not in ctx.author.roles:
       return await ctx.send("It doesn't look like you have the cog creator role.")
     if not chan:
       return await ctx.send("The channel has not yet been configured by the admins.")
     try:
-      pred = await self.session_establishment(ctx)
+      pred = await self.session_establishment(ctx, "publish a cog")
       if pred is True:
         await ctx.send(f"Okay {ctx.author.mention}, I sent you a DM!")
         await ctx.author.send(f"Hey {ctx.author.name}, let's get started.")
         await asyncio.sleep(1)
-        await ctx.author.send("What is the cog that you are wanting to publish today?")
-      else:
-        pass
+        await ctx.author.send("What is the cog that you are wanting to publish today? Please use CamelCase.")
     except discord.Forbidden:
       return await ctx.send("I am not able to DM you.")
     
@@ -74,13 +73,13 @@ class PublishCogs(commands.Cog):
     try: 
       cogname = await self.bot.wait_for("message", timeout=200, check=check)
     except asyncio.TimeoutError:
-      return await author.send("You took too long to answer.")
+      return await ctx.author.send("You took too long to answer.")
     if descr is not False:
       await ctx.author.send("Please give a brief description of this cog.")
       try: 
         description = await self.bot.wait_for("message", timeout=200, check=check)
       except asyncio.TimeoutError:
-        return await author.send("You took too long to answer.")
+        return await ctx.author.send("You took too long to answer.")
     else: 
       pass
     if reqs is not False:
@@ -88,7 +87,7 @@ class PublishCogs(commands.Cog):
       try: 
         prereqs = await self.bot.wait_for("message", timeout=200, check=check)
       except asyncio.TimeoutError:
-        return await author.send("You took too long to answer.")
+        return await ctx.author.send("You took too long to answer.")
     else: 
       pass
     if inst is not False:
@@ -100,7 +99,7 @@ class PublishCogs(commands.Cog):
       try: 
         repolink = await self.bot.wait_for("message", timeout=200, check=repo_check)
       except asyncio.TimeoutError:
-        return await author.send("You took too long to provide a valid repository URL.")
+        return await ctx.author.send("You took too long to provide a valid repository URL.")
     else:
       pass
     await ctx.author.send("Perfect! We're all done. Check your guild's channel to see the results!")
@@ -119,7 +118,10 @@ class PublishCogs(commands.Cog):
     e.add_field(name="Cog Name", value=cogname.content, inline=True)
     e.add_field(name="Author", value=ctx.author.name, inline=True)
     if reqs is True:
-      e.add_field(name="Pre-Requirements:", value=prereqs.content, inline=True)
+      if prereqs.content.lower() == 'none':
+        pass
+      else:
+        e.add_field(name="Pre-Requirements:", value=prereqs.content, inline=True)
     else: 
       pass
     if inst is True:
@@ -136,15 +138,94 @@ class PublishCogs(commands.Cog):
     except discord.Forbidden:
       await ctx.author.send(f"Doesn't look like I have permission to post in {chan.mention}. I'm sorry!")
 
-  @publishcogset.command()
+  @commands.command()
+  @commands.guild_only()
+  async def updatecog(self, ctx: commands.Context):
+    """Post updates to your cogs."""
+    cog = await self.config.guild(ctx.guild).COGCREATOR()
+    chan = await self.config.guild(ctx.guild).CHANNEL()
+    descr = await self.config.guild(ctx.guild).DESCRIPTION()
+    reqs = await self.config.guild(ctx.guild).PREREQS()
+    inst = await self.config.guild(ctx.guild).INSTGUIDE()
+    footerdate = await self.config.guild(ctx.guild).FOOTERDATE()
+    cog = discord.utils.get(ctx.guild.roles, id=cog)
+    chan = discord.utils.get(ctx.guild.channels, id=chan)
+    if cog not in ctx.author.roles:
+      return await ctx.send("It doesn't look like you have the cog creator role.")
+    if not chan:
+      return await ctx.send("The channel has not yet been configured by the admins.")
+    try:
+      pred = await self.session_establishment(ctx, "post a cog update")
+      if pred is True:
+        await ctx.send(f"Okay {ctx.author.mention}, I sent you a DM!")
+        await ctx.author.send(f"Hey {ctx.author.name}, let's get started.")
+        await asyncio.sleep(1)
+        await ctx.author.send("What is the cog that you are wanting to update today? Please use CamelCase.")
+    except discord.Forbidden:
+      return await ctx.send("I am not able to DM you.")
+    
+    def check(m): return m.author == ctx.author and m.channel == ctx.author.dm_channel
+    
+    try: 
+      cogname = await self.bot.wait_for("message", timeout=200, check=check)
+    except asyncio.TimeoutError:
+      return await ctx.author.send("You took too long to answer.")
+    await ctx.author.send("Please give a brief description of the changes you made. Markdown is supported.")
+    try: 
+        description = await self.bot.wait_for("message", timeout=200, check=check)
+    except asyncio.TimeoutError:
+        return await ctx.author.send("You took too long to answer.")
+    else: 
+      pass
+    if reqs is not False:
+      await ctx.author.send("Let's remind users about prerequirements. If there isn't any, type `None`.")
+      try: 
+        prereqs = await self.bot.wait_for("message", timeout=200, check=check)
+      except asyncio.TimeoutError:
+        return await ctx.author.send("You took too long to answer.")
+    else: 
+      pass
+    await ctx.author.send("Perfect! We're all done. Check your guild's channel to see the results!")
+    now = datetime.now()
+    strftime = now.strftime("Today at %H:%M %p")
+    if inst is True:
+      cogupdate = f"`[p]cog update {cogname.content.lower()}`"
+    else:
+      pass
+    e = discord.Embed(title=f"Cog Update: {cogname.content}! :gear:", description=description.content, color=0xe15d59)
+    e.add_field(name="Cog Name", value=cogname.content, inline=True)
+    e.add_field(name="Author", value=ctx.author.name, inline=True)
+    if reqs is True:
+      if prereqs.content.lower() == 'none':
+        pass
+      else:
+        e.add_field(name="Pre-Requirements:", value=prereqs.content, inline=True)
+    else: 
+      pass
+    if inst is True:
+      e.add_field(name="Command to update cog", value=cogupdate, inline=False)
+    else: 
+      pass
+    if footerdate is True:
+      e.set_footer(text=strftime)
+    else: 
+      pass
+    try:
+      await chan.send(embed=e)
+    except discord.Forbidden:
+      await ctx.author.send(f"Doesn't look like I have permission to post in {chan.mention}. I'm sorry!")
+
+  @cogset.command()
+  @commands.guild_only()
   @commands.mod_or_permissions(administrator=True)
   async def channel(self, ctx, channel: discord.TextChannel):
-    """Configure the channel where new cogs will be posted."""
+    """Configure the channel where new cogs/cog updates will be posted."""
     await self.config.guild(ctx.guild).CHANNEL.set(channel.id)
     await ctx.message.add_reaction("✅")
     await ctx.send(f"{channel.mention} will now be where new cogs are sent.")
   
-  @publishcogset.command()
+  @cogset.command()
+  @commands.guild_only()
   @commands.mod_or_permissions(administrator=True)
   async def footerdate(self, ctx):
     """Enable date and time display in new cog messages."""
@@ -154,7 +235,8 @@ class PublishCogs(commands.Cog):
     else:
       await self.config.guild(ctx.guild).FOOTERDATE.set(False)
   
-  @publishcogset.command()
+  @cogset.command()
+  @commands.guild_only()
   @commands.mod_or_permissions(administrator=True)
   async def cogcreator(self, ctx, role: discord.Role):
     """Configure your cog creator role."""
@@ -162,7 +244,8 @@ class PublishCogs(commands.Cog):
     await ctx.message.add_reaction("✅")
     await ctx.send(f"{role.mention} will now be considered as the Cog Creator role.")
   
-  @publishcogset.command()
+  @cogset.command()
+  @commands.guild_only()
   @commands.mod_or_permissions(administrator=True)
   async def description(self, ctx):
     """Enable cogs to have descriptions."""
@@ -172,7 +255,8 @@ class PublishCogs(commands.Cog):
     else:
       await self.config.guild(ctx.guild).DESCRIPTION.set(False)
   
-  @publishcogset.command()
+  @cogset.command()
+  @commands.guild_only()
   @commands.mod_or_permissions(administrator=True)
   async def prerequirements(self, ctx):
     """Enable specifications for pre-requirements."""
@@ -182,7 +266,8 @@ class PublishCogs(commands.Cog):
     else:
       await self.config.guild(ctx.guild).PREREQS.set(False)
   
-  @publishcogset.command()
+  @cogset.command()
+  @commands.guild_only()
   @commands.mod_or_permissions(administrator=True)
   async def installguide(self, ctx):
     """Enable whether the cog creator can add an install guide."""
@@ -192,9 +277,10 @@ class PublishCogs(commands.Cog):
     else:
       await self.config.guild(ctx.guild).INSTGUIDE.set(False)
   
-  @publishcogset.command()
+  @cogset.command()
+  @commands.guild_only()
   async def showsettings(self, ctx):
-    """Show the current settings for publishing cogs."""
+    """Show the current settings for PublishCogs."""
     cog = await self.config.guild(ctx.guild).COGCREATOR()
     chan = await self.config.guild(ctx.guild).CHANNEL()
     descr = await self.config.guild(ctx.guild).DESCRIPTION()
@@ -222,7 +308,8 @@ class PublishCogs(commands.Cog):
     embed.add_field(name="Install Guide", value=inst, inline=False)
     return await ctx.send(embed=embed)
   
-  @publishcogset.command()
+  @cogset.command()
+  @commands.guild_only()
   @commands.mod_or_permissions(administrator=True)
   async def setall(self, ctx):
     """Toggle all toggleable settings."""
@@ -280,9 +367,9 @@ class PublishCogs(commands.Cog):
       await ctx.send(f"{CHECK} Okay. {toggle.capitalize()} are now enabled.")
       return True
 
-  async def session_establishment(self, ctx: commands.Context):
+  async def session_establishment(self, ctx: commands.Context, type: str):
     """Predicate used to confirm DMs."""
-    msg = await ctx.send(f"Are you sure you would like to publish your cog? I will send you some DMs.")
+    msg = await ctx.send(f"Are you sure you would like to {type}? I will send you some DMs.")
     pred = ReactionPredicate.yes_or_no(msg, ctx.author)
     start_adding_reactions(msg, ReactionPredicate.YES_OR_NO_EMOJIS)
     try:
