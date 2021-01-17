@@ -1,5 +1,5 @@
 from redbot.core.bot import Red
-from .robthebank import RobTheBank
+from .bank import BankThief
 
 __red_end_user_data_statement__ = (
     "This cog does not persistently store data or metadata about users."
@@ -7,5 +7,5 @@ __red_end_user_data_statement__ = (
 
 
 def setup(bot: Red):
-    cog = RobTheBank(bot)
+    cog = BankThief(bot)
     bot.add_cog(cog)
