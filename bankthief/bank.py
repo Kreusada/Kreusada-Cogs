@@ -88,14 +88,14 @@ class BankThief(commands.Cog):
         await self.config.guild(ctx.guild).crookcost.set(price)
         await ctx.send(f"The cost to purchase a crook has been set to {price}.")
 
-    @robset.command()
-    async def max(self, ctx, price: int):
+    @robset.command(name="max")
+    async def _max(self, ctx, price: int):
         """Set the maximum rob amount possible."""
         await self.config.guild(ctx.guild).maximum.set(price)
         await ctx.send(f"The maximum rob amount has been set to {price}.")
 
-    @robset.command()
-    async def min(self, ctx, price: int):
+    @robset.command(name="min")
+    async def _min(self, ctx, price: int):
         """Set the maximum rob amount possible."""
         await self.config.guild(ctx.guild).minimum.set(price)
         await ctx.send(f"The minimum rob amount has been set to {price}.")
@@ -204,25 +204,28 @@ class BankThief(commands.Cog):
         n = await self.config.user(person).notsuccess()
         a = await self.config.user(person).almost()
         if c == 0:
-            c = "no crooks left."
+            c = "None"
         else:
-            c = f"**{c}** crooks waiting to be used..."
+            c = c
         if s == 0:
-            s = "no successful attempts"
+            s = "None"
         else:
-            s = f"**{s}** successful robberies"
+            s = s
         if n == 0:
-            n = f"no unsuccessful attempts"
+            n = "None"
         else:
-            n = f"**{n}** unsuccessful robberies"
+            n = n
         if a == 0:
-            a = "no close attempts"
+            a = "None"
         else:
-            a = f"**{a}** close attempts."
-        await ctx.send(
-            f"**{person.name}** has {c}.\n"
-            f"With {s}, {n} and {a}."
+            a = a
+        text = (
+            "Number of crooks: {c}"
+            "Successful robberies: {s}"
+            "Unsuccessful robberies: {n}"
+            "Close robberies: {a}"
         )
+        await ctx.send(box(text=f'[Stats for {ctx.author.name} in {ctx.guild.name}]', lang='ini')(box(text, lang='yaml'))
 
 
 
