@@ -220,10 +220,10 @@ class BankThief(commands.Cog):
         else:
             a = a
         text = (
-            "Number of crooks: {c}"
-            "Successful robberies: {s}"
-            "Unsuccessful robberies: {n}"
-            "Close robberies: {a}"
+            f"Number of crooks: {c}\n"
+            f"Successful robberies: {s}\n"
+            f"Unsuccessful robberies: {n}\n"
+            f"Close robberies: {a}\n"
         )
         await ctx.send(f"{box(text=f'[Stats for {ctx.author.name} in {ctx.guild.name}]', lang='ini')}{box(text, lang='yaml')}")
 
