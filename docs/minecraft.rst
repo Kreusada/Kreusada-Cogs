@@ -41,14 +41,14 @@ Regex Patterns
 
 **Blocks**
 
-:code:`t`: Denotes a TNT block.
-:code:`d`: Denotes a dirt block.
-:code:`s`: Denotes a sky block.
-:code:`g`: Denotes a glass pane block.
-:code:`f`: Denotes an 'on-fire' block. This block is animated.
-:code:`w`: Denotes a birch wood block.
-:code:`l`: Denotes a leaves block.
-:code:`T`: Denotes a tree stalk block. 
+* :code:`t`: Denotes a TNT block.
+* :code:`d`: Denotes a dirt block.
+* :code:`s`: Denotes a sky block.
+* :code:`g`: Denotes a glass pane block.
+* :code:`f`: Denotes an 'on-fire' block. This block is animated.
+* :code:`w`: Denotes a birch wood block.
+* :code:`l`: Denotes a leaves block.
+* :code:`T`: Denotes a tree stalk block. 
 
 **Utility**
 
