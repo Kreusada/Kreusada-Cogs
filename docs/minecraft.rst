@@ -39,7 +39,9 @@ Below, you will see all the regex types as of 18/01/21:
 Regex Patterns
 --------------
 
-**Blocks**
+-----------
+Blocks
+-----------
 
 * :code:`t`: Denotes a TNT block.
 * :code:`d`: Denotes a dirt block.
@@ -50,14 +52,19 @@ Regex Patterns
 * :code:`l`: Denotes a leaves block.
 * :code:`T`: Denotes a tree stalk block. 
 
-**Utility**
+-----------
+Utility
+-----------
 
 :code:`b`: Denotes a completely empty block.
 :code:`/`: Denotes a line break.
+:code:`[]`: If the string starts with :code:`[]`, the author's message will be deleted on send.
 
-**Quantifiers**
+-----------
+Quantifiers
+-----------
 
-:code:`<number>`: Represents the quantity of the attached block to spawn.
+:code:`<quantity>`: Represents the quantity of the attached block to spawn.
   - Syntax: :code:`[p]build <block_type><quantity>...`
   
 .. note:: If no number is specified, it defaults to 1.
@@ -86,8 +93,7 @@ Presets
 
 There are a few presets I have gathered to build certain objects.
 
-* **Syntax** - * :code:`[p]build s8/s8/s8/w4s2l2/wg2ws1l3/w4sl3/d8/d8`
-
+- **Syntax** - :code:`[p]build s8/s8/s8/w4s2l2/wg2ws1l3/w4sl3/d8/d8`
 - **Output** - A small wooden building with a bush and some sky.
 
 
