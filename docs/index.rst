@@ -19,5 +19,6 @@ Cog Support
 
 * :ref:`advanceduptime`
 * :ref:`higherorlower`
+* :ref:`minecraft`
 * :ref:`publishcogs`
 * :ref:`staff`
