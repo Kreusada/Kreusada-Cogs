@@ -58,7 +58,7 @@ class BankThief(commands.Cog):
     @robset.command()
     @commands.admin_or_permissions(administrator=True)
     async def disable(self, ctx, true_or_false: bool):
-        """Set the price for crooks."""
+        """Disable or enable BankThief."""
         if true_or_false is False:
             await ctx.send("BankThief is now active.")
         else:
