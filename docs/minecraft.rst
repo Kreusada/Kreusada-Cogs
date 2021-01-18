@@ -86,8 +86,9 @@ Presets
 
 There are a few presets I have gathered to build certain objects.
 
-**Syntax** - * :code:`[p]build s8/s8/s8/w4s2l2/wg2ws1l3/w4sl3/d8/d8`
-**Output** - A small wooden building with a bush and some sky.
+* **Syntax** - * :code:`[p]build s8/s8/s8/w4s2l2/wg2ws1l3/w4sl3/d8/d8`
+
+- **Output** - A small wooden building with a bush and some sky.
 
 
 
