@@ -47,7 +47,6 @@ Remember - don't include the `<>` when you use this command. Those characters ar
 ## Roadmap
 
 * PingOverride - Plans are being made to add custom responses if the requester is a certain user.
-* PublishCogs - Update users on cog updates as well as for new cogs.
 
 ## Support
 
