@@ -47,7 +47,7 @@ class AdvancedUptime(commands.Cog):
       e.add_field(name="Instance owner:", value=owner, inline=True)
       e.add_field(name="Current guild:", value=ctx.guild, inline=True)
       e.add_field(name="Number of guilds:", value=str(len(self.bot.guilds)), inline=True)
-      e.add_field(name="Unique users:", value=en(self.bot.users), inline=True)
+      e.add_field(name="Unique users:", value=(self.bot.users), inline=True)
       e.add_field(name="Commands available:", value=len(set(self.bot.walk_commands())), inline=True)
       e.set_thumbnail(url=ctx.bot.user.avatar_url)
       await ctx.send(embed=e)
