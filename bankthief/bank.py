@@ -47,11 +47,6 @@ class BankThief(commands.Cog):
 
     @commands.group()
     @commands.guild_only()
-    async def robstore(self, ctx):
-        """Store for bank property."""
-
-    @commands.group()
-    @commands.guild_only()
     async def robset(self, ctx):
         """Settings for BankThief."""
 
@@ -120,7 +115,8 @@ class BankThief(commands.Cog):
         )
         await ctx.send(f"{box(text=f'[Settings for {ctx.guild.name}]', lang='ini')}{box(text, lang='yaml')}")
 
-    @robstore.command()
+    @commands.command()
+    @commands.guild_only()
     async def crook(self, ctx):
         """Purchase a crook to rob someone's bank account."""
         if await self.config.guild(ctx.guild).disable() is False:
@@ -160,7 +156,7 @@ class BankThief(commands.Cog):
             no = await self.config.user(ctx.author).notsuccess()
             almost = await self.config.user(ctx.author).almost()
             if crook == 0:
-                return await ctx.send(f"You do not have a crook to rob {member.name}. Perhaps buy one using `{ctx.clean_prefix}robstore crook`.")
+                return await ctx.send(f"You do not have a crook to rob {member.name}. Perhaps buy one using `{ctx.clean_prefix}crook`.")
             rob = randint(await self.config.guild(ctx.guild).minimum(), await self.config.guild(ctx.guild).maximum())
             chance = randint(1, 10)
             if rob > await bank.get_balance(member):
