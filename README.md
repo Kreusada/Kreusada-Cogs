@@ -10,10 +10,12 @@ This is my repository for Red Discord-Bot. I built these cogs because these were
 
 ## Alerts
 
-My Discord bot is currently pending verification, therefore I might be less able to make changes to cogs until it becomes verified.
-Other than that, none of my cogs are currently flagged as not working!
+I am a student, just a year away from taking exams - I also have a large sporting and social life. By creating an issue or pull request,
+you understand that support may not arrive instantly, and many feature requests will be turned down sheerly due to the fact that I do not
+have the patience or time to cover these ideas.
 
 ## Installation
+
 Primarily, make sure you have `downloader` loaded. 
 
     `[p]load Downloader`
@@ -33,11 +35,11 @@ Remember - don't include the `<>` when you use this command. Those characters ar
 | Cog Name        | Description                                                   | Author              | Type    |
 |-----------------|---------------------------------------------------------------|---------------------|---------|
 | advanceduptime  | Uptime but with additional statistics and inside an embed.    | Kreusada            | Utility |
+| bankthief       | Rob other people's bank accounts, win cash.                   | Kreusada            | Economy |
 | edition         | Inspired by Twentysix Edition at Red.                         | Kreusada            | Fun     |
 | higherorlower   | Play the classic higher or lower cards game.                  | Kreusada            | Fun     |
 | pingoverride    | Replace "Pong." with your own response!                       | Kreusada            | Utility |
 | publishcogs     | Publish your new cogs to a channel.                           | Kreusada            | Utility |
-| robthebank      | Rob the bank, gain or lose cash!                              | Kreusada            | Economy |
 | romanconverter  | Convert to roman numerals, and vise versa.                    | Kreusada            | Utility |
 | searchengine    | Search Google, Pinterest or Redbubble.                        | Kreusada            | Utility |
 | sendcards       | Send christmas, birthday, valentines and get well soon cards. | Kreusada            | Fun     |
@@ -65,3 +67,22 @@ Join my [support server](https://discord.gg/JmCFyq7).
 * Flare - Learnt from his userinfo cog, how to replace a command in core, and then reverse those changes on unload. Merci!
 * Adnayekken - Helped me to understand the os and sys modules (although I haven't used them). Danke!
 * Tobotimus - Lots of kind and motivational words to help my progression as a developer. 
+
+## In the event of Red V4
+
+Red V4 is most definitely inevitable, which would mean every cog here would become infunctionable until they receive a rewrite for V4.
+Many of these cogs will not be receiving rewrites.
+
+Currently, I hope to transfer the following cogs to Red V4: 
+AdvancedUptime, Edition, PingOverride, SearchEngine, SendCards, Staff and TextManipulator.
+
+The following cogs will not be ported to Red V4. Feel free to take them on yourself, though.
+BankThief, HigherOrLower, PublishCogs, RomanConverter.
+
+The following cogs will receive eternal V3 support and updates:
+AdvancedUptime, Edition, HigherOrLower, PingOverride, PublishCogs, RomanConverter, SearchEngine, SendCards, Staff and TextManipulator. 
+
+The following cogs will de deprecated on the release of Red V4:
+BankThief
+
+
