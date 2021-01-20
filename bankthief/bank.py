@@ -152,7 +152,7 @@ class BankThief(commands.Cog):
 
     @commands.command()
     @commands.guild_only()
-    async def rob(self, ctx, member: discord.Member):
+    async def rob(self, ctx, user: discord.User):
         """Rob someone's bank account."""
         if await self.config.guild(ctx.guild).disable() is False:
             crook = await self.config.user(ctx.author).crooks()
@@ -198,7 +198,7 @@ class BankThief(commands.Cog):
 
     @commands.command()
     @commands.guild_only()
-    async def robstats(self, ctx, member: discord.Member = None):
+    async def robstats(self, ctx, user: discord.User = None):
         """Find the robbing stats for you or a member."""
         if member is None:
             person = ctx.author
