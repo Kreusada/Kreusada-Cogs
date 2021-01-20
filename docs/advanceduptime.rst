@@ -1,48 +1,48 @@
 .. _advanceduptime:
 
-====================
-AdvancedUptime
-====================
+===============
+Advanced Uptime
+===============
 
 -------
 Outline
 -------
 
-:code:`AdvancedUptime` is a cog that allows users to get their bot's uptime inside an embed, with some additional 'fancy' info!
-This cog will remove the :code:`uptime` command from your redbot's core, instead replacing it with :code:`AdvancedUptime`'s :code:`uptime` command.
+This cog is going to show your bot's uptime, with extra information and stats.
 
-.. attention:: Not happy with the output from :code:`AdvancedUptime`? No problem, just unload the cog and you will have the original uptime command back from your redbot core.
+---------------------------
+How do I download this cog?
+---------------------------
 
-------------
-Installation
-------------
+Let's firstly add my repository if you haven't already:
 
-Make sure you have :code:`Downloader` loaded!
+* :code:`[p]repo add kreusada https://github.com/kreus7/kreusadacogs`
 
-:code:`[p]load Downloader`
+Next, let's download the cog from the repo:
 
-Let's add Kreusada's repository firstly:
+* :code:`[p]cog install kreusada advanceduptime`
 
-:code:`[p]repo add kreusadacogs https://github.com/kreus7/kreusadacogs`
+Finally, you can see my end user data statement, cog requirements, and cog information by using:
 
-Now, you can add the :code:`AdvancedUptime` cog into your system.
-
-:code:`[p]cog install kreusadacogs advanceduptime`
+* :code:`[p]cog info kreusada advanceduptime`
 
 -----
 Usage
 -----
 
-- :code:`[p]uptime`
+* :code:`[p]uptime`
 
-Shows your bot's uptime with additional information!
+You might be wondering, how are you able to use a new uptime command if one already exists?
+This cog will replace the core uptime command, and then will add the core uptime command back 
+if the :code:`AdvancedUptime` cog is unloaded/uninstalled.
 
--------
-Support
--------
+This command's output will provide information on your bot's uptime, your bot's name,
+your bot's owner (you), the current discord guild, the number of guilds the bot is present in,
+the number of unique users your bot has, and the number of commands available!
 
-As always, you can join my `support server <https://discord.gg/JmCFyq7>`_ if you need help!
+------------------
+Additional Support
+------------------
 
-- Kreusada
-
-`Home <https://kreusadacogs.readthedocs.io/en/latest/index.html>`_ | `Support Server <https://discord.gg/JmCFyq7>`_
+Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_othercogs`,
+or you can (preferably) head over to `my support server <https://discord.gg/JmCFyq7>`_ and ask your questions in :code:`#support-kreusadacogs`.
