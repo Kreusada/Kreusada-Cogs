@@ -156,39 +156,39 @@ class BankThief(commands.Cog):
             no = await self.config.user(ctx.author).notsuccess()
             almost = await self.config.user(ctx.author).almost()
             if crook == 0:
-                return await ctx.send(f"You do not have a crook to rob {member.name}. Perhaps buy one using `{ctx.clean_prefix}crook`.")
+                return await ctx.send(f"You do not have a crook to rob {user.name}. Perhaps buy one using `{ctx.clean_prefix}crook`.")
             rob = randint(await self.config.guild(ctx.guild).minimum(), await self.config.guild(ctx.guild).maximum())
             chance = randint(1, 10)
-            if rob > await bank.get_balance(member):
-                await ctx.send(f"Sorry, {member.name} is broke enough as it is.")
+            if rob > await bank.get_balance(user):
+                await ctx.send(f"Sorry, {user.name} is broke enough as it is.")
             else:
                 if chance <= 3:
                     crook -= 1; await self.config.user(ctx.author).crooks.set(crook)
                     success += 1; await self.config.user(ctx.author).success.set(success)
                     await ctx.send(
-                        f"{ctx.author.name} **exceeds** in robbing {member.name}'s bank account.\n"
+                        f"{ctx.author.name} **exceeds** in robbing {user.name}'s bank account.\n"
                         f"**+{int(rob)}** has been added to your bank account.\n"
                         f"One crook has been removed from your account. You now have **{crook}** crooks.\n{STATS_CHECK.replace('[p]', ctx.clean_prefix)}"
                         )
                     await bank.deposit_credits(ctx.author, int(rob))
-                    await bank.withdraw_credits(member, int(rob))
+                    await bank.withdraw_credits(user, int(rob))
                 elif chance >= 7:
                     crook -= 1; await self.config.user(ctx.author).crooks.set(crook)
                     no += 1; await self.config.user(ctx.author).notsuccess.set(no)
                     await ctx.send(
-                        f"{ctx.author.name} **fails** in robbing {member.name}'s bank account.\n"
+                        f"{ctx.author.name} **fails** in robbing {user.name}'s bank account.\n"
                         f"One crook has been removed from your account. You now have **{crook}** crooks.\n{STATS_CHECK.replace('[p]', ctx.clean_prefix)}"
                     )
                 else:
                     crook -= 1; await self.config.user(ctx.author).crooks.set(crook)
                     almost += 1; await self.config.user(ctx.author).almost.set(almost)
                     await ctx.send(
-                        f"{ctx.author.name} **almost exceeds** in robbing {member.name}'s bank account.\n"
+                        f"{ctx.author.name} **almost exceeds** in robbing {user.name}'s bank account.\n"
                         f"**+{round(int(rob)/2)}** has been added to your bank account. That is half of what you were expecting.\n"
                         f"One crook has been removed from your account. You now have **{crook}** crooks.\n{STATS_CHECK.replace('[p]', ctx.clean_prefix)}"
                     )
                     await bank.deposit_credits(ctx.author, round(int(rob)/2))
-                    await bank.withdraw_credits(member, round(int(rob)/2))
+                    await bank.withdraw_credits(user, round(int(rob)/2))
         else:
             await ctx.send(NOT_ACTIVE.replace('[p]', ctx.clean_prefix))
 
@@ -196,10 +196,10 @@ class BankThief(commands.Cog):
     @commands.guild_only()
     async def robstats(self, ctx, user: discord.User = None):
         """Find the robbing stats for you or a member."""
-        if member is None:
+        if user is None:
             person = ctx.author
         else:
-            person = member
+            person = user
         c = await self.config.user(person).crooks()
         s = await self.config.user(person).success()
         n = await self.config.user(person).notsuccess()
