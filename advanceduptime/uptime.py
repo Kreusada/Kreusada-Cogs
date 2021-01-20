@@ -36,19 +36,21 @@ class AdvancedUptime(commands.Cog):
       """Shows [botname]'s uptime."""
       delta = datetime.utcnow() - self.bot.uptime
       uptime_str = humanize_timedelta(timedelta=delta) or ("Less than one second")
+      botname = ctx.bot.user.name
+      users = len(self.bot.users)
+      servers = str(len(self.bot.guilds))
+      commandsavail = len(set(self.bot.walk_commands()))
       app_info = await self.bot.application_info()
-      if app_info.team: 
-        owner = app_info.team.name
-      else: 
-        owner = app_info.owner
-      e = discord.Embed(title=f":green_circle:  {ctx.bot.user.name}'s Uptime", color=0x59e1ac, timestamp=ctx.message.created_at)
-      e.add_field(name=f"{ctx.bot.user.name} has been up for...", value=uptime_str, inline=False)
+      if app_info.team: owner = app_info.team.name
+      else: owner = app_info.owner
+      e = discord.Embed(title=f":green_circle:  {botname}'s Uptime", color=0x59e1ac, timestamp=ctx.message.created_at)
+      e.add_field(name=f"Therefore, {botname} has been up for...", value=uptime_str, inline=False)
       e.add_field(name="Instance name:", value=ctx.bot.user, inline=True)
       e.add_field(name="Instance owner:", value=owner, inline=True)
       e.add_field(name="Current guild:", value=ctx.guild, inline=True)
-      e.add_field(name="Number of guilds:", value=str(len(self.bot.guilds)), inline=True)
-      e.add_field(name="Unique users:", value=(self.bot.users), inline=True)
-      e.add_field(name="Commands available:", value=len(set(self.bot.walk_commands())), inline=True)
+      e.add_field(name="Number of guilds:", value=servers, inline=True)
+      e.add_field(name="Unique users:", value=users, inline=True)
+      e.add_field(name="Commands available:", value=commandsavail, inline=True)
       e.set_thumbnail(url=ctx.bot.user.avatar_url)
       await ctx.send(embed=e)
 
