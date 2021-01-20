@@ -74,15 +74,22 @@ Red V4 is most definitely inevitable, which would mean every cog here would beco
 Many of these cogs will not be receiving rewrites.
 
 Currently, I hope to transfer the following cogs to Red V4: 
+
 AdvancedUptime, Edition, PingOverride, SearchEngine, SendCards, Staff and TextManipulator.
 
+
 The following cogs will not be ported to Red V4. Feel free to take them on yourself, though.
+
 BankThief, HigherOrLower, PublishCogs, RomanConverter.
 
+
 The following cogs will receive eternal V3 support and updates:
+
 AdvancedUptime, Edition, HigherOrLower, PingOverride, PublishCogs, RomanConverter, SearchEngine, SendCards, Staff and TextManipulator. 
 
+
 The following cogs will de deprecated on the release of Red V4:
+
 BankThief
 
 
