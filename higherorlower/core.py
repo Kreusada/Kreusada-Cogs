@@ -1,9 +1,10 @@
 import discord
+from typing import Literal
 from random import randint
 from asyncio import sleep, TimeoutError
 from redbot.core import bank, commands, Config
 from redbot.core.i18n import Translator, cog_i18n
-from redbot.core.utils.chat_formatting import bold as b
+
 from .generators import embed
 from .cards import BACKALL
 
@@ -31,6 +32,13 @@ class HigherOrLower(commands.Cog):
             image=False,
             count=1
             )
+        
+    async def red_delete_data_for_user(
+        self,
+        requester: Literal["discord", "owner", "user", "user_strict"],
+        user_id: int
+    ) -> None:
+        await self.config.user_from_id(user_id).clear()
 
     @commands.command()
     async def hol(self, ctx):
