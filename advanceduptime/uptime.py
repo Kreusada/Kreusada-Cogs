@@ -1,9 +1,7 @@
 import discord
-from redbot.core import commands, Config
+from redbot.core import commands
 from datetime import datetime, timedelta
 from redbot.core.utils.chat_formatting import humanize_timedelta
-
-from redbot.core import commands
 from redbot.core.i18n import Translator, cog_i18n
 
 _ = Translator("AdvancedUptime", __file__)
@@ -14,7 +12,6 @@ class AdvancedUptime(commands.Cog):
   
   def __init__(self, bot):
     self.bot = bot
-    self.config = Config.get_conf(self, identifier=59465034743, force_registration=True)
        
   def cog_unload(self):
     global _old_uptime
@@ -53,6 +50,9 @@ class AdvancedUptime(commands.Cog):
       e.add_field(name="Commands available:", value=commandsavail, inline=True)
       e.set_thumbnail(url=ctx.bot.user.avatar_url)
       await ctx.send(embed=e)
+
+# The following code was modified from https://github.com/flaree/Flare-Cogs/blob/master/userinfo/userinfo.py.
+# Thanks flare!
 
 async def setup(bot):
   au = AdvancedUptime(bot)
