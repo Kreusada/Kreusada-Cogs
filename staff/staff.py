@@ -14,8 +14,7 @@ class Staff(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.config = Config.get_conf(
-            self, 200730042020, force_registration=True)
+        self.config = Config.get_conf(self, 200730042020, force_registration=True)
         self.config.register_guild(role=None, channel=None)
 
     async def red_delete_data_for_user(self, **kwargs):
