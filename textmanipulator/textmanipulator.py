@@ -1,8 +1,5 @@
 import discord
 from redbot.core import commands
-from redbot.core.utils.chat_formatting import box
-
-from redbot.core import commands
 from redbot.core.i18n import Translator, cog_i18n
 
 _ = Translator("TextManipulator", __file__)
