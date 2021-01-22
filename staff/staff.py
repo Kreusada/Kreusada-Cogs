@@ -1,9 +1,7 @@
 import discord
 import asyncio
 from datetime import datetime, timedelta
-from redbot.core import commands, checks, Config
-
-from redbot.core import commands
+from redbot.core import commands, Config
 from redbot.core.i18n import Translator, cog_i18n
 
 _ = Translator("Staff", __file__)
