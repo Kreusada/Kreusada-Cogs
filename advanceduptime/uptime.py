@@ -12,6 +12,9 @@ class AdvancedUptime(commands.Cog):
   
   def __init__(self, bot):
     self.bot = bot
+    
+# The following cog_unload function was modified from https://github.com/flaree/Flare-Cogs/blob/master/userinfo/userinfo.py.
+# Thanks flare!
        
   def cog_unload(self):
     global _old_uptime
