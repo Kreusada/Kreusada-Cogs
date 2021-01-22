@@ -1,10 +1,9 @@
 import discord
 import asyncio
 from datetime import datetime, timedelta
-from redbot.core import commands, checks, Config
+from redbot.core import commands, Config
 from redbot.core.utils.predicates import ReactionPredicate
 from redbot.core.utils.menus import start_adding_reactions
-from redbot.core import commands
 from redbot.core.i18n import Translator, cog_i18n
 
 _ = Translator("PublishCogs", __file__)
@@ -384,6 +383,3 @@ class PublishCogs(commands.Cog):
     else:
       await msg.delete()
       return True
-
-def setup(bot):
-  bot.add_cog(PublishCogs(bot))
