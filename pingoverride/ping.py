@@ -1,7 +1,5 @@
 import discord
 from redbot.core import Config, commands
-
-from redbot.core import commands
 from redbot.core.i18n import Translator, cog_i18n
 
 _ = Translator("PingOverride", __file__)
