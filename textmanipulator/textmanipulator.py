@@ -90,4 +90,4 @@ class TextManipulator(commands.Cog):
     
     `message` The message where the above takes place.
     """
-    await ctx.send(message.replace(characters, replacers)
+    await ctx.send(message.replace(to_replace, to_replace_with))
