@@ -1,7 +1,5 @@
 import discord
-from redbot.core import commands, checks, Config
-
-from redbot.core import commands
+from redbot.core import commands, Config
 from redbot.core.i18n import Translator, cog_i18n
 
 _ = Translator("Edition", __file__)
