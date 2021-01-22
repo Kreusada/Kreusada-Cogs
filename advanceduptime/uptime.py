@@ -44,7 +44,7 @@ class AdvancedUptime(commands.Cog):
       if app_info.team: owner = app_info.team.name
       else: owner = app_info.owner
       e = discord.Embed(title=f":green_circle:  {botname}'s Uptime", color=0x59e1ac, timestamp=ctx.message.created_at)
-      e.add_field(name=f"Therefore, {botname} has been up for...", value=uptime_str, inline=False)
+      e.add_field(name=f"{botname} has been up for...", value=uptime_str, inline=False)
       e.add_field(name="Instance name:", value=ctx.bot.user, inline=True)
       e.add_field(name="Instance owner:", value=owner, inline=True)
       e.add_field(name="Current guild:", value=ctx.guild, inline=True)
