@@ -1,8 +1,6 @@
 import discord
 import asyncio
 from redbot.core import commands
-
-from redbot.core import commands
 from redbot.core.i18n import Translator, cog_i18n
 
 _ = Translator("SendCards", __file__)
@@ -27,6 +25,9 @@ class SendCards(commands.Cog):
   @card.group()
   async def send(self, ctx):
     """Send a card to someone!"""
+    
+# This cog was made a while back, when I just started learning to code.
+# The original concept of getting a users DMs was taken from 
     
   @send.command()
   async def christmas(self, ctx: commands.Context, user_id: int, *, message: str):
