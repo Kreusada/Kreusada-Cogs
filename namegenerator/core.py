@@ -1,6 +1,5 @@
 from names import get_full_name as full, get_first_name as first, get_last_name as last
 from redbot.core import commands
-import discord
 
 class NameGenerator(commands.Cog):
     """Generates random names."""
