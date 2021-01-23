@@ -1,7 +1,7 @@
 {
     "author": ["Kreusada"],
     "description": "Generate a random name.",
-    "install_msg": "Thanks for installing! Use `[p]name`.",
+    "install_msg": "Thanks for installing! The `names` module is required for this cog to function. Use `[p]pipinstall names`. To get started, use `[p]name`.",
     "short": "Name generator",
     "name": "NameGenerator",
     "requirements": "names",
