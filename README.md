@@ -38,8 +38,9 @@ Remember - don't include the `<>` when you use this command. Those characters ar
 | bankthief       | [Dev_branch] Rob other people's bank accounts, win cash.      | Kreusada            | Economy |
 | edition         | Inspired by Twentysix Edition at Red.                         | Kreusada            | Fun     |
 | higherorlower   | Play the classic higher or lower cards game.                  | Kreusada            | Fun     |
+| namegenerator   | Generate random names will optional gender arguments.         | Kreusada            | Fun     |
 | pingoverride    | Replace "Pong." with your own response!                       | Kreusada            | Utility |
-| publishcogs     | Publish your new cogs to a channel.                           | Kreusada            | Utility |
+| publishcogs     | [Dev branch] Publish your new cogs to a channel.              | Kreusada            | Utility |
 | romanconverter  | Convert to roman numerals, and vise versa.                    | Kreusada            | Utility |
 | searchengine    | Search Google, Pinterest or Redbubble.                        | Kreusada            | Utility |
 | sendcards       | Send christmas, birthday, valentines and get well soon cards. | Kreusada            | Fun     |
