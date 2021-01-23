@@ -1,0 +1,10 @@
+{
+    "author": ["Kreusada"],
+    "description": "Generate a random name.",
+    "install_msg": "Thanks for installing! Use `[p]name`.",
+    "short": "Name generator",
+    "name": "NameGenerator",
+    "tags": ["Name", "Random", "Generator"],
+    "type": "COG",
+    "end_user_data_statement": "This cog does not persistently store data or metadata about users."
+  }
