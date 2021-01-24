@@ -76,7 +76,7 @@ class PingOverride(commands.Cog):
         nick = ctx.author.nick
     
     mapping = {
-      '{latency}': round(bot.latency*1000),
+      '{latency}': round(self.bot.latency*1000),
       '{name}': ctx.author.name,
       '{nick}': nick
     }
