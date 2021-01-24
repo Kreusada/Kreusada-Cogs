@@ -61,3 +61,5 @@ Support
 Feel free to visit my cog support channel in my `support server <https://discord.gg/JmCFyq7>`_, or head over to #support_othercogs in the 
 `Red Cog Support Server <https://discord.gg/GET4DVk>`_, or you can file an `issue <https://github.com/kreus7/kreusadacogs/issues>`_ or a 
 `pull request <https://github.com/kreus7/kreusadacogs/pulls>`_.
+
+`Home <https://kreusadacogs.readthedocs.io/en/latest/index.html>`_ | `Support Server <https://discord.gg/JmCFyq7>`_

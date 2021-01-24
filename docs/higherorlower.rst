@@ -1,7 +1,7 @@
 .. _higherorlower:
 
 ===============
-HigherOrLower
+Higher Or Lower
 ===============
 
 -------
