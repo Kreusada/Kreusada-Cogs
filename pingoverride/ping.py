@@ -13,6 +13,9 @@ class PingOverride(commands.Cog):
     self.config = Config.get_conf(self, identifier=59365034743, force_registration=True)
     self.config.register_global(response="Pong.")
     
+# The following cog_unload function was modified from https://github.com/flaree/Flare-Cogs/blob/master/userinfo/userinfo.py.
+# Thanks flare!
+    
   def cog_unload(self):
       global _old_ping
       if _old_ping:
@@ -29,23 +32,21 @@ class PingOverride(commands.Cog):
     """
     Set your custom ping message.
     
-    You can use {name} to represent the author.
-    You can use {nick} to represent the author's nickname.
+    Optional Regex:
+    `{nick}`: Replaces with the authors nickname.
+    `{name}`: Replaces with the author's username.
+    `{latency}`: Replaces with the bots latency.
+    
+    Example Usage:
+    [p]pingset Hello {nick}! My latency is {latency} ms.
     """
-    if '{name}' in response:
-      name = ctx.author
-      await self.config.response.set(response)
-      await ctx.send("Running `{}ping` will now respond with: {}".format(ctx.clean_prefix, response.replace('{name}', "(user's name)")))
-    elif '{nick}' in response:
-      nick = ctx.author.nick
-      await self.config.response.set(response)
-      await ctx.send("Running `{}ping` will now respond with: {}".format(ctx.clean_prefix, response.replace('{nick}', "(user's nickname)")))
-    elif '{latency}' in response:
-      await ctx.send("Running `{}ping` will now respond with: {}".format(ctx.clean_prefix, response.replace('{latency}', f"({self.bot.user.name}'s latency)")))
-      await self.config.response.set(response)
-    else:
-      await self.config.response.set(response)
-      await ctx.send(f"Running `{ctx.clean_prefix}ping` will now respond with: **{response}**")
+    mapping = {'{latency}': f"`{ctx.bot.user.name}'s latency`", '{name}': "`author's name`", '{nick}': "`author's nickname`"}
+    
+    def converter(match):
+      return match.format(**mapping)
+    
+    await ctx.send(f"Running `{ctx.clean_prefix}ping` will now respond with: {converter(response)}.")
+    
 
   @commands.is_owner()  
   @commands.command()
@@ -53,8 +54,13 @@ class PingOverride(commands.Cog):
   async def pingsettings(self, ctx):
     """Shows the current ping settings."""
     response = await self.config.response()
+    mapping = {'latency': f"`{ctx.bot.user.name}'s latency`", 'name': "`author's name`", 'nick': "`author's nickname`"}
+    
+    def converter(match):
+      return match.format(**mapping)
+    
     await ctx.send(
-      f"The current ping response is: **{response}**.\n"
+      f"The current ping response is: **{converter(response)}**.\n"
     )
     
   @commands.command()
@@ -68,17 +74,20 @@ class PingOverride(commands.Cog):
         nick = ctx.author.name
       else:
         nick = ctx.author.nick
-    if resp is None:
-      response = "Pong."
-    if '{name}' in resp:
-      response = resp.replace('{name}', ctx.author.name)
-    elif '{nick}' in resp:
-      response = resp.replace('{nick}', nick)
-    elif '{latency}' in resp:
-      response = resp.replace('{latency}', f'{round(self.bot.latency*1000)} ms')
-    else:
-      response = resp
-    await ctx.send(response)
+    
+    mapping = {
+      '{latency}': round(bot.latency*1000),
+      '{name}': ctx.author.name,
+      '{nick}': nick
+    }
+    
+    def converter(match):
+      return match.format(**mapping)
+      
+    await ctx.send(converter(resp))
+    
+# The following code was modified from https://github.com/flaree/Flare-Cogs/blob/master/userinfo/userinfo.py.
+# Thanks flare!
 
 async def setup(bot):
     cping = PingOverride(bot)
