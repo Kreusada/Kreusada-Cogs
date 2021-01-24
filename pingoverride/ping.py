@@ -40,6 +40,8 @@ class PingOverride(commands.Cog):
       nick = ctx.author.nick
       await self.config.response.set(response)
       await ctx.send("Running `{}ping` will now respond with: {}".format(ctx.clean_prefix, response.replace('{nick}', "(user's nickname)")))
+    elif '{latency}' in response:
+      await ctx.send("Running `{}ping` will now respond with: {}".format(ctx.clean_prefix, response.replace('{latency}', f"({self.bot.user.name}'s latency)")))
     else:
       await self.config.response.set(response)
       await ctx.send(f"Running `{ctx.clean_prefix}ping` will now respond with: **{response}**")
@@ -50,18 +52,9 @@ class PingOverride(commands.Cog):
   async def pingsettings(self, ctx):
     """Shows the current ping settings."""
     response = await self.config.response()
-    if '{name}' in response:
-      await ctx.send(
-        f"The current ping response is: **{response}**.\n"
-        "**{name}** will represent the command author."
-      )
-    if '{nick}' in response:
-      await ctx.send(
-        f"The current ping response is: **{response}**.\n"
-        "**{nick}** will represent the command author's nickname."
-      )
-    else:
-      await ctx.send(f"The current ping response is: **{response}**.")
+    await ctx.send(
+      f"The current ping response is: **{response}**.\n"
+    )
     
   @commands.command()
   async def ping(self, ctx):
@@ -76,10 +69,12 @@ class PingOverride(commands.Cog):
         nick = ctx.author.nick
     if resp is None:
       response = "Pong."
-    elif '{name}' in resp:
+    if '{name}' in resp:
       response = resp.replace('{name}', ctx.author.name)
-    elif '{nick}' in resp:
+    if '{nick}' in resp:
       response = resp.replace('{nick}', nick)
+    if '{latency}' in resp:
+      response = resp.replace('{latency}', f'{round(self.bot.latency*1000)} ms')
     else:
       response = resp
     await ctx.send(response)
