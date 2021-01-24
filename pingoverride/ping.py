@@ -34,13 +34,12 @@ class PingOverride(commands.Cog):
     
     Optional Regex:
     `{nick}`: Replaces with the authors nickname.
-    `{name}`: Replaces with the author's username.
     `{latency}`: Replaces with the bots latency.
     
     Example Usage:
     [p]pingset Hello {nick}! My latency is {latency} ms.
     """
-    mapping = {"latency": f"`{ctx.bot.user.name}'s latency`", "name": "`author's name`", "nick": "`author's nickname`"}
+    mapping = {"latency": f"`{ctx.bot.user.name}'s latency`", "nick": "`author's nickname`"}
     
     def converter(match):
       return match.format(**mapping)
@@ -54,7 +53,7 @@ class PingOverride(commands.Cog):
   async def pingsettings(self, ctx):
     """Shows the current ping settings."""
     response = await self.config.response()
-    mapping = {"latency": f"`{ctx.bot.user.name}'s latency`", "name": "`author's name`", "nick": "`author's nickname`"}
+    mapping = {"latency": f"`{ctx.bot.user.name}'s latency`", "nick": "`author's nickname`"}
 
     def converter(match):
       return match.format(**mapping)
@@ -65,7 +64,7 @@ class PingOverride(commands.Cog):
   async def ping(self, ctx):
     """Pong. Or not?"""
     resp = await self.config.response()
-    mapping = {"latency": round(self.bot.latency*1000), "name": ctx.author.name, "nick": ctx.author.display_name}
+    mapping = {"latency": round(self.bot.latency*1000), "nick": ctx.author.display_name}
     
     def converter(match):
       return match.format(**mapping)
