@@ -66,6 +66,7 @@ class PingOverride(commands.Cog):
   @commands.command()
   async def ping(self, ctx):
     """Pong. Or not?"""
+    resp = await self.config.response()
     mapping = {
       '{latency}': round(self.bot.latency*1000),
       '{name}': ctx.author.name,
