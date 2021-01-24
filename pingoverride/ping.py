@@ -55,13 +55,11 @@ class PingOverride(commands.Cog):
     """Shows the current ping settings."""
     response = await self.config.response()
     mapping = {"latency": f"`{ctx.bot.user.name}'s latency`", "name": "`author's name`", "nick": "`author's nickname`"}
-    
+
     def converter(match):
       return match.format(**mapping)
-    
-    await ctx.send(
-      f"The current ping response is: **{converter(response)}**.\n"
-    )
+
+    await ctx.send(f"The current ping response is: **{converter(response)}**.")
     
   @commands.command()
   async def ping(self, ctx):
