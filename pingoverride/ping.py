@@ -71,9 +71,9 @@ class PingOverride(commands.Cog):
       response = "Pong."
     if '{name}' in resp:
       response = resp.replace('{name}', ctx.author.name)
-    if '{nick}' in resp:
+    elif '{nick}' in resp:
       response = resp.replace('{nick}', nick)
-    if '{latency}' in resp:
+    elif '{latency}' in resp:
       response = resp.replace('{latency}', f'{round(self.bot.latency*1000)} ms')
     else:
       response = resp
