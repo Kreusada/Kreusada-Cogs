@@ -43,6 +43,7 @@ This command is going to print the response which you requested for using [p]pin
 Here, you can set the ping response. There are additional options you can use such as:
 
 :code:`{latency}` - Provides the bot's latency.
+
 :code:`{name}` - Returns the author's display name.
 
 **Example setup**
