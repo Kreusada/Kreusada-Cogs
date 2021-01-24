@@ -45,7 +45,7 @@ class PingOverride(commands.Cog):
     def converter(match):
       return match.format(**mapping)
     
-    await ctx.send(f"Running `{ctx.clean_prefix}ping` will now respond with: {converter(response)}")
+    await ctx.send(f"Running `{ctx.clean_prefix}ping` will now respond with:\n{converter(response)}")
     
 
   @commands.is_owner()  
