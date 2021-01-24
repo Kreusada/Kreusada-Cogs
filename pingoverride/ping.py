@@ -47,20 +47,6 @@ class PingOverride(commands.Cog):
     
     await ctx.send(f"Running `{ctx.clean_prefix}ping` will now respond with:\n{converter(response)}")
     
-
-  @commands.is_owner()  
-  @commands.command()
-  @commands.guild_only()
-  async def pingsettings(self, ctx):
-    """Shows the current ping settings."""
-    response = await self.config.response()
-    mapping = {"latency": f"({ctx.bot.user.name}'s latency)", "nick": "(author's nickname)"}
-
-    def converter(match):
-      return match.format(**mapping)
-
-    await ctx.send(f"The current ping response is: {converter(response)}")
-    
   @commands.command()
   async def ping(self, ctx):
     """Pong. Or not?"""
