@@ -39,6 +39,7 @@ class PingOverride(commands.Cog):
     Example Usage:
     [p]pingset Hello {nick}! My latency is {latency} ms.
     """
+    await self.config.response.set(response)
     mapping = {"latency": f"`{ctx.bot.user.name}'s latency`", "nick": "`author's nickname`"}
     
     def converter(match):
