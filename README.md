@@ -32,6 +32,9 @@ Remember - don't include the `<>` when you use this command. Those characters ar
 
 ## Available cogs list
 
+**Cogs labelled with [Dev branch] have been moved there for a reason. They are either still in development, need rewriting, or a major
+flaw has been issued. Use these cogs at you're own risk, you're on your own if you make that choice.**
+
 | Cog Name        | Description                                                   | Author              | Type    |
 |-----------------|---------------------------------------------------------------|---------------------|---------|
 | advanceduptime  | Uptime but with additional statistics and inside an embed.    | Kreusada            | Utility |
