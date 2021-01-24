@@ -42,6 +42,7 @@ class PingOverride(commands.Cog):
       await ctx.send("Running `{}ping` will now respond with: {}".format(ctx.clean_prefix, response.replace('{nick}', "(user's nickname)")))
     elif '{latency}' in response:
       await ctx.send("Running `{}ping` will now respond with: {}".format(ctx.clean_prefix, response.replace('{latency}', f"({self.bot.user.name}'s latency)")))
+      await self.config.response.set(response)
     else:
       await self.config.response.set(response)
       await ctx.send(f"Running `{ctx.clean_prefix}ping` will now respond with: **{response}**")
