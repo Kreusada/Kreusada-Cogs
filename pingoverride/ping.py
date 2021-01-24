@@ -67,7 +67,7 @@ class PingOverride(commands.Cog):
   async def ping(self, ctx):
     """Pong. Or not?"""
     resp = await self.config.response()
-    mapping = {"{latency}": f"{round(self.bot.latency*1000)}, "{name}": f"{ctx.author.name}", "{nick}": f"{ctx.author.display_name}"}
+    mapping = {"{latency}": f"{round(self.bot.latency*1000)}", "{name}": f"{ctx.author.name}", "{nick}": f"{ctx.author.display_name}"}
     
     def converter(match):
       return match.format(**mapping)
