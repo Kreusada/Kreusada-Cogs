@@ -20,5 +20,6 @@ Cog Support
 * :ref:`advanceduptime`
 * :ref:`higherorlower`
 * :ref:`minecraft`
+* :Ref:`pingoverride`
 * :ref:`publishcogs`
 * :ref:`staff`
