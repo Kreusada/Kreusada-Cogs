@@ -66,19 +66,10 @@ class PingOverride(commands.Cog):
   @commands.command()
   async def ping(self, ctx):
     """Pong. Or not?"""
-    resp = await self.config.response()
-    if ctx.channel == ctx.author.dm_channel:
-      nick = ctx.author.name
-    else:
-      if ctx.author.nick is None:
-        nick = ctx.author.name
-      else:
-        nick = ctx.author.nick
-    
     mapping = {
       '{latency}': round(self.bot.latency*1000),
       '{name}': ctx.author.name,
-      '{nick}': nick
+      '{nick}': ctx.author.display_name
     }
     
     def converter(match):
