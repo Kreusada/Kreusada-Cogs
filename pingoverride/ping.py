@@ -37,10 +37,10 @@ class PingOverride(commands.Cog):
     `{latency}`: Replaces with the bots latency.
     
     Example Usage:
-    [p]pingset Hello {nick}! My latency is {latency} ms.
+    `[p]pingset Hello {nick}! My latency is {latency} ms.`
     """
     await self.config.response.set(response)
-    mapping = {"latency": f"`{ctx.bot.user.name}'s latency`", "nick": "`author's nickname`"}
+    mapping = {"latency": f"({ctx.bot.user.name}'s latency)", "nick": "(author's nickname)"}
     
     def converter(match):
       return match.format(**mapping)
@@ -54,7 +54,7 @@ class PingOverride(commands.Cog):
   async def pingsettings(self, ctx):
     """Shows the current ping settings."""
     response = await self.config.response()
-    mapping = {"latency": f"`{ctx.bot.user.name}'s latency`", "nick": "`author's nickname`"}
+    mapping = {"latency": f"({ctx.bot.user.name}'s latency)", "nick": "(author's nickname)"}
 
     def converter(match):
       return match.format(**mapping)
