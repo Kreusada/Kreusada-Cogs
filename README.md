@@ -40,7 +40,6 @@ flaw has been issued. Use these cogs at you're own risk, you're on your own if y
 | advanceduptime  | Uptime but with additional statistics and inside an embed.    | Kreusada            | Utility |
 | bankthief       | [Dev_branch] Rob other people's bank accounts, win cash.      | Kreusada            | Economy |
 | edition         | Inspired by Twentysix Edition at Red.                         | Kreusada            | Fun     |
-| drills          | Did someone say drills? V2 -> V3                              | Alzarath, Kreusada  | Fun     |
 | higherorlower   | Play the classic higher or lower cards game.                  | Kreusada            | Fun     |
 | namegenerator   | Generate random names will optional gender arguments.         | Kreusada            | Fun     |
 | pingoverride    | Replace "Pong." with your own response!                       | Kreusada            | Utility |
