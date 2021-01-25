@@ -1,11 +1,3 @@
-﻿<h1 align="center">
-  <br>
-  <a href="https://github.com/kreus7/kreusadacogs"><img src="https://i.imgur.com/MSg0nwQ.png" alt="KreusadaCogs"></a>
-  <br>
-  KreusadaCogs - V3 Cogs for Red-DiscordBot
-  <br>
-</h1>
-
 This is my repository for Red Discord-Bot. I built these cogs because these were the features that I wanted for my bot, [WALL-E.](https://discord.com/oauth2/authorize?client_id=766580519000473640&scope=bot&permissions=8)
 
 ## Alerts
@@ -66,10 +58,9 @@ Join my [support server](https://discord.gg/JmCFyq7).
 
 ## Credits
 
-* Jojo - Got me started with python, and helped me a lot in my early stages. Thankyou!
-* Sauri - Learnt how to use `bot.wait_for` via your application cog. Gracias!
-* Flare - Learnt from his userinfo cog, how to replace a command in core, and then reverse those changes on unload. Merci!
-* Adnayekken - Helped me to understand the os and sys modules (although I haven't used them). Danke!
+* Jojo - Got me started with python, and helped me a lot in my early stages.
+* Sauri - Learnt how to use `bot.wait_for` via your application cog.
+* Flare - Learnt from his userinfo cog, how to replace a command in core, and then reverse those changes on unload.
 * Tobotimus - Lots of kind and motivational words to help my progression as a developer. 
 
 ## In the event of Red V4
