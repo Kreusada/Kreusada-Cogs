@@ -1,14 +1,7 @@
-## Documentation Suite
+## KreusadaDocs
 
-All the Cog Guide documentations will include:
+Here, is where all the files are for my documentation.
 
-- Installation - How would one download this cog/add kreusada's repo?
-- Outline - Explain what the cog does, what it's about.
-- Prerequirements - If applicable. If there are no prerequirements, do not include this field.
-- Usage - How would one use this cog? 
-- Setup usage - How would one setup this cog if applicable? If setup is not required, do not include this field.
-- Support - How would one reach out for support if they need further assistance?
+## Contributing
 
-## Looking to contribute?
-
-Please read [here](https://github.com/kreus7/kreusadacogs/tree/master/docs/contributors).
+Looking to contribute? Come and join me [here](https://discord.gg/JmCFyq7), we can discuss.

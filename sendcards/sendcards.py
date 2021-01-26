@@ -26,6 +26,9 @@ class SendCards(commands.Cog):
   async def send(self, ctx):
     """Send a card to someone!"""
     
+# This cog was made a while back, when I just started learning to code.
+# The original concept of getting a users DMs was taken from 
+    
   @send.command()
   async def christmas(self, ctx: commands.Context, user_id: int, *, message: str):
     """Send a christmas card to someone!"""
@@ -110,71 +113,3 @@ class SendCards(commands.Cog):
       await ctx.send(f"Sorry, I couldn't send a card to **{user.name}.**")
     else:
       await ctx.send(f"Valentines card delivered to **{user.name}!** Hey {author}, stop blushing. :wink:")
-
-  @card.group(autohelp=False, invoke_without_command=True)
-  async def viewoutput(self, ctx):
-    """Send a template version to your DM!"""
-    await ctx.send(
-      "Which card type would you like to see? Please run one of the following commands.\n"
-      "This message will be deleted after **20 seconds**.\n"
-      f"\n`❄️`: `{ctx.clean_prefix}card viewoutput c`"
-      f"\n`🎂`: `{ctx.clean_prefix}card viewoutput b`"
-      f"\n`🎊`: `{ctx.clean_prefix}card viewoutput c`"
-      f"\n`❤️`: `{ctx.clean_prefix}card viewoutput v`"
-      f"\n`🏥`: `{ctx.clean_prefix}card viewoutput gws`",
-    delete_after=20)
-    
-  @viewoutput.command()
-  async def c(self, ctx):
-    author = ctx.author.name
-    foot = (f"Send christmas cards using {ctx.clean_prefix}card!")
-    e = discord.Embed(title=f":christmas_tree: Christmas Card from {ctx.author} :christmas_tree:",
-                      description="Dear `Username`,\n\n`Your message will go here`\n\nFrom {} :gift:".format(author),
-                      colour=discord.Colour.red())
-    e.set_footer(text=foot)
-    try:
-      await ctx.send(embed=e)
-    except discord.HTTPSException:
-      await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")
-
-  @viewoutput.command()
-  async def b(self, ctx):
-    author = ctx.author.name
-    foot = (f"Send birthday cards using {ctx.clean_prefix}card send birthday!")
-    e = discord.Embed(title=f":tada: Birthday Card from {ctx.author} :tada:",
-                      description="Dear `Username`,\n\n`Your message will go here`\n\nFrom {} :balloon:".format(author),
-                      colour=discord.Colour.red())
-    e.set_footer(text=foot)
-    try:
-      await ctx.send(embed=e)
-    except discord.HTTPSException:
-      await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")
-
-  @viewoutput.command()
-  async def gws(self, ctx):
-    """Preview the output from this card"""
-    author = ctx.author.name
-    foot = (f"Send get well soon cards using {ctx.clean_prefix}card send getwellsoon!")
-    e = discord.Embed(title=f":thermometer_face: Get Well Soon Card from {ctx.author} :thermometer_face:",
-                      description="Dear `Username`,\n\n`Your message will go here`\n\nFrom {} :pray:".format(author),
-                      colour=discord.Colour.red())
-    e.set_footer(text=foot)
-    try:
-      await ctx.send(embed=e)
-    except discord.HTTPSException:
-      await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")
-
-  @viewoutput.command()
-  async def v(self, ctx):
-    """Preview the output from this card"""
-    author = ctx.author.name
-    foot = (f"Send valentine cards using {ctx.clean_prefix}card send valentine!")
-    romance = ":smiling_face_with_3_hearts:"
-    e = discord.Embed(title=f"{romance} Valentines Card from {ctx.author} {romance}",
-                      description="Dear `Username`,\n\n`Your message will go here`\n\nWith love from {} {}".format(author, romance),
-                      colour=discord.Colour.red())
-    e.set_footer(text=foot)
-    try:
-      await ctx.send(embed=e)
-    except discord.HTTPSException:
-      await ctx.send("Your DMs are turned off, or I don't have permissions to DM you.")

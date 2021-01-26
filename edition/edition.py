@@ -1,6 +1,10 @@
 import discord
-from redbot.core import commands, checks, Config
+from redbot.core import commands, Config
+from redbot.core.i18n import Translator, cog_i18n
 
+_ = Translator("Edition", __file__)
+
+@cog_i18n(_)
 class Edition(commands.Cog):
     """
     Set your nickname as an edition of someone!
@@ -22,14 +26,17 @@ class Edition(commands.Cog):
     async def edition(self, ctx, type: str):
         """
         Become an edition of the editioner!
+        
+        Server owner nicknames cannot be changed.
 
-        **Nickname Formatting Arguments**
-        `Editioner`: The name of the guild's editioner.
+        **Arguments**
         `Type`: The custom name from your input.
 
-        **Nickname Edit**
+        **Nickname Edit Format**
         `Editioner - Type Edition`
-
+        
+        **What is Editioner?**
+        `Editioner`: The name of the editioner set using `[p]editionset`.
         """
         editioner = await self.config.guild(ctx.guild).editioner()
         editioner = discord.utils.get(ctx.guild.members, id=editioner)
@@ -40,7 +47,9 @@ class Edition(commands.Cog):
                 await ctx.author.edit(nick=f"{editioner.name.capitalize()} - {type} Edition")
                 await ctx.send(f"Done. Your nickname is now `{editioner.name.capitalize()} - {type} Edition`.")
             except discord.Forbidden:
-                await ctx.send("I don't have permission to change your nickname.")
+                await ctx.send("I don't have permission to change your nickname. Please note that I cannot change server owner nicknames.")
+            except HTTPException:
+                await ctx.send("Your new nickname exceeds the 32 character limit.")
 
 
     @commands.command()

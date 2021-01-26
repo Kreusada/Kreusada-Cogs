@@ -1,10 +1,19 @@
 .. _publishcogs:
 
 ================
-Cog: PublishCogs
+PublishCogs
 ================
 
-.. note:: My wonderful WALL-E users... PublishCogs is available on the bot!
+.. attention:: 
+
+	PublishCogs has now been moved to the Dev branch. Feel free to use it, however,
+	the code is faulty and I recognise that on my end. Multiple sessions could start, and
+	although it could be a quick fix, I still need to rewrite the full cog anyway.
+
+	Please use PublishCogs at your own risk, you're on your own if you make that choice.
+	The docs should help you out but I won't be giving support for this cog until its back on master.
+
+	Additionally, if you would like to create a PR on the dev branch, feel free.
 
 -------
 Outline
@@ -112,8 +121,4 @@ Setup: Set All
 
 This command will toggle all toggleable commands on, or off! Running this command will bring you to a yes or no predicate which will determine your settings.
 
-
-
-
-
-
+`Home <https://kreusadacogs.readthedocs.io/en/latest/index.html>`_ | `Support Server <https://discord.gg/JmCFyq7>`_

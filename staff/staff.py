@@ -1,21 +1,19 @@
 import discord
 import asyncio
 from datetime import datetime, timedelta
-from redbot.core import commands, checks, Config, modlog
+from redbot.core import commands, Config
+from redbot.core.i18n import Translator, cog_i18n
 
+_ = Translator("Staff", __file__)
 
+@cog_i18n(_)
 class Staff(commands.Cog):
     """Cog for alerting Staff."""
 
     def __init__(self, bot):
         self.bot = bot
-        self.config = Config.get_conf(
-            self, 200730042020, force_registration=True)
-        default_guild = {
-            "role": None,
-            "channel": None
-        }
-        self.config.register_guild(**default_guild)
+        self.config = Config.get_conf(self, 200730042020, force_registration=True)
+        self.config.register_guild(role=None, channel=None)
 
     async def red_delete_data_for_user(self, **kwargs):
         """
@@ -29,61 +27,65 @@ class Staff(commands.Cog):
 
     @staffset.command()
     @checks.admin_or_permissions(manage_guild=True)
-    async def channel(self, ctx, channel: discord.TextChannel):
+    async def channel(self, ctx, channel: discord.TextChannel = None):
         """Sets the channel for staff to receive notifications."""
-        await self.config.guild(ctx.guild).set_raw("channel", value=channel.id)
-        embed = discord.Embed(
-            title="Successful :white_check_mark:",
-            description=f"{channel.mention} will now receive notifications from users to notify the staff."
-        )
-        await ctx.send(embed=embed)
+        if channel is None:
+            await ctx.send("No channel was specified. Channel reset.")
+            await self.config.guild(ctx.guild).channel.set(None)
+        else:
+            await self.config.guild(ctx.guild).channel.set(channel.id)
+            embed = discord.Embed(
+                title="Successful :white_check_mark:",
+                description=f"{channel.mention} will now receive notifications from users to notify the staff."
+            )
+            await ctx.send(embed=embed)
 
     @staffset.command()
     @checks.admin_or_permissions(manage_guild=True)
-    async def role(self, ctx, role: discord.Role):
+    async def role(self, ctx, role: discord.Role = None):
         """Sets the Staff role."""
-        try:
-            await self.config.guild(ctx.guild).set_raw("role", value=role.id)
-            embed = discord.Embed(
-                title="Successful :white_check_mark:",
-                description=f"{role.mention} will now be considered as the Staff role.",
-            )
-            await ctx.send(embed=embed)
-        except discord.Forbidden:
-            embed = discord.Embed(
-                title="Oopsies! :x:",
-                description=f"Something went wrong during the setup process."
-            )
-            await ctx.send(embed=embed)
-        return
+        if role is None:
+            await ctx.send("No role was specified. Role reset.")
+            await self.config.guild(ctx.guild).role.set(None)
+        else:
+            try:
+                await self.config.guild(ctx.guild).role.set(role.id)
+                embed = discord.Embed(
+                    title="Successful :white_check_mark:",
+                    description=f"{role.mention} will now be considered as the Staff role.",
+                )
+                await ctx.send(embed=embed)
+            except discord.Forbidden:
+                embed = discord.Embed(
+                    title="Oopsies! :x:",
+                    description=f"Something went wrong during the setup process."
+                )
+                await ctx.send(embed=embed)
         
     @commands.command()
-   # @commands.cooldown(1, 600, commands.BucketType.user)
-    async def staff(self, ctx):
+    @commands.cooldown(1, 600, commands.BucketType.user)
+    async def staff(self, ctx, reason: str = None):
         """Notifies the staff."""
         message = ctx.message
-        role = await self.config.guild(ctx.guild).role()
-        channel = await self.config.guild(ctx.guild).channel()
-        channel = discord.utils.get(ctx.guild.channels, id=channel)
-        role = discord.utils.get(ctx.guild.roles, id=role)
-        bot = self.bot
-        jumper_link = ctx.message.jump_url
-        author_id = ctx.author.id
+        channel = discord.utils.get(ctx.guild.channels, id=await self.config.guild(ctx.guild).channel())
+        role = discord.utils.get(ctx.guild.roles, id=await self.config.guild(ctx.guild).role())
+        jumper_f = "[Click here for context]({})".format(ctx.message.jump_url)
         now = datetime.now()
-        strftime = now.strftime("%H:%M %p")
-        daytime = now.strftime("%d of %B, %Y")
-        msgtime = f"**Time called:** {strftime}"
-        date = f"**Date called:** {daytime}"
-        authid = f"**Author ID:** {author_id}"
-        chfmi = "Click here for more information"
-        call = " has just called for the staff in "
-        jumper_f = "**[{}]({})**".format(chfmi, jumper_link)
+        D = now.strftime("%d/%m/%y")
         embed = discord.Embed(
-            title=":warning: ALERT!",
-            description=f"**{ctx.author.name}**{call}{ctx.channel.mention}.\n\n{date}\n{msgtime}\n\n{authid}\n\n{jumper_f}",
-            footer_text=f"{bot.user.name} | Staff",
-            footer_url=f"{bot.user.avatar_url}"
+            title="Staff Attention Pending",
+            description="[Click here for context]({})".format(ctx.message.jump_url),
+            color=await ctx.embed_colour()
         )
+        embed.add_field(name="Member", value=ctx.author.mention, inline=True)
+        embed.add_field(name="Channel", value=ctx.channel.mention, inline=True)
+        embed.add_field(name="Date", value=D, inline=True)
+        if reason is not None:
+            embed.add_field(name="Reason", value=reason, inline=False)
+        else:
+            pass
+        embed.set_author(name=f"{ctx.author} | {ctx.author.id}", icon_url=ctx.author.avatar_url)
+        embed.set_footer(text=f"{self.bot.user.name} | Staff", icon_url=self.bot.user.avatar_url)
         if channel is not None:
             await message.add_reaction("✅")
             await ctx.send("We have sent a report to the staff team. They will be with you as soon as possible.")
