@@ -300,7 +300,9 @@ Outline
 Usage
 -----
 
-- :code:`[p]publishcog`
+.. code-block:: ini
+
+	[p]publishcog
 
 Publishes cogs to a channel with a few questions to fill out first.
 
@@ -312,7 +314,9 @@ Publishes cogs to a channel with a few questions to fill out first.
 Setup Usage
 -----------
 
-- :code:`[p]publishcogset`
+.. code-block:: ini
+
+	[p]publishcogset
 
 Configure settings for new cogs.
 
@@ -320,7 +324,9 @@ Configure settings for new cogs.
 Setup: Channel
 --------------
 
-- :code:`[p]publishcogset channel <#channel>`
+.. code-block:: ini
+
+	[p]publishcogset channel <#channel>
 
 .. attention:: This setting is a **requirement** for this cog to work properly.
 
@@ -330,7 +336,9 @@ Set your channel for published cogs to be sent to.
 Setup: Footerdate
 -----------------
 
-- :code:`[p]publishcogset footerdate`
+.. code-block:: ini
+
+	[p]publishcogset footerdate
 
 This is not a requirement. Running this command will bring you to a yes or no predicate which will determine your settings.
 
@@ -338,7 +346,9 @@ This is not a requirement. Running this command will bring you to a yes or no pr
 Setup: Cog Creator Role
 -----------------------
 
-- :code:`[p]publishcogset cogcreator`
+.. code-block:: ini
+
+	[p]publishcogset cogcreator
 
 .. attention:: This setting is a **requirement** for this cog to work properly.
 
@@ -348,7 +358,9 @@ Only those with the configured cog creator role will be able to use the :code:`[
 Setup: Description
 ------------------
 
-- :code:`[p]publishcogset description`
+.. code-block:: ini
+
+	[p]publishcogset description
 
 .. tip:: This setting is not required, but is advised. Otherwise, the cog won't have a description! Unless you want it to remain anonymous, of course.
 
@@ -358,7 +370,9 @@ Sets the ability to add description for published cogs. Running this command wil
 Setup: Prerequirements
 ----------------------
 
-- :code:`[p]publishcogset prerequirements`
+.. code-block:: ini
+
+	[p]publishcogset prerequirements
 
 Sets the ability to add pre-requirements for published cogs. Running this command will bring you to a yes or no predicate which will determine your settings.
 
@@ -366,7 +380,9 @@ Sets the ability to add pre-requirements for published cogs. Running this comman
 Setup: Install Guide
 --------------------
 
-- :code:`[p]publishcogset installguide`
+.. code-block:: ini
+
+	[p]publishcogset installguide
 
 .. tip:: This setting is not required, but is advised. Otherwise, the cog won't have an install guide.
 
@@ -376,6 +392,8 @@ Sets the ability to add an install guide for published cogs. Running this comman
 Setup: Set All
 --------------
 
-- :code:`[p]publishcogset setall`
+.. code-block:: ini
+
+	[p]publishcogset setall
 
 This command will toggle all toggleable commands on, or off! Running this command will bring you to a yes or no predicate which will determine your settings.
