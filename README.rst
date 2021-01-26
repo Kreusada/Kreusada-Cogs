@@ -1,6 +1,6 @@
-===============================
+===================================================
 Redbot cogs for Red-DiscordBot authored by Kreusada
-===============================
+===================================================
 
 This is my repository for Red Discord-Bot. I built these cogs because these were the features that I wanted for my bot, `WALL-E. <https://discord.com/oauth2/authorize?client_id=766580519000473640&scope=bot&permissions=8>`_
 
@@ -33,7 +33,6 @@ Remember - don't include the `<>` when you use this command. Those characters ar
 **Cogs labelled with [Dev branch] have been moved there for a reason. They are either still in development, need rewriting, or a major
 flaw has been issued. Use these cogs at you're own risk, you're on your own if you make that choice.**
 
-========================================================================================
 :code:`advanceduptime`  | Uptime but with additional statistics and inside an embed.   | 
 :code:`bankthief`       | [Dev_branch] Rob other people's bank accounts, win cash.     |
 :code:`edition`         | Inspired by Twentysix Edition at Red.                        | 
@@ -46,7 +45,6 @@ flaw has been issued. Use these cogs at you're own risk, you're on your own if y
 :code:`sendcards`       | Send christmas, birthday, valentines and get well soon cards.|  
 :code:`staff`           | Alert staff for inconspicuous activity.                      |  
 :code:`textmanipulator` | Manipulate text and words with tools.                        | 
-=========================================================================================
 
 --------
 Support
