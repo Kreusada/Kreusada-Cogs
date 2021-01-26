@@ -32,9 +32,6 @@ Remember - don't include the `<>` when you use this command. Those characters ar
 Available cogs list
 -------------------
 
-Cogs labelled with [Dev branch] have been moved there for a reason. They are either still in development, need rewriting, or a major
-flaw has been issued. Use these cogs at you're own risk, you're on your own if you make that choice.
-
 +-----------------+--------------------------------------------------------------+---------+----------+
 | Cog Name        | Description                                                  | Tags    | Author   |
 +=================+==============================================================+=========+==========+
@@ -96,22 +93,6 @@ If you correctly guess that the next card is 'higher' or 'lower' than your curre
 
 In a standard game, there would be nine cards to arbitrarily advance through. This cog also has the default number of cards (9), 
 but can be modified to your guild's liking via the :code:`[p]holset` command.
-
----------------------------
-How do I download this cog?
----------------------------
-
-Let's firstly add my repository if you haven't already:
-
-* :code:`[p]repo add kreusada https://github.com/kreus7/kreusadacogs`
-
-Next, let's download the cog from the repo:
-
-* :code:`[p]cog install kreusada higherorlower`
-
-Finally, you can see my end user data statement, cog requirements, and cog information by using:
-
-* :code:`[p]cog info kreusada higherorlower`
 
 -----
 Usage
@@ -198,22 +179,6 @@ Outline
 
 This cog is going to show your bot's uptime, with extra information and stats.
 
----------------------------
-How do I download this cog?
----------------------------
-
-Let's firstly add my repository if you haven't already:
-
-* :code:`[p]repo add kreusada https://github.com/kreus7/kreusadacogs`
-
-Next, let's download the cog from the repo:
-
-* :code:`[p]cog install kreusada advanceduptime`
-
-Finally, you can see my end user data statement, cog requirements, and cog information by using:
-
-* :code:`[p]cog info kreusada advanceduptime`
-
 -----
 Usage
 -----
@@ -237,22 +202,6 @@ Overview
 --------
 
 PingOverride is a cog which allows you to override/overwrite the core's ping command with your own customisable response. This means that you can replace the "Pong." response, with something of your choosing. There are also additional options such as saying the author's name, and showing the bot latency. 
-
----------------------------
-How do I download this cog?
----------------------------
-
-Let's firstly add my repository if you haven't already:
-
-* :code:`[p]repo add kreusada https://github.com/kreus7/kreusadacogs`
-
-Next, let's download the cog from the repo:
-
-* :code:`[p]cog install kreusada higherorlower`
-
-Finally, you can see my end user data statement, cog requirements, and cog information by using:
-
-* :code:`[p]cog info kreusada higherorlower`
 
 --------
 Commands
@@ -291,22 +240,6 @@ Outline
 -------
 
 The ``staff`` cog is a cog used to alert the staff. It's that simple. This cog guide will give you the setup instructions.
-
-------------
-Installation
-------------
-
-Make sure you have :code:`Downloader` loaded!
-
-:code:`[p]load Downloader`
-
-Let's add Kreusada's repository firstly:
-
-:code:`[p]repo add kreusadacogs https://github.com/kreus7/kreusadacogs`
-
-Now, you can add the :code:`CogName` cog into your system.
-
-:code:`[p]cog install kreusadacogs cogname`
 
 -----------
 Staff Setup
@@ -362,22 +295,6 @@ Outline
 -------
 
 :code:`PublishCogs` is a cog which allows you to publish your new cogs to a specific channel in your guild! With a fully customizable output, you can set your new cogs to only display the author and cogname, or the author, cogname, description, pre-requirements, install guide and the current time on your embed's footer! Seems confusing, no? This guide should help you to get an understanding for this cog.
-
-------------
-Installation
-------------
-
-Make sure you have :code:`Downloader` loaded!
-
-:code:`[p]load Downloader`
-
-Let's add Kreusada's repository firstly:
-
-:code:`[p]repo add kreusadacogs https://github.com/kreus7/kreusadacogs`
-
-Now, you can add the :code:`PublishCogs` cog into your system.
-
-:code:`[p]cog install kreusadacogs publishcogs`
 
 -----
 Usage
