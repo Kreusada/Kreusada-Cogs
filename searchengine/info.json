@@ -1,7 +1,7 @@
 {
 	"author": ["Kreusada"],
 	"description": "Search different websites for text queries without the API.",
-    "install_msg": "Thanks for installing, have fun. Use `[p]help SearchEngine`!",
+    	"install_msg": "Thanks for installing, have fun. Use `[p]help SearchEngine`!",
 	"short": "Search Websites",
 	"tags": ["Google", "Search", "Internet", "Pinterest"],
 	"type": "COG",
