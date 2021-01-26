@@ -34,16 +34,27 @@ Remember - don't include the `<>` when you use this command. Those characters ar
 flaw has been issued. Use these cogs at you're own risk, you're on your own if you make that choice.**
 
 :code:`advanceduptime`  | Uptime but with additional statistics and inside an embed.   | 
+
 :code:`bankthief`       | [Dev_branch] Rob other people's bank accounts, win cash.     |
+
 :code:`edition`         | Inspired by Twentysix Edition at Red.                        | 
+
 :code:`higherorlower`   | Play the classic higher or lower cards game.                 |  
+
 :code:`namegenerator`   | Generate random names will optional gender arguments.        | 
+
 :code:`pingoverride`    | Replace "Pong." with your own response!                      |  
+
 :code:`publishcogs`     | [Dev branch] Publish your new cogs to a channel.             | 
+
 :code:`romanconverter`  | Convert to roman numerals, and vise versa.                   | 
+
 :code:`searchengine`    | Search Google, Pinterest or Redbubble.                       | 
+
 :code:`sendcards`       | Send christmas, birthday, valentines and get well soon cards.|  
+
 :code:`staff`           | Alert staff for inconspicuous activity.                      |  
+
 :code:`textmanipulator` | Manipulate text and words with tools.                        | 
 
 --------
