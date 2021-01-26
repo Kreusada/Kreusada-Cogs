@@ -19,7 +19,7 @@ assignees: ''
 **What actually happened?**
 
 
-**How long has this been occuring for?**
+**How long has this been occurring for?**
 
 
 **What is your Discord username?**
