@@ -86,7 +86,7 @@ class Staff(commands.Cog):
                 return await ctx.send("The staff team have not yet configured a channel.")
         else:
             text = (
-                f"Staff Attention Pending | :warning:\n"
+                f"Staff Attention Pending | Inconspicuous Activity :warning:\n"
                 f"**User:** {ctx.author.name} ({ctx.author.id})\n**Date:** {D}\n**Channel:** {ctx.channel.mention}\n"
             )
             
