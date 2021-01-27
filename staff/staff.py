@@ -89,6 +89,7 @@ class Staff(commands.Cog):
                 f"Staff Attention Pending :warning:"
                 f"**User:** {ctx.author.name} {ctx.author.id}\n**Date:** {D}\n**Channel:** {ctx.channel.mention}\n"
             )
+            
             if reason:
                 text = text + f"\n**Reason:** {reason}"
-            await ctx.send(text)
+            await ctx.send(text + f'\n{role.mention}' if role)
