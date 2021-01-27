@@ -25,7 +25,7 @@ class SearchEngine(commands.Cog):
     querytemplate = f"https://www.google.co.uk/search?source=hp&ei=z07WX6SiGrXVgwfdpa3wAQ&q={search_query.capitalize()}"
     querytemplate = querytemplate.replace(' ', '%20')
     if await ctx.embed_requested():
-    e = discord.Embed(description=(
+      e = discord.Embed(description=(
         f"[Click here for search results]({querytemplate})"
       ), colour=discord.Colour.red(), timestamp=ctx.message.created_at)
       e.add_field(name="Engine", value="Google", inline=True)
