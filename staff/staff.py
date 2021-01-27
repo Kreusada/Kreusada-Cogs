@@ -94,7 +94,7 @@ class Staff(commands.Cog):
                 text = text + f"\n**Reason:** {reason}"
             try:
                 if channel:
-                    await channel.send(text + f'\n{role.mention}' if role)
+                    await channel.send(text + f'\n{role.mention}' if role else pass)
             except discord.Forbidden:
                 await ctx.send("I don't have permission to post in the staff's channel.")
                 else:
