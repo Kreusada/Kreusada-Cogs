@@ -53,8 +53,8 @@ class AdvancedUptime(commands.Cog):
         e.set_thumbnail(url=ctx.bot.user.avatar_url)
         await ctx.send(embed=e)
       else:
+        title = f"[{botname} has been up for {uptime_str}.]"
         msg = (
-          f"{botname} has been up for {uptime_str}.\n"
           f"Instance name: {ctx.bot.user}\n"
           f"Instance owner: {owner}\n"
           f"Current guild: {ctx.guild}\n"
@@ -62,6 +62,7 @@ class AdvancedUptime(commands.Cog):
           f"Unique users: {users}\n"
           f"Commands available: {commands_available}"
         )
+        await ctx.send(box(title, lang='yaml'))
         await ctx.send(box(msg, lang='yaml'))
 
 async def setup(bot):
