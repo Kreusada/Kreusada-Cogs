@@ -1,10 +1,12 @@
 import discord
 from redbot.core import commands
 from datetime import datetime, timedelta
-from redbot.core.utils.chat_formatting import humanize_timedelta
+from redbot.core.utils.chat_formatting import humanize_timedelta, box
 from redbot.core.i18n import Translator, cog_i18n
 
 _ = Translator("AdvancedUptime", __file__)
+
+# Cog_unload and setup functions were modified from https://github.com/flaree/Flare-Cogs/blob/master/userinfo/userinfo.py
 
 @cog_i18n(_)
 class AdvancedUptime(commands.Cog):
@@ -12,9 +14,6 @@ class AdvancedUptime(commands.Cog):
   
   def __init__(self, bot):
     self.bot = bot
-    
-# The following cog_unload function was modified from https://github.com/flaree/Flare-Cogs/blob/master/userinfo/userinfo.py.
-# Thanks flare!
        
   def cog_unload(self):
     global _old_uptime
@@ -41,21 +40,29 @@ class AdvancedUptime(commands.Cog):
       servers = str(len(self.bot.guilds))
       commandsavail = len(set(self.bot.walk_commands()))
       app_info = await self.bot.application_info()
-      if app_info.team: owner = app_info.team.name
-      else: owner = app_info.owner
-      e = discord.Embed(title=f":green_circle:  {botname}'s Uptime", color=0x59e1ac, timestamp=ctx.message.created_at)
-      e.add_field(name=f"{botname} has been up for...", value=uptime_str, inline=False)
-      e.add_field(name="Instance name:", value=ctx.bot.user, inline=True)
-      e.add_field(name="Instance owner:", value=owner, inline=True)
-      e.add_field(name="Current guild:", value=ctx.guild, inline=True)
-      e.add_field(name="Number of guilds:", value=servers, inline=True)
-      e.add_field(name="Unique users:", value=users, inline=True)
-      e.add_field(name="Commands available:", value=commandsavail, inline=True)
-      e.set_thumbnail(url=ctx.bot.user.avatar_url)
-      await ctx.send(embed=e)
-
-# The following code was modified from https://github.com/flaree/Flare-Cogs/blob/master/userinfo/userinfo.py.
-# Thanks flare!
+      owner = app_info.team.name if app_info.team else app_info.owner
+      if await.ctx.embed_requested():
+        e = discord.Embed(title=f":green_circle:  {botname}'s Uptime", color=0x59e1ac, timestamp=ctx.message.created_at)
+        e.add_field(name=f"{botname} has been up for...", value=uptime_str, inline=False)
+        e.add_field(name="Instance name:", value=ctx.bot.user, inline=True)
+        e.add_field(name="Instance owner:", value=owner, inline=True)
+        e.add_field(name="Current guild:", value=ctx.guild, inline=True)
+        e.add_field(name="Number of guilds:", value=servers, inline=True)
+        e.add_field(name="Unique users:", value=users, inline=True)
+        e.add_field(name="Commands available:", value=commandsavail, inline=True)
+        e.set_thumbnail(url=ctx.bot.user.avatar_url)
+        await ctx.send(embed=e)
+      else:
+        msg = (
+          f"{botname} has been up for {uptime_str}.\n"
+          f"Instance name: {bold(ctx.bot.user)}\n"
+          f"Instance owner: {bold(owner)}\n"
+          f"Current guild: {bold(ctx.guild)}\n"
+          f"Number of guilds: {bold(servers)}\n"
+          f"Unique users: {users}\n"
+          f"Commands available: {commands_available}"
+        )
+        await ctx.send(box(msg, lang='yaml'))
 
 async def setup(bot):
   au = AdvancedUptime(bot)
