@@ -95,8 +95,8 @@ class Staff(commands.Cog):
             try:
                 if channel:
                     await channel.send(text + f'\n{role.mention}' if role is not None else '')
-            except discord.Forbidden:
-                await ctx.send("I don't have permission to post in the staff's channel.")
                 else:
                     await message.add_reaction("❌")
                     return await ctx.send("The staff team have not yet configured a channel.")
+            except discord.Forbidden:
+                await ctx.send("I don't have permission to post in the staff's channel.")
