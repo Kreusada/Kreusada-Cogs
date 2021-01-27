@@ -38,7 +38,7 @@ class AdvancedUptime(commands.Cog):
       botname = ctx.bot.user.name
       users = len(self.bot.users)
       servers = str(len(self.bot.guilds))
-      commandsavail = len(set(self.bot.walk_commands()))
+      commands_available = len(set(self.bot.walk_commands()))
       app_info = await self.bot.application_info()
       owner = app_info.team.name if app_info.team else app_info.owner
       if await ctx.embed_requested():
@@ -49,7 +49,7 @@ class AdvancedUptime(commands.Cog):
         e.add_field(name="Current guild:", value=ctx.guild, inline=True)
         e.add_field(name="Number of guilds:", value=servers, inline=True)
         e.add_field(name="Unique users:", value=users, inline=True)
-        e.add_field(name="Commands available:", value=commandsavail, inline=True)
+        e.add_field(name="Commands available:", value=commands_available, inline=True)
         e.set_thumbnail(url=ctx.bot.user.avatar_url)
         await ctx.send(embed=e)
       else:
