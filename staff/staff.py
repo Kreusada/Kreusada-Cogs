@@ -34,11 +34,7 @@ class Staff(commands.Cog):
             await self.config.guild(ctx.guild).channel.set(None)
         else:
             await self.config.guild(ctx.guild).channel.set(channel.id)
-            embed = discord.Embed(
-                title="Successful :white_check_mark:",
-                description=f"{channel.mention} will now receive notifications from users to notify the staff."
-            )
-            await ctx.send(embed=embed)
+            await ctx.send(f"{channel.mention} will now receive notifications from users to notify the staff.")
 
     @staffset.command()
     @commands.admin_or_permissions(manage_guild=True)
@@ -48,19 +44,8 @@ class Staff(commands.Cog):
             await ctx.send("No role was specified. Role reset.")
             await self.config.guild(ctx.guild).role.set(None)
         else:
-            try:
-                await self.config.guild(ctx.guild).role.set(role.id)
-                embed = discord.Embed(
-                    title="Successful :white_check_mark:",
-                    description=f"{role.mention} will now be considered as the Staff role.",
-                )
-                await ctx.send(embed=embed)
-            except discord.Forbidden:
-                embed = discord.Embed(
-                    title="Oopsies! :x:",
-                    description=f"Something went wrong during the setup process."
-                )
-                await ctx.send(embed=embed)
+            await self.config.guild(ctx.guild).role.set(role.id)
+            await ctx.send(f"{role.mention} will now be considered as the Staff role.")
         
     @commands.command()
     @commands.cooldown(1, 600, commands.BucketType.user)
@@ -69,8 +54,7 @@ class Staff(commands.Cog):
         message = ctx.message
         channel = discord.utils.get(ctx.guild.channels, id=await self.config.guild(ctx.guild).channel())
         role = discord.utils.get(ctx.guild.roles, id=await self.config.guild(ctx.guild).role())
-        now = datetime.now()
-        D = now.strftime("%d/%m/%y")
+        D = datetime.now().strftime("%d/%m/%y")
         if await ctx.embed_requested():
             embed = discord.Embed(
                 title="Staff Attention Pending",
