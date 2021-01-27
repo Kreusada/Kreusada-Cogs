@@ -86,9 +86,9 @@ class Staff(commands.Cog):
                 return await ctx.send("The staff team have not yet configured a channel.")
         else:
             text = (
-                f"**Staff Attention Pending** | From {ctx.author.name}\n"
-                f"**Date**: {D}\n**Channel**: {ctx.channel.mention}"
+                f"Staff Attention Pending :warning:"
+                f"**User:** {ctx.author.name} {ctx.author.id}\n**Date:** {D}\n**Channel:** {ctx.channel.mention}\n"
             )
-            if reason is not None:
-                text = text + f"\n**Reason**: {reason}"
+            if reason:
+                text = text + f"\n**Reason:** {reason}"
             await ctx.send(text)
