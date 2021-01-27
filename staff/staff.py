@@ -69,7 +69,6 @@ class Staff(commands.Cog):
         message = ctx.message
         channel = discord.utils.get(ctx.guild.channels, id=await self.config.guild(ctx.guild).channel())
         role = discord.utils.get(ctx.guild.roles, id=await self.config.guild(ctx.guild).role())
-        jumper_f = "[Click here for context]({})".format(ctx.message.jump_url)
         now = datetime.now()
         D = now.strftime("%d/%m/%y")
         if await ctx.embed_requested():
@@ -89,9 +88,15 @@ class Staff(commands.Cog):
                 await message.add_reaction("✅")
                 await ctx.send("We have sent a report to the staff team. They will be with you as soon as possible.")
                 if role is not None:
-                    return await channel.send(content=f":warning: {role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
+                    try:
+                        return await channel.send(content=f":warning: {role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
+                    except discord.Forbidden:
+                        await ctx.send("I don't have permission to post in the staff's channel.")
                 else:
-                    return await channel.send(allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
+                    try:
+                        return await channel.send(allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
+                    except discord.Forbidden:
+                        await ctx.send("I don't have permission to post in the staff's channel.")
             else:
                 await message.add_reaction("❌")
                 return await ctx.send("The staff team have not yet configured a channel.")
