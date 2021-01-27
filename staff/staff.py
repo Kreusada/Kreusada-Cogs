@@ -94,7 +94,7 @@ class Staff(commands.Cog):
                 text = text + f"\n**Reason:** {reason}"
             try:
                 if channel:
-                    await channel.send(text + f'\n{role.mention}' if role is not None else '')
+                    await channel.send(text)
                 else:
                     await message.add_reaction("❌")
                     return await ctx.send("The staff team have not yet configured a channel.")
