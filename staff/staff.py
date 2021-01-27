@@ -72,28 +72,34 @@ class Staff(commands.Cog):
         jumper_f = "[Click here for context]({})".format(ctx.message.jump_url)
         now = datetime.now()
         D = now.strftime("%d/%m/%y")
-        embed = discord.Embed(
-            title="Staff Attention Pending",
-            description="[Click here for context]({})".format(ctx.message.jump_url),
-            color=await ctx.embed_colour()
-        )
-        embed.add_field(name="Member", value=ctx.author.mention, inline=True)
-        embed.add_field(name="Channel", value=ctx.channel.mention, inline=True)
-        embed.add_field(name="Date", value=D, inline=True)
-        if reason is not None:
-            embed.add_field(name="Reason", value=reason, inline=False)
-        else:
-            pass
-        embed.set_author(name=f"{ctx.author} | {ctx.author.id}", icon_url=ctx.author.avatar_url)
-        embed.set_footer(text=f"{self.bot.user.name} | Staff", icon_url=self.bot.user.avatar_url)
-        if channel is not None:
-            await message.add_reaction("✅")
-            await ctx.send("We have sent a report to the staff team. They will be with you as soon as possible.")
-            if role is not None:
-                return await channel.send(content=f":warning: {role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
+        if await ctx.embed_requested():
+            embed = discord.Embed(
+                title="Staff Attention Pending",
+                description="[Click here for context]({})".format(ctx.message.jump_url),
+                color=await ctx.embed_colour()
+            )
+            embed.add_field(name="Member", value=ctx.author.mention, inline=True)
+            embed.add_field(name="Channel", value=ctx.channel.mention, inline=True)
+            embed.add_field(name="Date", value=D, inline=True)
+            if reason is not None:
+                embed.add_field(name="Reason", value=reason, inline=False)
+            embed.set_author(name=f"{ctx.author} | {ctx.author.id}", icon_url=ctx.author.avatar_url)
+            embed.set_footer(text=f"{self.bot.user.name} | Staff", icon_url=self.bot.user.avatar_url)
+            if channel is not None:
+                await message.add_reaction("✅")
+                await ctx.send("We have sent a report to the staff team. They will be with you as soon as possible.")
+                if role is not None:
+                    return await channel.send(content=f":warning: {role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
+                else:
+                    return await channel.send(allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
             else:
-                await channel.send(allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
-            return
+                await message.add_reaction("❌")
+                return await ctx.send("The staff team have not yet configured a channel.")
         else:
-            await message.add_reaction("❌")
-            return await ctx.send("The staff team have not yet configured a channel.")
+            text = (
+                f"**Staff Attention Pending** | From {ctx.author.name}\n"
+                f"**Date**: {D}\n**Channel**: {ctx.channel.mention}"
+            )
+            if reason is not None:
+                text = text + f"\n**Reason**: {reason}"
+            await ctx.send(text)
