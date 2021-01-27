@@ -41,7 +41,7 @@ class AdvancedUptime(commands.Cog):
       commandsavail = len(set(self.bot.walk_commands()))
       app_info = await self.bot.application_info()
       owner = app_info.team.name if app_info.team else app_info.owner
-      if await.ctx.embed_requested():
+      if await ctx.embed_requested():
         e = discord.Embed(title=f":green_circle:  {botname}'s Uptime", color=0x59e1ac, timestamp=ctx.message.created_at)
         e.add_field(name=f"{botname} has been up for...", value=uptime_str, inline=False)
         e.add_field(name="Instance name:", value=ctx.bot.user, inline=True)
