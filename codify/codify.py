@@ -21,4 +21,4 @@ class Codify(commands.Cog):
             message = await ctx.fetch_message(message_id)
             await ctx.send(box(message.content, lang=language))
         except discord.NotFound:
-            await ctx.send(f"Could not find a message with the ID: `{message_id}`.")
+            await ctx.send(f"Could not find a message with the ID: `{message_id}`.") 
