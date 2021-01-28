@@ -53,4 +53,3 @@ async def embed(a: discord.Member, n: int, config: bool, count: int, qs: int):
     else:
         embed.set_thumbnail(url=image)
     return embed
-    

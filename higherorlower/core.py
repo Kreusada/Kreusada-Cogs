@@ -44,7 +44,6 @@ class HigherOrLower(commands.Cog):
     async def hol(self, ctx):
         """
         Play higher or lower!
-
         Guess if the next number will be higher or lower based on a standard pack of cards.
         For more information, please take a look [here](https://kreusadacogs.readthedocs.io/en/latest/higherorlower.html#higherorlower).
         """
@@ -194,7 +193,6 @@ class HigherOrLower(commands.Cog):
     async def image(self, ctx, true_or_false: bool):
         """
         Specify whether you would like an image card.
-
         Defaults are set to False (thumbnail).
         """
         if true_or_false is False:
@@ -209,4 +207,3 @@ class HigherOrLower(commands.Cog):
             E.set_image(url=BACKALL)
             E.set_footer(text="The image is nice and large, perfect for desktop.")
             await ctx.send(embed=E)
-            
