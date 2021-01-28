@@ -37,6 +37,8 @@ Available cogs list
 +=================+==============================================================+=========+==========+
 | advanceduptime  | Uptime but with additional statistics and inside an embed.   | Tools   | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
+| codify          | Get messages and transform them into code blocks.            | Tools   | Kreusada |
++-----------------+--------------------------------------------------------------+---------+----------+
 | edition         | Inspired by Twentysix Edition at Red.                        | Fun     | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
 | higherorlower   | Play the classic higher or lower cards game.                 | Fun     | Kreusada |
