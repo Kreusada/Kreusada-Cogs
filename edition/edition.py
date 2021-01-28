@@ -48,7 +48,7 @@ class Edition(commands.Cog):
                 await ctx.send(f"Done. Your nickname is now `{editioner.name.capitalize()} - {type} Edition`.")
             except discord.Forbidden:
                 await ctx.send("I don't have permission to change your nickname. Please note that I cannot change server owner nicknames.")
-            except HTTPException:
+            except discord.HTTPException:
                 await ctx.send("Your new nickname exceeds the 32 character limit.")
 
 

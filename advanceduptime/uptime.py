@@ -1,10 +1,12 @@
 import discord
+import logging
 from redbot.core import commands
 from datetime import datetime, timedelta
 from redbot.core.utils.chat_formatting import humanize_timedelta, box
 from redbot.core.i18n import Translator, cog_i18n
 
 _ = Translator("AdvancedUptime", __file__)
+log = logging.getLogger("red.kreusada.advanceduptime")
 
 # Cog_unload and setup functions were modified from https://github.com/flaree/Flare-Cogs/blob/master/userinfo/userinfo.py
 
