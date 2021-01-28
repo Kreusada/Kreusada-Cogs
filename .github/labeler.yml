@@ -1,0 +1,30 @@
+"Cog: AdvancedUptime":
+  - advanceduptime/*
+"Cog: Codify":
+  - codify/*
+"Cog: Edition":
+  - edition/*
+"Cog: HigherOrLower":
+  - higherorlower/*
+"Cog: NameGenerator":
+  - namegenerator/*
+"Cog: PingOverride":
+  - pingoverride/*
+"Cog: Ram":
+  - ram/*
+"Cog: RomanConverter":
+  - romanconverter/*
+"Cog: SearchEngine":
+  - searchengine/*
+"Cog: SendCards":
+  - sendcards/*
+"Cog: Staff":
+  - staff/*
+"Cog: TextManipulator":
+  - textmanipulator/*
+"Category: Repository":
+  - ./*
+  - .github/*
+  - .github/ISSUE_TEMPLATE/*
+  - .github/PULL_REQUEST_TEMPLATE/*
+  - .utils/*
