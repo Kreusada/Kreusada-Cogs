@@ -10,7 +10,13 @@ class Codify(commands.Cog):
 
     @commands.command()
     async def codify(self, ctx, message_id: int, language: str = "python"): 
-        """Get a message and wrap it in a codeblock."""
+        """
+        Get a message and wrap it in a codeblock.
+        
+        Arguments:
+        `language`: The language to transform the message content to.
+        Defaults to python.
+        """
         try:
             message = await ctx.fetch_message(message_id)
             await ctx.send(box(message.content, lang=language))
