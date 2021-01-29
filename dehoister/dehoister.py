@@ -19,8 +19,11 @@ class Dehoister(commands.Cog):
     @commands.command()
     async def dehoist(self, ctx, member: discord.Member):
         """Manually dehoist a user."""
-        await member.edit(nick=await self.config.guild(ctx.guild).nickname())
-        await ctx.send(f"`{member.name}` has successfully been dehoisted.")
+        try:
+            await member.edit(nick=await self.config.guild(ctx.guild).nickname())
+            await ctx.send(f"`{member.name}` has successfully been dehoisted.")
+        except discord.Forbidden:
+            await ctx.send("I am not authorized to edit nicknames.")
 
     @commands.admin_or_has_permissions(administrator=True)
     @commands.group()
