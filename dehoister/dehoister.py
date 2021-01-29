@@ -46,10 +46,10 @@ class Dehoister(commands.Cog):
     async def explain(self, ctx):
         """Explain how Dehoister works."""
         if await ctx.embed_requested():
-            embed = discord.Embed(description=EXPLAIN, color=await ctx.embed_colour())
+            embed = discord.Embed(description=EXPLAIN.replace('[p]', ctx.clean_prefix), color=await ctx.embed_colour())
             await ctx.send(embed=embed)
         else:
-            await ctx.send(EXPLAIN)
+            await ctx.send(EXPLAIN.replace('[p]', ctx.clean_prefix))
 
     @dehoistset.command()
     async def toggle(self, ctx, true_or_false: bool):
