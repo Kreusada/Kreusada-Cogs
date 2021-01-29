@@ -20,9 +20,9 @@ class PingOverride(commands.Cog):
     self.config = Config.get_conf(self, identifier=59365034743, force_registration=True)
     self.config.register_global(response="Pong.")
 
-    def format_help_for_context(self, ctx: commands.Context) -> str:
-        return f"{super().format_help_for_context(ctx)}\n\nCog Version: {self.__version__}"
-        # Thanks Sinbad.
+  def format_help_for_context(self, ctx: commands.Context) -> str:
+      return f"{super().format_help_for_context(ctx)}\n\nCog Version: {self.__version__}"
+      # Thanks Sinbad.
     
 # The following cog_unload function was modified from https://github.com/flaree/Flare-Cogs/blob/master/userinfo/userinfo.py.
 # Thanks flare!
