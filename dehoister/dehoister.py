@@ -15,7 +15,7 @@ class Dehoister(commands.Cog):
             toggled=False
         )
 
-    @commands.admin_or_has_permissions(administrator=True)
+    @commands.admin_or_permissions(administrator=True)
     @commands.command()
     async def dehoist(self, ctx, member: discord.Member):
         """Manually dehoist a user."""
@@ -25,7 +25,7 @@ class Dehoister(commands.Cog):
         except discord.Forbidden:
             await ctx.send("I am not authorized to edit nicknames.")
 
-    @commands.admin_or_has_permissions(administrator=True)
+    @commands.admin_or_permissions(administrator=True)
     @commands.group()
     async def dehoistset(self, ctx):
         """Settings for Dehoister."""
