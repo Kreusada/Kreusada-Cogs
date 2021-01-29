@@ -12,7 +12,7 @@ class Dehoister(commands.Cog):
         self.config = Config.get_conf(self, IDENTIFIER, force_registration=True)
         self.config.register_guild(
             nickname="Ze Dehoisted",
-            toggled=True
+            toggled=False
         )
 
     @commands.admin_or_has_permissions(administrator=True)
