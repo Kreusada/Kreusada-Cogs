@@ -22,7 +22,7 @@ class Dehoister(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "1.3.0"
+    __version__ = "1.0.0"
 
     def __init__(self, bot):
         self.bot = bot
@@ -33,8 +33,8 @@ class Dehoister(commands.Cog):
         )
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
-        return f"{super().format_help_for_context(ctx)}\n\nCog Version: {self.__version__}"
-        # Thanks Sinbad.
+        """Thanks Sinbad."""
+        return f"{super().format_help_for_context(ctx)}\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
     @commands.admin_or_permissions(administrator=True)
     @commands.command()

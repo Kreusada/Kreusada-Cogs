@@ -13,7 +13,7 @@ class PingOverride(commands.Cog):
   """
 
   __author__ = ["Kreusada"]
-  __version__ = "1.3.0"
+  __version__ = "1.4.0"
   
   def __init__(self, bot):
     self.bot = bot
@@ -21,11 +21,8 @@ class PingOverride(commands.Cog):
     self.config.register_global(response="Pong.")
 
   def format_help_for_context(self, ctx: commands.Context) -> str:
-      return f"{super().format_help_for_context(ctx)}\n\nCog Version: {self.__version__}"
-      # Thanks Sinbad.
-    
-# The following cog_unload function was modified from https://github.com/flaree/Flare-Cogs/blob/master/userinfo/userinfo.py.
-# Thanks flare!
+      """Thanks Sinbad."""
+      return f"{super().format_help_for_context(ctx)}\nAuthor: {self.__author__}\nVersion: {self.__version__}"
     
   def cog_unload(self):
       global _old_ping

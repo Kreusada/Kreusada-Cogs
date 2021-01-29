@@ -23,8 +23,8 @@ class AdvancedUptime(commands.Cog):
     self.bot = bot
 
   def format_help_for_context(self, ctx: commands.Context) -> str:
-      return f"{super().format_help_for_context(ctx)}\n\nCog Version: {self.__version__}"
-      # Thanks Sinbad.
+    """Thanks Sinbad."""
+      return f"{super().format_help_for_context(ctx)}\nAuthor: {self.__author__}\nVersion: {self.__version__}"
        
   def cog_unload(self):
     global _old_uptime
