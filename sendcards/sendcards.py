@@ -7,10 +7,19 @@ _ = Translator("SendCards", __file__)
 
 @cog_i18n(_)
 class SendCards(commands.Cog):
-  """Send someone a card!"""
+  """
+  Send someone a card!
+  """
+
+  __author__ = ["Kreusada"]
+  __version__ = "1.3.0"
   
   def __init__(self, bot):
     self.bot = bot
+
+  def format_help_for_context(self, ctx: commands.Context) -> str:
+      return f"{super().format_help_for_context(ctx)}\n\nCog Version: {self.__version__}"
+      # Thanks Sinbad.
 
   async def red_delete_data_for_user(self, **kwargs):
       """
@@ -19,11 +28,11 @@ class SendCards(commands.Cog):
       return
 
   @commands.group()
-  async def card(self, ctx):
+  async def card(self, ctx: commands.Context):
     """General settings for cards."""
       
   @card.group()
-  async def send(self, ctx):
+  async def send(self, ctx: commands.Context):
     """Send a card to someone!"""
     
 # This cog was made a while back, when I just started learning to code.

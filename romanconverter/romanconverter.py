@@ -8,8 +8,15 @@ _ = Translator("RomanConverter", __file__)
 class RomanConverter(commands.Cog):
     """Convert integers to roman numerals."""
 
+    __author__ = ["Kreusada"]
+    __version__ = "1.3.0"
+
     def __init__(self, bot):
         self.bot = bot
+
+    def format_help_for_context(self, ctx: commands.Context) -> str:
+        return f"{super().format_help_for_context(ctx)}\n\nCog Version: {self.__version__}"
+        # Thanks Sinbad.
 
     async def red_delete_data_for_user(self, **kwargs):
         """
@@ -62,7 +69,7 @@ class RomanConverter(commands.Cog):
         return output
 
     @commands.command()
-    async def romanize(self, ctx, number: int):
+    async def romanize(self, ctx: commands.Context, number: int):
         """
         Attempts to convert a number to a roman numeral.
         Results may become unprecedented above 10,000.
@@ -74,7 +81,7 @@ class RomanConverter(commands.Cog):
             await ctx.send("This numeral i've generated exceeds the 2000 character limit!")
     
     @commands.command()
-    async def numberize(self, ctx, roman_numeral: str):
+    async def numberize(self, ctx: commands.Context, roman_numeral: str):
         """
         Attempts to convert a roman numeral to a number.
         Results may become unprecedented above 10,000.

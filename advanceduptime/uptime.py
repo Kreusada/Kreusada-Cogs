@@ -12,10 +12,19 @@ log = logging.getLogger("red.kreusada.advanceduptime")
 
 @cog_i18n(_)
 class AdvancedUptime(commands.Cog):
-  """Show [botname]'s uptime, with extra stats."""
-  
+  """
+  Show [botname]'s uptime, with extra stats.
+  """
+
+  __author__ = ["Kreusada"]
+  __version__ = "1.3.0"
+
   def __init__(self, bot):
     self.bot = bot
+
+  def format_help_for_context(self, ctx: commands.Context) -> str:
+      return f"{super().format_help_for_context(ctx)}\n\nCog Version: {self.__version__}"
+      # Thanks Sinbad.
        
   def cog_unload(self):
     global _old_uptime

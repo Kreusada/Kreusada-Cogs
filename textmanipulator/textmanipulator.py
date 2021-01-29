@@ -6,10 +6,19 @@ _ = Translator("TextManipulator", __file__)
 
 @cog_i18n(_)
 class TextManipulator(commands.Cog):
-  """Manipulate characters and text."""
+  """
+  Manipulate characters and text.
+  """
+
+  __author__ = ["Kreusada"]
+  __version__ = "1.3.0"
   
   def __init__(self, bot):
     self.bot = bot
+
+  def format_help_for_context(self, ctx: commands.Context) -> str:
+      return f"{super().format_help_for_context(ctx)}\n\nCog Version: {self.__version__}"
+      # Thanks Sinbad.
 
   async def red_delete_data_for_user(self, **kwargs):
       """
@@ -18,31 +27,31 @@ class TextManipulator(commands.Cog):
       return
     
   @commands.group()
-  async def convert(self, ctx):
+  async def convert(self, ctx: commands.Context):
     """Convert text into different types."""
     
   @convert.command()
-  async def upper(self, ctx, *, characters: str):
+  async def upper(self, ctx: commands.Context, *, characters: str):
     """Convert all characters to uppercase."""
     await ctx.send(characters.upper())
 
   @convert.command()
-  async def lower(self, ctx, *, characters: str):
+  async def lower(self, ctx: commands.Context, *, characters: str):
     """Convert all characters to lowercase."""
     await ctx.send(characters.lower())
 
   @convert.command()
-  async def title(self, ctx, *, characters: str):
+  async def title(self, ctx: commands.Context, *, characters: str):
     """Convert all characters to titlecase."""
     await ctx.send(characters.title())
 
   @convert.command()
-  async def snake(self, ctx, *, characters: str):
+  async def snake(self, ctx: commands.Context, *, characters: str):
     """Convert all spaces to underscores."""
     await ctx.send(characters.replace(' ', '_'))
 
   @convert.command()
-  async def alt(self, ctx, *, characters: str):
+  async def alt(self, ctx: commands.Context, *, characters: str):
     """Convert all characters to alternating case."""
     characters = list(characters)
     characters[0::2] = map(str.upper, characters[0::2])
@@ -51,7 +60,7 @@ class TextManipulator(commands.Cog):
     await ctx.send(f"{inputer.join(characters)}")
     
   @commands.command()
-  async def charcount(self, ctx, *, characters: str):
+  async def charcount(self, ctx: commands.Context, *, characters: str):
     """Count how many characters are in a specified text."""
     spaces = "**Including spaces:** "
     nspaces = "**Excluding spaces:** "
@@ -59,25 +68,25 @@ class TextManipulator(commands.Cog):
     await ctx.send(f"{spaces}{str(len(characters))}\n{nspaces}{str(len(characters) - characters.count(scount))}`")
   
   @commands.command()
-  async def wordcount(self, ctx, *, words: str):
+  async def wordcount(self, ctx: commands.Context, *, words: str):
     """Count how many words are in a specified text."""
     w = "**Total words:** "
     await ctx.send(w+str(len(words.split())))
     return
   
   @commands.command()
-  async def removecommas(self, ctx, *, list: str):
+  async def removecommas(self, ctx: commands.Context, *, list: str):
     """Remove commas from text."""
     await ctx.send(list.replace(',', ''))
 
   @commands.command()
-  async def escapemarkdown(self, ctx, *, words: str):
+  async def escapemarkdown(self, ctx: commands.Context, *, words: str):
     """Escape markdown."""
     makeraw = discord.utils.escape_markdown(words)
     await ctx.send(makeraw)
     
   @commands.command()
-  async def replace(self, ctx, to_replace: str, to_replace_with: str, *, message: str):
+  async def replace(self, ctx: commands.Context, to_replace: str, to_replace_with: str, *, message: str):
     """
     Replace any given character in a message.
     

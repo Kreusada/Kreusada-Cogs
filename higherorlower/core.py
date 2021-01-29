@@ -18,6 +18,9 @@ class HigherOrLower(commands.Cog):
     For more information, take a read [here](https://kreusadacogs.readthedocs.io/en/latest/higherorlower.html#higherorlower).
     """
 
+    __author__ = ["Kreusada"]
+    __version__ = "1.3.0"
+
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, 439583, force_registration=True)
@@ -32,6 +35,10 @@ class HigherOrLower(commands.Cog):
             image=False,
             count=1
             )
+
+    def format_help_for_context(self, ctx: commands.Context) -> str:
+        return f"{super().format_help_for_context(ctx)}\n\nCog Version: {self.__version__}"
+        # Thanks Sinbad.
         
     async def red_delete_data_for_user(
         self,
@@ -41,7 +48,7 @@ class HigherOrLower(commands.Cog):
         await self.config.user_from_id(user_id).clear()
 
     @commands.command()
-    async def hol(self, ctx):
+    async def hol(self, ctx: commands.Context):
         """
         Play higher or lower!
         Guess if the next number will be higher or lower based on a standard pack of cards.
@@ -127,12 +134,12 @@ class HigherOrLower(commands.Cog):
             await self.config.user(ctx.author).count.set(1)
 
     @commands.group()
-    async def holset(self, ctx):
+    async def holset(self, ctx: commands.Context):
         """Settings for higher or lower."""
 
     @holset.command()
     @commands.mod_or_permissions(administrator=True)
-    async def perpayout(self, ctx, payout: int):
+    async def perpayout(self, ctx: commands.Context, payout: int):
         """Sets the bank payout per answer."""
         currency = await bank.get_currency_name(ctx.guild)
         if payout > 1000:
@@ -143,7 +150,7 @@ class HigherOrLower(commands.Cog):
 
     @holset.command()
     @commands.mod_or_permissions(administrator=True)
-    async def total(self, ctx, cards: int):
+    async def total(self, ctx: commands.Context, cards: int):
         """
         Set the total of answered cards needed to win.
         
@@ -160,7 +167,7 @@ class HigherOrLower(commands.Cog):
             
     @holset.command()
     @commands.mod_or_permissions(administrator=True)
-    async def roundpayout(self, ctx, payout: int):
+    async def roundpayout(self, ctx: commands.Context, payout: int):
         """Sets the bank payout if all 9 cards are correctly guessed."""
         currency = await bank.get_currency_name(ctx.guild)
         if payout > 100000:
@@ -171,7 +178,7 @@ class HigherOrLower(commands.Cog):
         
     @holset.command()
     @commands.mod_or_permissions(administrator=True)
-    async def togglebank(self, ctx, true_or_false: bool = False):
+    async def togglebank(self, ctx: commands.Context, true_or_false: bool = False):
         """Toggle the bank ON. Defaults to False."""
         if true_or_false is False:
             await self.config.guild(ctx.guild).bank.set(False)
@@ -190,7 +197,7 @@ class HigherOrLower(commands.Cog):
             )
 
     @holset.command()
-    async def image(self, ctx, true_or_false: bool):
+    async def image(self, ctx: commands.Context, true_or_false: bool):
         """
         Specify whether you would like an image card.
         Defaults are set to False (thumbnail).

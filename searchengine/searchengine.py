@@ -8,10 +8,16 @@ _ = Translator("SearchEngine", __file__)
 
 @cog_i18n(_)
 class SearchEngine(commands.Cog):
-  """Search multiple websites for queries."""
+  """
+  Search multiple websites for queries.
+  """
   
   def __init__(self, bot):
     self.bot = bot
+
+  def format_help_for_context(self, ctx: commands.Context) -> str:
+      return f"{super().format_help_for_context(ctx)}\n\nCog Version: {self.__version__}"
+      # Thanks Sinbad.
 
   async def red_delete_data_for_user(self, **kwargs):
       """
@@ -20,7 +26,7 @@ class SearchEngine(commands.Cog):
       return
     
   @commands.command()
-  async def google(self, ctx, *, search_query):
+  async def google(self, ctx: commands.Context, *, search_query):
     """Search google."""
     querytemplate = f"https://www.google.co.uk/search?source=hp&ei=z07WX6SiGrXVgwfdpa3wAQ&q={search_query.capitalize()}"
     querytemplate = querytemplate.replace(' ', '%20')
@@ -43,7 +49,7 @@ class SearchEngine(commands.Cog):
       await ctx.send(box(text, lang='yaml'))
 
   @commands.command()
-  async def pinterest(self, ctx, *, search_query):
+  async def pinterest(self, ctx: commands.Context, *, search_query):
     """Search pinterest."""
     querytemplate = f"https://www.pinterest.co.uk/search/pins/?q={search_query.capitalize()}"
     querytemplate = querytemplate.replace(' ', '%20')
@@ -66,7 +72,7 @@ class SearchEngine(commands.Cog):
       await ctx.send(box(text, lang='yaml'))
 
   @commands.command()
-  async def redbubble(self, ctx, *, search_query):
+  async def redbubble(self, ctx: commands.Context, *, search_query):
     """Search redbubble."""
     querytemplate = f"https://www.redbubble.com/shop/?query={search_query.capitalize()}"
     querytemplate = querytemplate.replace(' ', '%20')

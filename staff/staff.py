@@ -8,12 +8,21 @@ _ = Translator("Staff", __file__)
 
 @cog_i18n(_)
 class Staff(commands.Cog):
-    """Cog for alerting Staff."""
+    """
+    Cog for alerting Staff.
+    """
+
+    __author__ = ["Kreusada"]
+    __version__ = "1.3.0"
 
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, 200730042020, force_registration=True)
         self.config.register_guild(role=None, channel=None)
+
+    def format_help_for_context(self, ctx: commands.Context) -> str:
+        return f"{super().format_help_for_context(ctx)}\n\nCog Version: {self.__version__}"
+        # Thanks Sinbad.
 
     async def red_delete_data_for_user(self, **kwargs):
         """
@@ -22,12 +31,12 @@ class Staff(commands.Cog):
         return
 
     @commands.group()
-    async def staffset(self, ctx):
+    async def staffset(self, ctx: commands.Context):
         """Staff notifier configuration."""
 
     @staffset.command()
     @commands.admin_or_permissions(manage_guild=True)
-    async def channel(self, ctx, channel: discord.TextChannel = None):
+    async def channel(self, ctx: commands.Context, channel: discord.TextChannel = None):
         """Sets the channel for staff to receive notifications."""
         if channel is None:
             await ctx.send("No channel was specified. Channel reset.")
@@ -38,7 +47,7 @@ class Staff(commands.Cog):
 
     @staffset.command()
     @commands.admin_or_permissions(manage_guild=True)
-    async def role(self, ctx, role: discord.Role = None):
+    async def role(self, ctx: commands.Context, role: discord.Role = None):
         """Sets the Staff role."""
         if role is None:
             await ctx.send("No role was specified. Role reset.")
@@ -49,7 +58,7 @@ class Staff(commands.Cog):
         
     @commands.command()
     @commands.cooldown(1, 600, commands.BucketType.user)
-    async def staff(self, ctx, reason: str = None):
+    async def staff(self, ctx: commands.Context, reason: str = None):
         """Notifies the staff."""
         message = ctx.message
         channel = discord.utils.get(ctx.guild.channels, id=await self.config.guild(ctx.guild).channel())

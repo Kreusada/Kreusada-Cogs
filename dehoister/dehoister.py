@@ -17,7 +17,12 @@ EXPLAIN = (
 )
 
 class Dehoister(commands.Cog):
-    """Dehoist usernames that start with hoisting characters."""
+    """
+    Dehoist usernames that start with hoisting characters.
+    """
+
+    __author__ = ["Kreusada"]
+    __version__ = "1.3.0"
 
     def __init__(self, bot):
         self.bot = bot
@@ -27,9 +32,13 @@ class Dehoister(commands.Cog):
             toggled=False
         )
 
+    def format_help_for_context(self, ctx: commands.Context) -> str:
+        return f"{super().format_help_for_context(ctx)}\n\nCog Version: {self.__version__}"
+        # Thanks Sinbad.
+
     @commands.admin_or_permissions(administrator=True)
     @commands.command()
-    async def dehoist(self, ctx, member: discord.Member):
+    async def dehoist(self, ctx: commands.Context, member: discord.Member):
         """Manually dehoist a user."""
         try:
             await member.edit(nick=await self.config.guild(ctx.guild).nickname())
@@ -39,11 +48,11 @@ class Dehoister(commands.Cog):
 
     @commands.admin_or_permissions(administrator=True)
     @commands.group()
-    async def dehoistset(self, ctx):
+    async def dehoistset(self, ctx: commands.Context):
         """Settings for Dehoister."""
         
     @dehoistset.command()
-    async def explain(self, ctx):
+    async def explain(self, ctx: commands.Context):
         """Explain how Dehoister works."""
         if await ctx.embed_requested():
             embed = discord.Embed(description=EXPLAIN.replace('[p]', ctx.clean_prefix), color=await ctx.embed_colour())
@@ -52,13 +61,13 @@ class Dehoister(commands.Cog):
             await ctx.send(EXPLAIN.replace('[p]', ctx.clean_prefix))
 
     @dehoistset.command()
-    async def toggle(self, ctx, true_or_false: bool):
+    async def toggle(self, ctx: commands.Context, true_or_false: bool):
         """Toggle the Dehoister."""
         await self.config.guild(ctx.guild).toggled.set(true_or_false)
         await ctx.send("Dehoister has been enabled.") if true_or_false is True else await ctx.send("Dehoister has been disabled.")
 
     @dehoistset.command()
-    async def nickname(self, ctx, *, nickname: str):
+    async def nickname(self, ctx: commands.Context, *, nickname: str):
         """Set the nickname for dehoisted members."""
         if len(nickname) < 32:
             await self.config.guild(ctx.guild).nickname.set(nickname)

@@ -11,10 +11,17 @@ class Edition(commands.Cog):
     Inspired by the Twentysix Edition at Red.
     """
 
+    __author__ = ["Kreusada"]
+    __version__ = "1.3.0"
+
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, 43958345, force_registration=True)
         self.config.register_guild(editioner=None)
+
+    def format_help_for_context(self, ctx: commands.Context) -> str:
+        return f"{super().format_help_for_context(ctx)}\n\nCog Version: {self.__version__}"
+        # Thanks Sinbad.
 
     async def red_delete_data_for_user(self, **kwargs):
         """
@@ -23,7 +30,7 @@ class Edition(commands.Cog):
         return
 
     @commands.command()
-    async def edition(self, ctx, type: str):
+    async def edition(self, ctx: commands.Context, type: str):
         """
         Become an edition of the editioner!
         
@@ -54,7 +61,7 @@ class Edition(commands.Cog):
 
     @commands.command()
     @commands.mod_or_permissions(administrator=True)
-    async def editionset(self, ctx, editioner: discord.Member):
+    async def editionset(self, ctx: commands.Context, editioner: discord.Member):
         """Sets the editioner."""
         await self.config.guild(ctx.guild).editioner.set(editioner.id)
         await ctx.send(f"Okay, {editioner.name} is now the guild's editioner.")

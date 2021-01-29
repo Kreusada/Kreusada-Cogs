@@ -8,12 +8,21 @@ log = logging.getLogger("red.kreusada.pingoverride")
 
 @cog_i18n(_)
 class PingOverride(commands.Cog):
-  """Custom ping message."""
+  """
+  Custom ping message.
+  """
+
+  __author__ = ["Kreusada"]
+  __version__ = "1.3.0"
   
   def __init__(self, bot):
     self.bot = bot
     self.config = Config.get_conf(self, identifier=59365034743, force_registration=True)
     self.config.register_global(response="Pong.")
+
+    def format_help_for_context(self, ctx: commands.Context) -> str:
+        return f"{super().format_help_for_context(ctx)}\n\nCog Version: {self.__version__}"
+        # Thanks Sinbad.
     
 # The following cog_unload function was modified from https://github.com/flaree/Flare-Cogs/blob/master/userinfo/userinfo.py.
 # Thanks flare!
@@ -30,7 +39,7 @@ class PingOverride(commands.Cog):
   @commands.is_owner()  
   @commands.command()
   @commands.guild_only()
-  async def pingset(self, ctx, *, response: str):
+  async def pingset(self, ctx: commands.Context, *, response: str):
     """
     Set your custom ping message.
     
@@ -50,7 +59,7 @@ class PingOverride(commands.Cog):
     await ctx.send(f"Running `{ctx.clean_prefix}ping` will now respond with:\n{converter(response)}")
     
   @commands.command()
-  async def ping(self, ctx):
+  async def ping(self, ctx: commands.Context):
     """Pong. Or not?"""
     resp = await self.config.response()
     mapping = {"latency": round(self.bot.latency*1000), "nick": ctx.author.display_name}
