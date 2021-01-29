@@ -83,23 +83,23 @@ class SendCards(commands.Cog):
     @send.command(aliases=["gws"])
     async def getwellsoon(self, ctx: commands.Context, user_id: int, *, message: str):
       """Send a get well soon card to someone!"""
-        destination = self.bot.get_user(user_id)
-        author = ctx.author.name
-        user = destination
-        if destination is None or destination.bot:
-            await ctx.send("Invalid ID, user not found, or user is a bot.")
-        else:
-          foot = (f"Send get well soon cards using: {ctx.clean_prefix}card send getwellsoon!")
-          e = discord.Embed(title=f":thermometer_face: Get Well Soon Card from {ctx.author} :thermometer_face:", 
-                          description= "Dear {},\n\n{}\n\nFrom {} :pray:".format(user.name, message, author), 
-                            colour=discord.Colour.red())
-          e.set_footer(text=foot)
-        try:
-          await destination.send(embed=e)
-        except discord.HTTPException:
-          await ctx.send(f"Sorry, I couldn't send a card to **{user.name}.**")
-        else:
-          await ctx.send(f"Get well soon card delivered to **{user.name}!** I hope they're okay too! :pray:")
+      destination = self.bot.get_user(user_id)
+      author = ctx.author.name
+      user = destination
+      if destination is None or destination.bot:
+          await ctx.send("Invalid ID, user not found, or user is a bot.")
+      else:
+        foot = (f"Send get well soon cards using: {ctx.clean_prefix}card send getwellsoon!")
+        e = discord.Embed(title=f":thermometer_face: Get Well Soon Card from {ctx.author} :thermometer_face:", 
+                        description= "Dear {},\n\n{}\n\nFrom {} :pray:".format(user.name, message, author), 
+                          colour=discord.Colour.red())
+        e.set_footer(text=foot)
+      try:
+        await destination.send(embed=e)
+      except discord.HTTPException:
+        await ctx.send(f"Sorry, I couldn't send a card to **{user.name}.**")
+      else:
+        await ctx.send(f"Get well soon card delivered to **{user.name}!** I hope they're okay too! :pray:")
 
     @send.command()
     async def valentine(self, ctx: commands.Context, user_id: int, *, message: str):
