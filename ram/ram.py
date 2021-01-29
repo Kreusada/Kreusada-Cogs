@@ -14,8 +14,8 @@ class RAM(commands.Cog):
     self.bot = bot
 
   def format_help_for_context(self, ctx: commands.Context) -> str:
-      """Thanks Sinbad."""
-      return f"{super().format_help_for_context(ctx)}\nAuthor: {self.__author__}\nVersion: {self.__version__}"
+    """Thanks Sinbad."""
+    return f"{super().format_help_for_context(ctx)}\nAuthor: {self.__author__}\nVersion: {self.__version__}"
     
   @commands.command()
   @commands.is_owner()
