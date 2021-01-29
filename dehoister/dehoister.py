@@ -34,7 +34,7 @@ class Dehoister(commands.Cog):
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         """Thanks Sinbad."""
-        return f"{super().format_help_for_context(ctx)}\nAuthor: {self.__author__}\nVersion: {self.__version__}"
+        return f"{super().format_help_for_context(ctx)}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
     @commands.admin_or_permissions(administrator=True)
     @commands.command()
