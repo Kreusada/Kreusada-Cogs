@@ -10,7 +10,7 @@ class TextManipulator(commands.Cog):
     Manipulate characters and text.
     """
 
-    __author__ = ["Kreusada"]
+    __author__ = "Kreusada"
     __version__ = "1.5.0"
   
     def __init__(self, bot):

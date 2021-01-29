@@ -14,7 +14,7 @@ class AdvancedUptime(commands.Cog):
     Show [botname]'s uptime, with extra stats.
     """
 
-    __author__ = ["Kreusada"]
+    __author__ = "Kreusada"
     __version__ = "1.3.0"
 
     def __init__(self, bot):

@@ -8,7 +8,7 @@ _ = Translator("RomanConverter", __file__)
 class RomanConverter(commands.Cog):
     """Convert integers to roman numerals."""
 
-    __author__ = ["Kreusada"]
+    __author__ = "Kreusada"
     __version__ = "1.0.0"
 
     def __init__(self, bot):

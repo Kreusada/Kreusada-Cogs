@@ -12,7 +12,7 @@ class PingOverride(commands.Cog):
     Custom ping message.
     """
 
-    __author__ = ["Kreusada"]
+    __author__ = "Kreusada"
     __version__ = "1.4.0"
     
     def __init__(self, bot):

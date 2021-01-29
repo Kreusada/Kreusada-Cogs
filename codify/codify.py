@@ -7,7 +7,7 @@ class Codify(commands.Cog):
     Get a message and wrap it in a codeblock.
     """
 
-    __author__ = ["Kreusada"]
+    __author__ = "Kreusada"
     __version__ = "1.0.0"
 
     def __init__(self, bot):

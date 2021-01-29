@@ -6,7 +6,7 @@ class NameGenerator(commands.Cog):
     Generates random names.
     """
 
-    __author__ = ["Kreusada"]
+    __author__ = "Kreusada"
     __version__ = "1.0.0"
 
     def __init__(self, bot):

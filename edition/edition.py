@@ -11,7 +11,7 @@ class Edition(commands.Cog):
     Inspired by the Twentysix Edition at Red.
     """
 
-    __author__ = ["Kreusada"]
+    __author__ = "Kreusada"
     __version__ = "1.1.0"
 
     def __init__(self, bot):

@@ -11,7 +11,7 @@ class SendCards(commands.Cog):
     Send someone a card!
     """
 
-    __author__ = ["Kreusada"]
+    __author__ = "Kreusada"
     __version__ = "1.2.0"
   
     def __init__(self, bot):

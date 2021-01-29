@@ -7,7 +7,7 @@ RAMU = "Random Access Memory used: "
 class RAM(commands.Cog):
     """Get [botname]'s ram."""
 
-    __author__ = ["Kreusada"]
+    __author__ = "Kreusada"
     __version__ = "1.0.0"
   
     def __init__(self, bot):

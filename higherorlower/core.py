@@ -18,7 +18,7 @@ class HigherOrLower(commands.Cog):
     For more information, take a read [here](https://kreusadacogs.readthedocs.io/en/latest/higherorlower.html#higherorlower).
     """
 
-    __author__ = ["Kreusada"]
+    __author__ = "Kreusada"
     __version__ = "1.3.0"
 
     def __init__(self, bot):

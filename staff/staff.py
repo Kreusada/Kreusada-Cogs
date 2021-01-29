@@ -12,7 +12,7 @@ class Staff(commands.Cog):
     Cog for alerting Staff.
     """
 
-    __author__ = ["Kreusada"]
+    __author__ = "Kreusada"
     __version__ = "1.4.0"
 
     def __init__(self, bot):
