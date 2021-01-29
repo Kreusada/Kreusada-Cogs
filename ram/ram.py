@@ -8,7 +8,7 @@ class RAM(commands.Cog):
     """Get [botname]'s ram."""
 
     __author__ = ["Kreusada"]
-    __version__ = "1.0.0
+    __version__ = "1.0.0"
   
     def __init__(self, bot):
         self.bot = bot
