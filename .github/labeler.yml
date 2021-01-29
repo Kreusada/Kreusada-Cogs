@@ -4,6 +4,8 @@
   - codify/*
 "Cog: Edition":
   - edition/*
+"Cog: Dehoister":
+  - dehoister/*
 "Cog: HigherOrLower":
   - higherorlower/*
 "Cog: NameGenerator":

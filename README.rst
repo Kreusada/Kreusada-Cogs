@@ -39,6 +39,8 @@ Available cogs list
 +-----------------+--------------------------------------------------------------+---------+----------+
 | codify          | Get messages and transform them into code blocks.            | Tools   | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
+| dehoister       | Dehoist new users with higher ASCII.                         | Mod     | Kreusada |
++-----------------+--------------------------------------------------------------+---------+----------+
 | edition         | Inspired by Twentysix Edition at Red.                        | Fun     | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
 | higherorlower   | Play the classic higher or lower cards game.                 | Fun     | Kreusada |
