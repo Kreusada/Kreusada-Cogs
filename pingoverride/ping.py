@@ -37,34 +37,34 @@ class PingOverride(commands.Cog):
     @commands.command()
     @commands.guild_only()
     async def pingset(self, ctx: commands.Context, *, response: str):
-      """
-      Set your custom ping message.
-      
-      Optional Regex:
-      `{nick}`: Replaces with the authors nickname.
-      `{latency}`: Replaces with the bots latency.
-      
-      Example Usage:
-      `[p]pingset Hello {nick}! My latency is {latency} ms.`
-      """
-      await self.config.response.set(response)
-      message = await self.converter(ctx, response, True)
-      await ctx.send(f"Running `{ctx.clean_prefix}ping` will now respond with:\n{message}")
+        """
+        Set your custom ping message.
+        
+        Optional Regex:
+        `{nick}`: Replaces with the authors nickname.
+        `{latency}`: Replaces with the bots latency.
+        
+        Example Usage:
+        `[p]pingset Hello {nick}! My latency is {latency} ms.`
+        """
+        await self.config.response.set(response)
+        message = await self.converter(ctx, response, False)
+        await ctx.send(f"Running `{ctx.clean_prefix}ping` will now respond with:\n{message}")
       
     @commands.command()
     async def ping(self, ctx: commands.Context):
-      """Pong. Or not?"""
-      resp = await self.config.response()
-      message = await self.converter(ctx, resp, True)
-      await ctx.send(message)
+        """Pong. Or not?"""
+        resp = await self.config.response()
+        message = await self.converter(ctx, resp, True)
+        await ctx.send(message)
 
     
     async def converter(self, ctx: commands.Context, match, bool):
-      if bool is True:
-        mapping = {"latency": round(self.bot.latency*1000), "nick": ctx.author.display_name}
-      else:
-        mapping = {"latency": f"({ctx.bot.user.name}'s latency)", "nick": "(author's nickname)"}
-      return match.format(**mapping)
+        if bool is True:
+          mapping = {"latency": round(self.bot.latency*1000), "nick": ctx.author.display_name}
+        else:
+          mapping = {"latency": f"({ctx.bot.user.name}'s latency)", "nick": "(author's nickname)"}
+        return match.format(**mapping)
 
 async def setup(bot):
     cping = PingOverride(bot)
