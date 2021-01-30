@@ -43,8 +43,6 @@ Available cogs list
 +-----------------+--------------------------------------------------------------+---------+----------+
 | edition         | Inspired by Twentysix Edition at Red.                        | Fun     | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
-| higherorlower   | Play the classic higher or lower cards game.                 | Fun     | Kreusada |
-+-----------------+--------------------------------------------------------------+---------+----------+
 | namegenerator   | Generate random names will optional gender arguments.        | Fun     | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
 | pingoverride    | Replace "Pong." with your own response!                      | Tools   | Kreusada |
@@ -61,6 +59,13 @@ Available cogs list
 +-----------------+--------------------------------------------------------------+---------+----------+
 | textmanipulator | Manipulate text and words with tools.                        | Tools   | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
+
+---------------
+Higher Or Lower
+---------------
+
+Unfortunately, I had to move this cog to a seperate repository, because I did not want it to be directly accessible on an
+active repo. You can find it `here <https://github.com/kreus7/HigherOrLower`_, with limited support.
 
 --------
 Support
