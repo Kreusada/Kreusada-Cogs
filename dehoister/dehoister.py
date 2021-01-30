@@ -83,7 +83,7 @@ class Dehoister(commands.Cog):
             return
         if not guild:
             return
-        if member.name.startswith(tuple(list(HOIST))):
+        if member.name.startswith(tuple(HOIST)):
             try:
                 return await member.edit(nick=await self.config.guild(guild).nickname())
             except discord.Forbidden:
