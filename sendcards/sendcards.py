@@ -65,7 +65,7 @@ class SendCards(commands.Cog):
         name = self.bot.get_user(user_id)
         embed = discord.Embed(
           title=f"{emoji} {type.title()} card from {ctx.author.name}!",
-          description="Dear {name},\n\n{message}\n\nFrom {ctx.author.name} {emoji}.",
+          description=f"Dear {name},\n\n{message}\n\nFrom {ctx.author.name} {emoji}.",
           color=await ctx.embed_colour()
         )
         embed.set_footer(text=f"Send {type} cards by using: {ctx.clean_prefix}send {type.replace(' ', '')}!")
