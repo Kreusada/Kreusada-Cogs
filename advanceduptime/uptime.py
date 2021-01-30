@@ -18,20 +18,20 @@ class AdvancedUptime(commands.Cog):
     __version__ = "1.3.0"
 
     def __init__(self, bot):
-      self.bot = bot
+        self.bot = bot
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         """Thanks Sinbad."""
         return f"{super().format_help_for_context(ctx)}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
         
     def cog_unload(self):
-      global _old_uptime
-      if _old_uptime:
-        try:
-          self.bot.remove_command("uptime")
-        except Exception as error:
-          log.info(error)
-        self.bot.add_command(_old_uptime)
+        global _old_uptime
+        if _old_uptime:
+            try:
+                self.bot.remove_command("uptime")
+            except Exception as error:
+                log.info(error)
+                self.bot.add_command(_old_uptime)
 
     async def red_delete_data_for_user(self, **kwargs):
         """
@@ -51,33 +51,33 @@ class AdvancedUptime(commands.Cog):
         app_info = await self.bot.application_info()
         owner = app_info.team.name if app_info.team else app_info.owner
         if await ctx.embed_requested():
-          e = discord.Embed(title=f":green_circle:  {botname}'s Uptime", color=0x59e1ac, timestamp=ctx.message.created_at)
-          e.add_field(name=f"{botname} has been up for...", value=uptime_str, inline=False)
-          e.add_field(name="Instance name:", value=ctx.bot.user, inline=True)
-          e.add_field(name="Instance owner:", value=owner, inline=True)
-          e.add_field(name="Current guild:", value=ctx.guild, inline=True)
-          e.add_field(name="Number of guilds:", value=servers, inline=True)
-          e.add_field(name="Unique users:", value=users, inline=True)
-          e.add_field(name="Commands available:", value=commands_available, inline=True)
-          e.set_thumbnail(url=ctx.bot.user.avatar_url)
-          await ctx.send(embed=e)
+            e = discord.Embed(title=f":green_circle:  {botname}'s Uptime", color=0x59e1ac, timestamp=ctx.message.created_at)
+            e.add_field(name=f"{botname} has been up for...", value=uptime_str, inline=False)
+            e.add_field(name="Instance name:", value=ctx.bot.user, inline=True)
+            e.add_field(name="Instance owner:", value=owner, inline=True)
+            e.add_field(name="Current guild:", value=ctx.guild, inline=True)
+            e.add_field(name="Number of guilds:", value=servers, inline=True)
+            e.add_field(name="Unique users:", value=users, inline=True)
+            e.add_field(name="Commands available:", value=commands_available, inline=True)
+            e.set_thumbnail(url=ctx.bot.user.avatar_url)
+            await ctx.send(embed=e)
         else:
-          title = f"[{botname} has been up for {uptime_str}.]"
-          msg = (
-            f"Instance name: {ctx.bot.user}\n"
-            f"Instance owner: {owner}\n"
-            f"Current guild: {ctx.guild}\n"
-            f"Number of guilds: {servers}\n"
-            f"Unique users: {users}\n"
-            f"Commands available: {commands_available}"
-          )
-          await ctx.send(box(title, lang='yaml'))
-          await ctx.send(box(msg, lang='yaml'))
+            title = f"[{botname} has been up for {uptime_str}.]"
+            msg = (
+              f"Instance name: {ctx.bot.user}\n"
+              f"Instance owner: {owner}\n"
+              f"Current guild: {ctx.guild}\n"
+              f"Number of guilds: {servers}\n"
+              f"Unique users: {users}\n"
+              f"Commands available: {commands_available}"
+            )
+            await ctx.send(box(title, lang='yaml'))
+            await ctx.send(box(msg, lang='yaml'))
 
 async def setup(bot):
-  au = AdvancedUptime(bot)
-  global _old_uptime
-  _old_uptime = bot.get_command("uptime")
-  if _old_uptime:
-      bot.remove_command(_old_uptime.name)
-  bot.add_cog(au)
+    au = AdvancedUptime(bot)
+    global _old_uptime
+    _old_uptime = bot.get_command("uptime")
+    if _old_uptime:
+        bot.remove_command(_old_uptime.name)
+    bot.add_cog(au)
