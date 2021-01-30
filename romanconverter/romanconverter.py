@@ -65,7 +65,7 @@ class RomanConverter(commands.Cog):
         Attempts to convert a number to a roman numeral.
         Results may become unprecedented above 10,000.
         """
-        output = await self.roman(number)
+        output = await roman(number)
         try:
             await ctx.send(output)
         except discord.HTTPException:
@@ -77,5 +77,5 @@ class RomanConverter(commands.Cog):
         Attempts to convert a roman numeral to a number.
         Results may become unprecedented above 10,000.
         """
-        output = await self.number(roman_numeral)
+        output = await number(roman_numeral)
         await ctx.send(output)
