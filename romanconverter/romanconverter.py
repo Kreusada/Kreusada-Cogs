@@ -66,7 +66,7 @@ class RomanConverter(commands.Cog):
         Results may become unprecedented above 10,000.
         """
         try:
-            await ctx.send(number(roman_numeral))
+            await ctx.send(roman(number))
         except discord.HTTPException:
             await ctx.send("This numeral i've generated exceeds the 2000 character limit!")
     
