@@ -31,70 +31,44 @@ class SearchEngine(commands.Cog):
     @commands.command()
     async def google(self, ctx: commands.Context, *, search_query):
         """Search google."""
-        querytemplate = f"https://www.google.co.uk/search?source=hp&ei=z07WX6SiGrXVgwfdpa3wAQ&q={search_query.capitalize()}"
-        querytemplate = querytemplate.replace(' ', '%20')
-        if await ctx.embed_requested():
-          e = discord.Embed(description=(
-            f"[Click here for search results]({querytemplate})"
-          ), colour=discord.Colour.red(), timestamp=ctx.message.created_at)
-          e.add_field(name="Engine", value="Google", inline=True)
-          e.add_field(name="Author", value=ctx.author.name, inline=True)
-          e.add_field(name="Search Query", value=search_query, inline=False)
-          await ctx.send(embed=e)
-        else:
-          title = f"URL: [{querytemplate}]\n\n"
-          text = (
-            f"Engine: Google\n"
-            f"Author: {ctx.author.name}\n"
-            f"Search Query: {search_query}"
-          )
-          await ctx.send(box(title, lang='ini'))
-          await ctx.send(box(text, lang='yaml'))
+        await self.boot_engine(ctx, 'google', search_query)
 
     @commands.command()
     async def pinterest(self, ctx: commands.Context, *, search_query):
         """Search pinterest."""
-        querytemplate = f"https://www.pinterest.co.uk/search/pins/?q={search_query.capitalize()}"
-        querytemplate = querytemplate.replace(' ', '%20')
-        if await ctx.embed_requested():
-          e = discord.Embed(description=(
-            f"[Click here for search results]({querytemplate})"
-          ), colour=discord.Colour.red(), timestamp=ctx.message.created_at)
-          e.add_field(name="Engine", value="Pinterest", inline=True)
-          e.add_field(name="Author", value=ctx.author.name, inline=True)
-          e.add_field(name="Search Query", value=search_query, inline=False)
-          await ctx.send(embed=e)
-        else:
-          title = f"URL: [{querytemplate}]\n\n"
-          text = (
-            f"Engine: Google\n"
-            f"Author: {ctx.author.name}\n"
-            f"Search Query: {search_query}"
-          )
-          await ctx.send(box(title, lang='ini'))
-          await ctx.send(box(text, lang='yaml'))
+        await self.boot_engine(ctx, 'pinterest', search_query)
 
     @commands.command()
     async def redbubble(self, ctx: commands.Context, *, search_query):
         """Search redbubble."""
-        querytemplate = f"https://www.redbubble.com/shop/?query={search_query.capitalize()}"
-        querytemplate = querytemplate.replace(' ', '%20')
-        if await ctx.embed_requested():
-          e = discord.Embed(description=(
-            f"[Click here for search results]({querytemplate})"
-          ), colour=discord.Colour.red(), timestamp=ctx.message.created_at)
-          e.add_field(name="Engine", value="RedBubble", inline=True)
-          e.add_field(name="Author", value=ctx.author.name, inline=True)
-          e.add_field(name="Search Query", value=search_query, inline=False)
-          await ctx.send(embed=e)
+        await self.boot_engine(ctx, 'redbubble', search_query)
+
+    async def boot_engine(self, ctx: commands.Context, type: str, search_query: str):
+        if type == 'google':
+            URL = f"https://www.google.co.uk/search?source=hp&ei=z07WX6SiGrXVgwfdpa3wAQ&q={search_query.capitalize()}"
+        elif type == 'pinterest':
+            URL = f"https://www.pinterest.co.uk/search/pins/?q={search_query.capitalize()}"
         else:
-          title = f"URL: [{querytemplate}]\n\n"
-          text = (
-            f"Engine: Google\n"
-            f"Author: {ctx.author.name}\n"
-            f"Search Query: {search_query}"
-          )
-          await ctx.send(box(title, lang='ini'))
-          await ctx.send(box(text, lang='yaml'))
+            URL = f"https://www.redbubble.com/shop/?query={search_query.capitalize()}"
+        if await ctx.embed_requested():
+            e = discord.Embed(
+              description=(f"[Click here for search results]({URL.replace(' ', '%20')})"),
+              colour=await ctx.embed_colour(), 
+              timestamp=ctx.message.created_at
+            )
+            e.add_field(name="Engine", value=type.capitalize(), inline=True)
+            e.add_field(name="Author", value=ctx.author.name, inline=True)
+            e.add_field(name="Search Query", value=search_query, inline=False)
+            await ctx.send(embed=e)
+        else:
+            title = f"URL: [{URL.replace(' ', '%20')}]"
+            text = (
+              f"Engine: Google\n"
+              f"Author: {ctx.author.name}\n"
+              f"Search Query: {search_query}"
+            )
+            await ctx.send(box(title, lang='ini'))
+            await ctx.send(box(text, lang='yaml'))
+
 
 
