@@ -41,7 +41,7 @@ class PingOverride(commands.Cog):
         Set your custom ping message.
         
         Optional Regex:
-        `{nick}`: Replaces with the authors nickname.
+        `{display}`: Replaces with the authors display name.
         `{latency}`: Replaces with the bots latency.
         
         Example Usage:
@@ -61,9 +61,9 @@ class PingOverride(commands.Cog):
     
     async def converter(self, ctx: commands.Context, match, bool):
         if bool is True:
-          mapping = {"latency": round(self.bot.latency*1000), "nick": ctx.author.display_name}
+          mapping = {"latency": round(self.bot.latency*1000), "display": ctx.author.display_name}
         else:
-          mapping = {"latency": f"({ctx.bot.user.name}'s latency)", "nick": "(author's nickname)"}
+          mapping = {"latency": f"({ctx.bot.user.name}'s latency)", "display": "(author's display name)"}
         return match.format(**mapping)
 
 async def setup(bot):
