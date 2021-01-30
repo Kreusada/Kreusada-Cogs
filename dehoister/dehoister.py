@@ -7,8 +7,8 @@ HOIST = "!\"#$%&'()*+,-./:;<=>?@0123456789"
 EXPLAIN = (
     "Dehoister is a cog which allows you to automatically change the nickname "
     "of users who have a hoisting character at the start of their username. "
-    "To get started, use `[p]dehoistset toggle true`, which will enable this feature. "
-    "Then, you can customize the nickname via `[p]dehoistset nickname`.\n\n"
+    "To get started, use `{p}dehoistset toggle true`, which will enable this feature. "
+    "Then, you can customize the nickname via `{p}dehoistset nickname`.\n\n"
     "When new users join the guild, their nickname will automatically be changed "
     "to this configured nickname, if they have a hoisted character at the start of their name. "
     "If your bot doesn't have permissions, **this process will be cancelled**, so make sure that "
@@ -55,7 +55,7 @@ class Dehoister(commands.Cog):
     async def explain(self, ctx: commands.Context):
         """Explain how Dehoister works."""
         if await ctx.embed_requested():
-            embed = discord.Embed(description=EXPLAIN.replace('[p]', ctx.clean_prefix), color=await ctx.embed_colour())
+            embed = discord.Embed(description=EXPLAIN.format(p=ctx.clean_prefix), color=await ctx.embed_colour())
             await ctx.send(embed=embed)
         else:
             await ctx.send(EXPLAIN.replace('[p]', ctx.clean_prefix))
