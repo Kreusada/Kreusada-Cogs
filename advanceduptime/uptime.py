@@ -43,7 +43,7 @@ class AdvancedUptime(commands.Cog):
     async def uptime(self, ctx: commands.Context):
         """Shows [botname]'s uptime."""
         delta = datetime.utcnow() - self.bot.uptime
-        uptime_str = humanize_timedelta(timedelta=delta) or ("Less than one second")
+        uptime_str = humanize_timedelta(timedelta=delta) or ("Less than one second") # Thankyou Red-DiscordBot
         botname = ctx.bot.user.name
         users = len(self.bot.users)
         servers = str(len(self.bot.guilds))
