@@ -40,13 +40,13 @@ This command is going to print the response which you requested for using [p]pin
 Here, you can set the ping response. There are additional options you can use such as:
 
 :code:`{latency}` - Provides the bot's latency.
-:code:`{name}` - Returns the author's display name.
+:code:`{display}` - Returns the author's display name.
 
 **Example setup**
 
-.. code-block:: python
+.. code-block:: ini
 
-  [p]pingset Hello {name}! My latency is currently at {latency} ms.
+  [p]pingset Hello {display}! My latency is currently at {latency} ms.
 
   [p]pingset Beep boop.
   
