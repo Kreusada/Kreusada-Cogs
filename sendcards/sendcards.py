@@ -2,6 +2,7 @@ import discord
 import asyncio
 from redbot.core import commands
 from redbot.core.i18n import Translator, cog_i18n
+from redbot.core.utils.chat_formatting import bold
 
 _ = Translator("SendCards", __file__)
 
@@ -33,22 +34,22 @@ class SendCards(commands.Cog):
         
     @send.command()
     async def christmas(self, ctx: commands.Context, user_id: int, *, message: str):
-        """Send a christmas card to someone!"""
+        """Send a christmas card to someone."""
         await self.card_send(ctx, 'christmas', user_id, message)
 
     @send.command()
     async def birthday(self, ctx: commands.Context, user_id: int, *, message: str):
-        """Send a birthday card to someone!"""
+        """Send a birthday card to someone."""
         await self.card_send(ctx, 'birthday', user_id, message)
 
     @send.command(aliases=["gws"])
     async def getwellsoon(self, ctx: commands.Context, user_id: int, *, message: str):
-        """Send a get well soon card to someone!"""
+        """Send a get well soon card to someone."""
         await self.card_send(ctx, 'get well soon', user_id, message)
 
     @send.command()
     async def valentine(self, ctx: commands.Context, user_id: int, *, message: str):
-        """Send a valentines card to someone!"""
+        """Send a valentines card to someone."""
         await self.card_send(ctx, 'valentines', user_id, message)
 
     async def card_send(self, ctx: commands.Context, type: str, user_id: int, message: str):
@@ -63,14 +64,17 @@ class SendCards(commands.Cog):
         else:
             emoji = "\N{SMILING FACE WITH SMILING EYES AND THREE HEARTS}"
         name = self.bot.get_user(user_id)
+        title = f"{emoji} {type.title()} card from {ctx.author.name}!"
+        description = f"Dear {name.name},\n\n{message}\n\nFrom {ctx.author.name} {emoji}."
         embed = discord.Embed(
-          title=f"{emoji} {type.title()} card from {ctx.author.name}!",
-          description=f"Dear {name.name},\n\n{message}\n\nFrom {ctx.author.name} {emoji}.",
-          color=await ctx.embed_colour()
+          title=title, description=description, color=await ctx.embed_colour()
         )
         embed.set_footer(text=f"Send {type} cards by using: {ctx.clean_prefix}send {type.replace(' ', '')}!")
         try:
-            await name.send(embed=embed)
+            if await ctx.embed_requested():
+                await name.send(embed=embed)
+            else:
+                await ctx.send(f"{bold(title)}\n\n{description}"
             return await ctx.send(f"A {type.capitalize()} card has been successfully sent to {name.name}! {emoji}")
         except discord.Forbidden:
             return await ctx.send(f"Unfortunately, {name.name} has their DMs turned off. Sorry!")
