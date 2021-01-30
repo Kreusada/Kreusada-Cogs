@@ -56,7 +56,7 @@ class SendCards(commands.Cog):
             return await ctx.send("This message is *too* long. Please try again.")
         if type == 'christmas':
             emoji = "\N{CHRISTMAS TREE}"
-        elif type 'birthday':
+        elif type == 'birthday':
             emoji = "\N{PARTY POPPER}"
         elif type == 'get well soon':
             emoji = "\N{THERMOMETER}\N{VARIATION SELECTOR-16}"
