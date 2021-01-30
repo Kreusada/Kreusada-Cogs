@@ -12,8 +12,8 @@ class SendCards(commands.Cog):
     """
 
     __author__ = "Kreusada"
-    __version__ = "1.2.0"
-  
+    __version__ = "1.4.0"
+    
     def __init__(self, bot):
         self.bot = bot
 
@@ -30,7 +30,7 @@ class SendCards(commands.Cog):
     @commands.group()
     async def send(self, ctx: commands.Context):
         """Send a card to someone!"""
-      
+        
     @send.command()
     async def christmas(self, ctx: commands.Context, user_id: int, *, message: str):
         """Send a christmas card to someone!"""
@@ -43,8 +43,8 @@ class SendCards(commands.Cog):
 
     @send.command(aliases=["gws"])
     async def getwellsoon(self, ctx: commands.Context, user_id: int, *, message: str):
-      """Send a get well soon card to someone!"""
-      await self.card_send(ctx, 'get well soon', user_id, message)
+        """Send a get well soon card to someone!"""
+        await self.card_send(ctx, 'get well soon', user_id, message)
 
     @send.command()
     async def valentine(self, ctx: commands.Context, user_id: int, *, message: str):
