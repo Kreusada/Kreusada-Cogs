@@ -7,7 +7,7 @@ _ = Translator("RomanConverter", __file__)
 # This function's base was taken and modified from https://www.w3resource.com/python-exercises/class-exercises/python-class-exercise-1.php.
 
 def roman(number):
-    val = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
+    val = [5000, 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
     syb = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV","I"]
     output = ''
     i = 0
@@ -16,7 +16,14 @@ def roman(number):
             output += syb[i]
             number -= val[i]
         i += 1
-    return output
+    if len(output) < 51:
+        return output
+    else:
+        msg = (
+            "This roman numeral contained more than 50 characters. "
+            "To be courteous to others, this message will not be sent."
+        )
+        return msg
 
 # This function's base was taken and modified from https://www.w3resource.com/python-exercises/class-exercises/python-class-exercise-2.php.
 
@@ -65,10 +72,7 @@ class RomanConverter(commands.Cog):
         Attempts to convert a number to a roman numeral.
         Results may become unprecedented above 10,000.
         """
-        try:
-            await ctx.send(roman(number))
-        except discord.HTTPException:
-            await ctx.send("This numeral i've generated exceeds the 2000 character limit!")
+        await ctx.send(roman(number))
     
     @commands.command()
     async def numberize(self, ctx: commands.Context, roman_numeral: str):
