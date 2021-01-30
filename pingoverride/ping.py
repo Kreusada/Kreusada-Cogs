@@ -48,7 +48,7 @@ class PingOverride(commands.Cog):
       `[p]pingset Hello {nick}! My latency is {latency} ms.`
       """
       await self.config.response.set(response)
-      message = await self.converter(ctx, resp, True)
+      message = await self.converter(ctx, response, True)
       await ctx.send(f"Running `{ctx.clean_prefix}ping` will now respond with:\n{message}")
       
     @commands.command()
