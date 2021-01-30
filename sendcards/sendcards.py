@@ -74,7 +74,7 @@ class SendCards(commands.Cog):
             if await ctx.embed_requested():
                 await name.send(embed=embed)
             else:
-                await ctx.send(f"{bold(title)}\n\n{description}"
+                await ctx.send(f"{bold(title)}\n\n{description}")
             return await ctx.send(f"A {type.capitalize()} card has been successfully sent to {name.name}! {emoji}")
         except discord.Forbidden:
             return await ctx.send(f"Unfortunately, {name.name} has their DMs turned off. Sorry!")
