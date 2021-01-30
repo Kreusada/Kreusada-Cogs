@@ -12,8 +12,7 @@ EXPLAIN = (
     "When new users join the guild, their nickname will automatically be changed "
     "to this configured nickname, if they have a hoisted character at the start of their name. "
     "If your bot doesn't have permissions, **this process will be cancelled**, so make sure that "
-    "your bot has access to nickname changing. For more information, feel free to ask [here]"
-    "(https://discord.gg/JmCFyq7)."
+    "your bot has access to nickname changing."
 )
 
 class Dehoister(commands.Cog):
