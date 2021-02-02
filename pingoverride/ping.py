@@ -32,6 +32,13 @@ class PingOverride(commands.Cog):
             except Exception as error:
                 log.info(error)
             self.bot.add_command(_old_ping)
+
+    async def converter(self, ctx: commands.Context, match, bool):
+        if bool is True:
+            mapping = {"latency": round(self.bot.latency*1000), "display": ctx.author.display_name}
+        else:
+            mapping = {"latency": f"({ctx.bot.user.name}'s latency)", "display": "(author's display name)"}
+        return match.format(**mapping)
     
     @commands.is_owner()  
     @commands.command()
@@ -57,14 +64,6 @@ class PingOverride(commands.Cog):
         resp = await self.config.response()
         message = await self.converter(ctx, resp, True)
         await ctx.send(message)
-
-    
-    async def converter(self, ctx: commands.Context, match, bool):
-        if bool is True:
-            mapping = {"latency": round(self.bot.latency*1000), "display": ctx.author.display_name}
-        else:
-            mapping = {"latency": f"({ctx.bot.user.name}'s latency)", "display": "(author's display name)"}
-        return match.format(**mapping)
 
 def setup(bot):
     cping = PingOverride(bot)
