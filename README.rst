@@ -82,3 +82,6 @@ Credits
 * Trusty - Using JSON for :code:`__init__` files.
 * Tobotimus - Lots of backend support.
 * Red-DiscordBot - An amazing community, some features have been modified from their repo to use here.
+* W3Schools - An amazing website full of python tricks and tips which have helped me develop. 
+ You can find their website here: https://www.w3schools.com/python/
+* Stack Overflow - Of course, I mean who hasn't payed a trip to stack overflow?
