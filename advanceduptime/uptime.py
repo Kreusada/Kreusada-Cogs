@@ -74,7 +74,7 @@ class AdvancedUptime(commands.Cog):
             await ctx.send(box(title, lang='yaml'))
             await ctx.send(box(msg, lang='yaml'))
 
-async def setup(bot):
+def setup(bot):
     au = AdvancedUptime(bot)
     global _old_uptime
     _old_uptime = bot.get_command("uptime")

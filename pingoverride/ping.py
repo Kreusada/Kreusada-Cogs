@@ -66,7 +66,7 @@ class PingOverride(commands.Cog):
             mapping = {"latency": f"({ctx.bot.user.name}'s latency)", "display": "(author's display name)"}
         return match.format(**mapping)
 
-async def setup(bot):
+def setup(bot):
     cping = PingOverride(bot)
     global _old_ping
     _old_ping = bot.get_command("ping")
