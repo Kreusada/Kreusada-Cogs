@@ -22,6 +22,3 @@ class RAM(commands.Cog):
     async def ram(self, ctx):
       """Get [botname]'s ram."""
       await ctx.send(b(text=f'{RAMU}[{psutil.virtual_memory()[2]}%]', lang='css'))
-
-def setup(bot):
-    bot.add_cog(RAM(bot))
