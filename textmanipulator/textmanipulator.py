@@ -62,16 +62,16 @@ class TextManipulator(commands.Cog):
     @commands.command()
     async def charcount(self, ctx: commands.Context, *, characters: str):
         """Count how many characters are in a specified text."""
-        spaces = "**Including spaces:** "
-        nspaces = "**Excluding spaces:** "
-        scount = ' '
-        await ctx.send(f"{spaces}{str(len(characters))}\n{nspaces}{str(len(characters) - characters.count(scount))}`")
+        space = ' '
+        await ctx.send(
+            f"**Including spaces:** {str(len(characters))}\n"
+            f"**Excluding spaces:** {str(len(characters) - characters.count(space))}`")
+        )
     
     @commands.command()
     async def wordcount(self, ctx: commands.Context, *, words: str):
         """Count how many words are in a specified text."""
-        w = "**Total words:** "
-        await ctx.send(w+str(len(words.split())))
+        await ctx.send(**Total words:** str(len(words.split())))
     
     @commands.command()
     async def removecommas(self, ctx: commands.Context, *, list: str):
