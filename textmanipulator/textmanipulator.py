@@ -65,7 +65,7 @@ class TextManipulator(commands.Cog):
         space = ' '
         await ctx.send(
             f"**Including spaces:** {str(len(characters))}\n"
-            f"**Excluding spaces:** {str(len(characters) - characters.count(space))}`")
+            f"**Excluding spaces:** {str(len(characters) - characters.count(space))}`"
         )
     
     @commands.command()
