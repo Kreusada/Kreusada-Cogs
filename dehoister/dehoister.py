@@ -57,7 +57,7 @@ class Dehoister(commands.Cog):
             embed = discord.Embed(description=EXPLAIN.format(p=ctx.clean_prefix), color=await ctx.embed_colour())
             await ctx.send(embed=embed)
         else:
-            await ctx.send(EXPLAIN.replace('[p]', ctx.clean_prefix))
+            await ctx.send(EXPLAIN.format(p=ctx.clean_prefix))
 
     @dehoistset.command()
     async def toggle(self, ctx: commands.Context, true_or_false: bool):
