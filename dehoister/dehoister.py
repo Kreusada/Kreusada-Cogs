@@ -1,5 +1,8 @@
 import discord
+import logging
 from redbot.core import commands, Config
+
+log = logging.getLogger("red.kreusada.advanceduptime")
 
 IDENTIFIER = 435089473534
 HOIST = "!\"#$%&'()*+,-./:;<=>?@0123456789"
@@ -86,5 +89,5 @@ class Dehoister(commands.Cog):
         if member.name.startswith(tuple(HOIST)):
             try:
                 return await member.edit(nick=await self.config.guild(guild).nickname())
-            except discord.Forbidden:
-                pass
+            except discord.Forbidden as f:
+                log.info(f)
