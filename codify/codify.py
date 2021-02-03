@@ -1,6 +1,6 @@
 import discord
 from redbot.core import commands
-from redbot.core.utils.chat_formatting import box, escape
+from redbot.core.utils.chat_formatting import box
 
 class Codify(commands.Cog):
     """
@@ -33,6 +33,6 @@ class Codify(commands.Cog):
         try:
             message = await ctx.fetch_message(message_id)
             send = box(message.content, lang=language)
-            await ctx.send(escape(send)) if escape_markdown else await ctx.send(send)
+            await ctx.send(discord.utils.escape_markdown(words)) if escape_markdown else await ctx.send(send)
         except discord.NotFound:
             await ctx.send(f"Could not find a message with the ID: `{message_id}`.")
