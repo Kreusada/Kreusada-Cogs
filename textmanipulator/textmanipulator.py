@@ -71,7 +71,7 @@ class TextManipulator(commands.Cog):
     @commands.command()
     async def wordcount(self, ctx: commands.Context, *, words: str):
         """Count how many words are in a specified text."""
-        await ctx.send(**Total words:** str(len(words.split())))
+        await ctx.send(f"**Total words:** {str(len(words.split()))}")
     
     @commands.command()
     async def removecommas(self, ctx: commands.Context, *, list: str):
