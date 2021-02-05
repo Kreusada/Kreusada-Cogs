@@ -6,13 +6,6 @@ from redbot.core.i18n import Translator, cog_i18n
 _ = Translator("PingOverride", __file__)
 log = logging.getLogger("red.kreusada.pingoverride")
 
-def converter(self, ctx: commands.Context, match, bool):
-    if bool is True:
-        mapping = {"latency": round(self.bot.latency*1000), "display": ctx.author.display_name}
-    else:
-        mapping = {"latency": f"({ctx.bot.user.name}'s latency)", "display": "(author's display name)"}
-    return match.format(**mapping)
-
 @cog_i18n(_)
 class PingOverride(commands.Cog):
     """
@@ -39,6 +32,13 @@ class PingOverride(commands.Cog):
             except Exception as error:
                 log.info(error)
             self.bot.add_command(_old_ping)
+
+    async def converter(self, ctx: commands.Context, match, bool):
+        if bool is True:
+            mapping = {"latency": round(self.bot.latency*1000), "display": ctx.author.display_name}
+        else:
+            mapping = {"latency": f"({ctx.bot.user.name}'s latency)", "display": "(author's display name)"}
+        return match.format(**mapping)
     
     @commands.is_owner()  
     @commands.command()
@@ -55,13 +55,15 @@ class PingOverride(commands.Cog):
         `[p]pingset Hello {display}! My latency is {latency} ms.`
         """
         await self.config.response.set(response)
-        await ctx.send(f"Running `{ctx.clean_prefix}ping` will now respond with:\n{converter(ctx, response, False)}")
+        message = await self.converter(ctx, response, False)
+        await ctx.send(f"Running `{ctx.clean_prefix}ping` will now respond with:\n{message}")
       
     @commands.command()
     async def ping(self, ctx: commands.Context):
         """Pong. Or not?"""
-        response = await self.config.response()
-        await ctx.send(converter(ctx, response, True))
+        resp = await self.config.response()
+        message = await self.converter(ctx, resp, True)
+        await ctx.send(message)
 
 def setup(bot):
     cping = PingOverride(bot)
