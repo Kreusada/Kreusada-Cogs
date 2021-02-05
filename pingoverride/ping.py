@@ -55,15 +55,13 @@ class PingOverride(commands.Cog):
         `[p]pingset Hello {display}! My latency is {latency} ms.`
         """
         await self.config.response.set(response)
-        message = await self.converter(ctx, response, False)
-        await ctx.send(f"Running `{ctx.clean_prefix}ping` will now respond with:\n{message}")
+        await ctx.send(f"Running `{ctx.clean_prefix}ping` will now respond with:\n{converter(ctx, response, False)}")
       
     @commands.command()
     async def ping(self, ctx: commands.Context):
         """Pong. Or not?"""
-        resp = await self.config.response()
-        message = await self.converter(ctx, resp, True)
-        await ctx.send(message)
+        response = await self.config.response()
+        await ctx.send(converter(ctx, response, True))
 
 def setup(bot):
     cping = PingOverride(bot)
