@@ -6,6 +6,13 @@ from redbot.core.i18n import Translator, cog_i18n
 _ = Translator("PingOverride", __file__)
 log = logging.getLogger("red.kreusada.pingoverride")
 
+def converter(self, ctx: commands.Context, match, bool):
+    if bool is True:
+        mapping = {"latency": round(self.bot.latency*1000), "display": ctx.author.display_name}
+    else:
+        mapping = {"latency": f"({ctx.bot.user.name}'s latency)", "display": "(author's display name)"}
+    return match.format(**mapping)
+
 @cog_i18n(_)
 class PingOverride(commands.Cog):
     """
@@ -32,13 +39,6 @@ class PingOverride(commands.Cog):
             except Exception as error:
                 log.info(error)
             self.bot.add_command(_old_ping)
-
-    def converter(self, ctx: commands.Context, match, bool):
-        if bool is True:
-            mapping = {"latency": round(self.bot.latency*1000), "display": ctx.author.display_name}
-        else:
-            mapping = {"latency": f"({ctx.bot.user.name}'s latency)", "display": "(author's display name)"}
-        return match.format(**mapping)
     
     @commands.is_owner()  
     @commands.command()
