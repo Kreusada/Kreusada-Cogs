@@ -57,7 +57,7 @@ class TextManipulator(commands.Cog):
         characters[0::2] = map(str.upper, characters[0::2])
         characters[1::2] = map(str.lower, characters[1::2])
         inputer = ''
-        await ctx.send(f"{inputer.join(characters)}")
+        await ctx.send(''.join(characters))
       
     @commands.command()
     async def charcount(self, ctx: commands.Context, *, characters: str):
