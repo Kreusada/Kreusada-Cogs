@@ -34,8 +34,8 @@ class TextManipulator(commands.Cog):
     async def count(self, ctx: commands.Context):
         """Count the number of characters and words."""
 
-    @count.command()
-    async def charcount(self, ctx: commands.Context, *, characters: str):
+    @count.command(aliases=["char"])
+    async def characters(self, ctx: commands.Context, *, characters: str):
         """Count how many characters are in a specified text."""
         space = ' '
         await ctx.send(
@@ -44,7 +44,7 @@ class TextManipulator(commands.Cog):
         )
     
     @count.command()
-    async def wordcount(self, ctx: commands.Context, *, words: str):
+    async def words(self, ctx: commands.Context, *, words: str):
         """Count how many words are in a specified text."""
         await ctx.send(f"**Total words:** {str(len(words.split()))}")
     
