@@ -29,7 +29,25 @@ class TextManipulator(commands.Cog):
     @commands.group()
     async def convert(self, ctx: commands.Context):
         """Convert text into different types."""
-      
+        
+    @commands.group()
+    async def count(self, ctx: commands.Context):
+        """Count the number of characters and words."""
+
+    @count.command()
+    async def charcount(self, ctx: commands.Context, *, characters: str):
+        """Count how many characters are in a specified text."""
+        space = ' '
+        await ctx.send(
+            f"**Including spaces:** {str(len(characters))}\n"
+            f"**Excluding spaces:** {str(len(characters) - characters.count(space))}`"
+        )
+    
+    @count.command()
+    async def wordcount(self, ctx: commands.Context, *, words: str):
+        """Count how many words are in a specified text."""
+        await ctx.send(f"**Total words:** {str(len(words.split()))}")
+    
     @convert.command()
     async def upper(self, ctx: commands.Context, *, characters: str):
         """Convert all characters to uppercase."""
@@ -58,41 +76,14 @@ class TextManipulator(commands.Cog):
         characters[1::2] = map(str.lower, characters[1::2])
         inputer = ''
         await ctx.send(''.join(characters))
-      
-    @commands.command()
-    async def charcount(self, ctx: commands.Context, *, characters: str):
-        """Count how many characters are in a specified text."""
-        space = ' '
-        await ctx.send(
-            f"**Including spaces:** {str(len(characters))}\n"
-            f"**Excluding spaces:** {str(len(characters) - characters.count(space))}`"
-        )
     
     @commands.command()
-    async def wordcount(self, ctx: commands.Context, *, words: str):
-        """Count how many words are in a specified text."""
-        await ctx.send(f"**Total words:** {str(len(words.split()))}")
-    
-    @commands.command()
-    async def removecommas(self, ctx: commands.Context, *, list: str):
-        """Remove commas from text."""
-        await ctx.send(list.replace(',', ''))
+    async def remove(self, ctx: commands.Context, char_to_remove: str, *, list: str):
+        """Remove characters from text."""
+        await ctx.send(list.replace(char_to_remove, ''))
 
     @commands.command()
-    async def escapemarkdown(self, ctx: commands.Context, *, words: str):
+    async def escape(self, ctx: commands.Context, *, words: str):
         """Escape markdown."""
         makeraw = discord.utils.escape_markdown(words)
         await ctx.send(makeraw)
-      
-    @commands.command()
-    async def replace(self, ctx: commands.Context, to_replace: str, to_replace_with: str, *, message: str):
-        """
-        Replace any given character in a message.
-        
-        `characters` The characters you want to replace.
-        
-        `replacers` The characters which replace your characters (above).
-        
-        `message` The message where the above takes place.
-        """
-        await ctx.send(message.replace(to_replace, to_replace_with))
