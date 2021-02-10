@@ -47,10 +47,6 @@ Available cogs list
 +-----------------+--------------------------------------------------------------+---------+----------+
 | ram             | Get your bot's random access memory.                         | Tools   | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
-| romanconverter  | Convert to roman numerals, and vise versa.                   | Tools   | Kreusada |
-+-----------------+--------------------------------------------------------------+---------+----------+
-| searchengine    | Search Google, Pinterest or Redbubble.                       | Tools   | Kreusada |
-+-----------------+--------------------------------------------------------------+---------+----------+
 | sendcards       | Send christmas, birthday, valentines and get well soon cards | Fun     | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
 | staff           | Alert staff for inconspicuous activity.                      | Mod     | Kreusada |
