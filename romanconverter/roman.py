@@ -25,7 +25,7 @@ class RomanConverter(commands.Cog):
 
     @commands.command()
     async def number(self, ctx, roman_numeral: str):
-        """Convert a number to a roman numeral."""
+        """Convert a roman numeral to a number."""
         try:
             await ctx.send(roman.fromRoman(roman_numeral))
         except roman.InvalidRomanNumeralError:
