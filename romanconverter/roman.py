@@ -23,7 +23,7 @@ class RomanConverter(commands.Cog):
         except roman.OutOfRangeError:
             return await ctx.send(self.out_of_range.format(number=number))
 
-    @roman.command()
+    @commands.command()
     async def number(self, ctx, roman_numeral: str):
         """Convert a number to a roman numeral."""
         try:
