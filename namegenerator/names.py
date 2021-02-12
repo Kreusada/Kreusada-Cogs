@@ -1,6 +1,7 @@
 from names import get_full_name as full, get_first_name as first, get_last_name as last
 from redbot.core import commands
 
+
 class NameGenerator(commands.Cog):
     """
     Generates random names.
@@ -24,7 +25,7 @@ class NameGenerator(commands.Cog):
     async def full(self, ctx: commands.Context, gender: str = None):
         """
         Generates a full name.
-        
+
         Optional arguments:
         `gender`: Provides the gender of the name.
         """
@@ -37,7 +38,7 @@ class NameGenerator(commands.Cog):
     async def first(self, ctx: commands.Context, gender: str = None):
         """
         Generates a first name.
-        
+
         Optional arguments:
         `gender`: Provides the gender of the name.
         """
@@ -50,7 +51,7 @@ class NameGenerator(commands.Cog):
     async def last(self, ctx: commands.Context, gender: str = None):
         """
         Generates a last name.
-        
+
         Optional arguments:
         `gender`: Provides the gender of the name.
         """

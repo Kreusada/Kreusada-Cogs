@@ -18,6 +18,7 @@ EXPLAIN = (
     "your bot has access to nickname changing."
 )
 
+
 class Dehoister(commands.Cog):
     """
     Dehoist usernames that start with hoisting characters.
@@ -29,10 +30,7 @@ class Dehoister(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, IDENTIFIER, force_registration=True)
-        self.config.register_guild(
-            nickname="Ze Dehoisted",
-            toggled=False
-        )
+        self.config.register_guild(nickname="Ze Dehoisted", toggled=False)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         """Thanks Sinbad."""
@@ -52,12 +50,15 @@ class Dehoister(commands.Cog):
     @commands.group()
     async def dehoistset(self, ctx: commands.Context):
         """Settings for Dehoister."""
-        
+
     @dehoistset.command()
     async def explain(self, ctx: commands.Context):
         """Explain how Dehoister works."""
         if await ctx.embed_requested():
-            embed = discord.Embed(description=EXPLAIN.format(p=ctx.clean_prefix), color=await ctx.embed_colour())
+            embed = discord.Embed(
+                description=EXPLAIN.format(p=ctx.clean_prefix),
+                color=await ctx.embed_colour(),
+            )
             await ctx.send(embed=embed)
         else:
             await ctx.send(EXPLAIN.format(p=ctx.clean_prefix))
@@ -66,16 +67,22 @@ class Dehoister(commands.Cog):
     async def toggle(self, ctx: commands.Context, true_or_false: bool):
         """Toggle the Dehoister."""
         await self.config.guild(ctx.guild).toggled.set(true_or_false)
-        await ctx.send("Dehoister has been enabled.") if true_or_false is True else await ctx.send("Dehoister has been disabled.")
+        await ctx.send(
+            "Dehoister has been enabled."
+        ) if true_or_false is True else await ctx.send("Dehoister has been disabled.")
 
     @dehoistset.command()
     async def nickname(self, ctx: commands.Context, *, nickname: str):
         """Set the nickname for dehoisted members."""
         if len(nickname) < 32:
             await self.config.guild(ctx.guild).nickname.set(nickname)
-            await ctx.send(f"Dehoisted members will now have their nickname set to `{nickname}`.")
+            await ctx.send(
+                f"Dehoisted members will now have their nickname set to `{nickname}`."
+            )
         else:
-            await ctx.send(f"Discord has a limit of 32 characters for nicknames. Your chosen nickname, {nickname}, could not be set.")
+            await ctx.send(
+                f"Discord has a limit of 32 characters for nicknames. Your chosen nickname, {nickname}, could not be set."
+            )
 
     @commands.Cog.listener()
     async def on_member_join(self, member: discord.Member):

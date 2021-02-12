@@ -4,6 +4,7 @@ from redbot.core.i18n import Translator, cog_i18n
 
 _ = Translator("Edition", __file__)
 
+
 @cog_i18n(_)
 class Edition(commands.Cog):
     """
@@ -33,7 +34,7 @@ class Edition(commands.Cog):
     async def edition(self, ctx: commands.Context, type: str):
         """
         Become an edition of the editioner!
-        
+
         Server owner nicknames cannot be changed.
 
         **Arguments**
@@ -41,23 +42,28 @@ class Edition(commands.Cog):
 
         **Nickname Edit Format**
         `Editioner - Type Edition`
-        
+
         **What is Editioner?**
         `Editioner`: The name of the editioner set using `[p]editionset`.
         """
         editioner = await self.config.guild(ctx.guild).editioner()
         editioner = discord.utils.get(ctx.guild.members, id=editioner)
         if editioner is None:
-            await ctx.send("You have not setup an editioner yet.")    
+            await ctx.send("You have not setup an editioner yet.")
         else:
             try:
-                await ctx.author.edit(nick=f"{editioner.name.capitalize()} - {type} Edition")
-                await ctx.send(f"Done. Your nickname is now `{editioner.name.capitalize()} - {type} Edition`.")
+                await ctx.author.edit(
+                    nick=f"{editioner.name.capitalize()} - {type} Edition"
+                )
+                await ctx.send(
+                    f"Done. Your nickname is now `{editioner.name.capitalize()} - {type} Edition`."
+                )
             except discord.Forbidden:
-                await ctx.send("I don't have permission to change your nickname. Please note that I cannot change server owner nicknames.")
+                await ctx.send(
+                    "I don't have permission to change your nickname. Please note that I cannot change server owner nicknames."
+                )
             except discord.HTTPException:
                 await ctx.send("Your new nickname exceeds the 32 character limit.")
-
 
     @commands.command()
     @commands.mod_or_permissions(administrator=True)
