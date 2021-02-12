@@ -75,7 +75,6 @@ class TextManipulator(commands.Cog):
         characters = list(characters)
         characters[0::2] = map(str.upper, characters[0::2])
         characters[1::2] = map(str.lower, characters[1::2])
-        inputer = ""
         await ctx.send("".join(characters))
 
     @commands.command()
