@@ -6,6 +6,7 @@ from redbot.core.i18n import Translator, cog_i18n
 
 _ = Translator("Staff", __file__)
 
+
 @cog_i18n(_)
 class Staff(commands.Cog):
     """
@@ -43,7 +44,9 @@ class Staff(commands.Cog):
             await self.config.guild(ctx.guild).channel.set(None)
         else:
             await self.config.guild(ctx.guild).channel.set(channel.id)
-            await ctx.send(f"{channel.mention} will now receive notifications from users to notify the staff.")
+            await ctx.send(
+                f"{channel.mention} will now receive notifications from users to notify the staff."
+            )
 
     @staffset.command()
     @commands.admin_or_permissions(manage_guild=True)
@@ -55,59 +58,90 @@ class Staff(commands.Cog):
         else:
             await self.config.guild(ctx.guild).role.set(role.id)
             await ctx.send(f"{role.mention} will now be considered as the Staff role.")
-        
+
     @commands.command()
     @commands.cooldown(1, 600, commands.BucketType.user)
     async def staff(self, ctx: commands.Context, reason: str = None):
         """Notifies the staff."""
         message = ctx.message
-        channel = discord.utils.get(ctx.guild.channels, id=await self.config.guild(ctx.guild).channel())
-        role = discord.utils.get(ctx.guild.roles, id=await self.config.guild(ctx.guild).role())
+        channel = discord.utils.get(
+            ctx.guild.channels, id=await self.config.guild(ctx.guild).channel()
+        )
+        role = discord.utils.get(
+            ctx.guild.roles, id=await self.config.guild(ctx.guild).role()
+        )
         D = datetime.now().strftime("%d/%m/%y")
         if await ctx.embed_requested():
             embed = discord.Embed(
                 title="Staff Attention Pending",
                 description="[Click here for context]({})".format(ctx.message.jump_url),
-                color=await ctx.embed_colour()
+                color=await ctx.embed_colour(),
             )
             embed.add_field(name="Member", value=ctx.author.mention, inline=True)
             embed.add_field(name="Channel", value=ctx.channel.mention, inline=True)
             embed.add_field(name="Date", value=D, inline=True)
             if reason is not None:
                 embed.add_field(name="Reason", value=reason, inline=False)
-            embed.set_author(name=f"{ctx.author} | {ctx.author.id}", icon_url=ctx.author.avatar_url)
-            embed.set_footer(text=f"{self.bot.user.name} | Staff", icon_url=self.bot.user.avatar_url)
+            embed.set_author(
+                name=f"{ctx.author} | {ctx.author.id}", icon_url=ctx.author.avatar_url
+            )
+            embed.set_footer(
+                text=f"{self.bot.user.name} | Staff", icon_url=self.bot.user.avatar_url
+            )
             if channel is not None:
                 await message.add_reaction("✅")
-                await ctx.send("We have sent a report to the staff team. They will be with you as soon as possible.")
+                await ctx.send(
+                    "We have sent a report to the staff team. They will be with you as soon as possible."
+                )
                 if role is not None:
                     try:
-                        return await channel.send(content=f":warning: {role.mention}", allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
+                        return await channel.send(
+                            content=f":warning: {role.mention}",
+                            allowed_mentions=discord.AllowedMentions(roles=True),
+                            embed=embed,
+                            delete_after=43200,
+                        )
                     except discord.Forbidden:
-                        await ctx.send("I don't have permission to post in the staff's channel.")
+                        await ctx.send(
+                            "I don't have permission to post in the staff's channel."
+                        )
                 else:
                     try:
-                        return await channel.send(allowed_mentions=discord.AllowedMentions(roles=True), embed=embed, delete_after=43200)
+                        return await channel.send(
+                            allowed_mentions=discord.AllowedMentions(roles=True),
+                            embed=embed,
+                            delete_after=43200,
+                        )
                     except discord.Forbidden:
-                        await ctx.send("I don't have permission to post in the staff's channel.")
+                        await ctx.send(
+                            "I don't have permission to post in the staff's channel."
+                        )
             else:
                 await message.add_reaction("❌")
-                return await ctx.send("The staff team have not yet configured a channel.")
+                return await ctx.send(
+                    "The staff team have not yet configured a channel."
+                )
         else:
             text = (
                 f"Staff Attention Pending | Inconspicuous Activity :warning:\n"
                 f"**User:** {ctx.author.name} ({ctx.author.id})\n**Date:** {D}\n**Channel:** {ctx.channel.mention}\n"
             )
-            
+
             if reason:
                 text = text + f"\n**Reason:** {reason}"
             try:
                 if channel:
                     await message.add_reaction("✅")
                     await channel.send(text)
-                    await ctx.send("We have sent a report to the staff team. They will be with you as soon as possible.")
+                    await ctx.send(
+                        "We have sent a report to the staff team. They will be with you as soon as possible."
+                    )
                 else:
                     await message.add_reaction("❌")
-                    return await ctx.send("The staff team have not yet configured a channel.")
+                    return await ctx.send(
+                        "The staff team have not yet configured a channel."
+                    )
             except discord.Forbidden:
-                await ctx.send("I don't have permission to post in the staff's channel.")
+                await ctx.send(
+                    "I don't have permission to post in the staff's channel."
+                )
