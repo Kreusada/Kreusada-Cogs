@@ -34,6 +34,10 @@ class TimesTables(commands.Cog):
             tt_inactive=3, tt_timeout=10, tt_sleep=2, tt_time_taken=False
         )
 
+    def format_help_for_context(self, ctx: commands.Context) -> str:
+        """Thanks Sinbad."""
+        return f"{super().format_help_for_context(ctx)}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
+
     def time(self):
         return time.perf_counter()
 
@@ -48,6 +52,10 @@ class TimesTables(commands.Cog):
             return round(sum(times), 2)
         except ZeroDivisionError:
             return 0
+
+    async def red_delete_data_for_user(self, **kwargs):
+        """Nothing to delete"""
+        return
 
     async def tt_build_stats(
         self, ctx, correct, incorrect, inactive, average_time, exited_early: bool
