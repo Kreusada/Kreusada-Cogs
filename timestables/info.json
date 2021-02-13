@@ -1,0 +1,10 @@
+{
+    "author": ["Kreusada"],
+    "description": "Learn your times tables!",
+    "install_msg": "Thanks for installing, have fun. Use `[p]tt`!",
+    "short": "Times tables.",
+    "name": "TimesTables",
+    "tags": ["Maths", "Times", "Multiply", "Revision", "School"],
+    "type": "COG",
+    "end_user_data_statement": "This cog does not persistently store data or metadata about users."
+  }
