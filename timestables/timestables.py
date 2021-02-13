@@ -1,7 +1,6 @@
 import abc
 import time
 import random
-import typing
 import discord
 import asyncio
 
