@@ -39,7 +39,6 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 *.mo
-*.pot
 *.log
 local_settings.py
 db.sqlite3
