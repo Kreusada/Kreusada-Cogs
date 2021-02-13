@@ -91,6 +91,7 @@ class TimesTables(commands.Cog):
         pass
 
     @tt.command()
+    @commands.mod_or_permissions(administrator=True)
     async def inactive(self, ctx, questions: int):
         """
         Set the number of questions unanswered before the session is closed.
@@ -103,6 +104,7 @@ class TimesTables(commands.Cog):
         await ctx.tick()
 
     @tt.command()
+    @commands.mod_or_permissions(administrator=True)
     async def timeout(self, ctx, seconds: int):
         """
         Set the number of seconds before a question times out.
@@ -115,6 +117,7 @@ class TimesTables(commands.Cog):
         await ctx.tick()
 
     @tt.command()
+    @commands.mod_or_permissions(administrator=True)
     async def sleep(self, ctx, seconds: int):
         """
         Set the number of seconds between each question.
@@ -148,6 +151,7 @@ class TimesTables(commands.Cog):
         await ctx.send(embed=embed)
 
     @tt.command(name="time")
+    @commands.mod_or_permissions(administrator=True)
     async def _time(self, ctx):
         """
         Toggle whether the command displays the time taken.
