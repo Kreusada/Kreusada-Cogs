@@ -138,17 +138,21 @@ class TimesTables(commands.Cog):
         inactive = await self.config.guild(ctx.guild).tt_inactive()
         timeout = await self.config.guild(ctx.guild).tt_timeout()
         sleep = await self.config.guild(ctx.guild).tt_sleep()
-        embed = discord.Embed(
-            title=f"Settings for {ctx.guild.name}",
-            description=(
-                f"Time toggled: {'Yes' if time else 'No'}\n"
-                f"Inactive count: {inactive} questions\n"
-                f"Timeout per question: {timeout}s\n"
-                f"Time between questions: {sleep}s"
-            ),
-            color=await ctx.embed_colour(),
+        text = (
+            f"Time toggled: {'Yes' if time else 'No'}\n"
+            f"Inactive count: {inactive} questions\n"
+            f"Timeout per question: {timeout}s\n"
+            f"Time between questions: {sleep}s"
         )
-        await ctx.send(embed=embed)
+        if await ctx.embed_requested():
+            embed = discord.Embed(
+                title=f"Settings for {ctx.guild.name}",
+                description=text,
+                color=await ctx.embed_colour(),
+            )
+            await ctx.send(embed=embed)
+        else:
+            await ctx.send(text)
 
     @tt.command(name="time")
     @commands.mod_or_permissions(administrator=True)
