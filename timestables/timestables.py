@@ -29,7 +29,7 @@ class TimesTables(commands.Cog):
         self.how_to_exit_early = "Remember, you can type `exit()` or `stop()` at any time to quit the session."
         self.config = Config.get_conf(self, 2345987543534, force_registration=True)
         self.config.register_guild(
-            tt_inactive=3, tt_timeout=10, tt_sleep=2, tt_time_taken=False
+            tt_inactive=3, tt_timeout=10, tt_sleep=2, tt_time_taken=True
         )
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
@@ -40,12 +40,14 @@ class TimesTables(commands.Cog):
     def time():
         return time.perf_counter()
 
+    @staticmethod
     def average(self, times):
         try:
             return round(sum(times) / len(times), 2)
         except ZeroDivisionError:
             return 0
 
+    @staticmethod
     def total(self, times):
         try:
             return round(sum(times), 2)
