@@ -94,6 +94,7 @@ class TimesTables(commands.Cog):
         pass
 
     @tt.command()
+    @commands.guild_only()
     @commands.mod_or_permissions(administrator=True)
     async def inactive(self, ctx, questions: int):
         """
@@ -107,6 +108,7 @@ class TimesTables(commands.Cog):
         await ctx.tick()
 
     @tt.command()
+    @commands.guild_only()
     @commands.mod_or_permissions(administrator=True)
     async def timeout(self, ctx, seconds: int):
         """
@@ -120,6 +122,7 @@ class TimesTables(commands.Cog):
         await ctx.tick()
 
     @tt.command()
+    @commands.guild_only()
     @commands.mod_or_permissions(administrator=True)
     async def sleep(self, ctx, seconds: int):
         """
@@ -133,6 +136,7 @@ class TimesTables(commands.Cog):
         await ctx.tick()
 
     @tt.command()
+    @commands.guild_only()
     async def settings(self, ctx):
         """
         Shows the current settings for times tables.
@@ -158,6 +162,7 @@ class TimesTables(commands.Cog):
             await ctx.send(text)
 
     @tt.command(name="time")
+    @commands.guild_only()
     @commands.mod_or_permissions(administrator=True)
     async def _time(self, ctx):
         """
@@ -172,6 +177,7 @@ class TimesTables(commands.Cog):
         await ctx.send(f"Time has been {verb}.")
 
     @tt.command()
+    @commands.guild_only()
     async def start(self, ctx, number_of_questions: int):
         """Start a timestables session."""
 
