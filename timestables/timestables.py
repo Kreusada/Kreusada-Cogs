@@ -41,14 +41,14 @@ class TimesTables(commands.Cog):
         return time.perf_counter()
 
     @staticmethod
-    def average(self, times):
+    def average(times):
         try:
             return round(sum(times) / len(times), 2)
         except ZeroDivisionError:
             return 0
 
     @staticmethod
-    def total(self, times):
+    def total(times):
         try:
             return round(sum(times), 2)
         except ZeroDivisionError:
