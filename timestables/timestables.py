@@ -58,13 +58,13 @@ class TimesTables(commands.Cog):
     async def tt_build_stats(
         self, ctx, correct, incorrect, inactive, average_time, exited_early: bool
     ):
-        msg = (
-            (
+        if not exited_early:
+            msg = (
                 f"{random.choice(self.session_quotes)} {ctx.author.name}! The session has ended."
             )
-            if not exited_early
-            else f"You exited early, {ctx.author.name}."
-        )
+        else:
+            msg = f"You exited early, {ctx.author.name}."
+            
         if average_time:
             timing = (
                 f"\n\nAverage time per question: {self.average(average_time)}s\n"
@@ -72,6 +72,7 @@ class TimesTables(commands.Cog):
             )
         else:
             timing = ""
+            
         return await ctx.send(
             box(
                 text=(
