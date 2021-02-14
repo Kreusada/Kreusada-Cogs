@@ -35,8 +35,9 @@ class TimesTables(commands.Cog):
     def format_help_for_context(self, ctx: commands.Context) -> str:
         """Thanks Sinbad."""
         return f"{super().format_help_for_context(ctx)}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
-    
-    def time(self):
+
+    @staticmethod
+    def time():
         return time.perf_counter()
 
     def average(self, times):
