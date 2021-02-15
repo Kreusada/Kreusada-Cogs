@@ -8,7 +8,6 @@ DEFAULT_UP = "\N{UPWARDS BLACK ARROW}\N{VARIATION SELECTOR-16}"
 DEFAULT_DOWN = "\N{DOWNWARDS BLACK ARROW}\N{VARIATION SELECTOR-16}"
 
 
-
 class VoteChannel(commands.Cog):
     """
     Designate a channel(s) to have vote reactions on each post.
@@ -69,7 +68,10 @@ class VoteChannel(commands.Cog):
         """List the current voting channels."""
         channels = await self.config.guild(ctx.guild).channels()
         if channels:
-            await ctx.send(bold("Current channels with VoteChannel:\n") + ', '.join(self.bot.get_channel(c).mention for c in channels))
+            await ctx.send(
+                bold("Current channels with VoteChannel:\n")
+                + ", ".join(self.bot.get_channel(c).mention for c in channels)
+            )
         else:
             await ctx.send(bold("No channels are being used for VoteChannel yet."))
 
@@ -99,7 +101,7 @@ class VoteChannel(commands.Cog):
             await ctx.send(f"Up reaction has been reset to `{DEFAULT_UP}`.")
         else:
             await self.config.guild(ctx.guild).up.set(emoji)
-            await ctx.tick() 
+            await ctx.tick()
 
     @emoji.command()
     async def down(self, ctx, emoji: str = None):
@@ -114,16 +116,14 @@ class VoteChannel(commands.Cog):
             await ctx.send(f"Down reaction has been reset to `{DEFAULT_DOWN}`.")
         else:
             await self.config.guild(ctx.guild).down.set(emoji)
-            await ctx.tick() 
+            await ctx.tick()
 
     @emoji.command()
     async def presets(self, ctx):
         """View the current emojis for VoteChannel."""
         UP = await self.config.guild(ctx.guild).up()
         DOWN = await self.config.guild(ctx.guild).down()
-        await ctx.send(
-            f"{bold('Up Emoji: ')}{UP}\n{bold('Down Emoji: ')}{DOWN}"
-        )
+        await ctx.send(f"{bold('Up Emoji: ')}{UP}\n{bold('Down Emoji: ')}{DOWN}")
 
     @commands.Cog.listener()
     async def on_message_without_command(self, message):
@@ -142,12 +142,20 @@ class VoteChannel(commands.Cog):
             await message.add_reaction(UP)
             return await message.add_reaction(DOWN)
         except discord.Forbidden:
-            if message.author.bot: # This is super important, as I discovered. The bot can react to it's own messages,
-                pass               # And will spam this exception as a result.
-            else:                  # Exceptions with bots will fall silently.
-                return await message.channel.send("I am missing permissions to add reactions to the messages here.")
+            if (
+                message.author.bot
+            ):  # This is super important, as I discovered. The bot can react to it's own messages,
+                pass  # And will spam this exception as a result.
+            else:  # Exceptions with bots will fall silently.
+                return await message.channel.send(
+                    "I am missing permissions to add reactions to the messages here."
+                )
         except discord.HTTPException:
-            if message.author.bot: # This is super important, as I discovered. The bot can react to it's own messages,
-                pass               # And will spam this exception as a result.
-            else:                  # Exceptions with bots will fall silently. 
-                return await message.channel.send("You did not enter a valid emoji in the setup.")
+            if (
+                message.author.bot
+            ):  # This is super important, as I discovered. The bot can react to it's own messages,
+                pass  # And will spam this exception as a result.
+            else:  # Exceptions with bots will fall silently.
+                return await message.channel.send(
+                    "You did not enter a valid emoji in the setup."
+                )
