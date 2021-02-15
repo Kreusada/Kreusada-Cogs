@@ -53,13 +53,16 @@ Available cogs list
 +-----------------+--------------------------------------------------------------+---------+----------+
 | textmanipulator | Manipulate text and words with tools.                        | Tools   | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
+| timestables     | Learn your times tables with an 'against the clock' game.    | Fun     | Kreusada |
++-----------------+--------------------------------------------------------------+---------+----------+
+| votechannel     | Designate a channel to add voting reactions (customizable).  | Tools   | Kreusada |
++-----------------+--------------------------------------------------------------+---------+----------+
 
 -------------
 Contributing
 -------------
 
-Contributing is awesome! Feel free to open a pull request, or an issue.
-I may not get onto your case immediately, because like others, I do have a social and sporting life, which takes priority.
+Feel free to open a pull request, or an issue, I'm more than happy to make changes to my work.
 
 --------
 Support
