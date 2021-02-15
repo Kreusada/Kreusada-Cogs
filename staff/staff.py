@@ -74,13 +74,13 @@ class Staff(commands.Cog):
         if await ctx.embed_requested():
             embed = discord.Embed(
                 title="Staff Attention Pending",
-                description="[Click here for context]({})".format(ctx.message.jump_url),
+                description="[Click here for context]({})".format(message.jump_url),
                 color=await ctx.embed_colour(),
             )
             embed.add_field(name="Member", value=ctx.author.mention, inline=True)
             embed.add_field(name="Channel", value=ctx.channel.mention, inline=True)
             embed.add_field(name="Date", value=D, inline=True)
-            if reason is not None:
+            if reason:
                 embed.add_field(name="Reason", value=reason, inline=False)
             embed.set_author(
                 name=f"{ctx.author} | {ctx.author.id}", icon_url=ctx.author.avatar_url
@@ -88,12 +88,12 @@ class Staff(commands.Cog):
             embed.set_footer(
                 text=f"{self.bot.user.name} | Staff", icon_url=self.bot.user.avatar_url
             )
-            if channel is not None:
-                await message.add_reaction("✅")
+            if channel:
+                await ctx.tick()
                 await ctx.send(
                     "We have sent a report to the staff team. They will be with you as soon as possible."
                 )
-                if role is not None:
+                if role:
                     try:
                         return await channel.send(
                             content=f":warning: {role.mention}",
@@ -131,7 +131,7 @@ class Staff(commands.Cog):
                 text = text + f"\n**Reason:** {reason}"
             try:
                 if channel:
-                    await message.add_reaction("✅")
+                    await ctx.tick()
                     await channel.send(text)
                     await ctx.send(
                         "We have sent a report to the staff team. They will be with you as soon as possible."

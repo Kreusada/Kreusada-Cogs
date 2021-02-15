@@ -49,10 +49,7 @@ class TimesTables(commands.Cog):
 
     @staticmethod
     def total(times):
-        try:
-            return round(sum(times), 2)
-        except ZeroDivisionError:
-            return 0
+        return round(sum(times), 2)
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""
@@ -188,6 +185,8 @@ class TimesTables(commands.Cog):
 
         if number_of_questions > 20:
             return await ctx.send("Sorry, you cannot have more than 20 questions.")
+        if number_of_questions < 1:
+            return await ctx.send("Sorry, you cannot have less than 1 question.")
         await ctx.send(
             f"Starting timestable session with {number_of_questions} questions...\n{self.how_to_exit_early}"
         )
