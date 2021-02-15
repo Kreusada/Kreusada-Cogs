@@ -216,7 +216,7 @@ class TimesTables(commands.Cog):
                 answer = await self.bot.wait_for(
                     "message", timeout=timeout, check=check
                 )
-                if answer.content == str(F * S):
+                if answer.content == str(F*S):
                     time_end = self.time()
                     await answer.add_reaction(self.correct)
                     if time_taken:
