@@ -42,8 +42,9 @@ class VoteChannel(commands.Cog):
 
     @vote.group()
     async def channel(self, ctx):
-        """Set a channel where votes can take place."""
+        """Set channels where votes can take place."""
 
+    @commands.mod_or_permissions(administrator=True)
     @channel.command()
     async def add(self, ctx, channel: discord.TextChannel):
         """Add a channel."""
@@ -52,6 +53,7 @@ class VoteChannel(commands.Cog):
         await self.config.guild(ctx.guild).channels.set(channels)
         await ctx.send(f"{channel.mention} is now a voting channel.")
 
+    @commands.mod_or_permissions(administrator=True)
     @channel.command(aliases=["del", "delete"])
     async def remove(self, ctx, channel: discord.TextChannel):
         """Remove a channel."""
@@ -75,6 +77,7 @@ class VoteChannel(commands.Cog):
         else:
             await ctx.send(bold("No channels are being used for VoteChannel yet."))
 
+    @commands.mod_or_permissions(administrator=True)
     @vote.command()
     async def toggle(self, ctx):
         """Toggle VoteChannel."""
@@ -88,6 +91,7 @@ class VoteChannel(commands.Cog):
     async def emoji(self, ctx):
         """Set the emojis for VoteChannel."""
 
+    @commands.mod_or_permissions(administrator=True)
     @emoji.command()
     async def up(self, ctx, emoji: str = None):
         """
@@ -103,6 +107,7 @@ class VoteChannel(commands.Cog):
             await self.config.guild(ctx.guild).up.set(emoji)
             await ctx.tick()
 
+    @commands.mod_or_permissions(administrator=True)
     @emoji.command()
     async def down(self, ctx, emoji: str = None):
         """
