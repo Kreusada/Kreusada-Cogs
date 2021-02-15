@@ -154,7 +154,7 @@ class VoteChannel(commands.Cog):
                     "I am missing permissions to add reactions to the messages here."
                 )
         except discord.HTTPException:
-            if message.author.bot):  # This is super important, as I discovered. The bot can react to it's own messages,
+            if message.author.bot:  # This is super important, as I discovered. The bot can react to it's own messages,
                 pass                 # And will spam this exception as a result.
             else:                    # Exceptions with bots will fall silently.
                 return await message.channel.send(
