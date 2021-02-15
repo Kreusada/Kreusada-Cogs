@@ -41,21 +41,6 @@ class TimesTables(commands.Cog):
         """Thanks Sinbad."""
         return f"{super().format_help_for_context(ctx)}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
-    @staticmethod
-    def time():
-        return time.perf_counter()
-
-    @staticmethod
-    def average(times):
-        try:
-            return round(sum(times) / len(times), 2)
-        except ZeroDivisionError:
-            return 0
-
-    @staticmethod
-    def total(times):
-        return round(sum(times), 2)
-
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""
         return
@@ -89,6 +74,21 @@ class TimesTables(commands.Cog):
                 lang="yml",
             )
         )
+
+    @staticmethod
+    def time():
+        return time.perf_counter()
+
+    @staticmethod
+    def total(times):
+        return round(sum(times), 2)
+
+    @staticmethod
+    def average(times):
+        try:
+            return round(sum(times) / len(times), 2)
+        except ZeroDivisionError:
+            return 0
 
     @commands.group()
     async def tt(self, ctx):
