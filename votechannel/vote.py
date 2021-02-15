@@ -145,7 +145,7 @@ class VoteChannel(commands.Cog):
 
         try:
             await message.add_reaction(UP)
-            return await message.add_reaction(DOWN)
+            await message.add_reaction(DOWN)
         except discord.Forbidden:
             if message.author.bot:  # This is super important, as I discovered. The bot can react to it's own messages,
                 pass                # And will spam this exception as a result.
