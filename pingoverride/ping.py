@@ -36,8 +36,7 @@ class PingOverride(commands.Cog):
                 log.info(error)
             self.bot.add_command(_old_ping)
 
-    @staticmethod
-    def converter(ctx: commands.Context, match, bool):
+    async def converter(self, ctx: commands.Context, match, bool):
         if bool:
             mapping = {
                 "latency": round(self.bot.latency * 1000),
