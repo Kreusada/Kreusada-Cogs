@@ -49,10 +49,7 @@ class TimesTables(commands.Cog):
 
     @staticmethod
     def total(times):
-        try:
-            return round(sum(times), 2)
-        except ZeroDivisionError:
-            return 0
+        return round(sum(times), 2)
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""
