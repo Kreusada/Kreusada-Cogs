@@ -97,8 +97,8 @@ class VoteChannel(commands.Cog):
         """
         Set the up emoji.
 
-        Must be a custom emoji.
-        If left blank, defaults to the default emojis.
+        If an invalid emoji is given, your vote channel will error.
+        If left blank, defaults to the default up emoji.
         """
         if not emoji:
             await self.config.guild(ctx.guild).up.set(DEFAULT_UP)
@@ -113,8 +113,8 @@ class VoteChannel(commands.Cog):
         """
         Set the down emoji.
 
-        Must be a custom emoji.
-        If left blank, defaults to the default emojis.
+        If an invalid emoji is given, your vote channel will error.
+        If left blank, defaults to the default down emoji.
         """
         if not emoji:
             await self.config.guild(ctx.guild).down.set(DEFAULT_DOWN)

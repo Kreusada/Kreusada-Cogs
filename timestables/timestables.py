@@ -11,7 +11,12 @@ T_ = i18n.Translator("Numeracy", __file__)
 
 @i18n.cog_i18n(T_)
 class TimesTables(commands.Cog):
-    """Games and tools with numbers."""
+    """
+    Learn your times tables with a quick, simple game!
+
+    Includes various ways to customize the difficulty,
+    including an 'against the time' challenge.
+    """
 
     __version__ = "1.1.1"
     __author__ = ["Kreusada"]
