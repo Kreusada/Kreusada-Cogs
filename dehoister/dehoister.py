@@ -2,7 +2,7 @@ import discord
 import logging
 from redbot.core import commands, Config
 
-log = logging.getLogger("red.kreusada.advanceduptime")
+log = logging.getLogger("red.kreusada.dehoister")
 
 IDENTIFIER = 435089473534
 HOIST = "!\"#$%&'()*+,-./:;<=>?@0123456789"
