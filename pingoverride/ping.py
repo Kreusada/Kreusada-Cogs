@@ -46,8 +46,8 @@ class PingOverride(commands.Cog):
             }
         else:
             mapping = {
-                "latency": f"({ctx.bot.user.name}'s latency)",
-                "display": "(author's display name)",
+                "latency": f"[{ctx.bot.user.name}'s latency]",
+                "display": "[author's display name]",
             }
         return match.format(**mapping)
 
@@ -76,8 +76,9 @@ class PingOverride(commands.Cog):
     @pingset.command()
     async def settings(self, ctx):
         """Get the settings for the ping command."""
+        response = await self.config.response()
         text = (
-            f"{bold('Response:')} {box(await self.config.response(), lang='css')}\n"
+            f"{bold('Response:')} {box(await self.converter(ctx, response, False), lang='css')}\n"
             f"{bold('Replies:')} {await self.config.reply()}\n"
             f"{bold('Reply mentions:')} {await self.config.mention()}"
         )
