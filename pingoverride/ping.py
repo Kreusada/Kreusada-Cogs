@@ -2,6 +2,7 @@ import discord
 import logging
 from redbot.core import Config, commands
 from redbot.core.i18n import Translator, cog_i18n
+from redbot.core.utils.chat_formatting import box
 
 _ = Translator("PingOverride", __file__)
 log = logging.getLogger("red.kreusada.pingoverride")
@@ -66,7 +67,7 @@ class PingOverride(commands.Cog):
         await self.config.response.set(response)
         message = await self.converter(ctx, response, False)
         await ctx.send(
-            f"Running `{ctx.clean_prefix}ping` will now respond with:\n{message}"
+            f"Running `{ctx.clean_prefix}ping` will now respond with: {box(message, lang='css')}"
         )
 
     @commands.command()
