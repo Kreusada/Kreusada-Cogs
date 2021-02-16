@@ -80,7 +80,7 @@ class PingOverride(commands.Cog):
         text = (
             f"{bold('Response:')} {await self.converter(ctx, response, False)}\n"
             f"{bold('Replies:')} {await self.config.reply()}\n"
-            f"{bold('Reply mentions:')} {await self.config.mention()}"
+            f"{bold('Reply mentions:')} {await self.config.mention()}\n"
             f"{bold('Use embeds:')} {await self.config.embed()}"
         )
         await ctx.send(text)
