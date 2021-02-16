@@ -135,17 +135,14 @@ class PingOverride(commands.Cog):
                 )
             if reply:
                 if await ctx.embed_requested():
-                    await ctx.reply(embed=embed, mention_author=True if mention else False)
+                    await ctx.reply(embed=embed, mention_author=mention)
                 else:
-                    await ctx.reply(message, mention_author=True if mention else False)
+                    await ctx.reply(message, mention_author=mention)
             else:
-                if await ctx.embed_requested():
-                    await ctx.send(embed=embed)
-                else:
-                    await ctx.send(message)
+                await ctx.maybe_send_embed(message)
         else:
             if reply:
-                await ctx.reply(message, mention_author=True if mention else False)
+                await ctx.reply(message, mention_author=mention)
             else:
                 await ctx.send(message)
             
