@@ -78,7 +78,7 @@ class PingOverride(commands.Cog):
         """Get the settings for the ping command."""
         response = await self.config.response()
         text = (
-            f"{bold('Response:')} {box(await self.converter(ctx, response, False), lang='css')}\n"
+            f"{bold('Response:')} {await self.converter(ctx, response, False)}\n"
             f"{bold('Replies:')} {await self.config.reply()}\n"
             f"{bold('Reply mentions:')} {await self.config.mention()}"
         )
