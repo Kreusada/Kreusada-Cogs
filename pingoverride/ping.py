@@ -16,7 +16,7 @@ class PingOverride(commands.Cog):
     """
 
     __author__ = "Kreusada"
-    __version__ = "1.5.0"
+    __version__ = "1.7.0"
 
     def __init__(self, bot):
         self.bot = bot
@@ -53,11 +53,11 @@ class PingOverride(commands.Cog):
 
     @commands.is_owner()
     @commands.group()
-    async def pingset(self, ctx):
+    async def pingset(self, ctx: commands.Context):
         """Settings for ping."""
 
     @pingset.command()
-    async def reply(self, ctx, true_or_false: bool, mention: bool = False):
+    async def reply(self, ctx: commands.Context, true_or_false: bool, mention: bool = False):
         """Set whether ping will use replies in their output."""
         await self.config.reply.set(true_or_false)
         await self.config.mention.set(mention)
@@ -74,7 +74,7 @@ class PingOverride(commands.Cog):
         await ctx.send(msg)
 
     @pingset.command()
-    async def settings(self, ctx):
+    async def settings(self, ctx: commands.Context):
         """Get the settings for the ping command."""
         response = await self.config.response()
         text = (
@@ -86,7 +86,7 @@ class PingOverride(commands.Cog):
         await ctx.send(text)
 
     @pingset.command()
-    async def embed(self, ctx, true_or_false: bool):
+    async def embed(self, ctx: commands.Context, true_or_false: bool):
         """
         Toggle whether to use embeds in replies.
 
