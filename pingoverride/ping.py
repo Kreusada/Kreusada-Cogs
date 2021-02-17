@@ -89,9 +89,9 @@ class PingOverride(commands.Cog):
                 color=await ctx.embed_colour()
             )
             embed.add_field(name="response", value=await self.converter(ctx, response, False), inline=False)
-            embed.add_field(name="Replies", value=check if await self.config.reply() else cross, inline=True)
-            embed.add_field(name="Reply mentions", value=check if await self.config.mention() else cross, inline=True)
-            embed.add_field(name="Embeds", value=check if await self.config.embed() else cross, inline=True)
+            embed.add_field(name="Replies", value=check if await self.config.reply() else cross, inline=False)
+            embed.add_field(name="Reply mentions", value=check if await self.config.mention() else cross, inline=False)
+            embed.add_field(name="Embeds", value=check if await self.config.embed() else cross, inline=False)
             await ctx.send(embed=embed)
         else:
             text = (
