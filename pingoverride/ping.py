@@ -81,13 +81,26 @@ class PingOverride(commands.Cog):
     async def settings(self, ctx: commands.Context):
         """Get the settings for the ping command."""
         response = await self.config.response()
-        text = (
-            f"{bold('Response:')} {await self.converter(ctx, response, False)}\n"
-            f"{bold('Replies:')} {await self.config.reply()}\n"
-            f"{bold('Reply mentions:')} {await self.config.mention()}\n"
-            f"{bold('Use embeds:')} {await self.config.embed()}"
-        )
-        await ctx.send(text)
+        cross = "\N{CROSS MARK}"
+        check = "\N{WHITE HEAVY CHECK MARK}"
+        if await ctx.embed_requested():
+            embed = discord.Embed(
+                title=f"Settings for {ctx.bot.user.name}",
+                color=await ctx.embed_colour()
+            )
+            embed.add_field(name="response", value=await self.converter(ctx, response, False), inline=False)
+            embed.add_field(name="Replies", value=check if await self.config.reply() else cross, inline=True)
+            embed.add_field(name="Reply mentions", value=check if await self.config.mention() else cross, inline=True)
+            embed.add_field(name="Embeds", value=check if await self.config.embed() else cross, inline=True)
+            await ctx.send(embed=embed)
+        else:
+            text = (
+                f"{bold('Response:')} {await self.converter(ctx, response, False)}\n"
+                f"{bold('Replies:')} {await self.config.reply()}\n"
+                f"{bold('Reply mentions:')} {await self.config.mention()}\n"
+                f"{bold('Use embeds:')} {await self.config.embed()}"
+            )
+            await ctx.send(text)
 
     @pingset.command()
     async def embed(self, ctx: commands.Context, true_or_false: bool):
