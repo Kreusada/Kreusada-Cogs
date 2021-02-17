@@ -84,3 +84,39 @@ Credits
 * W3Schools - An amazing website full of python tricks and tips which have helped me develop. 
  You can find their website here: https://www.w3schools.com/python/
 * Stack Overflow - Of course, I mean who hasn't payed a trip to stack overflow?
+
+--------------------------
+Frequently Asked Questions
+--------------------------
+
+**What is your favourite cog that you've created?**
+
+Probably PingOverride. It's been super fun creating it, and I've really
+enjoyed providing it with flexibility and making it look good.
+
+**Where did some of your cogs go that were previously on your repo?**
+
+They were removing intentionally because they either had breaking changes or
+needed rewriting. They're scattered around somewhere, I won't be giving support 
+for them.
+
+**Which cog do you dislike the most?**
+
+TextManipulator. No reason - all the code is correct, but it was just a bit of advanceduptime
+'naff' project.
+
+**Why did you start creating cogs?**
+
+I started coding python when my hometown went into lockdown in April 2020. Then, my friend Jojo
+mentioned 'Red' to me. I was confused, but I had seen Red around, so decided to talk more about it.
+Then I discovered that Red had a server, so I joined, and my first question was 'Is Red discord.js?'.
+Since then, I've been able to code cogs, and it's been very fun! I am currently an unnapproved cog
+creator, but I have submitted an application on the cogboard on January 2nd.
+
+**Do you maintain your repo?**
+
+Yes. I try my best to check that all cogs work as well as they can.
+
+**Do you maintain your PyPi?**
+
+Not as much as my repo. But I do try.

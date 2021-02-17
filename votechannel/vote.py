@@ -146,21 +146,23 @@ class VoteChannel(commands.Cog):
         try:
             await message.add_reaction(UP)
             await message.add_reaction(DOWN)
+        #### Seeing as we've allowed bot's to react to themselves, 
+        #### we now need to disable the exceptions on themselves to nullify any spam.
         except discord.Forbidden:
             if (
                 message.author.bot
-            ):  # This is super important, as I discovered. The bot can react to it's own messages,
-                pass  # And will spam this exception as a result.
-            else:  # Exceptions with bots will fall silently.
+            ):  
+                pass  
+            else: 
                 return await message.channel.send(
                     "I am missing permissions to add reactions to the messages here."
                 )
         except discord.HTTPException:
             if (
                 message.author.bot
-            ):  # This is super important, as I discovered. The bot can react to it's own messages,
-                pass  # And will spam this exception as a result.
-            else:  # Exceptions with bots will fall silently.
+            ): 
+                pass  
+            else: 
                 return await message.channel.send(
                     "You did not enter a valid emoji in the setup."
                 )
