@@ -102,7 +102,7 @@ for them.
 
 **Which cog do you dislike the most?**
 
-TextManipulator. No reason - all the code is correct, but it was just a bit of advanceduptime
+TextManipulator. No reason - all the code is correct, but it was just a bit of a
 'naff' project.
 
 **Why did you start creating cogs?**
