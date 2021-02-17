@@ -49,12 +49,10 @@ class TimesTables(commands.Cog):
         self, ctx, correct, incorrect, inactive, average_time, exited_early: bool
     ):
         if not exited_early:
-            msg = (
-                f"{random.choice(self.session_quotes)} {ctx.author.name}! The session has ended."
-            )
+            msg = f"{random.choice(self.session_quotes)} {ctx.author.name}! The session has ended."
         else:
             msg = f"You exited early, {ctx.author.name}."
-            
+
         if average_time:
             timing = (
                 f"\n\nAverage time per question: {self.average(average_time)}s\n"
@@ -62,7 +60,7 @@ class TimesTables(commands.Cog):
             )
         else:
             timing = ""
-            
+
         return await ctx.send(
             box(
                 text=(
@@ -216,7 +214,7 @@ class TimesTables(commands.Cog):
                 answer = await self.bot.wait_for(
                     "message", timeout=timeout, check=check
                 )
-                if answer.content == str(F*S):
+                if answer.content == str(F * S):
                     time_end = self.time()
                     await answer.add_reaction(self.correct)
                     if time_taken:

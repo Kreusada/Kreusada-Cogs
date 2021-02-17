@@ -1,4 +1,5 @@
 import discord
+
 from redbot.core import commands, Config
 from redbot.core.i18n import Translator, cog_i18n
 

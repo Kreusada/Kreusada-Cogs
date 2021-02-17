@@ -1,4 +1,5 @@
 import discord
+
 from redbot.core import commands
 from redbot.core.i18n import Translator, cog_i18n
 
@@ -38,10 +39,9 @@ class TextManipulator(commands.Cog):
     @count.command(aliases=["char"])
     async def characters(self, ctx: commands.Context, *, characters: str):
         """Count how many characters are in a specified text."""
-        space = " "
         await ctx.send(
             f"**Including spaces:** {str(len(characters))}\n"
-            f"**Excluding spaces:** {str(len(characters) - characters.count(space))}`"
+            f"**Excluding spaces:** {str(len(characters) - characters.count(' '))}`"
         )
 
     @count.command()

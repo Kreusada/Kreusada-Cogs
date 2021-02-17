@@ -1,4 +1,5 @@
 import psutil
+
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import box as b
 
@@ -22,4 +23,8 @@ class RAM(commands.Cog):
     @commands.is_owner()
     async def ram(self, ctx):
         """Get [botname]'s ram."""
-        await ctx.send(b(text=f"{RAMU}[{psutil.virtual_memory()[2]}%]", lang="css"))
+        await ctx.send(
+            b(
+                f"Random Access Memory used: [{psutil.virtual_memory()[2]}%]", lang="css"
+            )
+        )

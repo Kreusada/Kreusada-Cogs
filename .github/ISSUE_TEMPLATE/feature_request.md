@@ -7,10 +7,7 @@ assignees: ''
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
+**What cog are you making a feature request for?**
 
-**Describe the solution you'd like**
 
-**Describe alternatives you've considered**
-
-**Additional context**
+**Describe what you would like to see!**

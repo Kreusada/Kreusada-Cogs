@@ -1,4 +1,5 @@
 from names import get_full_name as full, get_first_name as first, get_last_name as last
+
 from redbot.core import commands
 
 
@@ -29,7 +30,7 @@ class NameGenerator(commands.Cog):
         Optional arguments:
         `gender`: Provides the gender of the name.
         """
-        if gender is not None:
+        if gender:
             await ctx.send(full(gender=gender))
         else:
             await ctx.send(full())
@@ -42,7 +43,7 @@ class NameGenerator(commands.Cog):
         Optional arguments:
         `gender`: Provides the gender of the name.
         """
-        if gender is not None:
+        if gender:
             await ctx.send(first(gender=gender))
         else:
             await ctx.send(first())
@@ -55,7 +56,7 @@ class NameGenerator(commands.Cog):
         Optional arguments:
         `gender`: Provides the gender of the name.
         """
-        if gender is not None:
+        if gender:
             await ctx.send(last(gender=gender))
         else:
             await ctx.send(last())

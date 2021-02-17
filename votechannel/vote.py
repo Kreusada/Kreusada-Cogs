@@ -147,16 +147,20 @@ class VoteChannel(commands.Cog):
             await message.add_reaction(UP)
             await message.add_reaction(DOWN)
         except discord.Forbidden:
-            if message.author.bot:  # This is super important, as I discovered. The bot can react to it's own messages,
-                pass                # And will spam this exception as a result.
-            else:                   # Exceptions with bots will fall silently.
+            if (
+                message.author.bot
+            ):  # This is super important, as I discovered. The bot can react to it's own messages,
+                pass  # And will spam this exception as a result.
+            else:  # Exceptions with bots will fall silently.
                 return await message.channel.send(
                     "I am missing permissions to add reactions to the messages here."
                 )
         except discord.HTTPException:
-            if message.author.bot:  # This is super important, as I discovered. The bot can react to it's own messages,
-                pass                 # And will spam this exception as a result.
-            else:                    # Exceptions with bots will fall silently.
+            if (
+                message.author.bot
+            ):  # This is super important, as I discovered. The bot can react to it's own messages,
+                pass  # And will spam this exception as a result.
+            else:  # Exceptions with bots will fall silently.
                 return await message.channel.send(
                     "You did not enter a valid emoji in the setup."
                 )

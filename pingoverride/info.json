@@ -1,7 +1,7 @@
 {
 	"author": ["Kreusada"],
 	"description": "Override the default ping response with a custom message.",
-        "install_msg": "Thanks for installing. Use `[p]help PingOverride`!",
+    "install_msg": "Thanks for installing. Use `[p]help PingOverride`!",
 	"min_bot_version": "3.4.6",
 	"short": "Custom ping response.",
 	"name": "PingOverride",

@@ -23,7 +23,9 @@ class PingOverride(commands.Cog):
         self.config = Config.get_conf(
             self, identifier=59365034743, force_registration=True
         )
-        self.config.register_global(response="Pong.", reply=False, mention=True, embed=False)
+        self.config.register_global(
+            response="Pong.", reply=False, mention=True, embed=False
+        )
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         """Thanks Sinbad."""
@@ -57,7 +59,9 @@ class PingOverride(commands.Cog):
         """Settings for ping."""
 
     @pingset.command()
-    async def reply(self, ctx: commands.Context, true_or_false: bool, mention: bool = False):
+    async def reply(
+        self, ctx: commands.Context, true_or_false: bool, mention: bool = False
+    ):
         """Set whether ping will use replies in their output."""
         await self.config.reply.set(true_or_false)
         await self.config.mention.set(mention)
@@ -115,9 +119,14 @@ class PingOverride(commands.Cog):
         embed = await self.config.embed()
         if embed:
             embed = discord.Embed(description=msg, color=await ctx.embed_colour())
-            await ctx.send(content=f"Running `{ctx.clean_prefix}ping` will now respond with...", embed=embed)
+            await ctx.send(
+                content=f"Running `{ctx.clean_prefix}ping` will now respond with...",
+                embed=embed,
+            )
         else:
-            await ctx.send(f"Running `{ctx.clean_prefix}ping` will now respond with {box(msg, lang='css')}")
+            await ctx.send(
+                f"Running `{ctx.clean_prefix}ping` will now respond with {box(msg, lang='css')}"
+            )
 
     @commands.command()
     async def ping(self, ctx: commands.Context):
@@ -129,10 +138,7 @@ class PingOverride(commands.Cog):
         message = await self.converter(ctx, resp, True)
         if embed:
             for page in pagify(message, delims=["\n"], page_length=1800):
-                embed = discord.Embed(
-                    description=page,
-                    color=await ctx.embed_colour()
-                )
+                embed = discord.Embed(description=page, color=await ctx.embed_colour())
             if reply:
                 if await ctx.embed_requested():
                     await ctx.reply(embed=embed, mention_author=mention)
@@ -145,7 +151,8 @@ class PingOverride(commands.Cog):
                 await ctx.reply(message, mention_author=mention)
             else:
                 await ctx.send(message)
-            
+
+
 def setup(bot):
     cping = PingOverride(bot)
     global _old_ping
