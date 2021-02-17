@@ -10,18 +10,18 @@
   - namegenerator/*
 "Cog: PingOverride":
   - pingoverride/*
-"Cog: Ram":
+"Cog: RAM":
   - ram/*
-"Cog: RomanConverter":
-  - romanconverter/*
-"Cog: SearchEngine":
-  - searchengine/*
 "Cog: SendCards":
   - sendcards/*
 "Cog: Staff":
   - staff/*
 "Cog: TextManipulator":
   - textmanipulator/*
+"Cog: TimesTables":
+  - timestables/*
+"Cog: VoteChannel":
+  - votechannel/*
 "Category: Repository":
   - ./*
   - .github/*
