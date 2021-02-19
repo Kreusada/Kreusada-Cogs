@@ -153,20 +153,6 @@ class Dehoister(commands.Cog):
             except discord.Forbidden as f:
                 log.error(f)
 
-    @hoist.group()
-    async def explain(self, ctx: commands.Context):
-        """Explain how Dehoister works."""
-
-    @explain.command()
-    async def auto(self, ctx: commands.Context):
-        """Explains how auto-dehoist works."""
-        await self.ex(ctx, True)
-
-    @explain.command()
-    async def scanclean(self, ctx: commands.Context):
-        """Explains how scanning and cleaning works."""
-        await self.ex(ctx, False)
-
     @commands.group()
     @commands.mod_or_permissions(manage_nicknames=True)
     async def hoist(self, ctx: commands.Context):
@@ -281,3 +267,17 @@ class Dehoister(commands.Cog):
             await ctx.send(
                 f"Discord has a limit of 32 characters for nicknames. Your chosen nickname, {nickname}, could not be set."
             )
+   
+    @hoist.group()
+    async def explain(self, ctx: commands.Context):
+        """Explain how Dehoister works."""
+
+    @explain.command()
+    async def auto(self, ctx: commands.Context):
+        """Explains how auto-dehoist works."""
+        await self.ex(ctx, True)
+
+    @explain.command()
+    async def scanclean(self, ctx: commands.Context):
+        """Explains how scanning and cleaning works."""
+        await self.ex(ctx, False)
