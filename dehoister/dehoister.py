@@ -24,10 +24,10 @@ AUTO_DEHOIST_EXPLAIN = (
 )
 
 SCAN_AND_CLEAN_EXPLAIN = (
-    "If users were able to bypass the auto dehoister, due to the bot being down, or it was toggled
+    "If users were able to bypass the auto dehoister, due to the bot being down, or it was toggled"
     "off, there are still tools you can use to protect your guild against hoisted names."
     "`{p}hoist scan` will return a full list of users who have hoisted nicknames or usernames."
-    "`{p}hoist clean` will change everyones nickname to the configured nickname if they
+    "`{p}hoist clean` will change everyones nickname to the configured nickname if they"
     "have a hoisted username/nickname."
 )
 
