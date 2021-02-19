@@ -11,17 +11,24 @@ from redbot.core.utils.menus import start_adding_reactions
 log = logging.getLogger("red.kreusada.dehoister")
 
 IDENTIFIER = 435089473534
+
 HOIST = "!\"#$%&'()*+,-./:;<=>?@0123456789"
 
-EXPLAIN = (
-    "Dehoister is a cog which allows you to automatically change the nickname "
-    "of users who have a hoisting character at the start of their username. "
-    "To get started, use `{p}dehoistset toggle true`, which will enable this feature. "
-    "Then, you can customize the nickname via `{p}dehoistset nickname`.\n\n"
+AUTO_DEHOIST_EXPLAIN = (
+    "To get started, use `{p}hoist set toggle true`, which will enable this feature. "
+    "Then, you can customize the nickname via `{p}hoist set nickname`.\n\n"
     "When new users join the guild, their nickname will automatically be changed "
     "to this configured nickname, if they have a hoisted character at the start of their name. "
     "If your bot doesn't have permissions, **this process will be cancelled**, so make sure that "
     "your bot has access to nickname changing."
+)
+
+SCAN_AND_CLEAN_EXPLAIN = (
+    "If users were able to bypass the auto dehoister, due to the bot being down, or it was toggled
+    "off, there are still tools you can use to protect your guild against hoisted names."
+    "`{p}hoist scan` will return a full list of users who have hoisted nicknames or usernames."
+    "`{p}hoist clean` will change everyones nickname to the configured nickname if they
+    "have a hoisted username/nickname."
 )
 
 
@@ -50,7 +57,9 @@ class Dehoister(commands.Cog):
             return await ctx.send("I cannot add reactions.")
         msg = await ctx.send(
             f"Are you sure you would like to dehoist {hoisted_count} hoisted users? "
-            "This may take a few moments."
+            f"This may take a few moments. Their nickname's will be changed to {nickname}, "
+            f"you can cancel now and change this nickname via `{ctx.clean_prefix}hoist set nickname "
+            "if you wish."
         )
         pred = ReactionPredicate.yes_or_no(msg, ctx.author)
         start_adding_reactions(msg, ReactionPredicate.YES_OR_NO_EMOJIS)
@@ -114,13 +123,13 @@ class Dehoister(commands.Cog):
                 log.error(f)
 
     @commands.group()
+    @commands.mod_or_permissions(manage_nicknames=True)
     async def hoist(self, ctx):
         """Commands for Dehoister."""
 
-    @commands.admin_or_permissions(administrator=True)
     @commands.command()
     async def dehoist(self, ctx: commands.Context, member: discord.Member):
-        """Manually dehoist a user."""
+        """Manually dehoist a particular user."""
         try:
             await member.edit(nick=await self.config.guild(ctx.guild).nickname())
             await ctx.send(f"`{member.name}` has successfully been dehoisted.")
@@ -162,17 +171,33 @@ class Dehoister(commands.Cog):
     async def _set(self, ctx: commands.Context):
         """Settings for Dehoister."""
 
-    @_set.command()
+    @_set.group()
     async def explain(self, ctx: commands.Context):
         """Explain how Dehoister works."""
+
+    @explain.command()
+    async def auto(self, ctx):
+        """Explains how auto-dehoist works."""
         if await ctx.embed_requested():
             embed = discord.Embed(
-                description=EXPLAIN.format(p=ctx.clean_prefix),
+                description=AUTO_DEHOIST_EXPLAIN.format(p=ctx.clean_prefix),
                 color=await ctx.embed_colour(),
             )
             await ctx.send(embed=embed)
         else:
-            await ctx.send(EXPLAIN.format(p=ctx.clean_prefix))
+            await ctx.send(AUTO_DEHOIST_EXPLAIN.format(p=ctx.clean_prefix))
+
+    @explain.command()
+    async def scanclean(self, ctx):
+        """Explains how scanning and cleaning works."""
+        if await ctx.embed_requested():
+            embed = discord.Embed(
+                description=SCAN_AND_CLEAN_EXPLAIN.format(p=ctx.clean_prefix),
+                color=await ctx.embed_colour(),
+            )
+            await ctx.send(embed=embed)
+        else:
+            await ctx.send(SCAN_AND_CLEAN_EXPLAIN.format(p=ctx.clean_prefix))
 
     @_set.command()
     async def toggle(self, ctx: commands.Context, true_or_false: bool):
