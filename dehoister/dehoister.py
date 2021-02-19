@@ -65,11 +65,17 @@ class Dehoister(commands.Cog):
                     for m in ctx.guild.members:
                         if m.display_name.startswith(tuple(HOIST)):
                             try:
-                                await m.edit(nick=await self.config.guild(ctx.guild).nickname())
+                                await m.edit(
+                                    nick=await self.config.guild(ctx.guild).nickname()
+                                )
                             except discord.Forbidden:
                                 exception = True
-                                await ctx.send(f"I could not change {ctx.guild.owner.name}'s nickname because I cannot edit owner nicknames.")
-                await ctx.send(f"{hoisted_count - 1 if exception else 0} users have been dehoisted.")
+                                await ctx.send(
+                                    f"I could not change {ctx.guild.owner.name}'s nickname because I cannot edit owner nicknames."
+                                )
+                await ctx.send(
+                    f"{hoisted_count - 1 if exception else 0} users have been dehoisted."
+                )
             else:
                 return await ctx.send("I do not have permissions.")
         else:
@@ -85,9 +91,11 @@ class Dehoister(commands.Cog):
 
     @staticmethod
     def get_hoisted_list(ctx):
-        B = "\n" # F-string cannot include backslash
-        return '\n\n'.join(
-            f"{m}:{f'{B}- {m.nick}' if m.nick else ''}{B}-- {m.id}" for m in ctx.guild.members if m.display_name.startswith(tuple(HOIST))
+        B = "\n"  # F-string cannot include backslash
+        return "\n\n".join(
+            f"{m}:{f'{B}- {m.nick}' if m.nick else ''}{B}-- {m.id}"
+            for m in ctx.guild.members
+            if m.display_name.startswith(tuple(HOIST))
         )
 
     @commands.Cog.listener()
@@ -105,7 +113,6 @@ class Dehoister(commands.Cog):
             except discord.Forbidden as f:
                 log.error(f)
 
-                
     @commands.group()
     async def hoist(self, ctx):
         """Commands for Dehoister."""
@@ -128,23 +135,18 @@ class Dehoister(commands.Cog):
         if count > 9:
             await ctx.send(
                 "There were 10 or more hoisted users, so to be corteous to others, I've uploaded the list as a file.",
-                file=discord.File(io.BytesIO(join.encode()), filename="hoisted.txt")
+                file=discord.File(io.BytesIO(join.encode()), filename="hoisted.txt"),
             )
         else:
             if not count:
                 await ctx.send("No hoisted users were found.")
             else:
-                msg = (
-                    box(
-                        f"{count} users found:\n\n{join}",
-                        lang='yaml'
-                    )
-                )
+                msg = box(f"{count} users found:\n\n{join}", lang="yaml")
                 if await ctx.embed_requested():
-                    embed=discord.Embed(
-                        title=f"Hoisted users in {ctx.guild.name}", 
-                        description=msg, 
-                        color=await ctx.embed_colour()
+                    embed = discord.Embed(
+                        title=f"Hoisted users in {ctx.guild.name}",
+                        description=msg,
+                        color=await ctx.embed_colour(),
                     )
                     await ctx.send(embed=embed)
                 else:
@@ -154,7 +156,6 @@ class Dehoister(commands.Cog):
     async def clean(self, ctx):
         """Dehoist all members in the guild."""
         await self.clean_hoist_pred(ctx)
-
 
     @commands.admin_or_permissions(administrator=True)
     @hoist.group(name="set")
