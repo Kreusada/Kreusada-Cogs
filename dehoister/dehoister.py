@@ -43,7 +43,7 @@ class Dehoister(commands.Cog):
     """
 
     __author__ = "Kreusada"
-    __version__ = "1.0.0"
+    __version__ = "1.4.0"
 
     def __init__(self, bot):
         self.bot = bot
@@ -242,7 +242,13 @@ class Dehoister(commands.Cog):
 
     @_set.command()
     async def toggle(self, ctx: commands.Context):
-        """Toggle the auto-dehoister."""
+        """
+        Toggle the auto-dehoister.
+        
+        When this cog is installed for the first time,
+        it is automatically set **off**. Use this command to turn
+        it on. You can always turn it off again at a later date.
+        """
         toggled = await self.config.guild(ctx.guild).toggled()
         await self.config.guild(ctx.guild).toggled.set(False if toggled else True)
         await ctx.send(
