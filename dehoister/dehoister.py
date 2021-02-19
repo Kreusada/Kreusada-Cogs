@@ -171,7 +171,7 @@ class Dehoister(commands.Cog):
     async def _set(self, ctx: commands.Context):
         """Settings for Dehoister."""
 
-    @_set.group()
+    @hoist.group()
     async def explain(self, ctx: commands.Context):
         """Explain how Dehoister works."""
 
@@ -201,11 +201,12 @@ class Dehoister(commands.Cog):
 
     @_set.command()
     async def toggle(self, ctx: commands.Context, true_or_false: bool):
-        """Toggle the Dehoister."""
-        await self.config.guild(ctx.guild).toggled.set(true_or_false)
+        """Toggle the auto-dehoister"""
+        toggled = await self.config.guild(ctx.guild).toggled()
+        await self.config.guild(ctx.guild).toggled.set(False if toggled else True)
         await ctx.send(
             "Dehoister has been enabled."
-        ) if true_or_false is True else await ctx.send("Dehoister has been disabled.")
+        ) if not toggled else await ctx.send("Dehoister has been disabled.")
 
     @_set.command()
     async def nickname(self, ctx: commands.Context, *, nickname: str):
