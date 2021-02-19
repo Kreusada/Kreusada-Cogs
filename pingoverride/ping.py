@@ -70,11 +70,9 @@ class PingOverride(commands.Cog):
         msg = f"Running `{ctx.clean_prefix}ping` will {verb} use replies."
         if not mention:
             if true_or_false:
-                msg = msg + " Replies will not mention."
-            else:
-                msg = msg
+                msg += " Replies will not mention."
         else:
-            msg = msg + " Replies will mention."
+            msg += " Replies will mention."
         await ctx.send(msg)
 
     @pingset.command()
