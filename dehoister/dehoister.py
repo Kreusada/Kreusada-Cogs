@@ -64,7 +64,7 @@ class Dehoister(commands.Cog):
         msg = await ctx.send(
             f"Are you sure you would like to dehoist {hoisted_count} hoisted users? "
             f"This may take a few moments. Their nickname's will be changed to {nickname}, "
-            f"you can cancel now and change this nickname via `{ctx.clean_prefix}hoist set nickname "
+            f"you can cancel now and change this nickname via `{ctx.clean_prefix}hoist set nickname` "
             "if you wish."
         )
         pred = ReactionPredicate.yes_or_no(msg, ctx.author)
@@ -260,12 +260,12 @@ class Dehoister(commands.Cog):
         
         If none is set, the default nickname is `Ze Dehoisted`.
         """
-        if len(nickname) < 32:
+        try:
             await self.config.guild(ctx.guild).nickname.set(nickname)
             await ctx.send(
                 f"Dehoisted members will now have their nickname set to `{nickname}`."
             )
-        else:
+        except discord.HTTPException:
             await ctx.send(
                 f"Discord has a limit of 32 characters for nicknames. Your chosen nickname, {nickname}, could not be set."
             )
