@@ -6,7 +6,7 @@ import asyncio
 from redbot.core import commands, Config, i18n
 from redbot.core.utils.chat_formatting import box, bold
 
-T_ = i18n.Translator("Numeracy", __file__)
+T_ = i18n.Translator("TimesTables", __file__)
 
 
 @i18n.cog_i18n(T_)
