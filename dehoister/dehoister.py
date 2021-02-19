@@ -63,7 +63,7 @@ class Dehoister(commands.Cog):
             return await ctx.send("I cannot add reactions.")
         msg = await ctx.send(
             f"Are you sure you would like to dehoist {hoisted_count} hoisted users? "
-            f"This may take a few moments. Their nickname's will be changed to {nickname}, "
+            f"This may take a few moments.\nTheir nickname's will be changed to `{nickname}`, "
             f"you can cancel now and change this nickname via `{ctx.clean_prefix}hoist set nickname` "
             "if you wish."
         )
