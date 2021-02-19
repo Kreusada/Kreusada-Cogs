@@ -95,6 +95,32 @@ class Dehoister(commands.Cog):
         else:
             await ctx.send("No changes have been made.")
 
+    async def ex(self, ctx, _type):
+        # _type True auto, _type False scanclean
+        if _type:
+            if await ctx.embed_requested():
+                embed = discord.Embed(
+                    description=(
+                        AUTO_DEHOIST_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix)
+                    ),
+                    color=await ctx.embed_colour(),
+                )
+                return await ctx.send(embed=embed)
+            else:
+                return await ctx.send(AUTO_DEHOIST_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix))
+        else:
+            if await ctx.embed_requested():
+                embed = discord.Embed(
+                    description=(
+                        SCAN_AND_CLEAN_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix)
+                    ),
+                    color=await ctx.embed_colour(),
+                )
+                await ctx.send(embed=embed)
+            else:
+                await ctx.send(SCAN_AND_CLEAN_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix))
+
+
     @staticmethod
     def get_hoisted_count(ctx):
         count = 0
@@ -127,12 +153,26 @@ class Dehoister(commands.Cog):
             except discord.Forbidden as f:
                 log.error(f)
 
+    @hoist.group()
+    async def explain(self, ctx: commands.Context):
+        """Explain how Dehoister works."""
+
+    @explain.command()
+    async def auto(self, ctx: commands.Context):
+        """Explains how auto-dehoist works."""
+        await self.ex(ctx, True)
+
+    @explain.command()
+    async def scanclean(self, ctx: commands.Context):
+        """Explains how scanning and cleaning works."""
+        await self.ex(ctx, False)
+
     @commands.group()
     @commands.mod_or_permissions(manage_nicknames=True)
     async def hoist(self, ctx: commands.Context):
         """Commands for Dehoister."""
 
-    @commands.command()
+    @hoist.command()
     async def dehoist(self, ctx: commands.Context, member: discord.Member):
         """
         Manually dehoist a particular user.
@@ -205,39 +245,6 @@ class Dehoister(commands.Cog):
     @hoist.group(name="set")
     async def _set(self, ctx: commands.Context):
         """Settings for Dehoister."""
-
-    @hoist.group()
-    async def explain(self, ctx: commands.Context):
-        """Explain how Dehoister works."""
-
-    @explain.command()
-    async def auto(self, ctx: commands.Context):
-        """Explains how auto-dehoist works."""
-        if await ctx.embed_requested():
-            embed = discord.Embed(
-                description=(
-                    AUTO_DEHOIST_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix)
-                ),
-                color=await ctx.embed_colour(),
-            )
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(AUTO_DEHOIST_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix))
-
-    @explain.command()
-    async def scanclean(self, ctx: commands.Context):
-        """Explains how scanning and cleaning works."""
-        if await ctx.embed_requested():
-            embed = discord.Embed(
-                description=(
-                    SCAN_AND_CLEAN_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix)
-                ),
-                color=await ctx.embed_colour(),
-            )
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(SCAN_AND_CLEAN_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix))
-
 
     @_set.command()
     async def toggle(self, ctx: commands.Context):
