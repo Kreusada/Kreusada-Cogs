@@ -160,12 +160,13 @@ class Dehoister(commands.Cog):
         This command will return a count and list of members.
         It will follow this format:
 
-        ```yaml
+        ---------------------------------
         X users found:
 
         user#0001:
         - Their nickname (if applicable)
         -- Their user ID.
+        ---------------------------------
         
         If there are more than 10 hoisted users, this list
         will instead be sent as a Discord file, named `hoisted.txt`.
