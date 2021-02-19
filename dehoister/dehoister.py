@@ -61,6 +61,8 @@ class Dehoister(commands.Cog):
             return await ctx.send("There are no hoisted members.")
         if not ctx.channel.permissions_for(ctx.me).add_reactions:
             return await ctx.send("I cannot add reactions.")
+        if not ctx.channel.permissions_for(ctx.me).manage_nicknames:
+            return await ctx.send("I do not have permission to edit nicknames.")
         msg = await ctx.send(
             f"Are you sure you would like to dehoist {hoisted_count} hoisted users? "
             f"This may take a few moments.\nTheir nickname's will be changed to `{nickname}`, "
@@ -75,24 +77,21 @@ class Dehoister(commands.Cog):
             await msg.delete()
             await ctx.send(f"You took too long to respond.")
         if pred.result:
-            if ctx.channel.permissions_for(ctx.me).manage_nicknames:
-                async with ctx.typing():
-                    for m in ctx.guild.members:
-                        if m.display_name.startswith(tuple(HOIST)):
-                            try:
-                                await m.edit(
-                                    nick=await self.config.guild(ctx.guild).nickname()
-                                )
-                            except discord.Forbidden:
-                                exception = True
-                                await ctx.send(
-                                    f"I could not change {ctx.guild.owner.name}'s nickname because I cannot edit owner nicknames."
-                                )
-                await ctx.send(
-                    f"{hoisted_count - 1 if exception else 0} users have been dehoisted."
-                )
-            else:
-                return await ctx.send("I do not have permissions.")
+            async with ctx.typing():
+                for m in ctx.guild.members:
+                    if m.display_name.startswith(tuple(HOIST)):
+                        try:
+                            await m.edit(
+                                nick=await self.config.guild(ctx.guild).nickname()
+                            )
+                        except discord.Forbidden:
+                            exception = True
+                            await ctx.send(
+                                f"I could not change {ctx.guild.owner.name}'s nickname because I cannot edit owner nicknames."
+                            )
+            await ctx.send(
+                f"{hoisted_count - 1 if exception else 0} users have been dehoisted."
+            )
         else:
             await ctx.send("No changes have been made.")
 
