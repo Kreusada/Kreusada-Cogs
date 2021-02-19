@@ -12,7 +12,12 @@ log = logging.getLogger("red.kreusada.dehoister")
 
 IDENTIFIER = 435089473534
 
-HOIST = "!\"#$%&'()*+,-./:;<=>?@0123456789"
+HOIST = "!\"#$%&'()*+,-./:;<=>?@"
+
+HOISTING_STANDARDS = (
+    "\n\nDehoister will take actions on users if their name starts with one of the following:\n"
+    + ", ".join(f'`{X}`' for X in tuple(HOIST))
+)
 
 AUTO_DEHOIST_EXPLAIN = (
     "To get started, use `{p}hoist set toggle true`, which will enable this feature. "
@@ -24,11 +29,11 @@ AUTO_DEHOIST_EXPLAIN = (
 )
 
 SCAN_AND_CLEAN_EXPLAIN = (
-    "If users were able to bypass the auto dehoister, due to the bot being down, or it was toggled"
-    "off, there are still tools you can use to protect your guild against hoisted names."
-    "`{p}hoist scan` will return a full list of users who have hoisted nicknames or usernames."
-    "`{p}hoist clean` will change everyones nickname to the configured nickname if they"
-    "have a hoisted username/nickname."
+    "If users were able to bypass the auto dehoister, due to the bot being down, or it was toggled "
+    "off, there are still tools you can use to protect your guild against hoisted names. "
+    "`{p}hoist scan` will return a full list of users who have hoisted nicknames or usernames ."
+    "`{p}hoist clean` will change everyones nickname to the configured nickname if they "
+    "have a hoisted username/nickname. "
 )
 
 
@@ -124,12 +129,23 @@ class Dehoister(commands.Cog):
 
     @commands.group()
     @commands.mod_or_permissions(manage_nicknames=True)
-    async def hoist(self, ctx):
+    async def hoist(self, ctx: commands.Context):
         """Commands for Dehoister."""
 
     @commands.command()
     async def dehoist(self, ctx: commands.Context, member: discord.Member):
-        """Manually dehoist a particular user."""
+        """
+        Manually dehoist a particular user.
+        
+        **Example Usage**
+        `[p]dehoist spongebob`
+        `[p]dehoist 1234567890`
+        
+        Users who are dehoisted will have their nicknames changed to the set nickname.
+        You can set the nickname by using `[p]hoist set nickname`.
+        """
+        if member.nick == await self.config.guild(ctx.guild).nickname():
+            return await ctx.send(f"{member.name} is already dehoisted.")
         try:
             await member.edit(nick=await self.config.guild(ctx.guild).nickname())
             await ctx.send(f"`{member.name}` has successfully been dehoisted.")
@@ -137,8 +153,23 @@ class Dehoister(commands.Cog):
             await ctx.send("I am not authorized to edit nicknames.")
 
     @hoist.command()
-    async def scan(self, ctx):
-        """Scan for hoisted members."""
+    async def scan(self, ctx: commands.Context):
+        """
+        Scan for hoisted members.
+        
+        This command will return a count and list of members.
+        It will follow this format:
+
+        ```yaml
+        X users found:
+
+        user#0001:
+        - Their nickname (if applicable)
+        -- Their user ID.
+        
+        If there are more than 10 hoisted users, this list
+        will instead be sent as a Discord file, named `hoisted.txt`.
+        """
         count = self.get_hoisted_count(ctx)
         join = self.get_hoisted_list(ctx)
         if count > 9:
@@ -162,11 +193,14 @@ class Dehoister(commands.Cog):
                     await ctx.send(msg)
 
     @hoist.command()
-    async def clean(self, ctx):
-        """Dehoist all members in the guild."""
+    async def clean(self, ctx: commands.Context):
+        """
+        Dehoist all members in the guild.
+        
+        NOTE: If the server owner is hoisted, [botname] cannot change their nickname.
+        """
         await self.clean_hoist_pred(ctx)
 
-    @commands.admin_or_permissions(administrator=True)
     @hoist.group(name="set")
     async def _set(self, ctx: commands.Context):
         """Settings for Dehoister."""
@@ -176,32 +210,37 @@ class Dehoister(commands.Cog):
         """Explain how Dehoister works."""
 
     @explain.command()
-    async def auto(self, ctx):
+    async def auto(self, ctx: commands.Context):
         """Explains how auto-dehoist works."""
         if await ctx.embed_requested():
             embed = discord.Embed(
-                description=AUTO_DEHOIST_EXPLAIN.format(p=ctx.clean_prefix),
+                description=(
+                    AUTO_DEHOIST_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix)
+                ),
                 color=await ctx.embed_colour(),
             )
             await ctx.send(embed=embed)
         else:
-            await ctx.send(AUTO_DEHOIST_EXPLAIN.format(p=ctx.clean_prefix))
+            await ctx.send(AUTO_DEHOIST_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix))
 
     @explain.command()
-    async def scanclean(self, ctx):
+    async def scanclean(self, ctx: commands.Context):
         """Explains how scanning and cleaning works."""
         if await ctx.embed_requested():
             embed = discord.Embed(
-                description=SCAN_AND_CLEAN_EXPLAIN.format(p=ctx.clean_prefix),
+                description=(
+                    SCAN_AND_CLEAN_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix)
+                ),
                 color=await ctx.embed_colour(),
             )
             await ctx.send(embed=embed)
         else:
-            await ctx.send(SCAN_AND_CLEAN_EXPLAIN.format(p=ctx.clean_prefix))
+            await ctx.send(SCAN_AND_CLEAN_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix))
+
 
     @_set.command()
-    async def toggle(self, ctx: commands.Context, true_or_false: bool):
-        """Toggle the auto-dehoister"""
+    async def toggle(self, ctx: commands.Context):
+        """Toggle the auto-dehoister."""
         toggled = await self.config.guild(ctx.guild).toggled()
         await self.config.guild(ctx.guild).toggled.set(False if toggled else True)
         await ctx.send(
@@ -210,7 +249,15 @@ class Dehoister(commands.Cog):
 
     @_set.command()
     async def nickname(self, ctx: commands.Context, *, nickname: str):
-        """Set the nickname for dehoisted members."""
+        """
+        Set the nickname for dehoisted members.
+        
+        This nickname will be referred to everytime this cog takes
+        action on members with hoisted display names, so make sure you
+        find a suitable display name!
+        
+        If none is set, the default nickname is `Ze Dehoisted`.
+        """
         if len(nickname) < 32:
             await self.config.guild(ctx.guild).nickname.set(nickname)
             await ctx.send(
