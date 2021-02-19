@@ -55,6 +55,7 @@ class Dehoister(commands.Cog):
         return f"{super().format_help_for_context(ctx)}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
     async def clean_hoist_pred(self, ctx):
+        nickname = await self.config.guild(ctx.guild).nickname()
         hoisted_count = self.get_hoisted_count(ctx)
         if not hoisted_count:
             return await ctx.send("There are no hoisted members.")
