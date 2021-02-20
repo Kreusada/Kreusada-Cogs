@@ -57,10 +57,7 @@ class PingInvoke(commands.Cog):
     @commands.Cog.listener()
     async def on_message_without_command(self, message):
         defa = await self.config.botname()
-        if defa:
-            if defa.endswith('?'):
-                defa = defa.strip('?') # Lets get rid of additional question marks configured on the owner's end
-        else:
+        if not defa:
             return
         if not message.guild:
             return
