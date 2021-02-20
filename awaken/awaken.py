@@ -58,7 +58,8 @@ class Awaken(commands.Cog):
     async def on_message_without_command(self, message):
         defa = await self.config.botname()
         if defa:
-            defa = defa.strip('?')
+            if defa.endswith('?')
+                defa = defa.strip('?') # Lets get rid of additional question marks configured on the owner's end
         else:
             return
         if not message.guild:
