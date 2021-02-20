@@ -43,6 +43,8 @@ Available cogs list
 +-----------------+--------------------------------------------------------------+---------+----------+
 | namegenerator   | Generate random names will optional gender arguments.        | Fun     | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
+| pinginvoke      | r2d2? wall-e? Invoke ping by asking if your bot's there.     | Tools   | Kreusada |
++-----------------+--------------------------------------------------------------+---------+----------+
 | pingoverride    | Replace "Pong." with your own response!                      | Tools   | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
 | ram             | Get your bot's random access memory.                         | Tools   | Kreusada |
