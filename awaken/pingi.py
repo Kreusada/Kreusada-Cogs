@@ -2,7 +2,7 @@ import discord
 
 from redbot.core import commands, Config
 
-class Awaken(commands.Cog):
+class PingInvoke(commands.Cog):
     """
     Bot? [botname]?
 
@@ -15,19 +15,19 @@ class Awaken(commands.Cog):
         self.config.register_global(botname=None)
 
     @commands.group()
-    async def awaken(self, ctx):
+    async def pingi(self, ctx):
         """Commands to configure awakening."""
 
-    @awaken.command(name="set")
+    @pingi.command(name="set")
     @commands.is_owner()
     async def _set(self, ctx, botname: str):
         """
         Set the bot name to listen for.
 
         Example Input:
-        `[p]awakenset walle`
-        `[p]awakenset r2d2`
-        `[p]awakenset [botname]`
+        `[p]pingi set walle`
+        `[p]pingi set r2d2`
+        `[p]pingi set [botname]`
 
         Usage:
         When you type [botname]?, or whatever you configure your name as,
@@ -38,16 +38,16 @@ class Awaken(commands.Cog):
         await self.config.botname.set(botname)
         await ctx.send(f"{ctx.me.name} will now invoke the ping command when it hears `{botname}?`.")
 
-    @awaken.command()
+    @pingi.command()
     async def reset(self, ctx):
-        """Reset and disable Awaken."""
+        """Reset and disable PingInvoke."""
         await ctx.tick()
         await self.config.botname.set(None)
 
-    @awaken.command()
+    @pingi.command()
     @commands.is_owner()
     async def settings(self, ctx):
-        """Show the current settings for Awaken."""
+        """Show the current settings for PingInvoke."""
         botname = await self.config.botname()
         if botname:
             await ctx.send(f"{ctx.me.name} will respond to `{botname}?`.")

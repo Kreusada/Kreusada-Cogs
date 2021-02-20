@@ -1,10 +1,10 @@
 {
 	"author": ["Kreusada"],
 	"description": "Invoke the ping command when calling for your bot. For example, if your bot was named `dave`, typing `dave?` will invoke dave's ping command.",
-    "install_msg": "Thanks for installing, have fun. Use `[p]awaken`!",
+    "install_msg": "Thanks for installing, have fun. Use `[p]help pingi`!",
 	"short": "Invoke your bot.",
-	"name": "Awaken",
-	"tags": ["Awaken", "Bot", "Ping"],
+	"name": "PingInvoke",
+	"tags": ["Invoke", "Bot", "Ping"],
 	"type": "COG",
 	"end_user_data_statement": "This cog does not persistently store data or metadata about users."
 }

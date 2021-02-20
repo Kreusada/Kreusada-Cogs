@@ -1,4 +1,4 @@
-from .awaken import Awaken
+from .pingi import PingInvoke
 
 def setup(bot):
-    bot.add_cog(Awaken(bot))
+    bot.add_cog(PingInvoke(bot))
