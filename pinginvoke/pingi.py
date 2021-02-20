@@ -2,6 +2,7 @@ import discord
 
 from redbot.core import commands, Config
 
+
 class PingInvoke(commands.Cog):
     """
     Bot? [botname]?
@@ -15,17 +16,17 @@ class PingInvoke(commands.Cog):
         self.config.register_global(botname=None)
 
     @commands.group()
+    @commands.is_owner()
     async def pingi(self, ctx):
         """Commands to configure awakening."""
 
     @pingi.command(name="set")
-    @commands.is_owner()
     async def _set(self, ctx, botname: str):
         """
         Set the bot name to listen for.
 
         Example Input:
-        `[p]pingi set walle`
+        `[p]pingi set wall-e`
         `[p]pingi set r2d2`
         `[p]pingi set [botname]`
 
@@ -45,7 +46,6 @@ class PingInvoke(commands.Cog):
         await self.config.botname.set(None)
 
     @pingi.command()
-    @commands.is_owner()
     async def settings(self, ctx):
         """Show the current settings for PingInvoke."""
         botname = await self.config.botname()
@@ -66,7 +66,6 @@ class PingInvoke(commands.Cog):
             return
         if message.author.bot:
             return
-        if message.content.startswith(defa) and message.content.endswith('?'):
+        if message.content.lower().startswith(defa.lower()) and message.content.endswith('?'):
             ctx = await self.bot.get_context(message)
             return await ctx.invoke(self.bot.get_command('ping'))
-
