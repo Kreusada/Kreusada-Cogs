@@ -18,7 +18,7 @@ class PingInvoke(commands.Cog):
     @commands.group()
     @commands.is_owner()
     async def pingi(self, ctx):
-        """Commands to configure awakening."""
+        """Commands to configure PingInvoke."""
 
     @pingi.command(name="set")
     async def _set(self, ctx, botname: str):
