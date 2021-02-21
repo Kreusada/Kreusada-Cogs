@@ -136,7 +136,7 @@ class PingOverride(commands.Cog):
             )
         else:
             await ctx.send(
-                f"Running `{ctx.clean_prefix}ping` will now respond with {box(msg, lang='css')}"
+                f"Running `{ctx.clean_prefix}ping` will now respond with {box(msg)}"
             )
 
     @commands.command()
