@@ -3,9 +3,6 @@ import psutil
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import box as b
 
-RAMU = "Random Access Memory used: "
-
-
 class RAM(commands.Cog):
     """Get [botname]'s ram."""
 
