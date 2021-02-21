@@ -68,6 +68,8 @@ class SendCards(commands.Cog):
         else:
             emoji = "\N{SMILING FACE WITH SMILING EYES AND THREE HEARTS}"
         name = self.bot.get_user(user_id)
+        if not name:
+            return await ctx.send(f"Could not find a user matching `{user_id}`.")
         title = f"{emoji} {type.title()} card from {ctx.author.name}!"
         description = (
             f"Dear {name.name},\n\n{message}\n\nFrom {ctx.author.name} {emoji}."
