@@ -98,28 +98,17 @@ class Dehoister(commands.Cog):
     async def ex(self, ctx, _type):
         # _type True auto, _type False scanclean
         if _type:
-            if await ctx.embed_requested():
-                embed = discord.Embed(
-                    description=(
-                        AUTO_DEHOIST_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix)
-                    ),
-                    color=await ctx.embed_colour(),
-                )
-                return await ctx.send(embed=embed)
-            else:
-                return await ctx.send(AUTO_DEHOIST_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix))
+            description = AUTO_DEHOIST_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix)
         else:
-            if await ctx.embed_requested():
-                embed = discord.Embed(
-                    description=(
-                        SCAN_AND_CLEAN_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix)
-                    ),
-                    color=await ctx.embed_colour(),
-                )
-                await ctx.send(embed=embed)
-            else:
-                await ctx.send(SCAN_AND_CLEAN_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix))
-
+            description = SCAN_AND_CLEAN_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix)
+        if await ctx.embed_requested():
+            embed = discord.Embed(
+                description=description,
+                color=await ctx.embed_colour()
+            )
+            return await ctx.send(embed=embed)
+        else:
+            return await ctx.send(AUTO_DEHOIST_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix))
 
     @staticmethod
     def get_hoisted_count(ctx):
