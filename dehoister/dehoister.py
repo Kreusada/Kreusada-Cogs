@@ -108,7 +108,7 @@ class Dehoister(commands.Cog):
             )
             return await ctx.send(embed=embed)
         else:
-            return await ctx.send(AUTO_DEHOIST_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix))
+            return await ctx.send(description)
 
     @staticmethod
     def get_hoisted_count(ctx):
