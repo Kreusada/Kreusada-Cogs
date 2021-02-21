@@ -98,9 +98,10 @@ class Dehoister(commands.Cog):
     async def ex(self, ctx, _type):
         # _type True auto, _type False scanclean
         if _type:
-            description = AUTO_DEHOIST_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix)
+            description = AUTO_DEHOIST_EXPLAIN.format(p=ctx.clean_prefix)
         else:
-            description = SCAN_AND_CLEAN_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix)
+            description = SCAN_AND_CLEAN_EXPLAIN.format(p=ctx.clean_prefix)
+        description = description + HOISTING_STANDARDS.format(p=ctx.clean_prefix)
         if await ctx.embed_requested():
             embed = discord.Embed(
                 description=description,
