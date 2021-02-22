@@ -124,7 +124,7 @@ class Dehoister(commands.Cog):
     def get_hoisted_list(ctx):
         B = "\n"  # F-string cannot include backslash
         return "\n\n".join(
-            f"{m} (Trigger: {list(m)[0]}):{f'{B}- {m.nick}' if m.nick else ''}{B}-- {m.id}"
+            f"{m} (Trigger: {list(m.name)[0]}):{f'{B}- {m.nick}' if m.nick else ''}{B}-- {m.id}"
             for m in ctx.guild.members
             if m.display_name.startswith(tuple(HOIST))
         )
