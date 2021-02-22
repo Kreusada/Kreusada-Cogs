@@ -124,7 +124,7 @@ class Dehoister(commands.Cog):
     def get_hoisted_list(ctx):
         B = "\n"  # F-string cannot include backslash
         return "\n\n".join(
-            f"{m}:{f'{B}- {m.nick}' if m.nick else ''}{B}-- {m.id}{B}>>> {list(m.name)[0]}"
+            f"{m}:{f'{B}- {m.nick}' if m.nick else ''}{B}-- {m.id}"
             for m in ctx.guild.members
             if m.display_name.startswith(tuple(HOIST))
         )
@@ -183,7 +183,6 @@ class Dehoister(commands.Cog):
         user#0001:
         - Their nickname (if applicable)
         -- Their user ID.
-        >>> The trigger
         ---------------------------------
         
         If there are more than 10 hoisted users, this list
