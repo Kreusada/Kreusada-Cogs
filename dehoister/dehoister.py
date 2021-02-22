@@ -13,6 +13,7 @@ log = logging.getLogger("red.kreusada.dehoister")
 IDENTIFIER = 435089473534
 
 HOIST = "!\"#$%&'()*+,-./:;<=>?@"
+DELTA = "δ"
 
 HOISTING_STANDARDS = (
     "\n\nDehoister will take actions on users if their name starts with one of the following:\n"
@@ -31,7 +32,7 @@ AUTO_DEHOIST_EXPLAIN = (
 SCAN_AND_CLEAN_EXPLAIN = (
     "If users were able to bypass the auto dehoister, due to the bot being down, or it was toggled "
     "off, there are still tools you can use to protect your guild against hoisted names. "
-    "`{p}hoist scan` will return a full list of users who have hoisted nicknames or usernames ."
+    "`{p}hoist scan` will return a full list of users who have hoisted nicknames or usernames. "
     "`{p}hoist clean` will change everyones nickname to the configured nickname if they "
     "have a hoisted username/nickname. "
 )
@@ -48,7 +49,7 @@ class Dehoister(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, IDENTIFIER, force_registration=True)
-        self.config.register_guild(nickname="Ze Dehoisted", toggled=False)
+        self.config.register_guild(nickname=f"{DELTA} Dehoisted", toggled=False)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         """Thanks Sinbad."""
@@ -75,7 +76,7 @@ class Dehoister(commands.Cog):
             await self.bot.wait_for("reaction_add", check=pred, timeout=30)
         except asyncio.TimeoutError:
             await msg.delete()
-            await ctx.send(f"You took too long to respond.")
+            return await ctx.send(f"You took too long to respond.")
         if pred.result:
             async with ctx.typing():
                 for m in ctx.guild.members:
@@ -84,8 +85,8 @@ class Dehoister(commands.Cog):
                             await m.edit(
                                 nick=await self.config.guild(ctx.guild).nickname()
                             )
-                        except discord.Forbidden:
-                            exception = True
+                        except discord.Forbidden: # This exception will only occur if the bot
+                            exception = True      # Attempts to dehoister server owner (very rare)
                             await ctx.send(
                                 f"I could not change {ctx.guild.owner.name}'s nickname because I cannot edit owner nicknames."
                             )
@@ -101,7 +102,7 @@ class Dehoister(commands.Cog):
             description = AUTO_DEHOIST_EXPLAIN.format(p=ctx.clean_prefix)
         else:
             description = SCAN_AND_CLEAN_EXPLAIN.format(p=ctx.clean_prefix)
-        description = description + HOISTING_STANDARDS.format(p=ctx.clean_prefix)
+        description += HOISTING_STANDARDS.format(p=ctx.clean_prefix)
         if await ctx.embed_requested():
             embed = discord.Embed(
                 description=description,
