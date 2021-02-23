@@ -8,6 +8,8 @@
   - dehoister/*
 "Cog: NameGenerator":
   - namegenerator/*
+"Cog: PingInvoke":
+  - pinginvoke/*
 "Cog: PingOverride":
   - pingoverride/*
 "Cog: RAM":
@@ -25,5 +27,4 @@
 "Category: Repository":
   - ./*
   - .github/*
-  - .github/ISSUE_TEMPLATE/*
-  - .utils/*
+  - .github/**
