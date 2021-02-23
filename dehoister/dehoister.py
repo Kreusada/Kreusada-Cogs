@@ -305,15 +305,14 @@ class Dehoister(commands.Cog):
 
         If none is set, the default nickname is `Ze Dehoisted`.
         """
-        try:
-            await self.config.guild(ctx.guild).nickname.set(nickname)
-            await ctx.send(
-                f"Dehoisted members will now have their nickname set to `{nickname}`."
-            )
-        except discord.HTTPException:
-            await ctx.send(
+        if len(nickname) > 31:
+            return await ctx.send(
                 f"Discord has a limit of 32 characters for nicknames. Your chosen nickname, {nickname}, could not be set."
             )
+        await self.config.guild(ctx.guild).nickname.set(nickname)
+        await ctx.send(
+            f"Dehoisted members will now have their nickname set to `{nickname}`."
+        )
 
     @_set.command()
     async def modlog(self, ctx: commands.Context, true_or_false: bool):
