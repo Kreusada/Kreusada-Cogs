@@ -62,6 +62,14 @@ SCAN_AND_CLEAN_EXPLAIN = (
     "have a hoisted username/nickname. "
 )
 
+MODLOG_EXPLAIN = (
+    "You can record events to the modlog by enabling the toggle via `{p}hoist set modlog`. "
+    "If a user joins the guild with a hoisted name, or if you manually use `{p}hoist dehoist`, "
+    "the events will be recorded to your modlog channel, you will need to load the modlog cog "
+    "for this to work by using `{p}load modlog`.\n\n"
+    "Events from `{p}hoist clean` will not be recorded, due to potential spam."
+)
+
 
 class Dehoister(commands.Cog):
     """
@@ -125,19 +133,14 @@ class Dehoister(commands.Cog):
             await ctx.send("No changes have been made.")
 
     async def ex(self, ctx, _type):
-        # _type True auto, _type False scanclean
-        if _type:
-            description = AUTO_DEHOIST_EXPLAIN.format(p=ctx.clean_prefix)
-        else:
-            description = SCAN_AND_CLEAN_EXPLAIN.format(p=ctx.clean_prefix)
-        description += HOISTING_STANDARDS.format(p=ctx.clean_prefix)
+        _type += HOISTING_STANDARDS.format(p=ctx.clean_prefix)
         if await ctx.embed_requested():
             embed = discord.Embed(
-                description=description, color=await ctx.embed_colour()
+                description=_type, color=await ctx.embed_colour()
             )
             return await ctx.send(embed=embed)
         else:
-            return await ctx.send(description)
+            return await ctx.send(_type)
 
     async def create_case(self, ctx, user, moderator):
         try:
@@ -333,9 +336,14 @@ class Dehoister(commands.Cog):
     @explain.command()
     async def auto(self, ctx: commands.Context):
         """Explains how auto-dehoist works."""
-        await self.ex(ctx, True)
+        await self.ex(ctx, AUTO_DEHOIST_EXPLAIN)
 
     @explain.command()
     async def scanclean(self, ctx: commands.Context):
         """Explains how scanning and cleaning works."""
-        await self.ex(ctx, False)
+        await self.ex(ctx, SCAN_AND_CLEAN_EXPLAIN)
+
+    @explain.command()
+    async def _modlog(self, ctx: commands.Context):
+        """Explains how the modlog works."""
+        await self.ex(ctx, MODLOG_EXPLAIN)
