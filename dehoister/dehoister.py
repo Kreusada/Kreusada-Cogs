@@ -42,7 +42,7 @@ DELTA = "δ"
 
 HOISTING_STANDARDS = (
     "\n\nDehoister will take actions on users if their name starts with one of the following:\n"
-    + ", ".join(f'`{X}`' for X in tuple(HOIST))
+    + ", ".join(f"`{X}`" for X in tuple(HOIST))
 )
 
 AUTO_DEHOIST_EXPLAIN = (
@@ -74,7 +74,9 @@ class Dehoister(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, IDENTIFIER, force_registration=True)
-        self.config.register_guild(nickname=f"{DELTA} Dehoisted", toggled=False, modlog=True)
+        self.config.register_guild(
+            nickname=f"{DELTA} Dehoisted", toggled=False, modlog=True
+        )
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         """Thanks Sinbad."""
@@ -111,14 +113,14 @@ class Dehoister(commands.Cog):
                             await m.edit(
                                 nick=await self.config.guild(ctx.guild).nickname()
                             )
-                        except discord.Forbidden: # This exception will only occur if the bot
-                            exceptions += 1      # Attempts to dehoister server owner (very rare)
+                        except discord.Forbidden:  # This exception will only occur if the bot
+                            exceptions += (
+                                1  # Attempts to dehoister server owner (very rare)
+                            )
                             await ctx.send(
                                 f"I could not change {ctx.guild.owner.name}'s nickname because I cannot edit owner nicknames."
                             )
-            await ctx.send(
-                f"{hoisted_count - exceptions} users have been dehoisted."
-            )
+            await ctx.send(f"{hoisted_count - exceptions} users have been dehoisted.")
         else:
             await ctx.send("No changes have been made.")
 
@@ -131,8 +133,7 @@ class Dehoister(commands.Cog):
         description += HOISTING_STANDARDS.format(p=ctx.clean_prefix)
         if await ctx.embed_requested():
             embed = discord.Embed(
-                description=description,
-                color=await ctx.embed_colour()
+                description=description, color=await ctx.embed_colour()
             )
             return await ctx.send(embed=embed)
         else:
@@ -140,7 +141,12 @@ class Dehoister(commands.Cog):
 
     async def create_case(self, ctx, user, moderator):
         try:
-            await modlog.register_casetype(name="Dehoisted", default_setting=True, image='\N{ANGER SYMBOL}', case_str="Dehoisted")
+            await modlog.register_casetype(
+                name="Dehoisted",
+                default_setting=True,
+                image="\N{ANGER SYMBOL}",
+                case_str="Dehoisted",
+            )
         except RuntimeError:
             # If this casetype already exists
             pass
@@ -153,7 +159,7 @@ class Dehoister(commands.Cog):
             moderator=moderator,
             reason="This user had a hoisted display name.",
         )
-        
+
     @staticmethod
     def get_hoisted_count(ctx):
         count = 0
@@ -199,11 +205,11 @@ class Dehoister(commands.Cog):
     async def dehoist(self, ctx: commands.Context, member: discord.Member):
         """
         Manually dehoist a particular user.
-        
+
         **Example Usage**
         `[p]dehoist spongebob`
         `[p]dehoist 1234567890`
-        
+
         Users who are dehoisted will have their nicknames changed to the set nickname.
         You can set the nickname by using `[p]hoist set nickname`.
         """
@@ -222,7 +228,7 @@ class Dehoister(commands.Cog):
     async def scan(self, ctx: commands.Context):
         """
         Scan for hoisted members.
-        
+
         This command will return a count and list of members.
         It will follow this format:
         ---------------------------------
@@ -231,7 +237,7 @@ class Dehoister(commands.Cog):
         - Their nickname (if applicable)
         -- Their user ID.
         ---------------------------------
-        
+
         If there are more than 10 hoisted users, this list
         will instead be sent as a Discord file, named `hoisted.txt`.
         """
@@ -261,7 +267,7 @@ class Dehoister(commands.Cog):
     async def clean(self, ctx: commands.Context):
         """
         Dehoist all members in the guild.
-        
+
         NOTE: If the server owner is hoisted, [botname] cannot change their nickname.
         """
         await self.clean_hoist_pred(ctx)
@@ -274,7 +280,7 @@ class Dehoister(commands.Cog):
     async def toggle(self, ctx: commands.Context):
         """
         Toggle the auto-dehoister.
-        
+
         When this cog is installed for the first time,
         it is automatically set **off**. Use this command to turn
         it on. You can always turn it off again at a later date.
@@ -289,11 +295,11 @@ class Dehoister(commands.Cog):
     async def nickname(self, ctx: commands.Context, *, nickname: str):
         """
         Set the nickname for dehoisted members.
-        
+
         This nickname will be referred to everytime this cog takes
         action on members with hoisted display names, so make sure you
         find a suitable display name!
-        
+
         If none is set, the default nickname is `Ze Dehoisted`.
         """
         try:
@@ -319,7 +325,7 @@ class Dehoister(commands.Cog):
         """
         await self.config.guild(ctx.guild).modlog.set(true_or_false)
         await ctx.tick()
-   
+
     @hoist.group()
     async def explain(self, ctx: commands.Context):
         """Explain how Dehoister works."""
