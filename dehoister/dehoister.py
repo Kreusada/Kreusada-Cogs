@@ -102,6 +102,7 @@ class Dehoister(commands.Cog):
         except asyncio.TimeoutError:
             await msg.delete()
             return await ctx.send(f"You took too long to respond.")
+        exceptions = 0
         if pred.result:
             async with ctx.typing():
                 for m in ctx.guild.members:
@@ -111,12 +112,12 @@ class Dehoister(commands.Cog):
                                 nick=await self.config.guild(ctx.guild).nickname()
                             )
                         except discord.Forbidden: # This exception will only occur if the bot
-                            exception = True      # Attempts to dehoister server owner (very rare)
+                            exceptions += 1      # Attempts to dehoister server owner (very rare)
                             await ctx.send(
                                 f"I could not change {ctx.guild.owner.name}'s nickname because I cannot edit owner nicknames."
                             )
             await ctx.send(
-                f"{hoisted_count - 1 if exception else 0} users have been dehoisted."
+                f"{hoisted_count - exceptions} users have been dehoisted."
             )
         else:
             await ctx.send("No changes have been made.")
