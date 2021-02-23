@@ -128,6 +128,7 @@ class Dehoister(commands.Cog):
             moderator=moderator,
             reason="This user had a hoisted display name.",
         )
+        log.info(f"{user.name} modlog events were recorded.")
         
     @staticmethod
     def get_hoisted_count(ctx):
@@ -161,6 +162,7 @@ class Dehoister(commands.Cog):
             try:
                 await member.edit(nick=await self.config.guild(guild).nickname())
                 if logmod:
+                    log.info(f"A modlog event is being created for {member.name}...")
                     await self.create_case(ctx, member, self.bot)
             except discord.Forbidden as f:
                 log.error(f)
