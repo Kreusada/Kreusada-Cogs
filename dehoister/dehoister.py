@@ -343,7 +343,7 @@ class Dehoister(commands.Cog):
         """Explains how scanning and cleaning works."""
         await self.ex(ctx, SCAN_AND_CLEAN_EXPLAIN)
 
-    @explain.command()
+    @explain.command(name="modlog")
     async def _modlog(self, ctx: commands.Context):
         """Explains how the modlog works."""
         await self.ex(ctx, MODLOG_EXPLAIN)
