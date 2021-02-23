@@ -133,14 +133,14 @@ class Dehoister(commands.Cog):
             await ctx.send("No changes have been made.")
 
     async def ex(self, ctx, _type):
-        _type += HOISTING_STANDARDS.format(p=ctx.clean_prefix)
+        _type += HOISTING_STANDARDS
         if await ctx.embed_requested():
             embed = discord.Embed(
-                description=_type, color=await ctx.embed_colour()
+                description=_type.format(p=ctx.clean_prefix), color=await ctx.embed_colour()
             )
             return await ctx.send(embed=embed)
         else:
-            return await ctx.send(_type)
+            return await ctx.send(_type.format(p=ctx.clean_prefix))
 
     async def create_case(self, ctx, user, moderator):
         try:
