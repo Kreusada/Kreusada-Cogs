@@ -307,7 +307,7 @@ class Dehoister(commands.Cog):
         """
         if len(nickname) > 31:
             return await ctx.send(
-                f"Discord has a limit of 32 characters for nicknames. Your chosen nickname, {nickname}, could not be set."
+                f"Discord has a limit of 32 characters for nicknames. Your chosen nickname could not be set."
             )
         await self.config.guild(ctx.guild).nickname.set(nickname)
         await ctx.send(
