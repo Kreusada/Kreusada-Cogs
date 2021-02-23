@@ -2,9 +2,10 @@ import io
 import discord
 import logging
 import asyncio
+import datetime
 
-from redbot.core import commands, Config
-from redbot.core.utils.chat_formatting import box
+from redbot.core import commands, Config, modlog
+from redbot.core.utils.chat_formatting import box, bold
 from redbot.core.utils.predicates import ReactionPredicate
 from redbot.core.utils.menus import start_adding_reactions
 
@@ -13,6 +14,7 @@ log = logging.getLogger("red.kreusada.dehoister")
 IDENTIFIER = 435089473534
 
 HOIST = "!\"#$%&'()*+,-./:;<=>?@"
+DELTA = "δ"
 
 HOISTING_STANDARDS = (
     "\n\nDehoister will take actions on users if their name starts with one of the following:\n"
@@ -31,7 +33,7 @@ AUTO_DEHOIST_EXPLAIN = (
 SCAN_AND_CLEAN_EXPLAIN = (
     "If users were able to bypass the auto dehoister, due to the bot being down, or it was toggled "
     "off, there are still tools you can use to protect your guild against hoisted names. "
-    "`{p}hoist scan` will return a full list of users who have hoisted nicknames or usernames ."
+    "`{p}hoist scan` will return a full list of users who have hoisted nicknames or usernames. "
     "`{p}hoist clean` will change everyones nickname to the configured nickname if they "
     "have a hoisted username/nickname. "
 )
@@ -48,7 +50,7 @@ class Dehoister(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, IDENTIFIER, force_registration=True)
-        self.config.register_guild(nickname="Ze Dehoisted", toggled=False)
+        self.config.register_guild(nickname=f"{DELTA} Dehoisted", toggled=False, modlog=True)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         """Thanks Sinbad."""
@@ -75,7 +77,7 @@ class Dehoister(commands.Cog):
             await self.bot.wait_for("reaction_add", check=pred, timeout=30)
         except asyncio.TimeoutError:
             await msg.delete()
-            await ctx.send(f"You took too long to respond.")
+            return await ctx.send(f"You took too long to respond.")
         if pred.result:
             async with ctx.typing():
                 for m in ctx.guild.members:
@@ -84,8 +86,8 @@ class Dehoister(commands.Cog):
                             await m.edit(
                                 nick=await self.config.guild(ctx.guild).nickname()
                             )
-                        except discord.Forbidden:
-                            exception = True
+                        except discord.Forbidden: # This exception will only occur if the bot
+                            exception = True      # Attempts to dehoister server owner (very rare)
                             await ctx.send(
                                 f"I could not change {ctx.guild.owner.name}'s nickname because I cannot edit owner nicknames."
                             )
@@ -98,9 +100,10 @@ class Dehoister(commands.Cog):
     async def ex(self, ctx, _type):
         # _type True auto, _type False scanclean
         if _type:
-            description = AUTO_DEHOIST_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix)
+            description = AUTO_DEHOIST_EXPLAIN.format(p=ctx.clean_prefix)
         else:
-            description = SCAN_AND_CLEAN_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix)
+            description = SCAN_AND_CLEAN_EXPLAIN.format(p=ctx.clean_prefix)
+        description += HOISTING_STANDARDS.format(p=ctx.clean_prefix)
         if await ctx.embed_requested():
             embed = discord.Embed(
                 description=description,
@@ -108,8 +111,25 @@ class Dehoister(commands.Cog):
             )
             return await ctx.send(embed=embed)
         else:
-            return await ctx.send(AUTO_DEHOIST_EXPLAIN.format(p=ctx.clean_prefix) + HOISTING_STANDARDS.format(p=ctx.clean_prefix))
+            return await ctx.send(description)
 
+    async def create_case(self, ctx, user, moderator):
+        try:
+            await modlog.register_casetype(name="Dehoisted", default_setting=True, image='\N{ANGER SYMBOL}', case_str="Dehoisted")
+        except RuntimeError:
+            # If this casetype already exists
+            pass
+        await modlog.create_case(
+            bot=self.bot,
+            guild=ctx.guild,
+            created_at=datetime.datetime.utcnow(),
+            action_type="Dehoisted",
+            user=user,
+            moderator=moderator,
+            reason="This user had a hoisted display name.",
+            channel=ctx.channel.mention,
+        )
+        
     @staticmethod
     def get_hoisted_count(ctx):
         count = 0
@@ -130,6 +150,7 @@ class Dehoister(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member: discord.Member):
         guild = member.guild
+        logmod = await self.config.guild(message.guild).modlog()
         if await self.config.guild(guild).toggled() is False:
             return
         if member.bot:
@@ -138,7 +159,9 @@ class Dehoister(commands.Cog):
             return
         if member.name.startswith(tuple(HOIST)):
             try:
-                return await member.edit(nick=await self.config.guild(guild).nickname())
+                await member.edit(nick=await self.config.guild(guild).nickname())
+                if logmod:
+                    await self.create_case(ctx, member, self.bot)
             except discord.Forbidden as f:
                 log.error(f)
 
@@ -159,11 +182,14 @@ class Dehoister(commands.Cog):
         Users who are dehoisted will have their nicknames changed to the set nickname.
         You can set the nickname by using `[p]hoist set nickname`.
         """
+        modlog = await self.config.guild(ctx.guild).modlog()
         if member.nick == await self.config.guild(ctx.guild).nickname():
             return await ctx.send(f"{member.name} is already dehoisted.")
         try:
             await member.edit(nick=await self.config.guild(ctx.guild).nickname())
             await ctx.send(f"`{member.name}` has successfully been dehoisted.")
+            if modlog:
+                await self.create_case(ctx, member, ctx.author)
         except discord.Forbidden:
             await ctx.send("I am not authorized to edit nicknames.")
 
@@ -174,10 +200,8 @@ class Dehoister(commands.Cog):
         
         This command will return a count and list of members.
         It will follow this format:
-
         ---------------------------------
         X users found:
-
         user#0001:
         - Their nickname (if applicable)
         -- Their user ID.
@@ -256,6 +280,14 @@ class Dehoister(commands.Cog):
             await ctx.send(
                 f"Discord has a limit of 32 characters for nicknames. Your chosen nickname, {nickname}, could not be set."
             )
+
+    @_set.command()
+    async def modlog(self, ctx: commands.Context, true_or_false: bool):
+        """
+        Toggles whether modlogs are created for Dehoister events.
+        """
+        await self.config.guild(ctx.guild).modlog.set(true_or_false)
+        await ctx.tick()
    
     @hoist.group()
     async def explain(self, ctx: commands.Context):
