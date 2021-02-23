@@ -150,6 +150,7 @@ class Dehoister(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member: discord.Member):
         guild = member.guild
+        ctx = self.bot.get_context(member)
         logmod = await self.config.guild(message.guild).modlog()
         if await self.config.guild(guild).toggled() is False:
             return
