@@ -285,6 +285,12 @@ class Dehoister(commands.Cog):
     async def modlog(self, ctx: commands.Context, true_or_false: bool):
         """
         Toggles whether modlogs are created for Dehoister events.
+
+        Modlog events will be recorded for `[p]hoist dehoist`, and when
+        a user joins the guild if the auto-dehoister is toggled on.
+
+        For the sake of courtesy, events with `[p]hoist clean` will not be
+        recorded.
         """
         await self.config.guild(ctx.guild).modlog.set(true_or_false)
         await ctx.tick()
