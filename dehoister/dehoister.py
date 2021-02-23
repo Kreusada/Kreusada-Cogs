@@ -127,7 +127,6 @@ class Dehoister(commands.Cog):
             user=user,
             moderator=moderator,
             reason="This user had a hoisted display name.",
-            channel=ctx.channel.mention,
         )
         
     @staticmethod
