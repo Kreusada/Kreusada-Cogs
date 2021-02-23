@@ -121,10 +121,9 @@ class Dehoister(commands.Cog):
                             await m.edit(
                                 nick=await self.config.guild(ctx.guild).nickname()
                             )
-                        except discord.Forbidden:  # This exception will only occur if the bot
-                            exceptions += (
-                                1  # Attempts to dehoister server owner (very rare)
-                            )
+                        except discord.Forbidden: 
+                            # This exception will only occur if an attempt is made to dehoist server owner
+                            exceptions += 1  
                             await ctx.send(
                                 f"I could not change {ctx.guild.owner.name}'s nickname because I cannot edit owner nicknames."
                             )
