@@ -90,6 +90,10 @@ class Dehoister(commands.Cog):
         """Thanks Sinbad."""
         return f"{super().format_help_for_context(ctx)}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
+    async def red_delete_data_for_user(self, **kwargs):
+        """Nothing to delete"""
+        return
+
     async def clean_hoist_pred(self, ctx):
         nickname = await self.config.guild(ctx.guild).nickname()
         hoisted_count = self.get_hoisted_count(ctx)
