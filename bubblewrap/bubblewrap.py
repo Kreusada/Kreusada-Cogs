@@ -31,9 +31,16 @@ class BubbleWrap(commands.Cog):
     """
     Get some bubblewrap.
     """
+
+    __author__ = "Kreusada"
+    __version__ = "1.0.0"
     
+    def format_help_for_context(self, ctx: commands.Context) -> str:
+        """Thanks Sinbad."""
+        return f"{super().format_help_for_context(ctx)}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
+
     async def red_delete_data_for_user(self, **kwargs):
-        """ Nothing to delete """
+        """Nothing to delete"""
         return
 
     def __init__(self, bot):
