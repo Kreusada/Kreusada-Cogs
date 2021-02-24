@@ -34,10 +34,21 @@ class PingInvoke(commands.Cog):
     Invoke the ping command by asking if your bot is there.
     """
 
+    __author__ = "Kreusada"
+    __version__ = "1.1.1"
+
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, 32482347932, force_registration=True)
         self.config.register_global(botname=None)
+    
+    def format_help_for_context(self, ctx: commands.Context) -> str:
+        """Thanks Sinbad."""
+        return f"{super().format_help_for_context(ctx)}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
+
+    async def red_delete_data_for_user(self, **kwargs):
+        """Nothing to delete"""
+        return
 
     @commands.group()
     @commands.is_owner()
