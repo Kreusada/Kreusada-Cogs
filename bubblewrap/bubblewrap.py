@@ -53,8 +53,8 @@ class BubbleWrap(commands.Cog):
         """
         Get some bubblewrap.
         """
-        pre_processed = f"{spoiler('pop')}" * 12
-        processed = f"{pre_processed}\n" * 12
+        pre_processed = f"{spoiler('pop')}" * 7
+        processed = f"{pre_processed}\n" * 7
         if await ctx.embed_requested():
             embed = discord.Embed(
                 title="Bubblewrap!",
