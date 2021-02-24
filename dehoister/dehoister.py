@@ -208,27 +208,28 @@ class Dehoister(commands.Cog):
         If there are more than 10 hoisted users, this list
         will instead be sent as a Discord file, named `hoisted.txt`.
         """
-        count = self.get_hoisted_count(ctx)
-        join = self.get_hoisted_list(ctx)
-        if count > 9:
-            await ctx.send(
-                "There were 10 or more hoisted users, so to be corteous to others, I've uploaded the list as a file.",
-                file=discord.File(io.BytesIO(join.encode()), filename="hoisted.txt"),
-            )
-        else:
-            if not count:
-                await ctx.send("No hoisted users were found.")
+        async with ctx.typing():
+            count = self.get_hoisted_count(ctx)
+            join = self.get_hoisted_list(ctx)
+            if count > 9:
+                await ctx.send(
+                    "There were 10 or more hoisted users, so to be corteous to others, I've uploaded the list as a file.",
+                    file=discord.File(io.BytesIO(join.encode()), filename="hoisted.txt"),
+                )
             else:
-                msg = box(f"{count} users found:\n\n{join}", lang="yaml")
-                if await ctx.embed_requested():
-                    embed = discord.Embed(
-                        title=f"Hoisted users in {ctx.guild.name}",
-                        description=msg,
-                        color=await ctx.embed_colour(),
-                    )
-                    await ctx.send(embed=embed)
+                if not count:
+                    await ctx.send("No hoisted users were found.")
                 else:
-                    await ctx.send(msg)
+                    msg = box(f"{count} users found:\n\n{join}", lang="yaml")
+                    if await ctx.embed_requested():
+                        embed = discord.Embed(
+                            title=f"Hoisted users in {ctx.guild.name}",
+                            description=msg,
+                            color=await ctx.embed_colour(),
+                        )
+                        await ctx.send(embed=embed)
+                    else:
+                        await ctx.send(msg)
 
     @hoist.command()
     async def clean(self, ctx: commands.Context):
