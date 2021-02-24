@@ -96,47 +96,6 @@ class Dehoister(commands.Cog):
         """Nothing to delete"""
         return
 
-    async def clean_hoist_pred(self, ctx):
-        nickname = await self.config.guild(ctx.guild).nickname()
-        hoisted_count = self.get_hoisted_count(ctx)
-        if not hoisted_count:
-            return await ctx.send("There are no hoisted members.")
-        if not ctx.channel.permissions_for(ctx.me).add_reactions:
-            return await ctx.send("I cannot add reactions.")
-        if not ctx.channel.permissions_for(ctx.me).manage_nicknames:
-            return await ctx.send("I do not have permission to edit nicknames.")
-        msg = await ctx.send(
-            f"Are you sure you would like to dehoist {hoisted_count} hoisted users? "
-            f"This may take a few moments.\nTheir nickname's will be changed to `{nickname}`, "
-            f"you can cancel now and change this nickname via `{ctx.clean_prefix}hoist set nickname` "
-            "if you wish."
-        )
-        pred = ReactionPredicate.yes_or_no(msg, ctx.author)
-        start_adding_reactions(msg, ReactionPredicate.YES_OR_NO_EMOJIS)
-        try:
-            await self.bot.wait_for("reaction_add", check=pred, timeout=30)
-        except asyncio.TimeoutError:
-            await msg.delete()
-            return await ctx.send(f"You took too long to respond.")
-        exceptions = 0
-        if pred.result:
-            async with ctx.typing():
-                for m in ctx.guild.members:
-                    if m.display_name.startswith(tuple(HOIST)):
-                        try:
-                            await m.edit(
-                                nick=await self.config.guild(ctx.guild).nickname()
-                            )
-                        except discord.Forbidden: 
-                            # This exception will only occur if an attempt is made to dehoist server owner
-                            exceptions += 1  
-                            await ctx.send(
-                                f"I could not change {ctx.guild.owner.name}'s nickname because I cannot edit owner nicknames."
-                            )
-            await ctx.send(f"{hoisted_count - exceptions} users have been dehoisted.")
-        else:
-            await ctx.send("No changes have been made.")
-
     async def ex(self, ctx, _type):
         _type += HOISTING_STANDARDS
         if await ctx.embed_requested():
@@ -278,7 +237,45 @@ class Dehoister(commands.Cog):
 
         NOTE: If the server owner is hoisted, [botname] cannot change their nickname.
         """
-        await self.clean_hoist_pred(ctx)
+        nickname = await self.config.guild(ctx.guild).nickname()
+        hoisted_count = self.get_hoisted_count(ctx)
+        if not hoisted_count:
+            return await ctx.send("There are no hoisted members.")
+        if not ctx.channel.permissions_for(ctx.me).add_reactions:
+            return await ctx.send("I cannot add reactions.")
+        if not ctx.channel.permissions_for(ctx.me).manage_nicknames:
+            return await ctx.send("I do not have permission to edit nicknames.")
+        msg = await ctx.send(
+            f"Are you sure you would like to dehoist {hoisted_count} hoisted users? "
+            f"This may take a few moments.\nTheir nickname's will be changed to `{nickname}`, "
+            f"you can cancel now and change this nickname via `{ctx.clean_prefix}hoist set nickname` "
+            "if you wish."
+        )
+        pred = ReactionPredicate.yes_or_no(msg, ctx.author)
+        start_adding_reactions(msg, ReactionPredicate.YES_OR_NO_EMOJIS)
+        try:
+            await self.bot.wait_for("reaction_add", check=pred, timeout=30)
+        except asyncio.TimeoutError:
+            await msg.delete()
+            return await ctx.send(f"You took too long to respond.")
+        exceptions = 0
+        if pred.result:
+            async with ctx.typing():
+                for m in ctx.guild.members:
+                    if m.display_name.startswith(tuple(HOIST)):
+                        try:
+                            await m.edit(
+                                nick=await self.config.guild(ctx.guild).nickname()
+                            )
+                        except discord.Forbidden: 
+                            # This exception will only occur if an attempt is made to dehoist server owner
+                            exceptions += 1  
+                            await ctx.send(
+                                f"I could not change {ctx.guild.owner.name}'s nickname because I cannot edit owner nicknames."
+                            )
+            await ctx.send(f"{hoisted_count - exceptions} users have been dehoisted.")
+        else:
+            await ctx.send("No changes have been made.")
 
     @hoist.group(name="set")
     async def _set(self, ctx: commands.Context):
