@@ -30,6 +30,9 @@ from redbot.core.utils.chat_formatting import spoiler
 class BubbleWrap(commands.Cog):
     """
     Get some bubblewrap.
+
+    This will not work if you have spoilers turned
+    off in your user settings.
     """
 
     __author__ = ["Kreusada", ]
@@ -52,6 +55,9 @@ class BubbleWrap(commands.Cog):
     async def bubblewrap(self, ctx):
         """
         Get some bubblewrap.
+
+        This will not work if you have spoilers turned
+        off in your user settings.
         """
         pre_processed = f"{spoiler('pop')}" * 7
         processed = f"{pre_processed}\n" * 7
