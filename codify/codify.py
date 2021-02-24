@@ -33,7 +33,7 @@ class Codify(commands.Cog):
     Get a message and wrap it in a codeblock.
     """
 
-    __author__ = "Kreusada"
+    __author__ = ["Kreusada", ]
     __version__ = "1.0.0"
 
     def __init__(self, bot):
@@ -41,7 +41,9 @@ class Codify(commands.Cog):
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         """Thanks Sinbad."""
-        return f"{super().format_help_for_context(ctx)}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
+        context = super().format_help_for_context(ctx)
+        authors = ", ".join(a for a in self.__author__)
+        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""

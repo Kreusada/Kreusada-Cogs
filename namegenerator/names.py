@@ -32,7 +32,7 @@ class NameGenerator(commands.Cog):
     Generates random names.
     """
 
-    __author__ = "Kreusada"
+    __author__ = ["Kreusada", ]
     __version__ = "1.0.0"
 
     def __init__(self, bot):
@@ -40,7 +40,9 @@ class NameGenerator(commands.Cog):
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         """Thanks Sinbad."""
-        return f"{super().format_help_for_context(ctx)}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
+        context = super().format_help_for_context(ctx)
+        authors = ", ".join(a for a in self.__author__)
+        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
 
     @commands.group()
     async def name(self, ctx):

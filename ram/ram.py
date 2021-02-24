@@ -30,7 +30,7 @@ from redbot.core.utils.chat_formatting import box as b
 class RAM(commands.Cog):
     """Get [botname]'s ram."""
 
-    __author__ = "Kreusada"
+    __author__ = ["Kreusada", ]
     __version__ = "1.0.0"
 
     def __init__(self, bot):
@@ -38,7 +38,9 @@ class RAM(commands.Cog):
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         """Thanks Sinbad."""
-        return f"{super().format_help_for_context(ctx)}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
+        context = super().format_help_for_context(ctx)
+        authors = ", ".join(a for a in self.__author__)
+        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
 
     @commands.command()
     @commands.is_owner()
