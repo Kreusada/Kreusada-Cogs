@@ -208,6 +208,7 @@ class Dehoister(commands.Cog):
         If there are more than 10 hoisted users, this list
         will instead be sent as a Discord file, named `hoisted.txt`.
         """
+        await ctx.trigger_typing()
         count = self.get_hoisted_count(ctx)
         join = self.get_hoisted_list(ctx)
         if count > 9:
