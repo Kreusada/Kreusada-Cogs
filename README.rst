@@ -35,6 +35,8 @@ Available cogs list
 +=================+==============================================================+=========+==========+
 | advanceduptime  | Uptime but with additional statistics and inside an embed.   | Tools   | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
+| bubblewrap      | Get some bubblewrap.                                         | Fun     | Kreusada |
++-----------------+--------------------------------------------------------------+---------+----------+
 | codify          | Get messages and transform them into code blocks.            | Tools   | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
 | dehoister       | Dehoist new users with a variety of powerful tools.          | Mod     | Kreusada |
