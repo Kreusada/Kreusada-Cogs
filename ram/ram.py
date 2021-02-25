@@ -51,9 +51,10 @@ class RAM(commands.Cog):
         await ctx.send(
             box(
                 text = (
-                    f"Random Access Memory used: [{psutil.virtual_memory().percent}%]\n"
-                    f"Scaled: [{str(round(psutil.virtual_memory().used / 1024 / 1024))}M/{str(round(psutil.virtual_memory().total / 1024 / 1024))}M]"
+                    f"Percentage: [{psutil.virtual_memory().percent}%]\n"
+                    f"Scaled: [{str(round(psutil.virtual_memory().used / 1024 / 1024))}M/"
+                    f"{str(round(psutil.virtual_memory().total / 1024 / 1024))}M]"
                 ),
-                lang="css"
+                lang="apache"
             )
         )
