@@ -52,7 +52,7 @@ class RAM(commands.Cog):
             box(
                 text = (
                     f"Random Access Memory used: [{psutil.virtual_memory().percent}%]\n"
-                    f"Scaled: [{str(round(psutil.virtual_memory().used) / 1024 / 1024)}/{str(round(psutil.virtual_memory().total) / 1024 / 1024)}]"
+                    f"Scaled: [{str(round(psutil.virtual_memory().used / 1024 / 1024))}M/{str(round(psutil.virtual_memory().total / 1024 / 1024))}M]"
                 ),
                 lang="css"
             )
