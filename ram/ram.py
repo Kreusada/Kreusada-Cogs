@@ -27,6 +27,8 @@ import psutil
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import box
 
+## Thanks Kagami for the .total addon
+
 class RAM(commands.Cog):
     """Get [botname]'s ram."""
 
@@ -42,14 +44,6 @@ class RAM(commands.Cog):
         authors = ", ".join(a for a in self.__author__)
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
 
-    ### Thanks Kagami for the division below
-    
-    def get_scale():
-        return str(round(psutil.virtual_memory().used) / 1024 / 1024)
-    
-    def get_total():
-        return str(round(psutil.virtual_memory().total) / 1024 / 1024)
-
     @commands.command()
     @commands.is_owner()
     async def ram(self, ctx):
@@ -58,7 +52,7 @@ class RAM(commands.Cog):
             box(
                 text = (
                     f"Random Access Memory used: [{psutil.virtual_memory().percent}%]\n"
-                    f"Scaled: [{self.get_scale}/{self.get_total}]"
+                    f"Scaled: [{str(round(psutil.virtual_memory().used) / 1024 / 1024)}/{str(round(psutil.virtual_memory().total) / 1024 / 1024)}]"
                 ),
                 lang="css"
             )
