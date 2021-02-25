@@ -25,13 +25,13 @@ SOFTWARE.
 import psutil
 
 from redbot.core import commands
-from redbot.core.utils.chat_formatting import box as b
+from redbot.core.utils.chat_formatting import box
 
 class RAM(commands.Cog):
     """Get [botname]'s ram."""
 
     __author__ = ["Kreusada", ]
-    __version__ = "1.0.0"
+    __version__ = "1.0.1"
 
     def __init__(self, bot):
         self.bot = bot
@@ -42,12 +42,24 @@ class RAM(commands.Cog):
         authors = ", ".join(a for a in self.__author__)
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
 
+    ### Thanks Kagami for the division below
+    
+    def get_scale():
+        return str(round(psutil.virtual_memory().used) / 1024 / 1024)
+    
+    def get_total():
+        return str(round(psutil.virtual_memory().total) / 1024 / 1024)
+
     @commands.command()
     @commands.is_owner()
     async def ram(self, ctx):
         """Get [botname]'s ram."""
         await ctx.send(
-            b(
-                f"Random Access Memory used: [{psutil.virtual_memory()[2]}%]", lang="css"
+            box(
+                text = (
+                    f"Random Access Memory used: [{psutil.virtual_memory().percent}%]\n"
+                    f"Scaled: [{self.get_scale()}/{self.get_total}]"
+                ),
+                lang="css"
             )
         )
