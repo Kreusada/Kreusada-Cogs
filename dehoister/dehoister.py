@@ -149,7 +149,8 @@ class Dehoister(commands.Cog):
         guild = member.guild
         ctx = self.bot.get_context(member)
         logmod = await self.config.guild(guild).modlog()
-        if await self.config.guild(guild).toggled() is False:
+        toggle = await self.config.guild(guild).toggled()
+        if not toggle:
             return
         if member.bot:
             return
