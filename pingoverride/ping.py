@@ -26,14 +26,11 @@ import discord
 import logging
 
 from redbot.core import Config, commands
-from redbot.core.i18n import Translator, cog_i18n
 from redbot.core.utils.chat_formatting import bold, box, pagify
 
-_ = Translator("PingOverride", __file__)
 log = logging.getLogger("red.kreusada.pingoverride")
 
 
-@cog_i18n(_)
 class PingOverride(commands.Cog):
     """
     Custom ping message.

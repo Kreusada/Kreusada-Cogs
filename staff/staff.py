@@ -27,12 +27,7 @@ import discord
 from datetime import datetime
 
 from redbot.core import commands, Config
-from redbot.core.i18n import Translator, cog_i18n
 
-_ = Translator("Staff", __file__)
-
-
-@cog_i18n(_)
 class Staff(commands.Cog):
     """
     Cog for alerting Staff.
