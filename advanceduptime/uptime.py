@@ -26,16 +26,12 @@ import discord
 import logging
 
 from redbot.core import commands
-from datetime import datetime, timedelta
-from redbot.core.i18n import Translator, cog_i18n
+from datetime import datetime
 from redbot.core.utils.chat_formatting import humanize_timedelta, box
-
-_ = Translator("AdvancedUptime", __file__)
 
 log = logging.getLogger("red.kreusada.advanceduptime")
 
 
-@cog_i18n(_)
 class AdvancedUptime(commands.Cog):
     """
     Show [botname]'s uptime, with extra stats.

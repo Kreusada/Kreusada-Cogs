@@ -23,9 +23,8 @@ SOFTWARE.
 """
 
 import discord
-import asyncio
 
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from redbot.core import commands, Config
 from redbot.core.i18n import Translator, cog_i18n
@@ -69,7 +68,7 @@ class Staff(commands.Cog):
         """Sets the channel for staff to receive notifications."""
         if channel is None:
             await ctx.send("No channel was specified. Channel reset.")
-            await self.config.guild(ctx.guild).channel.set(None)
+            await self.config.guild(ctx.guild).channel.clear()
         else:
             await self.config.guild(ctx.guild).channel.set(channel.id)
             await ctx.send(
@@ -82,7 +81,7 @@ class Staff(commands.Cog):
         """Sets the Staff role."""
         if role is None:
             await ctx.send("No role was specified. Role reset.")
-            await self.config.guild(ctx.guild).role.set(None)
+            await self.config.guild(ctx.guild).role.clear()
         else:
             await self.config.guild(ctx.guild).role.set(role.id)
             await ctx.send(f"{role.mention} will now be considered as the Staff role.")
@@ -151,7 +150,7 @@ class Staff(commands.Cog):
                 )
         else:
             text = (
-                f"Staff Attention Pending | Inconspicuous Activity :warning:\n"
+                f"Staff Attention Pending | Conspicuous Activity :warning:\n"
                 f"**User:** {ctx.author.name} ({ctx.author.id})\n**Date:** {D}\n**Channel:** {ctx.channel.mention}\n"
             )
 

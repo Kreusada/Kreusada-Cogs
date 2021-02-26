@@ -29,7 +29,7 @@ import asyncio
 import datetime
 
 from redbot.core import commands, Config, modlog
-from redbot.core.utils.chat_formatting import box, bold
+from redbot.core.utils.chat_formatting import box
 from redbot.core.utils.predicates import ReactionPredicate
 from redbot.core.utils.menus import start_adding_reactions
 
@@ -83,7 +83,7 @@ class Dehoister(commands.Cog):
         self.bot = bot
         self.config = Config.get_conf(self, IDENTIFIER, force_registration=True)
         self.config.register_guild(
-            nickname=f"{DELTA} Dehoisted", toggled=False, modlog=True
+            nickname=f"{DELTA} Dehoisted", toggled=False
         )
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
@@ -148,7 +148,6 @@ class Dehoister(commands.Cog):
     async def on_member_join(self, member: discord.Member):
         guild = member.guild
         ctx = self.bot.get_context(member)
-        logmod = await self.config.guild(guild).modlog()
         toggle = await self.config.guild(guild).toggled()
         if not toggle:
             return
@@ -157,12 +156,11 @@ class Dehoister(commands.Cog):
         if not guild:
             return
         if member.name.startswith(tuple(HOIST)):
-            try:
+            if ctx.channel.permissions_for(self.bot).manage_nicknames:
                 await member.edit(nick=await self.config.guild(guild).nickname())
-                if logmod:
-                    await self.create_case(ctx, member, self.bot)
-            except discord.Forbidden as f:
-                log.error(f)
+                await self.create_case(ctx, member, self.bot)
+            else:
+                log.error(f"Invalid permissions to edit a members name. [{member.id}]")
 
     @commands.group()
     @commands.mod_or_permissions(manage_nicknames=True)
@@ -181,15 +179,13 @@ class Dehoister(commands.Cog):
         Users who are dehoisted will have their nicknames changed to the set nickname.
         You can set the nickname by using `[p]hoist set nickname`.
         """
-        modlog = await self.config.guild(ctx.guild).modlog()
         if member.nick == await self.config.guild(ctx.guild).nickname():
             return await ctx.send(f"{member.name} is already dehoisted.")
-        try:
+        if ctx.channel.permissions_for(ctx.me).manage_nicknames:
             await member.edit(nick=await self.config.guild(ctx.guild).nickname())
             await ctx.send(f"`{member.name}` has successfully been dehoisted.")
-            if modlog:
-                await self.create_case(ctx, member, ctx.author)
-        except discord.Forbidden:
+            await self.create_case(ctx, member, ctx.author)
+        else:
             await ctx.send("I am not authorized to edit nicknames.")
 
     @hoist.command()
@@ -317,20 +313,6 @@ class Dehoister(commands.Cog):
         await ctx.send(
             f"Dehoisted members will now have their nickname set to `{nickname}`."
         )
-
-    @_set.command()
-    async def modlog(self, ctx: commands.Context, true_or_false: bool):
-        """
-        Toggles whether modlogs are created for Dehoister events.
-
-        Modlog events will be recorded for `[p]hoist dehoist`, and when
-        a user joins the guild if the auto-dehoister is toggled on.
-
-        For the sake of courtesy, events with `[p]hoist clean` will not be
-        recorded.
-        """
-        await self.config.guild(ctx.guild).modlog.set(true_or_false)
-        await ctx.tick()
 
     @hoist.group()
     async def explain(self, ctx: commands.Context):

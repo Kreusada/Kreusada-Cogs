@@ -22,8 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import discord
-
 from redbot.core import commands, Config
 
 
@@ -80,7 +78,7 @@ class PingInvoke(commands.Cog):
     async def reset(self, ctx):
         """Reset and disable PingInvoke."""
         await ctx.tick()
-        await self.config.botname.set(None)
+        await self.config.botname.clear()
 
     @pingi.command()
     async def settings(self, ctx):

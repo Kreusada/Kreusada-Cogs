@@ -5,6 +5,7 @@
 	"short": "Bubblewrap.",
 	"name": "BubbleWrap",
 	"tags": ["Bubblewrap"],
+	"min_bot_version" : "3.4.6",
 	"type": "COG",
 	"end_user_data_statement": "This cog does not persistently store data or metadata about users."
 }
