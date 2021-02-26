@@ -72,8 +72,9 @@ Feel free to open a pull request, or an issue, I'm more than happy to make chang
 Support
 --------
 
+Mention me in the #support_othercogs in the cog support server if you need any help.
 If you're having any important issue(s), open an issue or pull request to this repo.
-Join my `support server <https://discord.gg/JmCFyq7>`_.
+You can also join my `support server <https://discord.gg/JmCFyq7>`_.
 
 --------
 Credits
