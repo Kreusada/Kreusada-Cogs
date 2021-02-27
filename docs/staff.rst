@@ -1,71 +1,126 @@
 .. _staff:
 
-==========
+=====
 Staff
-==========
+=====
 
--------
-Outline
--------
+This is the cog guide for the staff cog. You will
+find detailed docs about usage and commands.
 
-The ``staff`` cog is a cog used to alert the staff. It's that simple. This cog guide will give you the setup instructions.
+Throughout this documentation, ``[p]`` is considered as your prefix.
 
 ------------
 Installation
 ------------
 
-Make sure you have :code:`Downloader` loaded!
+Let's firstly add my repository if you haven't already:
 
-:code:`[p]load Downloader`
+* :code:`[p]repo add kreusada https://github.com/kreusada/kreusadacogs`
 
-Let's add Kreusada's repository firstly:
+Next, let's download the cog from the repo:
 
-:code:`[p]repo add kreusadacogs https://github.com/kreus7/kreusadacogs`
+* :code:`[p]cog install kreusada staff`
 
-Now, you can add the :code:`CogName` cog into your system.
+Finally, you can see my end user data statements, cog requirements, and other cog information by using:
 
-:code:`[p]cog install kreusadacogs cogname`
+* :code:`[p]cog info kreusada staff`
 
------------
-Staff Setup
------------
+-----
+Usage
+-----
 
-**Setting your staff role**
+This will allow you to alert staff for conspicuous activity.
 
-Staff roles are required to notify your staff.
+.. _staff-commands:
 
-.. code-block:: none 
+--------
+Commands
+--------
 
-      [p]staffset role <role>
+Here's a list of all commands available for this cog.
 
-When the staff command is used, this configured role will be mentioned, allowing for staff to be notified straight away.
+.. _staff-command-staff:
 
-**Setting your staff channel**
-
-Set your staff channel to a private mod/admin channel. 
-
-.. code-block:: none
-
-      [p]staffset role <role>
-
-When the staff command is used, this configured channel host a message containing the alert, the mention, the location of which the ``staff`` command was used, and the user who executed the command.
-
-^^^^^^^^^^^
-Staff Usage
-^^^^^^^^^^^
+^^^^^
+staff
+^^^^^
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
-     [p]staff
+    [p]staff
 
--------
-Support
--------
+**Description**
 
-As always, you can join my `support server <https://discord.gg/JmCFyq7>`_ if you need help!
+Alert the staff for conspicuous activity.
 
-- Kreusada
+.. _staff-command-staffset:
 
-`Home <https://kreusadacogs.readthedocs.io/en/latest/index.html>`_ | `Support Server <https://discord.gg/JmCFyq7>`_
+^^^^^^^^
+staffset
+^^^^^^^^
+
+**Syntax**
+
+.. code-block:: ini
+
+    [p]staffset
+
+**Description**
+
+Commands to configure the staff cog.
+
+.. _staff-command-staffset-channel:
+
+""""""""""""""""
+staffset channel
+""""""""""""""""
+
+**Syntax**
+
+.. code-block:: ini
+
+    [p]staffset channel [channel]
+
+**Description**
+
+Set the channel to receive alerts for staff.
+
+**Arguments**
+
+* ``[channel]``: The channel used for notifications. If none provided, it resets.
+
+.. _staff-command-staffset-channel:
+
+"""""""""""""
+staffset role
+"""""""""""""
+
+**Syntax**
+
+.. code-block:: ini
+
+    [p]staffset role [role]
+
+**Description**
+
+Set the staff role to be pinged for staff alerts.
+
+**Arguments**
+
+* ``[role]``: The staff role. This is optional. If none provided, it resets.
+
+----------------------
+Additional Information
+----------------------
+
+This cog has been vetted by the Red-DiscordBot QA team as approved.
+For inquiries, see to the contact options below.
+
+---------------
+Receive Support
+---------------
+
+Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_othercogs`,
+or you can head over to `my support server <https://discord.gg/JmCFyq7>`_ and ask your questions in :code:`#support-kreusadacogs`.

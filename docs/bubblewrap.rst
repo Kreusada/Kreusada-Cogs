@@ -1,10 +1,10 @@
-.. _advanceduptime:
+.. _bubblewrap:
 
-===============
-Advanced Uptime
-===============
+==========
+Bubblewrap
+==========
 
-This is the cog guide for the advanceduptime cog. You will
+This is the cog guide for the bubblewrap cog. You will
 find detailed docs about usage and commands.
 
 Throughout this documentation, ``[p]`` is considered as your prefix.
@@ -19,19 +19,19 @@ Let's firstly add my repository if you haven't already:
 
 Next, let's download the cog from the repo:
 
-* :code:`[p]cog install kreusada advanceduptime`
+* :code:`[p]cog install kreusada bubblewrap`
 
 Finally, you can see my end user data statements, cog requirements, and other cog information by using:
 
-* :code:`[p]cog info kreusada advanceduptime`
+* :code:`[p]cog info kreusada bubblewrap`
 
 -----
 Usage
 -----
 
-This cog is going to show your bot's uptime, with extra information and stats about the bot.
+This cog is going to return spoilers with ``pop`` inside them, so that you can metaphorically pop bubblewrap!
 
-.. _advanceduptime-commands:
+.. _bubblewrap-commands:
 
 --------
 Commands
@@ -39,29 +39,22 @@ Commands
 
 Here's a list of all commands available for this cog.
 
-.. _advanceduptime-command-uptime:
+.. _bubblewrap-command-bubblewrap:
 
-^^^^^^
-uptime
-^^^^^^
+^^^^^^^^^^
+bubblewrap
+^^^^^^^^^^
 
 **Syntax**
 
 .. code-block:: ini
 
-    [p]uptime
+    [p]bubblewrap
 
 **Description**
 
-Shows your bot's uptime and additional stats.
-
-You might be wondering, how are you able to use a new uptime command if one already exists in core?
-This cog will replace the core uptime command, and then will add the core uptime command back 
-if the :code:`AdvancedUptime` cog is unloaded/uninstalled.
-
-This command's output will provide information on your bot's uptime, your bot's name,
-your bot's owner (you), the current discord guild, the number of guilds the bot is present in,
-the number of unique users your bot has, and the number of commands available!
+This command will return 49 'bubbles' (7x7). These 'bubbles' are actually just the word 
+'pop', in spoilers. When you click on these spoilers, the word ``pop`` appears.
 
 ----------------------
 Additional Information

@@ -1,4 +1,3 @@
-docs/*
 .vscode/*
 __pycache__/
 *.py[cod]
