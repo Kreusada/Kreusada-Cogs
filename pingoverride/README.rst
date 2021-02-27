@@ -4,7 +4,7 @@
 PingOverride
 ============
 
-This is the cog guide for the pinginvoke cog. You will
+This is the cog guide for the pingoverride cog. You will
 find detailed docs about usage and commands.
 
 Throughout this documentation, ``[p]`` is considered as your prefix.
