@@ -34,6 +34,10 @@ This cog will invoke the ping command by asking if your bot is there.
 For instance, if your bot was called WALL-E, whenever I say "walle?", 
 it will invoke the ping command. This can be set to whatever you want, as long as it ends in a question mark.
 
+.. tip::
+
+    This cog works amazingly with my PingOverride cog! I suggest you install that too (not required, suggested).
+
 .. _pinginvoke-commands:
 
 --------

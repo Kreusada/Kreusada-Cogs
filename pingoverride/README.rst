@@ -37,6 +37,10 @@ So instead of "Pong.", it could be "Beep boop.", or whatever you want!
     This cog replaces the core's ``ping`` command. If you wish to have the old ping command
     back, you can simply unload this cog.
 
+.. tip::
+
+    This cog works amazingly with my PingInvoke cog! I suggest you install that too (not required, suggested).
+
 .. _pingoverride-commands:
 
 --------
