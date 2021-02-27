@@ -258,19 +258,19 @@ class Dehoister(commands.Cog):
             return await ctx.send(f"You took too long to respond.")
         exceptions = 0
         if pred.result:
-            async with ctx.typing():
-                for m in ctx.guild.members:
-                    if m.display_name.startswith(tuple(HOIST)):
-                        try:
-                            await m.edit(
-                                nick=await self.config.guild(ctx.guild).nickname()
-                            )
-                        except discord.Forbidden: 
-                            # This exception will only occur if an attempt is made to dehoist server owner
-                            exceptions += 1  
-                            await ctx.send(
-                                f"I could not change {ctx.guild.owner.name}'s nickname because I cannot edit owner nicknames."
-                            )
+            await ctx.trigger_typing()
+            for m in ctx.guild.members:
+                if m.display_name.startswith(tuple(HOIST)):
+                    try:
+                        await m.edit(
+                            nick=await self.config.guild(ctx.guild).nickname()
+                        )
+                    except discord.Forbidden: 
+                        # This exception will only occur if an attempt is made to dehoist server owner
+                        exceptions += 1  
+                        await ctx.send(
+                            f"I could not change {ctx.guild.owner.name}'s nickname because I cannot edit owner nicknames."
+                        )
             await ctx.send(f"{hoisted_count - exceptions} users have been dehoisted.")
         else:
             await ctx.send("No changes have been made.")
