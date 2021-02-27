@@ -19,5 +19,52 @@ Cog Support
 ===========
 
 * :ref:`advanceduptime`
+* :ref:`bubblewrap`
+* :ref:`codify`
+* :ref:`dehoister`
+* :ref:`namegenerator`
+* :ref:`pinginvoke`
+* :ref:`pingoverride`
+* :ref:`ram`
+* :ref:`sendcards`
+* :ref:`staff`
+* :ref:`textmanipulator`
+* :ref:`timestables`
+* :ref:`votechannel`
+
+==========================
+Individual Command Support
+==========================
   
-  ¬ :ref:`advanceduptime-command-uptime`
+--------------
+AdvancedUptime
+--------------
+
+* :ref:`advanceduptime-command-uptime`
+
+----------
+BubbleWrap
+----------
+
+* :ref:`bubblewrap-command-bubblewrap`
+
+------
+Codify
+------
+
+* :ref:`codify-command-codify`
+
+---------
+Dehoister
+---------
+
+* :ref:`dehoister-command-hoist`
+* :ref:`dehoister-command-hoist-clean`
+* :ref:`dehoister-command-hoist-dehoist`
+* :ref:`dehoister-command-hoist-explain`
+* :ref:`dehoister-command-hoist-explain-auto`
+* :ref:`dehoister-command-hoist-explain-scanclean`
+* :ref:`dehoister-command-hoist-scan`
+* :ref:`dehoister-command-hoist-set`
+* :ref:`dehoister-command-hoist-set-nickname`
+* :ref:`dehoister-command-hoist-set-toggle`
