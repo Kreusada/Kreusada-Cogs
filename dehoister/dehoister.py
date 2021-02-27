@@ -62,15 +62,6 @@ SCAN_AND_CLEAN_EXPLAIN = (
     "have a hoisted username/nickname. "
 )
 
-MODLOG_EXPLAIN = (
-    "You can record events to the modlog by enabling the toggle via `{p}hoist set modlog`. "
-    "If a user joins the guild with a hoisted name, or if you manually use `{p}hoist dehoist`, "
-    "the events will be recorded to your modlog channel, you will need to load the modlog cog "
-    "for this to work by using `{p}load modlog`.\n\n"
-    "Events from `{p}hoist clean` will not be recorded, due to potential spam."
-)
-
-
 class Dehoister(commands.Cog):
     """
     Dehoist usernames that start with hoisting characters.
@@ -305,7 +296,7 @@ class Dehoister(commands.Cog):
         action on members with hoisted display names, so make sure you
         find a suitable display name!
 
-        If none is set, the default nickname is `Ze Dehoisted`.
+        If none is set, the default nickname is `δ Dehoisted`.
         """
         if len(nickname) > 31:
             return await ctx.send(
