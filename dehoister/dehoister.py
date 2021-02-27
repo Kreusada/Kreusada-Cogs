@@ -62,15 +62,6 @@ SCAN_AND_CLEAN_EXPLAIN = (
     "have a hoisted username/nickname. "
 )
 
-MODLOG_EXPLAIN = (
-    "You can record events to the modlog by enabling the toggle via `{p}hoist set modlog`. "
-    "If a user joins the guild with a hoisted name, or if you manually use `{p}hoist dehoist`, "
-    "the events will be recorded to your modlog channel, you will need to load the modlog cog "
-    "for this to work by using `{p}load modlog`.\n\n"
-    "Events from `{p}hoist clean` will not be recorded, due to potential spam."
-)
-
-
 class Dehoister(commands.Cog):
     """
     Dehoist usernames that start with hoisting characters.
@@ -179,14 +170,16 @@ class Dehoister(commands.Cog):
         Users who are dehoisted will have their nicknames changed to the set nickname.
         You can set the nickname by using `[p]hoist set nickname`.
         """
+        if not ctx.channel.permissions_for(ctx.me).manage_nicknames:
+            return await ctx.send("I do not have permission to edit nicknames.")
         if member.nick == await self.config.guild(ctx.guild).nickname():
             return await ctx.send(f"{member.name} is already dehoisted.")
-        if ctx.channel.permissions_for(ctx.me).manage_nicknames:
+        try:
             await member.edit(nick=await self.config.guild(ctx.guild).nickname())
             await ctx.send(f"`{member.name}` has successfully been dehoisted.")
             await self.create_case(ctx, member, ctx.author)
-        else:
-            await ctx.send("I am not authorized to edit nicknames.")
+        except discord.Forbidden:
+            await ctx.send(f"I could not dehoist {member.name} because they are the server owner.")
 
     @hoist.command()
     async def scan(self, ctx: commands.Context):
@@ -303,7 +296,7 @@ class Dehoister(commands.Cog):
         action on members with hoisted display names, so make sure you
         find a suitable display name!
 
-        If none is set, the default nickname is `Ze Dehoisted`.
+        If none is set, the default nickname is `δ Dehoisted`.
         """
         if len(nickname) > 31:
             return await ctx.send(

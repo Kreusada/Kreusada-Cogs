@@ -100,7 +100,7 @@ class TextManipulator(commands.Cog):
         await ctx.send("".join(characters))
 
     @commands.command()
-    async def remove(self, ctx: commands.Context, char_to_remove: str, *, list: str):
+    async def remove(self, ctx: commands.Context, char_to_remove: str, *, words: str):
         """Remove characters from text."""
         await ctx.send(list.replace(char_to_remove, ""))
 
