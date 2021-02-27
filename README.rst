@@ -55,7 +55,7 @@ Available cogs list
 +-----------------+--------------------------------------------------------------+---------+----------+
 | sendcards       | Send christmas, birthday, valentines and get well soon cards | Fun     | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
-| staff           | Alert staff for inconspicuous activity.                      | Mod     | Kreusada |
+| staff           | Alert staff for   conspicuous activity.                      | Mod     | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
 | textmanipulator | Manipulate text and words with tools.                        | Tools   | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
