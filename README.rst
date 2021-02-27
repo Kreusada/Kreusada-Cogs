@@ -3,7 +3,8 @@ Redbot cogs for Red-DiscordBot authored by Kreusada
 ===================================================
 
 This is my repository for Red Discord-Bot. I built these cogs because these were the features that I wanted for my bot, `WALL-E. <https://discord.com/oauth2/authorize?client_id=766580519000473640&scope=bot&permissions=8>`_
-These cogs have been approved by Red-DiscordBot QA.
+
+These cogs have been approved by the Red-DiscordBot QA team.
 
 ------------
 Installation
@@ -19,7 +20,7 @@ Next, let's add my repository to your system.
 
 .. code-block:: ini
 
-    [p]repo add kreusadacogs https://github.com/kreus7/kreusadacogs
+    [p]repo add kreusadacogs https://github.com/kreusada/kreusadacogs
 
 To install a cog, use this command, replacing <cog> with the name of the cog you wish to install:
 
@@ -74,7 +75,8 @@ Support
 --------
 
 Mention me in the #support_othercogs in the `cog support server <https://discord.gg/GET4DVk>`_ if you need any help.
-If you're having any important issue(s), open an issue or pull request to this repo.
+
+If you're have an important issue(s), open an issue or pull request to this repo.
 You can also join my `support server <https://discord.gg/JmCFyq7>`_.
 
 --------
@@ -84,8 +86,8 @@ Credits
 * Jojo - Got me started with python, and helped me a lot in my early stages.
 * Sauri - Learnt how to use `bot.wait_for` via your application cog.
 * Flare - Learnt from his userinfo cog, how to replace a command in core, and then add it back on cog unload.
-* Trusty - Using JSON for :code:`__init__` files.
+* Trusty - Using reading from json in cog setup files.
 * Tobotimus - Lots of backend support.
 * Red-DiscordBot - An amazing community, some features have been modified from their repo to use here.
-* W3Schools - An amazing website full of python tricks and tips which have helped me develop. You can find their website here: https://www.w3schools.com/python/
+* W3Schools - An amazing website full of python tricks and tips which have helped me out many times.
 * Stack Overflow - Of course, I mean who hasn't payed a trip to stack overflow?
