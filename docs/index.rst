@@ -14,9 +14,23 @@ Useful Links
 * `Github Repository <https://github.com/kreusada/kreusadacogs>`_
 * `Support Server <https://discord.gg/JmCFyq7>`_
 
-===========
-Cog Support
-===========
+.. toctree::
+    :maxdepth: 1
+    :caption: Cog Support
+
+    advanceduptime
+    bubblewrap
+    codify
+    dehoister
+    namegenerator
+    pinginvoke
+    pingoverride
+    ram
+    sendcards
+    staff
+    textmanipulator
+    timestables
+    votechannel
 
 * :ref:`advanceduptime`
 * :ref:`bubblewrap`
