@@ -31,17 +31,3 @@ Useful Links
     textmanipulator
     timestables
     votechannel
-
-* :ref:`advanceduptime`
-* :ref:`bubblewrap`
-* :ref:`codify`
-* :ref:`dehoister`
-* :ref:`namegenerator`
-* :ref:`pinginvoke`
-* :ref:`pingoverride`
-* :ref:`ram`
-* :ref:`sendcards`
-* :ref:`staff`
-* :ref:`textmanipulator`
-* :ref:`timestables`
-* :ref:`votechannel`
