@@ -4,7 +4,7 @@
 RAM (Random Access Memory)
 ==========================
 
-This is the cog guide for the advanceduptime cog. You will
+This is the cog guide for the ram cog. You will
 find detailed docs about usage and commands.
 
 Throughout this documentation, ``[p]`` is considered as your prefix.
@@ -29,7 +29,7 @@ Finally, you can see my end user data statements, cog requirements, and other co
 Usage
 -----
 
-This cog is going to show your bot's uptime, with extra information and stats about the bot.
+This cog will display your client's RAM usage.
 
 .. _ram-commands:
 
