@@ -16,6 +16,7 @@ Useful Links
 
 .. toctree::
     :caption: Cog Support
+    :maxdepth: 1
 
     advanceduptime
     bubblewrap
