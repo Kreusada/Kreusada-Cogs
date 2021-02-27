@@ -139,6 +139,16 @@ Each issue or PR **must** have a type label (so that I can keep organised lol)
 * Type: Docs - For documentation (currently infeasible)
 * Type: Enhancement - This is an enhancement/feature.
 
+**Doclog Labels**
+
+I write and maintain documentation for all of my code on this repository.
+There are four Doclog labels which help me to differentiate between entries.
+
+* Doclog: Bypassed - This change does not need to be documented.
+* Doclog: Added - This change has been added to the documentation.
+* Doclog: Pending - This change will be added to the documentation
+* Doclog: Infeasible - This change is invalid and will not be documented.
+
 ----------------
 Project Workflow
 ----------------
