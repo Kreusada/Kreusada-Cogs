@@ -15,7 +15,6 @@ Useful Links
 * `Support Server <https://discord.gg/JmCFyq7>`_
 
 .. toctree::
-    :maxdepth: 1
     :caption: Cog Support
 
     advanceduptime
