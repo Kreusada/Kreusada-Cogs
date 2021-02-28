@@ -1,24 +1,33 @@
 .. _main:
 
-Welcome to KreusadaDocs!
-=============================================
+======================
+Kreusada Documentation
+======================
 
-This documentation is here for the support of my redbot cogs.
-If you would like to contribute to the development of my docs please click `here <https://github.com/kreusada/kreusadacogs/tree/master/docs>`_.
-Additionally, if you would require any first hand support, please join us `here <https://discord.gg/JmCFyq7>`_.
+This documentation is here for the support of my redbot cogs. Everything should be here that you need, if you
+need further support you can meet me in my `support server <https://github.com/kreusada/Kreusada-Cogs>`_.
 
+============
 Useful Links
 ============
 
 * `Github Repository <https://github.com/kreusada/kreusadacogs>`_
 * `Support Server <https://discord.gg/JmCFyq7>`_
-* `Raw Docs <https://github.com/kreusada/kreusadacogs/tree/master/docs>`_
 
-Cog Support
-==================
+.. toctree::
+    :caption: Cog Support
+    :maxdepth: 1
 
-* :ref:`advanceduptime`
-
-.. note:: 
-    Due to time constraints, many cogs need to be rewritten,
-    hence why advanceduptime is the only one listed.
+    advanceduptime
+    bubblewrap
+    codify
+    dehoister
+    namegenerator
+    pinginvoke
+    pingoverride
+    ram
+    sendcards
+    staff
+    textmanipulator
+    timestables
+    votechannel

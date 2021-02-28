@@ -55,7 +55,7 @@ Available cogs list
 +-----------------+--------------------------------------------------------------+---------+----------+
 | sendcards       | Send christmas, birthday, valentines and get well soon cards | Fun     | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
-| staff           | Alert staff for inconspicuous activity.                      | Mod     | Kreusada |
+| staff           | Alert staff for   conspicuous activity.                      | Mod     | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
 | textmanipulator | Manipulate text and words with tools.                        | Tools   | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
@@ -74,7 +74,7 @@ Feel free to open a pull request, or an issue, I'm more than happy to make chang
 Support
 -------
 
-Check out the docs `here <https://kreusadacogs.readthedocs.io/en/latest/>`_
+Check out my docs `here <https://kreusadacogs.readthedocs.io/en/latest/>`_
 
 Mention me in the #support_othercogs in the `cog support server <https://discord.gg/GET4DVk>`_ if you need any help.
 
@@ -119,9 +119,9 @@ Each issue or PR **must** have a status label (so that I can keep organised lol)
 * Status: Processing - This PR/Issue is being processed.
 * Status: Progress - This PR/Issue is in progress.
 * Status: Rejected - I will not be making changes to this feature.
+* Status: Requested Changes - Requested changes to this PR. (PR only)
 * Status: Triage Requested - This issue has not yet been reviewed or opened.
 * Status: Withdrawn - Withdrawn from action.
-* Status: Requested Changes - Requested changes to this PR. (PR only)
 
 Additional info:
 
@@ -140,6 +140,16 @@ Each issue or PR **must** have a type label (so that I can keep organised lol)
 * Type: Dev - For the dev branch (currently stale)
 * Type: Docs - For documentation (currently infeasible)
 * Type: Enhancement - This is an enhancement/feature.
+
+**Doclog Labels**
+
+I write and maintain documentation for all of my code on this repository.
+There are four Doclog labels which help me to differentiate between entries.
+
+* Doclog: Added - This change has been added to the documentation.
+* Doclog: Bypassed - This change does not need to be documented.
+* Doclog: Infeasible - This change is invalid and will not be documented.
+* Doclog: Pending - This change will be added to the documentation.
 
 ----------------
 Project Workflow
