@@ -36,6 +36,8 @@ Useful Links
     :caption: Cog Changelogs
     :maxdepth: 2
 
+    _au-cl
+    :ref:`au-cl`
     au-cl
     bw-cl
     c-cl
