@@ -37,16 +37,15 @@ Useful Links
     :maxdepth: 2
 
     _au-cl
-    au-cl
-    bw-cl
-    c-cl
-    dh-cl
-    ng-cl
-    pi-cl
-    po-cl
-    r-cl
-    s-cl
-    sc-cl
-    tm-cl
-    tt-cl
-    vc-cl
+    _bw-cl
+    _c-cl
+    _dh-cl
+    _ng-cl
+    _pi-cl
+    _po-cl
+    _r-cl
+    _s-cl
+    _sc-cl
+    _tm-cl
+    _tt-cl
+    _vc-cl
