@@ -74,6 +74,8 @@ Feel free to open a pull request, or an issue, I'm more than happy to make chang
 Support
 -------
 
+Check out the docs `here <https://kreusadacogs.readthedocs.io/en/latest/>`_
+
 Mention me in the #support_othercogs in the `cog support server <https://discord.gg/GET4DVk>`_ if you need any help.
 
 If you're have an important issue(s), open an issue or pull request to this repo.
