@@ -1,5 +1,7 @@
 "Cog: AdvancedUptime":
   - advanceduptime/*
+"Cog: BubbleWrap":
+  - bubblewrap/*
 "Cog: Codify":
   - codify/*
 "Cog: Edition":
