@@ -34,7 +34,7 @@ Useful Links
 
 .. toctree::
     :caption: Cog Changelogs
-    :maxdepth: 1
+    :maxdepth: 2
 
     au-cl
     bw-cl
