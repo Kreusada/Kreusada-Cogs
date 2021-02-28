@@ -31,3 +31,21 @@ Useful Links
     textmanipulator
     timestables
     votechannel
+
+.. toctree::
+    :caption: Cog Changelogs
+    :maxdepth: 1
+
+    au-cl
+    bw-cl
+    c-cl
+    dh-cl
+    ng-cl
+    pi-cl
+    po-cl
+    r-cl
+    s-cl
+    sc-cl
+    tm-cl
+    tt-cl
+    vc-cl
