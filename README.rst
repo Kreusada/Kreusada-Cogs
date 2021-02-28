@@ -117,9 +117,9 @@ Each issue or PR **must** have a status label (so that I can keep organised lol)
 * Status: Processing - This PR/Issue is being processed.
 * Status: Progress - This PR/Issue is in progress.
 * Status: Rejected - I will not be making changes to this feature.
+* Status: Requested Changes - Requested changes to this PR. (PR only)
 * Status: Triage Requested - This issue has not yet been reviewed or opened.
 * Status: Withdrawn - Withdrawn from action.
-* Status: Requested Changes - Requested changes to this PR. (PR only)
 
 Additional info:
 
@@ -144,10 +144,10 @@ Each issue or PR **must** have a type label (so that I can keep organised lol)
 I write and maintain documentation for all of my code on this repository.
 There are four Doclog labels which help me to differentiate between entries.
 
-* Doclog: Bypassed - This change does not need to be documented.
 * Doclog: Added - This change has been added to the documentation.
-* Doclog: Pending - This change will be added to the documentation
+* Doclog: Bypassed - This change does not need to be documented.
 * Doclog: Infeasible - This change is invalid and will not be documented.
+* Doclog: Pending - This change will be added to the documentation.
 
 ----------------
 Project Workflow
