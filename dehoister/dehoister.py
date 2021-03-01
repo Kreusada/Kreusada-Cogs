@@ -200,7 +200,7 @@ class Dehoister(commands.Cog):
         """
         await ctx.trigger_typing()
         count = self.get_hoisted_count(ctx)
-        join = self.get_hoisted_list(ctx)
+        join = f"{count} users found:\n\n"{self.get_hoisted_list(ctx)}"
         if count > 9:
             await ctx.send(
                 "There were 10 or more hoisted users, so to be corteous to others, I've uploaded the list as a file.",
@@ -210,7 +210,7 @@ class Dehoister(commands.Cog):
             if not count:
                 await ctx.send("No hoisted users were found.")
             else:
-                msg = box(f"{count} users found:\n\n{join}", lang="yaml")
+                msg = box(join, lang="yaml")
                 if await ctx.embed_requested():
                     embed = discord.Embed(
                         title=f"Hoisted users in {ctx.guild.name}",
