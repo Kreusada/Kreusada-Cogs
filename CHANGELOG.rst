@@ -35,3 +35,11 @@ Versioning does not apply for meta unlike the changelogs for each specific cog.
 
 * ``Dehoister``: Fix issues relating to an undefined variable
 * ``PingInvoke``: Update description key inside info.json
+
+----------
+01/03/2021
+----------
+
+**Cogs**
+
+* Updated install messages for all cogs apart from ``edition``, to link to documentation

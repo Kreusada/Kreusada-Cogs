@@ -1,7 +1,7 @@
 {
 	"author": ["Kreusada"],
 	"description": "Invoke the ping command when calling for your bot.",
-    "install_msg": "Thanks for installing, have fun. Use `[p]help pingi`!",
+    "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/pinginvoke.html",
 	"short": "Invoke your bot.",
 	"name": "PingInvoke",
 	"tags": ["Invoke", "Bot", "Ping"],

@@ -1,7 +1,7 @@
 {
 	"author": ["Kreusada"],
 	"description": "An authentic looking uptime message.",
-    "install_msg": "Thanks for installing, have fun. This cog replaces the core's uptime command, which may always be reverted by unloading the cog. Use `[p]uptime`!",
+    "install_msg": "Thanks for installing, have fun. This cog replaces the core's uptime command, which may always be reverted by unloading the cog. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/advanceduptime.html",
 	"short": "Bot uptime, customised.",
 	"name": "AdvancedUptime",
 	"tags": ["Uptime"],

@@ -1,7 +1,7 @@
 {
   "author": ["Kreusada"],
   "description": "Get your bot's RAM.",
-  "install_msg": "Thanks for installing, use `[p]ram`.",
+  "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/codify.html",
   "short": "Random Access Memory",
   "name": "RAM",
   "requirements": ["psutil"],
