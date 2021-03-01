@@ -43,8 +43,6 @@ Available cogs list
 +-----------------+--------------------------------------------------------------+---------+----------+
 | dehoister       | Dehoist new users with a variety of powerful tools.          | Mod     | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
-| edition         | Inspired by Twentysix Edition at Red.                        | Fun     | Kreusada |
-+-----------------+--------------------------------------------------------------+---------+----------+
 | namegenerator   | Generate random names will optional gender arguments.        | Fun     | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
 | pinginvoke      | r2d2? wall-e? Invoke ping by asking if your bot's there.     | Tools   | Kreusada |
