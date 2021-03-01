@@ -71,8 +71,8 @@ class PingOverride(commands.Cog):
             }
         else:
             mapping = {
-                "latency": f"[{ctx.bot.user.name}'s latency]",
-                "display": "[author's display name]",
+                "latency": f"[latency]",
+                "display": "[display_name]",
             }
         return match.format(**mapping)
 
@@ -159,7 +159,7 @@ class PingOverride(commands.Cog):
             )
         else:
             await ctx.send(
-                f"Running `{ctx.clean_prefix}ping` will now respond with {box(msg)}"
+                f"Running `{ctx.clean_prefix}ping` will now respond with... {box(msg, lang='yaml')}"
             )
 
     @commands.command()
