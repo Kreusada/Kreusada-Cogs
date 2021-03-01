@@ -1,5 +1,7 @@
+.. _tm-cl:
+
 ==========================
-Changelog: TextManipulator
+TextManipulator: Changelog
 ==========================
 
 This changelog includes all changes to the cog since 28/02/2021.

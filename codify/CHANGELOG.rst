@@ -1,5 +1,7 @@
+.. _c-cl:
+
 =================
-Changelog: Codify
+Codify: Changelog
 =================
 
 This changelog includes all changes to the cog since 28/02/2021.
