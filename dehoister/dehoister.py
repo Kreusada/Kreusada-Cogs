@@ -200,7 +200,7 @@ class Dehoister(commands.Cog):
         """
         await ctx.trigger_typing()
         count = self.get_hoisted_count(ctx)
-        join = f"{count} users found:\n\n"{self.get_hoisted_list(ctx)}"
+        join = f"{count} users found:\n\n{self.get_hoisted_list(ctx)}"
         if count > 9:
             await ctx.send(
                 "There were 10 or more hoisted users, so to be corteous to others, I've uploaded the list as a file.",
