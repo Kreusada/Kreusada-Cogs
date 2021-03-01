@@ -43,3 +43,5 @@ Versioning does not apply for meta unlike the changelogs for each specific cog.
 **Cogs**
 
 * Updated install messages for all cogs apart from ``edition``, to link to documentation
+* ``PingOverride``: Improved UI of mapping kwargs
+* ``PingOverride``: Change box lang for ping preview from python to yaml
