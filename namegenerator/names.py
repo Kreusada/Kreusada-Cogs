@@ -110,7 +110,7 @@ class NameGenerator(commands.Cog):
         """
         Returns a profile
         """
-        nameFull = await fullName()
+        nameFull = fullName()
 
         embed = discord.Embed(
             title="Here is a fake profile",
@@ -119,7 +119,7 @@ class NameGenerator(commands.Cog):
         )
         embed.add_field(
             name="Name:",
-            value=nameFull,
+            value=name,
         )
         embed.set_image(url="https://thispersondoesnotexist.com")
         await ctx.send(embed=embed)
