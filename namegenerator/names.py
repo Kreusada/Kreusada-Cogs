@@ -96,7 +96,28 @@ class NameGenerator(commands.Cog):
     @name.command()
     async def picture(self, ctx: commands.Context):
         """
-        Generates a full name and a picture
+        Returns a picture from https://thispersondoesnotexist.com/
         """
         data = io.BytesIO(await get_online_person())
         await ctx.send(file=discord.File(data, "person.jpeg"))
+
+    @name.command()
+    async def profile(self, ctx: commands.Context):
+        """
+        Returns a profile
+        """
+        fullName = await ctx.send(full())
+
+        embed = discord.Embed(
+            title="Here is a fake profile",
+            description="The genders may not match",
+            color=await ctx.embed_colour(),
+        )
+        embed.add_field(
+            name="Name:",
+            value=fullName,
+        )
+        embed.set_image(
+            url="https://cdn.discordapp.com/avatars/815669652515454976/e590fdee3f5404a212d336179ab35d4f.png?size=1024"
+        )
+        await ctx.send(embed=embed)
