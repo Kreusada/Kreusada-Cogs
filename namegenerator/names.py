@@ -110,5 +110,5 @@ class NameGenerator(commands.Cog):
         """
         Returns a profile
         """
-        self.full()
-        self.picture()
+        self.full(ctx)
+        self.picture(ctx)
