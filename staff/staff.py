@@ -82,7 +82,7 @@ class Staff(commands.Cog):
             await ctx.send(f"{role.mention} will now be considered as the Staff role.")
 
     @commands.command()
-    @commands.cooldown(1, 600, commands.BucketType.member)
+    @commands.cooldown(1, 600, commands.BucketType.guild)
     async def staff(self, ctx: commands.Context, reason: str = None):
         """Notifies the staff."""
         message = ctx.message
