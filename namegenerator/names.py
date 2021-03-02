@@ -122,5 +122,5 @@ class NameGenerator(commands.Cog):
             name="Name:",
             value=nameFull,
         )
-        embed.set_image(file=discord.File(data, "person.jpeg"))
+        embed.set_image(discord.File(data, "person.jpeg"))
         await ctx.send(embed=embed)
