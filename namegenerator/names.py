@@ -75,7 +75,7 @@ class NameGenerator(commands.Cog):
             await ctx.send(first())
 
     @name.command(name="last")
-    async def _last(self, ctx: commands.Context:
+    async def _last(self, ctx: commands.Context):
         """
         Generates a last name.
 
