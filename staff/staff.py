@@ -27,6 +27,8 @@ import discord
 from datetime import datetime
 
 from redbot.core import commands, Config
+from redbot.core.utils.chat_formatting import box, warning, error, bold
+
 
 class Staff(commands.Cog):
     """
@@ -34,7 +36,7 @@ class Staff(commands.Cog):
     """
 
     __author__ = ["Kreusada", ]
-    __version__ = "1.4.0"
+    __version__ = "1.5.0"
 
     def __init__(self, bot):
         self.bot = bot
@@ -81,89 +83,80 @@ class Staff(commands.Cog):
             await self.config.guild(ctx.guild).role.set(role.id)
             await ctx.send(f"{role.mention} will now be considered as the Staff role.")
 
+    @staffset.command()
+    @commands.admin_or_permissions(manage_guild=True)
+    async def settings(self, ctx: commands.Context):
+        """Show the current settings with Staff."""
+        role = await self.config.guild(ctx.guild).role()
+        channel = await self.config.guild(ctx.guild).channel()
+        if not role:
+            role = "None set."
+        else:
+            role = ctx.guild.get_role(role).mention
+        if not channel:
+            channel = "None set."
+        else:
+            channel = self.bot.get_channel(channel).mention
+        
+        await ctx.send(f"{bold('Role:')} {role}\n{bold('Channel:')} {channel}")
+
+
     @commands.command()
     @commands.cooldown(1, 600, commands.BucketType.guild)
     async def staff(self, ctx: commands.Context, reason: str = None):
-        """Notifies the staff."""
-        message = ctx.message
-        channel = discord.utils.get(
-            ctx.guild.channels, id=await self.config.guild(ctx.guild).channel()
-        )
-        role = discord.utils.get(
-            ctx.guild.roles, id=await self.config.guild(ctx.guild).role()
-        )
-        D = datetime.now().strftime("%d/%m/%y")
-        if await ctx.embed_requested():
-            embed = discord.Embed(
-                title="Staff Attention Pending",
-                description="[Click here for context]({})".format(message.jump_url),
-                color=await ctx.embed_colour(),
-            )
-            embed.add_field(name="Member", value=ctx.author.mention, inline=True)
-            embed.add_field(name="Channel", value=ctx.channel.mention, inline=True)
-            embed.add_field(name="Date", value=D, inline=True)
-            if reason:
-                embed.add_field(name="Reason", value=reason, inline=False)
-            embed.set_author(
-                name=f"{ctx.author} | {ctx.author.id}", icon_url=ctx.author.avatar_url
-            )
-            embed.set_footer(
-                text=f"{self.bot.user.name} | Staff", icon_url=self.bot.user.avatar_url
-            )
-            if channel:
-                await ctx.tick()
-                await ctx.send(
-                    "We have sent a report to the staff team. They will be with you as soon as possible."
-                )
-                if role:
-                    try:
-                        return await channel.send(
-                            content=f":warning: {role.mention}",
-                            allowed_mentions=discord.AllowedMentions(roles=True),
-                            embed=embed,
-                            delete_after=43200,
-                        )
-                    except discord.Forbidden:
-                        await ctx.send(
-                            "I don't have permission to post in the staff's channel."
-                        )
-                else:
-                    try:
-                        return await channel.send(
-                            allowed_mentions=discord.AllowedMentions(roles=True),
-                            embed=embed,
-                            delete_after=43200,
-                        )
-                    except discord.Forbidden:
-                        await ctx.send(
-                            "I don't have permission to post in the staff's channel."
-                        )
-            else:
-                await message.add_reaction("❌")
-                return await ctx.send(
-                    "The staff team have not yet configured a channel."
-                )
-        else:
-            text = (
-                f"Staff Attention Pending | Conspicuous Activity :warning:\n"
-                f"**User:** {ctx.author.name} ({ctx.author.id})\n**Date:** {D}\n**Channel:** {ctx.channel.mention}\n"
+        """
+        Alert for the staff.
+        """
+        
+        channel = await self.config.guild(ctx.guild).channel()
+        role = await self.config.guild(ctx.guild).role()
+
+        if not channel:
+            return await ctx.send(
+                error("The staff have not yet setup a staff channel.")
             )
 
-            if reason:
-                text = text + f"\n**Reason:** {reason}"
+        channel = self.bot.get_channel(channel)
+        role = ctx.guild.get_role(role)
+
+        now = datetime.now()
+        date = now.strftime("%d/%m/%y")
+
+        message_list = []
+        backslash = '\n'
+
+        async for message in ctx.channel.history(limit=6):
+            author, msg = message.author, message.content.replace('`','')
+            if len(msg) > 30:
+                msg = msg[:30].strip(' ') + '...'
+            elif not len(msg):
+                msg = "[Embed, Attachment or File]"
+            message_list.append(f"{str(author.display_name)}: {msg.replace(backslash, ' ')}")
+
+        context = box('\n'.join(message for message in message_list), lang='yaml')
+        reason = reason if reason else "No reason was provided."
+
+        embed = discord.Embed(
+            title=warning("Staff Attention Pending | Conspicuous Activity"),
+            description="[Click here for context]({})".format(ctx.message.jump_url),
+            color=await ctx.embed_colour(),
+        )
+
+        embed.add_field(name="Member", value=ctx.author.mention, inline=True)
+        embed.add_field(name="Channel", value=ctx.channel.mention, inline=True)
+        embed.add_field(name="Date", value=date, inline=True)
+        embed.add_field(name="Reason", value=reason, inline=False)
+        embed.add_field(name="Context", value=context, inline=False)
+
+        if await ctx.embed_requested():
             try:
-                if channel:
-                    await ctx.tick()
-                    await channel.send(text)
-                    await ctx.send(
-                        "We have sent a report to the staff team. They will be with you as soon as possible."
-                    )
-                else:
-                    await message.add_reaction("❌")
-                    return await ctx.send(
-                        "The staff team have not yet configured a channel."
-                    )
-            except discord.Forbidden:
-                await ctx.send(
-                    "I don't have permission to post in the staff's channel."
+                await channel.send(
+                    allowed_mentions=discord.AllowedMentions(roles=True),
+                    content=role.mention if role else None,
+                    embed=embed,
                 )
+                await ctx.send("I have alerted the authorities, please remain calm.")
+            except discord.Forbidden:
+                return await ctx.send("I do not have permissions to alert the staff.")
+        else:
+            return await ctx.send("I do not have permissions to send embeds in the staff's channel.")

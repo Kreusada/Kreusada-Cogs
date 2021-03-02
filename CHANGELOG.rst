@@ -54,3 +54,6 @@ Versioning does not apply for meta unlike the changelogs for each specific cog.
 **Cogs**
 
 * ``Staff``: Change ``staff`` command bucket type from user to guild.
+* ``Staff``: Improved embed UI
+* ``Staff``: Added channel history for context
+* ``Staff``: No longer send normal messages if not embed requested
