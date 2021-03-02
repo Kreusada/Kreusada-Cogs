@@ -48,8 +48,8 @@ class NameGenerator(commands.Cog):
     async def name(self, ctx):
         """Commands for NameGenerator."""
 
-    @name.command()
-    async def full(self, ctx: commands.Context, gender: str = None):
+    @name.command(name="full")
+    async def _full(self, ctx: commands.Context, gender: str = None):
         """
         Generates a full name.
 
@@ -61,8 +61,8 @@ class NameGenerator(commands.Cog):
         else:
             await ctx.send(full())
 
-    @name.command()
-    async def first(self, ctx: commands.Context, gender: str = None):
+    @name.command(name="first")
+    async def _first(self, ctx: commands.Context, gender: str = None):
         """
         Generates a first name.
 
@@ -74,15 +74,12 @@ class NameGenerator(commands.Cog):
         else:
             await ctx.send(first())
 
-    @name.command()
-    async def last(self, ctx: commands.Context, gender: str = None):
+    @name.command(name="last")
+    async def _last(self, ctx: commands.Context:
         """
         Generates a last name.
 
         Optional arguments:
         `gender`: Provides the gender of the name.
         """
-        if gender:
-            await ctx.send(last(gender=gender))
-        else:
-            await ctx.send(last())
+        await ctx.send(last())
