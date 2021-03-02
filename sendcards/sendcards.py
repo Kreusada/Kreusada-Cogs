@@ -33,7 +33,9 @@ class SendCards(commands.Cog):
     Send someone a card!
     """
 
-    __author__ = ["Kreusada", ]
+    __author__ = [
+        "Kreusada",
+    ]
     __version__ = "1.4.0"
 
     def __init__(self, bot):
@@ -56,23 +58,91 @@ class SendCards(commands.Cog):
         """Send a card to someone!"""
 
     @send.command()
-    async def christmas(self, ctx: commands.Context, user_id: int, *, message: str, image: discord.Attachment = None):
-        """Send a christmas card to someone."""
+    async def christmas(
+        self,
+        ctx: commands.Context,
+        user_id: int,
+        *,
+        message: str,
+        image: discord.Attachment = None,
+    ):
+        """
+        Send a christmas card to someone.
+        
+        Your message will be sent in this format:
+        
+        Dear [person],
+        
+        {message}
+        
+        From [your_name]
+        """
         await self.card_send(ctx, "christmas", user_id, message)
 
     @send.command()
-    async def birthday(self, ctx: commands.Context, user_id: int, *, message: str, image: discord.Attachment = None):
-        """Send a birthday card to someone."""
+    async def birthday(
+        self,
+        ctx: commands.Context,
+        user_id: int,
+        *,
+        message: str,
+        image: discord.Attachment = None,
+    ):
+        """
+        Send a birthday card to someone.
+        
+        Your message will be sent in this format:
+        
+        Dear [person],
+        
+        {message}
+        
+        From [your_name]
+        """
         await self.card_send(ctx, "birthday", user_id, message)
 
     @send.command(aliases=["gws"])
-    async def getwellsoon(self, ctx: commands.Context, user_id: int, *, message: str, image: discord.Attachment = None):
-        """Send a get well soon card to someone."""
+    async def getwellsoon(
+        self,
+        ctx: commands.Context,
+        user_id: int,
+        *,
+        message: str,
+        image: discord.Attachment = None,
+    ):
+        """
+        Send a get well soon card to someone.
+        
+        Your message will be sent in this format:
+        
+        Dear [person],
+        
+        {message}
+        
+        From [your_name]
+        """
         await self.card_send(ctx, "get well soon", user_id, message)
 
     @send.command()
-    async def valentine(self, ctx: commands.Context, user_id: int, *, message: str, image: discord.Attachment = None):
-        """Send a valentines card to someone."""
+    async def valentine(
+        self,
+        ctx: commands.Context,
+        user_id: int,
+        *,
+        message: str,
+        image: discord.Attachment = None,
+    ):
+        """
+        Send a valentines card to someone.
+        
+        Your message will be sent in this format:
+        
+        Dear [person],
+        
+        {message}
+        
+        From [your_name]
+        """
         await self.card_send(ctx, "valentines", user_id, message)
 
     async def card_send(
@@ -106,7 +176,9 @@ class SendCards(commands.Cog):
             embed.set_image(url="attachment://" + str(image.filename))
         try:
             if await ctx.embed_requested():
-                await name.send(embed=embed, file=image if ctx.message.attachments else None)
+                await name.send(
+                    embed=embed, file=image if ctx.message.attachments else None
+                )
             else:
                 await ctx.send(f"{bold(title)}\n\n{description}")
             return await ctx.send(
