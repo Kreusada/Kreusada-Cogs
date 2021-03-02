@@ -46,3 +46,11 @@ Versioning does not apply for meta unlike the changelogs for each specific cog.
 * ``PingOverride``: Improved UI of mapping kwargs
 * ``PingOverride``: Change box lang for ping preview from python to yaml
 * ``Dehoister``: Hoist scanning with more than 10 users now shows hoist count in the file
+
+----------
+01/03/2021
+----------
+
+**Cogs**
+
+* ``Staff``: Change ``staff`` command bucket type from user to guild.
