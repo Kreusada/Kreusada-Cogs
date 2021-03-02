@@ -22,7 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from names import get_full_name as full, get_first_name as first, get_last_name as last
+from names import (
+    get_full_name as fullName,
+    get_first_name as first,
+    get_last_name as last,
+)
 from thispersondoesnotexist import get_online_person
 import io
 import discord
@@ -63,9 +67,9 @@ class NameGenerator(commands.Cog):
         `gender`: Provides the gender of the name.
         """
         if gender:
-            await ctx.send(full(gender=gender))
+            await ctx.send(fullName(gender=gender))
         else:
-            await ctx.send(full())
+            await ctx.send(fullName())
 
     @name.command()
     async def first(self, ctx: commands.Context, gender: str = None):
@@ -106,7 +110,7 @@ class NameGenerator(commands.Cog):
         """
         Returns a profile
         """
-        fullName = await ctx.send(full())
+        fullName = await fullName()
 
         embed = discord.Embed(
             title="Here is a fake profile",
@@ -117,7 +121,5 @@ class NameGenerator(commands.Cog):
             name="Name:",
             value=fullName,
         )
-        embed.set_image(
-            url="https://cdn.discordapp.com/avatars/815669652515454976/e590fdee3f5404a212d336179ab35d4f.png?size=1024"
-        )
+        embed.set_image(url="https://thispersondoesnotexist.com")
         await ctx.send(embed=embed)
