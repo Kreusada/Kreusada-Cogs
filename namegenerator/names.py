@@ -27,7 +27,6 @@ from thispersondoesnotexist import get_online_person
 import io
 
 
-
 from redbot.core import commands
 
 
@@ -98,5 +97,5 @@ class NameGenerator(commands.Cog):
         """
         Generates a full name and a picture
         """
-        data = io.BytesIO(await get_online_person().read())
-        await ctx.send(file=discord.File(data, 'person.jpeg'))
+        data = io.BytesIO(await get_online_person())
+        await ctx.send(file=discord.File(data, "person.jpeg"))
