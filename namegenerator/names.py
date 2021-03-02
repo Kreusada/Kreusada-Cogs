@@ -37,12 +37,10 @@ from redbot.core import commands
 
 class NameGenerator(commands.Cog):
     """
-    Generates random names.
+    Generates random names and people.
     """
 
-    __author__ = [
-        "Kreusada",
-    ]
+    __author__ = ["Kreusada", "DrTipmack"]
     __version__ = "1.0.0"
 
     def __init__(self, bot):
@@ -108,7 +106,7 @@ class NameGenerator(commands.Cog):
     @name.command()
     async def profile(self, ctx: commands.Context):
         """
-        Returns a profile
+        Returns a picture and a full name (THE GENDERS MAY NOT MATCH)
         """
         await self.full(ctx)
         await self.picture(ctx)
