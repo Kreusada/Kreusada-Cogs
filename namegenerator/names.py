@@ -111,6 +111,7 @@ class NameGenerator(commands.Cog):
         Returns a profile
         """
         nameFull = fullName()
+        data = io.BytesIO(await get_online_person())
 
         embed = discord.Embed(
             title="Here is a fake profile",
@@ -121,5 +122,5 @@ class NameGenerator(commands.Cog):
             name="Name:",
             value=nameFull,
         )
-        embed.set_image(url="https://thispersondoesnotexist.com")
+        embed.set_image(file=discord.File(data, "person.jpeg"))
         await ctx.send(embed=embed)
