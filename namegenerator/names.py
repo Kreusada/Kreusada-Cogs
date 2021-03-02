@@ -120,5 +120,5 @@ class NameGenerator(commands.Cog):
             name="Name:",
             value=nameFull,
         )
-        embed.set_image("https://thispersondoesnotexist.com/image")
+        embed.set_image(url="https://thispersondoesnotexist.com/image")
         await ctx.send(embed=embed)
