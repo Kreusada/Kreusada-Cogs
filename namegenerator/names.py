@@ -110,15 +110,5 @@ class NameGenerator(commands.Cog):
         """
         Returns a profile
         """
-        nameFull = fullName()
-        embed = discord.Embed(
-            title="Here is a fake profile",
-            description="The genders may not match",
-            color=await ctx.embed_colour(),
-        )
-        embed.add_field(
-            name="Name:",
-            value=nameFull,
-        )
-        embed.set_image(url="https://thispersondoesnotexist.com/image")
-        await ctx.send(embed=embed)
+        full()
+        picture()
