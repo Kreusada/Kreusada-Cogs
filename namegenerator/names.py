@@ -23,6 +23,8 @@ SOFTWARE.
 """
 
 from names import get_full_name as full, get_first_name as first, get_last_name as last
+from thispersondoesnotexist import get_online_person
+
 
 from redbot.core import commands
 
@@ -32,7 +34,9 @@ class NameGenerator(commands.Cog):
     Generates random names.
     """
 
-    __author__ = ["Kreusada", ]
+    __author__ = [
+        "Kreusada",
+    ]
     __version__ = "1.0.0"
 
     def __init__(self, bot):
@@ -86,3 +90,10 @@ class NameGenerator(commands.Cog):
             await ctx.send(last(gender=gender))
         else:
             await ctx.send(last())
+
+    @name.command()
+    async def picture(self, ctx: commands.Context):
+        """
+        Generates a full name and a picture
+        """
+        await ctx.send(get_online_person())
