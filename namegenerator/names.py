@@ -25,6 +25,7 @@ SOFTWARE.
 from names import get_full_name as full, get_first_name as first, get_last_name as last
 from thispersondoesnotexist import get_online_person
 import io
+import discord
 
 
 from redbot.core import commands
