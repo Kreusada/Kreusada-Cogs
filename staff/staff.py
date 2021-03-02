@@ -103,7 +103,7 @@ class Staff(commands.Cog):
 
     @commands.command()
     @commands.cooldown(1, 600, commands.BucketType.guild)
-    async def staff(self, ctx: commands.Context, reason: str = None):
+    async def staff(self, ctx: commands.Context, *, reason: str = None):
         """
         Alert for the staff.
         """

@@ -60,3 +60,4 @@ Versioning does not apply for meta unlike the changelogs for each specific cog.
 * ``NameGenerator``: Sirnames don't have genders...
 * ``SendCards``: Allow attachments in card sending
 * ``SendCards``: Improve docstring detail 
+* ``Staff``: Add asterix in optional arguments to allow proper reasons
