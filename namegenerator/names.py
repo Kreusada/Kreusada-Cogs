@@ -119,7 +119,7 @@ class NameGenerator(commands.Cog):
         )
         embed.add_field(
             name="Name:",
-            value=name,
+            value=nameFull,
         )
         embed.set_image(url="https://thispersondoesnotexist.com")
         await ctx.send(embed=embed)
