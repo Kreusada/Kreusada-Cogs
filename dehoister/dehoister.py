@@ -62,6 +62,7 @@ SCAN_AND_CLEAN_EXPLAIN = (
     "have a hoisted username/nickname. "
 )
 
+
 class Dehoister(commands.Cog):
     """
     Dehoist usernames that start with hoisting characters.
@@ -130,6 +131,7 @@ class Dehoister(commands.Cog):
     def get_hoisted_list(ctx):
         B = "\n"  # F-string cannot include backslash
         return "\n\n".join(
+            # Pre-formatting for output
             f"{m}:{f'{B}- {m.nick}' if m.nick else ''}{B}-- {m.id}"
             for m in ctx.guild.members
             if m.display_name.startswith(tuple(HOIST))
@@ -137,21 +139,27 @@ class Dehoister(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member: discord.Member):
+
         guild = member.guild
         ctx = self.bot.get_context(member)
         toggle = await self.config.guild(guild).toggled()
+
         if not toggle:
             return
+
         if member.bot:
             return
+
         if not guild:
             return
+
         if member.name.startswith(tuple(HOIST)):
             if ctx.channel.permissions_for(self.bot).manage_nicknames:
                 await member.edit(nick=await self.config.guild(guild).nickname())
                 await self.create_case(ctx, member, self.bot)
             else:
                 log.error(f"Invalid permissions to edit a members name. [{member.id}]")
+
 
     @commands.group()
     @commands.mod_or_permissions(manage_nicknames=True)
@@ -172,8 +180,10 @@ class Dehoister(commands.Cog):
         """
         if not ctx.channel.permissions_for(ctx.me).manage_nicknames:
             return await ctx.send("I do not have permission to edit nicknames.")
+
         if member.nick == await self.config.guild(ctx.guild).nickname():
             return await ctx.send(f"{member.name} is already dehoisted.")
+
         try:
             await member.edit(nick=await self.config.guild(ctx.guild).nickname())
             await ctx.send(f"`{member.name}` has successfully been dehoisted.")
@@ -206,6 +216,7 @@ class Dehoister(commands.Cog):
                 "There were 10 or more hoisted users, so to be corteous to others, I've uploaded the list as a file.",
                 file=discord.File(io.BytesIO(join.encode()), filename="hoisted.txt"),
             )
+
         else:
             if not count:
                 await ctx.send("No hoisted users were found.")
@@ -230,25 +241,32 @@ class Dehoister(commands.Cog):
         """
         nickname = await self.config.guild(ctx.guild).nickname()
         hoisted_count = self.get_hoisted_count(ctx)
+
         if not hoisted_count:
             return await ctx.send("There are no hoisted members.")
+
         if not ctx.channel.permissions_for(ctx.me).add_reactions:
             return await ctx.send("I cannot add reactions.")
+
         if not ctx.channel.permissions_for(ctx.me).manage_nicknames:
             return await ctx.send("I do not have permission to edit nicknames.")
+
         msg = await ctx.send(
             f"Are you sure you would like to dehoist {hoisted_count} hoisted users? "
             f"This may take a few moments.\nTheir nickname's will be changed to `{nickname}`, "
             f"you can cancel now and change this nickname via `{ctx.clean_prefix}hoist set nickname` "
             "if you wish."
         )
+
         pred = ReactionPredicate.yes_or_no(msg, ctx.author)
         start_adding_reactions(msg, ReactionPredicate.YES_OR_NO_EMOJIS)
+
         try:
             await self.bot.wait_for("reaction_add", check=pred, timeout=30)
         except asyncio.TimeoutError:
             await msg.delete()
             return await ctx.send(f"You took too long to respond.")
+
         exceptions = 0
         if pred.result:
             await ctx.trigger_typing()
