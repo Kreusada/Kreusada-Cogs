@@ -43,7 +43,7 @@ class PingOverride(commands.Cog):
     __author__ = [
         "Kreusada",
     ]
-    __version__ = "1.7.0"
+    __version__ = "1.8.0"
 
     def __init__(self, bot):
         self.bot = bot
@@ -75,7 +75,7 @@ class PingOverride(commands.Cog):
             }
         else:
             mapping = {
-                "latency": f"[latency]",
+                "latency": "[latency]",
                 "display": "[display_name]",
             }
         return match.format(**mapping)
