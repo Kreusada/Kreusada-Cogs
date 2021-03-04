@@ -61,3 +61,14 @@ Versioning does not apply for meta unlike the changelogs for each specific cog.
 * ``SendCards``: Allow attachments in card sending
 * ``SendCards``: Improve docstring detail 
 * ``Staff``: Add asterix in optional arguments to allow proper reasons
+
+----------
+04/03/2021
+----------
+
+**Cogs**
+
+* ``PingOverride``: Massive improvements to UI
+* ``PingOverride``: New random choice feature
+* ``PingOverride``: Enumerate output from preview
+* ``PingOverride``: Better care over settings

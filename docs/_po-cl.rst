@@ -12,3 +12,12 @@ This changelog includes all changes to the cog since 28/02/2021.
 
 * Improved UI of mapping kwargs
 * Change box lang for ping preview from python to yaml
+
+----------
+04/03/2021
+----------
+
+* Massive improvements to UI
+* New random choice feature
+* Enumerate output from preview
+* Better care over settings
