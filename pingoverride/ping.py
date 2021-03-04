@@ -146,27 +146,27 @@ class PingOverride(commands.Cog):
         pre_processed = box(pre_processed, lang="diff")
 
         if await ctx.embed_requested():
-            embed = discord.Embed(
+            output = discord.Embed(
                 title=f"Ping Settings for {ctx.bot.user.name}",
                 color=await ctx.embed_colour(),
             )
 
-            embed.add_field(
+            output.add_field(
                 name="Replies", value=check if reply else cross, inline=True
             )
 
             if reply:
-                embed.add_field(
+                output.add_field(
                     name="Reply mentions",
                     value=check if mention else cross,
                     inline=True,
                 )
 
-            embed.add_field(name="Embeds", value=check if embed else cross, inline=True)
-            embed.add_field(name="Responses", value=pre_processed, inline=False)
-            embed.set_footer(text=f"See {ctx.clean_prefix}pingset regex, for information on response regex.")
+            output.add_field(name="Embeds", value=check if embed else cross, inline=True)
+            output.add_field(name="Responses", value=pre_processed, inline=False)
+            output.set_footer(text=f"See {ctx.clean_prefix}pingset regex, for information on response regex.")
 
-            await ctx.send(embed=embed)
+            await ctx.send(embed=output)
         else:
             await ctx.send("I need to be able to send embeds.")
 
