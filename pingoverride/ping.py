@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+import contextlib
 import discord
 import logging
 import asyncio
@@ -78,22 +79,27 @@ class PingOverride(commands.Cog):
                 "latency": "[latency]",
                 "display": "[display_name]",
             }
-        return match.format(**mapping)
+        with contextlib.suppress(KeyError):
+            # Cannot return on exception here
+            return match.format(**mapping)
 
     async def enum(self, ctx, message_list):
         msg_list = [await self.converter(ctx, x, False) for x in message_list]
-        pre_processed = box(
-            "\n".join(f"+ {c+1}: {self.shorten(v)}" for c, v in enumerate(msg_list)),
-            lang="diff",
-        )
-        message = f"The following responses have been set! {pre_processed}"
+        try:
+            pre_processed = box(
+                "\n".join(f"+ {c+1}: {self.shorten(v)}" for c, v in enumerate(msg_list)),
+                lang="diff",
+            )
+            message = f"The following responses have been set! {pre_processed}"
 
-        response = await self.config.response()
-        for z in message_list:
-            response.append(z)
-        await self.config.response.set(response)
+            response = await self.config.response()
+            for z in message_list:
+                response.append(z)
+            await self.config.response.set(response)
 
-        return await ctx.send(message)
+            return await ctx.send(message)
+        except TypeError:
+            return await ctx.send("Something went wrong when compiling your regex. Your responses have been reset.")
 
     @staticmethod
     def shorten(text):
