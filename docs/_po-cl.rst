@@ -21,3 +21,11 @@ This changelog includes all changes to the cog since 28/02/2021.
 * New random choice feature
 * Enumerate output from preview
 * Better care over settings
+
+----------
+05/03/2021
+----------
+
+* Handle TypeErrors, and KeyErrors
+* Response mapping now uses `replace()` as opposed to `format()` to prevent KeyErrors
+* Better UI for enumeration.
