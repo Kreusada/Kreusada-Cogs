@@ -49,3 +49,17 @@ Useful Links
     _tm-cl
     _tt-cl
     _vc-cl
+
+.. toctree::
+    :caption: Repository
+    :maxdepth: 2
+
+    repository/available_cogs_list
+    repository/contributors
+    repository/creds
+    repository/installation
+    repository/labels
+    repository/license
+    repository/milestones
+    repository/support
+    repository/workflow
