@@ -72,13 +72,13 @@ class PingOverride(commands.Cog):
             return match.replace(
                 '{latency}', str(round(self.bot.latency * 1000))
             ).replace(
-                '{display}', ctx.author.display_name
+                '{author}', ctx.author.display_name
             )
         else:
             return match.replace(
                 '{latency}', "[Latency]"
             ).replace(
-                '{display}', "[Author]"
+                '{author}', "[Author]"
             )
 
     async def enum(self, ctx, message_list):
@@ -175,7 +175,7 @@ class PingOverride(commands.Cog):
     @pingset.command()
     async def regex(self, ctx: commands.Context):
         """Get information on the types of ping regex."""
-        description = "`{latency}`: Bot Latency\n`{display}`: Author's Display Name"
+        description = "`{latency}`: Bot Latency\n`{author}`: Author's Display Name"
         if await ctx.embed_requested():
             await ctx.send(
                 embed=discord.Embed(
@@ -204,11 +204,11 @@ class PingOverride(commands.Cog):
         Set your custom ping message.
 
         Optional Regex:
-        `{display}`: Replaces with the authors display name.
+        `{author}`: Replaces with the authors display name.
         `{latency}`: Replaces with the bots latency.
 
         Example Usage:
-        `[p]pingset message Hello {display}! My latency is {latency} ms.`
+        `[p]pingset message Hello {author}! My latency is {latency} ms.`
 
         Random Responses:
         When you specify `<message>`, you will be asked if you want to add
