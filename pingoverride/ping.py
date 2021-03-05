@@ -70,36 +70,33 @@ class PingOverride(commands.Cog):
 
     async def converter(self, ctx: commands.Context, match, bool):
         if bool:
-            mapping = {
-                "latency": round(self.bot.latency * 1000),
-                "display": ctx.author.display_name,
-            }
+            return match.replace(
+                '{latency}', str(round(self.bot.latency * 1000))
+            ).replace(
+                '{display}', ctx.author.display_name
+            )
         else:
-            mapping = {
-                "latency": "[latency]",
-                "display": "[display_name]",
-            }
-        with contextlib.suppress(KeyError):
-            # Cannot return on exception here
-            return match.format(**mapping)
+            return match.replace(
+                '{latency}', "[Latency]"
+            ).replace(
+                '{display}', "[Author]"
+            )
 
     async def enum(self, ctx, message_list):
         msg_list = [await self.converter(ctx, x, False) for x in message_list]
-        try:
-            pre_processed = box(
-                "\n".join(f"+ {c+1}: {self.shorten(v)}" for c, v in enumerate(msg_list)),
-                lang="diff",
-            )
-            message = f"The following responses have been set! {pre_processed}"
 
-            response = await self.config.response()
-            for z in message_list:
-                response.append(z)
-            await self.config.response.set(response)
+        pre_processed = box(
+            "\n".join(f"+ {c+1}: {self.shorten(v)}" for c, v in enumerate(msg_list)),
+            lang="diff",
+        )
+        message = f"The following responses have been set! {pre_processed}"
 
-            return await ctx.send(message)
-        except TypeError:
-            return await ctx.send("Something went wrong when compiling your regex. Your responses have been reset.")
+        response = await self.config.response()
+        for z in message_list:
+            response.append(z)
+        await self.config.response.set(response)
+
+        return await ctx.send(message)
 
     @staticmethod
     def shorten(text):
