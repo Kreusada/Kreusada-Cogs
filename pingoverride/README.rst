@@ -83,10 +83,10 @@ pingset
 
 Commands to configure PingOverride. Settings include:
 
-* Embed send
-* Replies
-* Reply mentions
+* Embedded content
+* Replies, and mentions
 * Response with special regex
+* Random responses
 
 .. _pinginvoke-command-pingset-embed:
 
@@ -127,12 +127,20 @@ pingset message
 
 Set the message that is sent via the ``ping`` command.
 
-Example Usage: ``[p]pingset message Hello {display}! My latency is {latency} ms.``
+Example Usage: ``[p]pingset message Hello {author}! My latency is {latency} ms.``
 
 **Response Regex**
 
-* ``{display}`` - Replaced with the author's display name.
+* ``{author}`` - Replaced with the author's display name.
 * ``{latency}`` - Replaces with the bot's latency.
+
+**Random Responses**
+
+When you specify <message>, you will be asked if you want to add
+more responses. These responses will be chosen at random when you run the
+ping command.
+
+To exit out of the random selection session, type ``stop()`` or ``exit()``.
 
 **Arguments**
 
