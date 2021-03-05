@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import contextlib
 import discord
 import logging
 import asyncio
@@ -210,6 +209,13 @@ class PingOverride(commands.Cog):
 
         Example Usage:
         `[p]pingset message Hello {display}! My latency is {latency} ms.`
+
+        Random Responses:
+        When you specify `<message>`, you will be asked if you want to add
+        more responses. These responses will be chosen at random when you run the
+        ping command.
+
+        To exit out of the random selection session, type `stop()` or `exit()`.
         """
 
         msg = await ctx.send(
@@ -230,7 +236,8 @@ class PingOverride(commands.Cog):
             )
 
         if pred.result:
-            await ctx.send("Okay, let's add some random responses.")
+            await ctx.send("Okay, let's add some random responses. Type `stop()` or `exit()` once you're done!")
+            await asyncio.sleep(1)
             await self.config.response.clear()
 
             message_list = [message]
