@@ -63,3 +63,9 @@ Useful Links
     repository/milestones
     repository/support
     repository/workflow
+
+.. toctree::
+    :caption: Misc
+    :maxdepth: 2
+
+    tests/framework
