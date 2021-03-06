@@ -1,0 +1,10 @@
+{
+    "author": ["Kreusada"],
+    "description": "Get the version information for ",
+    "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/timestables.html",
+    "short": "Get third-party cog or module versions.",
+    "name": "Vinfo",
+    "tags": ["Module", "Cog", "Version", "Info"],
+    "type": "COG",
+    "end_user_data_statement": "This cog does not persistently store data or metadata about users."
+  }
