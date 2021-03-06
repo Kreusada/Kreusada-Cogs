@@ -28,7 +28,7 @@ import redbot
 import discord
 import lavalink
 import logging
-import distutils
+import distutils.sysconfig
 
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import box, bold
