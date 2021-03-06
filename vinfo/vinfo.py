@@ -123,7 +123,7 @@ class Vinfo(commands.Cog):
         """
 
         if cog not in self.bot.cogs:
-            return await ctx.send(f"Could not find a cog matching `{cog}`.")
+            return await ctx.send(box(f"- Could not find a cog matching `{cog}`.", lang='diff'))
 
         Cog = self.bot.get_cog(cog)
 
@@ -131,11 +131,11 @@ class Vinfo(commands.Cog):
         # we'll skip finding that attr because it will return False 99% of the time.
 
         if hasattr(Cog, "__version__"):
-            return await ctx.send(f"{cog} version: `{getattr(Cog, '__version__')}`.")
+            return await ctx.send(box(f"{cog} version: {getattr(Cog, '__version__')}", lang='yaml'))
         elif cog in REDBOT_CORE_COGS:
             return await ctx.send(RETURN_TYPE_3.format(redbot.version_info))
         else:
-            await ctx.send(f"Could not find a version for {cog}.")
+            await ctx.send(box(f"- Could not find a version for {cog}.", lang='diff'))
 
     @vinfo.command(aliases=["module"], usage="<module>")
     @commands.bot_has_permissions(embed_links=True)
