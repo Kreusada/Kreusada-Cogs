@@ -141,6 +141,7 @@ class Vinfo(commands.Cog):
     @commands.bot_has_permissions(embed_links=True)
     async def mod(self, ctx, module: str = None):
         """Get module versions."""
+        
         if not module:
             embed = self.modvinfo_format(base)
             embed.color = await ctx.embed_colour()
@@ -161,28 +162,43 @@ class Vinfo(commands.Cog):
         except ModuleNotFoundError as mnfe:
             return await ctx.send(RETURN_TYPE_2.format(module))
 
+
         if hasattr(MOD, version_info):
             vinfo = [getattr(MOD, version_info), "." + version_info]
+
         elif hasattr(MOD, versionattr):
             vinfo = [getattr(MOD, versionattr), "." + version_info]
+
         elif MOD.__file__.lower().startswith(pypath.lower()):
             vinfo = [(sys.version_info[:3]), " [Python Builtin]"]
+
         else:
             log.info(f"[From {ctx.channel.id}] {module} path: {MOD.__file__}")
             return await ctx.send(
                 RETURN_TYPE_1.format(MOD.__name__, *sys.version_info[:3])
             )
 
+        
         if isinstance(vinfo[0], tuple):
             value = "{}.{}.{}".format(*vinfo[0])
+            attr = f"`{MOD.__name__}{vinfo[1]}`"
+
         elif isinstance(vinfo[0], list):
             value = "{}.{}.{}".format(*vinfo[0][:3])
+            attr = f"`{MOD.__name__}{vinfo[1]}`"
+
+        elif vinfo[1].endswith("[Python Builtin]"):
+            value = vinfo[0]
+            attr = "None"
+
         else:
             value = vinfo[0]
+            attr = f"`{MOD.__name__}{vinfo[1]}`"
+
 
         await ctx.send(
             box(
-                f"Attribute: `{MOD.__name__}{vinfo[1]}`\nFound version info for [{module}]: {value}",
+                f"Attribute: `{attr}`\nFound version info for [{module}]: {value}",
                 lang="yaml",
             )
         )
