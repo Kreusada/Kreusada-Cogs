@@ -170,7 +170,7 @@ class Vinfo(commands.Cog):
             vinfo = [getattr(MOD, versionattr), "." + version_info]
 
         elif MOD.__file__.lower().startswith(pypath.lower()):
-            vinfo = [sys.version_info, "[Core/Builtin Python]"]
+            vinfo = [(sys.version_info[:3]), "[Core/Builtin Python]"]
 
         else:
             log.info(f"[From {ctx.channel.id}] {module} path: {MOD.__file__}")
