@@ -42,7 +42,7 @@ REDBOT_CORE_COGS = [
 
 class Vinfo(commands.Cog):
     """
-    Get version information of your redbot, or 3rd party cogs.
+    Get versions of 3rd party cogs, and modules.
     """
 
     __author__ = ["Kreusada", ]
@@ -112,7 +112,7 @@ class Vinfo(commands.Cog):
     @vinfo.command(aliases=["module"])
     @commands.bot_has_permissions(embed_links=True)
     async def mod(self, ctx, module: str = None):
-        """Get modules versions."""
+        """Get module versions."""
         if not module:
             embed = self.modvinfo_format(base)
             embed.color = await ctx.embed_colour()
