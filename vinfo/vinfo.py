@@ -180,7 +180,7 @@ class Vinfo(commands.Cog):
 
         
         if isinstance(vinfo[0], tuple) and vinfo[1].endswith("[Python Builtin]"):
-            value = vinfo[0]
+            value = "{}.{}.{}".format(*vinfo[0])
             attr = "None"
         
         elif isinstance(vinfo[0], tuple):
