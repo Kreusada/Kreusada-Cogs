@@ -30,6 +30,7 @@ Useful Links
     staff
     textmanipulator
     timestables
+    vinfo
     votechannel
 
 .. toctree::
@@ -48,6 +49,7 @@ Useful Links
     _sc-cl
     _tm-cl
     _tt-cl
+    _v-cl
     _vc-cl
 
 .. toctree::

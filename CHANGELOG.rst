@@ -72,3 +72,11 @@ Versioning does not apply for meta unlike the changelogs for each specific cog.
 * ``PingOverride``: New random choice feature
 * ``PingOverride``: Enumerate output from preview
 * ``PingOverride``: Better care over settings
+
+----------
+06/03/2021
+----------
+
+**Meta**
+
+* ``Vinfo``: New cog
