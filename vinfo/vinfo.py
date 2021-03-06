@@ -39,10 +39,16 @@ base = "{}: {}\n{}: {}.{}.{}\n{}: {}\n\n{}: {}\n{}: {}"
 
 RETURN_TYPE_1 = box(
     "Could not find a version for `{}`. If this is a builtin module, it will follow your python version ({}.{}.{}).",
-    lang="py",
+    lang="py"
 )
-RETURN_TYPE_2 = box("- You do not have an installed module named `{}`.", lang="diff")
-RETURN_TYPE_3 = "Builtin Red cogs do not have version attributes by default. Perhaps you're looking for your Red version, which would be {}."
+RETURN_TYPE_2 = box(
+    "- You do not have an installed module named `{}`.", 
+    lang="diff"
+)
+RETURN_TYPE_3 = box(
+    "Builtin Red cogs do not have version attributes by default. Perhaps you're looking for your Red version, which would be {}.",
+    lang="yaml"
+)
 
 REDBOT_CORE_COGS = [
     "Admin",
