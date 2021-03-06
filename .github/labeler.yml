@@ -24,9 +24,11 @@
   - textmanipulator/*
 "Cog: TimesTables":
   - timestables/*
+"Cog: Vinfo":
+  - vinfo/*
 "Cog: VoteChannel":
   - votechannel/*
-"Category: Repository":
+"Category: Meta":
   - ./*
   - .github/*
   - .github/**
