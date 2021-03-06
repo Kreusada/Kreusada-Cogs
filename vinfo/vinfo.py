@@ -170,7 +170,7 @@ class Vinfo(commands.Cog):
             vinfo = [getattr(MOD, versionattr), "." + version_info]
 
         elif MOD.__file__.lower().startswith(pypath.lower()):
-            vinfo = [(sys.version_info[:3]), " [Python Builtin]"]
+            vinfo = [(sys.version_info[:3]), "[Core/Builtin Python]"]
 
         else:
             log.info(f"[From {ctx.channel.id}] {module} path: {MOD.__file__}")
@@ -179,9 +179,9 @@ class Vinfo(commands.Cog):
             )
 
         
-        if isinstance(vinfo[0], tuple) and vinfo[1].endswith("[Python Builtin]"):
+        if isinstance(vinfo[0], tuple) and vinfo[1].endswith("[Core/Builtin Python]"):
             value = "{}.{}.{}".format(*vinfo[0])
-            attr = "None"
+            attr = f"None{vinfo[1]}"
         
         elif isinstance(vinfo[0], tuple):
             value = "{}.{}.{}".format(*vinfo[0])
