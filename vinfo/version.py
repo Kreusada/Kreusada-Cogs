@@ -3,6 +3,7 @@ import sys
 import redbot
 import discord
 import lavalink
+import logging
 import distutils
 
 from redbot.core import commands
@@ -105,6 +106,7 @@ class Vinfo(commands.Cog):
         elif cog in REDBOT_CORE_COGS:
             return await ctx.send(RETURN_TYPE_3.format(redbot.version_info))
         else:
+            log.info(f"[From {ctx.channel.id}] {module} path: {MOD.__file__}")
             await ctx.send(f"Could not find a version for {cog}.")
 
     @vinfo.command(aliases=["module"])
