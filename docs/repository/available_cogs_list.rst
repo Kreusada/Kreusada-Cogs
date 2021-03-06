@@ -29,5 +29,7 @@ Available cogs list
 +-----------------+--------------------------------------------------------------+---------+----------+
 | timestables     | Learn your times tables with an 'against the clock' game.    | Fun     | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
+| vinfo           | Obtain version info for third-party cogs and dependencies.   | Fun     | Kreusada |
++-----------------+--------------------------------------------------------------+---------+----------+
 | votechannel     | Designate a channel to add voting reactions (customizable).  | Tools   | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
