@@ -38,7 +38,7 @@ log = logging.getLogger("red.kreusada.vinfo")
 base = "{}: {}\n{}: {}.{}.{}\n{}: {}\n\n{}: {}\n{}: {}"
 
 RETURN_TYPE_1 = box(
-    "Could not find a version for `{}`. If this is a builtin module, if will follow your python version ({}.{}.{}).",
+    "Could not find a version for `{}`. If this is a builtin module, it will follow your python version ({}.{}.{}).",
     lang="py",
 )
 RETURN_TYPE_2 = box("- You do not have an installed module named `{}`.", lang="diff")
@@ -168,6 +168,9 @@ class Vinfo(commands.Cog):
 
         elif hasattr(MOD, versionattr):
             vinfo = [getattr(MOD, versionattr), "." + version_info]
+
+        elif hasattr(MOD, 'version'):
+            vinfo = [getattr(MOD, 'version'), "." + 'version']
 
         elif MOD.__file__.lower().startswith(pypath.lower()):
             vinfo = [(sys.version_info[:3]), "[Core/Builtin Python]"]
