@@ -97,6 +97,15 @@ class PingOverride(commands.Cog):
 
         return await ctx.send(message)
 
+    async def pinginvoke(self):
+        if "PingInvoke" in self.bot.cogs:
+            cog = self.bot.get_cog("PingInvoke")
+            config = await cog.config.botname()
+            if config:
+                return config
+            return None
+        return None
+
     @staticmethod
     def shorten(text):
         if len(text) > 30:
@@ -165,6 +174,13 @@ class PingOverride(commands.Cog):
                 )
 
             output.add_field(name="Embeds", value=check if embed else cross, inline=True)
+
+            pinginvoke = await self.pinginvoke()
+            
+            if pinginvoke:
+                output.add_field(name="Invoke Settings", value=pinginvoke + '?')
+                output.description = f"Use `{ctx.clean_prefix}pingi` for more information on invoking ping."
+
             output.add_field(name="Responses", value=pre_processed, inline=False)
             output.set_footer(text=f"See {ctx.clean_prefix}pingset regex, for information on response regex.")
 
