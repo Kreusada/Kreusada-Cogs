@@ -106,7 +106,6 @@ class Vinfo(commands.Cog):
         elif cog in REDBOT_CORE_COGS:
             return await ctx.send(RETURN_TYPE_3.format(redbot.version_info))
         else:
-            log.info(f"[From {ctx.channel.id}] {module} path: {MOD.__file__}")
             await ctx.send(f"Could not find a version for {cog}.")
 
     @vinfo.command(aliases=["module"])
@@ -138,6 +137,7 @@ class Vinfo(commands.Cog):
         elif MOD.__file__.lower().startswith(pypath.lower()):
                 vinfo = [(sys.version_info[:3]), " [Python Builtin]"]
         else:
+            log.info(f"[From {ctx.channel.id}] {module} path: {MOD.__file__}")
             return await ctx.send(RETURN_TYPE_1.format(MOD.__name__, *sys.version_info[:3]))
 
         if isinstance(vinfo[0], tuple):
