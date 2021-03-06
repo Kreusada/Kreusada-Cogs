@@ -187,7 +187,7 @@ class Vinfo(commands.Cog):
             value = "{}.{}.{}".format(*vinfo[0][:3])
             attr = f"`{MOD.__name__}{vinfo[1]}`"
 
-        elif vinfo[1].endswith("[Python Builtin]"):
+        elif isinstance(vinfo[0], str) and vinfo[1].endswith("[Python Builtin]"):
             value = vinfo[0]
             attr = "None"
 
@@ -198,7 +198,7 @@ class Vinfo(commands.Cog):
 
         await ctx.send(
             box(
-                f"Attribute: `{attr}`\nFound version info for [{module}]: {value}",
+                f"Attribute: {attr}\nFound version info for [{module}]: {value}",
                 lang="yaml",
             )
         )
