@@ -4,9 +4,8 @@ import redbot
 import discord
 import logging
 import lavalink
+import distutils
 import pathlib
-
-from distutils import sysconfig
 
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import box, bold
@@ -125,7 +124,7 @@ class Vinfo(commands.Cog):
         version_info = 'version_info'
         versionattr = '__version__'
         
-        pypath = str(sysconfig.get_python_lib(standard_lib=True))
+        pypath = str(distutils.sysconfig.get_python_lib(standard_lib=True))
 
         try:
             MOD = __import__(module)
