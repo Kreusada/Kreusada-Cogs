@@ -179,17 +179,17 @@ class Vinfo(commands.Cog):
             )
 
         
-        if isinstance(vinfo[0], tuple):
+        if isinstance(vinfo[0], tuple) and vinfo[1].endswith("[Python Builtin]"):
+            value = vinfo[0]
+            attr = "None"
+        
+        elif isinstance(vinfo[0], tuple):
             value = "{}.{}.{}".format(*vinfo[0])
             attr = f"`{MOD.__name__}{vinfo[1]}`"
 
         elif isinstance(vinfo[0], list):
             value = "{}.{}.{}".format(*vinfo[0][:3])
             attr = f"`{MOD.__name__}{vinfo[1]}`"
-
-        elif isinstance(vinfo[0], str) and vinfo[1].endswith("[Python Builtin]"):
-            value = vinfo[0]
-            attr = "None"
 
         else:
             value = vinfo[0]
