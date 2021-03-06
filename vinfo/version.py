@@ -2,10 +2,8 @@ import pip
 import sys
 import redbot
 import discord
-import logging
 import lavalink
 import distutils
-import pathlib
 
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import box, bold
@@ -138,7 +136,6 @@ class Vinfo(commands.Cog):
         elif MOD.__file__.lower().startswith(pypath.lower()):
                 vinfo = [(sys.version_info[:3]), " [Python Builtin]"]
         else:
-            log.info(f'{str(pathlib.Path(MOD.__file__).parent.parent)}, {pypath}')
             return await ctx.send(RETURN_TYPE_1.format(MOD.__name__, *sys.version_info[:3]))
 
         if isinstance(vinfo[0], tuple):
