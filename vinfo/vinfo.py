@@ -160,6 +160,8 @@ class Vinfo(commands.Cog):
         # If `version_info` is defined, we should refer to this first.
         version_info = "version_info"
         versionattr = "__version__"
+        shortversionattr = '_version_'
+        version = 'version'
 
         pypath = str(distutils.sysconfig.get_python_lib(standard_lib=True))
 
@@ -175,8 +177,11 @@ class Vinfo(commands.Cog):
         elif hasattr(MOD, versionattr):
             vinfo = [getattr(MOD, versionattr), "." + versionattr]
 
-        elif hasattr(MOD, 'version'):
-            vinfo = [getattr(MOD, 'version'), "." + 'version']
+        elif hasattr(MOD, shortversionattr):
+            vinfo = [getattr(MOD, shortversionattr), "." + shortversionattr]
+
+        elif hasattr(MOD, version):
+            vinfo = [getattr(MOD, version), "." + version]
 
         elif MOD.__file__.lower().startswith(pypath.lower()):
             vinfo = [(sys.version_info[:3]), "[Core/Builtin Python]"]
