@@ -38,8 +38,8 @@ log = logging.getLogger("red.kreusada.vinfo")
 base = "{}: {}\n{}: {}.{}.{}\n{}: {}\n\n{}: {}\n{}: {}"
 
 RETURN_TYPE_1 = box(
-    "Could not find a version for `{}`. If this is a builtin module, it will follow your python version ({}.{}.{}).",
-    lang="py"
+    "- Could not find a version for `{}`.",
+    lang="diff"
 )
 RETURN_TYPE_2 = box(
     "- You do not have an installed module named `{}`.", 
@@ -189,7 +189,7 @@ class Vinfo(commands.Cog):
         else:
             log.info(f"[From {ctx.channel.id}] {module} path: {MOD.__file__}")
             return await ctx.send(
-                RETURN_TYPE_1.format(MOD.__name__, *sys.version_info[:3])
+                RETURN_TYPE_1.format(MOD.__name__)
             )
 
         
