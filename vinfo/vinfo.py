@@ -173,7 +173,7 @@ class Vinfo(commands.Cog):
             vinfo = [getattr(MOD, version_info), "." + version_info]
 
         elif hasattr(MOD, versionattr):
-            vinfo = [getattr(MOD, versionattr), "." + version_info]
+            vinfo = [getattr(MOD, versionattr), "." + versionattr]
 
         elif hasattr(MOD, 'version'):
             vinfo = [getattr(MOD, 'version'), "." + 'version']
