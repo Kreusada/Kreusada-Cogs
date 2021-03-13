@@ -1,6 +1,7 @@
 name: Lint Python
 on:
   pull_request:
+  push:
   repository_dispatch:
     types:
       - dispatched_test
