@@ -26,8 +26,8 @@ import pip
 import sys
 import redbot
 import discord
-import lavalink
 import logging
+import lavalink
 import distutils.sysconfig
 
 from redbot.core import commands
@@ -127,7 +127,8 @@ class Vinfo(commands.Cog):
 
         The cog must be loaded, and provided in the correct casing.
         """
-
+        await ctx.trigger_typing()
+        
         if cog not in self.bot.cogs:
             return await ctx.send(box(f"- Could not find a cog matching `{cog}`.", lang='diff'))
 
@@ -164,6 +165,7 @@ class Vinfo(commands.Cog):
         version = 'version'
 
         pypath = str(distutils.sysconfig.get_python_lib(standard_lib=True))
+        await ctx.trigger_typing()
 
         try:
             MOD = __import__(module)
