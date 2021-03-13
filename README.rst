@@ -1,3 +1,5 @@
+.. image:: /.github/resources/kreusadacogs-artwork.png
+
 ===================================================
 Redbot cogs for Red-DiscordBot authored by Kreusada
 ===================================================
