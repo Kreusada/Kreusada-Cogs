@@ -1,11 +1,12 @@
 .. _main:
 
-.. image:: /images/_repo-artwork.png
-    :alt: Kreusada-Cogs
-
 ======================
 Kreusada Documentation
 ======================
+
+.. image:: /images/_repo-artwork.png
+    :target: https://github.com/Kreusada/Kreusada-Cogs
+    :alt: Kreusada-Cogs
 
 This documentation is here for the support of my redbot cogs. Everything should be here that you need, if you
 need further support you can meet me in my `support server <https://github.com/kreusada/Kreusada-Cogs>`_.
