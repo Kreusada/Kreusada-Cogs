@@ -1,8 +1,8 @@
 .. _main:
 
-======================
-Kreusada Documentation
-======================
+=============
+Kreusada-Cogs
+=============
 
 .. image:: /images/_repo-artwork.png
     :target: https://github.com/Kreusada/Kreusada-Cogs
