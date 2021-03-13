@@ -144,7 +144,7 @@ class Vinfo(commands.Cog):
         else:
             await ctx.send(box(f"- Could not find a version for {cog}.", lang='diff'))
 
-    @vinfo.command(aliases=["module"], usage="<module>")
+    @vinfo.command(aliases=["module", "dep", "dependency"], usage="<module or dependency>")
     @commands.bot_has_permissions(embed_links=True)
     async def mod(self, ctx, module: str = None):
         """Get module versions."""
