@@ -80,6 +80,11 @@ return a version if it hasn't been defined in the cog's code.
 
 .. warning:: The ``<cog>`` **must** be loaded, and provided in the correct case.
 
+**Example Usage**
+
+.. image:: /images/vinfo-command-vinfo-cog.png
+    :alt: vinfo cog
+
 .. _vinfo-command-vinfo-mod:
 
 """""""""
@@ -104,6 +109,11 @@ Get a module's version information.
 
     The ``<module>`` **must** be installed, and provided in the correct case.
     There are a few modules such as `Levenshtein`, which start with capitals.
+
+**Example Usage**
+
+.. image:: /images/vinfo-command-vinfo-mod.png
+    :alt: vinfo mod
 
 ----------------------
 Additional Information
