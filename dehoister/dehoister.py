@@ -123,7 +123,7 @@ class Dehoister(commands.Cog):
     def get_hoisted_count(ctx):
         count = 0
         for m in ctx.guild.members:
-            if m.display_name.startswith(tuple(HOIST)):
+            if m.display_name.startswith(tuple(HOIST)) and not m.bot:
                 count += 1
         return count
 
@@ -135,6 +135,7 @@ class Dehoister(commands.Cog):
             f"{m}:{f'{B}- {m.nick}' if m.nick else ''}{B}-- {m.id}"
             for m in ctx.guild.members
             if m.display_name.startswith(tuple(HOIST))
+            and not m.bot
         )
 
     @commands.Cog.listener()
@@ -153,7 +154,7 @@ class Dehoister(commands.Cog):
         if not guild:
             return
 
-        if member.name.startswith(tuple(HOIST)):
+        if member.name.startswith(tuple(HOIST)) and not member.bot:
             if ctx.channel.permissions_for(self.bot).manage_nicknames:
                 await member.edit(nick=await self.config.guild(guild).nickname())
                 await self.create_case(ctx, member, self.bot)
@@ -189,7 +190,7 @@ class Dehoister(commands.Cog):
             await ctx.send(f"`{member.name}` has successfully been dehoisted.")
             await self.create_case(ctx, member, ctx.author)
         except discord.Forbidden:
-            await ctx.send(f"I could not dehoist {member.name} because they are the server owner.")
+            await ctx.send(f"I could not dehoist {member.name}.")
 
     @hoist.command()
     async def scan(self, ctx: commands.Context):
@@ -271,7 +272,7 @@ class Dehoister(commands.Cog):
         if pred.result:
             await ctx.trigger_typing()
             for m in ctx.guild.members:
-                if m.display_name.startswith(tuple(HOIST)):
+                if m.display_name.startswith(tuple(HOIST)) and not m.bot:
                     try:
                         await m.edit(
                             nick=await self.config.guild(ctx.guild).nickname()
