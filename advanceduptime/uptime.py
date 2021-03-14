@@ -27,7 +27,7 @@ import logging
 
 from redbot.core import commands
 from datetime import datetime
-from redbot.core.utils.chat_formatting import humanize_timedelta, box
+from redbot.core.utils.chat_formatting import humanize_timedelta, humanize_number, box
 
 log = logging.getLogger("red.kreusada.advanceduptime")
 
@@ -70,15 +70,15 @@ class AdvancedUptime(commands.Cog):
             "Less than one second"
         )  # Thankyou Red-DiscordBot
         botname = ctx.bot.user.name
-        users = len(self.bot.users)
-        servers = str(len(self.bot.guilds))
-        commands_available = len(set(self.bot.walk_commands()))
+        users = humanize_number(len(self.bot.users))
+        servers = humanize_number(len(self.bot.guilds))
+        commands_available = humanize_number(len(set(self.bot.walk_commands())))
         app_info = await self.bot.application_info()
         owner = app_info.team.name if app_info.team else app_info.owner
         if await ctx.embed_requested():
             e = discord.Embed(
                 title=f":green_circle:  {botname}'s Uptime",
-                color=0x59E1AC,
+                color=await ctx.embed_colour(),
                 timestamp=ctx.message.created_at,
             )
             e.add_field(
