@@ -82,7 +82,7 @@ return a version if it hasn't been defined in the cog's code.
 
 **Example Usage**
 
-.. image:: /images/vinfo-command-vinfo-cog.png
+.. image:: /image_vinfo-cog.png
     :alt: vinfo cog
 
 .. _vinfo-command-vinfo-mod:
@@ -112,7 +112,7 @@ Get a module's version information.
 
 **Example Usage**
 
-.. image:: /images/vinfo-command-vinfo-mod.png
+.. image:: /image_vinfo-mod.png
     :alt: vinfo mod
 
 ----------------------
