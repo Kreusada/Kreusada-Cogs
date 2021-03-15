@@ -4,7 +4,7 @@
 Kreusada-Cogs
 =============
 
-.. image:: /images/_repo-artwork.png
+.. image:: /image_repo_artwork.png
     :target: https://github.com/Kreusada/Kreusada-Cogs
     :alt: Kreusada-Cogs
 
@@ -22,50 +22,51 @@ Useful Links
     :caption: Cog Support
     :maxdepth: 1
 
-    advanceduptime
-    bubblewrap
-    codify
-    dehoister
-    namegenerator
-    pinginvoke
-    pingoverride
-    ram
-    sendcards
-    staff
-    textmanipulator
-    timestables
-    vinfo
-    votechannel
+    cog_advanceduptime
+    cog_bubblewrap
+    cog_codify
+    cog_dehoister
+    cog_namegenerator
+    cog_pinginvoke
+    cog_pingoverride
+    cog_ram
+    cog_sendcards
+    cog_staff
+    cog_textmanipulator
+    cog_timestables
+    cog_vinfo
+    cog_votechannel
 
 .. toctree::
     :caption: Cog Changelogs
     :maxdepth: 2
 
-    _au-cl
-    _bw-cl
-    _c-cl
-    _dh-cl
-    _ng-cl
-    _pi-cl
-    _po-cl
-    _r-cl
-    _s-cl
-    _sc-cl
-    _tm-cl
-    _tt-cl
-    _v-cl
-    _vc-cl
+    changelog_advanceduptime
+    changelog_bubblewrap
+    changelog_codify
+    changelog_dehoister
+    changelog_namegenerator
+    changelog_pinginvoke
+    changelog_pingoverride
+    changelog_ram
+    changelog_sendcards
+    changelog_staff
+    changelog_textmanipulator
+    changelog_timestables
+    changelog_vinfo
+    changelog_votechannel
 
 .. toctree::
     :caption: Repository
     :maxdepth: 2
 
-    repository/available_cogs_list
-    repository/contributors
-    repository/creds
-    repository/installation
-    repository/labels
-    repository/license
-    repository/milestones
-    repository/support
-    repository/workflow
+    repo_available_cogs_list
+    repo_changelog
+    repo_contributors
+    repo_creds
+    repo_installation
+    repo_labels
+    repo_license
+    repo_milestones
+    repo_support
+    repo_workflow
