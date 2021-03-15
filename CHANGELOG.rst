@@ -79,4 +79,44 @@ Versioning does not apply for meta unlike the changelogs for each specific cog.
 
 **Meta**
 
-* ``Vinfo``: New cog
+* ``Vinfo``: Added cog, with vast and major improvements
+* ``Vinfo``: Fixed ``distutils.sysconfig`` attr error from import
+
+----------
+07/03/2021
+----------
+
+**Cogs**
+
+* ``Vinfo``: Coverage for builtin modules and dependencies
+* ``Vinfo``: Fixes for returning incorrect attribute
+* ``Vinfo``: Check short attributes ``_version_``, ``version``
+
+----------
+13/03/2021
+----------
+
+**Cogs**
+
+* ``Dehoister``: Provide dehoister immunity for bots
+* ``Vinfo``: Add dependencies in aliases and usage
+* ``Vinfo``: Use trigger typing when getting attributes
+
+**Docs**
+
+* ``Vinfo``: Added example images to user guide
+* ``Index``: Add repository artwork
+
+**Meta**
+
+* Added repository artwork
+* Enable PyLinter on push
+* Enable Black on push
+
+----------
+14/03/2021
+----------
+
+**Cogs**
+
+* ``AdvancedUptime``: Numerical data is now humanized

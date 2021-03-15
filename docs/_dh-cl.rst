@@ -17,3 +17,9 @@ This changelog includes all changes to the cog since 28/02/2021.
 ----------
 
 * Hoist scanning with more than 10 users now shows hoist count in the file
+
+----------
+13/03/2021
+----------
+
+* Provide dehoister immunity for bots
