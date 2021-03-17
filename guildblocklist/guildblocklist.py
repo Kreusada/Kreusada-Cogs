@@ -3,7 +3,7 @@ import discord
 
 from redbot.core import commands, Config
 from redbot.core.utils.chat_formatting import bold
-
+from redbot.core.utils.predicates import MessagePredicate
 
 class GuildBlocklist(commands.Cog):
     """
@@ -27,7 +27,27 @@ class GuildBlocklist(commands.Cog):
         b = await self.config.blacklist()
         b.append(guild)
         await self.config.blacklist.set(b)
-        await ctx.send("Guild added to blocklist.")
+        msg = "Guild added to blocklist."
+        if not guild in [g.id for g in self.bot.guilds]:
+            await ctx.send(msg)
+        else:
+            msg += (
+                f" {ctx.me.name} is currently in this guild. Would you like it to leave? (yes/no)"
+            )
+            await ctx.send(msg)
+            get_guild = self.bot.get_guild(guild)
+            try:
+                pred = MessagePredicate.yes_or_no(ctx, user=ctx.author)
+                msg = await ctx.bot.wait_for("message", check=pred, timeout=60)
+            except asyncio.TimeoutError:
+                await ctx.send("You took too long to respond, I assumed yes.")
+                return await get_guild.leave()
+
+            if pred.result:
+                await ctx.send("Done.")
+                return await.get_guild.leave()
+            else:
+                await ctx.send(f"Okay, {ctx.me.name} will remain in the guild.")
 
     @gbl.command(usage="<guild_id>")
     async def remove(self, ctx, guild: int):
