@@ -25,6 +25,8 @@ class GuildBlocklist(commands.Cog):
     async def add(self, ctx, guild: int):
         """Add a guild to the guild blocklist."""
         b = await self.config.blacklist()
+        if guild in b:
+            return await ctx.send("This guild is already blocklisted.")
         b.append(guild)
         await self.config.blacklist.set(b)
         msg = "Guild added to blocklist."
@@ -45,7 +47,7 @@ class GuildBlocklist(commands.Cog):
 
             if pred.result:
                 await ctx.send("Done.")
-                return await.get_guild.leave()
+                return await get_guild.leave()
             else:
                 await ctx.send(f"Okay, {ctx.me.name} will remain in the guild.")
 
