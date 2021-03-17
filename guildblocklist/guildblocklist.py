@@ -2,7 +2,7 @@ import io
 import discord
 
 from redbot.core import commands, Config
-from redbot.core.utils.chat_formatting import box
+from redbot.core.utils.chat_formatting import bold
 
 
 class GuildBlocklist(commands.Cog):
@@ -15,26 +15,26 @@ class GuildBlocklist(commands.Cog):
         self.config = Config.get_conf(self, 34237423098423094, force_registration=True)
         self.config.register_global(blacklist=[])
 
-    @commands.group(name="guildblocklist", aliases=["guildblacklist"])
+    @commands.group(name="guildblocklist", aliases=["gbl", "guildblacklist"])
     async def gbl(self, ctx):
         """
         Guild blocklist management.
         """
 
     @gbl.command(usage="<guild_id>")
-    async def add(self, ctx, g: discord.Guild):
+    async def add(self, ctx, guild: int):
         """Add a guild to the guild blocklist."""
         b = await self.config.blacklist()
-        b.append(g.id)
+        b.append(guild)
         await self.config.blacklist.set(b)
         await ctx.send("Guild added to blocklist.")
 
     @gbl.command(usage="<guild_id>")
-    async def remove(self, ctx, g: discord.Guild):
+    async def remove(self, ctx, guild: int):
         """Remove a guild from the guild blocklist."""
         b = await self.config.blacklist()
-        if g.id in b:
-            b.remove(g.id)
+        if guild in b:
+            b.remove(guild)
             await self.config.blacklist.set(b)
         else:
             return await ctx.send("This guild is not on the blocklist.")
@@ -42,7 +42,7 @@ class GuildBlocklist(commands.Cog):
 
     @gbl.command(name="list")
     async def _list(self, ctx):
-        """Lists guilds on the blocklist.."""
+        """Lists guilds on the blocklist."""
         b = await self.config.blacklist()
         title = bold("Blocklisted guilds:")
         if not b:
@@ -56,7 +56,7 @@ class GuildBlocklist(commands.Cog):
 
     @gbl.command()
     async def clear(self, ctx):
-        """Clears the guild blocklist"""
+        """Clears the guild blocklist."""
         await self.config.blacklist.clear()
         await ctx.tick()
 
