@@ -59,3 +59,9 @@ class GuildBlocklist(commands.Cog):
         """Clears the guild blocklist"""
         await self.config.blacklist.clear()
         await ctx.tick()
+
+    @commands.Cog.listener()
+    async def on_guild_join(self, guild: discord.Guild):
+        config = await self.config.blacklist()
+        if guild.id in config:
+            return await guild.leave()
