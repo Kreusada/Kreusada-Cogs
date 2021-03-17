@@ -81,7 +81,7 @@ class Dehoister(commands.Cog):
     def format_help_for_context(self, ctx: commands.Context) -> str:
         """Thanks Sinbad."""
         context = super().format_help_for_context(ctx)
-        authors = ", ".join(a for a in self.__author__)
+        authors = ", ".join(self.__author__)
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
 
     async def red_delete_data_for_user(self, **kwargs):
@@ -90,13 +90,13 @@ class Dehoister(commands.Cog):
 
     async def ex(self, ctx, _type):
         _type += HOISTING_STANDARDS
-        if await ctx.embed_requested():
-            embed = discord.Embed(
-                description=_type.format(p=ctx.clean_prefix), color=await ctx.embed_colour()
-            )
-            return await ctx.send(embed=embed)
-        else:
+        if not await ctx.embed_requested():
             return await ctx.send(_type.format(p=ctx.clean_prefix))
+
+        embed = discord.Embed(
+            description=_type.format(p=ctx.clean_prefix), color=await ctx.embed_colour()
+        )
+        return await ctx.send(embed=embed)
 
     async def create_case(self, ctx, user, moderator):
         try:
@@ -121,11 +121,10 @@ class Dehoister(commands.Cog):
 
     @staticmethod
     def get_hoisted_count(ctx):
-        count = 0
-        for m in ctx.guild.members:
-            if m.display_name.startswith(tuple(HOIST)) and not m.bot:
-                count += 1
-        return count
+        return sum(
+            bool(m.display_name.startswith(tuple(HOIST)) and not m.bot)
+            for m in ctx.guild.members
+        )
 
     @staticmethod
     def get_hoisted_list(ctx):
@@ -268,9 +267,9 @@ class Dehoister(commands.Cog):
             await msg.delete()
             return await ctx.send(f"You took too long to respond.")
 
-        exceptions = 0
         if pred.result:
             await ctx.trigger_typing()
+            exceptions = 0
             for m in ctx.guild.members:
                 if m.display_name.startswith(tuple(HOIST)) and not m.bot:
                     try:
@@ -301,7 +300,7 @@ class Dehoister(commands.Cog):
         it on. You can always turn it off again at a later date.
         """
         toggled = await self.config.guild(ctx.guild).toggled()
-        await self.config.guild(ctx.guild).toggled.set(False if toggled else True)
+        await self.config.guild(ctx.guild).toggled.set(not toggled)
         await ctx.send(
             "Dehoister has been enabled."
         ) if not toggled else await ctx.send("Dehoister has been disabled.")

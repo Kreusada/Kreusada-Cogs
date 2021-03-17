@@ -101,16 +101,15 @@ class Vinfo(commands.Cog):
             lavalink.__version__,
         )
         description = mods.format(*formatter)
-        embed = discord.Embed(
+        return discord.Embed(
             title="Common Modules",
             description=description,
         )
-        return embed
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         """Thanks Sinbad."""
         context = super().format_help_for_context(ctx)
-        authors = ", ".join(a for a in self.__author__)
+        authors = ", ".join(self.__author__)
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
 
     # Commands

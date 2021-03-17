@@ -53,7 +53,7 @@ class VoteChannel(commands.Cog):
     def format_help_for_context(self, ctx: commands.Context) -> str:
         """Thanks Sinbad."""
         context = super().format_help_for_context(ctx)
-        authors = ", ".join(a for a in self.__author__)
+        authors = ", ".join(self.__author__)
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
 
     async def red_delete_data_for_user(self, **kwargs):
@@ -108,7 +108,7 @@ class VoteChannel(commands.Cog):
     async def toggle(self, ctx):
         """Toggle VoteChannel."""
         toggled = await self.config.guild(ctx.guild).toggled()
-        x = False if toggled else True
+        x = not toggled
         verb = "disabled" if toggled else "enabled"
         await self.config.guild(ctx.guild).toggled.set(x)
         await ctx.send(f"VoteChannel has been {verb}.")
