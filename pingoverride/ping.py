@@ -55,7 +55,7 @@ class PingOverride(commands.Cog):
     def format_help_for_context(self, ctx: commands.Context) -> str:
         """Thanks Sinbad."""
         context = super().format_help_for_context(ctx)
-        authors = ", ".join(a for a in self.__author__)
+        authors = ", ".join(self.__author__)
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
 
     def cog_unload(self):
@@ -138,9 +138,6 @@ class PingOverride(commands.Cog):
     @pingset.command()
     async def settings(self, ctx: commands.Context):
         """Get the settings for the ping command."""
-        cross = "\N{CROSS MARK}"
-        check = "\N{WHITE HEAVY CHECK MARK}"
-
         response = await self.config.response()
         reply = await self.config.reply()
         mention = await self.config.mention()
@@ -162,6 +159,9 @@ class PingOverride(commands.Cog):
                 color=await ctx.embed_colour(),
             )
 
+            cross = "\N{CROSS MARK}"
+            check = "\N{WHITE HEAVY CHECK MARK}"
+
             output.add_field(
                 name="Replies", value=check if reply else cross, inline=True
             )
@@ -176,7 +176,7 @@ class PingOverride(commands.Cog):
             output.add_field(name="Embeds", value=check if embed else cross, inline=True)
 
             pinginvoke = await self.pinginvoke()
-            
+
             if pinginvoke:
                 output.add_field(name="Invoke Settings", value=pinginvoke + '?')
                 output.description = f"Use `{ctx.clean_prefix}pingi` for more information on invoking ping."
@@ -294,10 +294,7 @@ class PingOverride(commands.Cog):
     async def ping(self, ctx: commands.Context):
         """Pong. Or not?"""
         resp = await self.config.response()
-        if not resp:
-            resp = "Pong."
-        else:
-            resp = random.choice(resp)
+        resp = "Pong." if not resp else random.choice(resp)
         reply = await self.config.reply()
         mention = await self.config.mention()
         embed = await self.config.embed()

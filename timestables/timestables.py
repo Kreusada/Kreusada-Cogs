@@ -61,7 +61,7 @@ class TimesTables(commands.Cog):
     def format_help_for_context(self, ctx: commands.Context) -> str:
         """Thanks Sinbad."""
         context = super().format_help_for_context(ctx)
-        authors = ", ".join(a for a in self.__author__)
+        authors = ", ".join(self.__author__)
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
 
     async def red_delete_data_for_user(self, **kwargs):
@@ -193,9 +193,7 @@ class TimesTables(commands.Cog):
         Defaults to False.
         """
         time = await self.config.guild(ctx.guild).tt_time_taken()
-        await self.config.guild(ctx.guild).tt_time_taken.set(
-            True if not time else False
-        )
+        await self.config.guild(ctx.guild).tt_time_taken.set(not time)
         verb = "enabled" if not time else "disabled"
         await ctx.send(f"Time has been {verb}.")
 

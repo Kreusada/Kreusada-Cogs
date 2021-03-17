@@ -46,7 +46,7 @@ class Staff(commands.Cog):
     def format_help_for_context(self, ctx: commands.Context) -> str:
         """Thanks Sinbad."""
         context = super().format_help_for_context(ctx)
-        authors = ", ".join(a for a in self.__author__)
+        authors = ", ".join(self.__author__)
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
 
     async def red_delete_data_for_user(self, **kwargs):
@@ -89,15 +89,8 @@ class Staff(commands.Cog):
         """Show the current settings with Staff."""
         role = await self.config.guild(ctx.guild).role()
         channel = await self.config.guild(ctx.guild).channel()
-        if not role:
-            role = "None set."
-        else:
-            role = ctx.guild.get_role(role).mention
-        if not channel:
-            channel = "None set."
-        else:
-            channel = self.bot.get_channel(channel).mention
-        
+        role = "None set." if not role else ctx.guild.get_role(role).mention
+        channel = "None set." if not channel else self.bot.get_channel(channel).mention
         await ctx.send(f"{bold('Role:')} {role}\n{bold('Channel:')} {channel}")
 
 
@@ -133,8 +126,8 @@ class Staff(commands.Cog):
                 msg = "[Embed, Attachment or File]"
             message_list.append(f"{str(author.display_name)}: {msg.replace(backslash, ' ')}")
 
-        context = box('\n'.join(message for message in message_list), lang='yaml')
-        reason = reason if reason else "No reason was provided."
+        context = box('\n'.join(message_list), lang='yaml')
+        reason = reason or "No reason was provided."
 
         embed = discord.Embed(
             title=warning("Staff Attention Pending | Conspicuous Activity"),
