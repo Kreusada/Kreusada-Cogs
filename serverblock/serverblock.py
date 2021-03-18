@@ -5,9 +5,9 @@ from redbot.core import commands, Config
 from redbot.core.utils.chat_formatting import bold
 from redbot.core.utils.predicates import MessagePredicate
 
-class GuildBlocklist(commands.Cog):
+class ServerBlock(commands.Cog):
     """
-    Blacklist guilds from being able to add [botname].
+    Blocklist guilds from being able to add [botname].
     """
 
     def __init__(self, bot):
@@ -15,7 +15,7 @@ class GuildBlocklist(commands.Cog):
         self.config = Config.get_conf(self, 34237423098423094, force_registration=True)
         self.config.register_global(blacklist=[])
 
-    @commands.group(name="guildblocklist", aliases=["gbl", "guildblacklist"])
+    @commands.group(name="sbl", aliases=["serverblacklist", "serverblocklist"])
     async def gbl(self, ctx):
         """
         Guild blocklist management.
