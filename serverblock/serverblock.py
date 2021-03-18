@@ -30,7 +30,7 @@ class ServerBlock(commands.Cog):
         b.append(guild)
         await self.config.blacklist.set(b)
         msg = "Guild added to blocklist."
-        if not guild in [g.id for g in self.bot.guilds]:
+        if guild not in [g.id for g in self.bot.guilds]:
             await ctx.send(msg)
         else:
             msg += (
@@ -69,10 +69,7 @@ class ServerBlock(commands.Cog):
         title = bold("Blocklisted guilds:")
         if not b:
             return await ctx.send("There are no blocklisted guilds.")
-        if len(b) == 1:
-            s = ''
-        else:
-            s = 's'
+        s = '' if len(b) == 1 else 's'
         title = bold(f"Blocklisted guild{s}:")
         await ctx.send(title + '\n\n' + ", ".join(f"`{x}`" for x in b))
 
