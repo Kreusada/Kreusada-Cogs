@@ -1,4 +1,4 @@
-from .guildblocklist import GuildBlocklist
+from .serverblock import ServerBlock
 
 def setup(bot):
-    bot.add_cog(GuildBlocklist(bot))
+    bot.add_cog(ServerBlock(bot))
