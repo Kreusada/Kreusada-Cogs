@@ -66,20 +66,33 @@ class ServerBlock(commands.Cog):
     async def _list(self, ctx):
         """Lists guilds on the blocklist."""
         b = await self.config.blacklist()
+        title = "Blocklisted guild"
         if not b:
             return await ctx.send("There are no blocklisted guilds.")
         if len(b) == 1:
-            s = ''
-        else:
-            s = 's'
-        title = f"Blocklisted guild{s}:"
-        await ctx.send(box(title + '\n\n' + "\n".join(f"\t{x}" for x in b), lang='yaml'))
+            return await ctx.send(box(title + ': ' + str(b[0]), lang='yaml'))
+        await ctx.send(box(f'{title}s:' + '\n\n' + "\n".join(f"\t{x}" for x in b), lang='yaml'))
 
     @sbl.command()
     async def clear(self, ctx):
         """Clears the guild blocklist."""
-        await self.config.blacklist.clear()
-        await ctx.tick()
+        blacklist = await self.config.blacklist()
+        s = 's' if len(blacklist) > 1 else ''
+        are = 'are' if len(blacklist) > 1 else 'is'
+        if not blacklist:
+            return await ctx.send("There are no servers on the server blocklist.")
+        await ctx.send(f"There {are} currently {len(blacklist)} server{s} on the blocklist. Are you sure? (yes/no)")
+        try:
+            pred = MessagePredicate.yes_or_no(ctx, user=ctx.author)
+            msg = await ctx.bot.wait_for("message", check=pred, timeout=60)
+        except asyncio.TimeoutError:
+            await ctx.send("You took too long to respond - try again, please.")
+
+        if pred.result:
+            await self.config.blacklist.clear()
+            await ctx.send("Done.")
+        else:
+            await ctx.send("Okay, no changes.")
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild: discord.Guild):
