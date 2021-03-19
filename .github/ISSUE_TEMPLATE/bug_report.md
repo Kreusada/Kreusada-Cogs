@@ -13,16 +13,4 @@ assignees: ''
 **What command(s) inside the cog are you reporting for?**
 
 
-**What were you expecting from the output of the command?**
-
-
-**What actually happened?**
-
-
-**How long has this been occurring for?**
-
-
-**What is your Discord username?**
-
-
-**Additional information:**
+**Please describe the errors that occured.**
