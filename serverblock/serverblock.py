@@ -103,6 +103,6 @@ class ServerBlock(commands.Cog):
         if guild.id in config:
             with contextlib.suppress(discord.Forbidden):
                 await guild.owner.send(
-                    f"Your server is on my blocklist. You can not invite me to {guild.name}."
+                    f"Your server is on my blocklist. You cannot invite me to {guild.name}."
                 )
             return await guild.leave()
