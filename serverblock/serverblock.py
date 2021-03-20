@@ -1,5 +1,6 @@
 import asyncio
 import discord
+import contextlib
 
 from redbot.core import commands, Config
 from redbot.core.utils.chat_formatting import box
@@ -100,4 +101,8 @@ class ServerBlock(commands.Cog):
     async def on_guild_join(self, guild: discord.Guild):
         config = await self.config.blacklist()
         if guild.id in config:
+            with contextlib.suppress(discord.Forbidden):
+                await guild.owner.send(
+                    f"Your server is on my blocklist. You can not invite me to {guild.name}."
+                )
             return await guild.leave()
