@@ -1,6 +1,4 @@
 import io
-import isort
-import black
 import discord
 import python_minifier as minifier
 
