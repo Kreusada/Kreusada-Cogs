@@ -28,7 +28,8 @@ import redbot
 import discord
 import logging
 import lavalink
-import distutils.sysconfig
+
+from distutils import sysconfig
 
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import box, bold
@@ -163,14 +164,13 @@ class Vinfo(commands.Cog):
         shortversionattr = '_version_'
         version = 'version'
 
-        pypath = str(distutils.sysconfig.get_python_lib(standard_lib=True))
+        pypath = str(sysconfig.get_python_lib(standard_lib=True))
         await ctx.trigger_typing()
 
         try:
             MOD = __import__(module)
         except ModuleNotFoundError as mnfe:
             return await ctx.send(RETURN_TYPE_2.format(module))
-
 
         if hasattr(MOD, version_info):
             vinfo = [getattr(MOD, version_info), "." + version_info]
@@ -184,8 +184,19 @@ class Vinfo(commands.Cog):
         elif hasattr(MOD, version):
             vinfo = [getattr(MOD, version), "." + version]
 
-        elif MOD.__file__.lower().startswith(pypath.lower()):
-            vinfo = [(sys.version_info[:3]), "[Core/Builtin Python]"]
+        elif hasattr(MOD, '__file__'):
+            if MOD.__file__.lower().startswith(pypath.lower()):
+                vinfo = [(sys.version_info[:3]), "[Core/Builtin Python]"]
+
+        elif hasattr(MOD, '__spec__'):
+            if not MOD.__spec__.origin:
+                vinfo = [(sys.version_info[:3]), "[Core/Builtin Python]"]
+            spec = MOD.__spec__.origin.lower()
+            if (
+                spec.startswith(pypath.lower()) 
+                or spec == "built-in"
+            ):
+                vinfo = [(sys.version_info[:3]), "[Core/Builtin Python]"]
 
         else:
             log.info(f"[From {ctx.channel.id}] {module} path: {MOD.__file__}")
@@ -193,7 +204,6 @@ class Vinfo(commands.Cog):
                 RETURN_TYPE_1.format(MOD.__name__)
             )
 
-        
         if isinstance(vinfo[0], tuple) and vinfo[1].endswith("[Core/Builtin Python]"):
             value = ("{}." * len(vinfo[0])).strip('.').format(*vinfo[0])
             attr = f"None {vinfo[1]}"

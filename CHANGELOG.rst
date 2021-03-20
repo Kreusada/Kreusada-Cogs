@@ -120,3 +120,11 @@ Versioning does not apply for meta unlike the changelogs for each specific cog.
 **Cogs**
 
 * ``AdvancedUptime``: Numerical data is now humanized
+
+----------
+20/03/2021
+----------
+
+**Cogs**
+
+* ``Vinfo``: Fixes for sys, math, array and more, when they did not have ``__file__`` attributes.
