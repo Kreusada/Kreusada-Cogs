@@ -23,12 +23,14 @@ Useful Links
     :maxdepth: 1
 
     cog_advanceduptime
+    cog_blackformatter
     cog_bubblewrap
     cog_codify
     cog_dehoister
     cog_namegenerator
     cog_pinginvoke
     cog_pingoverride
+    cog_minifier
     cog_ram
     cog_sendcards
     cog_staff
@@ -42,12 +44,14 @@ Useful Links
     :maxdepth: 2
 
     changelog_advanceduptime
+    changelog_blackformatter
     changelog_bubblewrap
     changelog_codify
     changelog_dehoister
     changelog_namegenerator
     changelog_pinginvoke
     changelog_pingoverride
+    changelog_minifier
     changelog_ram
     changelog_sendcards
     changelog_staff
