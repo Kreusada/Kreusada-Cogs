@@ -7,11 +7,15 @@ Available cogs list
 +=================+==============================================================+=========+==========+
 | advanceduptime  | Uptime but with additional statistics and inside an embed.   | Tools   | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
+| blackformatter  | Style your code with the black formatter.                    | Tools   | Kreusada |
++-----------------+--------------------------------------------------------------+---------+----------+
 | bubblewrap      | Get some bubblewrap.                                         | Fun     | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
 | codify          | Get messages and transform them into code blocks.            | Tools   | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
 | dehoister       | Dehoist new users with a variety of powerful tools.          | Mod     | Kreusada |
++-----------------+--------------------------------------------------------------+---------+----------+
+| minifier        | Minify your code with the python minifier.                   | Tools   | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
 | namegenerator   | Generate random names will optional gender arguments.        | Fun     | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+

@@ -128,3 +128,7 @@ Versioning does not apply for meta unlike the changelogs for each specific cog.
 **Cogs**
 
 * ``Vinfo``: Fixes for sys, math, array and more, when they did not have ``__file__`` attributes.
+
+**Meta**
+
+* New cogs: ``ServerBlock``, ``Minifier``, ``Black``.
