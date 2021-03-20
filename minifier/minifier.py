@@ -16,6 +16,7 @@ class Minifier(commands.Cog):
         """Nothing to delete"""
         return
 
+    @commands.has_permissions(attach_files=True)
     @commands.command(usage="<file>")
     async def minify(self, ctx):
         """Minify a python file.
