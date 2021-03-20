@@ -5,6 +5,7 @@ from redbot.core import commands, Config
 from redbot.core.utils.chat_formatting import box
 from redbot.core.utils.predicates import MessagePredicate
 
+
 class ServerBlock(commands.Cog):
     """
     Blocklist servers from being able to add [botname].

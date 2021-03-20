@@ -1,6 +1,6 @@
 {
     "author" : ["Kreusada"],
-    "description" : "Disable your bot from joining particular guilds.",
+    "description" : "Disable your bot from joining particular servers.",
     "disabled" : false,
     "end_user_data_statement" : "This cog does not persistently store data or metadata about users.",
     "hidden" : false,
@@ -8,7 +8,7 @@
     "name" : "ServerBlock",
     "required_cogs" : {},
     "requirements" : [],
-    "short" : "Disable your bot from joining particular guilds.",
+    "short" : "Disable your bot from joining particular servers.",
     "tags" : [
         "Blocklist",
         "Blacklist",
