@@ -1,6 +1,6 @@
 {
     "author" : ["Kreusada"],
-    "description" : "Run black on files.",
+    "description" : "Run black on files with custom line lengths.",
     "disabled" : false,
     "end_user_data_statement" : "This cog does not persistently store data or metadata about users.",
     "hidden" : false,
@@ -8,7 +8,7 @@
     "name" : "Black",
     "required_cogs" : {},
     "requirements" : ["black"],
-    "short" : "Run black on files.",
+    "short" : "Run black on files with custom line lengths.",
     "tags" : [
         "Black",
         "Code",
