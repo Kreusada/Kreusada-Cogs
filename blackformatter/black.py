@@ -12,6 +12,10 @@ class Black(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    async def red_delete_data_for_user(self, **kwargs):
+        """Nothing to delete"""
+        return
+
     @commands.command(name="black", usage="<file> [line_length=99]")
     async def command(self, ctx, line_length: int = 99):
         """Format a python file with black.

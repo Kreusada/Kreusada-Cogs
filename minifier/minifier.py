@@ -12,6 +12,10 @@ class Minifier(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    async def red_delete_data_for_user(self, **kwargs):
+        """Nothing to delete"""
+        return
+
     @commands.command(usage="<file>")
     async def minify(self, ctx):
         """Minify a python file.
