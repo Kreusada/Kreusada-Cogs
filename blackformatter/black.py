@@ -14,6 +14,11 @@ class Black(commands.Cog):
 
     @commands.command(name="black", usage="<file> [line_length=99]")
     async def command(self, ctx, line_length: int = 99):
+        """Format a python file with black.
+
+        You need to attach a file to this command, and it's extension needs to be `.py`.
+        Your `line_length` is black setting which defaults to 99.
+        """
         if not ctx.message.attachments:
             return await ctx.send_help()
         attachment_file = ctx.message.attachments[0]

@@ -14,6 +14,10 @@ class Minifier(commands.Cog):
 
     @commands.command(usage="<file>")
     async def minify(self, ctx):
+        """Minify a python file.
+
+        You need to attach a file to this command, and it's extension needs to be `.py`.
+        """
         if not ctx.message.attachments:
             return await ctx.send_help()
         file = ctx.message.attachments[0]
