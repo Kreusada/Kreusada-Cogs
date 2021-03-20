@@ -23,6 +23,7 @@ class Minifier(commands.Cog):
 
         You need to attach a file to this command, and it's extension needs to be `.py`.
         """
+        await ctx.trigger_typing()
         if not ctx.message.attachments:
             return await ctx.send_help()
         file = ctx.message.attachments[0]

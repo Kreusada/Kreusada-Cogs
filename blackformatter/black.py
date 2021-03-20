@@ -24,6 +24,7 @@ class Black(commands.Cog):
         You need to attach a file to this command, and it's extension needs to be `.py`.
         Your `line_length` is black setting which defaults to 99.
         """
+        await ctx.trigger_typing()
         if not ctx.message.attachments:
             return await ctx.send_help()
         attachment_file = ctx.message.attachments[0]
