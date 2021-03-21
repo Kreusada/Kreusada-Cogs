@@ -1,6 +1,5 @@
 import discord
 import datetime
-import logging
 import collections
 
 from typing import Union
@@ -10,10 +9,6 @@ from redbot.core.utils.chat_formatting import bold, italics
 
 from .abc import MixinMeta
 
-def indent(text):
-    if isinstance(text, (list, tuple)):
-        return ["  {}".format(t) for t in text]
-    return "  {}".format(text)
 
 channel_information = (
     "Channel Name: **{0.name}**\nChannel ID: **{0.id}**"
@@ -41,7 +36,6 @@ voice_user_information = (
     "Streaming: **{0.self_stream}**"
 )
 
-log = logging.getLogger("red.kreusada.channeltools")
 
 class Channel(MixinMeta):
 

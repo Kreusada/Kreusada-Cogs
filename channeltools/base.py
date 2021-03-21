@@ -1,18 +1,32 @@
 import abc
 import discord
+import logging
 
 from redbot.core import commands, Config
 
-from .topic import Topic as T
-from .channel import Channel as C
-from .voice import Voice as V
-from .config import ConfigManager as CM
+from .topic import Topic
+from .channel import Channel
+from .voice import Voice
+from .config import ConfigManager
+
+A = type(commands.Cog)
+B = type(abc.ABC)
+
+log = logging.getLogger("red.kreusada.channeltools")
 
 
-class CompositeMetaClass(type(commands.Cog), type(abc.ABC)):
+class CompositeMetaClass(A, B):
     pass
 
-class ChannelTools(T, C, V, CM, commands.Cog, metaclass=CompositeMetaClass):
+
+class ChannelTools(
+    Topic,
+    Channel,
+    Voice,
+    ConfigManager,
+    commands.Cog,
+    metaclass=ConfigManager,
+):
     """A collection of commands used for voice and text channels."""
 
     __author__ = ["Kreusada"]
