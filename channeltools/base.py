@@ -25,7 +25,7 @@ class ChannelTools(
     Voice,
     ConfigManager,
     commands.Cog,
-    metaclass=ConfigManager,
+    metaclass=CompositeMetaClass,
 ):
     """A collection of commands used for voice and text channels."""
 
