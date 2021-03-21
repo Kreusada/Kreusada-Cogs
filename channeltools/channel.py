@@ -101,31 +101,32 @@ class Channel(MixinMeta):
                 value=value,
                 inline=False,
             )
-
-            y = []
-            async for x in c.history(limit=200):
-                y.append(x.author.id)
-            re_formatted = collections.Counter(y).most_common()[:5]
-            value = ''
-            if not re_formatted:
-                value += "No users have talked here yet!"
-            else:
-                for x in re_formatted:
-                    bot_get_user = self.bot.get_user(x[0])
-                    if not bot_get_user:
-                        if x[0] in [x.id for x in await ctx.guild.webhooks()]:
-                            get_user = "[Webhook]"
+            check = await self._channel_info_chat_settings(ctx)
+            if check:
+                y = []
+                async for x in c.history(limit=200):
+                    y.append(x.author.id)
+                re_formatted = collections.Counter(y).most_common()[:5]
+                value = ''
+                if not re_formatted:
+                    value += "No users have talked here yet!"
+                else:
+                    for x in re_formatted:
+                        bot_get_user = self.bot.get_user(x[0])
+                        if not bot_get_user:
+                            if x[0] in [x.id for x in await ctx.guild.webhooks()]:
+                                get_user = "[Webhook]"
+                            else:
+                                get_user = "[Unknown]"
                         else:
-                            get_user = "[Unknown]"
-                    else:
-                        get_user = bot_get_user.mention
-                    value += "\n**-** {}".format(get_user)
+                            get_user = bot_get_user.mention
+                        value += "\n**-** {}".format(get_user)
 
-            embed.add_field(
-                name="Most Talked:",
-                value=value,
-                inline=False,
-            )
+                embed.add_field(
+                    name="Top Chatters:",
+                    value=value,
+                    inline=False,
+                )
 
             embed.set_author(name=ctx.guild.name)
             embed.set_thumbnail(url=ctx.guild.icon_url)
