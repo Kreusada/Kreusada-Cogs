@@ -180,7 +180,8 @@ class Channel(MixinMeta):
             )
             embed.set_footer(icon_url=author.avatar_url, text=author)
         else:
-            embed.set_footer(text=f"Join {channel} for more info!")
+            if voice.permissions_for(author).connect:
+                embed.set_footer(text=f"Join {voice.name} for more info!")
         embed.set_author(name=ctx.guild.name)
         embed.set_thumbnail(url=ctx.guild.icon_url)
         await ctx.send(embed=embed)
