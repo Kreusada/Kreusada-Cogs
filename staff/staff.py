@@ -89,8 +89,10 @@ class Staff(commands.Cog):
         """Show the current settings with Staff."""
         role = await self.config.guild(ctx.guild).role()
         channel = await self.config.guild(ctx.guild).channel()
-        role = "None set." if not role else ctx.guild.get_role(role).mention
-        channel = "None set." if not channel else self.bot.get_channel(channel).mention
+        role = ctx.guild.get_role(role).mention
+        channel = self.bot.get_channel(channel)
+        role = "None set." if not role else role.mention
+        channel = "None set." if not channel else channel.mention
         await ctx.send(f"{bold('Role:')} {role}\n{bold('Channel:')} {channel}")
 
 
