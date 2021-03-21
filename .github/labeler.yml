@@ -29,6 +29,8 @@
 "Cog: VoteChannel":
   - votechannel/*
 "Category: Meta":
-  - ./*
   - .github/*
   - .github/**
+"Type: Docs":
+  - docs/**/*
+  - ./*.rst
