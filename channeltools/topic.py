@@ -16,6 +16,7 @@ class Topic(MixinMeta):
         """
         pass
 
+    @commands.mod_or_permissions(manage_channels=True)
     @topic.command()
     async def edit(self, ctx, channel: discord.TextChannel, *, new_topic: str):
         """Edit the channel topic of a channel.

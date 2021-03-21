@@ -23,6 +23,7 @@ class Voice(MixinMeta):
         """Get the socket logger of your lavalink instance."""
         await ctx.send(lavalink.socket_log.name)
 
+    @commands.mod_or_permissions(manage_channels=True)
     @voice.group(name="edit")
     async def voice_edit(self, ctx):
         """Edit a voice channel."""

@@ -10,6 +10,7 @@ class ConfigManager(MixinMeta):
     async def ctoolset(self, ctx):
         """Settings with channeltools."""
 
+    @commands.mod_or_permissions(manage_guild=True)
     @ctoolset.command()
     async def topchatters(self, ctx):
         """Toggle whether `[p]channelinfo` displays
