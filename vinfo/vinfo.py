@@ -172,7 +172,7 @@ class Vinfo(commands.Cog):
 
         try:
             MOD = __import__(module)
-        except ModuleNotFoundError as mnfe:
+        except ModuleNotFoundError:
             return await ctx.send(RETURN_TYPE_2.format(module))
 
         if hasattr(MOD, version_info):
@@ -187,22 +187,22 @@ class Vinfo(commands.Cog):
         elif hasattr(MOD, version):
             vinfo = [getattr(MOD, version), "." + version]
 
-        elif hasattr(MOD, '__file__'):
-            if MOD.__file__.lower().startswith(pypath.lower()):
-                vinfo = [(sys.version_info[:3]), "[Core/Builtin Python]"]
-
-        elif hasattr(MOD, '__spec__'):
-            if not MOD.__spec__.origin:
-                vinfo = [(sys.version_info[:3]), "[Core/Builtin Python]"]
-            spec = MOD.__spec__.origin.lower()
-            if (
-                spec.startswith(pypath.lower()) 
-                or spec == "built-in"
-            ):
-                vinfo = [(sys.version_info[:3]), "[Core/Builtin Python]"]
+        elif (
+            (
+                hasattr(MOD, '__file__') 
+                and MOD.__file__.lower().startswith(pypath.lower())
+            )
+            or 
+            (
+                hasattr(MOD, '__spec__')
+                and MOD.__spec__.origin.lower().startswith(pypath.lower())
+                or MOD.__spec__.origin.lower() == "built-in"
+                or not MOD.__spec__.origin
+            )
+        ):
+            vinfo = [(sys.version_info[:3]), "[Core/Builtin Python]"]
 
         else:
-            log.info(f"[From {ctx.channel.id}] {module} path: {MOD.__file__}")
             return await ctx.send(
                 RETURN_TYPE_1.format(MOD.__name__)
             )
