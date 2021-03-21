@@ -2,6 +2,7 @@ from redbot.core import commands
 
 from .abc import MixinMeta
 
+
 class ConfigManager(MixinMeta):
     pass
 
@@ -11,7 +12,7 @@ class ConfigManager(MixinMeta):
 
     @ctoolset.command()
     async def topchatters(self, ctx):
-        """Toggle whether `[p]channelinfo` displays 
+        """Toggle whether `[p]channelinfo` displays
         the most chatterful users.
         """
         config = await self._channel_info_chat_settings(ctx)

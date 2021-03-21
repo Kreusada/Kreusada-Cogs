@@ -19,7 +19,7 @@ class Topic(MixinMeta):
     @topic.command()
     async def edit(self, ctx, channel: discord.TextChannel, *, new_topic: str):
         """Edit the channel topic of a channel.
-        
+
         WARNING: Do not overuse, or you could become ratelimited."""
         if not channel.permissions_for(ctx.me).manage_channels:
             return await ctx.send("I need to be able to edit channels.")
@@ -48,8 +48,16 @@ class Topic(MixinMeta):
     @topic.command()
     async def missing(self, ctx, channel: discord.TextChannel = None):
         """Get channels with missing channel topics."""
-        missing_channel_mentions = "\n".join([f'-\t#{c.name}' for c in ctx.guild.text_channels if not c.topic])
-        percentage = round((len([c for c in ctx.guild.text_channels if not c.topic])/len(ctx.guild.text_channels)) * 100)
+        missing_channel_mentions = "\n".join(
+            [f"-\t#{c.name}" for c in ctx.guild.text_channels if not c.topic]
+        )
+        percentage = round(
+            (
+                len([c for c in ctx.guild.text_channels if not c.topic])
+                / len(ctx.guild.text_channels)
+            )
+            * 100
+        )
         with_topics = len([c for c in ctx.guild.text_channels if c.topic])
         without_topics = len([c for c in ctx.guild.text_channels if not c.topic])
         pre_processed_stats = (

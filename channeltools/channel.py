@@ -10,21 +10,13 @@ from redbot.core.utils.chat_formatting import bold, italics
 from .abc import MixinMeta
 
 
-channel_information = (
-    "Channel Name: **{0.name}**\nChannel ID: **{0.id}**"
-)
+channel_information = "Channel Name: **{0.name}**\nChannel ID: **{0.id}**"
 
-category_information = (
-    "\nCategory Name: **{0.name}**\nCategory ID: **{0.id}**"
-)
+category_information = "\nCategory Name: **{0.name}**\nCategory ID: **{0.id}**"
 
-type_information = (
-    "News Channel: **{news}**\nNSFW Channel: **{nsfw}**"
-)
+type_information = "News Channel: **{news}**\nNSFW Channel: **{nsfw}**"
 
-other_information = (
-    "Number of pins: **{pins}**\nUsers with read access: **{members}**"
-)
+other_information = "Number of pins: **{pins}**\nUsers with read access: **{members}**"
 
 voice_channel_information = (
     "VC Name: **{0.name}**\nVC ID: **{0.id}**\n"
@@ -32,15 +24,17 @@ voice_channel_information = (
 )
 
 voice_user_information = (
-    "\n\nMuted: **{0.self_mute}**\nDeafened: **{0.self_deaf}**\n"
-    "Streaming: **{0.self_stream}**"
+    "\n\nMuted: **{0.self_mute}**\nDeafened: **{0.self_deaf}**\n" "Streaming: **{0.self_stream}**"
 )
 
 
 class Channel(MixinMeta):
+    pass
 
     @commands.command()
-    async def channelinfo(self, ctx, channel: Union[discord.TextChannel, discord.VoiceChannel] = None):
+    async def channelinfo(
+        self, ctx, channel: Union[discord.TextChannel, discord.VoiceChannel] = None
+    ):
         """Get information about a voice or text channel."""
         await ctx.trigger_typing()
         if isinstance(channel, discord.TextChannel):
@@ -85,10 +79,7 @@ class Channel(MixinMeta):
                 inline=False,
             )
 
-            value = other_information.format(
-                pins=len(await c.pins()),
-                members=len(c.members)
-            )
+            value = other_information.format(pins=len(await c.pins()), members=len(c.members))
 
             embed.add_field(
                 name="Misc:",
@@ -101,7 +92,7 @@ class Channel(MixinMeta):
                 async for x in c.history(limit=200):
                     y.append(x.author.id)
                 re_formatted = collections.Counter(y).most_common()[:5]
-                value = ''
+                value = ""
                 if not re_formatted:
                     value += "No users have talked here yet!"
                 else:
@@ -152,19 +143,20 @@ class Channel(MixinMeta):
                     value=(
                         voice_channel_information.format(
                             author.voice.channel,
-                            limit=author.voice.channel.user_limit if author.voice.channel.user_limit else "Unlimited"
+                            limit=author.voice.channel.user_limit
+                            if author.voice.channel.user_limit
+                            else "Unlimited",
                         )
-                    )
+                    ),
                 )
             else:
                 embed.add_field(
                     name="Basic Information:",
                     value=(
                         voice_channel_information.format(
-                            voice,
-                            limit=voice.user_limit if voice.user_limit else "Unlimited"
+                            voice, limit=voice.user_limit if voice.user_limit else "Unlimited"
                         )
-                    )
+                    ),
                 )
             if author.voice:
                 embed.add_field(

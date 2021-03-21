@@ -46,7 +46,7 @@ class ChannelTools(
         """Nothing to delete"""
         return
 
-    async def embed_builder(self, ctx, title = None, description = None):
+    async def embed_builder(self, ctx, title=None, description=None):
         return discord.Embed(
             title=title,
             description=description,
