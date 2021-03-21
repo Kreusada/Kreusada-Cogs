@@ -3,7 +3,6 @@ import discord
 import python_minifier as minifier
 
 from redbot.core import commands
-from redbot.core.utils.predicates import MessagePredicate
 
 
 class Minifier(commands.Cog):
