@@ -3,9 +3,9 @@ import discord
 
 from redbot.core import commands
 
-from .topictools import TopicTools
-from .channelinfo import ChannelInfo
-from .channeleditor import ChannelEditor
+from .topic import Topic
+from .channel import Channel
+from .voice import Voice
 
 
 class CompositeMetaClass(type(commands.Cog), type(abc.ABC)):
@@ -13,9 +13,9 @@ class CompositeMetaClass(type(commands.Cog), type(abc.ABC)):
 
 
 class ChannelTools(
-    TopicTools,
-    ChannelInfo,
-    ChannelEditor,
+    Topic,
+    Channel,
+    Voice,
     commands.Cog,
     metaclass=CompositeMetaClass,
 ):
@@ -23,7 +23,7 @@ class ChannelTools(
     def __init__(self, bot):
         self.bot = bot
 
-    async def embed_builder(self, ctx, title, description):
+    async def embed_builder(self, ctx, title = None, description = None):
         return discord.Embed(
             title=title,
             description=description,

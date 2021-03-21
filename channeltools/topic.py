@@ -6,10 +6,8 @@ from redbot.core.utils.chat_formatting import box, italics
 from .abc import MixinMeta
 
 
-class TopicTools(MixinMeta):
-    """
-    Tools for editing, creating, and reviewing channel topics.
-    """
+class Topic(MixinMeta):
+    pass
 
     @commands.group()
     async def topic(self, ctx):
