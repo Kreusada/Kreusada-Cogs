@@ -39,6 +39,8 @@ Available cogs list
 +=================+==============================================================+=========+==========+
 | advanceduptime  | Uptime but with additional statistics and inside an embed.   | Tools   | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
+| alphanato       | Get NATO phonetics through given letters.                    | Tools   | Kreusada |
++-----------------+--------------------------------------------------------------+---------+----------+
 | blackformatter  | Style your code with the black formatter.                    | Tools   | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
 | bubblewrap      | Get some bubblewrap.                                         | Fun     | Kreusada |
