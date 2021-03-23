@@ -55,17 +55,15 @@ class AlphaNato(commands.Cog):
         The NATO alphabet name for the provided characters.
         """
         factory = {}
-        if letter.lower().strip() == 'all':
-            for x in NATO_ALPHABET:
-                factory[x[0].lower()] = x
-            msg = "\n".join("'{}' = {}".format(k, v) for k, v in factory.items())
-        else:
-            for x in NATO_ALPHABET:
+        for x in NATO_ALPHABET:
+            if letter.lower().strip() == 'all':
+                    factory[x[0].lower()] = x
+            else:
                 for let in tuple(_remove_whitespace(letter)):
                     if x[0].lower() == let and x.isalpha():
                         factory[let] = x
                     # X-Ray is weird, so this is required.
                     elif let.lower() == 'x':
                         factory['x'] = NATO_ALPHABET[-3]
-            msg = "\n".join("'{}' = {}".format(k, v) for k, v in sorted(factory.items()))
+        msg = "\n".join("'{}' = {}".format(k, v) for k, v in sorted(factory.items()))
         await ctx.send(box(msg, lang='ml'))
