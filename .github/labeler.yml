@@ -1,35 +1,63 @@
 "Cog: AdvancedUptime":
   - advanceduptime/*
+  - docs/cog_advanceduptime
+  - docs/changelog_advanceduptime
 "Cog: AlphaNato":
   - alphanato/*
+  - docs/cog_alphanato
+  - docs/changelog_alphanato
 "Cog: BubbleWrap":
   - bubblewrap/*
+  - docs/cog_bubblewrap
+  - docs/changelog_bubblewrap
 "Cog: Codify":
   - codify/*
-"Cog: Edition":
-  - edition/*
+  - docs/cog_codify
+  - docs/changelog_codify
 "Cog: Dehoister":
   - dehoister/*
+  - docs/cog_dehoister
+  - docs/changelog_dehoister
 "Cog: NameGenerator":
   - namegenerator/*
+  - docs/cog_namegenerator
+  - docs/changelog_namegenerator
 "Cog: PingInvoke":
   - pinginvoke/*
+  - docs/cog_pinginvoke
+  - docs/changelog_pinginvoke
 "Cog: PingOverride":
   - pingoverride/*
+  - docs/cog_pingoverride
+  - docs/changelog_pingoverride
 "Cog: RAM":
   - ram/*
+  - docs/cog_ram
+  - docs/changelog_ram
 "Cog: SendCards":
   - sendcards/*
+  - docs/cog_sendcards
+  - docs/changelog_sendcards
 "Cog: Staff":
   - staff/*
+  - docs/cog_staff
+  - docs/changelog_staff
 "Cog: TextManipulator":
   - textmanipulator/*
+  - docs/cog_textmanipulator
+  - docs/changelog_textmanipulator
 "Cog: TimesTables":
   - timestables/*
+  - docs/cog_timestables
+  - docs/changelog_timestables
 "Cog: Vinfo":
   - vinfo/*
+  - docs/cog_vinfo
+  - docs/changelog_vinfo
 "Cog: VoteChannel":
   - votechannel/*
+  - docs/cog_votechannel
+  - docs/changelog_votechannel
 "Category: Meta":
   - .github/*
   - .github/**
