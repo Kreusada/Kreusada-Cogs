@@ -55,7 +55,7 @@ class AlphaNato(commands.Cog):
         The NATO alphabet name for the provided characters.
         """
         factory = {}
-        if letter.lower() == 'all':
+        if letter.lower().strip() == 'all':
             for x in NATO_ALPHABET:
                 factory[x[0].lower()] = x
             msg = "\n".join("'{}' = {}".format(k, v) for k, v in factory.items())
