@@ -37,7 +37,7 @@ class AlphaNato(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(usage="<letters...>")
     async def nato(self, ctx, *, letter: str):
         """
         Get the nato phonetic name from a letter.
