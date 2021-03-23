@@ -23,6 +23,7 @@ Useful Links
     :maxdepth: 1
 
     cog_advanceduptime
+    cog_alphanato
     cog_blackformatter
     cog_bubblewrap
     cog_codify
@@ -33,6 +34,7 @@ Useful Links
     cog_minifier
     cog_ram
     cog_sendcards
+    cog_serverblock
     cog_staff
     cog_textmanipulator
     cog_timestables
@@ -44,6 +46,7 @@ Useful Links
     :maxdepth: 2
 
     changelog_advanceduptime
+    changelog_alphanato
     changelog_blackformatter
     changelog_bubblewrap
     changelog_codify
@@ -54,6 +57,7 @@ Useful Links
     changelog_minifier
     changelog_ram
     changelog_sendcards
+    changelog_serverblock
     changelog_staff
     changelog_textmanipulator
     changelog_timestables
