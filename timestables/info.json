@@ -1,7 +1,7 @@
 {
     "author": ["Kreusada"],
     "description": "Learn your times tables!",
-    "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/timestables.html",
+    "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_timestables.html",
     "short": "Times tables.",
     "name": "TimesTables",
     "tags": ["Maths", "Times", "Multiply", "Revision", "School"],

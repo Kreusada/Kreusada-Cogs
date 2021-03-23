@@ -1,7 +1,7 @@
 {
 	"author": ["Kreusada"],
 	"description": "Get some bubblewrap.",
-    "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/bubblewrap.html",
+    "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_bubblewrap.html",
 	"short": "Bubblewrap.",
 	"name": "BubbleWrap",
 	"tags": ["Bubblewrap"],

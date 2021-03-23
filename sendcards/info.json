@@ -1,7 +1,7 @@
 {
 	"author": ["Kreusada"],
 	"description": "Send cards to your friends!",
-    "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/sendcards.html",
+    "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_sendcards.html",
 	"short": "Send cards to users.",
 	"tags": ["Cards", "Christmas", "Birthday", "DM"],
 	"type": "COG",

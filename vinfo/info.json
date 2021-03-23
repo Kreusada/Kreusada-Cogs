@@ -1,7 +1,7 @@
 {
     "author": ["Kreusada"],
     "description": "Get version information for third-party cogs, or installed dependencies/modules.",
-    "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/vinfo.html",
+    "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_vinfo.html",
     "short": "Get version information for third-party cogs, or installed dependencies/modules.",
     "name": "Vinfo",
     "tags": ["Module", "Cog", "Version", "Info"],

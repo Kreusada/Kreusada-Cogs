@@ -4,7 +4,7 @@
     "disabled" : false,
     "end_user_data_statement" : "This cog does not persistently store data or metadata about users.",
     "hidden" : false,
-    "install_msg" : "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/dehoister.html",
+    "install_msg" : "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_dehoister.html",
     "name" : "Dehoister",
     "required_cogs" : {},
     "requirements" : [],
