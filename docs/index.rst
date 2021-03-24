@@ -71,8 +71,6 @@ Useful Links
     repo_available_cogs_list
     repo_changelog
     repo_installation
-    repo_labels
     repo_license
-    repo_milestones
     repo_support
     repo_workflow
