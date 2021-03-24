@@ -60,10 +60,7 @@ class AlphaNato(commands.Cog):
                     factory[x[0].lower()] = x
             else:
                 for let in tuple(_remove_whitespace(letter)):
-                    if x[0].lower() == let and x.isalpha():
+                    if x[0].lower() == let and let.isalpha():
                         factory[let] = x
-                    # X-Ray is weird, so this is required.
-                    elif let.lower() == 'x':
-                        factory['x'] = NATO_ALPHABET[-3]
         msg = "\n".join("'{}' = {}".format(k, v) for k, v in sorted(factory.items()))
         await ctx.send(box(msg, lang='ml'))
