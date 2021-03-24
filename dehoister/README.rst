@@ -15,7 +15,7 @@ Installation
 
 Let's firstly add my repository if you haven't already:
 
-* :code:`[p]repo add kreusada https://github.com/kreusada/kreusadacogs`
+* :code:`[p]repo add kreusada https://github.com/Kreusada/Kreusada-Cogs`
 
 Next, let's download the cog from the repo:
 
@@ -268,5 +268,4 @@ For inquiries, see to the contact options below.
 Receive Support
 ---------------
 
-Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_othercogs`,
-or you can head over to `my support server <https://discord.gg/JmCFyq7>`_ and ask your questions in :code:`#support-kreusadacogs`.
+Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_kreusada-cogs`.

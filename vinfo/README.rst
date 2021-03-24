@@ -15,7 +15,7 @@ Installation
 
 Let's firstly add my repository if you haven't already:
 
-* :code:`[p]repo add kreusada https://github.com/kreusada/kreusadacogs`
+* :code:`[p]repo add kreusada https://github.com/Kreusada/Kreusada-Cogs`
 
 Next, let's download the cog from the repo:
 
@@ -80,6 +80,11 @@ return a version if it hasn't been defined in the cog's code.
 
 .. warning:: The ``<cog>`` **must** be loaded, and provided in the correct case.
 
+**Example Usage**
+
+.. image:: /image_vinfo-cog.png
+    :alt: vinfo cog
+
 .. _vinfo-command-vinfo-mod:
 
 """""""""
@@ -105,6 +110,11 @@ Get a module's version information.
     The ``<module>`` **must** be installed, and provided in the correct case.
     There are a few modules such as `Levenshtein`, which start with capitals.
 
+**Example Usage**
+
+.. image:: /image_vinfo-mod.png
+    :alt: vinfo mod
+
 ----------------------
 Additional Information
 ----------------------
@@ -116,5 +126,4 @@ For inquiries, see to the contact options below.
 Receive Support
 ---------------
 
-Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_othercogs`,
-or you can head over to `my support server <https://discord.gg/JmCFyq7>`_ and ask your questions in :code:`#support-kreusadacogs`.
+Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_kreusada-cogs`.
