@@ -93,14 +93,8 @@ You can also join my `support server <https://discord.gg/JmCFyq7>`_.
 Credits
 -------
 
-* Jojo - Got me started with python, and helped me a lot in my early stages.
-* Sauri - Learnt how to use `bot.wait_for` via your application cog.
-* Flare - Learnt from his userinfo cog, how to replace a command in core, and then add it back on cog unload.
-* Trusty - Using reading from json in cog setup files.
-* Tobotimus - Lots of backend support.
-* Red-DiscordBot - An amazing community, some features have been modified from their repo to use here.
-* W3Schools - An amazing website full of python tricks and tips which have helped me out many times.
-* Stack Overflow - Of course, I mean who hasn't payed a trip to stack overflow?
+* Everyone who has helped from Red! <3
+* Special thanks to Jojo for kickstarting me with python.
 
 -------------
 GitHub Labels

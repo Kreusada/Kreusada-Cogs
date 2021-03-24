@@ -70,7 +70,6 @@ Useful Links
 
     repo_available_cogs_list
     repo_changelog
-    repo_contributors
     repo_creds
     repo_installation
     repo_labels
