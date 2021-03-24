@@ -132,3 +132,19 @@ Versioning does not apply for meta unlike the changelogs for each specific cog.
 **Meta**
 
 * New cogs: ``ServerBlock``, ``Minifier``, ``Black``.
+
+----------
+24/03/2021
+----------
+
+**Cogs**
+
+* Added cogs: ``AlphaNATO`` - Get the names of the NATO phonetics through easy-to-use syntax.
+  * Update usage to clarify that you can provide multiple letters.
+* Fixed invalid URLS in info.json files (All Cogs).
+* Remove unused imports from Black and Minifer cogs.
+
+**Meta**
+
+* Update labelers to include documentation for all cogs.
+* Update CODEOWNERS to remove Edition and to add newer cogs.
