@@ -1,8 +1,8 @@
 .. _ram:
 
-==========================
-RAM (Random Access Memory)
-==========================
+===
+RAM
+===
 
 This is the cog guide for the ram cog. You will
 find detailed docs about usage and commands.
@@ -15,7 +15,7 @@ Installation
 
 Let's firstly add my repository if you haven't already:
 
-* :code:`[p]repo add kreusada https://github.com/kreusada/kreusadacogs`
+* :code:`[p]repo add kreusada https://github.com/Kreusada/Kreusada-Cogs`
 
 Next, let's download the cog from the repo:
 
@@ -53,7 +53,7 @@ ram
 
 **Description**
 
-Displays your client's RAM usage as a percentage, as well as scaled.
+Displays your client's RAM usage as a percentage, and scaled.
 
 ----------------------
 Additional Information

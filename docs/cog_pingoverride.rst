@@ -15,7 +15,7 @@ Installation
 
 Let's firstly add my repository if you haven't already:
 
-* :code:`[p]repo add kreusada https://github.com/kreusada/kreusadacogs`
+* :code:`[p]repo add kreusada https://github.com/Kreusada/Kreusada-Cogs`
 
 Next, let's download the cog from the repo:
 

@@ -7,11 +7,23 @@ Minifier
 This is the cog guide for the minifier cog. You will
 find detailed docs about usage and commands.
 
-``[p]`` is considered as your prefix.
+Throughout this documentation, ``[p]`` is considered as your prefix.
 
-.. note:: To use this cog, load it by typing this::
+------------
+Installation
+------------
 
-        [p]load minifier
+Let's firstly add my repository if you haven't already:
+
+* :code:`[p]repo add kreusada https://github.com/Kreusada/Kreusada-Cogs`
+
+Next, let's download the cog from the repo:
+
+* :code:`[p]cog install kreusada minifier`
+
+Finally, you can see my end user data statements, cog requirements, and other cog information by using:
+
+* :code:`[p]cog info kreusada minifier`
 
 .. _minifier-usage:
 

@@ -22,13 +22,13 @@ Next, let's add my repository to your system.
 
 .. code-block:: ini
 
-    [p]repo add kreusadacogs https://github.com/kreusada/kreusadacogs
+    [p]repo add kreusada https://github.com/Kreusada/Kreusada-Cogs
 
 To install a cog, use this command, replacing <cog> with the name of the cog you wish to install:
 
 .. code-block:: ini
 
-    [p]cog install kreusadacogs <cog>
+    [p]cog install kreusada <cog>
 
 -------------------
 Available cogs list
@@ -82,12 +82,9 @@ Feel free to open a pull request, or an issue, I'm more than happy to make chang
 Support
 -------
 
-Check out my docs `here <https://kreusadacogs.readthedocs.io/en/latest/>`_
-
-Mention me in the #support_othercogs in the `cog support server <https://discord.gg/GET4DVk>`_ if you need any help.
-
-If you're have an important issue(s), open an issue or pull request to this repo.
-You can also join my `support server <https://discord.gg/JmCFyq7>`_.
+Check out my docs `here <https://kreusadacogs.readthedocs.io/en/latest/>`_.
+Mention me in the #support_kreusada-cogs in the `cog support server <https://discord.gg/GET4DVk>`_ if you need any help.
+Additionally, feel free to open an issue or pull request to this repo.
 
 -------
 Credits
