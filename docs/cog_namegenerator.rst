@@ -15,7 +15,7 @@ Installation
 
 Let's firstly add my repository if you haven't already:
 
-* :code:`[p]repo add kreusada https://github.com/kreusada/kreusadacogs`
+* :code:`[p]repo add kreusada https://github.com/Kreusada/Kreusada-Cogs`
 
 Next, let's download the cog from the repo:
 
@@ -24,16 +24,6 @@ Next, let's download the cog from the repo:
 Finally, you can see my end user data statements, cog requirements, and other cog information by using:
 
 * :code:`[p]cog info kreusada namegenerator`
-
-------------
-Requirements
-------------
-
-* ``names``
-
-This cog requires the ``names`` module, so you will need to pip install it.
-Downloader will attempt to do this for you when you install the cog, so please
-don't worry about it.
 
 -----
 Usage
@@ -136,5 +126,4 @@ For inquiries, see to the contact options below.
 Receive Support
 ---------------
 
-Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_othercogs`,
-or you can head over to `my support server <https://discord.gg/JmCFyq7>`_ and ask your questions in :code:`#support-kreusadacogs`.
+Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_kreusada-cogs`.
