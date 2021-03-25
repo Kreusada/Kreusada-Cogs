@@ -54,6 +54,8 @@ class AlphaNato(commands.Cog):
         **Returns:**
         The NATO alphabet name for the provided characters.
         """
+        if not letter.isalpha():
+            return await ctx.send_help()
         factory = {}
         for x in NATO_ALPHABET:
             if letter.lower().strip() == 'all':
