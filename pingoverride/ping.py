@@ -319,7 +319,7 @@ class PingOverride(commands.Cog):
             if await ctx.embed_requested():
                 kwargs["embed"] = content
             else:
-                kwargs["content"] = plain_content
+                kwargs["content"] = content
 
         if reply:
             await ctx.reply(**kwargs)
