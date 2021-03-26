@@ -22,10 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+import random
 import discord
 import logging
 import asyncio
-import random
 
 from redbot.core import Config, commands
 from redbot.core.utils.chat_formatting import bold, box, pagify
@@ -295,26 +295,36 @@ class PingOverride(commands.Cog):
         """Pong. Or not?"""
         resp = await self.config.response()
         resp = "Pong." if not resp else random.choice(resp)
+
         reply = await self.config.reply()
         mention = await self.config.mention()
         embed = await self.config.embed()
-        message = await self.converter(ctx, resp, True)
-        if embed:
-            for page in pagify(message, delims=["\n"], page_length=1800):
-                embed = discord.Embed(description=page, color=await ctx.embed_colour())
-            if reply:
-                if await ctx.embed_requested():
-                    await ctx.reply(embed=embed, mention_author=mention)
-                else:
-                    await ctx.reply(message, mention_author=mention)
-            else:
-                await ctx.maybe_send_embed(message)
-        else:
-            if reply:
-                await ctx.reply(message, mention_author=mention)
-            else:
-                await ctx.send(message)
 
+        content = await self.converter(ctx, resp, True)
+
+        if embed:
+            content = discord.Embed(
+                description=content,
+                color=await ctx.embed_colour()
+            )
+
+        kwargs = {}
+
+        if reply and ctx.channel.permissions_for(ctx.me).read_message_history:
+            kwargs["mention_author"] = mention
+
+        if isinstance(content, str):
+            kwargs["content"] = content
+        else:
+            if await ctx.embed_requested():
+                kwargs["embed"] = content
+            else:
+                kwargs["content"] = plain_content
+
+        if reply:
+            await ctx.reply(**kwargs)
+        else:
+            await ctx.send(**kwargs)
 
 def setup(bot):
     cping = PingOverride(bot)
