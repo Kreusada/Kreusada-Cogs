@@ -188,17 +188,11 @@ class Vinfo(commands.Cog):
             vinfo = [getattr(MOD, version), "." + version]
 
         elif (
-            (
-                hasattr(MOD, '__file__') 
-                and MOD.__file__.lower().startswith(pypath.lower())
-            )
-            or 
-            (
-                hasattr(MOD, '__spec__')
-                and MOD.__spec__.origin.lower().startswith(pypath.lower())
-                or MOD.__spec__.origin.lower() == "built-in"
-                or not MOD.__spec__.origin
-            )
+            hasattr(MOD, '__file__') 
+            and MOD.__file__.lower().startswith(pypath.lower())
+            or MOD.__spec__.origin.lower().startswith(pypath.lower())
+            or MOD.__spec__.origin.lower() == "built-in"
+            or MOD.__spec__.origin is None
         ):
             vinfo = [(sys.version_info[:3]), "[Core/Builtin Python]"]
 
