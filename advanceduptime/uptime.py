@@ -45,7 +45,13 @@ class AdvancedUptime(commands.Cog):
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         """Thanks Sinbad."""
-        return f"{super().format_help_for_context(ctx)}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
+        context = super().format_help_for_context(ctx)
+        authors = ", ".join(self.__author__)
+        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+
+    async def red_delete_data_for_user(self, **kwargs):
+        """Nothing to delete"""
+        return
 
     def cog_unload(self):
         global _old_uptime
@@ -55,12 +61,6 @@ class AdvancedUptime(commands.Cog):
             except Exception as error:
                 log.info(error)
                 self.bot.add_command(_old_uptime)
-
-    async def red_delete_data_for_user(self, **kwargs):
-        """
-        Nothing to delete
-        """
-        return
 
     @commands.command()
     async def uptime(self, ctx: commands.Context):

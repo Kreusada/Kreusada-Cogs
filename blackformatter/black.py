@@ -9,8 +9,17 @@ from redbot.core import commands
 class Black(commands.Cog):
     """Run black on code."""
 
+    __author__ = ["Kreusada"]
+    __version__ = "0.1.0"
+
     def __init__(self, bot):
         self.bot = bot
+
+    def format_help_for_context(self, ctx: commands.Context) -> str:
+        """Thanks Sinbad."""
+        context = super().format_help_for_context(ctx)
+        authors = ", ".join(self.__author__)
+        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""

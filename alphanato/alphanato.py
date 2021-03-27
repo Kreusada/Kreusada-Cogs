@@ -34,8 +34,21 @@ class AlphaNato(commands.Cog):
     Get the names of the NATO phonetics through easy-to-use syntax.
     """
 
+    __author__ = ["Kreusada"]
+    __version__ = "0.3.0"
+
     def __init__(self, bot):
         self.bot = bot
+
+    def format_help_for_context(self, ctx: commands.Context) -> str:
+        """Thanks Sinbad."""
+        context = super().format_help_for_context(ctx)
+        authors = ", ".join(self.__author__)
+        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+
+    async def red_delete_data_for_user(self, **kwargs):
+        """Nothing to delete"""
+        return
 
     @commands.command(usage="<letters...>")
     async def nato(self, ctx, *, letter: str):

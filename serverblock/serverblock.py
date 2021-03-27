@@ -12,11 +12,24 @@ class ServerBlock(commands.Cog):
     Blocklist servers from being able to add [botname].
     """
 
+    __author__ = ["Kreusada"]
+    __version__ = "0.3.0"
+
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, 34237423098423094, force_registration=True)
         self.config.register_global(blacklist=[])
 
+    def format_help_for_context(self, ctx: commands.Context) -> str:
+        """Thanks Sinbad."""
+        context = super().format_help_for_context(ctx)
+        authors = ", ".join(self.__author__)
+        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+
+    async def red_delete_data_for_user(self, **kwargs):
+        """Nothing to delete"""
+        return
+        
     @commands.is_owner()
     @commands.group(aliases=["serverblacklist", "serverblocklist"])
     async def sbl(self, ctx):
