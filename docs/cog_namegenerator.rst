@@ -115,6 +115,28 @@ Generates a random last name.
 
 * ``[gender]``: The gender for the name. If none is specified, it defaults to random.
 
+.. _namegenerator-command-name-mash:
+
+"""""""""
+name mash
+"""""""""
+
+**Syntax**
+
+.. code-block:: ini
+
+    [p]name mash <member1> <member2> [use_nicks=False]
+
+**Description**
+
+Mashes two usernames together.
+
+**Arguments**
+
+* ``<member1>``: The first user to mash.
+* ``<member2>``: The second user to mash.
+* ``[use_nicks]``: Whether nicks are used instead. Defaults to False.
+
 ----------------------
 Additional Information
 ----------------------
