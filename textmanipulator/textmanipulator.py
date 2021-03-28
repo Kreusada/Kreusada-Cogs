@@ -26,6 +26,8 @@ import discord
 
 from redbot.core import commands
 
+# TODO: Rewrite
+
 
 class TextManipulator(commands.Cog):
     """
@@ -98,14 +100,3 @@ class TextManipulator(commands.Cog):
         characters[0::2] = map(str.upper, characters[0::2])
         characters[1::2] = map(str.lower, characters[1::2])
         await ctx.send("".join(characters))
-
-    @commands.command()
-    async def remove(self, ctx: commands.Context, char_to_remove: str, *, words: str):
-        """Remove characters from text."""
-        await ctx.send(list.replace(char_to_remove, ""))
-
-    @commands.command()
-    async def escape(self, ctx: commands.Context, *, words: str):
-        """Escape markdown."""
-        makeraw = discord.utils.escape_markdown(words)
-        await ctx.send(makeraw)
