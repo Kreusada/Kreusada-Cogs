@@ -148,3 +148,12 @@ Versioning does not apply for meta unlike the changelogs for each specific cog.
 
 * Update labelers to include documentation for all cogs.
 * Update CODEOWNERS to remove Edition and to add newer cogs.
+
+----------
+28/03/2021
+----------
+
+**Cogs**
+
+* Removed commands ``escape`` and ``remove`` from TextManipulator.
+* Added ``name mash`` command to NameGenerator
