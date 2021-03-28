@@ -48,7 +48,7 @@ class ServerBlock(commands.Cog):
             return await ctx.send("This server is already blocklisted.")
         b.append(guild)
         await self.config.blacklist.set(b)
-        msg = "Guild added to blocklist."
+        msg = "Server added to blocklist."
         if not guild in [g.id for g in self.bot.guilds]:
             await ctx.send(msg)
         else:
@@ -122,7 +122,7 @@ class ServerBlock(commands.Cog):
                     f"Your server is on my blocklist. You cannot invite me to {guild.name}."
                 )
             log.info(
-                "{0.name} has left a guild that was on the server blocklist: {1.name} ({1.id})".format(
+                "{0.name} has left a server that was on the server blocklist: {1.name} ({1.id})".format(
                     self.bot.user, guild
                 )
             )
