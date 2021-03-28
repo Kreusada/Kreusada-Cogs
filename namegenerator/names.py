@@ -94,7 +94,7 @@ class NameGenerator(commands.Cog):
         """
         Mash two usernames together.
         """
-        if nicks:
+        if use_nicks:
             a = member1.display_name
             b = member2.display_name
         else:
