@@ -22,9 +22,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from names import get_full_name as full, get_first_name as first, get_last_name as last
+import names
+import discord
 
 from redbot.core import commands
+
+full = names.get_full_name
+first = names.get_first_name
+last = names.get_last_name
 
 
 class NameGenerator(commands.Cog):
@@ -83,3 +88,16 @@ class NameGenerator(commands.Cog):
         `gender`: Provides the gender of the name.
         """
         await ctx.send(last())
+
+    @name.command()
+    async def mash(self, ctx, member1: discord.Member, member2: discord.Member, use_nicks: bool = False):
+        """
+        Mash two usernames together.
+        """
+        if nicks:
+            a = member1.display_name
+            b = member2.display_name
+        else:
+            a = member1.name
+            b = member2.name
+        await ctx.send(a[:len(a) // 2].strip() + b[len(b) // 2:])
