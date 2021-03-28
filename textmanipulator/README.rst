@@ -213,45 +213,6 @@ Count the number of words in the text.
 
 .. _textmanipulator-command-escape:
 
-^^^^^^
-escape
-^^^^^^
-
-**Syntax**
-
-.. code-block:: ini
-
-    [p]cscape <words>
-
-**Description**
-
-Escape Discord markdown in the text.
-
-**Arguments**
-
-* ``<words>``: The text to escape.
-
-.. _textmanipulator-command-remove:
-
-^^^^^^
-remove
-^^^^^^
-
-**Syntax**
-
-.. code-block:: ini
-
-    [p]remove <char_to_remove> <words>
-
-**Description**
-
-Remove a specific character from the text.
-
-**Arguments**
-
-* ``<char_to_remove>``: The character to remove.
-* ``<words>``: The text to remove this character from.
-
 ----------------------
 Additional Information
 ----------------------
