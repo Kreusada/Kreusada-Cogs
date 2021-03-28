@@ -100,4 +100,4 @@ class NameGenerator(commands.Cog):
         else:
             a = member1.name
             b = member2.name
-        await ctx.send(a[:len(a) // 2].strip() + b[len(b) // 2:])
+        await ctx.send(a[:len(a) // 2].strip() + b[len(b) // 2:].strip())
