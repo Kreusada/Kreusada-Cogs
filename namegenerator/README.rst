@@ -97,9 +97,9 @@ Generates a random full name.
 
 .. _namegenerator-command-name-last:
 
-""""""""""
-name first
-""""""""""
+"""""""""
+name last
+"""""""""
 
 **Syntax**
 
