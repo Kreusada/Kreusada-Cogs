@@ -1,10 +1,13 @@
 import asyncio
 import discord
+import logging
 import contextlib
 
 from redbot.core import commands, Config
 from redbot.core.utils.chat_formatting import box
 from redbot.core.utils.predicates import MessagePredicate
+
+log = logging.getLogger("red.kreusada.serverblock")
 
 
 class ServerBlock(commands.Cog):
@@ -118,4 +121,9 @@ class ServerBlock(commands.Cog):
                 await guild.owner.send(
                     f"Your server is on my blocklist. You cannot invite me to {guild.name}."
                 )
+            log.info(
+                "{0.name} has left a guild that was on the server blocklist: {1.name} ({1.id})".format(
+                    self.bot.user, guild
+                )
+            )
             return await guild.leave()
