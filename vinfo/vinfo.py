@@ -101,7 +101,7 @@ class Vinfo(commands.Cog):
         formatter = (
             bold("Red"),
             redbot.version_info,
-            bold("Python (Sys)"),
+            bold("Python (sys)"),
             *sys.version_info[:3],
             bold("discord.py"),
             discord.__version__,
