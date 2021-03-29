@@ -24,11 +24,14 @@ SOFTWARE.
 
 import pip
 import sys
+import json
+import types
 import redbot
 import discord
 import logging
 import lavalink
 
+from pathlib import Path
 from distutils import sysconfig
 
 from redbot.core import commands
@@ -39,8 +42,8 @@ log = logging.getLogger("red.kreusada.vinfo")
 base = "{}: {}\n{}: {}.{}.{}\n{}: {}\n\n{}: {}\n{}: {}"
 
 RETURN_TYPE_1 = box(
-    "- Could not find a version for `{}`.",
-    lang="diff"
+    "# Could not find a version for `{}`.",
+    lang="cs"
 )
 RETURN_TYPE_2 = box(
     "- You do not have an installed module named `{}`.", 
@@ -95,6 +98,36 @@ class Vinfo(commands.Cog):
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""
         return
+
+    @staticmethod
+    def check_isinstance(module: types.ModuleType, attr: str):
+        return isinstance(getattr(module, attr), (str, int, list, tuple))
+
+    def check_attrs(self, module: types.ModuleType):
+        pypath = str(sysconfig.get_python_lib(standard_lib=True))
+        builtin = [sys.version_info[:3], "[Core/Builtin Python]"]
+        with open(Path(__file__).parent / "attrs.json") as fp:
+            attrs_to_check = json.load(fp)["attrs"]
+        for attr in attrs_to_check:
+            if hasattr(module, attr) and self.check_isinstance(module, attr):
+                return [getattr(module, attr), "." + attr]
+        if hasattr(module, '__file__') and self.check_isinstance(module, '__file__'):
+            file = module.__file__.lower()
+            if file.startswith(pypath.lower()):
+                return builtin
+        if hasattr(module, '__spec__'):
+            spec = module.__spec__.origin
+            if spec.lower().startswith(pypath.lower()):
+                return builtin
+            if spec.lower() == "built-in":
+                return builtin
+            if spec is None:
+                return builtin
+        if hasattr(module, '__path__'):
+            path = module.__path__[0].lower()
+            if path.startswith(pypath.lower()):
+                return builtin
+        return None
 
     @staticmethod
     def modvinfo_format(mods):
@@ -161,13 +194,6 @@ class Vinfo(commands.Cog):
             await ctx.send(embed=embed)
             return await ctx.send_help()
 
-        # If `version_info` is defined, we should refer to this first.
-        version_info = "version_info"
-        versionattr = "__version__"
-        shortversionattr = '_version_'
-        version = 'version'
-
-        pypath = str(sysconfig.get_python_lib(standard_lib=True))
         await ctx.trigger_typing()
 
         try:
@@ -175,31 +201,14 @@ class Vinfo(commands.Cog):
         except ModuleNotFoundError:
             return await ctx.send(RETURN_TYPE_2.format(module))
 
-        if hasattr(MOD, version_info):
-            vinfo = [getattr(MOD, version_info), "." + version_info]
+        check_attrs = self.check_attrs(MOD)
 
-        elif hasattr(MOD, versionattr):
-            vinfo = [getattr(MOD, versionattr), "." + versionattr]
-
-        elif hasattr(MOD, shortversionattr):
-            vinfo = [getattr(MOD, shortversionattr), "." + shortversionattr]
-
-        elif hasattr(MOD, version):
-            vinfo = [getattr(MOD, version), "." + version]
-
-        elif (
-            hasattr(MOD, '__file__') 
-            and MOD.__file__.lower().startswith(pypath.lower())
-            or MOD.__spec__.origin.lower().startswith(pypath.lower())
-            or MOD.__spec__.origin.lower() == "built-in"
-            or MOD.__spec__.origin is None
-        ):
-            vinfo = [(sys.version_info[:3]), "[Core/Builtin Python]"]
-
-        else:
+        if not check_attrs:
             return await ctx.send(
                 RETURN_TYPE_1.format(MOD.__name__)
             )
+
+        vinfo = check_attrs
 
         if isinstance(vinfo[0], tuple) and vinfo[1].endswith("[Core/Builtin Python]"):
             value = ("{}." * len(vinfo[0])).strip('.').format(*vinfo[0])
