@@ -104,13 +104,13 @@ class Vinfo(commands.Cog):
 
     def check_attrs(self, module: types.ModuleType):
         pypath = str(sysconfig.get_python_lib(standard_lib=True))
-        builtin = [sys.version_info[:3], "[Core/Builtin Python]"]
+        builtin = [sys.version_info[:3], "(Core/Builtin Python)"]
         with open(Path(__file__).parent / "attrs.json") as fp:
             attrs_to_check = json.load(fp)["attrs"]
         for attr in attrs_to_check:
             if hasattr(module, attr) and self.check_isinstance(module, attr):
                 return [getattr(module, attr), "." + attr]
-        if hasattr(module, '__file__') and self.check_isinstance(module, '__file__'):
+        if hasattr(module, '__file__'):
             file = module.__file__.lower()
             if file.startswith(pypath.lower()):
                 return builtin
@@ -209,7 +209,7 @@ class Vinfo(commands.Cog):
 
         vinfo = check_attrs
 
-        if isinstance(vinfo[0], tuple) and vinfo[1] == "[Core/Builtin Python]":
+        if isinstance(vinfo[0], tuple) and vinfo[1] == "(Core/Builtin Python)":
             value = ("{}." * len(vinfo[0])).strip('.').format(*vinfo[0])
             attr = f"None {vinfo[1]}"
         
