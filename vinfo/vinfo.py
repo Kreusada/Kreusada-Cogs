@@ -213,7 +213,7 @@ class Vinfo(commands.Cog):
             value = ("{}." * len(vinfo[0])).strip('.').format(*vinfo[0])
             attr = f"None {vinfo[1]}"
         
-        elif isinstance(vinfo[0], (list, tuple):
+        elif isinstance(vinfo[0], (list, tuple)):
             value = ("{}." * len(vinfo[0])).strip('.').format(*vinfo[0])
             attr = f"`{MOD.__name__}{vinfo[1]}`"
 
