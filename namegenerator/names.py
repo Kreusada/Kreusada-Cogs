@@ -100,7 +100,7 @@ class NameGenerator(commands.Cog):
         await ctx.send(a[:len(a) // 2].strip() + b[len(b) // 2:].strip())
 
     @name.command()
-    async def mashstr(self, ctx, member1: discord.Member, member2: discord.Member, use_nicks: bool = False):
+    async def mashu(self, ctx, member1: discord.Member, member2: discord.Member, use_nicks: bool = False):
         """
         Mash two usernames together.
         """
