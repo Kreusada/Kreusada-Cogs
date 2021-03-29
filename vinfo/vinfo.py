@@ -105,6 +105,8 @@ class Vinfo(commands.Cog):
     def check_attrs(self, module: types.ModuleType):
         pypath = str(sysconfig.get_python_lib(standard_lib=True))
         builtin = [sys.version_info[:3], "(Core/Builtin Python)"]
+        if module.__name__ == 'sys':
+            return builtin
         with open(Path(__file__).parent / "attrs.json") as fp:
             attrs_to_check = json.load(fp)["attrs"]
         for attr in attrs_to_check:
@@ -115,13 +117,12 @@ class Vinfo(commands.Cog):
             if file.startswith(pypath.lower()):
                 return builtin
         if hasattr(module, '__spec__'):
-            spec = module.__spec__.origin
-            if spec.lower().startswith(pypath.lower()):
-                return builtin
-            if spec.lower() == "built-in":
-                return builtin
-            if spec is None:
-                return builtin
+            if module.__spec__ is not None:
+                spec = module.__spec__.origin
+                if spec.lower().startswith(pypath.lower()):
+                    return builtin
+                if spec.lower() == "built-in":
+                    return builtin
         if hasattr(module, '__path__'):
             path = module.__path__[0].lower()
             if path.startswith(pypath.lower()):
