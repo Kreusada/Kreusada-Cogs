@@ -209,15 +209,11 @@ class Vinfo(commands.Cog):
 
         vinfo = check_attrs
 
-        if isinstance(vinfo[0], tuple) and vinfo[1].endswith("[Core/Builtin Python]"):
+        if isinstance(vinfo[0], tuple) and vinfo[1] == "[Core/Builtin Python]":
             value = ("{}." * len(vinfo[0])).strip('.').format(*vinfo[0])
             attr = f"None {vinfo[1]}"
         
-        elif isinstance(vinfo[0], tuple):
-            value = ("{}." * len(vinfo[0])).strip('.').format(*vinfo[0])
-            attr = f"`{MOD.__name__}{vinfo[1]}`"
-
-        elif isinstance(vinfo[0], list):
+        elif isinstance(vinfo[0], (list, tuple):
             value = ("{}." * len(vinfo[0])).strip('.').format(*vinfo[0])
             attr = f"`{MOD.__name__}{vinfo[1]}`"
 
