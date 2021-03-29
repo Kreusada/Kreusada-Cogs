@@ -91,22 +91,12 @@ class NameGenerator(commands.Cog):
         await ctx.send(last())
 
     @name.command()
-    async def mash(
-        self, ctx, word1: Union[discord.Member, str], word2: Union[discord.Member, str], use_nicks: bool = False
-    ):
+    async def mash(self, ctx, word1: str, word2: str):
         """
         Mash two names together.
         """
-        if isinstance(word1, str) and isinstance(word2, str):
-            a = word1
-            b = word2
-        else:
-            if use_nicks:
-                a = word1.display_name
-                b = word2.display_name
-            else:
-                a = word1.name
-                b = word2.name
+        a = word1
+        b = word2
         await ctx.send(a[:len(a) // 2].strip() + b[len(b) // 2:].strip())
 
     @name.command()
