@@ -22,12 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import discord
-
 from datetime import datetime
 
-from redbot.core import commands, Config
-from redbot.core.utils.chat_formatting import box, warning, error, bold
+import discord
+from redbot.core import Config, commands
+from redbot.core.utils.chat_formatting import bold, box, error, warning
 
 
 class Staff(commands.Cog):

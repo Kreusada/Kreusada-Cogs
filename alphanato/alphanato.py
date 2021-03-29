@@ -19,11 +19,11 @@ SOFTWARE.
 """
 
 import discord
-
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import box
 
 from .alphabet import NATO_ALPHABET
+
 
 def _remove_whitespace(let):
     return let.replace(' ','')

@@ -23,7 +23,6 @@ SOFTWARE.
 """
 
 import discord
-
 from redbot.core import commands
 
 # TODO: Rewrite

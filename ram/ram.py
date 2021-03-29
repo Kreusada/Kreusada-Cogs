@@ -23,7 +23,6 @@ SOFTWARE.
 """
 
 import psutil
-
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import box
 

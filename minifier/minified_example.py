@@ -9,10 +9,18 @@ J=isinstance
 G='diff'
 F=getattr
 B=hasattr
-import pip,sys as D,redbot as H,discord as I,logging as N,lavalink as O
+import logging as N
+import sys as D
 from distutils import sysconfig as P
+
+import discord as I
+import lavalink as O
+import pip
+import redbot as H
 from redbot.core import commands as E
-from redbot.core.utils.chat_formatting import box as A,bold as C
+from redbot.core.utils.chat_formatting import bold as C
+from redbot.core.utils.chat_formatting import box as A
+
 Q=N.getLogger('red.kreusada.vinfo')
 R='{}: {}\n{}: {}.{}.{}\n{}: {}\n\n{}: {}\n{}: {}'
 S=A('- Could not find a version for `{}`.',lang=G)

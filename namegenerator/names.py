@@ -22,9 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import names
 import discord
-
+import names
 from redbot.core import commands
 
 full = names.get_full_name

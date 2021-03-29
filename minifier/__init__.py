@@ -1,5 +1,6 @@
 import json
 import pathlib
+
 from .minifier import Minifier
 
 with open(pathlib.Path(__file__).parent / "info.json") as fp:

@@ -22,16 +22,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import io
-import discord
-import logging
 import asyncio
 import datetime
+import io
+import logging
 
-from redbot.core import commands, Config, modlog
+import discord
+from redbot.core import Config, commands, modlog
 from redbot.core.utils.chat_formatting import box
-from redbot.core.utils.predicates import ReactionPredicate
 from redbot.core.utils.menus import start_adding_reactions
+from redbot.core.utils.predicates import ReactionPredicate
 
 log = logging.getLogger("red.kreusada.dehoister")
 

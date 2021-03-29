@@ -1,8 +1,8 @@
+import contextlib
 import io
+
 import black
 import discord
-import contextlib
-
 from redbot.core import commands
 
 

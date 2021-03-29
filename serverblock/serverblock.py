@@ -1,9 +1,9 @@
 import asyncio
-import discord
-import logging
 import contextlib
+import logging
 
-from redbot.core import commands, Config
+import discord
+from redbot.core import Config, commands
 from redbot.core.utils.chat_formatting import box
 from redbot.core.utils.predicates import MessagePredicate
 

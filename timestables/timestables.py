@@ -22,13 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import time
-import random
-import discord
 import asyncio
+import random
+import time
 
-from redbot.core import commands, Config, i18n
-from redbot.core.utils.chat_formatting import box, bold
+import discord
+from redbot.core import Config, commands, i18n
+from redbot.core.utils.chat_formatting import bold, box
 
 
 class TimesTables(commands.Cog):

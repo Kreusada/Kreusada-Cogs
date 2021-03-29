@@ -22,20 +22,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import pip
-import sys
 import json
-import types
-import redbot
-import discord
 import logging
-import lavalink
-
-from pathlib import Path
+import sys
+import types
 from distutils import sysconfig
+from pathlib import Path
 
+import discord
+import lavalink
+import pip
+import redbot
 from redbot.core import commands
-from redbot.core.utils.chat_formatting import box, bold
+from redbot.core.utils.chat_formatting import bold, box
 
 log = logging.getLogger("red.kreusada.vinfo")
 

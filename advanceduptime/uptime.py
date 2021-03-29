@@ -22,12 +22,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import discord
 import logging
-
-from redbot.core import commands
 from datetime import datetime
-from redbot.core.utils.chat_formatting import humanize_timedelta, humanize_number, box
+
+import discord
+from redbot.core import commands
+from redbot.core.utils.chat_formatting import (
+    box, 
+    humanize_number,
+    humanize_timedelta
+)
 
 log = logging.getLogger("red.kreusada.advanceduptime")
 

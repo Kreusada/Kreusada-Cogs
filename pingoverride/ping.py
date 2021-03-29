@@ -22,15 +22,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import random
-import discord
-import logging
 import asyncio
+import logging
+import random
 
+import discord
 from redbot.core import Config, commands
 from redbot.core.utils.chat_formatting import bold, box, pagify
-from redbot.core.utils.predicates import ReactionPredicate
 from redbot.core.utils.menus import start_adding_reactions
+from redbot.core.utils.predicates import ReactionPredicate
 
 log = logging.getLogger("red.kreusada.pingoverride")
 

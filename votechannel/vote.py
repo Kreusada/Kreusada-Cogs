@@ -23,10 +23,8 @@ SOFTWARE.
 """
 
 import discord
-
-from redbot.core import commands, Config
+from redbot.core import Config, commands
 from redbot.core.utils.chat_formatting import bold
-
 
 DEFAULT_UP = "\N{UPWARDS BLACK ARROW}\N{VARIATION SELECTOR-16}"
 DEFAULT_DOWN = "\N{DOWNWARDS BLACK ARROW}\N{VARIATION SELECTOR-16}"

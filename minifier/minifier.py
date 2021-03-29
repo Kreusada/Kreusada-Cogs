@@ -1,7 +1,7 @@
 import io
+
 import discord
 import python_minifier as minifier
-
 from redbot.core import commands
 
 
