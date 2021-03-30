@@ -27,6 +27,7 @@ import logging
 import sys
 import types
 from distutils import sysconfig
+from importlib import machinery
 from pathlib import Path
 
 import discord
@@ -117,12 +118,13 @@ class Vinfo(commands.Cog):
             if file.startswith(pypath.lower()):
                 return builtin
         if hasattr(module, '__spec__'):
-            if module.__spec__ is not None:
-                spec = module.__spec__.origin
-                if spec.lower().startswith(pypath.lower()):
-                    return builtin
-                if spec.lower() == "built-in":
-                    return builtin
+            if isinstance(module.__spec__, machinery.ModuleSpec):
+                if hasattr(module.__spec__, 'origin') and module.__spec__.origin:
+                    spec = module.__spec__.origin
+                    if spec.lower().startswith(pypath.lower()):
+                        return builtin
+                    if spec.lower() == "built-in":
+                        return builtin
         if hasattr(module, '__path__'):
             path = module.__path__[0].lower()
             if path.startswith(pypath.lower()):
