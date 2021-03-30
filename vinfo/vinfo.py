@@ -36,6 +36,7 @@ import pip
 import redbot
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import bold, box
+from stdlib_list import stdlib_list
 
 log = logging.getLogger("red.kreusada.vinfo")
 
@@ -113,6 +114,9 @@ class Vinfo(commands.Cog):
         for attr in attrs_to_check:
             if hasattr(module, attr) and self.check_isinstance(module, attr):
                 return [getattr(module, attr), "." + attr]
+        if module.__name__ in stdlib_list("3.8"):
+            # Will bump on Red python bump, eventually
+            return builtin
         if hasattr(module, '__file__'):
             file = module.__file__.lower()
             if file.startswith(pypath.lower()):

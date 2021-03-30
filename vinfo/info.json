@@ -5,6 +5,7 @@
     "short": "Get version information for third-party cogs, or installed dependencies/modules.",
     "name": "Vinfo",
     "tags": ["Module", "Cog", "Version", "Info"],
+    "requirements": ["stdlib_list"],
     "type": "COG",
     "end_user_data_statement": "This cog does not persistently store data or metadata about users."
   }
