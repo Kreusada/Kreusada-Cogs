@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+import asyncio
 import json
 import logging
 import sys
@@ -36,24 +37,13 @@ import pip
 import redbot
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import bold, box
+from redbot.core.utils.predicates import MessagePredicate
 from stdlib_list import stdlib_list
 
 log = logging.getLogger("red.kreusada.vinfo")
 
 base = "{}: {}\n{}: {}.{}.{}\n{}: {}\n\n{}: {}\n{}: {}"
 
-RETURN_TYPE_1 = box(
-    "# Could not find a version for `{}`.",
-    lang="cs"
-)
-RETURN_TYPE_2 = box(
-    "- You do not have an installed module named `{}`.", 
-    lang="diff"
-)
-RETURN_TYPE_3 = box(
-    "Builtin Red cogs do not have version attributes by default. Perhaps you're looking for your Red version, which would be {}.",
-    lang="yaml"
-)
 
 REDBOT_CORE_COGS = [
     "Admin",
@@ -117,6 +107,8 @@ class Vinfo(commands.Cog):
         if module.__name__ in stdlib_list("3.8"):
             # Will bump on Red python bump, eventually
             return builtin
+        # The following statements were here before i discovered the stdlib_list lib.
+        # TODO: I should probably remove them soon, but they have no harm in being here for now.
         if hasattr(module, '__file__'):
             file = module.__file__.lower()
             if file.startswith(pypath.lower()):
@@ -182,7 +174,13 @@ class Vinfo(commands.Cog):
         if hasattr(Cog, "__version__"):
             return await ctx.send(box(f"{cog} version: {getattr(Cog, '__version__')}", lang='yaml'))
         elif cog in REDBOT_CORE_COGS:
-            return await ctx.send(RETURN_TYPE_3.format(redbot.version_info))
+            return await ctx.send(
+                box(
+                    "Builtin Red cogs do not have version attributes by default.\n"
+                    "Perhaps you're looking for your Red version, which would be {}.".format(redbot.version_info), 
+                    lang="yaml"
+                )
+            )
         else:
             await ctx.send(box(f"- Could not find a version for {cog}.", lang='diff'))
 
@@ -205,13 +203,23 @@ class Vinfo(commands.Cog):
         try:
             MOD = __import__(module)
         except ModuleNotFoundError:
-            return await ctx.send(RETURN_TYPE_2.format(module))
+            none_found = "- You do not have an installed module named `{}`.".format(module)
+            pipinstall = await ctx.send(box(none_found + "\n--- Would you like to pip install it? (yes/no)", lang="diff"))
+            try:
+                pred = MessagePredicate.yes_or_no(ctx, user=ctx.author)
+                msg = await ctx.bot.wait_for("message", check=pred, timeout=20)
+            except asyncio.TimeoutError:
+                return await pipinstall.edit(content=box(none_found, lang="diff"))
+            if pred.result:
+                return await ctx.invoke(self.bot.get_command("pipinstall"), module)
+            else:
+                return await pipinstall.edit(content=box(none_found, lang="diff"))
 
         check_attrs = self.check_attrs(MOD)
 
         if not check_attrs:
             return await ctx.send(
-                RETURN_TYPE_1.format(MOD.__name__)
+                box("# Could not find a version for `{}`.", lang="cs").format(MOD.__name__)
             )
 
         vinfo = check_attrs
