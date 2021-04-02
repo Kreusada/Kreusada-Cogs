@@ -33,6 +33,7 @@ Useful Links
     cog_pingoverride
     cog_minifier
     cog_ram
+    cog_rpsls
     cog_sendcards
     cog_serverblock
     cog_staff
@@ -56,6 +57,7 @@ Useful Links
     changelog_pingoverride
     changelog_minifier
     changelog_ram
+    changelog_rpsls
     changelog_sendcards
     changelog_serverblock
     changelog_staff
