@@ -1,3 +1,4 @@
+# Made for TW on Discord
 import json
 from pathlib import Path
 from random import choice as pick, randint
@@ -11,6 +12,10 @@ paper = "\N{PAGE FACING UP}"
 scissors = "\N{BLACK SCISSORS}\N{VARIATION SELECTOR-16}"
 lizard = "\N{LIZARD}"
 spock = "\N{RAISED HAND WITH PART BETWEEN MIDDLE AND RING FINGERS}"
+
+# TODO: Some of the logic behind this definitely needs re-working.
+# I wanted to get this released quickly, for a friend, it 100% works
+# But needs some updates in terms of data structs.
 
 choices = ["scissors", "paper", "rock", "lizard", "spock"]
 
