@@ -34,6 +34,10 @@
   - ram/*
   - docs/cog_ram
   - docs/changelog_ram
+"Cog: RPSLS":
+  - rpsls/*
+  - docs/cog_rpsls
+  - docs/changelog_rpsls
 "Cog: SendCards":
   - sendcards/*
   - docs/cog_sendcards
