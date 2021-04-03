@@ -67,4 +67,4 @@
   - .github/**
 "Type: Docs":
   - docs/**/*
-  - ./*.rst
+  - *.rst
