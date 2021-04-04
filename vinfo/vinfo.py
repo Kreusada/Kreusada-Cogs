@@ -73,7 +73,7 @@ class Vinfo(commands.Cog):
         with open(Path(__file__).parent / "attrs.json") as fp:
             attrs_to_check = json.load(fp)["attrs"]
         for attr in attrs_to_check:
-            if hasattr(module, attr) and self.check_isinstance(module, attr):
+            if hasattr(module, attr) and check_isinstance(module, attr):
                 return [getattr(module, attr), "." + attr]
         if module.__name__ in stdlib_list("3.8"):
             # Will bump on Red python bump, eventually
