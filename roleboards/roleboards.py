@@ -80,7 +80,7 @@ class RoleBoards(commands.Cog):
         """Get the roles with the most users."""
         g = ctx.guild
         data = []
-        for r in sorted([r for r in g.roles], key=lambda x: len(x.members), reverse=True)[:10]:
+        for r in sorted([r for r in g.roles], key=lambda x: len(x.members), reverse=True)[:11]:
             if r.name == "@everyone":
                 continue
             data.append((r.name, len(r.members)))
