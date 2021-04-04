@@ -31,16 +31,11 @@ class RPSLS(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        self.converter = lambda x: choices.index(x.lower())
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete."""
         return
-
-    @staticmethod
-    def converter(choice):
-        c = choice.lower()
-        index = choices.index(c)
-        return index
 
     @commands.command()
     async def rpsls(self, ctx, choice: str):
