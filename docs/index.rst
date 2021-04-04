@@ -28,9 +28,11 @@ Useful Links
     cog_bubblewrap
     cog_codify
     cog_dehoister
+    cog_listroles
     cog_namegenerator
     cog_pinginvoke
     cog_pingoverride
+    cog_quotes
     cog_minifier
     cog_ram
     cog_rpsls
@@ -52,10 +54,12 @@ Useful Links
     changelog_bubblewrap
     changelog_codify
     changelog_dehoister
+    changelog_listroles
     changelog_namegenerator
     changelog_pinginvoke
     changelog_pingoverride
     changelog_minifier
+    changelog_quotes
     changelog_ram
     changelog_rpsls
     changelog_sendcards
