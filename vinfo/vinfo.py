@@ -43,6 +43,7 @@ REDBOT_CORE_COGS = [
     "Warnings",
 ]
 
+check_isinstance = lambda x, y: isinstance(getattr(x, y), (str, int, list, tuple))
 
 class Vinfo(commands.Cog):
     """
@@ -66,15 +67,9 @@ class Vinfo(commands.Cog):
         """Nothing to delete"""
         return
 
-    @staticmethod
-    def check_isinstance(module: types.ModuleType, attr: str):
-        return isinstance(getattr(module, attr), (str, int, list, tuple))
-
     def check_attrs(self, module: types.ModuleType):
-        pypath = str(sysconfig.get_python_lib(standard_lib=True))
+        # pypath = str(sysconfig.get_python_lib(standard_lib=True))
         builtin = [sys.version_info[:3], "(Core/Builtin Python)"]
-        if module.__name__ == 'sys':
-            return builtin
         with open(Path(__file__).parent / "attrs.json") as fp:
             attrs_to_check = json.load(fp)["attrs"]
         for attr in attrs_to_check:
@@ -83,25 +78,23 @@ class Vinfo(commands.Cog):
         if module.__name__ in stdlib_list("3.8"):
             # Will bump on Red python bump, eventually
             return builtin
-        # The following statements were here before i discovered the stdlib_list lib.
-        # TODO: I should probably remove them soon, but they have no harm in being here for now.
-        if hasattr(module, '__file__'):
-            file = module.__file__.lower()
-            if file.startswith(pypath.lower()):
-                return builtin
-        if hasattr(module, '__spec__'):
-            if isinstance(module.__spec__, machinery.ModuleSpec):
-                if hasattr(module.__spec__, 'origin') and module.__spec__.origin:
-                    spec = module.__spec__.origin
-                    if spec.lower().startswith(pypath.lower()):
-                        return builtin
-                    if spec.lower() == "built-in":
-                        return builtin
-        if hasattr(module, '__path__'):
-            path = module.__path__[0].lower()
-            if path.startswith(pypath.lower()):
-                return builtin
-        return None
+        # if hasattr(module, '__file__'):
+        #     file = module.__file__.lower()
+        #     if file.startswith(pypath.lower()):
+        #         return builtin
+        # if hasattr(module, '__spec__'):
+        #     if isinstance(module.__spec__, machinery.ModuleSpec):
+        #         if hasattr(module.__spec__, 'origin') and module.__spec__.origin:
+        #             spec = module.__spec__.origin
+        #             if spec.lower().startswith(pypath.lower()):
+        #                 return builtin
+        #             if spec.lower() == "built-in":
+        #                 return builtin
+        # if hasattr(module, '__path__'):
+        #     path = module.__path__[0].lower()
+        #     if path.startswith(pypath.lower()):
+        #         return builtin
+        # return None
 
     @staticmethod
     def modvinfo_format(mods):
