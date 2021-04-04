@@ -23,13 +23,11 @@ class Quotes(commands.Cog):
         """Nothing to delete."""
         return
 
-    def formatter(self, content):
-        header = bold("From {}")
-        return header.format(content["author"]) + f"\n{content['content']}"
-
     @commands.command()
     async def quote(self, ctx):
         """Get a random quote."""
+        await ctx.trigger_typing()
         async with aiohttp.request("GET", self.api) as r:
             content = await r.json()
-        return await ctx.send(self.formatter(content))
+        formatter = lambda x, y: f"From {bold(x)}\n{y}"
+        return await ctx.send(formatter(content["author"], content["content"]))
