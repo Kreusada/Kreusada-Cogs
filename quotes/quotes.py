@@ -12,8 +12,7 @@ class Quotes(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.url = 'https://api.quotable.io/random'
-        self.session = aiohttp.ClientSession()
+        self.api = 'https://api.quotable.io/random'
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
@@ -31,6 +30,6 @@ class Quotes(commands.Cog):
     @commands.command()
     async def quote(self, ctx):
         """Get a random quote."""
-        async with aiohttp.request("GET", self.url) as r:
+        async with aiohttp.request("GET", self.api) as r:
             content = await r.json()
         return await ctx.send(self.formatter(content))
