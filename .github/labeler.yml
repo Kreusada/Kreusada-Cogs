@@ -30,6 +30,10 @@
   - pingoverride/*
   - docs/cog_pingoverride
   - docs/changelog_pingoverride
+"Cog: Quotes":
+  - quotes/*
+  - docs/cog_quotes
+  - docs/changelog_quotes
 "Cog: RAM":
   - ram/*
   - docs/cog_ram
