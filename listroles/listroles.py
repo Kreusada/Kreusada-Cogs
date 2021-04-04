@@ -31,7 +31,11 @@ class ListRoles(commands.Cog):
         for r in sorted(list(ctx.guild.roles), key=lambda x: x.position, reverse=True):
             if r.name == "@everyone":
                 continue
-            data.append([r.name, str(r.id), f"{r.color} (0x{str(r.color).strip('#')})"])
+            if len(r.name) > 17:
+                name = r.name[:14] + '...'
+            else:
+                name = r.name
+            data.append([name, str(r.id), f"{r.color} (0x{str(r.color).strip('#')})"])
         kwargs = {
             "tabular_data": data,
             "tablefmt": "simple",
