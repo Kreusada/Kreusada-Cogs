@@ -1,7 +1,10 @@
 import aiohttp
+import logging
 
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import bold
+
+log = logging.getLogger("red.kreusada.quotes")
 
 
 class Quotes(commands.Cog):
@@ -16,7 +19,8 @@ class Quotes(commands.Cog):
         self.session = aiohttp.ClientSession()
 
     def cog_unload(self):
-        self.bot.loop.run_until_complete(self.session.close())
+        self.bot.loop.create_task(self.session.close())
+        log.debug("Session closed.")
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
