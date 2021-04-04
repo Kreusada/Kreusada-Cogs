@@ -1,7 +1,6 @@
 import discord
 from redbot.core import commands, checks
 from redbot.core.utils.chat_formatting import pagify, box
-from redbot.core.utils.menus import menu, DEFAULT_CONTROLS as df
 from tabulate import tabulate
 
 colon = lambda x: x + ':'
@@ -41,7 +40,8 @@ class ListRoles(commands.Cog):
             "tablefmt": "simple",
             "headers": ["Role Name", "Role ID"],
         }
-        data = list(pagify(box(tabulate(**kwargs), lang="autohotkey")))
+        data = tabulate(**kwargs)
         title = "Roles in {}".format(ctx.guild.name)
         await ctx.send(box(header(title), lang="md"))
-        await menu(ctx, data, df)
+        for page in pagify(data, page_length=1990):
+            await ctx.send(box(page, lang="autohotkey"))
