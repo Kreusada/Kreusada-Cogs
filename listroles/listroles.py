@@ -3,9 +3,6 @@ from redbot.core import commands, checks
 from redbot.core.utils.chat_formatting import pagify, box
 from tabulate import tabulate
 
-colon = lambda x: x + ':'
-header = lambda x: x + '\n' + '=' * len(x)
-
 
 class ListRoles(commands.Cog):
     """Get a list of all the roles in a server."""
@@ -29,19 +26,24 @@ class ListRoles(commands.Cog):
     @commands.guild_only()
     async def listroles(self, ctx: commands.Context):
         """List all roles in this guild."""
-        data = {}
+        data = []
         description = f"Roles for {ctx.guild.name}"
         for r in sorted(list(ctx.guild.roles), key=lambda x: x.position, reverse=True):
             if r.name == "@everyone":
                 continue
-            data[colon(r.name)] = str(r.id)
+            data.append([r.name, str(r.id), f"{r.color} (0x{str(r.color).strip('#')})"])
         kwargs = {
-            "tabular_data": ([k, v] for k, v in data.items()),
+            "tabular_data": data,
             "tablefmt": "simple",
-            "headers": ["Role Name", "Role ID"],
+            "headers": ["Role Name", "Role ID", "Color"],
         }
         data = tabulate(**kwargs)
-        title = "Roles in {}".format(ctx.guild.name)
-        await ctx.send(box(header(title), lang="md"))
-        for page in pagify(data, page_length=1990):
-            await ctx.send(box(page, lang="autohotkey"))
+        for page in pagify(data, page_length=1998):
+            if await ctx.embed_requested():
+                embed = discord.Embed(
+                    description=box(page, lang="cs"),
+                    color=await ctx.embed_colour(),
+                )
+                await ctx.send(embed=embed)
+            else:
+                await ctx.send(box(page, lang='cs'))
