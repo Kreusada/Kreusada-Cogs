@@ -1,6 +1,6 @@
 {
     "author" : ["Kreusada"],
-    "description" : "A plethora of locale and language code tools.",
+    "description" : "A collection of locale and language code tools.",
     "disabled" : false,
     "end_user_data_statement" : "This cog does not persistently store data or metadata about users.",
     "hidden" : false,
@@ -8,7 +8,7 @@
     "name" : "Locales",
     "required_cogs" : {},
     "requirements" : ["langcodes", "language_data"],
-    "short" : "A plethora of locale and language code tools.",
+    "short" : "A collection of locale and language code tools.",
     "tags" : [
         "Locales",
         "Language Codes"

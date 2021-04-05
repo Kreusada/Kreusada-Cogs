@@ -1,5 +1,4 @@
 import contextlib
-from typing import Literal
 
 import babel
 import langcodes
