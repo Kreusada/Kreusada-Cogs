@@ -38,6 +38,10 @@
   - ram/*
   - docs/cog_ram
   - docs/changelog_ram
+"Cog: RoleBoards":
+  - roleboards/*
+  - docs/cog_roleboards
+  - docs/changelog_roleboards
 "Cog: RPSLS":
   - rpsls/*
   - docs/cog_rpsls
@@ -71,4 +75,3 @@
   - .github/**
 "Type: Docs":
   - docs/**/*
-  - *.rst
