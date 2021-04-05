@@ -63,6 +63,7 @@ class Locales(commands.Cog):
                 return await ctx.send(lang.capitalize())
         await ctx.send("Unknown language code.")
 
+    @commands.is_owner()
     @locale.command()
     async def bot(self, ctx):
         """Get your bot's locale."""
@@ -72,6 +73,7 @@ class Locales(commands.Cog):
             f"You can change it through `{ctx.clean_prefix}set locale`."
         )
 
+    @commands.is_owner()
     @locale.command(name="set")
     async def _set(self, ctx, language_code: str):
         """Set your bot's locale."""
