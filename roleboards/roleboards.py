@@ -6,7 +6,7 @@ from tabulate import tabulate
 
 class RoleBoards(commands.Cog):
     """
-    Get 'leaderboards' about guild roles, such as the users with the most roles, 
+    Get 'leaderboards' about guild roles, such as the users with the most roles,
     the roles with the most users, and a full list of all the roles.
     """
 
@@ -25,13 +25,13 @@ class RoleBoards(commands.Cog):
         """Nothing to delete."""
         return
 
-    @commands.group()
+    @commands.group(aliases=["rb"])
     @commands.guild_only()
-    async def rb(self, ctx):
+    async def roleboard(self, ctx):
         """Get roleboards for this server.."""
         pass
 
-    @rb.command()
+    @roleboard.command()
     async def listroles(self, ctx: commands.Context):
         """List all roles in this guild."""
         data = []
@@ -39,10 +39,7 @@ class RoleBoards(commands.Cog):
         for r in sorted(list(ctx.guild.roles), key=lambda x: x.position, reverse=True):
             if r.name == "@everyone":
                 continue
-            if len(r.name) > 17:
-                name = r.name[:14] + '...'
-            else:
-                name = r.name
+            name = r.name[:14] + "..." if r.name > 17 else r.name
             data.append([name, str(r.id), f"{r.color} (0x{str(r.color).strip('#')})"])
         kwargs = {
             "tabular_data": data,
@@ -51,31 +48,36 @@ class RoleBoards(commands.Cog):
         }
         data = tabulate(**kwargs)
         for page in pagify(data, page_length=1998):
+            page = box(page, lang="cs")
             if await ctx.embed_requested():
-                embed = discord.Embed(
-                    description=box(page, lang="cs"),
-                    color=await ctx.embed_colour(),
+                await ctx.send(
+                    embed=discord.Embed(
+                        description=page,
+                        color=await ctx.embed_colour(),
+                    )
                 )
-                await ctx.send(embed=embed)
             else:
-                await ctx.send(box(page, lang='cs'))
+                await ctx.send(page)
 
-    @rb.command()
+    @roleboard.command()
     async def topusers(self, ctx):
         """Get the users with the most roles."""
         g = ctx.guild
-        data = [(x.display_name, len(x.roles) - 1) for x in sorted([x for x in g.members], key=lambda x: len(x.roles), reverse=True)[:10]]
-        two_digit = lambda x: f'0{x}' if len(str(x)) == 1 else x
-        td = two_digit
+        data = self.get_roles(g)
         await ctx.send(
             embed=discord.Embed(
                 title="Users with the most roles",
-                description=box("\n".join(f"#{td(c)} [{td(v[1])}] {v[0]}" for c, v in enumerate(data, 1)), lang="css"),
+                description=box(
+                    "\n".join(
+                        f"#{self.td(c)} [{self.td(v[1])}] {v[0]}" for c, v in enumerate(data, 1)
+                    ),
+                    lang="css",
+                ),
                 color=await ctx.embed_colour(),
             )
         )
 
-    @rb.command()
+    @roleboard.command()
     async def toproles(self, ctx):
         """Get the roles with the most users."""
         g = ctx.guild
@@ -84,12 +86,25 @@ class RoleBoards(commands.Cog):
             if r.name == "@everyone":
                 continue
             data.append((r.name, len(r.members)))
-        two_digit = lambda x: f'0{x}' if len(str(x)) == 1 else x
-        td = two_digit
         await ctx.send(
             embed=discord.Embed(
                 title="Roles with the most users",
-                description=box("\n".join(f"#{td(c)} [{td(v[1])}] {v[0]}" for c, v in enumerate(data, 1)), lang="css"),
+                description=box(
+                    "\n".join(
+                        f"#{self.td(c)} [{self.td(v[1])}] {v[0]}" for c, v in enumerate(data, 1)
+                    ),
+                    lang="css",
+                ),
                 color=await ctx.embed_colour(),
             )
         )
+
+    @staticmethod
+    def get_roles(guild: discord.Guild):
+        key = lambda x: len(x.roles)
+        top_members = sorted([x for x in guild.members], key=key, reverse=True)
+        return [(x.display_name, len(x.roles) - 1) for x in top_members[:10]]
+
+    @staticmethod
+    def td(item):
+        return f"0{item}" if len(str(item)) == 1 else item
