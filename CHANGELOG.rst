@@ -9,107 +9,62 @@ Versioning does not apply for meta unlike the changelogs for each specific cog.
 28/02/2021
 ----------
 
-**Meta**
-
-* Added repo-wide changelog
-* Added changelog for AdvancedUptime
-* Added changelog for BubbleWrap
-* Added changelog for Codify
-* Added changelog for Dehoister
-* Added changelog for Edition
-* Added changelog for NameGenerator
-* Added changelog for PingInvoke
-* Added changelog for RAM
-* Added changelog for SendCards
-* Added changelog for Staff
-* Added changelog for TextManipulator
-* Added changelog for TimesTables
-* Added changelog for VoteChannel
-* Added doclog labels
-
-**Workflows**
-
-* Update labelers to cohere with PRs into the BubbleWrap directory
-
-**Cogs**
-
-* ``Dehoister``: Fix issues relating to an undefined variable
-* ``PingInvoke``: Update description key inside info.json
+* Added repo-wide changelogs.
+* Added doclog labels.
+* Update labelers to cohere with PRs into the BubbleWrap directory.
+* Fix issues relating to an undefined variable in Dehoister.
+* Update description key inside info.json in PingInvoke.
 
 ----------
 01/03/2021
 ----------
 
-**Cogs**
-
-* Updated install messages for all cogs apart from ``edition``, to link to documentation
-* ``PingOverride``: Improved UI of mapping kwargs
-* ``PingOverride``: Change box lang for ping preview from python to yaml
-* ``Dehoister``: Hoist scanning with more than 10 users now shows hoist count in the file
+* Updated install messages for all cogs apart from ``edition``, to link to documentation.
+* Improved UI of mapping kwargs in PingOverride.
+* Change box lang for ping preview from python to yaml in PingOverride.
+* Hoist scanning with more than 10 users now shows hoist count in the file in Dehoister.
 
 ----------
 01/03/2021
 ----------
 
-**Cogs**
-
-* ``Staff``: Change ``staff`` command bucket type from user to guild.
-* ``Staff``: Improved embed UI
-* ``Staff``: Added channel history for context
-* ``Staff``: No longer send normal messages if not embed requested
-* ``NameGenerator``: Sirnames don't have genders...
-* ``SendCards``: Allow attachments in card sending
-* ``SendCards``: Improve docstring detail 
-* ``Staff``: Add asterix in optional arguments to allow proper reasons
+* Change ``staff`` command bucket type from user to guild, with improved embed UI.
+* Added channel history for context in Staff.
+* No longer send normal messages if not embed requested, in Staff.
+* Sirnames don't have genders in NameGenerator.
+* Allow attachments in card sending, in SendCards.
+* Add asterix in optional arguments to allow proper reasons in Staff.
 
 ----------
 04/03/2021
 ----------
 
-**Cogs**
-
-* ``PingOverride``: Massive improvements to UI
-* ``PingOverride``: New random choice feature
-* ``PingOverride``: Enumerate output from preview
-* ``PingOverride``: Better care over settings
+* Massive improvements to UI, new random choice feature, enumerate output from preview and better care over settings in PingOverride.
 
 ----------
 06/03/2021
 ----------
 
-**Meta**
-
-* ``Vinfo``: Added cog, with vast and major improvements
-* ``Vinfo``: Fixed ``distutils.sysconfig`` attr error from import
+* Initial revision of Vinfo, with vast and major improvements
+* Fixed ``distutils.sysconfig`` attr error from import in Vinfo.
 
 ----------
 07/03/2021
 ----------
 
-**Cogs**
-
-* ``Vinfo``: Coverage for builtin modules and dependencies
-* ``Vinfo``: Fixes for returning incorrect attribute
-* ``Vinfo``: Check short attributes ``_version_``, ``version``
+* Coverage for builtin modules and dependencies in Vinfo.
+* Fixes for returning incorrect attribute in Vinfo.
+* Check short attributes ``_version_``, ``version``, in Vinfo.
 
 ----------
 13/03/2021
 ----------
 
-**Cogs**
-
-* ``Dehoister``: Provide dehoister immunity for bots
-* ``Vinfo``: Add dependencies in aliases and usage
-* ``Vinfo``: Use trigger typing when getting attributes
-
-**Docs**
-
-* ``Vinfo``: Added example images to user guide
-* ``Index``: Add repository artwork
-
-**Meta**
-
-* Added repository artwork
+* Provide dehoister immunity for bots in Dehoister.
+* Add dependencies in aliases and usage in Vinfo.
+* Use trigger typing when getting attributes in Vinfo.
+* Added example images to user guide in Vinfo.
+* Add repository artwork to readme and docs.
 * Enable PyLinter on push
 * Enable Black on push
 
@@ -117,35 +72,26 @@ Versioning does not apply for meta unlike the changelogs for each specific cog.
 14/03/2021
 ----------
 
-**Cogs**
-
-* ``AdvancedUptime``: Numerical data is now humanized
+* Humanize numerical data in AdvancedUptime
 
 ----------
 20/03/2021
 ----------
 
-**Cogs**
-
-* ``Vinfo``: Fixes for sys, math, array and more, when they did not have ``__file__`` attributes.
-
-**Meta**
-
-* New cogs: ``ServerBlock``, ``Minifier``, ``Black``.
+* Fixes for sys, math, array and more, when they did not have ``__file__`` attributes in Vinfo.
+* Initial revision of ``ServerBlock`` cog.
+* Initial revision of ``Minifier`` cog.
+* Initial revision of ``BlackFormatter`` cog.
 
 ----------
 24/03/2021
 ----------
 
-**Cogs**
 
-* Added cogs: ``AlphaNATO`` - Get the names of the NATO phonetics through easy-to-use syntax.
-  * Update usage to clarify that you can provide multiple letters.
+* Initial revision of ``AlphaNATO`` cog.
+* Update usage to clarify that you can provide multiple letters in AlphaNATO.
 * Fixed invalid URLS in info.json files (All Cogs).
 * Remove unused imports from Black and Minifer cogs.
-
-**Meta**
-
 * Update labelers to include documentation for all cogs.
 * Update CODEOWNERS to remove Edition and to add newer cogs.
 
@@ -153,7 +99,58 @@ Versioning does not apply for meta unlike the changelogs for each specific cog.
 28/03/2021
 ----------
 
-**Cogs**
-
 * Removed commands ``escape`` and ``remove`` from TextManipulator.
-* Added ``name mash`` command to NameGenerator
+* Removed doclog labels from repository.
+
+----------
+29/03/2021
+----------
+
+* Various improvements to staticmethod and lambda sustainability in Vinfo.
+* Support for lambda and unsupported instances of version attributes in Vinfo.
+* Change `[p]name mash` concept to accept str, not discord.Member (NameGenerator)
+* Fix attribute errors for ``__spec__``s without ``origin`` kwargs.
+
+----------
+30/03/2021
+----------
+
+* Use ``importlib.machinery.ModuleSpec`` to check ``__spec__`` types in Vinfo.
+* Use ``stdlib_list`` module to check for builtin modules in Vinfo.
+
+----------
+01/04/2021
+----------
+
+* Allow modules to be pip installed from a message predicate if it doesn't exist in Vinfo.
+
+----------
+02/04/2021
+----------
+
+* Remove licenses from every cog, as I feel that it should not be displayed along with the code.
+* Initial revision of ``RPSLS`` cog.
+
+----------
+04/04/2021
+----------
+
+* Initial revision of ``Quotes`` cog.
+* Use isinstance lambda instead of staticmethod for checking attr types in Vinfo.
+* Initial revision of ``ListRoles`` cog, and rename to ``RoleBoards`` to include more commands.
+
+----------
+05/04/2021
+----------
+
+* Fix labeler glob which would cause github checks to fail.
+* Simplify lambdas by adding supporting staticmethods in RoleBoards.
+* Fix attribute error with ``[p]staffset settings`` when a role doesn't exist, or is None.
+* Greatly improved layout and coverage in repo-wide changelogs.
+* Close aiohttp client session on cog unload in ``Quotes``.
+
+----------
+06/04/2021
+----------
+
+* Fix tabulate errors when a role is composed of chinese letters or emojis in RoleBoards.
