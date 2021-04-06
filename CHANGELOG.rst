@@ -147,3 +147,9 @@ Versioning does not apply for meta unlike the changelogs for each specific cog.
 * Simplify lambdas by adding supporting staticmethods in RoleBoards.
 * Fix attribute error with ``[p]staffset settings`` when a role doesn't exist, or is None.
 * Greatly improved layout and coverage in repo-wide changelogs.
+
+----------
+05/04/2021
+----------
+
+* Fix tabulate errors when a role is composed of chinese letters or emojis in RoleBoards.
