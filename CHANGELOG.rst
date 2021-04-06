@@ -115,7 +115,7 @@ Versioning does not apply for meta unlike the changelogs for each specific cog.
 30/03/2021
 ----------
 
-* Use ``importlib.machinery.ModuleSpec`` to validate ``__spec__`` types in Vinfo.
+* Use ``importlib.machinery.ModuleSpec`` to check ``__spec__`` types in Vinfo.
 * Use ``stdlib_list`` module to check for builtin modules in Vinfo.
 
 ----------
@@ -147,9 +147,10 @@ Versioning does not apply for meta unlike the changelogs for each specific cog.
 * Simplify lambdas by adding supporting staticmethods in RoleBoards.
 * Fix attribute error with ``[p]staffset settings`` when a role doesn't exist, or is None.
 * Greatly improved layout and coverage in repo-wide changelogs.
+* Close aiohttp client session on cog unload in ``Quotes``.
 
 ----------
-05/04/2021
+06/04/2021
 ----------
 
 * Fix tabulate errors when a role is composed of chinese letters or emojis in RoleBoards.
