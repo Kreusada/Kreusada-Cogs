@@ -93,9 +93,9 @@ class Termino(commands.Cog):
         if not shutdown_conf or conf:
             await ctx.send(message)
             log.info(f"{ctx.me.name} was shutdown by {ctx.author} ({now})")
-            return await self.bot.shutdown(restart=True)
+            return await self.bot.shutdown(restart=False)
         else:
-            await ctx.send("I will not be restarting.")
+            await ctx.send("I will not be shutting down.")
 
     @commands.group()
     @commands.is_owner()
