@@ -124,22 +124,6 @@ Get the number of speakers/writers for a language.
 
 .. _locales-command-locale-set:
 
-""""""""""
-locale set
-""""""""""
-
-.. note:: This command is owner-only.
-
-**Syntax**
-
-.. code-block:: none
-
-    [p]locale set <language_code>
-
-**Description**
-
-Set your bot's locale.
-
 ----------------------
 Additional Information
 ----------------------

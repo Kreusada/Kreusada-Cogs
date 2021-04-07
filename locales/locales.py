@@ -62,21 +62,15 @@ class Locales(commands.Cog):
                 return await ctx.send(lang.capitalize())
         await ctx.send("Unknown language code.")
 
-    @commands.is_owner()
     @locale.command()
     async def bot(self, ctx):
         """Get your bot's locale."""
         bot_locale = await i18n.get_locale_from_guild(self.bot, ctx.guild)
-        await ctx.send(
-            f"Your bot's locale is {bot_locale}.\n"
-            f"You can change it through `{ctx.clean_prefix}set locale`."
-        )
-
-    @commands.is_owner()
-    @locale.command(name="set")
-    async def _set(self, ctx, language_code: str):
-        """Set your bot's locale."""
-        await ctx.invoke(self.bot.get_command("set locale"), language_code)
+        is_owner = await self.bot.is_owner(ctx.author)
+        msg = f"{ctx.me.name}'s locale is {bot_locale}."
+        if is_owner:
+            msg += f"\nYou can change it through `{ctx.clean_prefix}set locale`."
+        await ctx.send(msg)
 
     @locale.command(usage="<language_code> [writing_or_speaking]")
     async def populous(self, ctx, language_code: str, writing_or_speaking: str = "speaking"):
