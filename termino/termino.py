@@ -1,10 +1,14 @@
-import discord
+import datetime
+import logging
 
+import discord
 from redbot.core import commands, Config
 from redbot.core.utils.chat_formatting import box, pagify
 from redbot.core.utils.predicates import MessagePredicate
 
 default_wave = "\N{WAVING HAND SIGN}\N{EMOJI MODIFIER FITZPATRICK TYPE-3}"
+log = logging.getLogger("red.kreusada.termino")
+now = datetime.datetime.now().strftime("%d/%m/%Y (%H:%M:%S)")
 
 
 class Termino(commands.Cog):
@@ -71,6 +75,7 @@ class Termino(commands.Cog):
             conf = await self.confirmation(ctx, "restart")
         if not restart_conf or conf:
             await ctx.send(message)
+            log.info(f"{ctx.me.name} was restarted by {ctx.author} ({now})")
             return await self.bot.shutdown(restart=True)
         else:
             await ctx.send("I will not be restarting.")
@@ -86,6 +91,7 @@ class Termino(commands.Cog):
             conf = await self.confirmation(ctx, "shutdown")
         if not shutdown_conf or conf:
             await ctx.send(message)
+            log.info(f"{ctx.me.name} was shutdown by {ctx.author} ({now})")
             return await self.bot.shutdown(restart=True)
         else:
             await ctx.send("I will not be restarting.")
