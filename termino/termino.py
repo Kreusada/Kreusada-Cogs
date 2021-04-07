@@ -127,7 +127,7 @@ class Termino(commands.Cog):
 
     @terminoset_restart.command(name="conf")
     async def terminoset_restart_conf(self, ctx: commands.Context, true_or_false: bool):
-        """Toggle whether restarts confirm before shutting down."""
+        """Toggle whether restarts confirm before restarting."""
         await self.config.confirm_restart.set(true_or_false)
         grammar = "not" if not true_or_false else "now"
         await ctx.send(f"Restarts will {grammar} confirm before shutting down.")
