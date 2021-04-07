@@ -41,6 +41,7 @@ Useful Links
     cog_sendcards
     cog_serverblock
     cog_staff
+    cog_termino
     cog_textmanipulator
     cog_timestables
     cog_vinfo
@@ -69,6 +70,7 @@ Useful Links
     changelog_sendcards
     changelog_serverblock
     changelog_staff
+    changelog_termino
     changelog_textmanipulator
     changelog_timestables
     changelog_vinfo
