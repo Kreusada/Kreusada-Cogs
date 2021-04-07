@@ -36,7 +36,7 @@ class ConsoleClearer(commands.Cog):
         return
         
     @commands.command()
-    async def cleanconsole(self, ctx):
+    async def cleanconsole(self, ctx: commands.Context):
         """
         Completely clears [botname]'s console.
         """
@@ -44,10 +44,12 @@ class ConsoleClearer(commands.Cog):
             cmd = "clear"
         else:
             cmd = "cls"
+        bar = "_" * len(cleared)
         os.system(cmd)
         print(header)
         print()
-        print("_" * len(cleared) + '\n')
+        print(bar)
+        print()
         print(cleared)
-        print("_" * len(cleared))
+        print(bar)
         await ctx.send("Red console cleared.")
