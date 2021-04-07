@@ -8,7 +8,7 @@
     "name" : "ConsoleClearer",
     "required_cogs" : {},
     "requirements" : [],
-    "short" : "Clear your red console.",
+    "short" : "Completely clear your red console.",
     "tags" : [
         "Console",
         "Clear"
