@@ -10,6 +10,9 @@ tick = "\N{WHITE HEAVY CHECK MARK} "
 cross = "\N{CROSS MARK} "
 valid = lambda t, b: tick + t if b else cross + t
 
+##########################################################################
+# This cog is hidden from the Red index, whilst its still being developed.
+##########################################################################
 
 class Locales(commands.Cog):
     """
