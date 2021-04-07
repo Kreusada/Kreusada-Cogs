@@ -84,9 +84,3 @@ Useful Links
     repo_license
     repo_support
     repo_workflow
-
-----
-Test
-----
-
-* :issue:`70`
