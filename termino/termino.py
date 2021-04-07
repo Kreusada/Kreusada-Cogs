@@ -1,4 +1,5 @@
 import asyncio
+import contextlib
 import datetime
 import logging
 
@@ -56,14 +57,12 @@ class Termino(commands.Cog):
 
     async def confirmation(self, ctx: commands.Context, _type: str):
         await ctx.send(f"Are you sure you want to {_type} {ctx.me.name}? (yes/no)")
-        try:
+        with contextlib.suppress(asyncio.TimeoutError):
             pred = MessagePredicate.yes_or_no(ctx, user=ctx.author)
-            msg = await ctx.bot.wait_for("message", check=pred, timeout=60)
-        except asyncio.TimeoutError:
-            await ctx.send(f"{ctx.author.mention} You took too long to respond - I will not be going offline.")
+            await ctx.bot.wait_for("message", check=pred, timeout=60)
+            if pred.result:
+                return True
             return False
-        if pred.result:
-            return True
         return False
 
     @commands.is_owner()
