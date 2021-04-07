@@ -27,7 +27,9 @@ Useful Links
     cog_blackformatter
     cog_bubblewrap
     cog_codify
+    cog_consoleclearer
     cog_dehoister
+    cog_locales
     cog_namegenerator
     cog_pinginvoke
     cog_pingoverride
@@ -53,7 +55,9 @@ Useful Links
     changelog_blackformatter
     changelog_bubblewrap
     changelog_codify
+    changelog_consoleclearer
     changelog_dehoister
+    changelog_locales
     changelog_namegenerator
     changelog_pinginvoke
     changelog_pingoverride

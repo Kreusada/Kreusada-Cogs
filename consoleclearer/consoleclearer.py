@@ -35,7 +35,7 @@ class ConsoleClearer(commands.Cog):
         """Nothing to delete."""
         return
         
-    @commands.command(aliases=['clc', 'cls', 'clearconsole'])
+    @commands.command()
     async def cleanconsole(self, ctx):
         """
         Completely clears [botname]'s console.
