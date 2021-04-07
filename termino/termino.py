@@ -61,6 +61,7 @@ class Termino(commands.Cog):
             msg = await ctx.bot.wait_for("message", check=pred, timeout=60)
         except asyncio.TimeoutError:
             await ctx.send(f"{ctx.author.mention} You took too long to respond - I will not be going offline.")
+            return False
         if pred.result:
             return True
         return False
