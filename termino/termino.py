@@ -31,13 +31,13 @@ class Termino(commands.Cog):
 
     def cog_unload(self):
         global shutdown
+        global restart
         if shutdown:
             try:
                 self.bot.remove_command("shutdown")
             except Exception as e:
                 log.info(e)
                 self.bot.add_command("shutdown")
-        global restart
         if restart:
             try:
                 self.bot.remove_command("restart")
@@ -54,7 +54,7 @@ class Termino(commands.Cog):
         """Nothing to delete"""
         return
 
-    async def confirmation(self, ctx, _type: str):
+    async def confirmation(self, ctx: commands.Context, _type: str):
         await ctx.send(f"Are you sure you want to {_type} {ctx.me.name}? (yes/no)")
         try:
             pred = MessagePredicate.yes_or_no(ctx, user=ctx.author)
@@ -67,7 +67,7 @@ class Termino(commands.Cog):
 
     @commands.is_owner()
     @commands.command()
-    async def restart(self, ctx, silently: bool = False):
+    async def restart(self, ctx: commands.Context):
         """Attempts to restart [botname]."""
         restart_message = await self.config.restart_message()
         restart_conf = await self.config.confirm_restart()
@@ -83,7 +83,7 @@ class Termino(commands.Cog):
 
     @commands.is_owner()
     @commands.command()
-    async def shutdown(self, ctx, silently: bool = False):
+    async def shutdown(self, ctx: commands.Context):
         """Shuts down [botname]."""
         shutdown_message = await self.config.shutdown_message()
         shutdown_conf = await self.config.confirm_shutdown()
@@ -99,47 +99,47 @@ class Termino(commands.Cog):
 
     @commands.group()
     @commands.is_owner()
-    async def terminoset(self, ctx):
+    async def terminoset(self, ctx: commands.Context):
         """Settings for the shutdown and restart commands."""
 
     @terminoset.group(name="shut", aliases=["shutdown"], invoke_without_command=True)
-    async def terminoset_shutdown(self, ctx, *, shutdown_message: str):
+    async def terminoset_shutdown(self, ctx: commands.Context, *, shutdown_message: str):
         """Set and adjust the shutdown message."""
         await ctx.invoke(self.terminoset_shutdown_message, shutdown_message=shutdown_message)
 
     @terminoset_shutdown.command(name="conf")
-    async def terminoset_shutdown_conf(self, ctx, true_or_false: bool):
+    async def terminoset_shutdown_conf(self, ctx: commands.Context, true_or_false: bool):
         """Toggle whether shutdowns confirm before shutting down."""
         await self.config.confirm_shutdown.set(true_or_false)
         grammar = "not" if not true_or_false else "now"
         await ctx.send(f"Shutdowns will {grammar} confirm before shutting down.")
 
     @terminoset_shutdown.command(name="message", hidden=True)
-    async def terminoset_shutdown_message(self, ctx, *, shutdown_message: str):
+    async def terminoset_shutdown_message(self, ctx: commands.Context, *, shutdown_message: str):
         """Set the shutdown message."""
         await self.config.shutdown_message.set(shutdown_message)
         await ctx.send("Shutdown message set.")
 
     @terminoset.group(name="res", aliases=["restart"], invoke_without_command=True)
-    async def terminoset_restart(self, ctx, *, restart_message: str):
+    async def terminoset_restart(self, ctx: commands.Context, *, restart_message: str):
         """Set and adjust the restart message."""
         await ctx.invoke(self.terminoset_restart_message, restart_message=restart_message)
 
     @terminoset_restart.command(name="conf")
-    async def terminoset_restart_conf(self, ctx, true_or_false: bool):
+    async def terminoset_restart_conf(self, ctx: commands.Context, true_or_false: bool):
         """Toggle whether restarts confirm before shutting down."""
         await self.config.confirm_restart.set(true_or_false)
         grammar = "not" if not true_or_false else "now"
         await ctx.send(f"Restarts will {grammar} confirm before shutting down.")
 
     @terminoset_restart.command(name="message", hidden=True)
-    async def terminoset_restart_message(self, ctx, *, restart_message: str):
+    async def terminoset_restart_message(self, ctx: commands.Context, *, restart_message: str):
         """Set the restart message."""
         await self.config.restart_message.set(restart_message)
         await ctx.send("Restart message set.")
 
     @terminoset.command()
-    async def settings(self, ctx):
+    async def settings(self, ctx: commands.Context):
         """See the current settings for termino."""
         restart_msg = await self.config.restart_message()
         shutdown_msg = await self.config.shutdown_message()
@@ -165,9 +165,9 @@ def setup(bot):
     global shutdown
     global restart
     shutdown = bot.get_command("shutdown")
+    restart = bot.get_command("restart")
     if shutdown:
         bot.remove_command(shutdown.name)
-    restart = bot.get_command("restart")
     if restart:
         bot.remove_command(restart.name)
     bot.add_cog(cog)
