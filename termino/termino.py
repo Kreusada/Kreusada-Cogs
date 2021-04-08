@@ -30,10 +30,13 @@ class Termino(commands.Cog):
             restart_channel_for_redboot=None,
         )
         self.var_formatter = lambda x, y: y.replace("{author}", x.author.display_name)
+        self.task = self.bot.loop.create_task(self.initialize())
 
     def cog_unload(self):
         global shutdown
         global restart
+        if self.task:
+            self.task.cancel()
         if shutdown:
             try:
                 self.bot.remove_command("shutdown")
@@ -116,7 +119,7 @@ class Termino(commands.Cog):
     async def terminoset_shutdown(self, ctx: commands.Context, *, shutdown_message: str):
         """
         Set and adjust the shutdown message.
-        
+
         You can use `{author}` in your message to send the invokers display name."""
         await ctx.invoke(self.terminoset_shutdown_message, shutdown_message=shutdown_message)
 
@@ -137,7 +140,7 @@ class Termino(commands.Cog):
     async def terminoset_restart(self, ctx: commands.Context, *, restart_message: str):
         """
         Set and adjust the restart message.
-        
+
         You can use `{author}` in your message to send the invokers display name."""
         await ctx.invoke(self.terminoset_restart_message, restart_message=restart_message)
 
@@ -172,6 +175,7 @@ class Termino(commands.Cog):
             message += "{author} will be replaced with the display name of the invoker."
         for page in pagify(message, delims=["\n"]):
             await ctx.send(box(page, lang="yaml"))
+
 
 def setup(bot):
     cog = Termino(bot)
