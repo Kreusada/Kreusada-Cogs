@@ -14,10 +14,18 @@
   - codify/*
   - docs/cog_codify
   - docs/changelog_codify
+"Cog: ConsoleClearer":
+  - consoleclearer/*
+  - docs/cog_consoleclearer
+  - docs/changelog_consoleclearer
 "Cog: Dehoister":
   - dehoister/*
   - docs/cog_dehoister
   - docs/changelog_dehoister
+"Cog: Locales":
+  - locales/*
+  - docs/cog_locales
+  - docs/changelog_locales
 "Cog: NameGenerator":
   - namegenerator/*
   - docs/cog_namegenerator
@@ -54,6 +62,10 @@
   - staff/*
   - docs/cog_staff
   - docs/changelog_staff
+"Cog: Termino":
+  - termino/*
+  - docs/cog_termino
+  - docs/changelog_termino
 "Cog: TextManipulator":
   - textmanipulator/*
   - docs/cog_textmanipulator
