@@ -147,19 +147,16 @@ class Termino(commands.Cog):
     @terminoset.command()
     async def settings(self, ctx: commands.Context):
         """See the current settings for termino."""
-        restart_msg = await self.config.restart_message()
-        shutdown_msg = await self.config.shutdown_message()
-        restart_conf = await self.config.confirm_restart()
-        shutdown_conf = await self.config.confirm_shutdown()
+        config = await self.config.all()
         footer = False
-        for x in [restart_msg, shutdown_msg]:
+        for x in [config["restart_message"], config["shutdown_message"]]:
             if "{author}" in x:
                 footer = True
         message = (
-            f"Shutdown message: {shutdown_msg}\n"
-            f"Shutdown confirmation: {shutdown_conf}\n\n"
-            f"Restart message: {restart_msg}\n"
-            f"Restart confirmation: {restart_conf}\n\n"
+            f"Shutdown message: {config['shutdown_message']}\n"
+            f"Shutdown confirmation: {config['confirm_shutdown']}\n\n"
+            f"Restart message: {config['restart_message']}\n"
+            f"Restart confirmation: {config['confirm_restart']}\n\n"
         )
         if footer:
             message += "{author} will be replaced with the display name of the invoker."
