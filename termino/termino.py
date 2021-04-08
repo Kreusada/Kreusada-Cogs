@@ -34,17 +34,11 @@ class Termino(commands.Cog):
         global shutdown
         global restart
         if shutdown:
-            try:
-                self.bot.remove_command("shutdown")
-            except Exception as e:
-                log.info(e)
-                self.bot.add_command("shutdown")
+            self.bot.remove_command("shutdown")
+            self.bot.add_command(shutdown)
         if restart:
-            try:
-                self.bot.remove_command("restart")
-            except Exception as e:
-                log.info(e)
-                self.bot.add_command("restart")
+            self.bot.remove_command("restart")
+            self.bot.add_command(restart)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
