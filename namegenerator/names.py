@@ -68,7 +68,7 @@ class NameGenerator(commands.Cog):
     @name.command()
     async def mash(self, ctx, word1: str, word2: str):
         """
-        Mash two names together.
+        Mash two words together.
         """
         a = word1
         b = word2

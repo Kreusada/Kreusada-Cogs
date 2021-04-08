@@ -15,6 +15,8 @@ Available cogs list
 +-----------------+--------------------------------------------------------------+---------+----------+
 | codify          | Get messages and transform them into code blocks.            | Tools   | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
+| consoleclearer  | Completely clear your Red console.                           | Tools   | Kreusada |
++-----------------+--------------------------------------------------------------+---------+----------+
 | dehoister       | Dehoist new users with a variety of powerful tools.          | Mod     | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
 | minifier        | Minify your code with the python minifier.                   | Tools   | Kreusada |
@@ -34,6 +36,8 @@ Available cogs list
 | sendcards       | Send christmas, birthday, valentines and get well soon cards | Fun     | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
 | staff           | Alert staff for   conspicuous activity.                      | Mod     | Kreusada |
++-----------------+--------------------------------------------------------------+---------+----------+
+| termino         | Custom shutdown/restart responses with predicates.           | Tools   | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+
 | textmanipulator | Manipulate text and words with tools.                        | Tools   | Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------+

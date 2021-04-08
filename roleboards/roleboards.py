@@ -39,7 +39,7 @@ class RoleBoards(commands.Cog):
         for r in sorted(list(ctx.guild.roles), key=lambda x: x.position, reverse=True):
             if r.name == "@everyone":
                 continue
-            name = r.name[:14] + "..." if r.name > 17 else r.name
+            name = r.name[:10] + "..." if len(r.name) > 13 else r.name
             data.append([name, str(r.id), f"{r.color} (0x{str(r.color).strip('#')})"])
         kwargs = {
             "tabular_data": data,

@@ -27,7 +27,9 @@ Useful Links
     cog_blackformatter
     cog_bubblewrap
     cog_codify
+    cog_consoleclearer
     cog_dehoister
+    cog_locales
     cog_namegenerator
     cog_pinginvoke
     cog_pingoverride
@@ -39,6 +41,7 @@ Useful Links
     cog_sendcards
     cog_serverblock
     cog_staff
+    cog_termino
     cog_textmanipulator
     cog_timestables
     cog_vinfo
@@ -53,7 +56,9 @@ Useful Links
     changelog_blackformatter
     changelog_bubblewrap
     changelog_codify
+    changelog_consoleclearer
     changelog_dehoister
+    changelog_locales
     changelog_namegenerator
     changelog_pinginvoke
     changelog_pingoverride
@@ -65,6 +70,7 @@ Useful Links
     changelog_sendcards
     changelog_serverblock
     changelog_staff
+    changelog_termino
     changelog_textmanipulator
     changelog_timestables
     changelog_vinfo

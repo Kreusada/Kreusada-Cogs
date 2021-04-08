@@ -1,0 +1,18 @@
+{
+    "author" : ["Kreusada"],
+    "description" : "Customize restart and shutdown messages with your own text, and predicates.",
+    "disabled" : false,
+    "end_user_data_statement" : "This cog does not persistently store data or metadata about users.",
+    "hidden" : false,
+    "install_msg" : "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_termino.html",
+    "name" : "Termino",
+    "required_cogs" : {},
+    "requirements" : [],
+    "short" : "Customize restart and shutdown messages with your own text, and predicates.",
+    "tags" : [
+        "Shutdown",
+        "Restart",
+        "Custom"
+    ],
+    "type" : "COG"
+}
