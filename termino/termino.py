@@ -27,6 +27,7 @@ class Termino(commands.Cog):
             restart_message="Restarting...",
             confirm_shutdown=True,
             confirm_restart=True,
+            restart_channel_for_redboot=None,
         )
         self.var_formatter = lambda x, y: y.replace("{author}", x.author.display_name)
 
@@ -65,6 +66,14 @@ class Termino(commands.Cog):
             return False
         return False
 
+    async def initialize(self):
+        await self.bot.wait_until_red_ready()
+        restart_channel = await self.config.restart_channel_for_redboot()
+        restart_channel = self.bot.get_channel(restart_channel)
+        with contextlib.suppress(discord.Forbidden):
+            await restart_channel.send(f"{self.bot.user.name} is back online.")
+        await self.config.restart_channel_for_redboot.clear()
+
     @commands.is_owner()
     @commands.command()
     async def restart(self, ctx: commands.Context):
@@ -77,6 +86,7 @@ class Termino(commands.Cog):
         if not restart_conf or conf:
             await ctx.send(message)
             log.info(f"{ctx.me.name} was restarted by {ctx.author} ({now})")
+            await self.config.restart_channel_for_redboot.set(ctx.channel.id)
             return await self.bot.shutdown(restart=True)
         else:
             await ctx.send("I will not be restarting.")
