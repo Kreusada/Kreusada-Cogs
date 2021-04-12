@@ -98,7 +98,7 @@ class Mjolnir(commands.Cog):
                     colour=discord.Colour.blue(),
                 )
                 return await ctx.send(embed=embed)
-           return await ctx.send(msg)
+            return await ctx.send(msg)
         await menus.MjolnirMenu(
             source=menus.MjolnirPages(sending)
         ).start(ctx=ctx, channel=ctx.channel)
