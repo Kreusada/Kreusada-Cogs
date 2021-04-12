@@ -26,6 +26,14 @@
   - locales/*
   - docs/cog_locales
   - docs/changelog_locales
+"Cog: Minifier":
+  - minifier/*
+  - docs/cog_minifier
+  - docs/changelog_minifier
+"Cog: Mjolnir":
+  - mjolnir/*
+  - docs/cog_mjolnir
+  - docs/changelog_mjolnir
 "Cog: NameGenerator":
   - namegenerator/*
   - docs/cog_namegenerator

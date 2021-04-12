@@ -1,26 +1,6 @@
-"""
-MIT License
-
-Copyright (c) 2020-2021 Jojo#7711
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
+# Most of this code belongs to Jojo, which was authored under the MIT license.
+# This cog was transferred to Kreusada (12/04/2021)
+# https://github.com/Just-Jojo/JojoCogs
 
 import asyncio
 import logging
@@ -43,10 +23,12 @@ sayings = (
     "Don't think it even moved... why don't you try again?",
 )
 
+
 class Mjolnir(commands.Cog):
     """Attempt to lift Thor's hammer!"""
 
     __version__ = "0.1.1"
+    __author__ = ["Jojo#7791", "Kreusada"]
 
     def __init__(self, bot: Red):
         self.bot = bot
@@ -56,12 +38,18 @@ class Mjolnir(commands.Cog):
     async def red_delete_data_for_user(self, *, requester, user_id):
         await self.config.user_from_id(user_id).clear()
 
+    def format_help_for_context(self, ctx: commands.Context) -> str:
+        """Thanks Sinbad"""
+        context = super().format_help_for_context(ctx)
+        authors = ", ".join(self.__author__)
+        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+
     @commands.command()
     async def lifted(self, ctx):
         """Shows how many times you've lifted the hammer."""
         lifted = await self.config.user(ctx.author).lifted()
         plural = "s" if lifted != 1 else ""
-        await ctx.send(f"You have lifted Mjolnir {lifted} time{plural}")
+        await ctx.send(f"You have lifted Mjolnir {lifted} time{plural}.")
 
     @commands.cooldown(1, 60.0, commands.BucketType.user)
     @commands.command()
@@ -70,7 +58,7 @@ class Mjolnir(commands.Cog):
         lifted = random.randint(0, 100)
         if lifted >= 95:
             await ctx.send(
-                "The sky opens up and a bolt of lightning strikes the ground\nYou are worthy. Hail, son of Odin"
+                "The sky opens up and a bolt of lightning strikes the ground\nYou are worthy. Hail, son of Odin."
             )
             return await self.config.user(ctx.author).lifted.set(
                 (await self.config.user(ctx.author).lifted()) + 1
@@ -99,9 +87,9 @@ class Mjolnir(commands.Cog):
                 )
                 return await ctx.send(embed=embed)
             return await ctx.send(msg)
-        await menus.MjolnirMenu(
-            source=menus.MjolnirPages(sending)
-        ).start(ctx=ctx, channel=ctx.channel)
+        await menus.MjolnirMenu(source=menus.MjolnirPages(sending)).start(
+            ctx=ctx, channel=ctx.channel
+        )
 
     async def cog_check(self, ctx: commands.Context):
         if not ctx.guild:

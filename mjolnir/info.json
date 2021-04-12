@@ -5,13 +5,14 @@
     "end_user_data_statement": "This cog stores a number based on times lifted via user ids",
     "install_msg": "Thanks for installing Mjolnir! Have fun!",
     "author": [
-        "Jojo#7791"
+        "Kreusada",
+        "Jojo"
     ],
     "required_cogs": {},
     "requirements": [],
     "tags": [
-        "fun",
-        "minigame"
+        "Fun",
+        "Marvel"
     ],
     "min_bot_version": "3.4.6",
     "hidden": false,
