@@ -26,6 +26,7 @@ import asyncio
 import logging
 import random
 import typing
+from contextlib import suppress
 
 import discord
 from redbot.core import Config, commands
@@ -35,7 +36,12 @@ from redbot.core.utils.chat_formatting import pagify
 from . import menus
 
 log = logging.getLogger("red.JojoCogs.mjolnir")
-
+sayings = (
+    "The hammer is strong, but so are you. Keep at it!",
+    "Mjolnir budges a bit, but remains steadfast, as should you",
+    "You've got this! I believe in you!",
+    "Don't think it even moved... why don't you try again?",
+)
 
 class Mjolnir(commands.Cog):
     """Attempt to lift Thor's hammer!"""
@@ -54,11 +60,8 @@ class Mjolnir(commands.Cog):
     async def lifted(self, ctx):
         """Shows how many times you've lifted the hammer."""
         lifted = await self.config.user(ctx.author).lifted()
-        if lifted == 1:
-            sending = f"You have lifted Mjolnir 1 time."
-        else:
-            sending = f"You have lifted Mjolnir {lifted} times."
-        await ctx.send(content=sending)
+        plural = "s" if lifted != 1 else ""
+        await ctx.send(f"You have lifted Mjolnir {lifted} time{plural}")
 
     @commands.cooldown(1, 60.0, commands.BucketType.user)
     @commands.command()
@@ -69,24 +72,16 @@ class Mjolnir(commands.Cog):
             await ctx.send(
                 "The sky opens up and a bolt of lightning strikes the ground\nYou are worthy. Hail, son of Odin"
             )
-            lift = await self.config.user(ctx.author).lifted()
-            lift += 1
-            await self.config.user(ctx.author).lifted.set(lift)
-        else:
-            sayings = [
-                "The hammer is strong, but so are you. Keep at it!",
-                "Mjolnir budges a bit, but remains steadfast, as should you",
-                "You've got this! I believe in you!",
-                "Don't think it even moved... why don't you try again?",
-            ]
-            content = random.choice(sayings)
-            await ctx.send(content=content)
+            return await self.config.user(ctx.author).lifted.set(
+                (await self.config.user(ctx.author).lifted()) + 1
+            )
+        await ctx.send(random.choice(sayings))
 
     @commands.command()
     async def liftedboard(self, ctx):
         """Shows the leaderboard for those who have lifted the hammer."""
         all_users = await self.config.all_users()
-        board = sorted(all_users.items(), key=lambda m: m[0])
+        board = sorted(all_users.items(), key=lambda m: m[1]["lifted"], reverse=True)
         sending = []
         for user in board:
             _user = await self.bot.get_or_fetch_user(user[0])
@@ -95,14 +90,22 @@ class Mjolnir(commands.Cog):
             sending.append(f"**{name}:** {amount}")
         sending = list(pagify("\n".join(sending)))
         if not len(sending):
-            embed = discord.Embed(
-                title="Mjolnir!",
-                description=f"No one has lifted Mjolnir yet!\nWill you be the first? Try `{ctx.clean_prefix}trylift`",
-                colour=discord.Colour.blue(),
-            )
-            return await ctx.send(embed=embed)
-        menu = menus.MjolnirMenu(source=menus.MjolnirPages(sending))
-        await menu.start(ctx=ctx, channel=ctx.channel)
+            msg = f"No one has lifted Mjolnir yet!\nWill you be the first? Try `{ctx.clean_prefix}trylift`"
+            if await ctx.embed_requested():
+                embed = discord.Embed(
+                    title="Mjolnir!",
+                    description=msg,
+                    colour=discord.Colour.blue(),
+                )
+                return await ctx.send(embed=embed)
+           return await ctx.send(msg)
+        await menus.MjolnirMenu(
+            source=menus.MjolnirPages(sending)
+        ).start(ctx=ctx, channel=ctx.channel)
 
     async def cog_check(self, ctx: commands.Context):
-        return ctx.guild is not None
+        if not ctx.guild:
+            with suppress(discord.Forbidden):
+                await ctx.send("Sorry, this is only for guilds!")
+            return False
+        return True
