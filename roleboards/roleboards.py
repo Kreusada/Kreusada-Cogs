@@ -39,7 +39,7 @@ class RoleBoards(commands.Cog):
         for r in sorted(list(ctx.guild.roles), key=lambda x: x.position, reverse=True):
             if r.name == "@everyone":
                 continue
-            name = r.name[:14] + "..." if r.name > 17 else r.name
+            name = r.name[:10] + "..." if len(r.name) > 13 else r.name
             data.append([name, str(r.id), f"{r.color} (0x{str(r.color).strip('#')})"])
         kwargs = {
             "tabular_data": data,
@@ -69,7 +69,8 @@ class RoleBoards(commands.Cog):
                 title="Users with the most roles",
                 description=box(
                     "\n".join(
-                        f"#{self.td(c)} [{self.td(v[1])}] {v[0]}" for c, v in enumerate(data, 1)
+                        f"#{self.td(c)} [{self.td(v[1])}] {v[0]}"
+                        for c, v in enumerate(data, 1)
                     ),
                     lang="css",
                 ),
@@ -82,7 +83,9 @@ class RoleBoards(commands.Cog):
         """Get the roles with the most users."""
         g = ctx.guild
         data = []
-        for r in sorted([r for r in g.roles], key=lambda x: len(x.members), reverse=True)[:11]:
+        for r in sorted(
+            [r for r in g.roles], key=lambda x: len(x.members), reverse=True
+        )[:11]:
             if r.name == "@everyone":
                 continue
             data.append((r.name, len(r.members)))
@@ -91,7 +94,8 @@ class RoleBoards(commands.Cog):
                 title="Roles with the most users",
                 description=box(
                     "\n".join(
-                        f"#{self.td(c)} [{self.td(v[1])}] {v[0]}" for c, v in enumerate(data, 1)
+                        f"#{self.td(c)} [{self.td(v[1])}] {v[0]}"
+                        for c, v in enumerate(data, 1)
                     ),
                     lang="css",
                 ),

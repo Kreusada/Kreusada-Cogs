@@ -125,17 +125,16 @@ name mash
 
 .. code-block:: ini
 
-    [p]name mash <member1> <member2> [use_nicks=False]
+    [p]name mash <word1> <word2>
 
 **Description**
 
-Mashes two usernames together.
+Mashes two words together.
 
 **Arguments**
 
-* ``<member1>``: The first user to mash.
-* ``<member2>``: The second user to mash.
-* ``[use_nicks]``: Whether nicks are used instead. Defaults to False.
+* ``<word1>``: The first word to mash.
+* ``<member2>``: The second word to mash.
 
 ----------------------
 Additional Information

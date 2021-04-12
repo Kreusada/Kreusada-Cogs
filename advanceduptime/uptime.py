@@ -40,7 +40,7 @@ class AdvancedUptime(commands.Cog):
                 self.bot.remove_command("uptime")
             except Exception as error:
                 log.info(error)
-                self.bot.add_command(_old_uptime)
+            self.bot.add_command(_old_uptime)
 
     @commands.command()
     async def uptime(self, ctx: commands.Context):
