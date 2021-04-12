@@ -1,6 +1,0 @@
-{
-    "python.linting.enabled": false,
-    "restructuredtext.confPath": "",
-    "python.formatting.provider": "black",
-    "restructuredtext.languageServer.disabled": true
-}
