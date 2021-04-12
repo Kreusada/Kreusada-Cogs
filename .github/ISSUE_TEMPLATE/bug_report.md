@@ -1,16 +1,19 @@
 ---
-name: Bug report
-about: Create a report to help us improve
+name: Issue
+about: Submit an issue for one of these cogs.
 title: ''
 labels: 'Type: Bug'
-assignees: ''
+assignees: Kreusada
 
 ---
 
-**What cog are you reporting for?**
+### Which cog are you reporting for?
+
+<replace this text>
+
+### Explain your issue/bug below:
+
+<replace this text>
 
 
-**What command(s) inside the cog are you reporting for?**
 
-
-**Please describe the errors that occured.**

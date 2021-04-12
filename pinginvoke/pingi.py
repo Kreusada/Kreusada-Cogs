@@ -67,13 +67,19 @@ class PingInvoke(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_without_command(self, message):
-        defa = await self.config.botname()
-        if not defa:
+        botname = await self.config.botname()
+        if not botname:
             return
         if not message.guild:
             return
         if message.author.bot:
             return
-        if message.content.lower().startswith(defa.lower()) and message.content.endswith('?'):
+        if await self.bot.cog_disabled_in_guild(self, message.guild):
+            return
+        if not await self.bot.ignored_channel_or_guild(message):
+            return
+        if not await self.bot.allowed_by_whitelist_blacklist(message.author):
+            return
+        if message.content.lower().startswith(botname.lower()) and message.content.endswith('?'):
             ctx = await self.bot.get_context(message)
             return await ctx.invoke(self.bot.get_command('ping'))

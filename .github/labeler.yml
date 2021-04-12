@@ -85,5 +85,6 @@
 "Category: Meta":
   - .github/*
   - .github/**
+  - ./*
 "Type: Docs":
   - docs/**/*

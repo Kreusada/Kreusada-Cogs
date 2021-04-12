@@ -1,13 +1,16 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
+about: Suggest an idea for a cog.
 title: ''
 labels: 'Type: Enhancement'
 assignees: ''
 
 ---
 
-**What cog are you making a feature request for?**
+### What cog are you making a feature request for?
 
+<replace this text>
 
-**Describe what you would like to see!**
+### Describe what you would like to see:
+
+<replace this text>
