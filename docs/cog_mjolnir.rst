@@ -19,11 +19,11 @@ Let's firstly add my repository if you haven't already:
 
 Next, let's download the cog from the repo:
 
-* :code:`[p]cog install kreusada consoleclearer`
+* :code:`[p]cog install kreusada mjolnir`
 
 Finally, you can see my end user data statements, cog requirements, and other cog information by using:
 
-* :code:`[p]cog info kreusada consoleclearer`
+* :code:`[p]cog info kreusada mjolnir`
 
 .. _mjolnir-usage:
 
