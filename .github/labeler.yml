@@ -22,6 +22,10 @@
   - dehoister/*
   - docs/cog_dehoister
   - docs/changelog_dehoister
+"Cog: GithubSkylines":
+  - githubskylines/*
+  - docs/cog_githubskylines
+  - docs/changelog_githubskylines
 "Cog: Locales":
   - locales/*
   - docs/cog_locales
@@ -66,6 +70,10 @@
   - sendcards/*
   - docs/cog_sendcards
   - docs/changelog_sendcards
+"Cog: SpoilerChannel":
+  - spoilerchannel/*
+  - docs/cog_spoilerchannel
+  - docs/changelog_spoilerchannel
 "Cog: Staff":
   - staff/*
   - docs/cog_staff
