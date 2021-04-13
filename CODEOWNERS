@@ -3,6 +3,7 @@
 /blackformatter/* @Kreusada
 /bubblewrap/* @Kreusada
 /codify/* @Kreusada
+/consoleclearer/* @Kreusada
 /dehoister/* @Kreusada
 /edition/* @Kreusada
 /minifier/* @Kreusada
@@ -12,10 +13,12 @@
 /pingoverride/* @Kreusada
 /quotes/* @Kreusada
 /ram/* @Kreusada
+/roleboards/* @Kreusada
 /rpsls/* @Kreusada
 /sendcards/* @Kreusada
 /serverblock/* @Kreusada
 /staff/* @Kreusada
+/termino/* @Kreusada
 /textmanipulator/* @Kreusada
 /timestables/* @Kreusada
 /vinfo/* @Kreusada
