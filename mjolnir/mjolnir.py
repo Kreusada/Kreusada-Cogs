@@ -15,7 +15,8 @@ from redbot.core.utils.chat_formatting import pagify
 
 from . import menus
 
-log = logging.getLogger("red.JojoCogs.mjolnir")
+log = logging.getLogger("red.kreusada.mjolnir")
+
 sayings = (
     "The hammer is strong, but so are you. Keep at it!",
     "Mjolnir budges a bit, but remains steadfast, as should you",
@@ -28,7 +29,7 @@ class Mjolnir(commands.Cog):
     """Attempt to lift Thor's hammer!"""
 
     __version__ = "0.1.1"
-    __author__ = ["Jojo#7791", "Kreusada"]
+    __author__ = ["Jojo", "Kreusada"]
 
     def __init__(self, bot: Red):
         self.bot = bot
