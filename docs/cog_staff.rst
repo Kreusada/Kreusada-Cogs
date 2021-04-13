@@ -91,7 +91,7 @@ Set the channel to receive alerts for staff.
 
 * ``[channel]``: The channel used for notifications. If none provided, it resets.
 
-.. _staff-command-staffset-channel:
+.. _staff-command-staffset-role:
 
 """""""""""""
 staffset role

@@ -191,7 +191,7 @@ Count the number of characters in the text.
 
 * ``<characters>``: The text to count against.
 
-.. _textmanipulator-command-count-characters:
+.. _textmanipulator-command-count-words:
 
 """""""""""
 count words

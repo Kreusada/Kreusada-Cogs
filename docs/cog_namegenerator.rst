@@ -75,7 +75,7 @@ Generates a random first name.
 
 * ``[gender]``: The gender for the name. If none is specified, it defaults to random.
 
-.. _namegenerator-command-name-first:
+.. _namegenerator-command-name-full:
 
 """""""""
 name full
