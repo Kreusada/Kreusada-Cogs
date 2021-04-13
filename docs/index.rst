@@ -9,7 +9,7 @@ Kreusada-Cogs
     :alt: Kreusada-Cogs
 
 This documentation is here for the support of my redbot cogs. Everything should be here that you need, if you
-need further support you can meet me in my `support server <https://github.com/kreusada/Kreusada-Cogs>`_.
+need further support you can meet me in my `support server <https://discord.gg/JmCFyq7>`_.
 
 ============
 Useful Links

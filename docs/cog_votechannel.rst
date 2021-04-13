@@ -164,7 +164,7 @@ Sets the downvote emoji for votechannel.
 
 * ``[emoji]``: The emoji to react with.
 
-.. _votechannel-command-vote-emoji-down:
+.. _votechannel-command-vote-emoji-up:
 
 """""""""""""
 vote emoji up

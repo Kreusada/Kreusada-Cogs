@@ -151,9 +151,9 @@ Toggles whether time is recorded when you play timestables.
 
 .. _timestables-command-tt-timeout:
 
-"""""""
+""""""""""
 tt timeout
-"""""""
+""""""""""
 
 **Syntax**:
 
