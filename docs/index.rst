@@ -29,7 +29,10 @@ Useful Links
     cog_codify
     cog_consoleclearer
     cog_dehoister
+    cog_githubskylines
     cog_locales
+    cog_minifier
+    cog_mjolnir
     cog_namegenerator
     cog_pinginvoke
     cog_pingoverride
@@ -40,6 +43,7 @@ Useful Links
     cog_rpsls
     cog_sendcards
     cog_serverblock
+    cog_spoilerchannel
     cog_staff
     cog_termino
     cog_textmanipulator
@@ -58,7 +62,10 @@ Useful Links
     changelog_codify
     changelog_consoleclearer
     changelog_dehoister
+    changelog_githubskylines
     changelog_locales
+    changelog_minifier
+    changelog_mjolnir
     changelog_namegenerator
     changelog_pinginvoke
     changelog_pingoverride
@@ -69,6 +76,7 @@ Useful Links
     changelog_rpsls
     changelog_sendcards
     changelog_serverblock
+    changelog_spoilerchannel
     changelog_staff
     changelog_termino
     changelog_textmanipulator
