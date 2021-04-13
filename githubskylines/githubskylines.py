@@ -8,7 +8,7 @@ from redbot.core.utils.chat_formatting import bold
 log = logging.getLogger("red.kreusada.githubskyline")
 
 
-class GithubSkyline(commands.Cog):
+class GithubSkylines(commands.Cog):
     """Get a graph of your contributions on github."""
 
     __version__ = "1.0.0"
