@@ -17,6 +17,48 @@ class SpoilerChannel(commands.Cog):
             channels=[],
         )
 
+    @commands.group()
+    async def spoilerchannel(self, ctx):
+        """Base command for SpoilerChannel."""
+        pass
+
+    @spoilerchannel.command()
+    async def add(self, ctx, channel: discord.TextChannel):
+        """Add a channel to the list of spoiler channels."""
+        with contextlib.suppress(discord.Forbidden):
+            # We need to dm because otherwise our messages will be deleted.
+            config = await self.config.guild(ctx.guild).channels()
+            if channel.id in config:
+                return await ctx.send("This channel is already a spoiler channel.")
+            config.append(channel.id)
+            await self.config.guild(ctx.guild).channels.set(config)
+            await ctx.send("Channel added to the spoiler channel list.")
+
+    @spoilerchannel.command()
+    async def remove(self, ctx, channel: discord.TextChannel):
+        """Remove a channel from the list of spoiler channels."""
+        config = await self.config.guild(ctx.guild).channels()
+        if not channel.id in config:
+            return await ctx.send("This channel is not a spoiler channel.")
+        config.remove(channel.id)
+        await self.config.guild(ctx.guild).channels.set(config)
+        await ctx.send("Channel removed from the spoiler channel list.")
+
+    @spoilerchannel.command(name="list")
+    async def _list(self, ctx):
+        """List all the spoiler channels."""
+        config = await self.config.guild(ctx.guild).channels()
+        data = [self.bot.get_channel(x).mention for x in config]
+        if not data:
+            return await ctx.send("There are no channels.")
+        await ctx.send(", ".join(data))
+
+    @spoilerchannel.command()
+    async def clear(self, ctx):
+        """Clear the spoiler channel list."""
+        await self.config.guild(ctx.guild).channels.clear()
+        await ctx.send("Spoiler channel list cleared.")
+
     @commands.Cog.listener()
     async def on_guild_channel_delete(self, channel):
         config = await self.config.guild(channel.guild).channels()
@@ -41,41 +83,3 @@ class SpoilerChannel(commands.Cog):
         elif not spoiler_check(message.content):
             with contextlib.suppress(discord.Forbidden, discord.NotFound):
                 await message.delete()
-
-    @commands.group()
-    async def spoilerchannel(self, ctx):
-        """Base command for SpoilerChannel."""
-        pass
-
-    @spoilerchannel.command()
-    async def add(self, ctx, channel: discord.TextChannel):
-        """Add a channel to the list of spoiler channels."""
-        config = await self.config.guild(ctx.guild).channels()
-        if channel.id in config:
-            return await ctx.send("This channel is already a spoiler channel.")
-        config.append(channel.id)
-        await self.config.guild(ctx.guild).channels.set(config)
-        await ctx.send("Channel added to the spoiler channel list.")
-
-    @spoilerchannel.command()
-    async def remove(self, ctx, channel: discord.TextChannel):
-        """Remove a channel from the list of spoiler channels."""
-        config = await self.config.guild(ctx.guild).channels()
-        if not channel.id in config:
-            return await ctx.send("This channel is not a spoiler channel.")
-        config.remove(channel.id)
-        await self.config.guild(ctx.guild).channels.set(config)
-        await ctx.send("Channel removed from the spoiler channel list.")
-
-    @spoilerchannel.command(name="list")
-    async def _list(self, ctx):
-        """List all the spoiler channels."""
-        config = await self.config.guild(ctx.guild).channels()
-        data = [self.bot.get_channel(x).mention for x in config]
-        await ctx.send(", ".join(data))
-
-    @spoilerchannel.command()
-    async def clear(self, ctx, channel: discord.TextChannel):
-        """Clear the spoiler channel list."""
-        await self.config.guild(ctx.guild).channels.clear()
-        await ctx.send("Spoiler channel list cleared.")
