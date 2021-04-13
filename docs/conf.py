@@ -7,5 +7,7 @@ html_context = {
     "github_version": "master/docs/",
 }
 
+master_doc = 'index'
+
 with open("prolog.txt", "r") as file:
     rst_prolog = file.read()
