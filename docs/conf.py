@@ -1,5 +1,3 @@
-from sphinx.util.texescape import tex_replacements
-
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 html_context = {
@@ -26,4 +24,4 @@ release = 'Alpha'
 
 pygments_style = 'sphinx'
 html_css_files = ["literals.css"]
-extensions = ['sphinx.ext.autosectionlabel',' sphinxcontrib.osexample']
+extensions = ['sphinx.ext.autosectionlabel']
