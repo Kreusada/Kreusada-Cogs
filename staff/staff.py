@@ -30,6 +30,18 @@ class Staff(commands.Cog):
         """
         return
 
+    @commands.Cog.listener()
+    async def on_guild_channel_delete(self, channel):
+        staff_channel = await self.config.guild(channel.guild).channel()
+        if channel.id == staff_channel:
+            await self.config.guild(channel.guild).channel.clear()
+
+    @commands.Cog.listener()
+    async def on_guild_role_delete(self, role):
+        staff_role = await self.config.guild(role.guild).role()
+        if role.id == staff_role:
+            await self.config.guild(role.guild).role.clear()
+
     @commands.group()
     async def staffset(self, ctx: commands.Context):
         """Staff notifier configuration."""
