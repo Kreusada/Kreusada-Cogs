@@ -5,8 +5,7 @@ from redbot.core.utils.chat_formatting import box
 from .alphabet import NATO_ALPHABET
 
 
-def _remove_whitespace(let):
-    return let.replace(' ','')
+_remove_whitespace = lambda x: x.replace(' ','')
 
 
 class AlphaNato(commands.Cog):
