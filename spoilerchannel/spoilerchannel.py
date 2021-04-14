@@ -70,6 +70,10 @@ class SpoilerChannel(commands.Cog):
     async def on_message(self, message):
         spoiler_check = lambda x: x.strip().startswith("||") and x.strip().endswith("||")
         channels = await self.config.guild(message.guild).channels()
+        if await self.bot.cog_disabled_in_guild(self, message.guild):
+            return
+        if not await self.bot.ignored_channel_or_guild(message):
+            return
         if not message.channel.id in channels:
             return
         if message.attachments:
