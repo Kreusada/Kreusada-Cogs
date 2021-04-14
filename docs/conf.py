@@ -23,3 +23,5 @@ project = u'Kreusada-Cogs'
 copyright = u'2021 | Kreusada'
 version = '' # Not versioning docs, lol
 release = 'Alpha'
+
+html_css_files = ["literals.css"]
