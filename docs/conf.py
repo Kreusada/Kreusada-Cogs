@@ -24,4 +24,6 @@ copyright = u'2021 | Kreusada'
 version = '' # Not versioning docs, lol
 release = 'Alpha'
 
+pygments_style = 'sphinx'
 html_css_files = ["literals.css"]
+extensions = ['sphinx.ext.autosectionlabel',' sphinxcontrib.osexample']
