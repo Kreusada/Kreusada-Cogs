@@ -52,39 +52,6 @@ Useful Links
     cog_votechannel
 
 .. toctree::
-    :caption: Cog Changelogs
-    :maxdepth: 2
-
-    changelog_advanceduptime
-    changelog_alphanato
-    changelog_blackformatter
-    changelog_bubblewrap
-    changelog_codify
-    changelog_consoleclearer
-    changelog_dehoister
-    changelog_githubskylines
-    changelog_locales
-    changelog_minifier
-    changelog_mjolnir
-    changelog_namegenerator
-    changelog_pinginvoke
-    changelog_pingoverride
-    changelog_minifier
-    changelog_quotes
-    changelog_ram
-    changelog_roleboards
-    changelog_rpsls
-    changelog_sendcards
-    changelog_serverblock
-    changelog_spoilerchannel
-    changelog_staff
-    changelog_termino
-    changelog_textmanipulator
-    changelog_timestables
-    changelog_vinfo
-    changelog_votechannel
-
-.. toctree::
     :caption: Repository
     :maxdepth: 2
 
