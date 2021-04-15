@@ -75,7 +75,7 @@ class Vinfo(commands.Cog):
         for attr in attrs_to_check:
             if hasattr(module, attr) and check_isinstance(module, attr):
                 return [getattr(module, attr), "." + attr]
-        if module.__name__ in stdlib_list("3.8"):
+        if module.__name__ in stdlib_list(".".join(sys.version_info[:2])):
             # Will bump on Red python bump, eventually
             return builtin
         # if hasattr(module, '__file__'):
