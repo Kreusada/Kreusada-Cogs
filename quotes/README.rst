@@ -56,6 +56,19 @@ quote
 
 Get a random quote.
 
+.. tip::
+
+    We can use bobloy's `<FIFO https://github.com/bobloy/Fox-V3/tree/master/fifo>`_ 
+    cog, with this cog, to run QOTD (Quote of the day).
+
+    **Steps**
+
+    1. ``[p]fifo add qotd quote``
+    2. ``[p]fifo addtrigger cron qotd 0 0 * * *``
+    3. ``[p]fifo set qotd <feed_channel>``
+
+    Your feed channel is whatever channel you'd like QOTD to be posted in.
+
 ----------------------
 Additional Information
 ----------------------
