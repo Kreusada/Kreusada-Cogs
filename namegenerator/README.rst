@@ -32,6 +32,9 @@ Requirements
 * ``names``
 
 This cog requires the ``names`` module, so you will need to pip install it.
+
+Now also uses ``thispersondoesnotexist``(https://pypi.org/project/thispersondoesnotexist/)
+
 Downloader will attempt to do this for you when you install the cog, so please
 don't worry about it.
 
@@ -124,6 +127,42 @@ Generates a random last name.
 **Arguments**
 
 * ``[gender]``: The gender for the name. If none is specified, it defaults to random.
+
+"""""""""
+name picture
+"""""""""
+
+**Syntax**
+
+.. code-block:: ini
+
+    [p]name picture
+
+**Description**
+
+Gets a picture from https://thispersondoesnotexist.com/
+
+**Arguments**
+none
+
+"""""""""
+name profile
+"""""""""
+
+**Syntax**
+
+.. code-block:: ini
+
+    [p]name profile
+
+**Description**
+
+Gets a picture from https://thispersondoesnotexist.com/ as well as add a name to it
+WARNING:AS THISPERSONDOESNOTEXIST IS RANDOM, THE GENDERS OF THE NAME AND PICURE MAY NOT MATCH!
+
+**Arguments**
+none
+
 
 ----------------------
 Additional Information
