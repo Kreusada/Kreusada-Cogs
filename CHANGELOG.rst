@@ -154,3 +154,68 @@ Versioning does not apply for meta unlike the changelogs for each specific cog.
 ----------
 
 * Fix tabulate errors when a role is composed of chinese letters or emojis in RoleBoards.
+
+----------
+07/04/2021
+----------
+
+* Initial revision of the ConsoleClearer cog (`#75 <https://github.com/Kreusada/Kreusada-Cogs/pulls/75>`_)
+* Initial revision of the Locales cog (`#75 <https://github.com/Kreusada/Kreusada-Cogs/pulls/75>`_)
+* Initial revision of the Termino cog
+* Fix docstrings displaying incorrect information in ``[p]terminoset reply``
+* Fixes for returning values in Termino formatting function
+
+----------
+08/04/2021
+----------
+
+* Update labelers to include multiple new cogs
+* Fix critical indentation error in AdvancedUptime cog_unload function
+* Fix critical indentation error in Termino cog_unload function (`#77 <https://github.com/Kreusada/Kreusada-Cogs/issues/77>`_)
+* Initial commit for config and prolog in sphinx build
+* Reduction of config calls in ``[p]terminoset settings`` command
+
+----------
+09/04/2021
+----------
+
+* Rename pyproject.toml to black.toml, remove ``.vscode`` from ``vscodeignore``
+
+----------
+11/04/2021
+----------
+
+* Improve issue and PR templates
+* Respect when a user is blocked from the bot, or if the cog is disabled in PingInvoke
+
+----------
+12/04/2021
+----------
+
+* Add git root to labelers as meta
+
+----------
+13/04/2021
+----------
+
+* Initial revision of the Mjolnir cog (`#81 <https://github.com/Kreusada/Kreusada-Cogs/pulls/81>`_)
+* Initial revision of the GithubSkylines cog (`#83 <https://github.com/Kreusada/Kreusada-Cogs/pulls/83>`_)
+* Initial revision of the SpoilerChannel cog (`#82 <https://github.com/Kreusada/Kreusada-Cogs/pulls/82>`_)
+* Rename mjolnir logger level from previous repository
+* Mass improvements to stability and error handling in rtd sphinx build
+
+----------
+14/04/2021
+----------
+
+* Add CSS highlighting for inline code in the docs
+* Make SpoilerChannel listener compatible with `#79 <https://github.com/Kreusada/Kreusada-Cogs/issues/79>`_
+* Better coverage for updating settings in spoilerchannel, if a message were to be deleted
+* Add ``on_guild_channel_delete`` and ``on_guild_role_delete`` listeners to ``Staff`` to improve setting stability
+* Remove individual changelogs for every cog (now, repo only)
+
+----------
+15/04/2021
+----------
+
+* Use proper python version through ``".".join([str(x) for x in sys.version_info[:2]])``, when getting libs through ``stdlib_list``
