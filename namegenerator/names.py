@@ -102,6 +102,7 @@ class NameGenerator(commands.Cog):
         """
         data = io.BytesIO(await get_online_person())
         await ctx.send(file=discord.File(data, "person.jpeg"))
+        #DrTipmack#1009
 
     @name.command()
     async def profile(self, ctx: commands.Context):
@@ -110,3 +111,4 @@ class NameGenerator(commands.Cog):
         """
         await self.full(ctx)
         await self.picture(ctx)
+        #DrTipmack#1009
