@@ -58,7 +58,7 @@ Get a random quote.
 
 .. tip::
 
-    We can use bobloy's `<FIFO https://github.com/bobloy/Fox-V3/tree/master/fifo>`_ 
+    We can use bobloy's `FIFO <https://github.com/bobloy/Fox-V3/tree/master/fifo>`_ 
     cog, with this cog, to run QOTD (Quote of the day).
 
     **Steps**
