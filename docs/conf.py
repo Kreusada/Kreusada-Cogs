@@ -1,4 +1,7 @@
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
+html_css_files = ["literals.css"]
+extensions = ["sphinx_rtd_theme"]
+templates_path = ["_templates"]
 
 html_context = {
     "display_github": True,
@@ -7,19 +10,17 @@ html_context = {
     "github_version": "master/docs/",
 }
 
-master_doc = 'index'
+master_doc = "index"
+html_theme = "furo"
 
 with open("prolog.txt", "r") as file:
     rst_prolog = file.read()
 
-templates_path = ['_templates']
-source_suffix = '.rst'
-master_doc = 'index'
+source_suffix = ".rst"
+master_doc = "index"
 exclude_patterns = []
 add_function_parentheses = True
-project = u'Kreusada-Cogs'
-copyright = u'2021 | Kreusada'
-version = '' # Not versioning docs, lol
-release = 'Alpha'
 
-html_css_files = ["literals.css"]
+project = u"Kreusada-Cogs"
+copyright = u"2021 | Kreusada"
+release = "Alpha"
