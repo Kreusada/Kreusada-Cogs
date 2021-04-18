@@ -1,8 +1,8 @@
 .. _advanceduptime:
 
-===============
-Advanced Uptime
-===============
+==============
+AdvancedUptime
+==============
 
 This is the cog guide for the advanceduptime cog. You will
 find detailed docs about usage and commands.
