@@ -257,13 +257,6 @@ hoist set toggle
 Toggle the auto-dehoister from dehoisting users who join the guild with hoisted usernames.
 When installed, this setting is FALSE by default.
 
-----------------------
-Additional Information
-----------------------
-
-This cog has been vetted by the Red-DiscordBot QA team as approved.
-For inquiries, see to the contact options below.
-
 ---------------
 Receive Support
 ---------------

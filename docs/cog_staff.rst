@@ -111,13 +111,6 @@ Set the staff role to be pinged for staff alerts.
 
 * ``[role]``: The staff role. This is optional. If none provided, it resets.
 
-----------------------
-Additional Information
-----------------------
-
-This cog has been vetted by the Red-DiscordBot QA team as approved.
-For inquiries, see to the contact options below.
-
 ---------------
 Receive Support
 ---------------

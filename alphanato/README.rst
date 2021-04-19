@@ -69,13 +69,6 @@ You may provide multiple letters.
 
 * ``<letters...>``: The letters to convert to NATO.
 
-----------------------
-Additional Information
-----------------------
-
-This cog has been vetted by the Red-DiscordBot QA team as approved.
-For inquiries, see to the contact options below.
-
 ---------------
 Receive Support
 ---------------

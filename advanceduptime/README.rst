@@ -63,13 +63,6 @@ This command's output will provide information on your bot's uptime, your bot's 
 your bot's owner (you), the current discord guild, the number of guilds the bot is present in,
 the number of unique users your bot has, and the number of commands available!
 
-----------------------
-Additional Information
-----------------------
-
-This cog has been vetted by the Red-DiscordBot QA team as approved.
-For inquiries, see to the contact options below.
-
 ---------------
 Receive Support
 ---------------

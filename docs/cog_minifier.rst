@@ -130,14 +130,6 @@ Looks quite cool, right? See how it makes it very hard to read the code.
 I recommend only using the minifier when you are absolutely certain your code is fully
 functional, otherwise it could be a real headache trying to work with this type of code.
 
-
-----------------------
-Additional Information
-----------------------
-
-This cog has been vetted by the Red-DiscordBot QA team as approved.
-For inquiries, see to the contact options below.
-
 ---------------
 Receive Support
 ---------------

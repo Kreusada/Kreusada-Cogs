@@ -164,7 +164,7 @@ Sets the downvote emoji for votechannel.
 
 * ``[emoji]``: The emoji to react with.
 
-.. _votechannel-command-vote-emoji-up:
+.. _votechannel-command-vote-emoji-down:
 
 """""""""""""
 vote emoji up
@@ -215,13 +215,6 @@ vote toggle
 **Description**
 
 Toggle votechannel.
-
-----------------------
-Additional Information
-----------------------
-
-This cog has been vetted by the Red-DiscordBot QA team as approved.
-For inquiries, see to the contact options below.
 
 ---------------
 Receive Support

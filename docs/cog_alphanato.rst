@@ -24,7 +24,7 @@ Next, let's download the cog from the repo:
 Finally, you can see my end user data statements, cog requirements, and other cog information by using:
 
 * :code:`[p]cog info kreusada alphanato`
-
+* 
 .. _alphanato-usage:
 
 -----
@@ -68,13 +68,6 @@ You may provide multiple letters.
 **Arguments**
 
 * ``<letters...>``: The letters to convert to NATO.
-
-----------------------
-Additional Information
-----------------------
-
-This cog has been vetted by the Red-DiscordBot QA team as approved.
-For inquiries, see to the contact options below.
 
 ---------------
 Receive Support

@@ -61,13 +61,6 @@ Get a message and wrap it in a codeblock.
 * ``[language]``: The language of the codeblock. If none is provided, it defaults to python.
 * ``[escape_markdown]``: Determines whether to escape the ``<message_id>``. If none is provided, it defaults to False.
 
-----------------------
-Additional Information
-----------------------
-
-This cog has been vetted by the Red-DiscordBot QA team as approved.
-For inquiries, see to the contact options below.
-
 ---------------
 Receive Support
 ---------------
