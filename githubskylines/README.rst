@@ -61,13 +61,6 @@ Get the githubskyline for a specified user.
 * ``<git_username>``: The github user to get the skyline for.
 * ``<year>``: The year to get their contributions for.
 
-----------------------
-Additional Information
-----------------------
-
-This cog has been vetted by the Red-DiscordBot QA team as approved.
-For inquiries, see to the contact options below.
-
 ---------------
 Receive Support
 ---------------

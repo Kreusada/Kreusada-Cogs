@@ -59,13 +59,6 @@ Format a python file with black.
 You need to attach a file to this command, and it's extension needs to be `.py`.
 Your `line_length` is black setting which defaults to 99.
 
-----------------------
-Additional Information
-----------------------
-
-This cog has been vetted by the Red-DiscordBot QA team as approved.
-For inquiries, see to the contact options below.
-
 ---------------
 Receive Support
 ---------------

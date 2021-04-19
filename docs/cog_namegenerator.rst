@@ -136,13 +136,6 @@ Mashes two words together.
 * ``<word1>``: The first word to mash.
 * ``<member2>``: The second word to mash.
 
-----------------------
-Additional Information
-----------------------
-
-This cog has been vetted by the Red-DiscordBot QA team as approved.
-For inquiries, see to the contact options below.
-
 ---------------
 Receive Support
 ---------------

@@ -169,13 +169,6 @@ Sets how long you have to answer each question.
 
 * ``<seconds>``: The length of time per question in seconds.
 
-----------------------
-Additional Information
-----------------------
-
-This cog has been vetted by the Red-DiscordBot QA team as approved.
-For inquiries, see to the contact options below.
-
 ---------------
 Receive Support
 ---------------

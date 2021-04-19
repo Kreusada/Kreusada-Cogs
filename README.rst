@@ -6,8 +6,6 @@ Redbot cogs for Red-DiscordBot authored by Kreusada
 
 This is my repository for Red Discord-Bot. I built these cogs because these were the features that I wanted for my bot, `WALL-E. <https://discord.com/oauth2/authorize?client_id=766580519000473640&scope=bot&permissions=8>`_
 
-These cogs have been approved by the Red-DiscordBot QA team.
-
 ------------
 Installation
 ------------
