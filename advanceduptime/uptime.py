@@ -65,8 +65,7 @@ class AdvancedUptime(commands.Cog):
                 name=f"{botname} has been up for...", value=uptime_str, inline=False
             )
             e.add_field(name="Instance name:", value=ctx.bot.user, inline=True)
-            e.add_field(name="Instance owner:", value=owner, inline=True)
-            e.add_field(name="Current guild:", value=ctx.guild, inline=True)
+            e.add_field(name="Instance owner:", value=owner, inline=True
             e.add_field(name="Number of guilds:", value=servers, inline=True)
             e.add_field(name="Unique users:", value=users, inline=True)
             e.add_field(
@@ -79,7 +78,6 @@ class AdvancedUptime(commands.Cog):
             msg = (
                 f"Instance name: {ctx.bot.user}\n"
                 f"Instance owner: {owner}\n"
-                f"Current guild: {ctx.guild}\n"
                 f"Number of guilds: {servers}\n"
                 f"Unique users: {users}\n"
                 f"Commands available: {commands_available}"
