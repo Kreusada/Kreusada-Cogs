@@ -70,6 +70,8 @@ class SpoilerChannel(commands.Cog):
     
     @commands.Cog.listener()
     async def on_message(self, message):
+        if not message.guild:
+            return
         spoiler_check = lambda x: x.strip().startswith("||") and x.strip().endswith("||")
         channels = await self.config.guild(message.guild).channels()
         if await self.bot.cog_disabled_in_guild(self, message.guild):
