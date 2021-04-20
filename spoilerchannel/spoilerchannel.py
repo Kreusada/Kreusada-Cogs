@@ -83,9 +83,11 @@ class SpoilerChannel(commands.Cog):
                 if not attachment.is_spoiler():
                     with contextlib.suppress(discord.Forbidden, discord.NotFound):
                         await message.delete()
+                        break
                 elif message.content and not spoiler_check(message.content):
                     with contextlib.suppress(discord.Forbidden, discord.NotFound):
                         await message.delete()
+                        break
         elif not spoiler_check(message.content):
             with contextlib.suppress(discord.Forbidden, discord.NotFound):
                 await message.delete()
