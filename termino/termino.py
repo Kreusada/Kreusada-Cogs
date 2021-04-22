@@ -19,7 +19,7 @@ class Termino(commands.Cog):
     """Customize bot shutdown and restart messages, with predicates, too."""
 
     __author__ = ["Kreusada"]
-    __version__ = "1.0.0"
+    __version__ = "1.0.1"
 
     def __init__(self, bot):
         self.bot = bot
