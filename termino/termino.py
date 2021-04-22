@@ -72,7 +72,11 @@ class Termino(commands.Cog):
         # Or that we cannot find that channel
         if maybe_channel is None or (ch := self.bot.get_channel(maybe_channel)) is None:
             return
-        await ch.send(conf["restarted_message"])
+        try:
+            await ch.send(conf["restarted_message"])
+        except discord.Forbidden as e:
+            log.info("Unable to send a confirmation message to the restart channel")
+            log.debug("Unable to send a message", exc_info=e)
 
     async def confirmation(self, ctx: commands.Context, _type: str):
         await ctx.send(f"Are you sure you want to {_type} {ctx.me.name}? (yes/no)")
