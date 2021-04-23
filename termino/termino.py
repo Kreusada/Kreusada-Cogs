@@ -185,7 +185,7 @@ class Termino(commands.Cog):
             f"Shutdown confirmation: {config['confirm_shutdown']}\n\n"
             f"Restart message: {config['restart_message']}\n"
             f"Restart confirmation: {config['confirm_restart']}\n"
-            f"Restarted message: {config['restarted_message']}\n
+            f"Restarted message: {config['restarted_message']}\n"
             f"\t- NOTE: This message will be sent in the invoked channel when a successful restart has occured.\n\n"
         )
         if footer:
