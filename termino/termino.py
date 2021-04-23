@@ -170,7 +170,7 @@ class Termino(commands.Cog):
     async def terminoset_restarted_message(self, ctx: commands.Context, *, restarted_message: str):
         """Set the message to be sent after restarting."""
         await self.config.restarted_message.set(restarted_message)
-        await ctx.send("Restarted messsage set.")
+        await ctx.send("Restarted message set.")
 
     @terminoset.command()
     async def settings(self, ctx: commands.Context):
