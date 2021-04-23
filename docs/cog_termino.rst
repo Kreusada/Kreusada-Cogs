@@ -132,6 +132,28 @@ Toggle whether restarts confirm before shutting down.
 
 * ``<true_or_false>``: Whether to toggle or not.
 
+.. _termino-command-terminoset-res-conf:
+
+"""""""""""""""""""""""""""""""
+terminoset res restartedmessage
+"""""""""""""""""""""""""""""""
+
+**Syntax**
+
+.. code-block:: none
+
+    [p]terminoset restartedmessage <restarted_message>
+
+**Description**
+
+Set the message to be sent after restarting.
+
+The bot will attempt to send this message in the invoked channel.
+
+**Arguments**
+
+* ``<restarted_message>``: The message to send when the bot is back online.
+
 .. _termino-command-terminoset-settings:
 
 """""""""""""""""""
