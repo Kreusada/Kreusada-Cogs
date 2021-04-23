@@ -76,7 +76,7 @@ class Termino(commands.Cog):
             await ch.send(conf["restarted_message"])
         except discord.Forbidden as e:
             log.info("Unable to send a confirmation message to the restart channel")
-            log.debug("Unable to send a message", exc_info=e)
+            log.debug(f"Unable to send a message to channel: {ch.guild} ({ch.guild.id})", exc_info=e)
 
     async def confirmation(self, ctx: commands.Context, _type: str):
         await ctx.send(f"Are you sure you want to {_type} {ctx.me.name}? (yes/no)")
@@ -185,7 +185,7 @@ class Termino(commands.Cog):
             f"Shutdown confirmation: {config['confirm_shutdown']}\n\n"
             f"Restart message: {config['restart_message']}\n"
             f"Restart confirmation: {config['confirm_restart']}\n"
-            f"Restarted message: {config['restarted_message']}\n\n"
+            f"Restarted message (message sent when a successful restart has occurred): {config['restarted_message']}\n\n"
         )
         if footer:
             message += "{author} will be replaced with the display name of the invoker."
