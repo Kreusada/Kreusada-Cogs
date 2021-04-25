@@ -1,5 +1,6 @@
 import asyncio
 import datetime
+import pathlib
 import sys
 from typing import Literal
 
@@ -10,6 +11,10 @@ from redbot.core.utils.chat_formatting import italics, humanize_list, inline, bo
 from yaml.parser import (
     MarkedYAMLError, ParserError, ScannerError
 )
+
+with open(pathlib.Path(__file__).parent / "cog_creation.yaml") as f:
+    example_cog_creation_yaml = f.readlines()
+
 
 class ParserInvalidStackError(Exception):
     """
@@ -30,19 +35,19 @@ class ParserInvalidStackError(Exception):
     def __str__(self):
         key = self.key
         key_type = type(self.data.get(self.key)).__name__
-        if key in ("name", "description", "end_user_data_statement"):
-            supported_type = (str)
+        if key in ("name", "description", "end_user_data_statement", "github_url"):
+            supported_type = str
         elif key in ("author", "requirements", "tags"):
             supported_type = list
-        elif key == "installation_guide":
+        elif key in ("smart_link_title", "installation_guide"):
             supported_type = bool
         else:
-            return "Urm, wtf?"
+            return "Something went wrong whilst reading your data."
         accept_nonetype = ""
-        if not key in ("name", "end_user_data_statement"):
+        if not key in ("name", "end_user_data_statement", "github_url"):
             accept_nonetype += " or null"
         return (
-            f"The {self.key} key type must be a {supported_type}{accept_nonetype}, not {key_type}"
+            f"The {self.key} key type must be a {supported_type.__name__}{accept_nonetype}, not {key_type}"
         )
 
 class ParserInvalidTypeError(Exception):
@@ -110,7 +115,7 @@ class EmbedBuilder(object):
         Must be one of PublishTypes
     """
 
-    def __init__(self, data: dict, publish_type: PublishType):
+    def __init__(self, data: dict, publish_type: PublishType,):
         super().__init__()
         self.data = data
         self.name = data.get("name")
@@ -121,6 +126,7 @@ class EmbedBuilder(object):
         self.end_user_data_statement = data.get("end_user_data_statement")
         self.show_installation_guide = data.get("installation_guide", False)
         self.github_url = data.get("github_url")
+        self.smart_link_title = data.get("smart_link_title")
         # removal publishtype
         self.reason = data.get("reason", None)
         # list of all viable keys
@@ -132,7 +138,9 @@ class EmbedBuilder(object):
             "tags",
             "end_user_data_statement",
             "installation_guide",
-            "github_url"
+            "github_url",
+            "smart_link_title",
+            "reason",
         ]
         # misc
         self.publish_type = publish_type
@@ -154,7 +162,7 @@ class EmbedBuilder(object):
             if not isinstance(value, (str, list, bool)) or value is not None and value in self.key_list:
                 raise ParserInvalidStackError(key=key, data=self.data)
 
-        plural_author = "author"
+        plural_author = "Author"
         if self.author:
             if not isinstance(self.author, (list, str)):
                 raise ParserInvalidTypeError(
@@ -177,22 +185,6 @@ class EmbedBuilder(object):
                 raise ParserRequiredKeyError("name")
             if not self.end_user_data_statement:
                 raise ParserRequiredKeyError("end_user_data_statement")
-
-            if self.author:
-                if not isinstance(self.author, (list, str)):
-                    raise ParserInvalidTypeError(
-                        field="author",
-                        invalid_type=type(self.author),
-                        supported_types=(list, str),
-                    )
-                if isinstance(self.author, list):
-                    if len(self.author) == 1:
-                        plural_author = "author"
-                    else:
-                        plural_author = "authors"
-            else:
-                self.author = ctx.author.name
-                plural_author = "author"
 
             if self.description:
                 if not isinstance(self.description, str):
@@ -257,36 +249,37 @@ class EmbedBuilder(object):
                 a = self.author[0]
             else:
                 a = self.author
-            add_repo_command_title = f"Add {a}'s repository:"
-            add_repo_command_description = inline(f"[p]repo add {a} {self.github_url}")
-            add_cog_command_title = f"Install {self.name}:"
-            add_cog_command_description = inline(f"[p]cog install {a} {self.name}")
-
-            embed = discord.Embed(
-                title=f"Added Cog",
-                timestamp=datetime.datetime.now(),
-                color=0x6ac6af
+            install_description = (
+                f"[p]repo add {a} {self.github_url}\n"
+                f"[p]cog install {a} {self.name}\n\n"
+                "Replace [p] with your prefix."
             )
+
+            kwargs = {
+                "title": self.name,
+                "description": self.description,
+                "timestamp": datetime.datetime.now(),
+                "color": 0x6ac6af
+            }
+            if self.smart_link_title and self.github_url:
+                kwargs["url"] = f"{self.github_url}/{self.name.lower()}"
+                
+            embed = discord.Embed(**kwargs)
 
             if isinstance(self.author, list):
                 self.author = ", ".join(self.author)
 
-            requirements = ", ".join(self.requirements)
-
-            embed.add_field(name="Name", value=self.name, inline=True)
             embed.add_field(name=plural_author, value=self.author, inline=True)
             if self.requirements:
-                embed.add_field(name="Requirements", value=requirements, inline=True)
-            embed.add_field(name="Description", value=self.description, inline=False)
+                embed.add_field(name="Requirements", value=", ".join(self.requirements), inline=True)
             if self.end_user_data_statement:
                 embed.add_field(name="End User Data Statement", value=self.end_user_data_statement, inline=False)
             if self.show_installation_guide:
-                embed.add_field(name=add_repo_command_title, value=add_repo_command_description, inline=False)
-                embed.add_field(name=add_cog_command_title, value=add_cog_command_description, inline=False)
+                embed.add_field(name="Installation Instructions", value=install_description, inline=False)
             if self.tags:
-                embed.set_footer(text=", ".join(self.tags[:7]))
+                embed.set_footer(text="Tags: " + ", ".join(self.tags[:7]))
 
-            embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+            embed.set_author(name="Added cog", icon_url=ctx.author.avatar_url)
 
         else:
             if not self.removal:
@@ -322,7 +315,9 @@ class PublishCogs(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, 953478905834590284, force_registration=True)
-        self.config.register_guild(channel=None)
+        self.config.register_guild(
+            channel=None,
+        )
 
     @staticmethod
     def has_cli_flag(flag):
@@ -351,14 +346,17 @@ class PublishCogs(commands.Cog):
         content = self.cleanup_code(content)
         try:
             loader = yaml.full_load(content)
-            await ctx.send("YAML parsing successful, building embeds...")
         except (ParserError, MarkedYAMLError, ScannerError):
             return await ctx.send("Please provide valid YAML.")
         await self.prepare_builder(ctx, loader, publish_type)
 
     async def prepare_builder(self, ctx, content, publish_type: PublishType):
+        approved_cog_creators = await self.config.guild(ctx.guild).approved_cog_creators()
         try:
-            builder = EmbedBuilder(content, publish_type)
+            builder = EmbedBuilder(
+                data=content, 
+                publish_type=publish_type,
+            )
             builder = builder.format_build(ctx)
         except Exception as e:
             return await ctx.send(self.format_traceback(e))
@@ -378,17 +376,19 @@ class PublishCogs(commands.Cog):
         await ctx.send("Publish cog successful!")
 
     @commands.command()
-    async def publishcog(self, ctx, content: str = None):
+    async def publishcog(self, ctx):
         """Publish your new cog to a new channel."""
         def check(x):
             return x.author == ctx.author and x.channel == ctx.channel
-        if not content:
-            await ctx.send("send your shit")
-            try:
-                content = await self.bot.wait_for("message", timeout=250, check=check)
-            except asyncio.TimeoutError:
-                return await ctx.send("You took too long to respond.")
-            content = content.content
+        await ctx.send(
+            "Now you need to compose your YAML. For reference, see below: "
+            + box("".join(example_cog_creation_yaml), lang="yaml")
+        )
+        try:
+            content = await self.bot.wait_for("message", timeout=250, check=check)
+        except asyncio.TimeoutError:
+            return await ctx.send("You took too long to respond.")
+        content = content.content
         publish_type = "creation"
         async with ctx.typing():
             await self.yaml_parser(ctx, content, publish_type)
