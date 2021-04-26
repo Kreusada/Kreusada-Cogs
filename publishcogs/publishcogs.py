@@ -66,6 +66,26 @@ class ParserInvalidTypeError(Exception):
             f"{humanized}, not {self.invalid_type.__name__}"
         )
 
+class ParserInvalidItemError(Exception):
+    """
+    Raised when an item in a list does not follow the rejime.
+
+    Attributes:
+        item: str
+            The name of the required key that is missing.
+    """
+
+    def __init__(self, **kwargs):
+        self.item = kwargs.get("item")
+        self.array = kwargs.get("array")
+        self.literal_array = kwargs.get("literal_array")
+
+    def __str__(self):
+        return (
+            f"An item in your \"{self.array}\" list must be a str, not {type(self.item).__name__}. "
+            f"(Sequence position {self.literal_array.index(self.item)})"
+        )
+
 class ParserRequiredKeyError(Exception):
     """
     Raised when a required key does not exist in the data.
@@ -166,6 +186,14 @@ class EmbedBuilder(object):
                     invalid_type=type(self.author),
                     supported_types=(str, list)
                 )
+            if isinstance(self.author, list):
+                for author in self.author:
+                    if not isinstance(author, str):
+                        raise ParserInvalidItemError(
+                            item=author,
+                            array="author",
+                            literal_array=self.author
+                        )
         else:
             self.author = ctx.author.name
 
@@ -203,6 +231,14 @@ class EmbedBuilder(object):
                         invalid_type=type(self.requirements),
                         supported_types=(list,)
                     )
+                if isinstance(self.requirements, list):
+                    for requirement in self.requirements:
+                        if not isinstance(requirement, str):
+                            raise ParserInvalidItemError(
+                                item=requirement,
+                                array="requirements",
+                                literal_array=self.requirements
+                            )
 
             if self.tags:
                 if not isinstance(self.tags, list):
@@ -211,6 +247,14 @@ class EmbedBuilder(object):
                         invalid_type=type(self.tags),
                         supported_types=(list,)
                     )
+                if isinstance(self.tags, list):
+                    for tag in self.tags:
+                        if not isinstance(tag, str):
+                            raise ParserInvalidItemError(
+                                item=tag,
+                                array="tags",
+                                literal_array=self.tags
+                            )
 
             if not self.end_user_data_statement:
                 raise ParserRequiredKeyError("end_user_data_statement")
@@ -378,7 +422,12 @@ class PublishCogs(commands.Cog):
                 publish_type=publish_type
             )
             builder = builder.format_build(ctx)
-        except Exception as e:
+        except (
+            ParserRequiredKeyError, 
+            ParserInvalidTypeError, 
+            ParserInvalidItemError,
+            ParserGhostURLError
+        ) as e:
             return await ctx.send(self.format_traceback(e))
         channel = await self.config.guild(ctx.guild).channel()
         channel = self.bot.get_channel(channel)
