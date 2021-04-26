@@ -1,5 +1,7 @@
 import asyncio
 import datetime
+import json
+import logging
 import pathlib
 import sys
 from typing import Literal, Union
@@ -39,6 +41,8 @@ def format_authors(content: Union[list, str]):
             return shorten_data(content, 5)
         return ", ".join(content)
     return content
+
+log = logging.getLogger("red.kreusada.cogfeed")
 
 
 class ParserInvalidTypeError(Exception):
@@ -374,14 +378,15 @@ class EmbedBuilder(object):
         return not self.__eq__(o)
             
 
-class PublishCogs(commands.Cog):
+class CogFeeds(commands.Cog):
     """Publish your cogs to a new channel."""
 
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, 953478905834590284, force_registration=True)
         self.config.register_guild(
-            channel=None,
+            publish_feed=None,
+            destroy_feed=None,
         )
 
     @staticmethod
@@ -396,9 +401,12 @@ class PublishCogs(commands.Cog):
         return content.strip("` \n")
 
     @staticmethod
-    def format_traceback(exc):
+    def format_traceback(exc, cli):
         boxit = lambda x, y: box(f"{x}: {y}", lang="yaml")
-        return boxit(exc.__class__.__name__, exc)
+        out = boxit(exc.__class__.__name__, exc)
+        if cli:
+            out += "\nI have also sent the error to your console."
+        return out
 
     @commands.Cog.listener()
     async def on_guild_channel_delete(self, channel):
@@ -428,21 +436,27 @@ class PublishCogs(commands.Cog):
             ParserInvalidItemError,
             ParserGhostURLError
         ) as e:
-            return await ctx.send(self.format_traceback(e))
-        channel = await self.config.guild(ctx.guild).channel()
+            log.debug(e)
+            return await ctx.send(self.format_traceback(e, self.has_cli_flag("debug")))
+        settings = await self.config.guild(ctx.guild).all()
+        if publish_type == "creation":
+            channel = settings["publish_feed"]
+            conf = "Cog publishing was successful."
+        else:
+            channel = settings["destroy_feed"]
+            conf = "Cog removal was successful."
         channel = self.bot.get_channel(channel)
         if not channel:
-            await ctx.send("Looks like the publishcogs channel doesn't exist anymore.")
-            await self.config.guild(ctx.guild).channel.clear()
+            await ctx.send("Looks like the cogfeed channel doesn't exist anymore.")
             return
         if not channel.permissions_for(ctx.me).send_messages:
-            await ctx.send("I don't have permissions to send messages to the publishcogs channel.")
+            await ctx.send("I don't have permissions to send messages to the cogfeed channel.")
             return
         if not channel.permissions_for(ctx.me).embed_links or not await ctx.embed_requested():
-            await ctx.send("I don't have permissions to send embeds to the publishcogs channel.")
+            await ctx.send("I don't have permissions to send embeds to the cogfeed channel.")
             return
         await channel.send(embed=builder)
-        await ctx.send("Publish cog successful!")
+        await ctx.send(conf)
 
     @commands.group()
     async def cogfeed(self, ctx):
@@ -483,12 +497,18 @@ class PublishCogs(commands.Cog):
         async with ctx.typing():
             await self.yaml_parser(ctx, content, "removal")
 
-    @commands.group()
-    async def publishcogset(self, ctx):
-        """Settings with PublishCogs."""
+    @cogfeed.group(name="set")
+    async def cogfeed_set(self, ctx):
+        """Settings for cogfeeds."""
 
-    @publishcogset.command(name="channel")
-    async def publishcogset_channel(self, ctx, channel: discord.TextChannel):
-        """Set the publishcogs feed channel."""
-        await self.config.guild(ctx.guild).channel.set(channel.id)
-        await ctx.tick()
+    @cogfeed_set.command()
+    async def publishchannel(self, ctx, channel: discord.TextChannel):
+        """Set the cog publishing channel."""
+        await self.config.guild(ctx.guild).publish_feed.set(channel.id)
+        await ctx.send(f"Publish channel set to {channel.mention}.")
+
+    @cogfeed_set.command()
+    async def destroychannel(self, ctx, channel: discord.TextChannel):
+        """Set the cog removal channel."""
+        await self.config.guild(ctx.guild).destroy_feed.set(channel.id)
+        await ctx.send(f"Removal channel set to {channel.mention}.")

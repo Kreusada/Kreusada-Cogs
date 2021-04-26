@@ -1,5 +1,5 @@
 #Required Keys
-name: PublishCogs
+name: CogFeeds
 end_user_data_statement: This cog does not persistently store data or metadata about users.
 
 # Suggested Keys
@@ -10,5 +10,5 @@ requirements: []
 # Pretty Keys
 tags: [Fun, Utility]
 install_guide: true
-github_url: https://github.com/Kreusada/Kreusada-Cogs
+github_url: https://github.com/Kreusada/Kreusada-Cogs/tree/master
 smart_link_title: true
