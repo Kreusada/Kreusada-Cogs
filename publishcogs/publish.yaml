@@ -9,6 +9,6 @@ requirements: []
 
 # Pretty Keys
 tags: [Fun, Utility]
-installation_guide: true
+install_guide: true
 github_url: https://github.com/Kreusada/Kreusada-Cogs
 smart_link_title: true

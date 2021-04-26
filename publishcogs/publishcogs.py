@@ -2,7 +2,7 @@ import asyncio
 import datetime
 import pathlib
 import sys
-from typing import Literal
+from typing import Literal, Union
 
 import discord
 import yaml
@@ -12,43 +12,34 @@ from yaml.parser import (
     MarkedYAMLError, ParserError, ScannerError
 )
 
-with open(pathlib.Path(__file__).parent / "cog_creation.yaml") as f:
-    example_cog_creation_yaml = f.readlines()
+with open(pathlib.Path(__file__).parent / "publish.yaml") as f:
+    example_cog_creation_yaml = box("".join(f.readlines()), lang="yaml")
 
+with open(pathlib.Path(__file__).parent / "destroy.yaml") as f:
+    example_cog_removal_yaml = box("".join(f.readlines()), lang="yaml")
 
-class ParserInvalidStackError(Exception):
-    """
-    Raised when an unsupported type is present in a dict key.
-    This exception is incomprehensible.
+def shorten_data(data, cut):
+    cut = cut - 3
+    return data[:cut] + '...'
 
-    Attributes:
-        key: str
-            The name of the key which is an invalid type.
-        data: dict
-            The data from which the key has been raised from.
-    """
+def shorten_list(data, cut):
+    slicer = data[:cut]
+    left = data[cut:]
+    return ", ".join(slicer) + f" and {left} more..."
 
-    def __init__(self, key: str, data: dict):
-        self.key = key 
-        self.data = data
+def get_plural_author(field: Union[list, str]):
+    author = "Author"
+    if isinstance(field, list) and len(field) > 1:
+        author += "s"
+    return author    
 
-    def __str__(self):
-        key = self.key
-        key_type = type(self.data.get(self.key)).__name__
-        if key in ("name", "description", "end_user_data_statement", "github_url"):
-            supported_type = str
-        elif key in ("author", "requirements", "tags"):
-            supported_type = list
-        elif key in ("smart_link_title", "installation_guide"):
-            supported_type = bool
-        else:
-            return "Something went wrong whilst reading your data."
-        accept_nonetype = ""
-        if not key in ("name", "end_user_data_statement", "github_url"):
-            accept_nonetype += " or null"
-        return (
-            f"The {self.key} key type must be a {supported_type.__name__}{accept_nonetype}, not {key_type}"
-        )
+def format_authors(content: Union[list, str]):
+    if isinstance(content, list):
+        if len(content) > 5:
+            return shorten_data(content, 5)
+        return ", ".join(content)
+    return content
+
 
 class ParserInvalidTypeError(Exception):
     """
@@ -56,22 +47,22 @@ class ParserInvalidTypeError(Exception):
 
     Attributes:
         field: str
-            The yaml dict field where the exception has been raised.
+            The yaml dict key where the exception has been raised.
         invalid_type: type
             The invalid passed type.
         supported_types: tuple
             The supported types for the field.
     """
-    
-    def __init__(self, field: str, invalid_type: type, supported_types: tuple):
-        self.field_name = field
-        self.invalid_type = invalid_type
-        self.supported_types = supported_types
+
+    def __init__(self, **kwargs):
+        self.field_name = kwargs.get("field")
+        self.invalid_type = kwargs.get("invalid_type")
+        self.supported_types = kwargs.get("supported_types")
 
     def __str__(self):
         humanized = humanize_list(items=[x.__name__ for x in self.supported_types], style='or')
         return (
-            f"The '{self.field_name}' field's type must be "
+            f"The type of the '{self.field_name}' field must be "
             f"{humanized}, not {self.invalid_type.__name__}"
         )
 
@@ -95,15 +86,19 @@ class ParserGhostURLError(Exception):
     Raised when installation guide has been opted into without
     a github_url key.
     """
-    pass
+    def __init__(self, key):
+        self.key = key
+
+    def __str__(self):
+        return f"You must provide a `github_url` key if you wish to opt into adding the {self.key}"
 
 
 PublishType = Literal["creation", "removal"]
 
 
-class EmbedBuilder(object):
+class CreationEmbedBuilder(object):
     """
-    Builds the embed image for the provided and relevant data.
+    Builds the embed image (creation) for the provided and relevant data.
     The YAML will have been validated before it reaches this point.
     Irrelvant keys are ignored as we are only getting the keys we need
     through dict.get()
@@ -111,11 +106,9 @@ class EmbedBuilder(object):
     Attributes:
     data: dict
         The extracted data from the yaml conversion
-    publish_type: str
-        Must be one of PublishTypes
     """
 
-    def __init__(self, data: dict, publish_type: PublishType,):
+    def __init__(self, data: dict):
         super().__init__()
         self.data = data
         self.name = data.get("name")
@@ -124,11 +117,9 @@ class EmbedBuilder(object):
         self.requirements = data.get("requirements")
         self.tags = data.get("tags")
         self.end_user_data_statement = data.get("end_user_data_statement")
-        self.show_installation_guide = data.get("installation_guide", False)
+        self.install_guide = data.get("install_guide", False)
         self.github_url = data.get("github_url")
         self.smart_link_title = data.get("smart_link_title")
-        # removal publishtype
-        self.reason = data.get("reason", None)
         # list of all viable keys
         self.key_list = [
             "name", 
@@ -137,13 +128,10 @@ class EmbedBuilder(object):
             "requirements",
             "tags",
             "end_user_data_statement",
-            "installation_guide",
+            "install_guide",
             "github_url",
             "smart_link_title",
-            "reason",
         ]
-        # misc
-        self.publish_type = publish_type
 
     def __repr__(self) -> str:
         return f"<class {self.__class__.__name__}(data={self.data})>"
@@ -156,151 +144,244 @@ class EmbedBuilder(object):
         return len(self.data.keys())
 
     def format_build(self, ctx):
-        # This will elimate any other types from the parser
-        for key in self.data.keys():
-            value = self.data.get(key)
-            if not isinstance(value, (str, list, bool)) or value is not None and value in self.key_list:
-                raise ParserInvalidStackError(key=key, data=self.data)
-
-        plural_author = "Author"
-        if self.author:
-            if not isinstance(self.author, (list, str)):
-                raise ParserInvalidTypeError(
-                    field="author",
-                    invalid_type=type(self.author),
-                    supported_types=(list, str),
-                )
-            if isinstance(self.author, list):
-                if not len(self.author) == 1:
-                    plural_author += "s"
-        else:
-            self.author = ctx.author.name
-
         if not self.name:
             raise ParserRequiredKeyError("name")
-
-        if self.publish_type == "creation":
-            # All the error handling will be done under this statement
-            if not self.name:
-                raise ParserRequiredKeyError("name")
-            if not self.end_user_data_statement:
-                raise ParserRequiredKeyError("end_user_data_statement")
-
-            if self.description:
-                if not isinstance(self.description, str):
-                    raise ParserInvalidTypeError(
-                        field="description",
-                        invalid_type=type(self.description),
-                        supported_types=(str),
-                    )
-            else:
-                self.description = italics("No description was provided.")
+        else:
             if not isinstance(self.name, str):
                 raise ParserInvalidTypeError(
                     field="name",
                     invalid_type=type(self.name),
-                    supported_types=(str),
+                    supported_types=(str,)
                 )
-            if self.github_url:
-                if not isinstance(self.github_url, str):
-                    raise ParserInvalidTypeError(
-                        field="github_url",
-                        invalid_type=type(self.github_url),
-                        supported_types=(str),
-                    )
-            else:
-                if self.show_installation_guide:
-                    raise ParserGhostURLError(
-                        "You must provide a `github_url` key if you wish to opt into "
-                        "adding an installation guide."
-                    )
-            if self.requirements:
-                if not isinstance(self.requirements, list):
-                    raise ParserInvalidTypeError(
-                        field="requirements",
-                        invalid_type=type(self.requirements),
-                        supported_types=(list),
-                    )
-            if self.tags:
-                if not isinstance(self.tags, list):
-                    raise ParserInvalidTypeError(
-                        field="tags",
-                        invalid_type=type(self.tags),
-                        supported_types=(list),
-                    )
-            if self.end_user_data_statement:
-                if not isinstance(self.end_user_data_statement, str):
-                    raise ParserInvalidTypeError(
-                        field="end_user_data_statement",
-                        invalid_type=type(self.end_user_data_statement),
-                        supported_types=(str),
-                    )
-            else:
-                raise ParserRequiredKeyError("end_user_data_statement")
-            if self.show_installation_guide:
-                if not isinstance(self.show_installation_guide, bool):
-                    raise ParserInvalidTypeError(
-                        field="show_installation_guide",
-                        invalid_type=type(self.show_installation_guide),
-                        supported_types=(bool),
-                    )
 
-            if isinstance(self.author, list):
-                a = self.author[0]
-            else:
-                a = self.author
-            install_description = (
-                f"[p]repo add {a} {self.github_url}\n"
-                f"[p]cog install {a} {self.name}\n\n"
-                "Replace [p] with your prefix."
-            )
-
-            kwargs = {
-                "title": self.name,
-                "description": self.description,
-                "timestamp": datetime.datetime.now(),
-                "color": 0x6ac6af
-            }
-            if self.smart_link_title and self.github_url:
-                kwargs["url"] = f"{self.github_url}/{self.name.lower()}"
-                
-            embed = discord.Embed(**kwargs)
-
-            if isinstance(self.author, list):
-                self.author = ", ".join(self.author)
-
-            embed.add_field(name=plural_author, value=self.author, inline=True)
-            if self.requirements:
-                embed.add_field(name="Requirements", value=", ".join(self.requirements), inline=True)
-            if self.end_user_data_statement:
-                embed.add_field(name="End User Data Statement", value=self.end_user_data_statement, inline=False)
-            if self.show_installation_guide:
-                embed.add_field(name="Installation Instructions", value=install_description, inline=False)
-            if self.tags:
-                embed.set_footer(text="Tags: " + ", ".join(self.tags[:7]))
-
-            embed.set_author(name="Added cog", icon_url=ctx.author.avatar_url)
-
+        if self.author:
+            if not isinstance(self.author, (str, list)):
+                raise ParserInvalidTypeError(
+                    field="author",
+                    invalid_type=type(self.author),
+                    supported_types=(str, list)
+                )
         else:
-            if not self.removal:
-                raise ParserRequiredKeyError("removal")
-            if not self.name:
-                raise ParserRequiredKeyError("name")
-            if not self.reason:
-                raise ParserRequiredKeyError("reason")
+            self.author = ctx.author.name
 
-            embed = discord.Embed(
-                title=f"Removed Cog",
-                timestamp=datetime.datetime.now(),
-                color=0xe84e4e
-            )
+        if self.description:
+            if not isinstance(self.description, str):
+                raise ParserInvalidTypeError(
+                    field="description",
+                    invalid_type=type(self.description),
+                    supported_types=(str,)
+                )
+        else:
+            self.description = "No description was provided."
 
-            embed.add_field(name="Name", value=self.name, inline=True)
-            embed.add_field(name=plural_author, value=self.author, inline=True)
-            embed.add_field(name="Reason", value=self.reason, inline=False)
-        
+        if self.requirements:
+            if not isinstance(self.requirements, list):
+                raise ParserInvalidTypeError(
+                    field="requirements",
+                    invalid_type=type(self.requirements),
+                    supported_types=(list,)
+                )
+
+        if self.tags:
+            if not isinstance(self.tags, list):
+                raise ParserInvalidTypeError(
+                    field="tags",
+                    invalid_type=type(self.tags),
+                    supported_types=(list,)
+                )
+
+        if not self.end_user_data_statement:
+            raise ParserRequiredKeyError("end_user_data_statement")
+        else:
+            if not isinstance(self.end_user_data_statement, str):
+                raise ParserInvalidTypeError(
+                    field="end_user_data_statement",
+                    invalid_type=type(self.end_user_data_statement),
+                    supported_types=(str,)
+                )
+
+        if self.install_guide:
+            if not isinstance(self.install_guide, bool):
+                raise ParserInvalidTypeError(
+                    field="install_guide",
+                    invalid_type=type(self.install_guide),
+                    supported_types=(bool,)
+                )
+
+        if self.install_guide:
+            if not isinstance(self.install_guide, bool):
+                raise ParserInvalidTypeError(
+                    field="install_guide",
+                    invalid_type=type(self.install_guide),
+                    supported_types=(bool,)
+                )
+            if not self.github_url:
+                raise ParserGhostURLError("install guide")
+
+        if self.github_url:
+            if not isinstance(self.github_url, str):
+                raise ParserInvalidTypeError(
+                    field="github_url",
+                    invalid_type=type(self.github_url),
+                    supported_types=(str,)
+                )
+
+        if self.smart_link_title:
+            if not isinstance(self.smart_link_title, bool):
+                raise ParserInvalidTypeError(
+                    field="smart_link_title",
+                    invalid_type=type(self.smart_link_title),
+                    supported_types=(bool,)
+                )
+            if not self.github_url:
+                raise ParserGhostURLError("smart link title")
+            
+
+        plural_author = get_plural_author(self.author)
+        author_content = format_authors(self.author)
+        if isinstance(self.author, str):
+            primary_author = self.author
+        else:
+            primary_author = format_authors(self.author[0])
+        install_description = (
+            f"[p]repo add {primary_author} {self.github_url}\n"
+            f"[p]cog install {primary_author} {self.name}\n\n"
+            "Replace [p] with your prefix."
+        )
+
+        kwargs = {
+            "title": self.name,
+            "description": self.description,
+            "timestamp": datetime.datetime.now(),
+            "color": 0x6ac6af
+        }
+        if self.smart_link_title and self.github_url:
+            kwargs["url"] = f"{self.github_url}/{self.name.lower()}"
+            
+        embed = discord.Embed(**kwargs)
+
+        if isinstance(self.author, list):
+            self.author = ", ".join(self.author)
+
+        embed.add_field(name=plural_author, value=self.author, inline=True)
+        if self.requirements:
+            embed.add_field(name="Requirements", value=", ".join(self.requirements), inline=True)
+        if self.end_user_data_statement:
+            embed.add_field(name="End User Data Statement", value=self.end_user_data_statement, inline=False)
+        if self.install_guide:
+            embed.add_field(name="Installation Instructions", value=install_description, inline=False)
+        if self.tags:
+            embed.set_footer(text="Tags: " + ", ".join(self.tags[:7]))
+
+        embed.set_author(name="Added cog", icon_url=ctx.author.avatar_url)
+
         return embed
 
+
+    def __eq__(self, o) -> bool:
+        return isinstance(o, self.__class__) and o.id == self.id
+
+    def __ne__(self, o) -> bool:
+        return not self.__eq__(o)
+
+class RemovalEmbedBuilder(object):
+    """
+    Builds the embed image (removal) for the provided and relevant data.
+    The YAML will have been validated before it reaches this point.
+    Irrelvant keys are ignored as we are only getting the keys we need
+    through dict.get()
+
+    Attributes:
+    data: dict
+        The extracted data from the yaml conversion
+    """
+
+    def __init__(self, data: dict):
+        super().__init__()
+        self.name = data.get("name")
+        self.author = data.get("author")
+        self.reason = data.get("reason")
+        self.additional_information = data.get("additional_info")
+        # list of all viable keys
+        self.key_list = [
+            "name", 
+            "author",
+            "reason",
+            "additional_info"
+        ]
+
+    def __repr__(self) -> str:
+        return f"<class {self.__class__.__name__}(data={self.data})>"
+
+    @property
+    def __str__(self):
+        return self.__repr__
+
+    def __len__(self) -> int:
+        return len(self.data.keys())
+
+    def format_build(self, ctx):
+        if not self.name:
+            raise ParserRequiredKeyError("name")
+        else:
+            if not isinstance(self.name, str):
+                raise ParserInvalidTypeError(
+                    field="name",
+                    invalid_type=type(self.name),
+                    supported_types=(str,)
+                )
+
+        if self.author:
+            if not isinstance(self.author, (str, list)):
+                raise ParserInvalidTypeError(
+                    field="author",
+                    invalid_type=type(self.author),
+                    supported_types=(str, list)
+                )
+        else:
+            self.author = ctx.author.name
+
+        if self.reason:
+            if not isinstance(self.reason, str):
+                raise ParserInvalidTypeError(
+                    field="reason",
+                    invalid_type=type(self.reason),
+                    supported_types=(str,)
+                )
+
+        if self.additional_information:
+            if not isinstance(self.additional_information, str):
+                raise ParserInvalidTypeError(
+                    field="additional_info",
+                    invalid_type=type(self.additional_information),
+                    supported_types=(str,)
+                )
+
+        plural_author = get_plural_author(self.author)
+        author_content = format_authors(self.author)
+
+        kwargs = {
+            "title": self.name,
+            "description": self.reason,
+            "color": 0xe84e4e,
+        }
+
+        embed = discord.Embed(**kwargs)
+        embed.add_field(
+            name=plural_author,
+            value=author_content,
+            inline=True
+        )
+
+        if self.additional_information:
+            embed.add_field(
+                name="Additional Information",
+                value=self.additional_information,
+                inline=False
+            )
+        embed.set_author(name="Removed cog", icon_url=ctx.author.avatar_url)
+
+        return embed
 
     def __eq__(self, o) -> bool:
         return isinstance(o, self.__class__) and o.id == self.id
@@ -351,13 +432,17 @@ class PublishCogs(commands.Cog):
         await self.prepare_builder(ctx, loader, publish_type)
 
     async def prepare_builder(self, ctx, content, publish_type: PublishType):
-        approved_cog_creators = await self.config.guild(ctx.guild).approved_cog_creators()
         try:
-            builder = EmbedBuilder(
-                data=content, 
-                publish_type=publish_type,
-            )
-            builder = builder.format_build(ctx)
+            if publish_type == "creation":
+                builder = CreationEmbedBuilder(
+                    data=content, 
+                )
+                builder = builder.format_build(ctx)
+            else:
+                builder = RemovalEmbedBuilder(
+                    data=content, 
+                )
+                builder = builder.format_build(ctx)
         except Exception as e:
             return await ctx.send(self.format_traceback(e))
         channel = await self.config.guild(ctx.guild).channel()
@@ -375,23 +460,44 @@ class PublishCogs(commands.Cog):
         await channel.send(embed=builder)
         await ctx.send("Publish cog successful!")
 
-    @commands.command()
-    async def publishcog(self, ctx):
-        """Publish your new cog to a new channel."""
+    @commands.group()
+    async def cogfeed(self, ctx):
+        """Publish and unpublish cogs, and edit their settings."""
+        pass
+
+    @cogfeed.command(name="publish")
+    async def cogfeed_publish(self, ctx):
+        """Announce/publish your new cog to the feed channel."""
         def check(x):
             return x.author == ctx.author and x.channel == ctx.channel
         await ctx.send(
             "Now you need to compose your YAML. For reference, see below: "
-            + box("".join(example_cog_creation_yaml), lang="yaml")
+            + example_cog_creation_yaml
         )
         try:
             content = await self.bot.wait_for("message", timeout=250, check=check)
         except asyncio.TimeoutError:
             return await ctx.send("You took too long to respond.")
         content = content.content
-        publish_type = "creation"
         async with ctx.typing():
-            await self.yaml_parser(ctx, content, publish_type)
+            await self.yaml_parser(ctx, content, "creation")
+
+    @cogfeed.command(name="destroy")
+    async def cogfeed_destroy(self, ctx):
+        """Announce the removal of a cog."""
+        def check(x):
+            return x.author == ctx.author and x.channel == ctx.channel
+        await ctx.send(
+            "Now you need to compose your YAML. For reference, see below: "
+            + example_cog_removal_yaml
+        )
+        try:
+            content = await self.bot.wait_for("message", timeout=250, check=check)
+        except asyncio.TimeoutError:
+            return await ctx.send("You took too long to respond.")
+        content = content.content
+        async with ctx.typing():
+            await self.yaml_parser(ctx, content, "removal")
 
     @commands.group()
     async def publishcogset(self, ctx):
