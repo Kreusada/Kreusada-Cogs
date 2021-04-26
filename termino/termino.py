@@ -124,7 +124,7 @@ class Termino(commands.Cog):
     async def terminoset(self, ctx: commands.Context):
         """Settings for the shutdown and restart commands."""
 
-    @terminoset.group(name="shut", aliases=["shutdown"], invoke_without_command=True)
+    @terminoset.group(name="shutdown", aliases=["shut"], invoke_without_command=True)
     async def terminoset_shutdown(self, ctx: commands.Context, *, shutdown_message: str):
         """
         Set and adjust the shutdown message.
@@ -145,7 +145,7 @@ class Termino(commands.Cog):
         await self.config.shutdown_message.set(shutdown_message)
         await ctx.send("Shutdown message set.")
 
-    @terminoset.group(name="res", aliases=["restart"], invoke_without_command=True)
+    @terminoset.group(name="restart", aliases=["res"], invoke_without_command=True)
     async def terminoset_restart(self, ctx: commands.Context, *, restart_message: str):
         """
         Set and adjust the restart message.
