@@ -512,3 +512,9 @@ class CogFeeds(commands.Cog):
         """Set the cog removal channel."""
         await self.config.guild(ctx.guild).destroy_feed.set(channel.id)
         await ctx.send(f"Removal channel set to {channel.mention}.")
+
+def setup(bot):
+    bot.add_cog(CogFeeds(bot))
+
+with open(pathlib.Path(__file__).parent / "info.json") as fp:
+    data_statement = json.load(fp)["end_user_data_statement"]

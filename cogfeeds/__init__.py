@@ -1,4 +1,3 @@
-from .cogfeeds import CogFeeds
+from .cogfeeds import setup, data_statement
 
-def setup(bot):
-    bot.add_cog(CogFeeds(bot))
+__red_end_user_data_statement__ = data_statement
