@@ -9,9 +9,16 @@ from typing import Literal, Union
 import discord
 import yaml
 from redbot.core import commands, Config
-from redbot.core.utils.chat_formatting import italics, humanize_list, inline, box
+from redbot.core.utils.chat_formatting import (
+    italics, 
+    humanize_list, 
+    inline, 
+    box
+)
 from yaml.parser import (
-    MarkedYAMLError, ParserError, ScannerError
+    MarkedYAMLError, 
+    ParserError, 
+    ScannerError
 )
 
 with open(pathlib.Path(__file__).parent / "data" / "publish.yaml") as f:
@@ -48,14 +55,6 @@ log = logging.getLogger("red.kreusada.cogfeed")
 class ParserInvalidTypeError(Exception):
     """
     Raised when an unsupported type is provided to the parser.
-
-    Attributes:
-        field: str
-            The yaml dict key where the exception has been raised.
-        invalid_type: type
-            The invalid passed type.
-        supported_types: tuple
-            The supported types for the field.
     """
 
     def __init__(self, **kwargs):
@@ -72,11 +71,7 @@ class ParserInvalidTypeError(Exception):
 
 class ParserInvalidItemError(Exception):
     """
-    Raised when an item in a list does not follow the rejime.
-
-    Attributes:
-        item: str
-            The name of the required key that is missing.
+    Raised when an item in a list does not follow the rejeme.
     """
 
     def __init__(self, **kwargs):
@@ -93,10 +88,6 @@ class ParserInvalidItemError(Exception):
 class ParserRequiredKeyError(Exception):
     """
     Raised when a required key does not exist in the data.
-
-    Attributes:
-        key: str
-            The name of the required key that is missing.
     """
 
     def __init__(self, key):
@@ -107,8 +98,7 @@ class ParserRequiredKeyError(Exception):
 
 class ParserGhostURLError(Exception):
     """
-    Raised when installation guide has been opted into without
-    a github_url key.
+    Raised when a field has been opted into which requires the `github_url` key.
     """
     def __init__(self, key):
         self.key = key
@@ -126,10 +116,6 @@ class EmbedBuilder(object):
     The YAML will have been validated before it reaches this point.
     Irrelvant keys are ignored as we are only getting the keys we need
     through dict.get()
-
-    Attributes:
-    data: dict
-        The extracted data from the yaml conversion
     """
 
     def __init__(self, **kwargs):
@@ -464,8 +450,7 @@ class CogFeeds(commands.Cog):
     @cogfeed.command(name="publish")
     async def cogfeed_publish(self, ctx):
         """Announce/publish your new cog to the feed channel."""
-        def check(x):
-            return x.author == ctx.author and x.channel == ctx.channel
+        check = lambda x: x.author == ctx.author and x.channel == ctx.channel
         await ctx.send(
             "Now you need to compose your YAML. For reference, see below: "
             + example_cog_creation_yaml
@@ -481,8 +466,7 @@ class CogFeeds(commands.Cog):
     @cogfeed.command(name="remove")
     async def cogfeed_remove(self, ctx):
         """Announce the removal of a cog."""
-        def check(x):
-            return x.author == ctx.author and x.channel == ctx.channel
+        check = lambda x: x.author == ctx.author and x.channel == ctx.channel
         await ctx.send(
             "Now you need to compose your YAML. For reference, see below: "
             + example_cog_removal_yaml
