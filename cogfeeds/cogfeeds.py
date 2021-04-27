@@ -14,10 +14,10 @@ from yaml.parser import (
     MarkedYAMLError, ParserError, ScannerError
 )
 
-with open(pathlib.Path(__file__).parent / "publish.yaml") as f:
+with open(pathlib.Path(__file__).parent / "data" / "publish.yaml") as f:
     example_cog_creation_yaml = box("".join(f.readlines()), lang="yaml")
 
-with open(pathlib.Path(__file__).parent / "destroy.yaml") as f:
+with open(pathlib.Path(__file__).parent / "data" / "remove.yaml") as f:
     example_cog_removal_yaml = box("".join(f.readlines()), lang="yaml")
 
 def shorten_data(data, cut):
@@ -26,7 +26,7 @@ def shorten_data(data, cut):
 
 def shorten_list(data, cut):
     slicer = data[:cut]
-    left = data[cut:]
+    left = len(data[cut:])
     return ", ".join(slicer) + f" and {left} more..."
 
 def get_plural_author(field: Union[list, str]):
@@ -38,7 +38,7 @@ def get_plural_author(field: Union[list, str]):
 def format_authors(content: Union[list, str]):
     if isinstance(content, list):
         if len(content) > 5:
-            return shorten_data(content, 5)
+            return shorten_list(content, 3)
         return ", ".join(content)
     return content
 
@@ -480,8 +480,8 @@ class CogFeeds(commands.Cog):
         async with ctx.typing():
             await self.yaml_parser(ctx, content, "creation")
 
-    @cogfeed.command(name="destroy")
-    async def cogfeed_destroy(self, ctx):
+    @cogfeed.command(name="remove")
+    async def cogfeed_remove(self, ctx):
         """Announce the removal of a cog."""
         def check(x):
             return x.author == ctx.author and x.channel == ctx.channel
