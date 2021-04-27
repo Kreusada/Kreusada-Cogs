@@ -175,13 +175,12 @@ class EmbedBuilder(object):
     def format_build(self, ctx):
         if not self.name:
             raise ParserRequiredKeyError("name")
-        else:
-            if not isinstance(self.name, str):
-                raise ParserInvalidTypeError(
-                    field="name",
-                    invalid_type=type(self.name),
-                    supported_types=(str,)
-                )
+        if not isinstance(self.name, str):
+            raise ParserInvalidTypeError(
+                field="name",
+                invalid_type=type(self.name),
+                supported_types=(str,)
+            )
 
         if self.author:
             if not isinstance(self.author, (str, list)):
@@ -262,13 +261,12 @@ class EmbedBuilder(object):
 
             if not self.end_user_data_statement:
                 raise ParserRequiredKeyError("end_user_data_statement")
-            else:
-                if not isinstance(self.end_user_data_statement, str):
-                    raise ParserInvalidTypeError(
-                        field="end_user_data_statement",
-                        invalid_type=type(self.end_user_data_statement),
-                        supported_types=(str,)
-                    )
+            if not isinstance(self.end_user_data_statement, str):
+                raise ParserInvalidTypeError(
+                    field="end_user_data_statement",
+                    invalid_type=type(self.end_user_data_statement),
+                    supported_types=(str,)
+                )
 
             if self.install_guide:
                 if not isinstance(self.install_guide, bool):
