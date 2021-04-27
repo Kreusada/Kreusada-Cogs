@@ -370,7 +370,7 @@ class CogFeeds(commands.Cog):
         self.config = Config.get_conf(self, 953478905834590284, force_registration=True)
         self.config.register_guild(
             publish_feed=None,
-            destroy_feed=None,
+            remove_feed=None,
         )
 
     @staticmethod
@@ -427,7 +427,7 @@ class CogFeeds(commands.Cog):
             channel = settings["publish_feed"]
             conf = "Cog publishing was successful."
         else:
-            channel = settings["destroy_feed"]
+            channel = settings["remove_feed"]
             conf = "Cog removal was successful."
         channel = self.bot.get_channel(channel)
         if not channel:
@@ -490,9 +490,9 @@ class CogFeeds(commands.Cog):
         await ctx.send(f"Publish channel set to {channel.mention}.")
 
     @cogfeed_set.command()
-    async def destroychannel(self, ctx, channel: discord.TextChannel):
+    async def removechannel(self, ctx, channel: discord.TextChannel):
         """Set the cog removal channel."""
-        await self.config.guild(ctx.guild).destroy_feed.set(channel.id)
+        await self.config.guild(ctx.guild).remove_feed.set(channel.id)
         await ctx.send(f"Removal channel set to {channel.mention}.")
 
 def setup(bot):
