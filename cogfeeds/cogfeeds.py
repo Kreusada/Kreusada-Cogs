@@ -129,7 +129,7 @@ class EmbedBuilder(object):
         self.end_user_data_statement = self.data.get("end_user_data_statement")
         self.install_guide = self.data.get("install_guide", False)
         self.github_url = self.data.get("github_url")
-        self.smart_link_title = self.data.get("smart_link_title")
+        self.title_link = self.data.get("title_link")
         # list of all viable keys
         self.key_list = [
             "name", 
@@ -280,15 +280,13 @@ class EmbedBuilder(object):
                         supported_types=(str,)
                     )
 
-            if self.smart_link_title:
-                if not isinstance(self.smart_link_title, bool):
+            if self.title_link:
+                if not isinstance(self.title_link, str):
                     raise ParserInvalidTypeError(
-                        field="smart_link_title",
-                        invalid_type=type(self.smart_link_title),
-                        supported_types=(bool,)
+                        field="title_link",
+                        invalid_type=type(self.title_link),
+                        supported_types=(str,)
                     )
-                if not self.github_url:
-                    raise ParserGhostURLError("smart link title")
             
 
         plural_author = get_plural_author(self.author)
@@ -300,9 +298,8 @@ class EmbedBuilder(object):
 
         if self.publish_type == "creation":
             install_description = (
-                f"[p]repo add {primary_author} {self.github_url}\n"
-                f"[p]cog install {primary_author} {self.name}\n\n"
-                "Replace [p] with your prefix."
+                f"- `[p]repo add {primary_author} {self.github_url}`\n"
+                f"- `[p]cog install {primary_author} {self.name.lower()}`"
             )
 
             kwargs = {
@@ -311,8 +308,8 @@ class EmbedBuilder(object):
                 "timestamp": datetime.datetime.now(),
                 "color": 0x6ac6af
             }
-            if self.smart_link_title and self.github_url:
-                kwargs["url"] = f"{self.github_url}/{self.name.lower()}"
+            if self.title_link:
+                kwargs["url"] = self.title_link
                 
             embed = discord.Embed(**kwargs)
 
@@ -385,12 +382,10 @@ class CogFeeds(commands.Cog):
         return content.strip("` \n")
 
     @staticmethod
-    def format_traceback(exc, cli):
-        boxit = lambda x, y: box(f"{x}: {y}", lang="yaml")
-        out = boxit(exc.__class__.__name__, exc)
-        if cli:
-            out += "\nI have also sent the error to your console."
-        return out
+    def format_traceback(exc, lang):
+        e = "An exception occured whilst parsing your data."
+        boxit = lambda x, y: box(f"{e}\n\t{x}: {y}", lang=lang)
+        return boxit(exc.__class__.__name__, exc)
 
     @commands.Cog.listener()
     async def on_guild_channel_delete(self, channel):
@@ -401,10 +396,13 @@ class CogFeeds(commands.Cog):
     async def yaml_parser(self, ctx, content, publish_type: PublishType):
         # Passing ctx for self.prepare_builder
         content = self.cleanup_code(content)
+        failure_message = "Please provide valid YAML."
         try:
             loader = yaml.full_load(content)
         except (ParserError, MarkedYAMLError, ScannerError):
-            return await ctx.send("Please provide valid YAML.")
+            return await ctx.send(failure_message)
+        if not isinstance(loader, dict):
+            return await ctx.send(failure_message)
         await self.prepare_builder(ctx, loader, publish_type)
 
     async def prepare_builder(self, ctx, content, publish_type: PublishType):
@@ -420,8 +418,7 @@ class CogFeeds(commands.Cog):
             ParserInvalidItemError,
             ParserGhostURLError
         ) as e:
-            log.debug(e)
-            return await ctx.send(self.format_traceback(e, self.has_cli_flag("debug")))
+            return await ctx.send(self.format_traceback(e, "yaml"))
         settings = await self.config.guild(ctx.guild).all()
         if publish_type == "creation":
             channel = settings["publish_feed"]
@@ -439,7 +436,10 @@ class CogFeeds(commands.Cog):
         if not channel.permissions_for(ctx.me).embed_links or not await ctx.embed_requested():
             await ctx.send("I don't have permissions to send embeds to the cogfeed channel.")
             return
-        await channel.send(embed=builder)
+        try:
+            await channel.send(embed=builder)
+        except discord.HTTPException as e:
+            return await ctx.send(self.format_traceback(e, "py"))
         await ctx.send(conf)
 
     @commands.group()
