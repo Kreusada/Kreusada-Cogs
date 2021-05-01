@@ -49,11 +49,11 @@ Available cogs list
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | dehoister       | Dehoist new users with a variety of powerful tools.          | Mod     | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
-| githubskylines  | Get a link to your githubskyline.                            | Info    | Kreusada       |
+| encryptor       | Generate and validify the strength of passwords.             | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | minifier        | Minify your code with the python minifier.                   | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
-| mjolnir         | Try to lift Thor's hammer!                                   | Fun     | Jojo, Kreusada |
+| mjolnir         |Try to lift Thor's hammer!                                    | Fun     | Jojo, Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | namegenerator   | Generate random names will optional gender arguments.        | Fun     | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
@@ -67,11 +67,9 @@ Available cogs list
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | rpsls           | Rock, paper, scissors, lizard, spock.                        | Fun     | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
-| sendcards       | Send christmas, birthday, valentines and get well soon cards.| Fun     | Kreusada       |
+| sendcards       | Send christmas, birthday, valentines and get well soon cards | Fun     | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
-| spoilerchannel  | Only allow spoilers in certain channels.                     | Tools   | Kreusada       |
-+-----------------+--------------------------------------------------------------+---------+----------------+
-| staff           | Alert staff for conspicuous activity.                        | Mod     | Kreusada       |
+| staff           | Alert staff for   conspicuous activity.                      | Mod     | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | termino         | Custom shutdown/restart responses with predicates.           | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+

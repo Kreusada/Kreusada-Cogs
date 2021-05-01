@@ -19,6 +19,8 @@ Available cogs list
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | dehoister       | Dehoist new users with a variety of powerful tools.          | Mod     | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
+| encryptor       | Generate and validify the strength of passwords.             | Tools   | Kreusada       |
++-----------------+--------------------------------------------------------------+---------+----------------+
 | minifier        | Minify your code with the python minifier.                   | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | mjolnir         |Try to lift Thor's hammer!                                    | Fun     | Jojo, Kreusada |

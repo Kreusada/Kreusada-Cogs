@@ -22,6 +22,10 @@
   - dehoister/*
   - docs/cog_dehoister
   - docs/changelog_dehoister
+"Cog: Encryptor":
+  - encryptor/*
+  - docs/cog_encryptor
+  - docs/changelog_dehoister
 "Cog: GithubSkylines":
   - githubskylines/*
   - docs/cog_githubskylines
