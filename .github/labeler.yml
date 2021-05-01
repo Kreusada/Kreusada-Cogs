@@ -1,107 +1,107 @@
 "Cog: AdvancedUptime":
   - advanceduptime/*
   - docs/cog_advanceduptime
-  - docs/changelog_advanceduptime
+  - docs/_deprecated/changelog_advanceduptime
 "Cog: AlphaNato":
   - alphanato/*
   - docs/cog_alphanato
-  - docs/changelog_alphanato
+  - docs/_deprecated/changelog_alphanato
 "Cog: BubbleWrap":
   - bubblewrap/*
   - docs/cog_bubblewrap
-  - docs/changelog_bubblewrap
+  - docs/_deprecated/changelog_bubblewrap
 "Cog: Codify":
   - codify/*
   - docs/cog_codify
-  - docs/changelog_codify
+  - docs/_deprecated/changelog_codify
 "Cog: ConsoleClearer":
   - consoleclearer/*
   - docs/cog_consoleclearer
-  - docs/changelog_consoleclearer
+  - docs/_deprecated/changelog_consoleclearer
 "Cog: Dehoister":
   - dehoister/*
   - docs/cog_dehoister
-  - docs/changelog_dehoister
+  - docs/_deprecated/changelog_dehoister
 "Cog: Encryptor":
   - encryptor/*
   - docs/cog_encryptor
-  - docs/changelog_dehoister
+  - docs/_deprecated/changelog_dehoister
 "Cog: GithubSkylines":
   - githubskylines/*
   - docs/cog_githubskylines
-  - docs/changelog_githubskylines
+  - docs/_deprecated/changelog_githubskylines
 "Cog: Locales":
   - locales/*
   - docs/cog_locales
-  - docs/changelog_locales
+  - docs/_deprecated/changelog_locales
 "Cog: Minifier":
   - minifier/*
   - docs/cog_minifier
-  - docs/changelog_minifier
+  - docs/_deprecated/changelog_minifier
 "Cog: Mjolnir":
   - mjolnir/*
   - docs/cog_mjolnir
-  - docs/changelog_mjolnir
+  - docs/_deprecated/changelog_mjolnir
 "Cog: NameGenerator":
   - namegenerator/*
   - docs/cog_namegenerator
-  - docs/changelog_namegenerator
+  - docs/_deprecated/changelog_namegenerator
 "Cog: PingInvoke":
   - pinginvoke/*
   - docs/cog_pinginvoke
-  - docs/changelog_pinginvoke
+  - docs/_deprecated/changelog_pinginvoke
 "Cog: PingOverride":
   - pingoverride/*
   - docs/cog_pingoverride
-  - docs/changelog_pingoverride
+  - docs/_deprecated/changelog_pingoverride
 "Cog: Quotes":
   - quotes/*
   - docs/cog_quotes
-  - docs/changelog_quotes
+  - docs/_deprecated/changelog_quotes
 "Cog: RAM":
   - ram/*
   - docs/cog_ram
-  - docs/changelog_ram
+  - docs/_deprecated/changelog_ram
 "Cog: RoleBoards":
   - roleboards/*
   - docs/cog_roleboards
-  - docs/changelog_roleboards
+  - docs/_deprecated/changelog_roleboards
 "Cog: RPSLS":
   - rpsls/*
   - docs/cog_rpsls
-  - docs/changelog_rpsls
+  - docs/_deprecated/changelog_rpsls
 "Cog: SendCards":
   - sendcards/*
   - docs/cog_sendcards
-  - docs/changelog_sendcards
+  - docs/_deprecated/changelog_sendcards
 "Cog: SpoilerChannel":
   - spoilerchannel/*
   - docs/cog_spoilerchannel
-  - docs/changelog_spoilerchannel
+  - docs/_deprecated/changelog_spoilerchannel
 "Cog: Staff":
   - staff/*
   - docs/cog_staff
-  - docs/changelog_staff
+  - docs/_deprecated/changelog_staff
 "Cog: Termino":
   - termino/*
   - docs/cog_termino
-  - docs/changelog_termino
+  - docs/_deprecated/changelog_termino
 "Cog: TextManipulator":
   - textmanipulator/*
   - docs/cog_textmanipulator
-  - docs/changelog_textmanipulator
+  - docs/_deprecated/changelog_textmanipulator
 "Cog: TimesTables":
   - timestables/*
   - docs/cog_timestables
-  - docs/changelog_timestables
+  - docs/_deprecated/changelog_timestables
 "Cog: Vinfo":
   - vinfo/*
   - docs/cog_vinfo
-  - docs/changelog_vinfo
+  - docs/_deprecated/changelog_vinfo
 "Cog: VoteChannel":
   - votechannel/*
   - docs/cog_votechannel
-  - docs/changelog_votechannel
+  - docs/_deprecated/changelog_votechannel
 "Category: Meta":
   - .github/*
   - .github/**
