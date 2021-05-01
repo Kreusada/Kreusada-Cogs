@@ -1,0 +1,9 @@
+title: "My first embed!"
+description: "Creating my first embed with EmbedBuilder."
+color: "#6ac6af"
+footer:
+  - text: "My footer"
+
+...
+
+Fully customizable with many more fields, see the docs for more information:
