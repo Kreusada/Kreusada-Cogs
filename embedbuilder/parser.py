@@ -43,14 +43,14 @@ class Parser(object):
         self.data = kwargs.get("data")
 
         self.author = self.data.get("author")
-        if self.author:
+        if self.author and isinstance(self.author, list):
             self.author = reformat_dict(self.author)
             self.author_name = self.author.get("name")
             self.author_url = self.author.get("url")
             self.author_icon_url = self.author.get("icon_url")
 
         self.footer = self.data.get("footer")
-        if self.footer:
+        if self.footer and isinstance(self.footer, list):
             self.footer = reformat_dict(self.footer)
             self.footer_text = self.footer.get("text")
             self.footer_icon_url = self.footer.get("icon_url")
@@ -80,6 +80,12 @@ class Parser(object):
 
     async def validparser(self):
         if self.author:
+            if not isinstance(self.author, dict):
+                raise ParserInvalidTypeError(
+                    field="author",
+                    invalid_type=type(self.author),
+                    supported_types=(dict,)
+                )
             if self.author_name:
                 if not isinstance(self.author_name, str):
                     raise ParserInvalidTypeError(
@@ -106,6 +112,12 @@ class Parser(object):
                 if not image_regex.search(self.author_icon_url):
                     raise ParserURLError("author icon_url")
         if self.footer:
+            if not isinstance(self.footer, dict):
+                raise ParserInvalidTypeError(
+                    field="footer",
+                    invalid_type=type(self.footer),
+                    supported_types=(dict,)
+                )
             if self.footer_text:
                 if not isinstance(self.footer_text, str):
                     raise ParserInvalidTypeError(
@@ -205,4 +217,3 @@ class Parser(object):
                         raise ParserError(
                             f"The '{key}' field inline parameter must be a bool"
                         )
-        return True
