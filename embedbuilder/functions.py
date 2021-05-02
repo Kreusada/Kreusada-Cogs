@@ -3,7 +3,7 @@ import pathlib
 from redbot.core.utils import chat_formatting as cf
 
 def format_traceback(exc) -> str:
-    boxit = lambda x, y: box(f"{x}: {y}", lang="yaml")
+    boxit = lambda x, y: cf.box(f"{x}: {y}", lang="yaml")
     return boxit(exc.__class__.__name__, exc)
 
 def reformat_dict(fields: dict) -> dict:
