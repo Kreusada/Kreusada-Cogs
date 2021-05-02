@@ -1,7 +1,7 @@
 import json
 import pathlib
 
-from redbot.core import Config
+from redbot.core import Config, commands
 
 from .mixins import MetaClass
 from .settings import Settings

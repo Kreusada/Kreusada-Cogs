@@ -1,5 +1,12 @@
 import contextlib
 
+import yaml
+from yaml.parser import (
+    ParserError as YAMLParserError,
+    ScannerError as YAMLScannerError,
+    MarkedYAMLError as YAMLMarkedError
+)
+
 from .exceptions import (
     ParserInvalidItemError, 
     ParserInvalidTypeError,
@@ -7,8 +14,17 @@ from .exceptions import (
     ParserHexError,
     ParserError,
 )
-from .functions import reformat_fields
+from .functions import reformat_dict
 from .regex import url_regex, image_regex, hex_code_regex
+
+def yaml_validator(data):
+    try:
+        loader = yaml.full_load(data)
+    except (YAMLParserError, YAMLScannerError, YAMLMarkedError):
+        return False
+    if not isinstance(loader, dict):
+        return False
+    return loader
 
 
 class Parser(object):
@@ -24,13 +40,17 @@ class Parser(object):
         self.data = kwargs.get("data")
 
         self.author = self.data.get("author")
-        self.author_name = self.author.get("name")
-        self.author_url = self.author.get("url")
-        self.author_icon_url = self.author.get("icon_url")
+        if self.author:
+            self.author = reformat_dict(self.author)
+            self.author_name = self.author.get("name")
+            self.author_url = self.author.get("url")
+            self.author_icon_url = self.author.get("icon_url")
 
         self.footer = self.data.get("footer")
-        self.footer_text = self.footer.get("text")
-        self.footer_icon_url = self.footer.get("icon_url")
+        if self.footer:
+            self.footer = reformat_dict(self.footer)
+            self.footer_text = self.footer.get("text")
+            self.footer_icon_url = self.footer.get("icon_url")
 
         self.colour = self.data.get("colour") or self.data.get("color")
         self.description = self.data.get("description")
@@ -55,7 +75,8 @@ class Parser(object):
     def __len__(self) -> int:
         return len(self.data.keys())
 
-    async def validparser(self, ctx):
+    @staticmethod
+    async def validparser():
         if self.author_name:
             if not isinstance(self.author_name, str):
                 raise ParserInvalidTypeError(
@@ -102,10 +123,8 @@ class Parser(object):
                     invalid_type=type(self.colour),
                     supported_types=(str,)
                 )
-            if self.colour == "DEFAULT":
-                self.colour = await ctx.embed_colour()
-            else:
-                if not hex_code_regex.match(self.colour):
+            if not hex_code_regex.match(self.colour):
+                if not self.colour == "DEFAULT":
                     raise ParserHexError(self.colour)
         if self.description:
             if not isinstance(self.description, str):
@@ -169,7 +188,7 @@ class Parser(object):
                     invalid_type=type(self.fields),
                     supported_types=(dict,)
                 )
-            fields = reformat_fields(self.fields)
+            fields = reformat_dict(self.fields)
             for key, value in fields.items():
                 if len(value) == 1:
                     if not isinstance(value, str):
@@ -189,3 +208,4 @@ class Parser(object):
                     raise ParserError(
                         f"The {key} field has too many arguments"
                     )
+        return True

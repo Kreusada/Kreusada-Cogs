@@ -1,5 +1,7 @@
-import discord
+import asyncio
 
+import discord
+import yaml
 from redbot.core import commands
 
 from .builder import Builder
@@ -11,11 +13,12 @@ from .exceptions import (
     ParserInvalidTypeError
 )
 from .functions import (
-    yaml_parser,
-    cleanup_code
+    asset,
+    cleanup_code,
 )
 from .mixins import MixinMeta
-from .parser import Parser
+from .parser import Parser, yaml_validator
+
 
 class Commands(MixinMeta):
     """
@@ -38,12 +41,18 @@ class Commands(MixinMeta):
         check = lambda x: x.author == ctx.author and x.channel == ctx.channel
         await ctx.send(
             "Now you need to compose your YAML. For reference, see below: "
-            + example_cog_creation_yaml
+            + asset
         )
         try:
             content = await self.bot.wait_for("message", timeout=250, check=check)
         except asyncio.TimeoutError:
             return await ctx.send("You took too long to respond.")
         content = content.content
-        async with ctx.typing():
-            await yaml_parser(ctx, content, "creation")
+        valid = yaml_validator(cleanup_code(content))
+        if not valid:
+            return await ctx.send("Please provide valid YAML.")
+        parser = Parser(data=valid).validparser()
+        if parser:
+            build = Builder(data=valid)
+            build = await build.builder(ctx)
+        await ctx.send(embed=build[0], content=build[1])

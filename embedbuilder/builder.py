@@ -1,7 +1,8 @@
 import datetime
 import discord
 
-from .functions import reformat_fields
+from .converters import colour_converter
+from .functions import reformat_dict
 
 now = datetime.datetime.now()
 
@@ -16,13 +17,17 @@ class Builder(object):
         self.data = kwargs.get("data")
 
         self.author = self.data.get("author")
-        self.author_name = self.author.get("name")
-        self.author_url = self.author.get("url")
-        self.author_icon_url = self.author.get("icon_url")
+        if self.author:
+            self.author = reformat_dict(self.author)
+            self.author_name = self.author.get("name")
+            self.author_url = self.author.get("url")
+            self.author_icon_url = self.author.get("icon_url")
 
         self.footer = self.data.get("footer")
-        self.footer_text = self.footer.get("text")
-        self.footer_icon_url = self.footer.get("icon_url")
+        if self.footer:
+            self.footer = reformat_dict(self.footer)
+            self.footer_text = self.footer.get("text")
+            self.footer_icon_url = self.footer.get("icon_url")
 
         self.colour = self.data.get("colour") or self.data.get("color")
         self.description = self.data.get("description")
@@ -47,7 +52,7 @@ class Builder(object):
     def __len__(self) -> int:
         return len(set(self.data.keys()))
 
-    def builder(self):
+    async def builder(self, ctx):
         kwargs = {}
         if self.title:
             kwargs["title"] = self.title
@@ -58,16 +63,18 @@ class Builder(object):
         if self.timestamp:
             kwargs["timestamp"] = now
         if self.colour:
-            kwargs["colour"] = self.colour
+            if self.colour == "DEFAULT":
+                self.colour = await ctx.embed_colour()
+            kwargs["colour"] = colour_converter(self.colour)
         embed = discord.Embed(**kwargs)
         if self.author:
             kwargs = {}
             if self.author_name:
                 kwargs["name"] = self.author_name
             if self.author_url:
-                kwargs["url"] = self.author.url
+                kwargs["url"] = self.author_url
             if self.author_icon_url:
-                kwargs["icon_url"]
+                kwargs["icon_url"] = self.author_icon_url
             embed.set_author(**kwargs)
         if self.footer:
             kwargs = {}
@@ -81,7 +88,7 @@ class Builder(object):
         if self.thumbnail:
             embed.set_thumbnail(url=self.thumbnail)
         if self.fields:
-            fields = reformat_fields(self.fields)
+            fields = reformat_dict(self.fields)
             for field in set(fields.keys())[:16]:
                 kwargs = {
                     "name": field,
@@ -90,4 +97,4 @@ class Builder(object):
                 }
                 embed.add_field(**kwargs)
             
-        return embed, self.outside_text
+        return (embed, self.outside_text)
