@@ -1,4 +1,5 @@
 import contextlib
+import logging
 
 import yaml
 from yaml.parser import (
@@ -6,7 +7,6 @@ from yaml.parser import (
     ScannerError as YAMLScannerError,
     MarkedYAMLError as YAMLMarkedError
 )
-
 from .exceptions import (
     ParserInvalidItemError, 
     ParserInvalidTypeError,
@@ -16,6 +16,9 @@ from .exceptions import (
 )
 from .functions import reformat_dict
 from .regex import url_regex, image_regex, hex_code_regex
+
+
+log = logging.getLogger("red.kreusada.embedbuilder.parser")
 
 def yaml_validator(data):
     try:
@@ -76,45 +79,47 @@ class Parser(object):
         return len(self.data.keys())
 
     async def validparser(self):
-        if self.author_name:
-            if not isinstance(self.author_name, str):
-                raise ParserInvalidTypeError(
-                    field="author name",
-                    invalid_type=type(self.author_name),
-                    supported_types=(str,)
-                )
-        if self.author_url:
-            if not isinstance(self.author_url, str):
-                raise ParserInvalidTypeError(
-                    field="author url",
-                    invalid_type=type(self.author_url),
-                    supported_types=(str,)
-                )
-            if not url_regex.search(self.author_url):
-                raise ParserURLError("author url")
-        if self.author_icon_url:
-            if not isinstance(self.author_icon_url, str):
-                raise ParserInvalidTypeError(
-                    field="author icon_url",
-                    invalid_type=type(self.author_icon_url),
-                    supported_types=(str,)
-                )
-            if not image_regex.search(self.author_icon_url):
-                raise ParserURLError("author icon_url")
-        if self.footer_text:
-            if not isinstance(self.footer_text, str):
-                raise ParserInvalidTypeError(
-                    field="footer text",
-                    invalid_type=type(self.footer_text),
-                    supported_types=(str,)
-                )
-        if self.footer_icon_url:
-            if not isinstance(self.footer_icon_url, str):
-                raise ParserInvalidTypeError(
-                    field="footer icon_url",
-                    invalid_type=type(self.footer_icon_url),
-                    supported_types=(str,)
-                )
+        if self.author:
+            if self.author_name:
+                if not isinstance(self.author_name, str):
+                    raise ParserInvalidTypeError(
+                        field="author name",
+                        invalid_type=type(self.author_name),
+                        supported_types=(str,)
+                    )
+            if self.author_url:
+                if not isinstance(self.author_url, str):
+                    raise ParserInvalidTypeError(
+                        field="author url",
+                        invalid_type=type(self.author_url),
+                        supported_types=(str,)
+                    )
+                if not url_regex.search(self.author_url):
+                    raise ParserURLError("author url")
+            if self.author_icon_url:
+                if not isinstance(self.author_icon_url, str):
+                    raise ParserInvalidTypeError(
+                        field="author icon_url",
+                        invalid_type=type(self.author_icon_url),
+                        supported_types=(str,)
+                    )
+                if not image_regex.search(self.author_icon_url):
+                    raise ParserURLError("author icon_url")
+        if self.footer:
+            if self.footer_text:
+                if not isinstance(self.footer_text, str):
+                    raise ParserInvalidTypeError(
+                        field="footer text",
+                        invalid_type=type(self.footer_text),
+                        supported_types=(str,)
+                    )
+            if self.footer_icon_url:
+                if not isinstance(self.footer_icon_url, str):
+                    raise ParserInvalidTypeError(
+                        field="footer icon_url",
+                        invalid_type=type(self.footer_icon_url),
+                        supported_types=(str,)
+                    )
         if self.colour:
             if not isinstance(self.colour, str):
                 raise ParserInvalidTypeError(
@@ -181,30 +186,23 @@ class Parser(object):
                     supported_types=(str,)
                 )
         if self.fields:
-            if not isinstance(self.fields, dict):
+            if not isinstance(self.fields, list):
                 raise ParserInvalidTypeError(
                     field="fields",
                     invalid_type=type(self.fields),
-                    supported_types=(dict,)
+                    supported_types=(list,)
                 )
             fields = reformat_dict(self.fields)
+            log.debug(fields)
             for key, value in fields.items():
-                if len(value) == 1:
-                    if not isinstance(value, str):
-                        raise ParserError(
-                            f"The '{key}' field value parameter must be a str"
-                        )
-                elif len(value) == 2:
+                if len(value) == 1 or len(value) == 2:
                     if not isinstance(value[0], str):
                         raise ParserError(
                             f"The '{key}' field value parameter must be a str"
                         )
+                if len(value) == 2:
                     if not isinstance(value[1], bool):
                         raise ParserError(
                             f"The '{key}' field inline parameter must be a bool"
                         )
-                else:
-                    raise ParserError(
-                        f"The {key} field has too many arguments"
-                    )
         return True

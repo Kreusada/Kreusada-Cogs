@@ -1,3 +1,4 @@
+import contextlib
 import datetime
 import discord
 
@@ -89,12 +90,13 @@ class Builder(object):
             embed.set_thumbnail(url=self.thumbnail)
         if self.fields:
             fields = reformat_dict(self.fields)
-            for field in set(fields.keys())[:16]:
+            for field in list(fields.keys())[:16]:
                 kwargs = {
                     "name": field,
                     "value": fields.get(field)[0],
-                    "inline": fields.get(field)[1],
                 }
+                with contextlib.suppress(IndexError):
+                    kwargs["inline"] = fields.get(field)[1]
                 embed.add_field(**kwargs)
             
         return (embed, self.outside_text)

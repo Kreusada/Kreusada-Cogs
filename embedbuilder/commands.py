@@ -15,6 +15,7 @@ from .exceptions import (
 from .functions import (
     asset,
     cleanup_code,
+    format_traceback
 )
 from .mixins import MixinMeta
 from .parser import Parser, yaml_validator
@@ -51,8 +52,17 @@ class Commands(MixinMeta):
         valid = yaml_validator(cleanup_code(content))
         if not valid:
             return await ctx.send("Please provide valid YAML.")
-        parser = Parser(data=valid).validparser()
-        if parser:
-            build = Builder(data=valid)
-            build = await build.builder(ctx)
+        try:
+            parser = Parser(data=valid)
+            await parser.validparser()
+        except (
+            ParserError,
+            ParserHexError,
+            ParserInvalidItemError,
+            ParserInvalidTypeError,
+            ParserURLError,
+        ) as e:
+            return await ctx.send(format_traceback(e))
+        build = Builder(data=valid)
+        build = await build.builder(ctx)
         await ctx.send(embed=build[0], content=build[1])

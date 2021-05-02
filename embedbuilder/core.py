@@ -1,4 +1,5 @@
 import json
+import logging 
 import pathlib
 
 from redbot.core import Config, commands
@@ -6,6 +7,9 @@ from redbot.core import Config, commands
 from .mixins import MetaClass
 from .settings import Settings
 from .commands import Commands
+
+log = logging.getLogger("red.kreusada.embedbuilder")
+
 
 class EmbedBuilder(Settings, Commands, commands.Cog, metaclass=MetaClass):
     """Build, store, and manipulate with embeds using YAML."""
