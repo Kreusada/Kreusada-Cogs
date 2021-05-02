@@ -75,8 +75,7 @@ class Parser(object):
     def __len__(self) -> int:
         return len(self.data.keys())
 
-    @staticmethod
-    async def validparser():
+    async def validparser(self):
         if self.author_name:
             if not isinstance(self.author_name, str):
                 raise ParserInvalidTypeError(
