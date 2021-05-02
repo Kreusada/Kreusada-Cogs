@@ -1,6 +1,14 @@
 from redbot.core.utils.chat_formatting import humanize_list
 
-class ParserInvalidTypeError(Exception):
+class ParserExceptions(Exception):
+    """
+    Base exception for all Parser related errors.
+
+    This class will be inherited from when catching exceptions.
+    """
+    pass
+
+class ParserInvalidTypeError(ParserExceptions):
     """
     Raised when an unsupported type is provided to the parser.
     """
@@ -17,7 +25,7 @@ class ParserInvalidTypeError(Exception):
             f"{humanized}, not {self.invalid_type.__name__}"
         )
 
-class ParserInvalidItemError(Exception):
+class ParserInvalidItemError(ParserExceptions):
     """
     Raised when an item in a list does not follow the requirements.
     """
@@ -33,7 +41,7 @@ class ParserInvalidItemError(Exception):
             f"(Sequence position {self.literal_array.index(self.item)})"
         )
 
-class ParserURLError(Exception):
+class ParserURLError(ParserExceptions):
     """
     Raised when a URL is faulty and does not match the specified regex.
     """
@@ -46,7 +54,7 @@ class ParserURLError(Exception):
             f"The provided URL for the '{self.key}' key was faulty"
         )
 
-class ParserHexError(Exception):
+class ParserHexError(ParserExceptions):
     """
     Raised when the embed color hex code is invalid.
     """
@@ -59,7 +67,7 @@ class ParserHexError(Exception):
             f"{self._hex} is not a valid hex code."
         )
 
-class ParserError(Exception):
+class ParserError(ParserExceptions):
     """
     A more general exception without arguments.
     """

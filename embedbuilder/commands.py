@@ -5,13 +5,7 @@ import yaml
 from redbot.core import commands
 
 from .builder import Builder
-from .exceptions import (
-    ParserError,
-    ParserHexError,
-    ParserURLError,
-    ParserInvalidItemError,
-    ParserInvalidTypeError
-)
+from .exceptions import ParserExceptions
 from .functions import (
     asset,
     cleanup_code,
@@ -55,13 +49,7 @@ class Commands(MixinMeta):
         try:
             parser = Parser(data=valid)
             await parser.validparser()
-        except (
-            ParserError,
-            ParserHexError,
-            ParserInvalidItemError,
-            ParserInvalidTypeError,
-            ParserURLError,
-        ) as e:
+        except ParserExceptions as e:
             return await ctx.send(format_traceback(e))
         build = Builder(data=valid)
         build = await build.builder(ctx)
