@@ -85,7 +85,7 @@ class RoleBoards(commands.Cog):
         data = []
         for r in sorted(
             [r for r in g.roles], key=lambda x: len(x.members), reverse=True
-        )[:11]:
+        )[:16]:
             if r.name == "@everyone":
                 continue
             data.append((r.name, len(r.members)))
@@ -107,7 +107,7 @@ class RoleBoards(commands.Cog):
     def get_roles(guild: discord.Guild):
         key = lambda x: len(x.roles)
         top_members = sorted([x for x in guild.members], key=key, reverse=True)
-        return [(x.display_name, len(x.roles) - 1) for x in top_members[:10]]
+        return [(x.display_name, len(x.roles) - 1) for x in top_members[:15]]
 
     @staticmethod
     def td(item):
