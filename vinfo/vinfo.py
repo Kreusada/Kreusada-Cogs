@@ -162,6 +162,7 @@ class Vinfo(commands.Cog):
                     await ctx.send("You need to load Downloader first.")
             else:
                 await pipinstall.edit(content=box(none_found, lang="diff"))
+            return
 
         check_attrs = self.check_attrs(MOD)
 
