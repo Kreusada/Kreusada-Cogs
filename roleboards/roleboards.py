@@ -47,67 +47,38 @@ class RoleBoards(commands.Cog):
             "headers": ["Role Name", "Role ID", "Color"],
         }
         data = tabulate(**kwargs)
-        for page in pagify(data, page_length=1998):
-            page = box(page, lang="cs")
-            if await ctx.embed_requested():
-                await ctx.send(
-                    embed=discord.Embed(
-                        description=page,
-                        color=await ctx.embed_colour(),
-                    )
-                )
-            else:
-                await ctx.send(page)
+        for page in pagify(data, page_length=1990):
+            await ctx.send(box(page, lang="cs"))
 
     @roleboard.command()
-    async def topusers(self, ctx):
+    async def topusers(self, ctx, index: int = 20):
         """Get the users with the most roles."""
         g = ctx.guild
-        data = self.get_roles(g)
-        await ctx.send(
-            embed=discord.Embed(
-                title="Users with the most roles",
-                description=box(
-                    "\n".join(
-                        f"#{self.td(c)} [{self.td(v[1])}] {v[0]}"
-                        for c, v in enumerate(data, 1)
-                    ),
-                    lang="css",
-                ),
-                color=await ctx.embed_colour(),
-            )
-        )
+        data = self.get_users(g, index)
+        message = "\n".join(f"#{self.td(c)} [{self.td(v[1])}] {v[0]}" for c, v in enumerate(data, 1))
+        for page in pagify(message, page_length=1990):
+            await ctx.send(box(message, lang="css"))
 
     @roleboard.command()
-    async def toproles(self, ctx):
+    async def toproles(self, ctx, index: int = 20):
         """Get the roles with the most users."""
         g = ctx.guild
-        data = []
-        for r in sorted(
-            [r for r in g.roles], key=lambda x: len(x.members), reverse=True
-        )[:16]:
-            if r.name == "@everyone":
-                continue
-            data.append((r.name, len(r.members)))
-        await ctx.send(
-            embed=discord.Embed(
-                title="Roles with the most users",
-                description=box(
-                    "\n".join(
-                        f"#{self.td(c)} [{self.td(v[1])}] {v[0]}"
-                        for c, v in enumerate(data, 1)
-                    ),
-                    lang="css",
-                ),
-                color=await ctx.embed_colour(),
-            )
-        )
+        data = self.get_roles(g, index)
+        message = "\n".join(f"#{self.td(c)} [{self.td(v[1])}] {v[0]}" for c, v in enumerate(data, 1))
+        for page in pagify(message, page_length=1990):
+            await ctx.send(box(message, lang="css"))
 
     @staticmethod
-    def get_roles(guild: discord.Guild):
+    def get_users(guild: discord.Guild, index: int):
         key = lambda x: len(x.roles)
         top_members = sorted([x for x in guild.members], key=key, reverse=True)
-        return [(x.display_name, len(x.roles) - 1) for x in top_members[:15]]
+        return [(x.display_name, len(x.roles) - 1) for x in top_members[:index]]
+
+    @staticmethod
+    def get_roles(guild: discord.Guild, index: int):
+        key = lambda x: len(x.members)
+        top_roles = sorted([r for r in guild.roles], key=key, reverse=True)[1:]
+        return [(x.name, len(x.members)) for x in top_roles[:index]]
 
     @staticmethod
     def td(item):
