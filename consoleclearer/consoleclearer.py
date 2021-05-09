@@ -46,10 +46,5 @@ class ConsoleClearer(commands.Cog):
             cmd = "cls"
         bar = "_" * len(cleared)
         os.system(cmd)
-        print(header)
-        print()
-        print(bar)
-        print()
-        print(cleared)
-        print(bar)
+        print(f"{header}\n\n{bar}\n\n{cleared}\n{bar}")
         await ctx.send("Red console cleared.")
