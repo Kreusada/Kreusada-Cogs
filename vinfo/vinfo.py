@@ -19,6 +19,7 @@ from stdlib_list import stdlib_list
 log = logging.getLogger("red.kreusada.vinfo")
 
 base = "{}: {}\n{}: {}.{}.{}\n{}: {}\n\n{}: {}\n{}: {}"
+attrs = ["__version__", "version_info", "_version_", "version"]
 
 
 REDBOT_CORE_COGS = [
@@ -67,34 +68,14 @@ class Vinfo(commands.Cog):
         """Nothing to delete"""
         return
 
-    def check_attrs(self, module: types.ModuleType):
-        # pypath = str(sysconfig.get_python_lib(standard_lib=True))
+    @staticmethod
+    def check_attrs(module: types.ModuleType):
         builtin = [sys.version_info[:3], "(Core/Builtin Python)"]
-        with open(Path(__file__).parent / "attrs.json") as fp:
-            attrs_to_check = json.load(fp)["attrs"]
-        for attr in attrs_to_check:
+        for attr in attrs:
             if hasattr(module, attr) and check_isinstance(module, attr):
                 return [getattr(module, attr), "." + attr]
         if module.__name__ in stdlib_list(".".join([str(x) for x in sys.version_info[:2]])):
-            # Will bump on Red python bump, eventually
             return builtin
-        # if hasattr(module, '__file__'):
-        #     file = module.__file__.lower()
-        #     if file.startswith(pypath.lower()):
-        #         return builtin
-        # if hasattr(module, '__spec__'):
-        #     if isinstance(module.__spec__, machinery.ModuleSpec):
-        #         if hasattr(module.__spec__, 'origin') and module.__spec__.origin:
-        #             spec = module.__spec__.origin
-        #             if spec.lower().startswith(pypath.lower()):
-        #                 return builtin
-        #             if spec.lower() == "built-in":
-        #                 return builtin
-        # if hasattr(module, '__path__'):
-        #     path = module.__path__[0].lower()
-        #     if path.startswith(pypath.lower()):
-        #         return builtin
-        # return None
 
     @staticmethod
     def modvinfo_format(mods):
@@ -110,10 +91,9 @@ class Vinfo(commands.Cog):
             bold("Lavalink"),
             lavalink.__version__,
         )
-        description = mods.format(*formatter)
         return discord.Embed(
             title="Common Modules",
-            description=description,
+            description=mods.format(*formatter),
         )
 
     # Commands
@@ -137,9 +117,6 @@ class Vinfo(commands.Cog):
 
         Cog = self.bot.get_cog(cog)
 
-        # Note that cogs won't have a `version_info` attr unlike some modules, so
-        # we'll skip finding that attr because it will return False 99% of the time.
-
         if hasattr(Cog, "__version__"):
             return await ctx.send(box(f"{cog} version: {getattr(Cog, '__version__')}", lang='yaml'))
         elif cog in REDBOT_CORE_COGS:
@@ -154,7 +131,6 @@ class Vinfo(commands.Cog):
             await ctx.send(box(f"- Could not find a version for {cog}.", lang='diff'))
 
     @vinfo.command(aliases=["module", "dep", "dependency"], usage="<module or dependency>")
-    @commands.bot_has_permissions(embed_links=True)
     async def mod(self, ctx, module: str = None):
         """Get module versions."""
         
@@ -180,9 +156,12 @@ class Vinfo(commands.Cog):
             except asyncio.TimeoutError:
                 return await pipinstall.edit(content=box(none_found, lang="diff"))
             if pred.result:
-                return await ctx.invoke(self.bot.get_command("pipinstall"), module)
+                try:
+                    await ctx.invoke(self.bot.get_command("pipinstall"), module)
+                except AttributeError:
+                    await ctx.send("You need to load Downloader first.")
             else:
-                return await pipinstall.edit(content=box(none_found, lang="diff"))
+                await pipinstall.edit(content=box(none_found, lang="diff"))
 
         check_attrs = self.check_attrs(MOD)
 
