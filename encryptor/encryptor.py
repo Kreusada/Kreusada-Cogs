@@ -35,7 +35,7 @@ class Encryptor(commands.Cog):
     @commands.group()
     async def password(self, ctx):
         """
-        Create, save, and validify passwords.
+        Create, and validify the strength of passwords.
         """
         pass
 
