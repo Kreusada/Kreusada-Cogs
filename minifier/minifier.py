@@ -1,3 +1,4 @@
+import contextlib
 import io
 
 import discord
@@ -35,11 +36,14 @@ class Minifier(commands.Cog):
         if not ctx.message.attachments:
             return await ctx.send_help()
         file = ctx.message.attachments[0]
-        if not file.filename.lower().endswith(".py"):
+        if not file.filename.lower().endswith((".py", ".python")):
             return await ctx.send("Must be a python file.")
-        converted = io.BytesIO(minifier.minify(await file.read()).encode())
-        content = "Please see the attached file below, with your minimized code."
-        await ctx.send(
-            content=content,
-            file=discord.File(converted, filename=file.filename.lower())
-        )
+        with contextlib.suppress(UnicodeDecodeError, UnicodeEncodeError):
+            file = await file.read()
+            converted = io.BytesIO(minifier.minify(file).encode(encoding="utf-8"))
+            content = "Please see the attached file below, with your minimized code."
+            return await ctx.send(
+                content=content,
+                file=discord.File(converted, filename=file.filename.lower())
+            )
+        return await ctx.send("The file provided was in an unsupported format.")
