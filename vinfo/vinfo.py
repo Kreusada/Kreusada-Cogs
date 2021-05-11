@@ -11,6 +11,8 @@ import discord
 import lavalink
 import pip
 import redbot
+
+from redbot.cogs.audio.manager import JAR_BUILD
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import bold, box
 from redbot.core.utils.predicates import MessagePredicate
@@ -18,7 +20,7 @@ from stdlib_list import stdlib_list
 
 log = logging.getLogger("red.kreusada.vinfo")
 
-base = "{}: {}\n{}: {}.{}.{}\n{}: {}\n\n{}: {}\n{}: {}"
+base = "{}: {}\n{}: {}.{}.{}\n{}: {}\n\n{}: {}\n{}: {}\n - {}: {}"
 attrs = ["__version__", "version_info", "_version_", "version"]
 
 
@@ -90,6 +92,8 @@ class Vinfo(commands.Cog):
             pip.__version__,
             bold("Lavalink"),
             lavalink.__version__,
+            bold("JAR"),
+            JAR_BUILD,
         )
         return discord.Embed(
             title="Common Modules",
