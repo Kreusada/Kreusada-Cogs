@@ -46,17 +46,15 @@ REDBOT_CORE_COGS = [
     "Warnings",
 ]
 
-check_isinstance = lambda x, y: isinstance(getattr(x, y), (str, int, list, tuple))
+check_isinstance = lambda x, y: isinstance(getattr(x, y), (str, int, float, list, tuple))
 
 class Vinfo(commands.Cog):
     """
     Get versions of 3rd party cogs, and modules.
     """
 
-    __author__ = [
-        "Kreusada",
-    ]
-    __version__ = "1.3.0"
+    __author__ = ["Kreusada"]
+    __version__ = "1.4.0"
 
     def __init__(self, bot):
         self.bot = bot
@@ -119,10 +117,10 @@ class Vinfo(commands.Cog):
         if cog not in self.bot.cogs:
             return await ctx.send(box(f"- Could not find a cog matching `{cog}`.", lang='diff'))
 
-        Cog = self.bot.get_cog(cog)
+        cog_obj = self.bot.get_cog(cog)
 
-        if hasattr(Cog, "__version__"):
-            return await ctx.send(box(f"{cog} version: {getattr(Cog, '__version__')}", lang='yaml'))
+        if hasattr(cog_obj, "__version__"):
+            return await ctx.send(box(f"{cog} version: {getattr(cog_obj, '__version__')}", lang='yaml'))
         elif cog in REDBOT_CORE_COGS:
             return await ctx.send(
                 box(
@@ -185,14 +183,13 @@ class Vinfo(commands.Cog):
             value = ("{}." * len(vinfo[0])).strip('.').format(*vinfo[0])
             attr = f"`{MOD.__name__}{vinfo[1]}`"
 
+        elif isinstance(vinfo[0], float):
+            value = str(vinfo[0])
+            attr = f"`{MOD.__name__}{vinfo[1]}`"
+
         else:
             value = vinfo[0]
             attr = f"`{MOD.__name__}{vinfo[1]}`"
 
 
-        await ctx.send(
-            box(
-                f"Attribute: {attr}\nFound version info for [{module}]: {value}",
-                lang="yaml",
-            )
-        )
+        await ctx.send(box(f"Attribute: {attr}\nFound version info for [{module}]: {value}",lang="yaml",))
