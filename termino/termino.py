@@ -4,7 +4,7 @@ import datetime
 import logging
 
 import discord
-from redbot.core import commands, Config
+from redbot.core import commands, Config, version_info, VersionInfo
 from redbot.core.utils.chat_formatting import box, pagify
 from redbot.core.utils.predicates import MessagePredicate
 
@@ -64,7 +64,10 @@ class Termino(commands.Cog):
         return
 
     async def startup(self):
-        await self.bot.wait_until_red_ready()
+        if version_info >= VersionInfo.from_str("3.2.0"):
+            await self.bot.wait_until_red_ready()
+        else:
+            await self.bot.wait_until_ready()
         conf = await self.config.all()
         maybe_channel = conf.get("restart_channel", None)
         await self.config.restart_channel.clear()
