@@ -20,6 +20,7 @@ from yaml.parser import (
 with open(pathlib.Path(__file__).parent / "raffle.yaml") as f:
     asset = cf.box("".join(f.readlines()), lang="yaml")
 
+now = datetime.datetime.now()
 
 class RaffleError(Exception):
     """Base exception for all raffle exceptions."""
@@ -203,10 +204,21 @@ class Raffle(commands.Cog):
             raffle_data = r.get(raffle, None)
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
-            raffle_entries = raffle_data[0].get("entries")
-            if ctx.author.id in raffle_entries:
+            raffle_entities = lambda x: raffle_data[0].get(x, None)
+
+            if ctx.author.id in raffle_entities("entries"):
                 return await ctx.send("You are already in this raffle.")
-            raffle_entries.append(ctx.author.id)
+            if ctx.author.id in raffle_entities("prevented_users"):
+                return await ctx.send("You are not allowed to join this particular raffle.")
+            if ctx.author.id == raffle_entities("owner"):
+                return await ctx.send("You cannot join your own raffle.")
+            for r in raffle_entities("roles_needed_to_enter"):
+                if not r in [x.id for x in ctx.author.roles]:
+                    return await ctx.send("You are missing a required role: {}".format(ctx.guild.get_role(r).mention))
+            if raffle_entities("account_age"):
+                if raffle_entities("account_age") > (now - ctx.author.created_at).days:
+                    return await ctx.send("Your account must be at least {} days old to join.".format(raffle_entities("account_age")))
+            raffle_entities("entries").append(ctx.author.id)
             await ctx.send(f"{ctx.author.mention} you have been added to the raffle!")
 
     @raffle.command()
