@@ -54,7 +54,7 @@ class UnknownUserError(RaffleError):
     def __str__(self):
         return f"\"{self.user}\" was not a valid user"
 
-class RaffleParser(object):
+class RaffleManager(object):
     """Parses the required and relevant yaml data to ensure
     that it matches the specified requirements."""
 
@@ -62,6 +62,7 @@ class RaffleParser(object):
         super().__init__()
         self.data = data
         self.name = data.get("name", None)
+        self.description = data.get("description", None)
         self.account_age = data.get("account_age", None)
         self.roles_needed_to_enter = (
             data.get("roles_needed_to_enter", None) 
@@ -83,8 +84,9 @@ class RaffleParser(object):
                 raise BadArgument("Name must be str, not {}".format(type(self.name).__name__))
             if len(self.name) > 15:
                 raise BadArgument("Name must be under 15 characters, your raffle name had {}".format(len(self.name)))
-        else:
-            raise RequiredKeyError(key="name")
+        if self.description:
+            if not isinstance(self.description, str):
+                raise BadArgument("Description must be str, not {}".format(type(self.description).__name__))
         if self.roles_needed_to_enter:
             if not isinstance(self.roles_needed_to_enter, (int, list)):
                 raise BadArgument("Roles must be int or list of ints, not {}".format(type(self.roles_needed_to_enter).__name__))
@@ -105,7 +107,6 @@ class RaffleParser(object):
             else:
                 if not ctx.bot.get_user(self.prevented_users):
                     raise UnknownRoleError(user=self.prevented_users)
-                    
 
 
 class Raffle(commands.Cog):
@@ -145,6 +146,14 @@ class Raffle(commands.Cog):
                 for userid in getter:
                     if not self.bot.get_user(userid):
                         getter.remove(userid)
+                getter = v[0].get("prevented_users")
+                for userid in getter:
+                    if not self.bot.get_user(userid):
+                        getter.remove(userid)
+                getter = v[0].get("roles_needed_to_enter")
+                for roleid in getter:
+                    if not ctx.guild.get_role(roleid):
+                        getter.remove(roleid)
 
     @commands.group()
     async def raffle(self, ctx: Context):
@@ -164,7 +173,7 @@ class Raffle(commands.Cog):
         if not valid:
             return await ctx.send("Please provide valid YAML.")
         try:
-            parser = RaffleParser(valid)
+            parser = RaffleManager(valid)
             parser.parser(ctx)
         except Exception as e:
             return await ctx.send(self.format_traceback(e))
@@ -175,6 +184,7 @@ class Raffle(commands.Cog):
                 "prevented_users": valid.get("prevented_users", []),
                 "entries": [],
                 "owner": ctx.author.id,
+                "description": valid.get("description", None)
             }
             rafflename = valid.get("name").lower()
             raffle[rafflename] = [data]
@@ -301,6 +311,29 @@ class Raffle(commands.Cog):
             )
             del raffle_data
 
-
-
-            
+    @raffle.command()
+    async def info(self, ctx: Context, raffle: str):
+        async with self.config.guild(ctx.guild).raffles() as r:
+            raffle_data = r.get(raffle, None)
+            if not raffle_data:
+                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+            raffle_entities = lambda x: raffle_data[0].get(x, None)
+            name = raffle
+            description = raffle_entities("description")
+            rolesreq = raffle_entities("roles_needed_to_enter")
+            agereq = raffle_entities("account_age")
+            prevented_users = raffle_entities("prevented_users")
+            message = (
+                f"Raffle name: {name}\n"
+                f"Description: {description or 'No description was provided.'}"
+            )
+            if not any([rolesreq, agereq, prevented_users]):
+                message += "\nConditions: None"
+            else:
+                if rolesreq:
+                    message += "\nRoles Required: " + ", ".join(ctx.guild.get_role(r).name for r in rolesreq)
+                if agereq:
+                    message += "\nAccount age requirement in days: {}".format(agereq)
+                if prevented_users:
+                    message += "\nPrevented Users: " + ", ".join(self.bot.get_user(u).name for u in prevented_users)
+            await ctx.send(cf.box(message, lang="yaml"))
