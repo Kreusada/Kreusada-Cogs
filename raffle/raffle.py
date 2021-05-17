@@ -21,6 +21,11 @@ with open(pathlib.Path(__file__).parent / "raffle.yaml") as f:
     asset = cf.box("".join(f.readlines()), lang="yaml")
 
 now = datetime.datetime.now()
+discord_creation_date = datetime.datetime(2015, 5, 13)
+
+account_age_checker = lambda x: x < (now - discord_creation_date).days
+join_age_checker = lambda x, ctx: x < (now - ctx.guild.created_at).days
+
 
 class RaffleError(Exception):
     """Base exception for all raffle exceptions."""
@@ -55,7 +60,7 @@ class UnknownUserError(RaffleError):
     def __str__(self):
         return f"\"{self.user}\" was not a valid user"
 
-class RaffleManager(object):
+class RaffleInitiationManager(object):
     """Parses the required and relevant yaml data to ensure
     that it matches the specified requirements."""
 
@@ -65,6 +70,7 @@ class RaffleManager(object):
         self.name = data.get("name", None)
         self.description = data.get("description", None)
         self.account_age = data.get("account_age", None)
+        self.join_age = data.get("join_age", None)
         self.roles_needed_to_enter = (
             data.get("roles_needed_to_enter", None) 
             or data.get("role_needed_to_enter", None)
@@ -77,9 +83,14 @@ class RaffleManager(object):
     def parser(self, ctx: Context):
         if self.account_age:
             if not isinstance(self.account_age, int):
-                raise BadArgument("Days must be int, not {}".format(type(self.account_age).__name__))
-            if self.account_age > (datetime.datetime.now() - datetime.datetime(2015, 5, 13)).days:
-                raise BadArgument("Days must be less than Discord's creation date")
+                raise BadArgument("Account age days must be int, not {}".format(type(self.account_age).__name__))
+            if not account_age_checker(self.account_age):
+                raise BadArgument("Account age days must be less than Discord's creation date")
+        if self.join_age:
+            if not isinstance(self.join_age, int):
+                raise BadArgument("Join age days must be int, not {}".format(type(self.account_age).__name__))
+            if not join_age_checker(self.join_age, ctx):
+                raise BadArgument("Join age days must be less than this guild's creation date")
         if self.name:
             if not isinstance(self.name, str):
                 raise BadArgument("Name must be str, not {}".format(type(self.name).__name__))
@@ -109,6 +120,23 @@ class RaffleManager(object):
                 if not ctx.bot.get_user(self.prevented_users):
                     raise UnknownRoleError(user=self.prevented_users)
 
+class RaffleUpdateManager(object):
+    """Checks if changes against the schema follow the
+    general rules required for running a raffle."""
+
+    @classmethod
+    def parse_accage(cls, accage: int):
+        if not account_age_checker(accage):
+            raise BadArgument("Days must be less than Discord's creation date")
+
+    @classmethod
+    def parse_joinage(cls, ctx: Context):
+        guildage = (now - ctx.guild.created_at).days
+        if not join_age_checker(ctx):
+            raise BadArgument(
+                "Days must be less than this guild's creation date ({} days)".format(
+                    guildage
+                ))
 
 class Raffle(commands.Cog):
     """Create raffles for your server."""
@@ -155,6 +183,13 @@ class Raffle(commands.Cog):
                 for roleid in getter:
                     if not ctx.guild.get_role(roleid):
                         getter.remove(roleid)
+    #         await self.banish_owners(ctx)
+
+    # async def banish_owners(self, ctx: Context) -> None:
+    #     async with self.config.guild(ctx.guild).raffles() as r:
+    #         for k, v in list(r.keys()):
+    #             if not self.bot.get_user(v[0]["owner"]):
+    #                 r.pop(k)
 
     @commands.group()
     async def raffle(self, ctx: Context):
@@ -164,7 +199,12 @@ class Raffle(commands.Cog):
     async def create(self, ctx: Context):
         """Create a raffle."""
         check = lambda x: x.author == ctx.author and x.channel == ctx.channel
-        await ctx.send("Now you need to compose your YAML. For reference, see below:" + asset)
+        await ctx.send(
+            "Now you need to create your raffle using YAML.\n"
+            "The `name` field is required, whilst you can also add an " 
+            "optional description and various conditions. See below for"
+            " an example:" + asset
+        )
         try:
             content = await self.bot.wait_for("message", timeout=250, check=check)
         except asyncio.TimeoutError:
@@ -174,7 +214,7 @@ class Raffle(commands.Cog):
         if not valid:
             return await ctx.send("Please provide valid YAML.")
         try:
-            parser = RaffleManager(valid)
+            parser = RaffleInitiationManager(valid)
             parser.parser(ctx)
         except Exception as e:
             return await ctx.send(self.format_traceback(e))
@@ -219,6 +259,7 @@ class Raffle(commands.Cog):
                     return await ctx.send("Your account must be at least {} days old to join.".format(raffle_entities("account_age")))
             raffle_entities("entries").append(ctx.author.id)
             await ctx.send(f"{ctx.author.mention} you have been added to the raffle!")
+        await self.replenish_cache(ctx)
 
     @raffle.command()
     async def leave(self, ctx: Context, raffle: str):
@@ -232,6 +273,7 @@ class Raffle(commands.Cog):
                 return await ctx.send("You are not entered into this raffle.")
             raffle_entries.remove(ctx.author.id)
             await ctx.send(f"{ctx.author.mention} you have been removed from the raffle.")
+        await self.replenish_cache(ctx)
 
     @raffle.command()
     async def mention(self, ctx: Context, raffle: str):
@@ -261,6 +303,23 @@ class Raffle(commands.Cog):
                 return await ctx.send("You are not the owner of this raffle.")
             r.pop(raffle)
             await ctx.send("Raffle ended.")
+        await self.replenish_cache(ctx)
+    
+    @raffle.command()
+    async def kick(self, ctx: Context, raffle: str, member: discord.Member):
+        """Kick a user from your raffle."""
+        async with self.config.guild(ctx.guild).raffles() as r:
+            raffle_data = r.get(raffle, None)
+            if not raffle_data:
+                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+            raffle_entities = lambda x: raffle_data[0].get(x)
+            if not ctx.author.id == raffle_entities("owner"):
+                return await ctx.send("You are not the owner of this raffle.")
+            if member.id not in raffle_entities("entries"):
+                return await ctx.send("This user has not entered this raffle.")
+            raffle_entities("entries").remove(member.id)
+            await ctx.send("User removed from the raffle.")
+        await self.replenish_cache(ctx)
         
     @raffle.command(name="list")
     async def _list(self, ctx: Context):
@@ -269,6 +328,7 @@ class Raffle(commands.Cog):
             if not r:
                 return await ctx.send("There are no ongoing raffles.")
             await ctx.send("\n".join(f"`{r}`" for r in list(r.keys())))
+        await self.replenish_cache(ctx)
 
     @raffle.command()
     async def teardown(self, ctx: Context):
@@ -276,6 +336,7 @@ class Raffle(commands.Cog):
         async with self.config.guild(ctx.guild).raffles() as r:
             r.clear()
             await ctx.send("Raffles cleared.")
+        await self.replenish_cache(ctx)
 
     @raffle.command()
     async def raw(self, ctx: Context, raffle: str):
@@ -292,6 +353,7 @@ class Raffle(commands.Cog):
     @raffle.command()
     async def members(self, ctx: Context, raffle: str):
         """Get all the members of a raffle."""
+        await self.replenish_cache(ctx)
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
@@ -301,10 +363,12 @@ class Raffle(commands.Cog):
                 return await ctx.send("There are no entries yet for this raffle.")
             for page in cf.pagify(cf.humanize_list([self.bot.get_user(u).display_name for u in raffle_entities("entries")])):
                 await ctx.send(page)
+                
 
     @raffle.command()
     async def draw(self, ctx: Context, raffle: str):
         """Draw a raffle and select a winner."""
+        await self.replenish_cache(ctx)
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
@@ -341,9 +405,13 @@ class Raffle(commands.Cog):
             rolesreq = raffle_entities("roles_needed_to_enter")
             agereq = raffle_entities("account_age")
             prevented_users = raffle_entities("prevented_users")
+            owner = raffle_entities("owner")
+            entries = len(raffle_entities("entries"))
             message = (
                 f"Raffle name: {name}\n"
-                f"Description: {description or 'No description was provided.'}"
+                f"Description: {description or 'No description was provided.'}\n"
+                f"Owner: {self.bot.get_user(owner).name} ({owner})\n"
+                f"Entries: {entries}"
             )
             if not any([rolesreq, agereq, prevented_users]):
                 message += "\nConditions: None"
@@ -355,3 +423,38 @@ class Raffle(commands.Cog):
                 if prevented_users:
                     message += "\nPrevented Users: " + ", ".join(self.bot.get_user(u).name for u in prevented_users)
             await ctx.send(cf.box(message, lang="yaml"))
+
+    @raffle.group()
+    async def edit(self, ctx):
+        """Edit the settings for a raffle."""
+        pass
+
+    @edit.command()
+    async def accage(self, ctx, raffle: str, new_account_age: int):
+        """Edit the account age requirement for a raffle."""
+        async with self.config.guild(ctx.guild).raffles() as r:
+            raffle_data = r.get(raffle, None)
+            if not raffle_data:
+                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+            try:
+                RaffleUpdateManager.parse_accage(new_account_age)
+            except BadArgument as e:
+                return await ctx.send(self.format_traceback(e))
+            raffle_data[0]["account_age"] = new_account_age
+            await ctx.send("Account age requirement updated for this raffle.")
+        await self.replenish_cache(ctx)
+
+    @edit.command()
+    async def joinage(self, ctx, raffle: str, new_join_age: int):
+        """Edit the join age requirement for a raffle."""
+        async with self.config.guild(ctx.guild).raffles() as r:
+            raffle_data = r.get(raffle, None)
+            if not raffle_data:
+                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+            try:
+                RaffleUpdateManager.parse_joinage(new_join_age)
+            except BadArgument as e:
+                return await ctx.send(self.format_traceback(e))
+            raffle_data[0]["join_age"] = new_join_age
+            await ctx.send("Join age requirement updated for this raffle.")
+        await self.replenish_cache(ctx)
