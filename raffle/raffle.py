@@ -205,7 +205,6 @@ class Raffle(commands.Cog):
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
             raffle_entities = lambda x: raffle_data[0].get(x, None)
-
             if ctx.author.id in raffle_entities("entries"):
                 return await ctx.send("You are already in this raffle.")
             if ctx.author.id in raffle_entities("prevented_users"):
@@ -260,7 +259,7 @@ class Raffle(commands.Cog):
             raffle_entities = lambda x: raffle_data[0].get(x)
             if not ctx.author.id == raffle_entities("owner"):
                 return await ctx.send("You are not the owner of this raffle.")
-            del raffle_data
+            r.pop(raffle)
             await ctx.send("Raffle ended.")
         
     @raffle.command(name="list")
@@ -314,6 +313,12 @@ class Raffle(commands.Cog):
             if not raffle_entities("entries"):
                 return await ctx.send("There are no participants yet for this raffle.")
             winner = random.choice(raffle_entities("entries"))
+
+            # Let's add a bit of suspense, shall we? :P
+            await ctx.send("Picking a winner   from the pool...")
+            await ctx.trigger_typing()
+            await asyncio.sleep(2)
+
             await ctx.send(
                 "Congratulations {}, you have won the {} raffle! {}".format(
                     self.bot.get_user(winner).mention,
@@ -321,10 +326,11 @@ class Raffle(commands.Cog):
                     ":tada:"
                 )
             )
-            del raffle_data
+            r.pop(raffle)
 
     @raffle.command()
     async def info(self, ctx: Context, raffle: str):
+        """Get information about a certain raffle."""
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
