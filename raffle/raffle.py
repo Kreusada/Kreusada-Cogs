@@ -482,6 +482,17 @@ class Raffle(commands.Cog):
             raffle_data[0]["description"] = description
             await ctx.send("Description updated for this raffle.")
 
+    @edit.command()
+    async def maxentries(self, ctx, raffle: str, maximum_entries: int):
+        """Edit the max entries requirement for a raffle."""
+        await self.replenish_cache(ctx)
+        async with self.config.guild(ctx.guild).raffles() as r:
+            raffle_data = r.get(raffle, None)
+            if not raffle_data:
+                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+            raffle_data[0]["maximum_entries"] = maximum_entries
+            await ctx.send("Max entries requirement updated for this raffle.")
+
     @edit.group()
     async def prevented(self, ctx):
         """Manage prevented users in a raffle."""
