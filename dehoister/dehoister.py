@@ -9,16 +9,19 @@ from redbot.core.utils.chat_formatting import box
 from redbot.core.utils.menus import start_adding_reactions
 from redbot.core.utils.predicates import ReactionPredicate
 
+from typing import Union
+
 log = logging.getLogger("red.kreusada.dehoister")
 
 IDENTIFIER = 435089473534
 
-HOIST = "!\"#$%&'()*+,-./:;<=>?@"
+HOIST = tuple("!\"#$%&'()*+,-./:;<=>?@")
+# Since every time this got used it was converted to a tuple just make a tuple here
 DELTA = "δ"
 
 HOISTING_STANDARDS = (
     "\n\nDehoister will take actions on users if their name starts with one of the following:\n"
-    + ", ".join(f"`{X}`" for X in tuple(HOIST))
+    + ", ".join(f"`{X}`" for X in HOIST)
 )
 
 AUTO_DEHOIST_EXPLAIN = (
@@ -51,7 +54,7 @@ class Dehoister(commands.Cog):
         self.bot = bot
         self.config = Config.get_conf(self, IDENTIFIER, force_registration=True)
         self.config.register_guild(
-            nickname=f"{DELTA} Dehoisted", toggled=False
+            nickname=f"{DELTA} Dehoisted", toggled=False, ignored_users=[]
         )
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
@@ -98,7 +101,7 @@ class Dehoister(commands.Cog):
     @staticmethod
     def get_hoisted_count(ctx):
         return sum(
-            bool(m.display_name.startswith(tuple(HOIST)) and not m.bot)
+            bool(m.display_name.startswith(HOIST) and not m.bot)
             for m in ctx.guild.members
         )
 
@@ -109,7 +112,7 @@ class Dehoister(commands.Cog):
             # Pre-formatting for output
             f"{m}:{f'{B}- {m.nick}' if m.nick else ''}{B}-- {m.id}"
             for m in ctx.guild.members
-            if m.display_name.startswith(tuple(HOIST))
+            if m.display_name.startswith(HOIST)
             and not m.bot
         )
 
@@ -120,16 +123,10 @@ class Dehoister(commands.Cog):
         ctx = self.bot.get_context(member)
         toggle = await self.config.guild(guild).toggled()
 
-        if not toggle:
+        if any([not toggle, member.bot, not guild]):
             return
 
-        if member.bot:
-            return
-
-        if not guild:
-            return
-
-        if member.name.startswith(tuple(HOIST)) and not member.bot:
+        if member.name.startswith(HOIST):
             if ctx.channel.permissions_for(self.bot).manage_nicknames:
                 await member.edit(nick=await self.config.guild(guild).nickname())
                 await self.create_case(ctx, member, self.bot)
@@ -217,6 +214,7 @@ class Dehoister(commands.Cog):
         """
         nickname = await self.config.guild(ctx.guild).nickname()
         hoisted_count = self.get_hoisted_count(ctx)
+        ignored_list = await self.config.guild(ctx.guild).ignored_users
 
         if not hoisted_count:
             return await ctx.send("There are no hoisted members.")
@@ -247,7 +245,7 @@ class Dehoister(commands.Cog):
             await ctx.trigger_typing()
             exceptions = 0
             for m in ctx.guild.members:
-                if m.display_name.startswith(tuple(HOIST)) and not m.bot:
+                if m.display_name.startswith(HOIST) and not m.bot and m.id not in ignored_list:
                     try:
                         await m.edit(
                             nick=await self.config.guild(ctx.guild).nickname()
@@ -265,6 +263,53 @@ class Dehoister(commands.Cog):
     @hoist.group(name="set")
     async def _set(self, ctx: commands.Context):
         """Settings for Dehoister."""
+
+    @_set.group()
+    async def ignore(self, ctx: commands.Context):
+        """
+        Add and remove certain users from being ignored by the auto-dehoister.
+        """
+
+    @ignore.command(name="add", require_var_positional=True)
+    async def ignore_add(self, ctx: commands.Context, *users: Union[discord.Member, int]):
+        """
+        Add users to the ignore list.
+
+        If on the ignore list, the dehoister will not dehoist them if they have a hoisted nickname
+        """
+        async with self.config.guild(ctx.guild).ignored_users() as ignored_users:
+            for uid in users:
+                if isinstance(uid, discord.Member):
+                    uid = uid.id
+                ignored_users.append(uid)
+        await ctx.tick()
+
+    @ignore.command(name="remove", aliases=["del"], require_var_positional=True)
+    async def ignore_remove(self, ctx: commands.Context, *users: int):
+        """
+        Remove users from the ignore list.
+        Once removed, they will be dehoisted by the dehoister if they have a hoisted nick
+        """ # This repetition is a bore >:|
+        async with self.config.guild(ctx.guild).ignored_users() as ignored_users:
+            for uid in users:
+                try:
+                    ignored_users.remove(uid)
+                except ValueError:
+                    pass
+        await ctx.tick()
+
+    @ignore.command(name="list")
+    async def ignore_list(self, ctx: commands.Context):
+        """List the users ignored by the auto-dehoister"""
+        ignored = await self.config.guild(ctx.guild).ignored_users()
+        if not ignored:
+            return await ctx.send("There are no users on the ignore list")
+        filtered = [f"{uid} ({await self._get_user_name(uid)})" for uid in ignored]
+        ignored = "\n".join(filtered)
+        await ctx.send(box(ignored))
+
+    async def _get_user_name(self, uid: int):
+        return await self.bot.get_or_fetch_user(uid) or "Unknown or Deleted User"
 
     @_set.command()
     async def toggle(self, ctx: commands.Context):
