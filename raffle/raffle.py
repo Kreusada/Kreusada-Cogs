@@ -63,7 +63,7 @@ class UnknownUserError(RaffleError):
     def __str__(self):
         return f"\"{self.user}\" was not a valid user"
 
-class RaffleInitiationManager(object):
+class RaffleManager(object):
     """Parses the required and relevant yaml data to ensure
     that it matches the specified requirements."""
 
@@ -83,6 +83,21 @@ class RaffleInitiationManager(object):
             data.get("prevented_users", None)
             or data.get("prevented_user", None)
         )
+
+    @classmethod
+    def parse_accage(cls, accage: int):
+        if not account_age_checker(accage):
+            raise BadArgument("Days must be less than Discord's creation date")
+
+    @classmethod
+    def parse_joinage(cls, ctx: Context, new_join_age: int):
+        guildage = (now - ctx.guild.created_at).days
+        if not join_age_checker(ctx, new_join_age):
+            raise BadArgument(
+                "Days must be less than this guild's creation date ({} days)".format(
+                    guildage
+                )
+            )
 
     def parser(self, ctx: Context):
         if self.account_age:
@@ -126,25 +141,6 @@ class RaffleInitiationManager(object):
             else:
                 if not ctx.bot.get_user(self.prevented_users):
                     raise UnknownUserError(user=self.prevented_users)
-
-class RaffleUpdateManager(object):
-    """Checks if changes against the schema follow the
-    general rules required for running a raffle."""
-
-    @classmethod
-    def parse_accage(cls, accage: int):
-        if not account_age_checker(accage):
-            raise BadArgument("Days must be less than Discord's creation date")
-
-    @classmethod
-    def parse_joinage(cls, ctx: Context, new_join_age: int):
-        guildage = (now - ctx.guild.created_at).days
-        if not join_age_checker(ctx, new_join_age):
-            raise BadArgument(
-                "Days must be less than this guild's creation date ({} days)".format(
-                    guildage
-                )
-            )
 
 class Raffle(commands.Cog):
     """Create raffles for your server."""
@@ -222,7 +218,7 @@ class Raffle(commands.Cog):
         if not valid:
             return await ctx.send("Please provide valid YAML.")
         try:
-            parser = RaffleInitiationManager(valid)
+            parser = RaffleManager(valid)
             parser.parser(ctx)
         except Exception as e:
             return await ctx.send(self.format_traceback(e))
@@ -459,7 +455,7 @@ class Raffle(commands.Cog):
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
             try:
-                RaffleUpdateManager.parse_accage(new_account_age)
+                RaffleManager.parse_accage(new_account_age)
             except BadArgument as e:
                 return await ctx.send(self.format_traceback(e))
             raffle_data[0]["account_age"] = new_account_age
@@ -474,7 +470,7 @@ class Raffle(commands.Cog):
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
             try:
-                RaffleUpdateManager.parse_joinage(ctx, new_join_age)
+                RaffleManager.parse_joinage(ctx, new_join_age)
             except BadArgument as e:
                 return await ctx.send(self.format_traceback(e))
             raffle_data[0]["join_age"] = new_join_age
