@@ -187,13 +187,13 @@ class Raffle(commands.Cog):
                 for roleid in getter:
                     if not ctx.guild.get_role(roleid):
                         getter.remove(roleid)
-    #         await self.banish_owners(ctx)
+            await self.banish_owners(ctx)
 
-    # async def banish_owners(self, ctx: Context) -> None:
-    #     async with self.config.guild(ctx.guild).raffles() as r:
-    #         for k, v in list(r.keys()):
-    #             if not self.bot.get_user(v[0]["owner"]):
-    #                 r.pop(k)
+    async def banish_owners(self, ctx: Context) -> None:
+        async with self.config.guild(ctx.guild).raffles() as r:
+            for k, v in list(r.items()):
+                if not self.bot.get_user(v[0]["owner"]):
+                    r.pop(k)
 
     @commands.group()
     async def raffle(self, ctx: Context):
