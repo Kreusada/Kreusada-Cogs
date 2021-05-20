@@ -11,7 +11,6 @@ html_context = {
 }
 
 master_doc = "index"
-html_theme = "furo"
 
 with open("prolog.txt", "r") as file:
     rst_prolog = file.read()
@@ -23,4 +22,3 @@ add_function_parentheses = True
 
 project = u"Kreusada-Cogs"
 copyright = u"2021 | Kreusada"
-release = "Alpha"
