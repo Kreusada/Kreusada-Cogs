@@ -265,9 +265,7 @@ class Dehoister(commands.Cog):
 
     @_set.group()
     async def ignore(self, ctx: commands.Context):
-        """
-        Add and remove certain users from being ignored by the auto-dehoister.
-        """
+        """Add and remove certain users from being ignored by the auto-dehoister."""
 
     @ignore.command(name="add", require_var_positional=True)
     async def ignore_add(self, ctx: commands.Context, *users: Union[discord.Member, int]):
