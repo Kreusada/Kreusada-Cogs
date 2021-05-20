@@ -271,10 +271,10 @@ class Dehoister(commands.Cog):
 
     @ignore.command(name="add", require_var_positional=True)
     async def ignore_add(self, ctx: commands.Context, *users: Union[discord.Member, int]):
-        """
-        Add users to the ignore list.
+        """Add users to the ignore list.
 
-        If on the ignore list, the dehoister will not dehoist them if they have a hoisted nickname
+        If on the ignore list, the dehoister will not dehoist them if 
+        they have a hoisted nickname/username.
         """
         async with self.config.guild(ctx.guild).ignored_users() as ignored_users:
             for uid in users:
