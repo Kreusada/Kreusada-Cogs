@@ -10,6 +10,7 @@ import yaml
 from redbot.core import commands, Config
 from redbot.core.commands import BadArgument, Context
 from redbot.core.utils import chat_formatting as cf
+from redbot.core.utils.menus import menu, DEFAULT_CONTROLS
 
 from yaml.parser import (
     ParserError as YAMLParserError,
@@ -45,23 +46,15 @@ class RequiredKeyError(RaffleError):
         return f"The \"{self.key}\" key is required"
 
 
-class UnknownRoleError(RaffleError):
-    """Raised when an invalid role is provided to the parser."""
+class UnknownEntityError(RaffleError):
+    """Raised when an invalid role or user is provided to the parser."""
 
-    def __init__(self, **kwargs):
-        self.role = kwargs.get("role")
-
-    def __str__(self):
-        return f"\"{self.role}\" was not a valid role"
-
-class UnknownUserError(RaffleError):
-    """Raised when an invalid role is provided to the parser."""
-
-    def __init__(self, **kwargs):
-        self.user = kwargs.get("user")
+    def __init__(self, data, _type):
+        self.data = data
+        self.type = _type
 
     def __str__(self):
-        return f"\"{self.user}\" was not a valid user"
+        return f"\"{self.data}\" was not a valid {self.type}"
 
 class RaffleManager(object):
     """Parses the required and relevant yaml data to ensure
@@ -83,6 +76,12 @@ class RaffleManager(object):
             data.get("prevented_users", None)
             or data.get("prevented_user", None)
         )
+
+    @classmethod
+    def shorten_description(cls, description, length=50):
+        if len(description) > length:
+            return description[:length].rstrip() + '...'
+        return description
 
     @classmethod
     def parse_accage(cls, accage: int):
@@ -127,20 +126,20 @@ class RaffleManager(object):
             if isinstance(self.roles_needed_to_enter, list):
                 for r in self.roles_needed_to_enter:
                     if not ctx.guild.get_role(r):
-                        raise UnknownRoleError(role=r)
+                        raise UnknownEntityError(r, "role")
             else:
                 if not ctx.guild.get_role(self.roles_needed_to_enter):
-                    raise UnknownRoleError(role=self.roles_needed_to_enter)
+                    raise UnknownEntityError(self.roles_needed_to_enter, "role")
         if self.prevented_users:
             if not isinstance(self.prevented_users, (int, list)):
                 raise BadArgument("Prevented users must be int or list of ints, not {}".format(type(self.prevented_users).__name__))
             if isinstance(self.prevented_users, list):
                 for u in self.prevented_users:
                     if not ctx.bot.get_user(u):
-                        raise UnknownUserError(user=u)
+                        raise UnknownEntityError(u, "user")
             else:
                 if not ctx.bot.get_user(self.prevented_users):
-                    raise UnknownUserError(user=self.prevented_users)
+                    raise UnknownEntityError(self.prevented_users, "user")
 
 class Raffle(commands.Cog):
     """Create raffles for your server."""
@@ -333,7 +332,23 @@ class Raffle(commands.Cog):
         async with self.config.guild(ctx.guild).raffles() as r:
             if not r:
                 return await ctx.send("There are no ongoing raffles.")
-            await ctx.send("\n".join(f"`{r}`" for r in list(r.keys())))
+            lines = []
+            for k, v in r.items():
+                description = v[0].get("description", None)
+                if not description:
+                    description=""
+                lines.append("**{}** {}".format(k, RaffleManager.shorten_description(description)))
+            embeds = []
+            data = list(cf.pagify("\n".join(lines), page_length=1024))
+            for index, page in enumerate(data, 1):
+                embed = discord.Embed(
+                    title="Current raffles",
+                    description=page,
+                    color=await ctx.embed_colour()
+                )
+                embed.set_footer(text="Page {}/{}".format(index, len(data)))
+                embeds.append(embed)
+            await menu(ctx, embeds, DEFAULT_CONTROLS)
 
     @raffle.command()
     async def teardown(self, ctx: Context):
