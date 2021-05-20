@@ -285,10 +285,11 @@ class Dehoister(commands.Cog):
 
     @ignore.command(name="remove", aliases=["del"], require_var_positional=True)
     async def ignore_remove(self, ctx: commands.Context, *users: int):
+        """Remove users from the ignore list.
+        
+        Once removed, they will be dehoisted by the dehoister if 
+        they have a hoisted nickname/username.
         """
-        Remove users from the ignore list.
-        Once removed, they will be dehoisted by the dehoister if they have a hoisted nick
-        """ # This repetition is a bore >:|
         async with self.config.guild(ctx.guild).ignored_users() as ignored_users:
             for uid in users:
                 try:
