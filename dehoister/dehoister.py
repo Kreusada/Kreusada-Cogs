@@ -16,7 +16,6 @@ log = logging.getLogger("red.kreusada.dehoister")
 IDENTIFIER = 435089473534
 
 HOIST = tuple("!\"#$%&'()*+,-./:;<=>?@")
-# Since every time this got used it was converted to a tuple just make a tuple here
 DELTA = "δ"
 
 HOISTING_STANDARDS = (
