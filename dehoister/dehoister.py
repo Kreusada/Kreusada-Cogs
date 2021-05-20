@@ -298,7 +298,7 @@ class Dehoister(commands.Cog):
 
     @ignore.command(name="list")
     async def ignore_list(self, ctx: commands.Context):
-        """List the users ignored by the auto-dehoister"""
+        """List the users ignored by the auto-dehoister."""
         ignored = await self.config.guild(ctx.guild).ignored_users()
         if not ignored:
             return await ctx.send("There are no users on the ignore list")
