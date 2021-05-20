@@ -98,22 +98,22 @@ class Dehoister(commands.Cog):
             reason="This user had a hoisted display name.",
         )
 
-    @staticmethod
-    def get_hoisted_count(ctx):
+    async def get_hoisted_count(self, ctx):
+        ignored_list = await self.config.guild(ctx.guild).ignored_list()
         return sum(
-            bool(m.display_name.startswith(HOIST) and not m.bot)
+            bool(m.display_name.startswith(HOIST) and not m.bot and m.id not in ignored_list)
             for m in ctx.guild.members
         )
 
-    @staticmethod
-    def get_hoisted_list(ctx):
+    async def get_hoisted_list(self, ctx):
+        ignored_list = await self.config.guild(ctx.guild).ignored_list()
         B = "\n"  # F-string cannot include backslash
         return "\n\n".join(
             # Pre-formatting for output
             f"{m}:{f'{B}- {m.nick}' if m.nick else ''}{B}-- {m.id}"
             for m in ctx.guild.members
             if m.display_name.startswith(HOIST)
-            and not m.bot
+            and not m.bot and m.id not in ignored_list
         )
 
     @commands.Cog.listener()
@@ -182,8 +182,8 @@ class Dehoister(commands.Cog):
         will instead be sent as a Discord file, named `hoisted.txt`.
         """
         await ctx.trigger_typing()
-        count = self.get_hoisted_count(ctx)
-        join = f"{count} users found:\n\n{self.get_hoisted_list(ctx)}"
+        count = await self.get_hoisted_count(ctx)
+        join = f"{count} users found:\n\n{await self.get_hoisted_list(ctx)}"
         if count > 9:
             await ctx.send(
                 "There were 10 or more hoisted users, so to be corteous to others, I've uploaded the list as a file.",
@@ -213,8 +213,8 @@ class Dehoister(commands.Cog):
         NOTE: If the server owner is hoisted, [botname] cannot change their nickname.
         """
         nickname = await self.config.guild(ctx.guild).nickname()
-        hoisted_count = self.get_hoisted_count(ctx)
-        ignored_list = await self.config.guild(ctx.guild).ignored_users
+        hoisted_count = await self.get_hoisted_count(ctx)
+        ignored_list = await self.config.guild(ctx.guild).ignored_users()
 
         if not hoisted_count:
             return await ctx.send("There are no hoisted members.")
