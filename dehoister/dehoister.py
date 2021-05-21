@@ -211,9 +211,11 @@ class Dehoister(commands.Cog):
 
         NOTE: If the server owner is hoisted, [botname] cannot change their nickname.
         """
-        nickname = await self.config.guild(ctx.guild).nickname()
         hoisted_count = await self.get_hoisted_count(ctx)
-        ignored_users = await self.config.guild(ctx.guild).ignored_users()
+        
+        guild_config = await self.config.guild(ctx.guild).all()
+        nickname = guild_config["nickname"]
+        ignored_users = guild_config["ignored_users"]
 
         if not hoisted_count:
             return await ctx.send("There are no hoisted members.")
