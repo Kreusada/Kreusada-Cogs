@@ -16,7 +16,6 @@ log = logging.getLogger("red.kreusada.dehoister")
 IDENTIFIER = 435089473534
 
 HOIST = tuple("!\"#$%&'()*+,-./:;<=>?@")
-# Since every time this got used it was converted to a tuple just make a tuple here
 DELTA = "δ"
 
 HOISTING_STANDARDS = (
@@ -266,16 +265,14 @@ class Dehoister(commands.Cog):
 
     @_set.group()
     async def ignore(self, ctx: commands.Context):
-        """
-        Add and remove certain users from being ignored by the auto-dehoister.
-        """
+        """Add and remove certain users from being ignored by the auto-dehoister."""
 
     @ignore.command(name="add", require_var_positional=True)
     async def ignore_add(self, ctx: commands.Context, *users: Union[discord.Member, int]):
-        """
-        Add users to the ignore list.
+        """Add users to the ignore list.
 
-        If on the ignore list, the dehoister will not dehoist them if they have a hoisted nickname
+        If on the ignore list, the dehoister will not dehoist them if 
+        they have a hoisted nickname/username.
         """
         async with self.config.guild(ctx.guild).ignored_users() as ignored_users:
             for uid in users:
@@ -286,10 +283,11 @@ class Dehoister(commands.Cog):
 
     @ignore.command(name="remove", aliases=["del"], require_var_positional=True)
     async def ignore_remove(self, ctx: commands.Context, *users: int):
+        """Remove users from the ignore list.
+        
+        Once removed, they will be dehoisted by the dehoister if 
+        they have a hoisted nickname/username.
         """
-        Remove users from the ignore list.
-        Once removed, they will be dehoisted by the dehoister if they have a hoisted nick
-        """ # This repetition is a bore >:|
         async with self.config.guild(ctx.guild).ignored_users() as ignored_users:
             for uid in users:
                 try:
@@ -300,7 +298,7 @@ class Dehoister(commands.Cog):
 
     @ignore.command(name="list")
     async def ignore_list(self, ctx: commands.Context):
-        """List the users ignored by the auto-dehoister"""
+        """List the users ignored by the auto-dehoister."""
         ignored = await self.config.guild(ctx.guild).ignored_users()
         if not ignored:
             return await ctx.send("There are no users on the ignore list")
