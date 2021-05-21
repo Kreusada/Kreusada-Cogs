@@ -263,7 +263,7 @@ class Dehoister(commands.Cog):
     async def _set(self, ctx: commands.Context):
         """Settings for Dehoister."""
 
-    @_set.group()
+    @hoist.group()
     async def ignore(self, ctx: commands.Context):
         """Add and remove certain users from being ignored by the auto-dehoister."""
 
