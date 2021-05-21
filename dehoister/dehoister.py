@@ -99,21 +99,21 @@ class Dehoister(commands.Cog):
         )
 
     async def get_hoisted_count(self, ctx):
-        ignored_list = await self.config.guild(ctx.guild).ignored_list()
+        ignored_users = await self.config.guild(ctx.guild).ignored_users()
         return sum(
-            bool(m.display_name.startswith(HOIST) and not m.bot and m.id not in ignored_list)
+            bool(m.display_name.startswith(HOIST) and not m.bot and m.id not in ignored_users)
             for m in ctx.guild.members
         )
 
     async def get_hoisted_list(self, ctx):
-        ignored_list = await self.config.guild(ctx.guild).ignored_list()
+        ignored_users = await self.config.guild(ctx.guild).ignored_users()
         B = "\n"  # F-string cannot include backslash
         return "\n\n".join(
             # Pre-formatting for output
             f"{m}:{f'{B}- {m.nick}' if m.nick else ''}{B}-- {m.id}"
             for m in ctx.guild.members
             if m.display_name.startswith(HOIST)
-            and not m.bot and m.id not in ignored_list
+            and not m.bot and m.id not in ignored_users
         )
 
     @commands.Cog.listener()
@@ -214,7 +214,7 @@ class Dehoister(commands.Cog):
         """
         nickname = await self.config.guild(ctx.guild).nickname()
         hoisted_count = await self.get_hoisted_count(ctx)
-        ignored_list = await self.config.guild(ctx.guild).ignored_users()
+        ignored_users = await self.config.guild(ctx.guild).ignored_users()
 
         if not hoisted_count:
             return await ctx.send("There are no hoisted members.")
@@ -245,7 +245,7 @@ class Dehoister(commands.Cog):
             await ctx.trigger_typing()
             exceptions = 0
             for m in ctx.guild.members:
-                if m.display_name.startswith(HOIST) and not m.bot and m.id not in ignored_list:
+                if m.display_name.startswith(HOIST) and not m.bot and m.id not in ignored_users:
                     try:
                         await m.edit(
                             nick=await self.config.guild(ctx.guild).nickname()
