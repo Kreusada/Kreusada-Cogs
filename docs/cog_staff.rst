@@ -55,7 +55,7 @@ staff
 
 **Description**
 
-Alert the staff for conspicuous activity.
+Alert the staff members.
 
 .. _staff-command-staffset:
 
