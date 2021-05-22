@@ -29,7 +29,9 @@ Finally, you can see my end user data statements, cog requirements, and other co
 Usage
 -----
 
-This will allow you to alert staff for conspicuous activity.
+This cog will allow you to alert staff using a command, which will be sent
+to the specified staff channel. Provides additional details such as the last messages
+in the channel, the date, author, and more.
 
 .. _staff-commands:
 
@@ -91,7 +93,7 @@ Set the channel to receive alerts for staff.
 
 * ``[channel]``: The channel used for notifications. If none provided, it resets.
 
-.. _staff-command-staffset-channel:
+.. _staff-command-staffset-role:
 
 """""""""""""
 staffset role

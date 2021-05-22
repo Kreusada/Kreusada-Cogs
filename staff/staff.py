@@ -7,7 +7,9 @@ from redbot.core.utils.chat_formatting import bold, box, error, warning
 
 class Staff(commands.Cog):
     """
-    Cog for alerting Staff.
+    This cog will allow you to alert staff using a command, which will be sent
+    to the specified staff channel. Provides additional details such as the last messages
+    in the channel, the date, author, and more.
     """
 
     __author__ = ["Kreusada", ]

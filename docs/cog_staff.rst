@@ -29,7 +29,9 @@ Finally, you can see my end user data statements, cog requirements, and other co
 Usage
 -----
 
-This will allow you to alert staff for conspicuous activity.
+This cog will allow you to alert staff using a command, which will be sent
+to the specified staff channel. Provides additional details such as the last messages
+in the channel, the date, author, and more.
 
 .. _staff-commands:
 
