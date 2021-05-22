@@ -4,6 +4,8 @@ import datetime
 import pathlib
 import random
 
+from typing import Union
+
 import discord
 import yaml
 
@@ -185,14 +187,16 @@ class Raffle(commands.Cog):
                 for userid in getter:
                     if not self.bot.get_user(userid):
                         getter.remove(userid)
-                getter = v[0].get("prevented_users")
-                for userid in getter:
-                    if not self.bot.get_user(userid):
-                        getter.remove(userid)
-                getter = v[0].get("roles_needed_to_enter")
-                for roleid in getter:
-                    if not ctx.guild.get_role(roleid):
-                        getter.remove(roleid)
+                getter = v[0].get("prevented_users", None)
+                if getter:
+                    for userid in getter:
+                        if not self.bot.get_user(userid):
+                            getter.remove(userid)
+                getter = v[0].get("roles_needed_to_enter", None)
+                if getter:
+                    for roleid in getter:
+                        if not ctx.guild.get_role(roleid):
+                            getter.remove(roleid)
 
     @commands.group()
     async def raffle(self, ctx: Context):
@@ -201,6 +205,7 @@ class Raffle(commands.Cog):
     @raffle.command()
     async def create(self, ctx: Context):
         """Create a raffle."""
+        await ctx.trigger_typing()
         check = lambda x: x.author == ctx.author and x.channel == ctx.channel
         await ctx.send(
             "Now you need to create your raffle using YAML.\n"
@@ -226,18 +231,22 @@ class Raffle(commands.Cog):
             if rafflename in [x.lower() for x in raffle.keys()]:
                 return await ctx.send("A raffle with this name already exists.")
             data = {
+                "entries": [],
+                "owner": ctx.author.id,
+            }
+            conditions = {
                 "account_age": valid.get("account_age", None),
                 "join_age": valid.get("join_age", None),
                 "roles_needed_to_enter": valid.get("roles_needed_to_enter" or "role_needed_to_enter", []),
-                "prevented_users": valid.get("prevented_users" or "prevented_user", []),
-                "entries": [],
-                "maximum_entries": valid.get("maximum_entries", None),
-                "owner": ctx.author.id,
+                "prevented_users": valid.get("maximum_entries", None),
                 "description": valid.get("description", None)
             }
+            for k, v in conditions.items():
+                if v:
+                    data[k] = v
             raffle[rafflename] = [data]
             await ctx.send(
-                "Raffle created with the name \"{0}\". Type `{1}raffle join {0}` to join the raffle.".format(
+                "Raffle created. Type `{1}raffle join {0}` to join the raffle.".format(
                     rafflename,
                     ctx.clean_prefix
                 )
@@ -247,6 +256,7 @@ class Raffle(commands.Cog):
     @raffle.command()
     async def join(self, ctx: Context, raffle: str):
         """Join a raffle."""
+        await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
@@ -275,6 +285,7 @@ class Raffle(commands.Cog):
     @raffle.command()
     async def leave(self, ctx: Context, raffle: str):
         """Leave a raffle."""
+        await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
@@ -289,6 +300,7 @@ class Raffle(commands.Cog):
     @raffle.command()
     async def mention(self, ctx: Context, raffle: str):
         """Mention all the users entered into a raffle."""
+        await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
@@ -305,6 +317,7 @@ class Raffle(commands.Cog):
     @raffle.command()
     async def end(self, ctx: Context, raffle: str):
         """End a raffle."""
+        await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
@@ -313,12 +326,13 @@ class Raffle(commands.Cog):
             if not ctx.author.id == raffle_entities("owner"):
                 return await ctx.send("You are not the owner of this raffle.")
             r.pop(raffle)
-            await ctx.send("Raffle ended.")
+        await ctx.send("Raffle ended.")
         await self.replenish_cache(ctx)
     
     @raffle.command()
     async def kick(self, ctx: Context, raffle: str, member: discord.Member):
         """Kick a user from your raffle."""
+        await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
@@ -335,11 +349,12 @@ class Raffle(commands.Cog):
     @raffle.command(name="list")
     async def _list(self, ctx: Context):
         """List the currently ongoing raffles."""
+        await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             if not r:
                 return await ctx.send("There are no ongoing raffles.")
             lines = []
-            for k, v in r.items():
+            for k, v in sorted(r.items()):
                 description = v[0].get("description", None)
                 if not description:
                     description=""
@@ -360,6 +375,7 @@ class Raffle(commands.Cog):
     @raffle.command()
     async def teardown(self, ctx: Context):
         """End ALL ongoing raffles."""
+        await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             r.clear()
             await ctx.send("Raffles cleared.")
@@ -368,6 +384,7 @@ class Raffle(commands.Cog):
     @raffle.command()
     async def raw(self, ctx: Context, raffle: str):
         """View the raw dict for a raffle."""
+        await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
@@ -380,6 +397,7 @@ class Raffle(commands.Cog):
     @raffle.command()
     async def members(self, ctx: Context, raffle: str):
         """Get all the members of a raffle."""
+        await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
@@ -421,6 +439,7 @@ class Raffle(commands.Cog):
     @raffle.command()
     async def info(self, ctx: Context, raffle: str):
         """Get information about a certain raffle."""
+        await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
@@ -464,12 +483,20 @@ class Raffle(commands.Cog):
         pass
 
     @edit.command()
-    async def accage(self, ctx, raffle: str, new_account_age: int):
+    async def accage(self, ctx, raffle: str, new_account_age: Union[int, bool]):
         """Edit the account age requirement for a raffle."""
+        await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+            if isinstance(new_account_age, bool):
+                if new_account_age is False:
+                    with contextlib.suppress(KeyError):
+                        del raffle_data[0]["account_age"]
+                    return await ctx.send("Account age requirement removed from this raffle.")
+                else:
+                    return await ctx.send("Please provide a number, or \"false\" to disable this condition.")
             try:
                 RaffleManager.parse_accage(new_account_age)
             except BadArgument as e:
@@ -479,12 +506,20 @@ class Raffle(commands.Cog):
         await self.replenish_cache(ctx)
 
     @edit.command()
-    async def joinage(self, ctx, raffle: str, new_join_age: int):
+    async def joinage(self, ctx, raffle: str, new_join_age: Union[int, bool]):
         """Edit the join age requirement for a raffle."""
+        await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+            if isinstance(new_join_age, bool):
+                if new_join_age is False:
+                    with contextlib.suppress(KeyError):
+                        del raffle_data[0]["join_age"]
+                    return await ctx.send("Join age requirement removed from this raffle.")
+                else:
+                    return await ctx.send("Please provide a number, or \"false\" to disable this condition.")
             try:
                 RaffleManager.parse_joinage(ctx, new_join_age)
             except BadArgument as e:
@@ -494,23 +529,39 @@ class Raffle(commands.Cog):
         await self.replenish_cache(ctx)
 
     @edit.command()
-    async def description(self, ctx, raffle: str, *, description: str):
+    async def description(self, ctx, raffle: str, *, description: Union[bool, str]):
         """Edit the description of a raffle."""
+        await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+            if isinstance(description, bool):
+                if description is False:
+                    with contextlib.suppress(KeyError):
+                        del raffle_data[0]["description"]
+                    return await ctx.send("Description removed from this raffle.")
+                else:
+                    return await ctx.send("Please provide a number, or \"false\" to disable the description.")
             raffle_data[0]["description"] = description
             await ctx.send("Description updated for this raffle.")
         await self.replenish_cache(ctx)
 
     @edit.command()
-    async def maxentries(self, ctx, raffle: str, maximum_entries: int):
+    async def maxentries(self, ctx, raffle: str, maximum_entries: Union[int, bool]):
         """Edit the max entries requirement for a raffle."""
+        await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+            if isinstance(maximum_entries, bool):
+                if maximum_entries is False:
+                    with contextlib.suppress(KeyError):
+                        del raffle_data[0]["maximum_entries"]
+                    return await ctx.send("Maximum entries condition removed from this raffle.")
+                else:
+                    return await ctx.send("Please provide a number, or \"false\" to disable this condition.")
             raffle_data[0]["maximum_entries"] = maximum_entries
             await ctx.send("Max entries requirement updated for this raffle.")
         await self.replenish_cache(ctx)
@@ -523,6 +574,7 @@ class Raffle(commands.Cog):
     @prevented.command(name="add")
     async def prevented_add(self, ctx, raffle: str, member: discord.Member):
         """Add a member to the prevented list of a raffle."""
+        await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
@@ -537,6 +589,7 @@ class Raffle(commands.Cog):
     @prevented.command(name="remove", aliases=["del"])
     async def prevented_remove(self, ctx, raffle: str, member: discord.Member):
         """Add a member to the prevented list of a raffle."""
+        await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
@@ -548,6 +601,23 @@ class Raffle(commands.Cog):
             await ctx.send("{} remove from the prevented list for this raffle.".format(member.name))
         await self.replenish_cache(ctx)
 
+    @prevented.command(name="clear")
+    async def prevented_clear(self, ctx, raffle: str):
+        """Clear the prevented list for a raffle.."""
+        await ctx.trigger_typing()
+        async with self.config.guild(ctx.guild).raffles() as r:
+            raffle_data = r.get(raffle, None)
+            if not raffle_data:
+                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+            prevented = raffle_data[0].get("prevented_users", None)
+            if prevented is None:
+                return await ctx.send("There are no prevented users.")
+            with contextlib.suppress(KeyError):
+                # Still wanna remove empty list here
+                del raffle_data[0]["prevented_users"]        
+            await ctx.send("Prevented list cleared for this raffle.")
+        await self.replenish_cache(ctx)
+
     @edit.group()
     async def rolesreq(self, ctx):
         """Manage role requirements in a raffle."""
@@ -556,6 +626,7 @@ class Raffle(commands.Cog):
     @rolesreq.command(name="add")
     async def rolesreq_add(self, ctx, raffle: str, role: discord.Role):
         """Add a role to the role requirements list of a raffle."""
+        await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
@@ -570,6 +641,7 @@ class Raffle(commands.Cog):
     @rolesreq.command(name="remove", aliases=["del"])
     async def rolereq_remove(self, ctx, raffle: str, role: discord.Role):
         """Remove a role from the role requirements list of a raffle."""
+        await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
@@ -579,6 +651,23 @@ class Raffle(commands.Cog):
                 return await ctx.send("This role is not already a requirement in this raffle.")
             roles.remove(role.id)
             await ctx.send("{} remove from the role requirement list for this raffle.".format(role.name))
+        await self.replenish_cache(ctx)
+
+    @rolesreq.command(name="clear")
+    async def rolereq_clear(self, ctx, raffle: str):
+        """Clear the prevented list for a raffle.."""
+        await ctx.trigger_typing()
+        async with self.config.guild(ctx.guild).raffles() as r:
+            raffle_data = r.get(raffle, None)
+            if not raffle_data:
+                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+            rolesreq = raffle_data[0].get("roles_needed_to_enter", None)
+            if rolesreq is None:
+                return await ctx.send("There are no required roles.")
+            with contextlib.suppress(KeyError):
+                # Still wanna remove empty list here
+                del raffle_data[0]["roles_needed_to_enter"]        
+            await ctx.send("Role requirement list cleared for this raffle.")
         await self.replenish_cache(ctx)
 
     @raffle.command()
