@@ -1,4 +1,6 @@
 from .githubskylines import GithubSkylines
 
-def setup(bot):
-    bot.add_cog(GithubSkylines(bot))
+async def setup(bot):
+    cog = GithubSkylines(bot)
+    await cog.initialize()
+    bot.add_cog(cog)

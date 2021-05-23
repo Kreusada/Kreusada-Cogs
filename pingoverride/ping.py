@@ -1,4 +1,5 @@
 import asyncio
+import contextlib
 import logging
 import random
 
@@ -16,10 +17,8 @@ class PingOverride(commands.Cog):
     Custom ping message.
     """
 
-    __author__ = [
-        "Kreusada",
-    ]
-    __version__ = "1.8.0"
+    __author__ = ["Kreusada"]
+    __version__ = "1.8.1"
 
     def __init__(self, bot):
         self.bot = bot
@@ -29,7 +28,6 @@ class PingOverride(commands.Cog):
         self.config.register_global(response=[], reply=False, mention=True, embed=False)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
-        """Thanks Sinbad."""
         context = super().format_help_for_context(ctx)
         authors = ", ".join(self.__author__)
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
@@ -42,6 +40,13 @@ class PingOverride(commands.Cog):
             except Exception as error:
                 log.info(error)
             self.bot.add_command(_old_ping)
+        with contextlib.suppress(Exception):
+            self.bot.remove_dev_env_value("pingoverride")
+
+    async def initialize(self) -> None:
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(Exception):
+                self.bot.add_dev_env_value("pingoverride", lambda x: self)
 
     async def converter(self, ctx: commands.Context, match, bool):
         if bool:
@@ -302,10 +307,11 @@ class PingOverride(commands.Cog):
         else:
             await ctx.send(**kwargs)
 
-def setup(bot):
+async def setup(bot):
     cping = PingOverride(bot)
     global _old_ping
     _old_ping = bot.get_command("ping")
     if _old_ping:
         bot.remove_command(_old_ping.name)
+    await cping.initialize()
     bot.add_cog(cping)

@@ -1,3 +1,5 @@
+import contextlib
+
 import discord
 from redbot.core import commands
 
@@ -9,14 +11,13 @@ class TextManipulator(commands.Cog):
     Manipulate characters and text.
     """
 
-    __author__ = ["Kreusada", ]
-    __version__ = "1.5.0"
+    __author__ = ["Kreusada"]
+    __version__ = "1.5.1"
 
     def __init__(self, bot):
         self.bot = bot
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
-        """Thanks Sinbad."""
         context = super().format_help_for_context(ctx)
         authors = ", ".join(self.__author__)
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
@@ -26,6 +27,15 @@ class TextManipulator(commands.Cog):
         Nothing to delete
         """
         return
+
+    def cog_unload(self):
+        with contextlib.suppress(Exception):
+            self.bot.remove_dev_env_value("textmanipulator")
+
+    async def initialize(self) -> None:
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(Exception):
+                self.bot.add_dev_env_value("textmanipulator", lambda x: self)
 
     @commands.group()
     async def convert(self, ctx: commands.Context):

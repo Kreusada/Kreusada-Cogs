@@ -1,4 +1,5 @@
 import aiohttp
+import contextlib
 import logging
 from datetime import datetime as dt
 
@@ -11,7 +12,7 @@ log = logging.getLogger("red.kreusada.githubskyline")
 class GithubSkylines(commands.Cog):
     """Get a graph of your contributions on github."""
 
-    __version__ = "1.0.0"
+    __version__ = "1.0.1"
     __author__ = ["Kreusada"]
 
     def __init__(self, bot):
@@ -22,6 +23,13 @@ class GithubSkylines(commands.Cog):
     def cog_unload(self):
         self.bot.loop.create_task(self.session.close())
         log.debug("Session closed.")
+        with contextlib.suppress(Exception):
+            self.bot.remove_dev_env_value("githubskylines")
+
+    async def initialize(self) -> None:
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(Exception):
+                self.bot.add_dev_env_value("githubskylines", lambda x: self)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)

@@ -1,4 +1,5 @@
 # Made for TW on Discord
+import contextlib
 import json
 from pathlib import Path
 from random import choice as pick, randint
@@ -26,8 +27,8 @@ emojis = {
 class RPSLS(commands.Cog):
     """Rock, paper, scizzors, lizard, spock."""
 
-    __author__ = "Kreusada"
-    __version__ = "1.0.0"
+    __author__ = ["Kreusada"]
+    __version__ = "1.0.2"
 
     def __init__(self, bot):
         self.bot = bot
@@ -36,6 +37,20 @@ class RPSLS(commands.Cog):
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete."""
         return
+
+    def format_help_for_context(self, ctx: commands.Context) -> str:
+        context = super().format_help_for_context(ctx)
+        authors = ", ".join(self.__author__)
+        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+
+    def cog_unload(self):
+        with contextlib.suppress(Exception):
+            self.bot.remove_dev_env_value("rpsls")
+
+    async def initialize(self) -> None:
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(Exception):
+                self.bot.add_dev_env_value("rpsls", lambda x: self)
 
     @commands.command()
     async def rpsls(self, ctx, choice: str):

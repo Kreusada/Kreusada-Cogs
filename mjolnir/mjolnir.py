@@ -28,7 +28,7 @@ sayings = (
 class Mjolnir(commands.Cog):
     """Attempt to lift Thor's hammer!"""
 
-    __version__ = "0.1.1"
+    __version__ = "0.1.2"
     __author__ = ["Jojo", "Kreusada"]
 
     def __init__(self, bot: Red):
@@ -40,10 +40,20 @@ class Mjolnir(commands.Cog):
         await self.config.user_from_id(user_id).clear()
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
-        """Thanks Sinbad"""
         context = super().format_help_for_context(ctx)
         authors = ", ".join(self.__author__)
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+
+    def cog_unload(self):
+        with suppress(Exception):
+            self.bot.remove_dev_env_value("mjolnir")
+
+    async def initialize(self) -> None:
+        for tester in [719988449867989142, 544974305445019651]:
+            if tester in self.bot.owner_ids:
+                with suppress(Exception):
+                    self.bot.add_dev_env_value("mjolnir", lambda x: self)
+                break
 
     @commands.command()
     async def lifted(self, ctx):

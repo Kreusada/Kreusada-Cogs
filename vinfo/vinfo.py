@@ -1,4 +1,5 @@
 import asyncio
+import contextlib
 import json
 import logging
 import sys
@@ -54,7 +55,7 @@ class Vinfo(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "1.4.0"
+    __version__ = "1.4.1"
 
     def __init__(self, bot):
         self.bot = bot
@@ -67,6 +68,15 @@ class Vinfo(commands.Cog):
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""
         return
+
+    def cog_unload(self):
+        with contextlib.suppress(Exception):
+            self.bot.remove_dev_env_value("vinfo")
+
+    async def initialize(self) -> None:
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(Exception):
+                self.bot.add_dev_env_value("vinfo", lambda x: self)
 
     @staticmethod
     def check_attrs(module: types.ModuleType):

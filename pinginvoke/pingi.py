@@ -1,3 +1,5 @@
+import contextlib
+
 from redbot.core import Config, commands
 
 
@@ -8,8 +10,8 @@ class PingInvoke(commands.Cog):
     Invoke the ping command by asking if your bot is there.
     """
 
-    __author__ = ["Kreusada", ]
-    __version__ = "1.1.0"
+    __author__ = ["Kreusada"]
+    __version__ = "1.1.1"
 
     def __init__(self, bot):
         self.bot = bot
@@ -17,7 +19,6 @@ class PingInvoke(commands.Cog):
         self.config.register_global(botname=None)
     
     def format_help_for_context(self, ctx: commands.Context) -> str:
-        """Thanks Sinbad."""
         context = super().format_help_for_context(ctx)
         authors = ", ".join(self.__author__)
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
@@ -25,6 +26,15 @@ class PingInvoke(commands.Cog):
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""
         return
+
+    def cog_unload(self):
+        with contextlib.suppress(Exception):
+            self.bot.remove_dev_env_value("pinginvoke")
+
+    async def initialize(self) -> None:
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(Exception):
+                self.bot.add_dev_env_value("pinginvoke", lambda x: self)
 
     @commands.group()
     @commands.is_owner()

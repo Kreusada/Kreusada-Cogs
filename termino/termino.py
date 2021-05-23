@@ -2,6 +2,7 @@ import asyncio
 import contextlib
 import datetime
 import logging
+from random import expovariate
 
 import discord
 from redbot.core import commands, Config, version_info, VersionInfo
@@ -19,7 +20,7 @@ class Termino(commands.Cog):
     """Customize bot shutdown and restart messages, with predicates, too."""
 
     __author__ = ["Kreusada"]
-    __version__ = "1.0.1"
+    __version__ = "1.0.2"
 
     def __init__(self, bot):
         self.bot = bot
@@ -50,6 +51,8 @@ class Termino(commands.Cog):
             except Exception as e:
                 log.info(e)
             self.bot.add_command(restart)
+        with contextlib.suppress(Exception):
+            self.bot.remove_dev_env_value("termino")
         # This is worse case scenario but still important to check for
         if self.startup_task:
             self.startup_task.cancel()
@@ -88,6 +91,11 @@ class Termino(commands.Cog):
             await ctx.bot.wait_for("message", check=pred, timeout=60)
             return pred.result
         return False
+
+    async def initialize(self) -> None:
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(Exception):
+                self.bot.add_dev_env_value("termino", lambda x: self)
 
     @commands.is_owner()
     @commands.command()
@@ -197,7 +205,7 @@ class Termino(commands.Cog):
             await ctx.send(box(page, lang="yaml"))
 
 
-def setup(bot):
+async def setup(bot):
     cog = Termino(bot)
     global shutdown
     global restart
@@ -207,4 +215,5 @@ def setup(bot):
     # So we can skip a large chunk of this code for that reason
     shutdown = bot.remove_command("shutdown")
     restart = bot.remove_command("restart")
+    await cog.initialize()
     bot.add_cog(cog)
