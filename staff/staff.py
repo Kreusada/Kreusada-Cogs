@@ -1,3 +1,5 @@
+import contextlib
+
 from datetime import datetime
 
 import discord
@@ -12,8 +14,8 @@ class Staff(commands.Cog):
     in the channel, the date, author, and more.
     """
 
-    __author__ = ["Kreusada", ]
-    __version__ = "1.5.0"
+    __author__ = ["Kreusada"]
+    __version__ = "1.5.2"
 
     def __init__(self, bot):
         self.bot = bot
@@ -21,7 +23,6 @@ class Staff(commands.Cog):
         self.config.register_guild(role=None, channel=None)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
-        """Thanks Sinbad."""
         context = super().format_help_for_context(ctx)
         authors = ", ".join(self.__author__)
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
@@ -31,6 +32,15 @@ class Staff(commands.Cog):
         Nothing to delete
         """
         return
+
+    def cog_unload(self):
+        with contextlib.suppress(Exception):
+            self.bot.remove_dev_env_value("staff")
+
+    async def initialize(self) -> None:
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(Exception):
+                self.bot.add_dev_env_value("staff", lambda x: self)
 
     @commands.Cog.listener()
     async def on_guild_channel_delete(self, channel):

@@ -1,4 +1,5 @@
 import asyncio
+import contextlib
 import random
 import time
 
@@ -15,8 +16,8 @@ class TimesTables(commands.Cog):
     including an 'against the time' challenge.
     """
 
-    __author__ = ["Kreusada", ]
-    __version__ = "1.1.1"
+    __author__ = ["Kreusada"]
+    __version__ = "1.1.2"
 
     def __init__(self, bot):
         self.bot = bot
@@ -35,7 +36,6 @@ class TimesTables(commands.Cog):
         )
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
-        """Thanks Sinbad."""
         context = super().format_help_for_context(ctx)
         authors = ", ".join(self.__author__)
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
@@ -43,6 +43,15 @@ class TimesTables(commands.Cog):
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""
         return
+
+    def cog_unload(self):
+        with contextlib.suppress(Exception):
+            self.bot.remove_dev_env_value("timestables")
+
+    async def initialize(self) -> None:
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(Exception):
+                self.bot.add_dev_env_value("timestables", lambda x: self)
 
     async def tt_build_stats(
         self, ctx, correct, incorrect, inactive, average_time, exited_early: bool

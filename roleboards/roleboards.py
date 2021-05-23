@@ -1,3 +1,5 @@
+import contextlib
+
 import discord
 from redbot.core import commands, checks
 from redbot.core.utils.chat_formatting import pagify, box
@@ -11,7 +13,7 @@ class RoleBoards(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "2.0.0"
+    __version__ = "2.0.1"
 
     def __init__(self, bot):
         self.bot = bot
@@ -24,6 +26,15 @@ class RoleBoards(commands.Cog):
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete."""
         return
+
+    def cog_unload(self):
+        with contextlib.suppress(Exception):
+            self.bot.remove_dev_env_value("roleboards")
+
+    async def initialize(self) -> None:
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(Exception):
+                self.bot.add_dev_env_value("roleboards", lambda x: self)
 
     @commands.group(aliases=["rb"])
     @commands.guild_only()

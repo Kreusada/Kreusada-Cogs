@@ -1,3 +1,4 @@
+import contextlib
 import discord
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import box
@@ -14,13 +15,12 @@ class AlphaNato(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "0.3.0"
+    __version__ = "0.3.1"
 
     def __init__(self, bot):
         self.bot = bot
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
-        """Thanks Sinbad."""
         context = super().format_help_for_context(ctx)
         authors = ", ".join(self.__author__)
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
@@ -28,6 +28,11 @@ class AlphaNato(commands.Cog):
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""
         return
+
+    async def initialize(self) -> None:
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(Exception):
+                self.bot.add_dev_env_value("alphanato", lambda x: self)
 
     @commands.command(usage="<letters...>")
     async def nato(self, ctx, *, letter: str):

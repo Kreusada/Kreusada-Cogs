@@ -1,4 +1,5 @@
 import aiohttp
+import contextlib
 import logging
 
 from redbot.core import commands
@@ -10,7 +11,7 @@ log = logging.getLogger("red.kreusada.quotes")
 class Quotes(commands.Cog):
     """Get a random quote."""
 
-    __version__ = "1.0.0"
+    __version__ = "1.0.1"
     __author__ = ["Kreusada"]
 
     def __init__(self, bot):
@@ -21,11 +22,18 @@ class Quotes(commands.Cog):
     def cog_unload(self):
         self.bot.loop.create_task(self.session.close())
         log.debug("Session closed.")
+        with contextlib.suppress(Exception):
+            self.bot.remove_dev_env_value("quotes")
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
         authors = ", ".join(self.__author__)
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+
+    async def initialize(self) -> None:
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(Exception):
+                self.bot.add_dev_env_value("quotes", lambda x: self)
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete."""

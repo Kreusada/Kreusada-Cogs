@@ -1,3 +1,5 @@
+import contextlib
+
 import discord
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import bold
@@ -8,16 +10,13 @@ class SendCards(commands.Cog):
     Send someone a card!
     """
 
-    __author__ = [
-        "Kreusada",
-    ]
-    __version__ = "1.4.0"
+    __author__ = ["Kreusada"]
+    __version__ = "1.4.1"
 
     def __init__(self, bot):
         self.bot = bot
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
-        """Thanks Sinbad."""
         context = super().format_help_for_context(ctx)
         authors = ", ".join(self.__author__)
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
@@ -27,6 +26,15 @@ class SendCards(commands.Cog):
         Nothing to delete
         """
         return
+
+    def cog_unload(self):
+        with contextlib.suppress(Exception):
+            self.bot.remove_dev_env_value("sendcards")
+
+    async def initialize(self) -> None:
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(Exception):
+                self.bot.add_dev_env_value("sendcards", lambda x: self)
 
     @commands.group()
     async def send(self, ctx: commands.Context):

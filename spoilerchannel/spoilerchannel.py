@@ -10,12 +10,33 @@ log = logging.getLogger("red.kreusada.spoilerchannel")
 class SpoilerChannel(commands.Cog):
     """Set channels to only have spoilers sent in them."""
 
+    __author__ = ["Kreusada"]
+    __version__ = "1.0.1"
+    
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, 458347565486546, force_registration=True)
         self.config.register_guild(
             channels=[],
         )
+
+    def cog_unload(self):
+        with contextlib.suppress(Exception):
+            self.bot.remove_dev_env_value("spoilerchannel")
+
+    async def initialize(self) -> None:
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(Exception):
+                self.bot.add_dev_env_value("spoilerchannel", lambda x: self)
+
+    async def red_delete_data_for_user(self, **kwargs):
+        """Nothing to delete"""
+        return
+
+    def format_help_for_context(self, ctx: commands.Context) -> str:
+        context = super().format_help_for_context(ctx)
+        authors = ", ".join(self.__author__)
+        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
 
     @commands.group()
     async def spoilerchannel(self, ctx):

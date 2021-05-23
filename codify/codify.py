@@ -1,3 +1,5 @@
+import contextlib
+
 import discord
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import box
@@ -8,14 +10,13 @@ class Codify(commands.Cog):
     Get a message and wrap it in a codeblock.
     """
 
-    __author__ = ["Kreusada", ]
-    __version__ = "1.0.0"
+    __author__ = ["Kreusada"]
+    __version__ = "1.0.1"
 
     def __init__(self, bot):
         self.bot = bot
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
-        """Thanks Sinbad."""
         context = super().format_help_for_context(ctx)
         authors = ", ".join(self.__author__)
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
@@ -23,6 +24,15 @@ class Codify(commands.Cog):
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""
         return
+
+    def cog_unload(self):
+        with contextlib.suppress(Exception):
+            self.bot.remove_dev_env_value("codify")
+
+    async def initialize(self) -> None:
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(Exception):
+                self.bot.add_dev_env_value("codify", lambda x: self)
 
     @commands.command()
     async def codify(

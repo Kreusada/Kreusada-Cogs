@@ -1,3 +1,4 @@
+import contextlib
 import logging
 from datetime import datetime
 
@@ -17,14 +18,13 @@ class AdvancedUptime(commands.Cog):
     Show [botname]'s uptime, with extra stats.
     """
 
-    __author__ = "Kreusada"
-    __version__ = "1.3.0"
+    __author__ = ["Kreusada"]
+    __version__ = "1.3.1"
 
     def __init__(self, bot):
         self.bot = bot
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
-        """Thanks Sinbad."""
         context = super().format_help_for_context(ctx)
         authors = ", ".join(self.__author__)
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
@@ -32,6 +32,11 @@ class AdvancedUptime(commands.Cog):
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""
         return
+
+    async def initialize(self) -> None:
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(Exception):
+                self.bot.add_dev_env_value("advanceduptime", lambda x: self)
 
     def cog_unload(self):
         global _old_uptime
@@ -86,10 +91,11 @@ class AdvancedUptime(commands.Cog):
             await ctx.send(box(msg, lang="yaml"))
 
 
-def setup(bot):
+async def setup(bot):
     au = AdvancedUptime(bot)
     global _old_uptime
     _old_uptime = bot.get_command("uptime")
     if _old_uptime:
         bot.remove_command(_old_uptime.name)
+    await au.initialize()
     bot.add_cog(au)
