@@ -317,6 +317,7 @@ class Raffle(commands.Cog):
     @raffle.command()
     async def end(self, ctx: Context, raffle: str):
         """End a raffle."""
+        msg = await ctx.send(f"Ending the `{raffle}` raffle...")
         await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
@@ -326,6 +327,8 @@ class Raffle(commands.Cog):
             if not ctx.author.id == raffle_entities("owner"):
                 return await ctx.send("You are not the owner of this raffle.")
             r.pop(raffle)
+        with contextlib.suppress(discord.NotFound):
+            await msg.delete()
         await ctx.send("Raffle ended.")
         await self.replenish_cache(ctx)
     
