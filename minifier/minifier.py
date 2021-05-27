@@ -10,7 +10,7 @@ class Minifier(commands.Cog):
     """Minify your code!"""
 
     __author__ = ["Kreusada"]
-    __version__ = "0.1.1"
+    __version__ = "0.1.2"
 
     def __init__(self, bot):
         self.bot = bot
@@ -44,7 +44,8 @@ class Minifier(commands.Cog):
         if not ctx.message.attachments:
             return await ctx.send_help()
         file = ctx.message.attachments[0]
-        if not file.filename.lower().endswith((".py", ".python")):
+        file_name = file.filename.lower()
+        if not file_name.endswith((".py", ".python")):
             return await ctx.send("Must be a python file.")
         with contextlib.suppress(UnicodeDecodeError, UnicodeEncodeError):
             file = await file.read()
@@ -52,6 +53,6 @@ class Minifier(commands.Cog):
             content = "Please see the attached file below, with your minimized code."
             return await ctx.send(
                 content=content,
-                file=discord.File(converted, filename=file.filename.lower())
+                file=discord.File(converted, filename=file_name)
             )
         return await ctx.send("The file provided was in an unsupported format.")
