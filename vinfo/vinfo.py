@@ -4,8 +4,8 @@ import json
 import logging
 import sys
 import types
-from distutils import sysconfig
-from importlib import machinery
+
+from importlib import import_module
 from pathlib import Path
 
 import discord
@@ -24,6 +24,8 @@ log = logging.getLogger("red.kreusada.vinfo")
 base = "{}: {}\n{}: {}.{}.{}\n{}: {}\n\n{}: {}\n{}: {}\n - {}: {}"
 attrs = ["__version__", "version_info", "_version_", "version"]
 
+with open(Path(__file__).parent / "info.json") as fp:
+    __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
 
 REDBOT_CORE_COGS = [
     "Admin",
@@ -158,7 +160,7 @@ class Vinfo(commands.Cog):
         await ctx.trigger_typing()
 
         try:
-            MOD = __import__(module)
+            MOD = import_module(module)
         except ModuleNotFoundError:
             none_found = "- You do not have an installed module named `{}`.".format(module)
             pipinstall = await ctx.send(box(none_found + "\n--- Would you like to pip install it? (yes/no)", lang="diff"))
