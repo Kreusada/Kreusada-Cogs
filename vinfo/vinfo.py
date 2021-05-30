@@ -82,10 +82,10 @@ class Vinfo(commands.Cog):
 
     @staticmethod
     def check_attrs(module: types.ModuleType):
-        builtin = [sys.version_info[:3], "(Core/Builtin Python)"]
+        builtin = [sys.version_info[:3], None]
         for attr in attrs:
             if hasattr(module, attr) and check_isinstance(module, attr):
-                return [getattr(module, attr), "." + attr]
+                return [getattr(module, attr), attr]
         if module.__name__ in stdlib_list(".".join([str(x) for x in sys.version_info[:2]])):
             return builtin
 
@@ -161,47 +161,92 @@ class Vinfo(commands.Cog):
 
         try:
             MOD = import_module(module)
-        except ModuleNotFoundError:
-            none_found = "- You do not have an installed module named `{}`.".format(module)
-            pipinstall = await ctx.send(box(none_found + "\n--- Would you like to pip install it? (yes/no)", lang="diff"))
-            try:
-                pred = MessagePredicate.yes_or_no(ctx, user=ctx.author)
-                msg = await ctx.bot.wait_for("message", check=pred, timeout=20)
-            except asyncio.TimeoutError:
-                return await pipinstall.edit(content=box(none_found, lang="diff"))
-            if pred.result:
-                try:
-                    await ctx.invoke(self.bot.get_command("pipinstall"), module)
-                except AttributeError:
-                    await ctx.send("You need to load Downloader first.")
-            else:
-                await pipinstall.edit(content=box(none_found, lang="diff"))
+        except ModuleNotFoundError as e:
+            embed = discord.Embed(
+                title=f"Information on {module.upper()}",
+                color=await ctx.embed_colour(),
+            )
+            embed.add_field(
+                name="Version Information",
+                value=box('- ' + str(e), lang="diff")
+            )
+            embed.add_field(
+                name="Quick Debug",
+                value=box(f"__import__('{module}')\n>>> {e.__class__.__name__}: {e}", lang="py"),
+                inline=False
+            )
+            await ctx.send(embed=embed)
             return
 
         check_attrs = self.check_attrs(MOD)
 
         if not check_attrs:
-            return await ctx.send(
-                box("# Could not find a version for `{}`.", lang="cs").format(MOD.__name__)
+            embed = discord.Embed(
+                title=f"Information on {module.upper()}",
+                color=await ctx.embed_colour(),
+                timestamp=ctx.message.created_at
             )
+            embed.add_field(
+                name="Version Information",
+                value=box("# Could not find a version for `{}`.", lang="cs").format(MOD.__name__)
+            )
+            embed.add_field(
+                name="Attributes Checked",
+                value=box("\n".join(f"- {v}" for v in attrs), lang="diff"),
+                inline=False
+            )
+            await ctx.send(embed=embed)
+            return
 
-        vinfo = check_attrs
+        attr = f"`{MOD.__name__}.{check_attrs[1]}`"
 
-        if isinstance(vinfo[0], tuple) and vinfo[1] == "(Core/Builtin Python)":
-            value = ("{}." * len(vinfo[0])).strip('.').format(*vinfo[0])
-            attr = f"None {vinfo[1]}"
+        if isinstance(check_attrs[0], tuple) and check_attrs[1] is not None:
+            value = ("{}." * len(check_attrs[0])).strip('.').format(*check_attrs[0])
+            attr = None
         
-        elif isinstance(vinfo[0], (list, tuple)):
-            value = ("{}." * len(vinfo[0])).strip('.').format(*vinfo[0])
-            attr = f"`{MOD.__name__}{vinfo[1]}`"
+        elif isinstance(check_attrs[0], (list, tuple)):
+            value = ("{}." * len(check_attrs[0])).strip('.').format(*check_attrs[0])
 
-        elif isinstance(vinfo[0], float):
-            value = str(vinfo[0])
-            attr = f"`{MOD.__name__}{vinfo[1]}`"
+        elif isinstance(check_attrs[0], float):
+            value = str(check_attrs[0])
 
         else:
-            value = vinfo[0]
-            attr = f"`{MOD.__name__}{vinfo[1]}`"
+            value = check_attrs[0]
 
-
-        await ctx.send(box(f"Attribute: {attr}\nFound version info for [{module}]: {value}",lang="yaml",))
+        description = box(
+            text=f"Attribute: {attr}\nFound version info for [{module}]: {value}",
+            lang="yaml"
+        )
+        embed = discord.Embed(
+            title=f"Information on {module.upper()}",
+            color=await ctx.embed_colour(),
+            timestamp=ctx.message.created_at
+        )
+        embed.add_field(
+            name="Version Information",
+            value=description,
+            inline=False
+        )
+        if check_attrs[1] is not None:
+            embed.add_field(
+                name="Attributes Checked",
+                value=box("\n".join(f"- {v}" for v in attrs[:attrs.index(check_attrs[1])]) + f"\n+ {check_attrs[1]}", lang="diff"),
+                inline=False
+            )
+        if not attr.startswith("None"):
+            debug = box(
+                text=f"getattr(__import__('{MOD.__name__}'), '{check_attrs[1]}')\n>>> {value}",
+                lang="py"
+            )
+            embed.add_field(
+                name="Quick Debug",
+                value=debug,
+                inline=False
+            )
+            embed.set_footer(text=value)
+        else:
+            embed.description = (
+                "This library does not have it's own version attribute, "
+                f"so it will follow python's version, which is {value}."
+            )
+        await ctx.send(embed=embed)
