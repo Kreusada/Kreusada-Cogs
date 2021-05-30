@@ -2,11 +2,13 @@ import asyncio
 import contextlib
 import json
 import logging
+from os import stat
 import sys
 import types
 
 from importlib import import_module
 from pathlib import Path
+from sys import argv as cli_flags
 
 import discord
 import lavalink
@@ -79,6 +81,10 @@ class Vinfo(commands.Cog):
         if 719988449867989142 in self.bot.owner_ids:
             with contextlib.suppress(Exception):
                 self.bot.add_dev_env_value("vinfo", lambda x: self)
+
+    @staticmethod
+    def isdev():
+        return "--debug" in cli_flags
 
     @staticmethod
     def check_attrs(module: types.ModuleType):
@@ -170,11 +176,12 @@ class Vinfo(commands.Cog):
                 name="Version Information",
                 value=box('- ' + str(e), lang="diff")
             )
-            embed.add_field(
-                name="Quick Debug",
-                value=box(f"__import__('{module}')\n>>> {e.__class__.__name__}: {e}", lang="py"),
-                inline=False
-            )
+            if self.isdev():
+                embed.add_field(
+                    name="Quick Debug",
+                    value=box(f"__import__('{module}')\n>>> {e.__class__.__name__}: {e}", lang="py"),
+                    inline=False
+                )
             await ctx.send(embed=embed)
             return
 
@@ -228,9 +235,21 @@ class Vinfo(commands.Cog):
             inline=False
         )
         if check_attrs[1] is not None:
+            reasons = []
+            for v in attrs[:attrs.index(check_attrs[1])]:
+                _getattr = getattr(MOD, v, None)
+                if _getattr is None:
+                    reasons.append(f"{v}\n\t| This attribute was not found.")
+                else:
+                    if not check_isinstance(_getattr):
+                        reasons.append(f"{v}\n\t| This attribute was skipped because it was of an unsupported type ({type(_getattr).__name__}).")
+                    else:
+                        # This *should* never happen
+                        reasons.append(f"{v}\n\t| This attribute failed for an unknown reason, consider reporting this.")
+                
             embed.add_field(
                 name="Attributes Checked",
-                value=box("\n".join(f"- {v}" for v in attrs[:attrs.index(check_attrs[1])]) + f"\n+ {check_attrs[1]}", lang="diff"),
+                value=box("\n".join(f"- {v}" for v in reasons) + f"\n+ {check_attrs[1]}\n\t| Found attribute for {MOD.__name__}!", lang="diff"),
                 inline=False
             )
         if not attr.startswith("None"):
@@ -238,11 +257,12 @@ class Vinfo(commands.Cog):
                 text=f"getattr(__import__('{MOD.__name__}'), '{check_attrs[1]}')\n>>> {value}",
                 lang="py"
             )
-            embed.add_field(
-                name="Quick Debug",
-                value=debug,
-                inline=False
-            )
+            if self.isdev():
+                embed.add_field(
+                    name="Quick Debug",
+                    value=debug,
+                    inline=False
+                )
             embed.set_footer(text=value)
         else:
             embed.description = (
