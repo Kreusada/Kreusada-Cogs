@@ -3,7 +3,6 @@ import contextlib
 import datetime
 import json
 import logging
-from os import stat
 import sys
 import types
 
