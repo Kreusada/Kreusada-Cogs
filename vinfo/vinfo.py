@@ -28,27 +28,6 @@ attrs = ["__version__", "version_info", "_version_", "version"]
 with open(Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
 
-REDBOT_CORE_COGS = [
-    "Admin",
-    "Alias",
-    "Audio",
-    "Bank",
-    "Cleanup",
-    "CustomCom",
-    "Downloader",
-    "Economy",
-    "Filter",
-    "General",
-    "Image",
-    "Mod",
-    "ModLog",
-    "Mutes",
-    "Permissions",
-    "Reports",
-    "Streams",
-    "Trivia",
-    "Warnings",
-]
 
 check_isinstance = lambda x, y: isinstance(getattr(x, y), (str, int, float, list, tuple))
 
@@ -152,12 +131,6 @@ class Vinfo(commands.Cog):
                         f"getattr(bot.get_cog('{cog}'), '__version__')\n"
                         f">>> '{_getattr}'",
                         lang="py"
-                )
-            elif cog in REDBOT_CORE_COGS:
-                version_info_field_value = box(
-                    "# Builtin Red cogs do not have version attributes by default. "
-                    "Perhaps you are looking for your Red version, which would be {}.".format(redbot.version_info), 
-                    lang="cs"
                 )
             else:
                 version_info_field_value = box(f"- Could not find a version for {cog}.", lang='diff')
