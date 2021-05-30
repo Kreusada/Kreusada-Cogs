@@ -48,7 +48,7 @@ class Vinfo(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "1.4.1"
+    __version__ = "2.0.0"
 
     def __init__(self, bot):
         self.bot = bot
