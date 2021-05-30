@@ -1,5 +1,6 @@
 import asyncio
 import contextlib
+import datetime
 import json
 import logging
 from os import stat
@@ -22,8 +23,6 @@ from redbot.core.utils.predicates import MessagePredicate
 from stdlib_list import stdlib_list
 
 log = logging.getLogger("red.kreusada.vinfo")
-
-base = "{}: {}\n{}: {}.{}.{}\n{}: {}\n\n{}: {}\n{}: {}\n - {}: {}"
 attrs = ["__version__", "version_info", "_version_", "version"]
 
 with open(Path(__file__).parent / "info.json") as fp:
@@ -52,6 +51,18 @@ REDBOT_CORE_COGS = [
 ]
 
 check_isinstance = lambda x, y: isinstance(getattr(x, y), (str, int, float, list, tuple))
+
+common_modules = f"""
+**Red:** {redbot.version_info}
+**Python (sys):** {sys.version_info[:3]}
+**discord.py:** {discord.__version__}
+
+**PIP**: {pip.__version__}
+
+**Lavalink:** {lavalink.__version__}
+**JAR Build:** {JAR_BUILD}
+"""
+
 
 class Vinfo(commands.Cog):
     """
@@ -84,7 +95,11 @@ class Vinfo(commands.Cog):
 
     @staticmethod
     def isdev():
-        return "--debug" in cli_flags
+        return "--dev" in cli_flags
+
+    @property
+    def is_dev(self):
+        return self.isdev
 
     @staticmethod
     def check_attrs(module: types.ModuleType):
@@ -94,27 +109,6 @@ class Vinfo(commands.Cog):
                 return [getattr(module, attr), attr]
         if module.__name__ in stdlib_list(".".join([str(x) for x in sys.version_info[:2]])):
             return builtin
-
-    @staticmethod
-    def modvinfo_format(mods):
-        formatter = (
-            bold("Red"),
-            redbot.version_info,
-            bold("Python (sys)"),
-            *sys.version_info[:3],
-            bold("discord.py"),
-            discord.__version__,
-            bold("PIP"),
-            pip.__version__,
-            bold("Lavalink"),
-            lavalink.__version__,
-            bold("JAR"),
-            JAR_BUILD,
-        )
-        return discord.Embed(
-            title="Common Modules",
-            description=mods.format(*formatter),
-        )
 
     # Commands
 
@@ -131,32 +125,65 @@ class Vinfo(commands.Cog):
         The cog must be loaded, and provided in the correct casing.
         """
         await ctx.trigger_typing()
-        
-        if cog not in self.bot.cogs:
-            return await ctx.send(box(f"- Could not find a cog matching `{cog}`.", lang='diff'))
+
+        embed = discord.Embed(
+            title=f"Version Information on {cog}",
+            color=await ctx.embed_colour(),
+            timestamp=datetime.datetime.now()
+        )
 
         cog_obj = self.bot.get_cog(cog)
+        dev_field_value = None
 
-        if hasattr(cog_obj, "__version__"):
-            return await ctx.send(box(f"{cog} version: {getattr(cog_obj, '__version__')}", lang='yaml'))
-        elif cog in REDBOT_CORE_COGS:
-            return await ctx.send(
-                box(
-                    "Builtin Red cogs do not have version attributes by default.\n"
-                    "Perhaps you're looking for your Red version, which would be {}.".format(redbot.version_info), 
-                    lang="yaml"
+        if not cog_obj:
+            version_info_field_value = box(f"- Could not find a cog matching `{cog}`.", lang='diff')
+            if self.is_dev():
+                dev_field_value = box(
+                    f"getattr(bot.get_cog('{cog}'), '__version__')\n"
+                    f">>> AttributeError: '{cog}' object has no attribute '__version__'",
+                    lang="py"
                 )
-            )
         else:
-            await ctx.send(box(f"- Could not find a version for {cog}.", lang='diff'))
+            _getattr = getattr(cog_obj, '__version__', None)
+            if _getattr is not None:
+                version_info_field_value = box(f"{_getattr} ({type(_getattr).__name__})", lang="py")
+                if self.isdev():
+                    dev_field_value = box(
+                        f"getattr(bot.get_cog('{cog}'), '__version__')\n"
+                        f">>> '{_getattr}'",
+                        lang="py"
+                )
+            elif cog in REDBOT_CORE_COGS:
+                version_info_field_value = box(
+                    "# Builtin Red cogs do not have version attributes by default. "
+                    "Perhaps you are looking for your Red version, which would be {}.".format(redbot.version_info), 
+                    lang="cs"
+                )
+            else:
+                version_info_field_value = box(f"- Could not find a version for {cog}.", lang='diff')
+
+        embed.add_field(
+            name="Version Information",
+            value=version_info_field_value,
+            inline=False
+        )
+        if dev_field_value is not None:
+            embed.add_field(
+                name="Quick Debug",
+                value=dev_field_value,
+                inline=False
+            )
+        await ctx.send(embed=embed)
 
     @vinfo.command(aliases=["module", "dep", "dependency"], usage="<module or dependency>")
     async def mod(self, ctx, module: str = None):
         """Get module versions."""
-        
         if not module:
-            embed = self.modvinfo_format(base)
-            embed.color = await ctx.embed_colour()
+            embed = discord.Embed(
+                title="Common Modules",
+                description=common_modules,
+                color=await ctx.embed_colour()
+            )
             embed.set_footer(
                 text="Find a specific module version by adding the module argument."
             )
@@ -165,13 +192,14 @@ class Vinfo(commands.Cog):
 
         await ctx.trigger_typing()
 
+        embed = discord.Embed(
+            color=await ctx.embed_colour(),
+            timestamp=datetime.datetime.now(),
+        )
         try:
             MOD = import_module(module)
         except ModuleNotFoundError as e:
-            embed = discord.Embed(
-                title=f"Information on {module.upper()}",
-                color=await ctx.embed_colour(),
-            )
+            embed.title = f"Information on {module.upper()}"
             embed.add_field(
                 name="Version Information",
                 value=box('- ' + str(e), lang="diff")
@@ -186,13 +214,9 @@ class Vinfo(commands.Cog):
             return
 
         check_attrs = self.check_attrs(MOD)
+        embed.title = f"Version Information on {MOD.__name__.upper()}"
 
         if not check_attrs:
-            embed = discord.Embed(
-                title=f"Information on {module.upper()}",
-                color=await ctx.embed_colour(),
-                timestamp=ctx.message.created_at
-            )
             embed.add_field(
                 name="Version Information",
                 value=box("# Could not find a version for `{}`.", lang="cs").format(MOD.__name__)
@@ -220,20 +244,15 @@ class Vinfo(commands.Cog):
         else:
             value = check_attrs[0]
 
-        description = box(
-            text=f"Attribute: {attr}\nFound version info for [{module}]: {value}",
-            lang="yaml"
-        )
-        embed = discord.Embed(
-            title=f"Information on {module.upper()}",
-            color=await ctx.embed_colour(),
-            timestamp=ctx.message.created_at
-        )
         embed.add_field(
             name="Version Information",
-            value=description,
+            value=box(
+                text=f"Attribute: {attr}\nFound version info for [{module}]: {value}",
+                lang="yaml"
+            ),
             inline=False
         )
+
         if check_attrs[1] is not None:
             reasons = []
             for v in attrs[:attrs.index(check_attrs[1])]:
@@ -263,7 +282,6 @@ class Vinfo(commands.Cog):
                     value=debug,
                     inline=False
                 )
-            embed.set_footer(text=value)
         else:
             embed.description = (
                 "This library does not have it's own version attribute, "
