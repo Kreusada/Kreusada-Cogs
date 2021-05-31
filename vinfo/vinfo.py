@@ -38,7 +38,6 @@ common_modules = f"""
 **PIP**: {pip.__version__}
 
 **Lavalink:** {lavalink.__version__}
-**JAR Build:** {JAR_BUILD}
 """
 
 
@@ -151,9 +150,32 @@ class Vinfo(commands.Cog):
     async def mod(self, ctx, module: str = None):
         """Get module versions."""
         if not module:
+            audio = self.bot.get_cog("Audio")
+            java = (
+                (audio.player_manager.jvm or "Unknown")
+                if audio and audio.player_manager
+                else "Unknown"
+            )
+            lavaplayer = (
+                (audio.player_manager.lavaplayer or "Unknown")
+                if audio and audio.player_manager
+                else "Unknown"
+            )
+            build = (
+                (audio.player_manager.ll_build or "Unknown")
+                if audio and audio.player_manager
+                else "Unknown"
+            )
+
+            extras = (
+                "\n**Java** {java}\n**Lavalink Build** {build}\n**Lavaplayer** {lp}\n"
+            ).format(build=build, java=java, lp=lavaplayer)
+
+            module_data = common_modules + extras
+
             embed = discord.Embed(
                 title="Common Modules",
-                description=common_modules,
+                description=module_data,
                 color=await ctx.embed_colour()
             )
             embed.set_footer(
@@ -206,7 +228,7 @@ class Vinfo(commands.Cog):
         if isinstance(check_attrs[0], tuple) and check_attrs[1] is not None:
             value = ("{}." * len(check_attrs[0])).strip('.').format(*check_attrs[0])
             attr = None
-        
+
         elif isinstance(check_attrs[0], (list, tuple)):
             value = ("{}." * len(check_attrs[0])).strip('.').format(*check_attrs[0])
 
@@ -237,7 +259,7 @@ class Vinfo(commands.Cog):
                     else:
                         # This *should* never happen
                         reasons.append(f"{v}\n\t| This attribute failed for an unknown reason, consider reporting this.")
-                
+
             embed.add_field(
                 name="Attributes Checked",
                 value=box("\n".join(f"- {v}" for v in reasons) + f"\n+ {check_attrs[1]}\n\t| Found attribute for {MOD.__name__}!", lang="diff"),
