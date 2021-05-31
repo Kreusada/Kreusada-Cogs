@@ -28,7 +28,7 @@ with open(Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
 
 
-check_isinstance = lambda x, y: isinstance(getattr(x, y), (str, int, float, list, tuple))
+checkattr = lambda x, y: isinstance(getattr(x, y), (str, int, float, list, tuple))
 
 common_modules = f"""
 **Red:** {redbot.version_info}
@@ -82,7 +82,7 @@ class Vinfo(commands.Cog):
     def check_attrs(module: types.ModuleType):
         builtin = [sys.version_info[:3], None]
         for attr in attrs:
-            if hasattr(module, attr) and check_isinstance(module, attr):
+            if hasattr(module, attr) and checkattr(module, attr):
                 return [getattr(module, attr), attr]
         if module.__name__ in stdlib_list(".".join([str(x) for x in sys.version_info[:2]])):
             return builtin
@@ -254,8 +254,8 @@ class Vinfo(commands.Cog):
                 if _getattr is None:
                     reasons.append(f"{v}\n\t| This attribute was not found.")
                 else:
-                    if not check_isinstance(_getattr):
-                        reasons.append(f"{v}\n\t| This attribute was skipped because it was of an unsupported type ({type(_getattr).__name__}).")
+                    if not checkattr(MOD, v):
+                        reasons.append(f"{v}\n\t| This attribute was an unsupported type.")
                     else:
                         # This *should* never happen
                         reasons.append(f"{v}\n\t| This attribute failed for an unknown reason, consider reporting this.")
