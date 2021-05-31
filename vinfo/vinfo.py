@@ -225,7 +225,7 @@ class Vinfo(commands.Cog):
 
         attr = f"`{MOD.__name__}.{check_attrs[1]}`"
 
-        if isinstance(check_attrs[0], tuple) and check_attrs[1] is not None:
+        if isinstance(check_attrs[0], tuple) and check_attrs[1] is None:
             value = ("{}." * len(check_attrs[0])).strip('.').format(*check_attrs[0])
             attr = None
 
@@ -265,7 +265,7 @@ class Vinfo(commands.Cog):
                 value=box("\n".join(f"- {v}" for v in reasons) + f"\n+ {check_attrs[1]}\n\t| Found attribute for {MOD.__name__}!", lang="diff"),
                 inline=False
             )
-        if not attr.startswith("None"):
+        if attr is not None:
             debug = box(
                 text=f"getattr(__import__('{MOD.__name__}'), '{check_attrs[1]}')\n>>> {value}",
                 lang="py"
