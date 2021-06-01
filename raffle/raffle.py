@@ -12,7 +12,8 @@ import yaml
 from redbot.core import commands, Config
 from redbot.core.commands import BadArgument, Context
 from redbot.core.utils import chat_formatting as cf
-from redbot.core.utils.menus import menu, DEFAULT_CONTROLS
+from redbot.core.utils.menus import menu, DEFAULT_CONTROLS, start_adding_reactions
+from redbot.core.utils.predicates import MessagePredicate, ReactionPredicate
 
 from yaml.parser import (
     ParserError as YAMLParserError,
@@ -256,30 +257,31 @@ class Raffle(commands.Cog):
     @raffle.command()
     async def join(self, ctx: Context, raffle: str):
         """Join a raffle."""
-        await ctx.trigger_typing()
-        async with self.config.guild(ctx.guild).raffles() as r:
-            raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
-            raffle_entities = lambda x: raffle_data[0].get(x, None)
-            if ctx.author.id in raffle_entities("entries"):
-                return await ctx.send("You are already in this raffle.")
-            if ctx.author.id in raffle_entities("prevented_users"):
-                return await ctx.send("You are not allowed to join this particular raffle.")
-            if ctx.author.id == raffle_entities("owner"):
-                return await ctx.send("You cannot join your own raffle.")
-            if raffle_entities("maximum_entries") == 0:
-                return await ctx.send("Sorry, the maximum number of users have entered this raffle.")
+        r = await self.config.guild(ctx.guild).raffles()
+        raffle_data = r.get(raffle, None)
+        if not raffle_data:
+            return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+        raffle_entities = lambda x: raffle_data[0].get(x, None)
+        if ctx.author.id in raffle_entities("entries"):
+            return await ctx.send("You are already in this raffle.")
+        if raffle_entities("prevented_users") and ctx.author.id in raffle_entities("prevented_users"):
+            return await ctx.send("You are not allowed to join this particular raffle.")
+        if ctx.author.id == raffle_entities("owner"):
+            return await ctx.send("You cannot join your own raffle.")
+        if raffle_entities("maximum_entries") and raffle_entities("maximum_entries") == 0:
+            return await ctx.send("Sorry, the maximum number of users have entered this raffle.")
+        if raffle_entities("roles_needed_to_enter"):
             for r in raffle_entities("roles_needed_to_enter"):
                 if not r in [x.id for x in ctx.author.roles]:
                     return await ctx.send("You are missing a required role: {}".format(ctx.guild.get_role(r).mention))
-            if raffle_entities("account_age"):
-                if raffle_entities("account_age") > (now - ctx.author.created_at).days:
-                    return await ctx.send("Your account must be at least {} days old to join.".format(raffle_entities("account_age")))
+        if raffle_entities("account_age") and raffle_entities("account_age") > (now - ctx.author.created_at).days:
+                return await ctx.send("Your account must be at least {} days old to join.".format(raffle_entities("account_age")))
+        async with self.config.guild(ctx.guild).raffles() as r:
+            raffle_entities = lambda x: r[raffle][0].get(x, None)
             raffle_entities("entries").append(ctx.author.id)
             if raffle_entities("maximum_entries") is not None:
                 raffle_data[0]["maximum_entries"] -= 1
-            await ctx.send(f"{ctx.author.mention} you have been added to the raffle!")
+        await ctx.send(f"{ctx.author.mention} you have been added to the raffle!")
         await self.replenish_cache(ctx)
 
     @raffle.command()
@@ -353,63 +355,94 @@ class Raffle(commands.Cog):
     async def _list(self, ctx: Context):
         """List the currently ongoing raffles."""
         await ctx.trigger_typing()
-        async with self.config.guild(ctx.guild).raffles() as r:
-            if not r:
-                return await ctx.send("There are no ongoing raffles.")
-            lines = []
-            for k, v in sorted(r.items()):
-                description = v[0].get("description", None)
-                if not description:
-                    description=""
-                lines.append("**{}** {}".format(k, RaffleManager.shorten_description(description)))
-            embeds = []
-            data = list(cf.pagify("\n".join(lines), page_length=1024))
-            for index, page in enumerate(data, 1):
-                embed = discord.Embed(
-                    title="Current raffles",
-                    description=page,
-                    color=await ctx.embed_colour()
-                )
-                embed.set_footer(text="Page {}/{}".format(index, len(data)))
-                embeds.append(embed)
-            await menu(ctx, embeds, DEFAULT_CONTROLS)
+        r = await self.config.guild(ctx.guild).raffles()
+        if not r:
+            return await ctx.send("There are no ongoing raffles.")
+        lines = []
+        for k, v in sorted(r.items()):
+            description = v[0].get("description", None)
+            if not description:
+                description=""
+            lines.append("**{}** {}".format(k, RaffleManager.shorten_description(description)))
+        embeds = []
+        data = list(cf.pagify("\n".join(lines), page_length=1024))
+        for index, page in enumerate(data, 1):
+            embed = discord.Embed(
+                title="Current raffles",
+                description=page,
+                color=await ctx.embed_colour()
+            )
+            embed.set_footer(text="Page {}/{}".format(index, len(data)))
+            embeds.append(embed)
+        await menu(ctx, embeds, DEFAULT_CONTROLS)
         await self.replenish_cache(ctx)
 
     @raffle.command()
     async def teardown(self, ctx: Context):
         """End ALL ongoing raffles."""
         await ctx.trigger_typing()
-        async with self.config.guild(ctx.guild).raffles() as r:
-            r.clear()
+        raffles = await self.config.guild(ctx.guild).raffles()
+        if not raffles:
+            await ctx.send("There are no ongoing raffles in this guild.")
+            return
+
+        message = "Are you sure you want to tear down all ongoing raffles in this guild?"
+        can_react = ctx.channel.permissions_for(ctx.me).add_reactions
+        if not can_react:
+            message += " (yes/no)"
+        message = await ctx.send(message)
+        if can_react:
+            start_adding_reactions(message, ReactionPredicate.YES_OR_NO_EMOJIS)
+            predicate = ReactionPredicate.yes_or_no(message, ctx.author)
+            event_type = "reaction_add"
+        else:
+            predicate = MessagePredicate.yes_or_no(ctx)
+            event_type = "message"
+        
+        try:
+            await self.bot.wait_for(event_type, check=predicate, timeout=30)
+        except asyncio.TimeoutError:
+            await ctx.send("You took too long to respond.")
+            return
+
+        with contextlib.suppress(discord.NotFound):
+            await message.delete()
+
+        if predicate.result:
+            async with self.config.guild(ctx.guild).raffles() as r:
+                r.clear()
             await ctx.send("Raffles cleared.")
+        
+        else:
+            await ctx.send("No changes have been made.")
+
         await self.replenish_cache(ctx)
 
     @raffle.command()
     async def raw(self, ctx: Context, raffle: str):
         """View the raw dict for a raffle."""
         await ctx.trigger_typing()
-        async with self.config.guild(ctx.guild).raffles() as r:
-            raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
-            data = {raffle: raffle_data}
-            for page in cf.pagify(str(data)):
-                await ctx.send(cf.box(page, lang="json"))
+        r = await self.config.guild(ctx.guild).raffles()
+        raffle_data = r.get(raffle, None)
+        if not raffle_data:
+            return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+        for page in cf.pagify(str({raffle: raffle_data})):
+            await ctx.send(cf.box(page, lang="json"))
         await self.replenish_cache(ctx)
 
     @raffle.command()
     async def members(self, ctx: Context, raffle: str):
         """Get all the members of a raffle."""
         await ctx.trigger_typing()
-        async with self.config.guild(ctx.guild).raffles() as r:
-            raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
-            raffle_entities = lambda x: raffle_data[0].get(x)
-            if not raffle_entities("entries"):
-                return await ctx.send("There are no entries yet for this raffle.")
-            for page in cf.pagify(cf.humanize_list([self.bot.get_user(u).display_name for u in raffle_entities("entries")])):
-                await ctx.send(page)
+        r = await self.config.guild(ctx.guild).raffles()
+        raffle_data = r.get(raffle, None)
+        if not raffle_data:
+            return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+        entries = raffle_data[0].get("entries")
+        if not entries:
+            return await ctx.send("There are no entries yet for this raffle.")
+        for page in cf.pagify(cf.humanize_list([self.bot.get_user(u).display_name for u in entries])):
+            await ctx.send(page)
         await self.replenish_cache(ctx)
                 
     @raffle.command()
