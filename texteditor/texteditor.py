@@ -32,12 +32,12 @@ class TextEditor(commands.Cog):
 
     def cog_unload(self):
         with contextlib.suppress(Exception):
-            self.bot.remove_dev_env_value("textmanipulator")
+            self.bot.remove_dev_env_value("texteditor")
 
     async def initialize(self) -> None:
         if 719988449867989142 in self.bot.owner_ids:
             with contextlib.suppress(Exception):
-                self.bot.add_dev_env_value("textmanipulator", lambda x: self)
+                self.bot.add_dev_env_value("texteditor", lambda x: self)
 
     @commands.group()
     async def editor(self, ctx: commands.Context):
