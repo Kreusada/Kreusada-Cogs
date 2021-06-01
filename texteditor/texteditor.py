@@ -7,8 +7,6 @@ import random
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import bold, box
 
-# TODO: Rewrite
-
 
 class TextEditor(commands.Cog):
     """
