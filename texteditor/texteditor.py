@@ -123,7 +123,7 @@ class TextEditor(commands.Cog):
     @editor.command(name="trim", aliases=["strip"], usage='[trimmer=" "] <text>')
     async def editor_trim(self, ctx: commands.Context, trimmer: Optional[str] = " ", *, text: str):
         """Trim the outskirts of the text."""
-        await ctx.send(box(text.strip(trimmer)))
+        await ctx.send(box(text.strip(trimmer).strip()))
 
     @editor.command(name="shuffle", aliases=["jumble"])
     async def editor_shuffle(self, ctx: commands.Context, *, text: str):
