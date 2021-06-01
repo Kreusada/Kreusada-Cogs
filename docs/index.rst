@@ -47,7 +47,7 @@ Useful Links
     cog_spoilerchannel
     cog_staff
     cog_termino
-    cog_textmanipulator
+    cog_texteditor
     cog_timestables
     cog_vinfo
     cog_votechannel

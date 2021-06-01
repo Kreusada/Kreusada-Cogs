@@ -43,11 +43,11 @@ Available cogs list
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | termino         | Custom shutdown/restart responses with predicates.           | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
-| textmanipulator | Manipulate text and words with tools.                        | Tools   | Kreusada       |
+| texteditor      | Edit and manipulate with text.                               | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | timestables     | Learn your times tables with an 'against the clock' game.    | Fun     | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
-| vinfo           | Obtain version info for third-party cogs and dependencies.   | Fun     | Kreusada       |
+| vinfo           | Obtain version info for third-party cogs and dependencies.   | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | votechannel     | Designate a channel to add voting reactions (customizable).  | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+

@@ -86,9 +86,9 @@
   - termino/*
   - docs/cog_termino
   - docs/_deprecated/changelog_termino
-"Cog: TextManipulator":
-  - textmanipulator/*
-  - docs/cog_textmanipulator
+"Cog: TextEditor":
+  - texteditor/*
+  - docs/cog_texteditor
   - docs/_deprecated/changelog_textmanipulator
 "Cog: TimesTables":
   - timestables/*
