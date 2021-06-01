@@ -1,9 +1,0 @@
-{
-	"author": ["Kreusada"],
-	"description": "Manipulate text with different tools.",
-    "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_textmanipulator.html",
-	"short": "Manipulate text.",
-	"tags": ["Text", "Editor", "Format"],
-	"type": "COG",
-	"end_user_data_statement": "This cog does not persistently store data or metadata about users."
-}
