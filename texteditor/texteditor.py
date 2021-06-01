@@ -120,7 +120,7 @@ class TextEditor(commands.Cog):
         """Remove something from the text."""
         await ctx.send(box(text.replace(remove, "")))
 
-    @editor.command(name="trim", aliases=["strip"])
+    @editor.command(name="trim", aliases=["strip"], usage='[trimmer=" "] <text>')
     async def editor_trim(self, ctx: commands.Context, trimmer: Optional[str] = " ", *, text: str):
         """Trim the outskirts of the text."""
         await ctx.send(box(text.strip(trimmer)))
