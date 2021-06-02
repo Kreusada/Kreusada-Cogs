@@ -80,7 +80,7 @@ class Termino(commands.Cog):
             return
         author = await self.config.restarted_author()
         try:
-            await ch.send(conf["restarted_message"].replace("{author}", author))
+            await ch.send(conf["restarted_message"].replace(r"{author}", author))
         except discord.Forbidden as e:
             log.info("Unable to send a confirmation message to the restart channel")
             log.debug(f"Unable to send a message to channel: {ch.guild} ({ch.guild.id})", exc_info=e)
@@ -104,7 +104,7 @@ class Termino(commands.Cog):
         """Attempts to restart [botname]."""
         restart_message = await self.config.restart_message()
         restart_conf = await self.config.confirm_restart()
-        message = restart_message.replace("{author}", ctx.author.name)
+        message = restart_message.replace(r"{author}", ctx.author.name)
         if restart_conf:
             conf = await self.confirmation(ctx, "restart")
         if not restart_conf or conf:
