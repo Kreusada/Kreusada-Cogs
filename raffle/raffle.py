@@ -499,7 +499,7 @@ class Raffle(commands.Cog):
                 f"Owner: {self.bot.get_user(owner).name} ({owner})\n"
                 f"Entries: {entries}"
             )
-            if not any([rolesreq, agereq, prevented_users]):
+            if not any([rolesreq, agereq, joinreq, prevented_users]):
                 message += "\nConditions: None"
             else:
                 if rolesreq:
@@ -520,14 +520,17 @@ class Raffle(commands.Cog):
 
     @edit.command()
     async def accage(self, ctx, raffle: str, new_account_age: Union[int, bool]):
-        """Edit the account age requirement for a raffle."""
+        """Edit the account age requirement for a raffle.
+        
+        Use `0` or `false` to disable this condition.
+        """
         await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
             if isinstance(new_account_age, bool):
-                if new_account_age is False:
+                if not new_account_age:
                     with contextlib.suppress(KeyError):
                         del raffle_data[0]["account_age"]
                     return await ctx.send("Account age requirement removed from this raffle.")
@@ -543,63 +546,72 @@ class Raffle(commands.Cog):
 
     @edit.command()
     async def joinage(self, ctx, raffle: str, new_join_age: Union[int, bool]):
-        """Edit the join age requirement for a raffle."""
+        """Edit the join age requirement for a raffle.
+        
+        Use `0` or `false` to disable this condition.
+        """
         await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
-            if isinstance(new_join_age, bool):
-                if new_join_age is False:
-                    with contextlib.suppress(KeyError):
-                        del raffle_data[0]["join_age"]
-                    return await ctx.send("Join age requirement removed from this raffle.")
-                else:
-                    return await ctx.send("Please provide a number, or \"false\" to disable this condition.")
-            try:
-                RaffleManager.parse_joinage(ctx, new_join_age)
-            except BadArgument as e:
-                return await ctx.send(self.format_traceback(e))
-            raffle_data[0]["join_age"] = new_join_age
-            await ctx.send("Join age requirement updated for this raffle.")
+            if not new_join_age:
+                with contextlib.suppress(KeyError):
+                    del raffle_data[0]["join_age"]
+                return await ctx.send("Join age requirement removed from this raffle.")
+            elif new_join_age is True:
+                return await ctx.send("Please provide a number, or \"false\" to disable this condition.")
+            else:
+                try:
+                    RaffleManager.parse_joinage(ctx, new_join_age)
+                except BadArgument as e:
+                    return await ctx.send(self.format_traceback(e))
+                raffle_data[0]["join_age"] = new_join_age
+                await ctx.send("Join age requirement updated for this raffle.")
         await self.replenish_cache(ctx)
 
     @edit.command()
     async def description(self, ctx, raffle: str, *, description: Union[bool, str]):
-        """Edit the description of a raffle."""
+        """Edit the description for a raffle.
+        
+        Use `0` or `false` to remove this feature.
+        """
         await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
-            if isinstance(description, bool):
-                if description is False:
-                    with contextlib.suppress(KeyError):
-                        del raffle_data[0]["description"]
-                    return await ctx.send("Description removed from this raffle.")
-                else:
-                    return await ctx.send("Please provide a number, or \"false\" to disable the description.")
-            raffle_data[0]["description"] = description
-            await ctx.send("Description updated for this raffle.")
+            if not description:
+                with contextlib.suppress(KeyError):
+                    del raffle_data[0]["description"]
+                return await ctx.send("Description removed from this raffle.")
+            elif description is True:
+                return await ctx.send("Please provide a number, or \"false\" to disable the description.")
+            else:
+                raffle_data[0]["description"] = description
+                await ctx.send("Description updated for this raffle.")
         await self.replenish_cache(ctx)
 
     @edit.command()
     async def maxentries(self, ctx, raffle: str, maximum_entries: Union[int, bool]):
-        """Edit the max entries requirement for a raffle."""
+        """Edit the max entries requirement for a raffle.
+        
+        Use `0` or `false` to disable this condition.
+        """
         await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
-            if isinstance(maximum_entries, bool):
-                if maximum_entries is False:
-                    with contextlib.suppress(KeyError):
-                        del raffle_data[0]["maximum_entries"]
-                    return await ctx.send("Maximum entries condition removed from this raffle.")
-                else:
-                    return await ctx.send("Please provide a number, or \"false\" to disable this condition.")
-            raffle_data[0]["maximum_entries"] = maximum_entries
-            await ctx.send("Max entries requirement updated for this raffle.")
+            if not maximum_entries:
+                with contextlib.suppress(KeyError):
+                    del raffle_data[0]["maximum_entries"]
+                return await ctx.send("Maximum entries condition removed from this raffle.")
+            elif maximum_entries is True:
+                return await ctx.send("Please provide a number, or \"false\" to disable this condition.")
+            else:
+                raffle_data[0]["maximum_entries"] = maximum_entries
+                await ctx.send("Max entries requirement updated for this raffle.")
         await self.replenish_cache(ctx)
 
     @edit.group()
