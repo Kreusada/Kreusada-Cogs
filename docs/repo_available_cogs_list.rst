@@ -15,6 +15,8 @@ Available cogs list
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | codify          | Get messages and transform them into code blocks.            | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
+| cogpaths        | Get various paths for a cog.                                 | Tools   | Kreusada       |
++-----------------+--------------------------------------------------------------+---------+----------------+
 | consoleclearer  | Completely clear your Red console.                           | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | dehoister       | Dehoist new users with a variety of powerful tools.          | Mod     | Kreusada       |
