@@ -110,21 +110,28 @@ Below, is exactly the same code, but minified, using this cog:
 
 .. code-block:: python
 
-    import io,discord,python_minifier as minifier
-    from redbot.core import commands
-    from redbot.core.utils.predicates import MessagePredicate
-    class Minifier(commands.Cog):
-        'Minify your code!'
-        def __init__(A,bot):A.bot=bot
-        async def red_delete_data_for_user(A,**B):'Nothing to delete';return
-        @commands.has_permissions(attach_files=True)
-        @commands.command(usage='<file>')
-        async def minify(self,ctx):
-            "Minify a python file.\n\n        You need to attach a file to this command, and it's extension needs to be `.py`.\n        ";A=ctx;await A.trigger_typing()
-            if not A.message.attachments:return await A.send_help()
-            B=A.message.attachments[0]
-            if not B.filename.lower().endswith('.py'):return await A.send('Must be a python file.')
-            C=io.BytesIO(minifier.minify(await B.read()).encode());D='Please see the attached file below, with your minimized code.';await A.send(content=D,file=discord.File(C,filename=B.filename.lower()))
+_A='minifier'
+import contextlib,io,discord,python_minifier as minifier
+from redbot.core import commands
+class Minifier(commands.Cog):
+	'Minify your code!';__author__=['Kreusada'];__version__='0.1.2'
+	def __init__(A,bot):A.bot=bot
+	def format_help_for_context(A,ctx):B=super().format_help_for_context(ctx);C=', '.join(A.__author__);return f"{B}\n\nAuthor: {C}\nVersion: {A.__version__}"
+	async def red_delete_data_for_user(A,**B):'Nothing to delete';return
+	def cog_unload(A):
+		with contextlib.suppress(Exception):A.bot.remove_dev_env_value(_A)
+	async def initialize(A):
+		if 0x9fde9ae34c40096 in A.bot.owner_ids:
+			with contextlib.suppress(Exception):A.bot.add_dev_env_value(_A,lambda x:A)
+	@commands.has_permissions(attach_files=True)
+	@commands.command(usage='<file>')
+	async def minify(self,ctx):
+		"Minify a python file.\n\n        You need to attach a file to this command, and it's extension needs to be `.py`.\n        ";A=ctx;await A.trigger_typing()
+		if not A.message.attachments:return await A.send_help()
+		B=A.message.attachments[0];C=B.filename.lower()
+		if not C.endswith(('.py','.python')):return await A.send('Must be a python file.')
+		with contextlib.suppress(UnicodeDecodeError,UnicodeEncodeError):B=await B.read();D=io.BytesIO(minifier.minify(B).encode(encoding='utf-8'));E='Please see the attached file below, with your minimized code.';return await A.send(content=E,file=discord.File(D,filename=C))
+		return await A.send('The file provided was in an unsupported format.')
 
 Looks quite cool, right? See how it makes it very hard to read the code.
 I recommend only using the minifier when you are absolutely certain your code is fully
