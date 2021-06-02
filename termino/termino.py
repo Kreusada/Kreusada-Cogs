@@ -20,7 +20,7 @@ class Termino(commands.Cog):
     """Customize bot shutdown and restart messages, with predicates, too."""
 
     __author__ = ["Kreusada"]
-    __version__ = "1.0.2"
+    __version__ = "1.0.3"
 
     def __init__(self, bot):
         self.bot = bot
@@ -28,12 +28,12 @@ class Termino(commands.Cog):
         self.config.register_global(
             shutdown_message=f"Shutting down... {default_wave}",
             restarted_message="I have successfully restarted.",
+            restarted_author=None,
             restart_message="Restarting...",
             restart_channel=None,
             confirm_shutdown=True,
             confirm_restart=True,
         )
-        self.var_formatter = lambda x, y: y.replace("{author}", x.author.display_name)
         self.startup_task = self.bot.loop.create_task(self.startup())
 
     def cog_unload(self):
@@ -78,8 +78,9 @@ class Termino(commands.Cog):
         # Or that we cannot find that channel
         if maybe_channel is None or (ch := self.bot.get_channel(maybe_channel)) is None:
             return
+        author = await self.config.restarted_author()
         try:
-            await ch.send(conf["restarted_message"])
+            await ch.send(conf["restarted_message"].replace("{author}", author))
         except discord.Forbidden as e:
             log.info("Unable to send a confirmation message to the restart channel")
             log.debug(f"Unable to send a message to channel: {ch.guild} ({ch.guild.id})", exc_info=e)
@@ -103,13 +104,14 @@ class Termino(commands.Cog):
         """Attempts to restart [botname]."""
         restart_message = await self.config.restart_message()
         restart_conf = await self.config.confirm_restart()
-        message = self.var_formatter(ctx, restart_message)
+        message = restart_message.replace("{author}", ctx.author.name)
         if restart_conf:
             conf = await self.confirmation(ctx, "restart")
         if not restart_conf or conf:
             await ctx.send(message)
             log.info(f"{ctx.me.name} was restarted by {ctx.author} ({now})")
             await self.config.restart_channel.set(ctx.channel.id)
+            await self.config.restarted_author.set(ctx.author.name)
             return await self.bot.shutdown(restart=True)
         else:
             await ctx.send("I will not be restarting.")
@@ -120,7 +122,7 @@ class Termino(commands.Cog):
         """Shuts down [botname]."""
         shutdown_message = await self.config.shutdown_message()
         shutdown_conf = await self.config.confirm_shutdown()
-        message = self.var_formatter(ctx, shutdown_message)
+        message = shutdown_message.replace(r"{author}", ctx.author.name)
         if shutdown_conf:
             conf = await self.confirmation(ctx, "shutdown")
         if not shutdown_conf or conf:
