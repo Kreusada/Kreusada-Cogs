@@ -1,4 +1,6 @@
 from .raffle import Raffle
 
-def setup(bot):
-    bot.add_cog(Raffle(bot))
+async def setup(bot):
+    cog = Raffle(bot)
+    await cog.initialize()
+    bot.add_cog(cog)

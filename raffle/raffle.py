@@ -152,13 +152,6 @@ class Raffle(commands.Cog):
         self.config = Config.get_conf(self, 583475034985340, force_registration=True)
         self.config.register_guild(raffles={})
 
-    async def initialize(self) -> None:
-        all_guilds = await self.config.all_guilds()
-        for k, v in all_guilds.items():
-            if not self.bot.get_guild(k):
-                return
-            ...
-
     @staticmethod
     def format_traceback(exc) -> str:
         boxit = lambda x, y: cf.box(f"{x}: {y}", lang="yaml")
@@ -198,6 +191,24 @@ class Raffle(commands.Cog):
                     for roleid in getter:
                         if not ctx.guild.get_role(roleid):
                             getter.remove(roleid)
+
+    def format_help_for_context(self, ctx: commands.Context) -> str:
+        context = super().format_help_for_context(ctx)
+        authors = ", ".join(self.__author__)
+        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+
+    async def red_delete_data_for_user(self, **kwargs):
+        """Nothing to delete"""
+        return
+
+    def cog_unload(self):
+        with contextlib.suppress(Exception):
+            self.bot.remove_dev_env_value("raffle")
+
+    async def initialize(self) -> None:
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(Exception):
+                self.bot.add_dev_env_value("raffle", lambda x: self)
 
     @commands.group()
     async def raffle(self, ctx: Context):
