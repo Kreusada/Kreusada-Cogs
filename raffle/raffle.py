@@ -4,7 +4,7 @@ import datetime
 import pathlib
 import random
 
-from typing import Union
+from typing import Union, List, Literal
 
 import discord
 import yaml
@@ -12,8 +12,8 @@ import yaml
 from redbot.core import commands, Config
 from redbot.core.commands import BadArgument, Context
 from redbot.core.utils import chat_formatting as cf
-from redbot.core.utils.menus import menu, DEFAULT_CONTROLS, start_adding_reactions
 from redbot.core.utils.predicates import MessagePredicate, ReactionPredicate
+from redbot.core.utils.menus import menu, DEFAULT_CONTROLS, close_menu, start_adding_reactions
 
 from yaml.parser import (
     ParserError as YAMLParserError,
@@ -35,15 +35,19 @@ join_age_checker = lambda ctx, x: x < (now - ctx.guild.created_at).days
 
 
 class RaffleError(Exception):
-    """Base exception for all raffle exceptions."""
+    """Base exception for all raffle exceptions.
+    
+    These exceptions are raised, but then formatted
+    in an except block to create a user-friendly
+    error in which the user can read and improve from."""
     pass
 
 
 class RequiredKeyError(RaffleError):
     """Raised when a raffle key is required."""
 
-    def __init__(self, **kwargs):
-        self.key = kwargs.get("key")
+    def __init__(self, key):
+        self.key = key
 
     def __str__(self):
         return f"The \"{self.key}\" key is required"
@@ -52,7 +56,7 @@ class RequiredKeyError(RaffleError):
 class UnknownEntityError(RaffleError):
     """Raised when an invalid role or user is provided to the parser."""
 
-    def __init__(self, data, _type):
+    def __init__(self, data, _type: Literal["user", "role"]):
         self.data = data
         self.type = _type
 
@@ -120,6 +124,8 @@ class RaffleManager(object):
                 raise BadArgument("Name must be str, not {}".format(type(self.name).__name__))
             if len(self.name) > 15:
                 raise BadArgument("Name must be under 15 characters, your raffle name had {}".format(len(self.name)))
+        else:
+            raise RequiredKeyError("name")
         if self.description:
             if not isinstance(self.description, str):
                 raise BadArgument("Description must be str, not {}".format(type(self.description).__name__))
@@ -210,6 +216,13 @@ class Raffle(commands.Cog):
             with contextlib.suppress(Exception):
                 self.bot.add_dev_env_value("raffle", lambda x: self)
 
+    async def compose_menu(self, ctx, embed_pages: List[discord.Embed]):
+        if len(embed_pages) == 1:
+            control = {"\N{CROSS MARK}": close_menu}
+        else:
+            control = DEFAULT_CONTROLS
+        return await menu(ctx, embed_pages, control)
+
     @commands.group()
     async def raffle(self, ctx: Context):
         """Manage raffles for your server."""
@@ -292,7 +305,7 @@ class Raffle(commands.Cog):
             raffle_entities("entries").append(ctx.author.id)
             if raffle_entities("maximum_entries") is not None:
                 raffle_data[0]["maximum_entries"] -= 1
-        await ctx.send(f"{ctx.author.mention} you have been added to the raffle!")
+        await ctx.send(f"{ctx.author.display_name} you have been added to the raffle!")
         await self.replenish_cache(ctx)
 
     @raffle.command()
@@ -385,7 +398,7 @@ class Raffle(commands.Cog):
             )
             embed.set_footer(text="Page {}/{}".format(index, len(data)))
             embeds.append(embed)
-        await menu(ctx, embeds, DEFAULT_CONTROLS)
+        await self.compose_menu(ctx, embeds)
         await self.replenish_cache(ctx)
 
     @raffle.command()
@@ -452,8 +465,14 @@ class Raffle(commands.Cog):
         entries = raffle_data[0].get("entries")
         if not entries:
             return await ctx.send("There are no entries yet for this raffle.")
+        embed_pages = []
         for page in cf.pagify(cf.humanize_list([self.bot.get_user(u).display_name for u in entries])):
-            await ctx.send(page)
+            embed = discord.Embed(
+                description=page,
+                color=await ctx.embed_colour()
+            )
+            embed_pages.append(embed)
+        await self.compose_menu(ctx, embed_pages)
         await self.replenish_cache(ctx)
                 
     @raffle.command()
