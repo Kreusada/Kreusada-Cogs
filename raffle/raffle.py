@@ -181,8 +181,11 @@ class RaffleManager(object):
             if not isinstance(self.end_message, str):
                 # Will render {} without quotes, best not to include the type.__name__ here
                 raise BadArgument("End message must be str")
-            # This will raise BadArgument
-            self.end_message.format(winner=RaffleSafeMember(discord.Member), raffle=r"{raffle}")
+            try:
+                # This will raise BadArgument
+                self.end_message.format(winner=RaffleSafeMember(discord.Member), raffle=r"{raffle}")
+            except KeyError as e:
+                raise BadArgument(f"{e} was an unexpected argument in your end_message block")
 
 
 class Components(enum.Enum):
