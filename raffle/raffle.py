@@ -109,14 +109,20 @@ class RaffleManager(object):
                 raise BadArgument("Account age days must be int, not {}".format(type(self.account_age).__name__))
             if not account_age_checker(self.account_age):
                 raise BadArgument("Account age days must be less than Discord's creation date")
+
+
         if self.join_age:
             if not isinstance(self.join_age, int):
                 raise BadArgument("Join age days must be int, not {}".format(type(self.join_age).__name__))
             if not join_age_checker(ctx, self.join_age):
                 raise BadArgument("Join age days must be less than this guild's creation date")
+
+
         if self.maximum_entries:
             if not isinstance(self.maximum_entries, int):
                 raise BadArgument("Maximum entries must be int, not {}".format(type(self.maximum_entries).__name__))
+
+
         if self.name:
             if not isinstance(self.name, str):
                 raise BadArgument("Name must be str, not {}".format(type(self.name).__name__))
@@ -124,9 +130,13 @@ class RaffleManager(object):
                 raise BadArgument("Name must be under 15 characters, your raffle name had {}".format(len(self.name)))
         else:
             raise RequiredKeyError("name")
+
+
         if self.description:
             if not isinstance(self.description, str):
                 raise BadArgument("Description must be str, not {}".format(type(self.description).__name__))
+
+
         if self.roles_needed_to_enter:
             if not isinstance(self.roles_needed_to_enter, (int, list)):
                 raise BadArgument("Roles must be int or list of ints, not {}".format(type(self.roles_needed_to_enter).__name__))
@@ -137,6 +147,8 @@ class RaffleManager(object):
             else:
                 if not ctx.guild.get_role(self.roles_needed_to_enter):
                     raise UnknownEntityError(self.roles_needed_to_enter, "role")
+
+
         if self.prevented_users:
             if not isinstance(self.prevented_users, (int, list)):
                 raise BadArgument("Prevented users must be int or list of ints, not {}".format(type(self.prevented_users).__name__))
@@ -279,19 +291,27 @@ class Raffle(commands.Cog):
             "optional description and various conditions. See below for"
             " an example:" + asset
         )
+
+
         try:
             content = await self.bot.wait_for("message", timeout=250, check=check)
         except asyncio.TimeoutError:
             return await ctx.send("You took too long to respond.")
+
+
         content = content.content
         valid = self.validator(self.cleanup_code(content))
         if not valid:
             return await ctx.send("Please provide valid YAML.")
+
+
         try:
             parser = RaffleManager(valid)
             parser.parser(ctx)
         except Exception as e:
             return await ctx.send(self.format_traceback(e))
+
+
         async with self.config.guild(ctx.guild).raffles() as raffle:
             rafflename = valid.get("name").lower()
             if rafflename in [x.lower() for x in raffle.keys()]:
@@ -317,6 +337,8 @@ class Raffle(commands.Cog):
                     ctx.clean_prefix
                 )
             )
+
+            
         await self.replenish_cache(ctx)
 
     @raffle.command()
@@ -324,28 +346,47 @@ class Raffle(commands.Cog):
         """Join a raffle."""
         r = await self.config.guild(ctx.guild).raffles()
         raffle_data = r.get(raffle, None)
+
         if not raffle_data:
             return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+
+
         raffle_entities = lambda x: raffle_data[0].get(x, None)
+
+
         if ctx.author.id in raffle_entities("entries"):
             return await ctx.send("You are already in this raffle.")
+
+
         if raffle_entities("prevented_users") and ctx.author.id in raffle_entities("prevented_users"):
             return await ctx.send("You are not allowed to join this particular raffle.")
+
+
         if ctx.author.id == raffle_entities("owner"):
             return await ctx.send("You cannot join your own raffle.")
+
+
         if raffle_entities("maximum_entries") and raffle_entities("maximum_entries") == 0:
             return await ctx.send("Sorry, the maximum number of users have entered this raffle.")
+
+
         if raffle_entities("roles_needed_to_enter"):
             for r in raffle_entities("roles_needed_to_enter"):
                 if not r in [x.id for x in ctx.author.roles]:
                     return await ctx.send("You are missing a required role: {}".format(ctx.guild.get_role(r).mention))
+
+
         if raffle_entities("account_age") and raffle_entities("account_age") > (now - ctx.author.created_at).days:
                 return await ctx.send("Your account must be at least {} days old to join.".format(raffle_entities("account_age")))
+
+
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_entities = lambda x: r[raffle][0].get(x, None)
             raffle_entities("entries").append(ctx.author.id)
             if raffle_entities("maximum_entries") is not None:
                 raffle_data[0]["maximum_entries"] -= 1
+
+
         await ctx.send(f"{ctx.author.display_name} you have been added to the raffle!")
         await self.replenish_cache(ctx)
 
