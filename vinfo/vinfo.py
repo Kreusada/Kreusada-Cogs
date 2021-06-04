@@ -206,7 +206,24 @@ class Vinfo(commands.Cog):
                 )
             await ctx.send(embed=embed)
             return
-
+        except OSError as e:
+            embed.title = f"Information on {module.upper()}"
+            embed.add_field(
+                name="Version Information",
+                value=box(
+                    "- An operating system error occured whilst trying to " 
+                    "retrieve version information for this module.",
+                    lang="diff"
+                )
+            )
+            if self.isdev():
+                embed.add_field(
+                    name="Quick Debug",
+                    value=box(f"__import__('{module}')\n>>> {e.__class__.__name__}: {e}", lang="py"),
+                    inline=False
+                )
+            await ctx.send(embed=embed)
+            return
         check_attrs = self.check_attrs(MOD)
         embed.title = f"Version Information on {MOD.__name__.upper()}"
 
