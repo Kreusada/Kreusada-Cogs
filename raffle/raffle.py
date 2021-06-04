@@ -61,6 +61,30 @@ class UnknownEntityError(RaffleError):
     def __str__(self):
         return f"\"{self.data}\" was not a valid {self.type}"
 
+class RaffleSafeMember(object):
+    """Used for formatting `discord.Member` attributes safely.
+    
+    Special thanks to Flame and Kenny for providing this. I
+    have modified the original slightly, which you can find here:
+
+    https://github.com/kennnyshiwa/kennnyshiwa-cogs/blob/
+    5a84d60018468e5c0346f7ee74b2b4650a6dade7/tickets/core.py#L7
+    """
+
+    def __init__(self, member: discord.Member):
+        self.name = member.name
+        self.mention = member.mention
+        self.id = member.id
+        self.display_name = member.display_name
+        self.discriminator = member.discriminator
+        self.name_and_descriminator = f"{self.name}#{self.discriminator}"
+
+    def __str__(self):
+        return self.name
+
+    def __getattr__(self):
+        raise BadArgument#(r"Your `{winner}` was not set correctly")
+
 class RaffleManager(object):
     """Parses the required and relevant yaml data to ensure
     that it matches the specified requirements."""
@@ -81,12 +105,17 @@ class RaffleManager(object):
             data.get("prevented_users", None)
             or data.get("prevented_user", None)
         )
+        self.end_message = data.get("end_message", None)
 
     @classmethod
     def shorten_description(cls, description, length=50):
         if len(description) > length:
             return description[:length].rstrip() + '...'
         return description
+
+    @classmethod
+    def format_end_message(cls, message: str, raffle_name: str):
+        return message.replace(r"{raffle}", raffle_name)
 
     @classmethod
     def parse_accage(cls, accage: int):
@@ -160,6 +189,13 @@ class RaffleManager(object):
                 if not ctx.bot.get_user(self.prevented_users):
                     raise UnknownEntityError(self.prevented_users, "user")
 
+        if self.end_message:
+            if not isinstance(self.end_message, str):
+                raise BadArgument("End message must be str, not {}".format(type(self.prevented_users).__name__))
+            # This will raise BadArgument
+
+            self.end_message.format(winner=RaffleSafeMember(discord.Member))
+
 
 class Components(enum.Enum):
     """All of the components which can be
@@ -175,6 +211,11 @@ class Components(enum.Enum):
     description = (
         str, 
         "The description for the raffle. This information appears in the raffle info command."
+    )
+
+    end_message = (
+        str,
+        "The message used to end the raffle. Defaults to \"Congratulations {winner.mention}, you have won the {raffle} raffle!\""
     )
 
     account_age = (
@@ -237,7 +278,7 @@ class Raffle(commands.Cog):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             for v in list(r.values()):
-                
+
                 getter = v[0].get("entries")
                 for userid in getter:
                     if not self.bot.get_user(userid):
@@ -312,7 +353,7 @@ class Raffle(commands.Cog):
         try:
             parser = RaffleManager(valid)
             parser.parser(ctx)
-        except Exception as e:
+        except (RaffleError, BadArgument) as e:
             return await ctx.send(self.format_traceback(e))
 
 
@@ -329,6 +370,7 @@ class Raffle(commands.Cog):
             }
 
             conditions = {
+                "end_message": valid.get("end_message", None),
                 "account_age": valid.get("account_age", None),
                 "join_age": valid.get("join_age", None),
                 "roles_needed_to_enter": valid.get("roles_needed_to_enter" or "role_needed_to_enter", []),
@@ -615,23 +657,25 @@ class Raffle(commands.Cog):
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
 
-            raffle_entries = raffle_data[0].get("entries", None)
-            if not raffle_entries:
+            raffle_entities = lambda x: raffle_data[0].get(x, None)
+
+            if not raffle_entities("entries"):
                 return await ctx.send("There are no participants yet for this raffle.")
-            winner = random.choice(raffle_entries)
+            winner = random.choice(raffle_entities("entries"))
+
+            if raffle_entities("end_message"):
+                message = raffle_entities("end_message")
+            else:
+                message = "Congratulations {winner.mention}, you have won the {raffle} raffle!"
+
+            message = RaffleManager.format_end_message(message.format(winner=self.bot.get_user(winner)), raffle)
 
             # Let's add a bit of suspense, shall we? :P
             await ctx.send("Picking a winner from the pool...")
             await ctx.trigger_typing()
             await asyncio.sleep(2)
 
-            await ctx.send(
-                "Congratulations {}, you have won the {} raffle! {}".format(
-                    self.bot.get_user(winner).mention,
-                    raffle,
-                    ":tada:"
-                )
-            )
+            await ctx.send(message)
 
             r.pop(raffle)
 
