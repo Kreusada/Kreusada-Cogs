@@ -312,12 +312,23 @@ class Raffle(commands.Cog):
             with contextlib.suppress(Exception):
                 self.bot.add_dev_env_value("raffle", lambda x: self)
 
+    async def cog_check(self, ctx: commands.Context):
+        return ctx.guild is not None
+
     async def compose_menu(self, ctx, embed_pages: List[discord.Embed]):
         if len(embed_pages) == 1:
             control = {"\N{CROSS MARK}": close_menu}
         else:
             control = DEFAULT_CONTROLS
         return await menu(ctx, embed_pages, control)
+
+    async def raffle_safe_member_scanner(self, ctx: commands.Context, content: str) -> None:
+        """We need this to check if the values are formatted properly."""
+        try:
+            # This can raise BadArgument, that's fine
+            content.format(winner=RaffleSafeMember(discord.Member), raffle=r"{raffle}")
+        except KeyError as e:
+            raise BadArgument(f"{e} was an unexpected argument in your new end message")
 
     @commands.group()
     async def raffle(self, ctx: Context):
@@ -411,7 +422,7 @@ class Raffle(commands.Cog):
                 data["description"] = description
 
             raffle[raffle_name] = data
-            await ctx.send("Raffle created. You can always add complex conditions with `[p]raffle edit` if you wish.")
+            await ctx.send("Raffle created. You can always add complex conditions with `{ctx.clean_prefix}raffle edit` if you wish.")
 
     @raffle.command()
     async def join(self, ctx: Context, raffle: str):
@@ -921,7 +932,7 @@ class Raffle(commands.Cog):
         await self.replenish_cache(ctx)
 
     @edit.command()
-    async def endmessage(self, ctx, raffle: str, end_message: Union[str, bool]):
+    async def endmessage(self, ctx, raffle: str, *, end_message: Union[bool, str]):
         """Edit the end message of a raffle.
         
         Use `0` or `false` to disable this condition.
@@ -941,6 +952,10 @@ class Raffle(commands.Cog):
                 return await ctx.send("Please provide a number, or \"false\" to disable this condition.")
 
             else:
+                try:
+                    await self.raffle_safe_member_scanner(ctx, end_message)
+                except BadArgument as e:
+                    return await ctx.send(self.format_traceback(e))
                 raffle_data["end_message"] = end_message
                 await ctx.send("End message updated for this raffle.")
 
