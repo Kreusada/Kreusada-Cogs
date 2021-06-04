@@ -82,7 +82,7 @@ class RaffleSafeMember(object):
     def __str__(self):
         return self.name
 
-    def __getattr__(self, *args):
+    def __getattr__(self, *_args):
         raise BadArgument(r"Your `{winner}` was not set correctly")
 
 class RaffleManager(object):
@@ -112,10 +112,6 @@ class RaffleManager(object):
         if len(description) > length:
             return description[:length].rstrip() + '...'
         return description
-
-    @classmethod
-    def format_end_message(cls, message: str, raffle_name: str):
-        return message.replace(r"{raffle}", raffle_name)
 
     @classmethod
     def parse_accage(cls, accage: int):
@@ -193,8 +189,7 @@ class RaffleManager(object):
             if not isinstance(self.end_message, str):
                 raise BadArgument("End message must be str, not {}".format(type(self.prevented_users).__name__))
             # This will raise BadArgument
-
-            self.end_message.format(winner=RaffleSafeMember(discord.Member))
+            self.end_message.format(winner=RaffleSafeMember(discord.Member), raffle=r"{raffle}")
 
 
 class Components(enum.Enum):
@@ -668,7 +663,7 @@ class Raffle(commands.Cog):
             else:
                 message = "Congratulations {winner.mention}, you have won the {raffle} raffle!"
 
-            message = RaffleManager.format_end_message(message.format(winner=self.bot.get_user(winner)), raffle)
+            message = message.format(winner=RaffleSafeMember(member=self.bot.get_user(winner)), raffle=raffle)
 
             # Let's add a bit of suspense, shall we? :P
             await ctx.send("Picking a winner from the pool...")
