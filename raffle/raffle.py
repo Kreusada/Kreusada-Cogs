@@ -887,6 +887,32 @@ class Raffle(commands.Cog):
 
         await self.replenish_cache(ctx)
 
+    @edit.command()
+    async def endmessage(self, ctx, raffle: str, end_message: Union[str, bool]):
+        """Edit the end message of a raffle.
+        
+        Use `0` or `false` to disable this condition.
+        """
+        async with self.config.guild(ctx.guild).raffles() as r:
+
+            raffle_data = r.get(raffle, None)
+            if not raffle_data:
+                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+
+            if not end_message:
+                with contextlib.suppress(KeyError):
+                    del raffle_data[0]["end_message"]
+                return await ctx.send("End message feature removed from this raffle. It will now use the default.")
+
+            elif end_message is True:
+                return await ctx.send("Please provide a number, or \"false\" to disable this condition.")
+
+            else:
+                raffle_data[0]["end_message"] = end_message
+                await ctx.send("End message updated for this raffle.")
+
+        await self.replenish_cache(ctx)
+
     @edit.group()
     async def prevented(self, ctx):
         """Manage prevented users in a raffle."""
