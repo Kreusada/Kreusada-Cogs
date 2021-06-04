@@ -243,7 +243,7 @@ class Raffle(commands.Cog):
                 getter = v[0].get("prevented_users", None)
                 if getter:
                     for userid in getter:
-                        if not self.bot.get_user(userid):
+                        if not ctx.guild.get_member(userid):
                             getter.remove(userid)
                 getter = v[0].get("roles_needed_to_enter", None)
                 if getter:
@@ -324,8 +324,9 @@ class Raffle(commands.Cog):
                 "account_age": valid.get("account_age", None),
                 "join_age": valid.get("join_age", None),
                 "roles_needed_to_enter": valid.get("roles_needed_to_enter" or "role_needed_to_enter", []),
-                "prevented_users": valid.get("maximum_entries", None),
-                "description": valid.get("description", None)
+                "prevented_users": valid.get("prevented_users", None),
+                "description": valid.get("description", None),
+                "maximum_entries": valid.get("maximum_entries", None)
             }
             for k, v in conditions.items():
                 if v:
@@ -338,7 +339,7 @@ class Raffle(commands.Cog):
                 )
             )
 
-            
+
         await self.replenish_cache(ctx)
 
     @raffle.command()
@@ -426,7 +427,6 @@ class Raffle(commands.Cog):
     async def end(self, ctx: Context, raffle: str):
         """End a raffle."""
         msg = await ctx.send(f"Ending the `{raffle}` raffle...")
-        await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
@@ -435,9 +435,10 @@ class Raffle(commands.Cog):
             if not ctx.author.id == raffle_entities("owner"):
                 return await ctx.send("You are not the owner of this raffle.")
             r.pop(raffle)
+        # Sometimes its lengthy for big raffles, so we'll put this here for shorter raffles.
+        await asyncio.sleep(1)
         with contextlib.suppress(discord.NotFound):
-            await msg.delete()
-        await ctx.send("Raffle ended.")
+            await msg.edit(content="Raffle ended.")
         await self.replenish_cache(ctx)
     
     @raffle.command()
@@ -484,6 +485,7 @@ class Raffle(commands.Cog):
         await self.replenish_cache(ctx)
 
     @raffle.command()
+    @commands.guildowner()
     async def teardown(self, ctx: Context):
         """End ALL ongoing raffles."""
         await ctx.trigger_typing()
@@ -594,42 +596,102 @@ class Raffle(commands.Cog):
     @raffle.command()
     async def info(self, ctx: Context, raffle: str):
         """Get information about a certain raffle."""
-        await ctx.trigger_typing()
         async with self.config.guild(ctx.guild).raffles() as r:
             raffle_data = r.get(raffle, None)
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
             raffle_entities = lambda x: raffle_data[0].get(x, None)
-            name = raffle
-            description = raffle_entities("description")
-            rolesreq = raffle_entities("roles_needed_to_enter")
-            agereq = raffle_entities("account_age")
-            joinreq = raffle_entities("join_age")
-            prevented_users = raffle_entities("prevented_users")
-            owner = raffle_entities("owner")
-            maximum_entries = raffle_entities("maximum_entries")
-            entries = len(raffle_entities("entries"))
-            message = ""
-            if maximum_entries == 0:
-                message += "This raffle is no longer accepting entries.\n"
-            message += (
-                f"\nRaffle name: {name}\n"
-                f"Description: {description or 'No description was provided.'}\n"
-                f"Owner: {self.bot.get_user(owner).name} ({owner})\n"
-                f"Entries: {entries}"
+            properties = {
+                "name": raffle,
+                "description": raffle_entities("description"),
+                "rolesreq": raffle_entities("roles_needed_to_enter"),
+                "agereq": raffle_entities("account_age"),
+                "joinreq": raffle_entities("join_age"),
+                "prevented_users": raffle_entities("prevented_users"),
+                "owner": raffle_entities("owner"),
+                "maximum_entries": raffle_entities("maximum_entries"),
+                "entries": len(raffle_entities("entries")),
+            }
+
+            embed = discord.Embed(
+                title="Raffle information | {}".format(properties["name"]),
+                description=properties["description"] or cf.italics("No description was provided."),
+                color=await ctx.embed_colour(),
+                timestamp=datetime.datetime.now(),
             )
-            if not any([rolesreq, agereq, joinreq, prevented_users]):
-                message += "\nConditions: None"
-            else:
-                if rolesreq:
-                    message += "\nRoles Required: " + ", ".join(ctx.guild.get_role(r).name for r in rolesreq)
-                if agereq:
-                    message += "\nAccount age requirement in days: {}".format(agereq)
-                if joinreq:
-                    message += "\nGuild join age requirement in days: {}".format(joinreq)
-                if prevented_users:
-                    message += "\nPrevented Users: " + ", ".join(self.bot.get_user(u).name for u in prevented_users)
-            await ctx.send(cf.box(message, lang="yaml"))
+
+            embed.add_field(
+                name="Owner",
+                value=self.bot.get_user(properties["owner"]).mention,
+                inline=True
+            )
+
+            embed.add_field(
+                name="Entries",
+                value=properties["entries"],
+                inline=True
+            )
+
+            if properties["maximum_entries"]:
+                embed.add_field(
+                    name="Max Entries",
+                    value=cf.humanize_number(properties["maximum_entries"]),
+                    inline=True
+                )
+
+            if any([properties["joinreq"], properties["agereq"]]):
+
+                age_requirements = []
+
+                if properties["joinreq"]:
+                    text = "Guild: {}".format( 
+                        properties["joinreq"]
+                    )
+                    age_requirements.append(text)
+
+                if properties["agereq"]:
+                    text = "Discord: {}\n".format(
+                        properties["agereq"]
+                    )
+                    age_requirements.append(text)
+                
+                embed.add_field(
+                    name="Age Requirements",
+                    value=cf.box("# Days since you've joined:\n" + "\n".join(age_requirements), lang="yaml"),
+                    inline=False
+                )
+
+            if properties["rolesreq"]:
+                roles = []
+                for role in properties["rolesreq"]:
+                    if not ctx.guild.get_role(role):
+                        continue
+                    roles.append(ctx.guild.get_role(role).name)
+
+                embed.add_field(
+                    name="Roles Required",
+                    value=cf.box("\n".join(f"+ @{v.lstrip('@')}" for v in roles), lang="diff"),
+                    inline=False
+                )
+            
+            if properties["prevented_users"]:
+                users = []
+                for user in properties["prevented_users"]:
+                    if not ctx.guild.get_member(user):
+                        continue
+                    if ctx.author == ctx.guild.get_member(user):
+                        users.append((">>> ", str(ctx.guild.get_member(user))))
+                    else:
+                        users.append(("#", str(ctx.guild.get_member(user))))
+
+                embed.add_field(
+                    name="Prevented Users",
+                    value=cf.box("\n".join(f"{v[0]}{c} {v[1]}" for c, v in enumerate(users, 1)), lang="md"),
+                    inline=False
+                )
+
+            embed.set_author(name=ctx.guild.name, icon_url=ctx.guild.icon_url)
+            await ctx.send(embed=embed)
         await self.replenish_cache(ctx)
 
     @raffle.group()
