@@ -82,8 +82,8 @@ class RaffleSafeMember(object):
     def __str__(self):
         return self.name
 
-    def __getattr__(self):
-        raise BadArgument#(r"Your `{winner}` was not set correctly")
+    def __getattr__(self, *args):
+        raise BadArgument(r"Your `{winner}` was not set correctly")
 
 class RaffleManager(object):
     """Parses the required and relevant yaml data to ensure
