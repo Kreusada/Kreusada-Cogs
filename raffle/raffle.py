@@ -8,7 +8,7 @@ import random
 import discord
 import yaml
 
-from typing import Union, List, Literal
+from typing import List, Literal, Optional, Union
 
 from redbot.core import commands, Config
 from redbot.core.commands import BadArgument, Context
@@ -90,7 +90,7 @@ class RaffleSafeMember(object):
         return self.name
 
     def __getattr__(self, *_args):
-        raise BadArgument(r"Your `{winner}` received an unexpected attribute.")
+        raise BadArgument(r"Your `{winner}` received an unexpected attribute")
 
 class RaffleManager(object):
     """Parses the required and relevant yaml data to ensure
@@ -195,7 +195,7 @@ class RaffleManager(object):
                 raise BadArgument(f"{e} was an unexpected argument in your end_message block")
 
 
-class Components(enum.Enum):
+class RaffleComponents(enum.Enum):
     """All of the components which can be
     used in a raffle. This class is mainly
     used for the ``[p]raffle conditions`` command.
@@ -277,18 +277,18 @@ class Raffle(commands.Cog):
 
             for v in list(r.values()):
 
-                getter = v[0].get("entries")
+                getter = v.get("entries")
                 for userid in getter:
                     if not self.bot.get_user(userid):
                         getter.remove(userid)
 
-                getter = v[0].get("prevented_users", None)
+                getter = v.get("prevented_users", None)
                 if getter:
                     for userid in getter:
                         if not ctx.guild.get_member(userid):
                             getter.remove(userid)
 
-                getter = v[0].get("roles_needed_to_enter", None)
+                getter = v.get("roles_needed_to_enter", None)
                 if getter:
                     for roleid in getter:
                         if not ctx.guild.get_role(roleid):
@@ -323,9 +323,14 @@ class Raffle(commands.Cog):
     async def raffle(self, ctx: Context):
         """Manage raffles for your server."""
 
-    @raffle.command()
+    @raffle.group()
     async def create(self, ctx: Context):
         """Create a raffle."""
+        pass
+
+    @create.command(name="complex")
+    async def _complex(self, ctx: Context):
+        """Create a raffle with complex conditions."""
         await ctx.trigger_typing()
         check = lambda x: x.author == ctx.author and x.channel == ctx.channel
         message = await ctx.send(
@@ -383,10 +388,30 @@ class Raffle(commands.Cog):
                 if v:
                     data[k] = v
 
-            raffle[rafflename] = [data]
+            raffle[rafflename] = data
             await ctx.send("Raffle created.")
 
         await self.replenish_cache(ctx)
+
+    @create.command()
+    async def simple(self, ctx, raffle_name: str, *, description: Optional[str] = None):
+        """Create a simple arguments with just a name and description."""
+        raffle_name = raffle_name.lower()
+        async with self.config.guild(ctx.guild).raffles() as raffle:
+
+            if raffle_name in [x.lower() for x in raffle.keys()]:
+                return await ctx.send("A raffle with this name already exists.")
+
+            data = {
+                "entries": [],
+                "owner": ctx.author.id,
+            }
+
+            if description:
+                data["description"] = description
+
+            raffle[raffle_name] = data
+            await ctx.send("Raffle created. You can always add complex conditions with `[p]raffle edit` if you wish.")
 
     @raffle.command()
     async def join(self, ctx: Context, raffle: str):
@@ -398,7 +423,7 @@ class Raffle(commands.Cog):
             return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
 
 
-        raffle_entities = lambda x: raffle_data[0].get(x, None)
+        raffle_entities = lambda x: raffle_data.get(x, None)
 
 
         if ctx.author.id in raffle_entities("entries"):
@@ -428,13 +453,11 @@ class Raffle(commands.Cog):
 
 
         async with self.config.guild(ctx.guild).raffles() as r:
-            raffle_entities = lambda x: r[raffle][0].get(x, None)
+            raffle_entities = lambda x: r[raffle].get(x, None)
             raffle_entities("entries").append(ctx.author.id)
-            if raffle_entities("maximum_entries") is not None:
-                raffle_data[0]["maximum_entries"] -= 1
 
 
-        await ctx.send(f"{ctx.author.mention} you have been added to the raffle!", delete_after=3)
+        await ctx.send(f"{ctx.author.mention} you have been added to the raffle! :tada:", delete_after=3)
         await self.replenish_cache(ctx)
 
     @raffle.command()
@@ -446,7 +469,7 @@ class Raffle(commands.Cog):
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
 
-            raffle_entries = raffle_data[0].get("entries")
+            raffle_entries = raffle_data.get("entries")
 
             if not ctx.author.id in raffle_entries:
                 return await ctx.send("You are not entered into this raffle.")
@@ -465,7 +488,7 @@ class Raffle(commands.Cog):
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
 
-            raffle_entities = lambda x: raffle_data[0].get(x)
+            raffle_entities = lambda x: raffle_data.get(x)
 
             if not ctx.author.id == raffle_entities("owner"):
                 return await ctx.send("You are not the owner of this raffle.")
@@ -488,7 +511,7 @@ class Raffle(commands.Cog):
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
 
-            raffle_owner = raffle_data[0].get("owner")
+            raffle_owner = raffle_data.get("owner")
             
             if not ctx.author.id == raffle_owner:
                 return await ctx.send("You are not the owner of this raffle.")
@@ -510,7 +533,7 @@ class Raffle(commands.Cog):
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
 
-            raffle_entities = lambda x: raffle_data[0].get(x)
+            raffle_entities = lambda x: raffle_data.get(x)
 
             if not ctx.author.id == raffle_entities("owner"):
                 return await ctx.send("You are not the owner of this raffle.")
@@ -533,7 +556,7 @@ class Raffle(commands.Cog):
 
         lines = []
         for k, v in sorted(r.items()):
-            description = v[0].get("description", None)
+            description = v.get("description", None)
             if not description:
                 description=""
             lines.append("**{}** {}".format(k, RaffleManager.shorten_description(description)))
@@ -618,7 +641,7 @@ class Raffle(commands.Cog):
         if not raffle_data:
             return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
 
-        entries = raffle_data[0].get("entries")
+        entries = raffle_data.get("entries")
 
         if not entries:
             return await ctx.send("There are no entries yet for this raffle.")
@@ -651,7 +674,7 @@ class Raffle(commands.Cog):
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
 
-            raffle_entities = lambda x: raffle_data[0].get(x, None)
+            raffle_entities = lambda x: raffle_data.get(x, None)
 
             if not raffle_entities("entries"):
                 return await ctx.send("There are no participants yet for this raffle.")
@@ -684,7 +707,7 @@ class Raffle(commands.Cog):
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
 
-            raffle_entities = lambda x: raffle_data[0].get(x, None)
+            raffle_entities = lambda x: raffle_data.get(x, None)
 
             properties = {
                 "name": raffle,
@@ -799,7 +822,7 @@ class Raffle(commands.Cog):
             if isinstance(new_account_age, bool):
                 if not new_account_age:
                     with contextlib.suppress(KeyError):
-                        del raffle_data[0]["account_age"]
+                        del raffle_data["account_age"]
                     return await ctx.send("Account age requirement removed from this raffle.")
                 else:
                     return await ctx.send("Please provide a number, or \"false\" to disable this condition.")
@@ -809,7 +832,7 @@ class Raffle(commands.Cog):
             except BadArgument as e:
                 return await ctx.send(self.format_traceback(e))
 
-            raffle_data[0]["account_age"] = new_account_age
+            raffle_data["account_age"] = new_account_age
             await ctx.send("Account age requirement updated for this raffle.")
 
         await self.replenish_cache(ctx)
@@ -828,7 +851,7 @@ class Raffle(commands.Cog):
 
             if not new_join_age:
                 with contextlib.suppress(KeyError):
-                    del raffle_data[0]["join_age"]
+                    del raffle_data["join_age"]
                 return await ctx.send("Join age requirement removed from this raffle.")
 
             elif new_join_age is True:
@@ -840,7 +863,7 @@ class Raffle(commands.Cog):
                 except BadArgument as e:
                     return await ctx.send(self.format_traceback(e))
 
-                raffle_data[0]["join_age"] = new_join_age
+                raffle_data["join_age"] = new_join_age
                 await ctx.send("Join age requirement updated for this raffle.")
 
         await self.replenish_cache(ctx)
@@ -859,14 +882,14 @@ class Raffle(commands.Cog):
 
             if not description:
                 with contextlib.suppress(KeyError):
-                    del raffle_data[0]["description"]
+                    del raffle_data["description"]
                 return await ctx.send("Description removed from this raffle.")
 
             elif description is True:
                 return await ctx.send("Please provide a number, or \"false\" to disable the description.")
 
             else:
-                raffle_data[0]["description"] = description
+                raffle_data["description"] = description
                 await ctx.send("Description updated for this raffle.")
 
         await self.replenish_cache(ctx)
@@ -885,14 +908,14 @@ class Raffle(commands.Cog):
 
             if not maximum_entries:
                 with contextlib.suppress(KeyError):
-                    del raffle_data[0]["maximum_entries"]
+                    del raffle_data["maximum_entries"]
                 return await ctx.send("Maximum entries condition removed from this raffle.")
 
             elif maximum_entries is True:
                 return await ctx.send("Please provide a number, or \"false\" to disable this condition.")
 
             else:
-                raffle_data[0]["maximum_entries"] = maximum_entries
+                raffle_data["maximum_entries"] = maximum_entries
                 await ctx.send("Max entries requirement updated for this raffle.")
 
         await self.replenish_cache(ctx)
@@ -911,14 +934,14 @@ class Raffle(commands.Cog):
 
             if not end_message:
                 with contextlib.suppress(KeyError):
-                    del raffle_data[0]["end_message"]
+                    del raffle_data["end_message"]
                 return await ctx.send("End message feature removed from this raffle. It will now use the default.")
 
             elif end_message is True:
                 return await ctx.send("Please provide a number, or \"false\" to disable this condition.")
 
             else:
-                raffle_data[0]["end_message"] = end_message
+                raffle_data["end_message"] = end_message
                 await ctx.send("End message updated for this raffle.")
 
         await self.replenish_cache(ctx)
@@ -937,7 +960,7 @@ class Raffle(commands.Cog):
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
 
-            prevented = raffle_data[0].get("prevented_users", [])
+            prevented = raffle_data.get("prevented_users", [])
 
             if member.id in prevented:
                 return await ctx.send("This user is already prevented in this raffle.")
@@ -956,7 +979,7 @@ class Raffle(commands.Cog):
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
 
-            prevented = raffle_data[0].get("prevented_users", [])
+            prevented = raffle_data.get("prevented_users", [])
 
             if member.id not in prevented:
                 return await ctx.send("This user was not already prevented in this raffle.")
@@ -975,14 +998,14 @@ class Raffle(commands.Cog):
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
 
-            prevented = raffle_data[0].get("prevented_users", None)
+            prevented = raffle_data.get("prevented_users", None)
 
             if prevented is None:
                 return await ctx.send("There are no prevented users.")
 
             with contextlib.suppress(KeyError):
                 # Still wanna remove empty list here
-                del raffle_data[0]["prevented_users"]        
+                del raffle_data["prevented_users"]        
 
             await ctx.send("Prevented list cleared for this raffle.")
 
@@ -1002,7 +1025,7 @@ class Raffle(commands.Cog):
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
 
-            roles = raffle_data[0]["roles_needed_to_enter"]
+            roles = raffle_data["roles_needed_to_enter"]
 
             if role.id in roles:
                 return await ctx.send("This role is already a requirement in this raffle.")
@@ -1021,7 +1044,7 @@ class Raffle(commands.Cog):
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
 
-            roles = raffle_data[0]["roles_needed_to_enter"]
+            roles = raffle_data["roles_needed_to_enter"]
 
             if role.id not in roles:
                 return await ctx.send("This role is not already a requirement in this raffle.")
@@ -1040,14 +1063,14 @@ class Raffle(commands.Cog):
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
 
-            rolesreq = raffle_data[0].get("roles_needed_to_enter", None)
+            rolesreq = raffle_data.get("roles_needed_to_enter", None)
 
             if rolesreq is None:
                 return await ctx.send("There are no required roles.")
 
             with contextlib.suppress(KeyError):
                 # Still wanna remove empty list here
-                del raffle_data[0]["roles_needed_to_enter"]        
+                del raffle_data["roles_needed_to_enter"]        
 
             await ctx.send("Role requirement list cleared for this raffle.")
 
@@ -1056,6 +1079,6 @@ class Raffle(commands.Cog):
     @raffle.command()
     async def conditions(self, ctx):
         """Get information about how conditions work."""
-        message = "\n".join(f"{e.name}: {e.value[0].__name__}\n\t{e.value[1]}" for e in Components)
+        message = "\n".join(f"{e.name}: {e.value[0].__name__}\n\t{e.value[1]}" for e in RaffleComponents)
         await ctx.send(box(message, lang="yaml"))
         await self.replenish_cache(ctx)
