@@ -1,13 +1,14 @@
 import asyncio
 import contextlib
 import datetime
+import enum
 import pathlib
 import random
 
-from typing import Union, List, Literal
-
 import discord
 import yaml
+
+from typing import Union, List, Literal
 
 from redbot.core import commands, Config
 from redbot.core.commands import BadArgument, Context
@@ -23,9 +24,6 @@ from yaml.parser import (
 
 with open(pathlib.Path(__file__).parent / "assets" / "raffle.yaml") as f:
     asset = cf.box("".join(f.readlines()), lang="yaml")
-
-with open(pathlib.Path(__file__).parent / "assets" / "conditions.yaml") as f:
-    conditions = cf.box("".join(f.readlines()), lang="yaml")
 
 now = datetime.datetime.now()
 discord_creation_date = datetime.datetime(2015, 5, 13)
@@ -149,6 +147,49 @@ class RaffleManager(object):
             else:
                 if not ctx.bot.get_user(self.prevented_users):
                     raise UnknownEntityError(self.prevented_users, "user")
+
+
+class Components(enum.Enum):
+    """All of the components which can be
+    used in a raffle. This class is mainly
+    used for the ``[p]raffle conditions`` command.
+    """
+
+    name = (
+        str, 
+        "The name of the raffle. This is the only REQUIRED field."
+    )
+
+    description = (
+        str, 
+        "The description for the raffle. This information appears in the raffle info command."
+    )
+
+    account_age = (
+        int, 
+        "The account age requirement for the user who joins the raffle. This must be specified in days."
+    )
+
+    join_age = (
+        int, 
+        "The number of days the user needs to be in the server for in order to join the raffle."
+    )
+
+    roles_needed_to_enter = (
+        list, 
+        "A list of discord roles which the user must have in order to join the raffle. These MUST be specified using IDs."
+    )
+
+    prevented_users = (
+        list, 
+        "A list of discord users who are not allowed to join the raffle. These MUST be specified using IDs."
+    )
+
+    maximum_entries = (
+        int, 
+        "The maximum number of entries allowed for a raffle."
+    )
+
 
 class Raffle(commands.Cog):
     """Create raffles for your server."""
@@ -466,12 +507,19 @@ class Raffle(commands.Cog):
         if not entries:
             return await ctx.send("There are no entries yet for this raffle.")
         embed_pages = []
-        for page in cf.pagify(cf.humanize_list([self.bot.get_user(u).display_name for u in entries])):
+        if len(entries) == 1:
             embed = discord.Embed(
-                description=page,
+                description=f"Looks like its only {self.bot.get_user(entries[0]).display_name} in here!",
                 color=await ctx.embed_colour()
             )
             embed_pages.append(embed)
+        else:
+            for page in cf.pagify(cf.humanize_list([self.bot.get_user(u).display_name for u in entries])):
+                embed = discord.Embed(
+                    description=page,
+                    color=await ctx.embed_colour()
+                )
+                embed_pages.append(embed)
         await self.compose_menu(ctx, embed_pages)
         await self.replenish_cache(ctx)
                 
@@ -751,5 +799,6 @@ class Raffle(commands.Cog):
     @raffle.command()
     async def conditions(self, ctx):
         """Get information about how conditions work."""
-        await ctx.send(conditions)
+        message = "\n".join(f"{e.name}: {e.value[0].__name__}\n\t{e.value[1]}" for e in Components)
+        await ctx.send(cf.box(message, lang="yaml"))
         await self.replenish_cache(ctx)
