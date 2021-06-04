@@ -108,16 +108,6 @@ class RaffleManager(object):
         self.end_message = data.get("end_message", None)
 
     @classmethod
-    def validator(data) -> Union[bool, dict]:
-        try:
-            loader = yaml.full_load(data)
-        except (YAMLParserError, YAMLScannerError, YAMLMarkedError):
-            return False
-        if not isinstance(loader, dict):
-            return False
-        return loader
-
-    @classmethod
     def shorten_description(cls, description, length=50):
         if len(description) > length:
             return description[:length].rstrip() + '...'
@@ -262,6 +252,16 @@ class Raffle(commands.Cog):
             return "\n".join(content.split("\n")[1:-1])
         return content.strip("` \n")
 
+    @staticmethod
+    def validator(data) -> Union[bool, dict]:
+        try:
+            loader = yaml.full_load(data)
+        except (YAMLParserError, YAMLScannerError, YAMLMarkedError):
+            return False
+        if not isinstance(loader, dict):
+            return False
+        return loader
+
     async def replenish_cache(self, ctx: Context) -> None:
         async with self.config.guild(ctx.guild).raffles() as r:
 
@@ -334,7 +334,7 @@ class Raffle(commands.Cog):
 
 
         content = content.content
-        valid = RaffleManager.validator(self.cleanup_code(content))
+        valid = self.validator(self.cleanup_code(content))
 
         if not valid:
             return await ctx.send("Please provide valid YAML.")
