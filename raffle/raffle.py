@@ -3,6 +3,7 @@ import contextlib
 import datetime
 import enum
 import json
+import logging
 import pathlib
 import random
 
@@ -18,6 +19,7 @@ from redbot.core.utils.menus import menu, DEFAULT_CONTROLS, close_menu, start_ad
 
 from redbot.core.utils.chat_formatting import (
     box,
+    inline,
     italics, 
     humanize_list, 
     humanize_number,
@@ -30,9 +32,6 @@ from yaml.parser import (
     MarkedYAMLError as YAMLMarkedError
 )
 
-with open(pathlib.Path(__file__).parent / "assets" / "raffle.yaml") as f:
-    asset = box("".join(f.readlines()), lang="yaml")
-
 with open(pathlib.Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
 
@@ -41,6 +40,8 @@ discord_creation_date = datetime.datetime(2015, 5, 13)
 
 account_age_checker = lambda x: x < (now - discord_creation_date).days
 join_age_checker = lambda ctx, x: x < (now - ctx.guild.created_at).days
+
+log = logging.getLogger("red.kreusada.raffle")
 
 
 class RaffleError(Exception):
@@ -344,6 +345,11 @@ class Raffle(commands.Cog):
     async def raffle(self, ctx: Context):
         """Manage raffles for your server."""
 
+    @raffle.command()
+    async def version(self, ctx: Context):
+        """Get the version of your Raffle cog."""
+        await ctx.send(inline(self.__version__))
+
     @raffle.group()
     async def create(self, ctx: Context):
         """Create a raffle."""
@@ -432,7 +438,7 @@ class Raffle(commands.Cog):
                 data["description"] = description
 
             raffle[raffle_name] = data
-            await ctx.send("Raffle created. You can always add complex conditions with `{ctx.clean_prefix}raffle edit` if you wish.")
+            await ctx.send(f"Raffle created. You can always add complex conditions with `{ctx.clean_prefix}raffle edit` if you wish.")
 
     @raffle.command()
     async def join(self, ctx: Context, raffle: str):
@@ -459,7 +465,7 @@ class Raffle(commands.Cog):
             return await ctx.send("You cannot join your own raffle.")
 
 
-        if raffle_entities("maximum_entries") and raffle_entities("entries") > raffle_entities("maximum_entries"):
+        if raffle_entities("maximum_entries") and len(raffle_entities("entries")) > raffle_entities("maximum_entries"):
             return await ctx.send("Sorry, the maximum number of users have entered this raffle.")
 
 
