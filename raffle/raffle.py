@@ -438,7 +438,7 @@ class Raffle(commands.Cog):
             return await ctx.send("You cannot join your own raffle.")
 
 
-        if raffle_entities("maximum_entries") and raffle_entities("maximum_entries") == 0:
+        if raffle_entities("maximum_entries") and raffle_entities("entries") > raffle_entities("maximum_entries"):
             return await ctx.send("Sorry, the maximum number of users have entered this raffle.")
 
 
