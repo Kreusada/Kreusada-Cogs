@@ -173,27 +173,19 @@ class RaffleManager(object):
 
 
         if self.roles_needed_to_enter:
-            if not isinstance(self.roles_needed_to_enter, (int, list)):
-                raise BadArgument("Roles must be int or list of ints, not {}".format(type(self.roles_needed_to_enter).__name__))
-            if isinstance(self.roles_needed_to_enter, list):
-                for r in self.roles_needed_to_enter:
-                    if not ctx.guild.get_role(r):
-                        raise UnknownEntityError(r, "role")
-            else:
-                if not ctx.guild.get_role(self.roles_needed_to_enter):
-                    raise UnknownEntityError(self.roles_needed_to_enter, "role")
+            if not isinstance(self.roles_needed_to_enter, list):
+                raise BadArgument("Roles must be a list of Discord role IDs, not {}".format(type(self.roles_needed_to_enter).__name__))
+            for r in self.roles_needed_to_enter:
+                if not ctx.guild.get_role(r):
+                    raise UnknownEntityError(r, "role")
 
 
         if self.prevented_users:
-            if not isinstance(self.prevented_users, (int, list)):
-                raise BadArgument("Prevented users must be int or list of ints, not {}".format(type(self.prevented_users).__name__))
-            if isinstance(self.prevented_users, list):
-                for u in self.prevented_users:
-                    if not ctx.bot.get_user(u):
-                        raise UnknownEntityError(u, "user")
-            else:
-                if not ctx.bot.get_user(self.prevented_users):
-                    raise UnknownEntityError(self.prevented_users, "user")
+            if not isinstance(self.prevented_users, list):
+                raise BadArgument("Prevented users must be a list of Discord user IDs, not {}".format(type(self.prevented_users).__name__))
+            for u in self.prevented_users:
+                if not ctx.bot.get_user(u):
+                    raise UnknownEntityError(u, "user")
 
         if self.end_message:
             if not isinstance(self.end_message, str):
