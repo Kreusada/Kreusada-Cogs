@@ -83,7 +83,7 @@ class RaffleSafeMember(object):
         return self.name
 
     def __getattr__(self, *_args):
-        raise BadArgument(r"Your `{winner}` was not set correctly")
+        raise BadArgument(r"Your `{winner}` received an unexpected attribute.")
 
 class RaffleManager(object):
     """Parses the required and relevant yaml data to ensure
@@ -106,6 +106,16 @@ class RaffleManager(object):
             or data.get("prevented_user", None)
         )
         self.end_message = data.get("end_message", None)
+
+    @classmethod
+    def validator(data) -> Union[bool, dict]:
+        try:
+            loader = yaml.full_load(data)
+        except (YAMLParserError, YAMLScannerError, YAMLMarkedError):
+            return False
+        if not isinstance(loader, dict):
+            return False
+        return loader
 
     @classmethod
     def shorten_description(cls, description, length=50):
@@ -187,7 +197,8 @@ class RaffleManager(object):
 
         if self.end_message:
             if not isinstance(self.end_message, str):
-                raise BadArgument("End message must be str, not {}".format(type(self.prevented_users).__name__))
+                # Will render {} without quotes, best not to include the type.__name__ here
+                raise BadArgument("End message must be str")
             # This will raise BadArgument
             self.end_message.format(winner=RaffleSafeMember(discord.Member), raffle=r"{raffle}")
 
@@ -259,16 +270,6 @@ class Raffle(commands.Cog):
             return "\n".join(content.split("\n")[1:-1])
         return content.strip("` \n")
 
-    @staticmethod
-    def validator(data) -> dict:
-        try:
-            loader = yaml.full_load(data)
-        except (YAMLParserError, YAMLScannerError, YAMLMarkedError):
-            return False
-        if not isinstance(loader, dict):
-            return False
-        return loader
-
     async def replenish_cache(self, ctx: Context) -> None:
         async with self.config.guild(ctx.guild).raffles() as r:
 
@@ -325,7 +326,7 @@ class Raffle(commands.Cog):
         """Create a raffle."""
         await ctx.trigger_typing()
         check = lambda x: x.author == ctx.author and x.channel == ctx.channel
-        await ctx.send(
+        message = await ctx.send(
             "Now you need to create your raffle using YAML.\n"
             "The `name` field is required, whilst you can also add an " 
             "optional description and various conditions. See below for"
@@ -334,13 +335,14 @@ class Raffle(commands.Cog):
 
 
         try:
-            content = await self.bot.wait_for("message", timeout=250, check=check)
+            content = await self.bot.wait_for("message", timeout=500, check=check)
         except asyncio.TimeoutError:
-            return await ctx.send("You took too long to respond.")
+            with contextlib.suppress(discord.NotFound):
+                await message.delete()
 
 
         content = content.content
-        valid = self.validator(self.cleanup_code(content))
+        valid = RaffleManager.validator(self.cleanup_code(content))
 
         if not valid:
             return await ctx.send("Please provide valid YAML.")
@@ -349,7 +351,8 @@ class Raffle(commands.Cog):
             parser = RaffleManager(valid)
             parser.parser(ctx)
         except (RaffleError, BadArgument) as e:
-            return await ctx.send(self.format_traceback(e))
+            exc = "An exception occured whilst parsing your data."
+            return await ctx.send(exc + self.format_traceback(e))
 
 
         async with self.config.guild(ctx.guild).raffles() as raffle:
@@ -379,13 +382,7 @@ class Raffle(commands.Cog):
                     data[k] = v
 
             raffle[rafflename] = [data]
-            await ctx.send(
-                "Raffle created. Type `{1}raffle join {0}` to join the raffle.".format(
-                    rafflename,
-                    ctx.clean_prefix
-                )
-            )
-
+            await ctx.send("Raffle created.")
 
         await self.replenish_cache(ctx)
 
