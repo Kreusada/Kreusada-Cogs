@@ -12,9 +12,16 @@ from typing import Union, List, Literal
 
 from redbot.core import commands, Config
 from redbot.core.commands import BadArgument, Context
-from redbot.core.utils import chat_formatting as cf
 from redbot.core.utils.predicates import MessagePredicate, ReactionPredicate
 from redbot.core.utils.menus import menu, DEFAULT_CONTROLS, close_menu, start_adding_reactions
+
+from redbot.core.utils.chat_formatting import (
+    box,
+    italics, 
+    humanize_list, 
+    humanize_number,
+    pagify
+)
 
 from yaml.parser import (
     ParserError as YAMLParserError,
@@ -23,7 +30,7 @@ from yaml.parser import (
 )
 
 with open(pathlib.Path(__file__).parent / "assets" / "raffle.yaml") as f:
-    asset = cf.box("".join(f.readlines()), lang="yaml")
+    asset = box("".join(f.readlines()), lang="yaml")
 
 now = datetime.datetime.now()
 discord_creation_date = datetime.datetime(2015, 5, 13)
@@ -245,7 +252,7 @@ class Raffle(commands.Cog):
 
     @staticmethod
     def format_traceback(exc) -> str:
-        boxit = lambda x, y: cf.box(f"{x}: {y}", lang="yaml")
+        boxit = lambda x, y: box(f"{x}: {y}", lang="yaml")
         return boxit(exc.__class__.__name__, exc)
 
     @staticmethod
@@ -466,7 +473,7 @@ class Raffle(commands.Cog):
             if not raffle_entities("entries"):
                 return await ctx.send("There are no entries yet for this raffle.")
 
-            for page in cf.pagify(cf.humanize_list([self.bot.get_user(u).mention for u in raffle_entities("entries")])):
+            for page in pagify(humanize_list([self.bot.get_user(u).mention for u in raffle_entities("entries")])):
                 await ctx.send(page)
 
         await self.replenish_cache(ctx)
@@ -532,7 +539,7 @@ class Raffle(commands.Cog):
             lines.append("**{}** {}".format(k, RaffleManager.shorten_description(description)))
 
         embeds = []
-        data = list(cf.pagify("\n".join(lines), page_length=1024))
+        data = list(pagify("\n".join(lines), page_length=1024))
 
         for index, page in enumerate(data, 1):
             embed = discord.Embed(
@@ -597,8 +604,8 @@ class Raffle(commands.Cog):
         if not raffle_data:
             return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
 
-        for page in cf.pagify(str({raffle: raffle_data})):
-            await ctx.send(cf.box(page, lang="json"))
+        for page in pagify(str({raffle: raffle_data})):
+            await ctx.send(box(page, lang="json"))
 
         await self.replenish_cache(ctx)
 
@@ -625,7 +632,7 @@ class Raffle(commands.Cog):
             )
             embed_pages.append(embed)
         else:
-            for page in cf.pagify(cf.humanize_list([self.bot.get_user(u).display_name for u in entries])):
+            for page in pagify(humanize_list([self.bot.get_user(u).display_name for u in entries])):
                 embed = discord.Embed(
                     description=page,
                     color=await ctx.embed_colour()
@@ -693,7 +700,7 @@ class Raffle(commands.Cog):
 
             embed = discord.Embed(
                 title="Raffle information | {}".format(properties["name"]),
-                description=properties["description"] or cf.italics("No description was provided."),
+                description=properties["description"] or italics("No description was provided."),
                 color=await ctx.embed_colour(),
                 timestamp=datetime.datetime.now(),
             )
@@ -713,7 +720,7 @@ class Raffle(commands.Cog):
             if properties["maximum_entries"]:
                 embed.add_field(
                     name="Max Entries",
-                    value=cf.humanize_number(properties["maximum_entries"]),
+                    value=humanize_number(properties["maximum_entries"]),
                     inline=True
                 )
 
@@ -735,7 +742,7 @@ class Raffle(commands.Cog):
                 
                 embed.add_field(
                     name="Age Requirements",
-                    value=cf.box("# Days since you've joined:\n" + "\n".join(age_requirements), lang="yaml"),
+                    value=box("# Days since you've joined:\n" + "\n".join(age_requirements), lang="yaml"),
                     inline=False
                 )
 
@@ -748,7 +755,7 @@ class Raffle(commands.Cog):
 
                 embed.add_field(
                     name="Roles Required",
-                    value=cf.box("\n".join(f"+ @{v.lstrip('@')}" for v in roles), lang="diff"),
+                    value=box("\n".join(f"+ @{v.lstrip('@')}" for v in roles), lang="diff"),
                     inline=False
                 )
             
@@ -764,7 +771,7 @@ class Raffle(commands.Cog):
 
                 embed.add_field(
                     name="Prevented Users",
-                    value=cf.box("\n".join(f"{v[0]}{c} {v[1]}" for c, v in enumerate(users, 1)), lang="md"),
+                    value=box("\n".join(f"{v[0]}{c} {v[1]}" for c, v in enumerate(users, 1)), lang="md"),
                     inline=False
                 )
 
@@ -1050,5 +1057,5 @@ class Raffle(commands.Cog):
     async def conditions(self, ctx):
         """Get information about how conditions work."""
         message = "\n".join(f"{e.name}: {e.value[0].__name__}\n\t{e.value[1]}" for e in Components)
-        await ctx.send(cf.box(message, lang="yaml"))
+        await ctx.send(box(message, lang="yaml"))
         await self.replenish_cache(ctx)
