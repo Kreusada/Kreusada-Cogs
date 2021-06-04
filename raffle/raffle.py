@@ -424,7 +424,7 @@ class Raffle(commands.Cog):
                 raffle_data[0]["maximum_entries"] -= 1
 
 
-        await ctx.send(f"{ctx.author.display_name} you have been added to the raffle!")
+        await ctx.send(f"{ctx.author.mention} you have been added to the raffle!", delete_after=3)
         await self.replenish_cache(ctx)
 
     @raffle.command()
@@ -442,7 +442,7 @@ class Raffle(commands.Cog):
                 return await ctx.send("You are not entered into this raffle.")
 
             raffle_entries.remove(ctx.author.id)
-            await ctx.send(f"{ctx.author.mention} you have been removed from the raffle.")
+            await ctx.send(f"{ctx.author.mention} you have been removed from the raffle.", delete_after=3)
 
         await self.replenish_cache(ctx)
 
