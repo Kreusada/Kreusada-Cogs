@@ -107,7 +107,7 @@
   - docs/_deprecated/changelog_votechannel
 "Category: Meta":
   - .github/*
-  - .github/**
+  - .github/*/*
   - ./*
 "Type: Docs":
   - docs/**/*

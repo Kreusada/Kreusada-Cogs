@@ -13,7 +13,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const is_status_label = (label) => label.name.startsWith('Status: ');
+            const is_status_label = (label) => label.name.startsWith('Triage');
             if (context.payload.issue.labels.some(is_status_label)) {
                 console.log('Issue already has Status label, skipping...');
                 return;
@@ -22,5 +22,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              labels: ['Status: Triage Requested']
+              labels: ['Triage Requested']
             });
