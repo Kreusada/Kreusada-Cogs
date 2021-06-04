@@ -249,10 +249,14 @@ class RaffleComponents(enum.Enum):
 class Raffle(commands.Cog):
     """Create raffles for your server."""
 
+    __author__ = ["Kreusada"]
+    __version__ = "1.0.0"
+
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, 583475034985340, force_registration=True)
         self.config.register_guild(raffles={})
+        self.docs = "https://kreusadacogs.readthedocs.io/en/latest/cog_raffle.html"
 
     @staticmethod
     def format_traceback(exc) -> str:
@@ -300,8 +304,10 @@ class Raffle(commands.Cog):
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
-        authors = ", ".join(self.__author__)
-        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+        authors = humanize_list(self.__author__)
+        fmtlink = lambda x, y: f"[{x}]({y})"
+        docnote = f"Please consider reading the {fmtlink('docs', self.docs)} if you haven't already.\n\n"
+        return f"{context}\n\n{docnote}Author: {authors}\nVersion: {self.__version__}"
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""
@@ -349,10 +355,10 @@ class Raffle(commands.Cog):
         await ctx.trigger_typing()
         check = lambda x: x.author == ctx.author and x.channel == ctx.channel
         message = await ctx.send(
-            "Now you need to create your raffle using YAML.\n"
-            "The `name` field is required, whilst you can also add an " 
-            "optional description and various conditions. See below for"
-            " an example:" + asset
+            "You're about to create a new raffle.\n"
+            "Please consider reading the docs about the various "
+            "conditional blocks if you haven't already.\n\n"
+            + self.docs
         )
 
 
