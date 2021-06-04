@@ -1,0 +1,11 @@
+{
+    "author": ["Kreusada"],
+    "description": "[BETA] Create raffles for your guild, customizable with many conditional blocks.",
+    "install_msg": "This cog is currently in BETA form. That means that it is still being developed, but has been opened up for people to try out and test. Please report any errors back to Kreusada#6666.\nThanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_raffle.html",
+    "short": "[BETA] Create raffles for your guild, customizable with many conditional blocks.",
+    "name": "Raffle",
+    "tags": ["Raffle", "Giveaway", "Fun", "Prizes"],
+    "requirements": [],
+    "type": "COG",
+    "end_user_data_statement": "This cog does not persistently store data or metadata about users."
+}

@@ -2,6 +2,7 @@ import asyncio
 import contextlib
 import datetime
 import enum
+import json
 import pathlib
 import random
 
@@ -31,6 +32,9 @@ from yaml.parser import (
 
 with open(pathlib.Path(__file__).parent / "assets" / "raffle.yaml") as f:
     asset = box("".join(f.readlines()), lang="yaml")
+
+with open(pathlib.Path(__file__).parent / "info.json") as fp:
+    __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
 
 now = datetime.datetime.now()
 discord_creation_date = datetime.datetime(2015, 5, 13)
