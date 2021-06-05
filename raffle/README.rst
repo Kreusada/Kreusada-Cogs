@@ -92,6 +92,13 @@ this would be to place quotation marks around your name content.
 This exception is raised when your name content has over 15 characters. Be sure to keep it
 nice and short, and then try again with a new name which is under 15 characters.
 
+.. code-block:: yaml
+
+    BadArgument: Name must only contain alphanumeric characters, that includes no spaces (detected character -> "[invalid character]")
+
+This exception is raised when your name contains a non-alphanumeric character. Please only
+use letters or numbers in your raffle name.
+
 ^^^^^^^^^^^
 description
 ^^^^^^^^^^^
@@ -296,6 +303,28 @@ provided as a number.
 
 This exception is raised when the maximum_entries was not provided in the correct type. 
 Please simply provide a number for this condition, without quotes.
+
+^^^^^^^^^^^^^
+on_end_action
+^^^^^^^^^^^^^
+
+This is the prompt for the bot when the a winner is picked for the raffle through
+``[p]raffle draw``. Must be one of the following:
+
+* ``end``: The raffle ends immediately after the first winner is picked.
+* ``remove_winner``: The winner is removed from the raffle's entries, but the raffle continues.
+* ``keep_winner``: The winner stays in the raffle, and could win again.
+
+If not specified, it defaults to ``keep_winner``.
+
+**Potential Exceptions**
+
+.. code-block:: yaml
+    
+    BadArgument: on_draw_action must be one of 'end', 'remove_winner', or 'keep_winner'
+
+This exception is raised when the on_end_action condition is not in the list provided
+above. These are the only actions available at this time.
 
 .. _raffle-commands:
 

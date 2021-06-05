@@ -161,6 +161,12 @@ class RaffleManager(object):
                 raise BadArgument("Name must be str, not {}".format(type(self.name).__name__))
             if len(self.name) > 15:
                 raise BadArgument("Name must be under 15 characters, your raffle name had {}".format(len(self.name)))
+            for char in self.name:
+                if not char.alnum():
+                    raise BadArgument(
+                        "Name must only contain alphanumeric characters, "
+                        "that includes no spaces (detected character -> \"{}\")".format(char)
+                    )
         else:
             raise RequiredKeyError("name")
 
