@@ -308,6 +308,7 @@ There are 31 in total.
 
 .. _raffle-command-raffle:
 
+
 ^^^^^^
 raffle
 ^^^^^^
@@ -386,6 +387,10 @@ raffle create simple
 
 Create a simple arguments with just a name and description.
 
+**Arguments:**
+    - `<name>` - The name for the raffle.
+    - `[description]` - The description for the raffle.
+
 .. _raffle-command-raffle-docs:
 
 ^^^^^^^^^^^
@@ -396,11 +401,11 @@ raffle docs
 
 .. code-block:: python
 
-    [p]raffle docs
+    [p]raffle docs 
 
 **Description**
 
-Get a link to these docs.
+Get a link to the docs.
 
 .. _raffle-command-raffle-draw:
 
@@ -417,6 +422,9 @@ raffle draw
 **Description**
 
 Draw a raffle and select a winner.
+
+**Arguments:**
+    - `<raffle>` - The name of the raffle to draw a winner from.
 
 .. _raffle-command-raffle-edit:
 
@@ -450,6 +458,12 @@ raffle edit accage
 
 Edit the account age requirement for a raffle.
 
+Use `0` or `false` to disable this condition.
+
+**Arguments:**
+    - `<raffle>` - The name of the raffle.
+    - `<new_account_age>` - The new account age requirement.
+
 .. _raffle-command-raffle-edit-allowed:
 
 ^^^^^^^^^^^^^^^^^^^
@@ -481,6 +495,10 @@ raffle edit allowed add
 **Description**
 
 Add a member to the allowed list of a raffle.
+
+**Arguments:**
+    - `<raffle>` - The name of the raffle.
+    - `<member>` - The member to add to the allowed list.
 
 .. _raffle-command-raffle-edit-allowed-clear:
 
@@ -514,6 +532,10 @@ raffle edit allowed remove
 
 Remove a member from the allowed list of a raffle.
 
+**Arguments:**
+    - `<raffle>` - The name of the raffle.
+    - `<member>` - The member to remove from the allowed list.
+
 .. _raffle-command-raffle-edit-description:
 
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -529,6 +551,12 @@ raffle edit description
 **Description**
 
 Edit the description for a raffle.
+
+Use `0` or `false` to remove this feature.
+
+**Arguments:**
+    - `<raffle>` - The name of the raffle.
+    - `<description>` - The new description.
 
 .. _raffle-command-raffle-edit-endmessage:
 
@@ -546,6 +574,12 @@ raffle edit endmessage
 
 Edit the end message of a raffle.
 
+Use `0` or `false` to disable this condition.
+
+**Arguments:**
+    - `<raffle>` - The name of the raffle.
+    - `<end_message>` - The new ending message.
+
 .. _raffle-command-raffle-edit-joinage:
 
 ^^^^^^^^^^^^^^^^^^^
@@ -562,6 +596,12 @@ raffle edit joinage
 
 Edit the join age requirement for a raffle.
 
+Use `0` or `false` to disable this condition.
+
+**Arguments:**
+    - `<raffle>` - The name of the raffle.
+    - `<new_join_age>` - The new join age requirement.
+
 .. _raffle-command-raffle-edit-maxentries:
 
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -577,6 +617,12 @@ raffle edit maxentries
 **Description**
 
 Edit the max entries requirement for a raffle.
+
+Use `0` or `false` to disable this condition.
+
+**Arguments:**
+    - `<raffle>` - The name of the raffle.
+    - `<maximum_entries>` - The new maximum number of entries.
 
 .. _raffle-command-raffle-edit-prevented:
 
@@ -610,6 +656,10 @@ raffle edit prevented add
 
 Add a member to the prevented list of a raffle.
 
+**Arguments:**
+    - `<raffle>` - The name of the raffle.
+    - `<member>` - The member to add to the prevented list.
+
 .. _raffle-command-raffle-edit-prevented-clear:
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -624,7 +674,10 @@ raffle edit prevented clear
 
 **Description**
 
-Clear the prevented list for a raffle..
+Clear the prevented list for a raffle.
+
+**Arguments:**
+    - `<raffle>` - The name of the raffle.
 
 .. _raffle-command-raffle-edit-prevented-remove:
 
@@ -642,9 +695,9 @@ raffle edit prevented remove
 
 Remove a member from the prevented list of a raffle.
 
-**Aliases**
-
-* ``raffle edit prevented remove del``
+**Arguments:**
+    - `<raffle>` - The name of the raffle.
+    - `<member>` - The member to remove from the prevented list.
 
 .. _raffle-command-raffle-edit-rolesreq:
 
@@ -678,6 +731,10 @@ raffle edit rolesreq add
 
 Add a role to the role requirements list of a raffle.
 
+**Arguments:**
+    - `<raffle>` - The name of the raffle.
+    - `<role>` - The role to add to the list of role requirements.
+
 .. _raffle-command-raffle-edit-rolesreq-clear:
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -692,7 +749,11 @@ raffle edit rolesreq clear
 
 **Description**
 
-Clear the prevented list for a raffle..
+Clear the prevented list for a raffle.
+
+
+**Arguments:**
+    - `<raffle>` - The name of the raffle.
 
 .. _raffle-command-raffle-edit-rolesreq-remove:
 
@@ -710,9 +771,9 @@ raffle edit rolesreq remove
 
 Remove a role from the role requirements list of a raffle.
 
-**Aliases**
-
-* ``raffle edit rolesreq remove del``
+**Arguments:**
+    - `<raffle>` - The name of the raffle.
+    - `<role>` - The role to remove from the list of role requirements.
 
 .. _raffle-command-raffle-end:
 
@@ -730,6 +791,9 @@ raffle end
 
 End a raffle.
 
+**Arguments:**
+    - `<raffle>` - The name of the raffle to end.
+
 .. _raffle-command-raffle-info:
 
 ^^^^^^^^^^^
@@ -745,6 +809,9 @@ raffle info
 **Description**
 
 Get information about a certain raffle.
+
+**Arguments:**
+    - `<raffle>` - The name of the raffle to get information for.
 
 .. _raffle-command-raffle-join:
 
@@ -762,6 +829,9 @@ raffle join
 
 Join a raffle.
 
+**Arguments:**
+    - `<raffle>` - The name of the raffle to join.
+
 .. _raffle-command-raffle-kick:
 
 ^^^^^^^^^^^
@@ -776,7 +846,11 @@ raffle kick
 
 **Description**
 
-Kick a user from your raffle.
+Kick a member from your raffle.
+
+**Arguments:**
+    - `<raffle>` - The name of the raffle.
+    - `<member>` - The member to kick from the raffle.
 
 .. _raffle-command-raffle-leave:
 
@@ -793,6 +867,9 @@ raffle leave
 **Description**
 
 Leave a raffle.
+
+**Arguments:**
+    - `<raffle>` - The name of the raffle to leave.
 
 .. _raffle-command-raffle-list:
 
@@ -826,6 +903,9 @@ raffle members
 
 Get all the members of a raffle.
 
+**Arguments:**
+    - `<raffle>` - The name of the raffle to get the members from.
+
 .. _raffle-command-raffle-mention:
 
 ^^^^^^^^^^^^^^
@@ -842,6 +922,9 @@ raffle mention
 
 Mention all the users entered into a raffle.
 
+**Arguments:**
+    - `<raffle>` - The name of the raffle to mention all the members in.
+
 .. _raffle-command-raffle-raw:
 
 ^^^^^^^^^^
@@ -856,7 +939,12 @@ raffle raw
 
 **Description**
 
-View the raw dict for a raffle.
+View the raw dictionary for a raffle.
+
+**Arguments:**
+    - `<raffle>` - The name of the raffle.
+
+.. _raffle-command-raffle-refresh:
 
 ^^^^^^^^^^^^^^
 raffle refresh
@@ -866,13 +954,11 @@ raffle refresh
 
 .. code-block:: python
 
-    [p]raffle refresh
+    [p]raffle refresh 
 
 **Description**
 
-Manually refresh all raffles to remove deleted users
-or roles from the cache. This function is called anyway
-at the end of every raffle command.
+Refresh all of the raffle caches.
 
 .. _raffle-command-raffle-teardown:
 
