@@ -59,7 +59,6 @@ Useful Links
     :maxdepth: 2
 
     repo_available_cogs_list
-    repo_changelog
     repo_installation
     repo_license
     repo_support
