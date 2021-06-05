@@ -434,6 +434,70 @@ raffle edit accage
 
 Edit the account age requirement for a raffle.
 
+.. _raffle-command-raffle-edit-allowed:
+
+^^^^^^^^^^^^^^^^^^^
+raffle edit allowed
+^^^^^^^^^^^^^^^^^^^
+
+**Syntax**
+
+.. code-block:: python
+
+    [p]raffle edit allowed 
+
+**Description**
+
+Manage the allowed users list in a raffle.
+
+.. _raffle-command-raffle-edit-allowed-add:
+
+^^^^^^^^^^^^^^^^^^^^^^^
+raffle edit allowed add
+^^^^^^^^^^^^^^^^^^^^^^^
+
+**Syntax**
+
+.. code-block:: python
+
+    [p]raffle edit allowed add <raffle> <member>
+
+**Description**
+
+Add a member to the allowed list of a raffle.
+
+.. _raffle-command-raffle-edit-allowed-clear:
+
+^^^^^^^^^^^^^^^^^^^^^^^^^
+raffle edit allowed clear
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**Syntax**
+
+.. code-block:: python
+
+    [p]raffle edit allowed clear <raffle>
+
+**Description**
+
+Clear the allowed list for a raffle.
+
+.. _raffle-command-raffle-edit-allowed-remove:
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+raffle edit allowed remove
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**Syntax**
+
+.. code-block:: python
+
+    [p]raffle edit allowed remove <raffle> <member>
+
+**Description**
+
+Remove a member from the allowed list of a raffle.
+
 .. _raffle-command-raffle-edit-description:
 
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -560,7 +624,7 @@ raffle edit prevented remove
 
 **Description**
 
-Add a member to the prevented list of a raffle.
+Remove a member from the prevented list of a raffle.
 
 **Aliases**
 
@@ -777,6 +841,22 @@ raffle raw
 **Description**
 
 View the raw dict for a raffle.
+
+^^^^^^^^^^^^^^
+raffle refresh
+^^^^^^^^^^^^^^
+
+**Syntax**
+
+.. code-block:: python
+
+    [p]raffle refresh
+
+**Description**
+
+Manually refresh all raffles to remove deleted users
+or roles from the cache. This function is called anyway
+at the end of every raffle command.
 
 .. _raffle-command-raffle-teardown:
 
