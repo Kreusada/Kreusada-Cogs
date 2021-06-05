@@ -94,10 +94,16 @@ nice and short, and then try again with a new name which is under 15 characters.
 
 .. code-block:: yaml
 
-    BadArgument: Name must only contain alphanumeric characters, that includes no spaces (detected character -> "[invalid character]")
+    BadArgument: Name must only contain alphanumeric characters, found %.
+    Invalid character: hello_there%
+                                  ^
 
 This exception is raised when your name contains a non-alphanumeric character. Please only
-use letters or numbers in your raffle name.
+use letters or numbers in your raffle name. 
+
+.. note::
+
+    Underscores are excluded from this alphanumeric rule, so feel free to use them too.
 
 ^^^^^^^^^^^
 description

@@ -162,10 +162,15 @@ class RaffleManager(object):
             if len(self.name) > 15:
                 raise BadArgument("Name must be under 15 characters, your raffle name had {}".format(len(self.name)))
             for char in self.name:
-                if not char.alnum():
+                if char == "_":
+                    # We want to allow underscores
+                    continue
+                if not char.isalnum():
+                    index = self.name.index(char)
+                    marker = f"{self.name}\n{' ' * (index+19)}^"
                     raise BadArgument(
                         "Name must only contain alphanumeric characters, "
-                        "that includes no spaces (detected character -> \"{}\")".format(char)
+                        "found {}.\n\nInvalid character: {}".format(char, marker)
                     )
         else:
             raise RequiredKeyError("name")
