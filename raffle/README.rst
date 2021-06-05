@@ -889,3 +889,9 @@ raffle version
 **Description**
 
 Get the version of your Raffle cog.
+
+---------------
+Receive Support
+---------------
+
+Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_kreusada-cogs`.
