@@ -170,7 +170,7 @@ class RaffleManager(object):
                     marker = f"{self.name}\n{' ' * (index+19)}^"
                     raise BadArgument(
                         "Name must only contain alphanumeric characters, "
-                        "found {}.\n\nInvalid character: {}".format(char, marker)
+                        "found {}.\nInvalid character: {}".format(char, marker)
                     )
         else:
             raise RequiredKeyError("name")
