@@ -524,7 +524,8 @@ class Raffle(commands.Cog):
     async def template(self, ctx: Context):
         """Get a template of a raffle."""
         with open(pathlib.Path(__file__).parent / "template.yaml") as f:
-            await ctx.send(box("".join(f.readlines()), lang="yaml"))
+            docs = "**For more information:** {}\n".format(self.docs)
+            await ctx.send(docs + box("".join(f.readlines()), lang="yaml"))
 
     @raffle.command()
     async def join(self, ctx: Context, raffle: str):
@@ -903,6 +904,7 @@ class Raffle(commands.Cog):
                 "owner": raffle_data.get("owner", None),
                 "maximum_entries": raffle_data.get("maximum_entries", None),
                 "entries": raffle_data.get("entries", None),
+                "end_message": raffle_data.get("end_message", None),
                 "on_end_action": raffle_data.get("on_end_action", None)
             }
 
@@ -916,13 +918,13 @@ class Raffle(commands.Cog):
             embed.add_field(
                 name="Owner",
                 value=self.bot.get_user(properties["owner"]).mention,
-                inline=False
+                inline=True
             )
 
             embed.add_field(
                 name="Entries",
                 value=len(properties["entries"]),
-                inline=False
+                inline=True
             )
 
             embed.add_field(
@@ -933,10 +935,17 @@ class Raffle(commands.Cog):
 
             if properties["maximum_entries"]:
                 embed.add_field(
-                    name="Max Entries",
+                    name="Maximum Entries",
                     value=humanize_number(properties["maximum_entries"]),
                     inline=False
                 )
+
+            winner_text = properties["end_message"] or r"Congratulations {winner.mention}, you have won the {raffle} raffle!"
+            embed.add_field(
+                name="Winner text",
+                value=winner_text,
+                inline=False
+            )
 
             if any([properties["joinreq"], properties["agereq"]]):
 

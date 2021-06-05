@@ -1,5 +1,5 @@
 # name is a required block:
-name: raffle_name_here
+name: raffle_name
 description: The description for your raffle goes here.
 # end_message is the message which is sent at the end of the raffle.
 # you can use the `raffle` variable for the raffle's name, and the
