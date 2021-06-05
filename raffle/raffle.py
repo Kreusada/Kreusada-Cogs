@@ -470,7 +470,12 @@ class Raffle(commands.Cog):
 
     @create.command()
     async def simple(self, ctx, raffle_name: str, *, description: Optional[str] = None):
-        """Create a simple arguments with just a name and description."""
+        """Create a simple arguments with just a name and description.
+        
+        **Arguments:**
+            - `<name>` - The name for the raffle.
+            - `[description]` - The description for the raffle.
+        """
         raffle_name = raffle_name.lower()
         async with self.config.guild(ctx.guild).raffles() as raffle:
 
@@ -491,7 +496,11 @@ class Raffle(commands.Cog):
 
     @raffle.command()
     async def join(self, ctx: Context, raffle: str):
-        """Join a raffle."""
+        """Join a raffle.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle to join.
+        """
         r = await self.config.guild(ctx.guild).raffles()
         raffle_data = r.get(raffle, None)
 
@@ -543,7 +552,11 @@ class Raffle(commands.Cog):
 
     @raffle.command()
     async def leave(self, ctx: Context, raffle: str):
-        """Leave a raffle."""
+        """Leave a raffle.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle to leave.
+        """
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
@@ -563,7 +576,11 @@ class Raffle(commands.Cog):
 
     @raffle.command()
     async def mention(self, ctx: Context, raffle: str):
-        """Mention all the users entered into a raffle."""
+        """Mention all the users entered into a raffle.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle to mention all the members in.
+        """
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
@@ -586,7 +603,11 @@ class Raffle(commands.Cog):
 
     @raffle.command()
     async def end(self, ctx: Context, raffle: str):
-        """End a raffle."""
+        """End a raffle.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle to end.
+        """
         msg = await ctx.send(f"Ending the `{raffle}` raffle...")
         async with self.config.guild(ctx.guild).raffles() as r:
 
@@ -621,7 +642,12 @@ class Raffle(commands.Cog):
 
     @raffle.command()
     async def kick(self, ctx: Context, raffle: str, member: discord.Member):
-        """Kick a user from your raffle."""
+        """Kick a member from your raffle.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle.
+            - `<member>` - The member to kick from the raffle.
+        """
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
@@ -718,7 +744,11 @@ class Raffle(commands.Cog):
 
     @raffle.command()
     async def raw(self, ctx: Context, raffle: str):
-        """View the raw dict for a raffle."""
+        """View the raw dictionary for a raffle.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle.
+        """
         r = await self.config.guild(ctx.guild).raffles()
 
         raffle_data = r.get(raffle, None)
@@ -733,7 +763,11 @@ class Raffle(commands.Cog):
 
     @raffle.command()
     async def members(self, ctx: Context, raffle: str):
-        """Get all the members of a raffle."""
+        """Get all the members of a raffle.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle to get the members from.
+        """
         r = await self.config.guild(ctx.guild).raffles()
 
         raffle_data = r.get(raffle, None)
@@ -767,7 +801,11 @@ class Raffle(commands.Cog):
 
     @raffle.command()
     async def draw(self, ctx: Context, raffle: str):
-        """Draw a raffle and select a winner."""
+        """Draw a raffle and select a winner.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle to draw a winner from.
+        """
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
@@ -801,7 +839,11 @@ class Raffle(commands.Cog):
 
     @raffle.command()
     async def info(self, ctx: Context, raffle: str):
-        """Get information about a certain raffle."""
+        """Get information about a certain raffle.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle to get information for.
+        """
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
@@ -938,6 +980,10 @@ class Raffle(commands.Cog):
         """Edit the account age requirement for a raffle.
         
         Use `0` or `false` to disable this condition.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle.
+            - `<new_account_age>` - The new account age requirement.
         """
         async with self.config.guild(ctx.guild).raffles() as r:
 
@@ -969,6 +1015,10 @@ class Raffle(commands.Cog):
         """Edit the join age requirement for a raffle.
         
         Use `0` or `false` to disable this condition.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle.
+            - `<new_join_age>` - The new join age requirement.
         """
         async with self.config.guild(ctx.guild).raffles() as r:
 
@@ -1001,6 +1051,10 @@ class Raffle(commands.Cog):
         """Edit the description for a raffle.
         
         Use `0` or `false` to remove this feature.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle.
+            - `<description>` - The new description.
         """
         async with self.config.guild(ctx.guild).raffles() as r:
 
@@ -1028,6 +1082,10 @@ class Raffle(commands.Cog):
         """Edit the max entries requirement for a raffle.
         
         Use `0` or `false` to disable this condition.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle.
+            - `<maximum_entries>` - The new maximum number of entries.
         """
         async with self.config.guild(ctx.guild).raffles() as r:
 
@@ -1055,6 +1113,10 @@ class Raffle(commands.Cog):
         """Edit the end message of a raffle.
         
         Use `0` or `false` to disable this condition.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle.
+            - `<end_message>` - The new ending message.
         """
         async with self.config.guild(ctx.guild).raffles() as r:
 
@@ -1089,7 +1151,12 @@ class Raffle(commands.Cog):
 
     @prevented.command(name="add")
     async def prevented_add(self, ctx, raffle: str, member: discord.Member):
-        """Add a member to the prevented list of a raffle."""
+        """Add a member to the prevented list of a raffle.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle.
+            - `<member>` - The member to add to the prevented list.
+        """
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
@@ -1109,7 +1176,12 @@ class Raffle(commands.Cog):
 
     @prevented.command(name="remove", aliases=["del"])
     async def prevented_remove(self, ctx, raffle: str, member: discord.Member):
-        """Remove a member from the prevented list of a raffle."""
+        """Remove a member from the prevented list of a raffle.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle.
+            - `<member>` - The member to remove from the prevented list.
+        """
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
@@ -1129,7 +1201,11 @@ class Raffle(commands.Cog):
 
     @prevented.command(name="clear")
     async def prevented_clear(self, ctx, raffle: str):
-        """Clear the prevented list for a raffle.."""
+        """Clear the prevented list for a raffle.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle.
+        """
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
@@ -1181,7 +1257,12 @@ class Raffle(commands.Cog):
 
     @allowed.command(name="add")
     async def allowed_add(self, ctx, raffle: str, member: discord.Member):
-        """Add a member to the allowed list of a raffle."""
+        """Add a member to the allowed list of a raffle.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle.
+            - `<member>` - The member to add to the allowed list.
+        """
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
@@ -1201,7 +1282,12 @@ class Raffle(commands.Cog):
 
     @allowed.command(name="remove", aliases=["del"])
     async def allowed_remove(self, ctx, raffle: str, member: discord.Member):
-        """Remove a member from the allowed list of a raffle."""
+        """Remove a member from the allowed list of a raffle.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle.
+            - `<member>` - The member to remove from the allowed list.
+        """
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
@@ -1221,7 +1307,7 @@ class Raffle(commands.Cog):
 
     @allowed.command(name="clear")
     async def allowed_clear(self, ctx, raffle: str):
-        """Clear the allowed list for a raffle.."""
+        """Clear the allowed list for a raffle."""
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
@@ -1275,7 +1361,12 @@ class Raffle(commands.Cog):
 
     @rolesreq.command(name="add")
     async def rolesreq_add(self, ctx, raffle: str, role: discord.Role):
-        """Add a role to the role requirements list of a raffle."""
+        """Add a role to the role requirements list of a raffle.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle.
+            - `<role>` - The role to add to the list of role requirements.
+        """
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
@@ -1298,7 +1389,12 @@ class Raffle(commands.Cog):
 
     @rolesreq.command(name="remove", aliases=["del"])
     async def rolereq_remove(self, ctx, raffle: str, role: discord.Role):
-        """Remove a role from the role requirements list of a raffle."""
+        """Remove a role from the role requirements list of a raffle.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle.
+            - `<role>` - The role to remove from the list of role requirements.
+        """
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
@@ -1318,7 +1414,12 @@ class Raffle(commands.Cog):
 
     @rolesreq.command(name="clear")
     async def rolereq_clear(self, ctx, raffle: str):
-        """Clear the prevented list for a raffle.."""
+        """Clear the prevented list for a raffle.
+
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle.
+        """
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
@@ -1365,7 +1466,7 @@ class Raffle(commands.Cog):
 
 
     @raffle.command()
-    async def conditions(self, ctx):
+    async def conditions(self, ctx: Context):
         """Get information about how conditions work."""
         message = "\n".join(f"{e.name}: {e.value[0].__name__}\n\t{e.value[1]}" for e in RaffleComponents)
         await ctx.send(box(message, lang="yaml"))
