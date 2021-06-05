@@ -519,6 +519,31 @@ class Raffle(commands.Cog):
             raffle[raffle_name] = data
             await ctx.send(f"Raffle created. You can always add complex conditions with `{ctx.clean_prefix}raffle edit` if you wish.")
 
+    @raffle.command()
+    async def asyaml(self, ctx: Context, raffle: str):
+        """Get a raffle in its YAML format.
+
+        **Arguments:**
+            - `<raffle>` - The name of the raffle to get the YAML for.
+        """
+        async with self.config.guild(ctx.guild).raffles() as r:
+
+            raffle_data = r.get(raffle, None)
+            if not raffle_data:
+                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+
+        quotes = lambda x: f'"{x}"'
+        relevant_data = [("name", raffle)]
+        for k, v in raffle_data.items():
+            if k in ("owner", "entries"):
+                # These are not user defined keys
+                continue
+            if isinstance(v, str):
+                v = quotes(v)
+            relevant_data.append((k, v))
+
+        message = "**YAML Format for the `{}` raffle**\n".format(raffle)
+        await ctx.send(message + box("\n".join(f"{x[0]}: {x[1]}" for x in relevant_data), lang="yaml"))
 
     @raffle.command()
     async def template(self, ctx: Context):

@@ -358,6 +358,25 @@ raffle
 
 Manage raffles for your server.
 
+.. _raffle-command-raffle-asyaml:
+
+^^^^^^^^^^^^^
+raffle asyaml
+^^^^^^^^^^^^^
+
+**Syntax**
+
+.. code-block:: python
+
+    [p]raffle asyaml <raffle> 
+
+**Description**
+
+Get a raffle in its YAML format.
+
+**Arguments:**
+    - `<raffle>` - The name of the raffle to get the YAML for.
+
 .. _raffle-command-raffle-conditions:
 
 ^^^^^^^^^^^^^^^^^
