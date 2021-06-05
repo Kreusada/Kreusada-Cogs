@@ -1011,6 +1011,22 @@ raffle teardown
 
 End ALL ongoing raffles.
 
+.. _raffle-command-raffle-template:
+
+^^^^^^^^^^^^^^^
+raffle template
+^^^^^^^^^^^^^^^
+
+**Syntax**
+
+.. code-block:: python
+
+    [p]raffle template 
+
+**Description**
+
+Get a template of an example raffle.
+
 .. _raffle-command-raffle-version:
 
 ^^^^^^^^^^^^^^

@@ -428,12 +428,15 @@ class Raffle(commands.Cog):
         """Create a raffle with complex conditions."""
         await ctx.trigger_typing()
         check = lambda x: x.author == ctx.author and x.channel == ctx.channel
-        message = await ctx.send(
+        message = (
             "You're about to create a new raffle.\n"
             "Please consider reading the docs about the various "
             "conditional blocks if you haven't already.\n\n"
             + self.docs
         )
+
+        message += "\n\n**Conditions Blocks:**" + box("\n".join(f"+ {e.name}" for e in RaffleComponents), lang="diff") 
+        await ctx.send(message)  
 
 
         try:
@@ -516,6 +519,12 @@ class Raffle(commands.Cog):
             raffle[raffle_name] = data
             await ctx.send(f"Raffle created. You can always add complex conditions with `{ctx.clean_prefix}raffle edit` if you wish.")
 
+
+    @raffle.command()
+    async def template(self, ctx: Context):
+        """Get a template of a raffle."""
+        with open(pathlib.Path(__file__).parent / "template.yaml") as f:
+            await ctx.send(box("".join(f.readlines()), lang="yaml"))
 
     @raffle.command()
     async def join(self, ctx: Context, raffle: str):
@@ -631,13 +640,13 @@ class Raffle(commands.Cog):
         **Arguments:**
             - `<raffle>` - The name of the raffle to end.
         """
-        msg = await ctx.send(f"Ending the `{raffle}` raffle...")
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
 
+            msg = await ctx.send(f"Ending the `{raffle}` raffle...")
             raffle_owner = raffle_data.get("owner")
             
             if not ctx.author.id == raffle_owner:
@@ -907,26 +916,26 @@ class Raffle(commands.Cog):
             embed.add_field(
                 name="Owner",
                 value=self.bot.get_user(properties["owner"]).mention,
-                inline=True
+                inline=False
             )
 
             embed.add_field(
                 name="Entries",
                 value=len(properties["entries"]),
-                inline=True
+                inline=False
             )
 
             embed.add_field(
                 name="End Action",
-                value=properties["on_end_action"] or "keep_winner",
-                inline=True
+                value=inline(properties["on_end_action"] or "keep_winner"),
+                inline=False
             )
 
             if properties["maximum_entries"]:
                 embed.add_field(
                     name="Max Entries",
                     value=humanize_number(properties["maximum_entries"]),
-                    inline=True
+                    inline=False
                 )
 
             if any([properties["joinreq"], properties["agereq"]]):
