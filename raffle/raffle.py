@@ -113,6 +113,7 @@ class RaffleManager(object):
         self.prevented_users = data.get("prevented_users", None)
         self.allowed_users = data.get("allowed_users", None)
         self.end_message = data.get("end_message", None)
+        self.on_draw_action = data.get("on_draw_action", None)
 
     @classmethod
     def shorten_description(cls, description, length=50):
@@ -201,6 +202,11 @@ class RaffleManager(object):
             except KeyError as e:
                 raise BadArgument(f"{e} was an unexpected argument in your end_message block")
 
+        if self.on_draw_action:
+            valid_actions = ("end", "remove_winner", "keep_winner")
+            if not isinstance(self.on_draw_action, str) or self.on_draw_action not in valid_actions:
+                raise BadArgument("on_draw_action must be one of 'end', 'remove_winner', or 'keep_winner'")
+
 
 class RaffleComponents(enum.Enum):
     """All of the components which can be
@@ -251,6 +257,11 @@ class RaffleComponents(enum.Enum):
     maximum_entries = (
         int, 
         "The maximum number of entries allowed for a raffle."
+    )
+
+    on_end_action = (
+        str,
+        "The action to perform when a user is drawn. Must be one of 'end', 'remove_winner', or 'keep_winner', defaults to 'keep_winner'."
     )
 
 
@@ -455,7 +466,8 @@ class Raffle(commands.Cog):
                 "prevented_users": valid.get("prevented_users", None),
                 "allowed_users": valid.get("allowed_users", None),
                 "description": valid.get("description", None),
-                "maximum_entries": valid.get("maximum_entries", None)
+                "maximum_entries": valid.get("maximum_entries", None),
+                "on_end_action": valid.get("on_end_action", None),
             }
 
             for k, v in conditions.items():
@@ -823,6 +835,7 @@ class Raffle(commands.Cog):
             else:
                 message = "Congratulations {winner.mention}, you have won the {raffle} raffle!"
 
+            on_end_action = raffle_entities("on_end_action") or "keep_winner"
             message = message.format(winner=RaffleSafeMember(member=self.bot.get_user(winner)), raffle=raffle)
 
             # Let's add a bit of suspense, shall we? :P
@@ -832,7 +845,14 @@ class Raffle(commands.Cog):
 
             await ctx.send(message)
 
-            r.pop(raffle)
+            if on_end_action == "keep_winner":
+                return
+            if on_end_action == "remove_winner": 
+                raffle_entities("entries").remove(winner)
+                return
+            else:
+                # end
+                r.pop(raffle)
 
         await self.replenish_cache(ctx)
 
@@ -863,6 +883,7 @@ class Raffle(commands.Cog):
                 "owner": raffle_data.get("owner", None),
                 "maximum_entries": raffle_data.get("maximum_entries", None),
                 "entries": raffle_data.get("entries", None),
+                "on_end_action": raffle_data.get("on_end_action", None)
             }
 
             embed = discord.Embed(
@@ -881,6 +902,12 @@ class Raffle(commands.Cog):
             embed.add_field(
                 name="Entries",
                 value=len(properties["entries"]),
+                inline=True
+            )
+
+            embed.add_field(
+                name="End Action",
+                value=properties["on_end_action"] or "keep_winner",
                 inline=True
             )
 
@@ -1073,6 +1100,39 @@ class Raffle(commands.Cog):
             else:
                 raffle_data["description"] = description
                 await ctx.send("Description updated for this raffle.")
+
+        await self.replenish_cache(ctx)
+
+
+    @edit.command()
+    async def endaction(self, ctx, raffle: str, *, on_end_action: Union[bool, str]):
+        """Edit the on_end_action for a raffle.
+        
+        Use `0` or `false` to remove this feature.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle.
+            - `<on_end_action>` - The new action. Must be one of `end`, `remove_winner`, or `keep_winner`.
+        """
+        async with self.config.guild(ctx.guild).raffles() as r:
+
+            raffle_data = r.get(raffle, None)
+            if not raffle_data:
+                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+
+            if not on_end_action:
+                with contextlib.suppress(KeyError):
+                    del raffle_data["on_end_action"]
+                return await ctx.send("On end action set to the default: `keep_winner`.")
+
+            elif on_end_action is True:
+                return await ctx.send("Please provide a number, or \"false\" to disable the description.")
+
+            else:
+                if not on_end_action in ("end", "remove_winner", "keep_winner"):
+                    return await ctx.send("Please provide one of `end`, `remove_winner`, or `keep_winner`.")
+                raffle_data["on_end_action"] = on_end_action
+                await ctx.send("On end action updated for this raffle.")
 
         await self.replenish_cache(ctx)
 
