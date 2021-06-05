@@ -55,7 +55,7 @@ Available cogs list
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | minifier        | Minify your code with the python minifier.                   | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
-| mjolnir         |Try to lift Thor's hammer!                                    | Fun     | Jojo, Kreusada |
+| mjolnir         | Try to lift Thor's hammer!                                    | Fun     | Jojo, Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | namegenerator   | Generate random names will optional gender arguments.        | Fun     | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
@@ -64,6 +64,8 @@ Available cogs list
 | pingoverride    | Replace "Pong." with your own response!                      | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | quotes          | Get a random quote.                                          | Fun     | Kreusada       |
++-----------------+--------------------------------------------------------------+---------+----------------+
+| raffle          | Create raffles for your guild.                               | Fun     | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | ram             | Get your bot's random access memory.                         | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+

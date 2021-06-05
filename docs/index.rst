@@ -40,6 +40,7 @@ Useful Links
     cog_pingoverride
     cog_quotes
     cog_minifier
+    cog_raffle
     cog_ram
     cog_roleboards
     cog_rpsls

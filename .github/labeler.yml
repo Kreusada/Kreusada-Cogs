@@ -61,6 +61,9 @@
   - quotes/*
   - docs/cog_quotes
   - docs/_deprecated/changelog_quotes
+"Cog: Raffle":
+  - raffle/*
+  - docs/cog_raffle
 "Cog: RAM":
   - ram/*
   - docs/cog_ram
