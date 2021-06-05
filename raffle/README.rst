@@ -386,6 +386,22 @@ raffle create simple
 
 Create a simple arguments with just a name and description.
 
+.. _raffle-command-raffle-docs:
+
+^^^^^^^^^^^
+raffle docs
+^^^^^^^^^^^
+
+**Syntax**
+
+.. code-block:: python
+
+    [p]raffle docs
+
+**Description**
+
+Get a link to these docs.
+
 .. _raffle-command-raffle-draw:
 
 ^^^^^^^^^^^

@@ -389,6 +389,10 @@ class Raffle(commands.Cog):
         """Get the version of your Raffle cog."""
         await ctx.send(inline(self.__version__))
 
+    @raffle.command()
+    async def docs(self, ctx: Context):
+        """Get a link to the docs."""
+        message = "**Docs:** {0.docs}".format(self)
 
     @raffle.group()
     async def create(self, ctx: Context):
