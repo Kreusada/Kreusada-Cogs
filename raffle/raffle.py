@@ -109,14 +109,9 @@ class RaffleManager(object):
         self.account_age = data.get("account_age", None)
         self.join_age = data.get("join_age", None)
         self.maximum_entries = data.get("maximum_entries", None)
-        self.roles_needed_to_enter = (
-            data.get("roles_needed_to_enter", None) 
-            or data.get("role_needed_to_enter", None)
-        )
-        self.prevented_users = (
-            data.get("prevented_users", None)
-            or data.get("prevented_user", None)
-        )
+        self.roles_needed_to_enter = data.get("roles_needed_to_enter", None) 
+        self.prevented_users = data.get("prevented_users", None)
+        self.allowed_users = data.get("allowed_users", None)
         self.end_message = data.get("end_message", None)
 
     @classmethod
@@ -189,6 +184,13 @@ class RaffleManager(object):
                 if not ctx.bot.get_user(u):
                     raise UnknownEntityError(u, "user")
 
+        if self.allowed_users:
+            if not isinstance(self.allowed_users, list):
+                raise BadArgument("Allowed users must be a list of Discord user IDs, not {}".format(type(self.allowed_users).__name__))
+            for u in self.allowed_users:
+                if not ctx.bot.get_user(u):
+                    raise UnknownEntityError(u, "user")
+
         if self.end_message:
             if not isinstance(self.end_message, str):
                 # Will render {} without quotes, best not to include the type.__name__ here
@@ -239,6 +241,11 @@ class RaffleComponents(enum.Enum):
     prevented_users = (
         list, 
         "A list of discord users who are not allowed to join the raffle. These MUST be specified using IDs."
+    )
+
+    allowed_users = (
+        list,
+        "A list of discord users who are allowed to join the raffle. If this condition exists, no one will be able to join apart from those in the list."
     )
 
     maximum_entries = (
@@ -405,8 +412,9 @@ class Raffle(commands.Cog):
                 "end_message": valid.get("end_message", None),
                 "account_age": valid.get("account_age", None),
                 "join_age": valid.get("join_age", None),
-                "roles_needed_to_enter": valid.get("roles_needed_to_enter" or "role_needed_to_enter", []),
+                "roles_needed_to_enter": valid.get("roles_needed_to_enter", None),
                 "prevented_users": valid.get("prevented_users", None),
+                "allowed_users": valid.get("allowed_users", None),
                 "description": valid.get("description", None),
                 "maximum_entries": valid.get("maximum_entries", None)
             }
@@ -461,6 +469,10 @@ class Raffle(commands.Cog):
             return await ctx.send("You are not allowed to join this particular raffle.")
 
 
+        if raffle_entities("allowed_users") and ctx.author.id not in raffle_entities("allowed_users"):
+            return await ctx.send("You are not allowed to join this particular raffle")
+
+
         if ctx.author.id == raffle_entities("owner"):
             return await ctx.send("You cannot join your own raffle.")
 
@@ -484,7 +496,7 @@ class Raffle(commands.Cog):
             raffle_entities("entries").append(ctx.author.id)
 
 
-        await ctx.send(f"{ctx.author.mention} you have been added to the raffle! :tada:", delete_after=3)
+        await ctx.send(f"{ctx.author.mention} you have been added to the raffle.")
         await self.replenish_cache(ctx)
 
     @raffle.command()
@@ -502,7 +514,7 @@ class Raffle(commands.Cog):
                 return await ctx.send("You are not entered into this raffle.")
 
             raffle_entries.remove(ctx.author.id)
-            await ctx.send(f"{ctx.author.mention} you have been removed from the raffle.", delete_after=3)
+            await ctx.send(f"{ctx.author.mention} you have been removed from the raffle.")
 
         await self.replenish_cache(ctx)
 
@@ -738,14 +750,15 @@ class Raffle(commands.Cog):
 
             properties = {
                 "name": raffle,
-                "description": raffle_entities("description"),
-                "rolesreq": raffle_entities("roles_needed_to_enter"),
-                "agereq": raffle_entities("account_age"),
-                "joinreq": raffle_entities("join_age"),
-                "prevented_users": raffle_entities("prevented_users"),
-                "owner": raffle_entities("owner"),
-                "maximum_entries": raffle_entities("maximum_entries"),
-                "entries": len(raffle_entities("entries")),
+                "description": raffle_data.get("description", None),
+                "rolesreq": raffle_data.get("roles_needed_to_enter", None),
+                "agereq": raffle_data.get("account_age", None),
+                "joinreq": raffle_data.get("join_age", None),
+                "prevented_users": raffle_data.get("prevented_users", None),
+                "allowed_users": raffle_data.get("allowed_users", None),
+                "owner": raffle_data.get("owner", None),
+                "maximum_entries": raffle_data.get("maximum_entries", None),
+                "entries": raffle_data.get("entries", None),
             }
 
             embed = discord.Embed(
@@ -763,7 +776,7 @@ class Raffle(commands.Cog):
 
             embed.add_field(
                 name="Entries",
-                value=properties["entries"],
+                value=len(properties["entries"]),
                 inline=True
             )
 
@@ -806,6 +819,22 @@ class Raffle(commands.Cog):
                 embed.add_field(
                     name="Roles Required",
                     value=box("\n".join(f"+ @{v.lstrip('@')}" for v in roles), lang="diff"),
+                    inline=False
+                )
+
+            if properties["allowed_users"]:
+                users = []
+                for user in properties["allowed_users"]:
+                    if not ctx.guild.get_member(user):
+                        continue
+                    if ctx.author == ctx.guild.get_member(user):
+                        users.append((">>> ", str(ctx.guild.get_member(user))))
+                    else:
+                        users.append(("#", str(ctx.guild.get_member(user))))
+
+                embed.add_field(
+                    name="Allowed Users",
+                    value=box("\n".join(f"{v[0]}{c} {v[1]}" for c, v in enumerate(users, 1)), lang="md"),
                     inline=False
                 )
             
@@ -1003,7 +1032,7 @@ class Raffle(commands.Cog):
 
     @prevented.command(name="remove", aliases=["del"])
     async def prevented_remove(self, ctx, raffle: str, member: discord.Member):
-        """Add a member to the prevented list of a raffle."""
+        """Remove a member from the prevented list of a raffle."""
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
@@ -1034,11 +1063,124 @@ class Raffle(commands.Cog):
             if prevented is None:
                 return await ctx.send("There are no prevented users.")
 
+        message = "Are you sure you want to clear the prevented users list for this raffle?"
+        can_react = ctx.channel.permissions_for(ctx.me).add_reactions
+        if not can_react:
+            message += " (yes/no)"
+        message = await ctx.send(message)
+        if can_react:
+            start_adding_reactions(message, ReactionPredicate.YES_OR_NO_EMOJIS)
+            predicate = ReactionPredicate.yes_or_no(message, ctx.author)
+            event_type = "reaction_add"
+        else:
+            predicate = MessagePredicate.yes_or_no(ctx)
+            event_type = "message"
+        
+        try:
+            await self.bot.wait_for(event_type, check=predicate, timeout=30)
+        except asyncio.TimeoutError:
+            await ctx.send("You took too long to respond.")
+            return
+
+        if predicate.result:
             with contextlib.suppress(KeyError):
                 # Still wanna remove empty list here
-                del raffle_data["prevented_users"]        
+                del raffle_data["prevented_users"]    
+            try:
+                await message.edit(content="Prevented users list cleared for this raffle.")
+            except discord.NotFound:
+                await ctx.send("Prevented users list cleared for this raffle.")
+        
+        else:
+            await ctx.send("No changes have been made.")    
 
-            await ctx.send("Prevented list cleared for this raffle.")
+    @edit.group()
+    async def allowed(self, ctx):
+        """Manage the allowed users list in a raffle."""
+        pass
+
+    @allowed.command(name="add")
+    async def allowed_add(self, ctx, raffle: str, member: discord.Member):
+        """Add a member to the allowed list of a raffle."""
+        async with self.config.guild(ctx.guild).raffles() as r:
+
+            raffle_data = r.get(raffle, None)
+            if not raffle_data:
+                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+
+            allowed = raffle_data.get("allowed_users", [])
+
+            if member.id in allowed:
+                return await ctx.send("This user is already allowed in this raffle.")
+
+            allowed.append(member.id)
+            await ctx.send("{} added to the allowed list for this raffle.".format(member.name))
+
+        await self.replenish_cache(ctx)
+
+    @allowed.command(name="remove", aliases=["del"])
+    async def allowed_remove(self, ctx, raffle: str, member: discord.Member):
+        """Remove a member from the allowed list of a raffle."""
+        async with self.config.guild(ctx.guild).raffles() as r:
+
+            raffle_data = r.get(raffle, None)
+            if not raffle_data:
+                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+
+            allowed = raffle_data.get("allowed_users", [])
+
+            if member.id not in allowed:
+                return await ctx.send("This user was not already allowed in this raffle.")
+
+            allowed.remove(member.id)
+            await ctx.send("{} remove from the allowed list for this raffle.".format(member.name))
+
+        await self.replenish_cache(ctx)
+
+    @allowed.command(name="clear")
+    async def allowed_clear(self, ctx, raffle: str):
+        """Clear the allowed list for a raffle.."""
+        async with self.config.guild(ctx.guild).raffles() as r:
+
+            raffle_data = r.get(raffle, None)
+            if not raffle_data:
+                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+
+            allowed = raffle_data.get("allowed_users", None)
+
+            if allowed is None:
+                return await ctx.send("There are no allowed users.")
+
+        message = "Are you sure you want to clear the allowed list for this raffle?"
+        can_react = ctx.channel.permissions_for(ctx.me).add_reactions
+        if not can_react:
+            message += " (yes/no)"
+        message = await ctx.send(message)
+        if can_react:
+            start_adding_reactions(message, ReactionPredicate.YES_OR_NO_EMOJIS)
+            predicate = ReactionPredicate.yes_or_no(message, ctx.author)
+            event_type = "reaction_add"
+        else:
+            predicate = MessagePredicate.yes_or_no(ctx)
+            event_type = "message"
+        
+        try:
+            await self.bot.wait_for(event_type, check=predicate, timeout=30)
+        except asyncio.TimeoutError:
+            await ctx.send("You took too long to respond.")
+            return
+
+        if predicate.result:
+            with contextlib.suppress(KeyError):
+                # Still wanna remove empty list here
+                del raffle_data["allowed_users"]    
+            try:
+                await message.edit(content="Allowed list cleared for this raffle.")
+            except discord.NotFound:
+                await ctx.send("Allowed list cleared for this raffle.")
+        
+        else:
+            await ctx.send("No changes have been made.")    
 
         await self.replenish_cache(ctx)
 
@@ -1099,11 +1241,36 @@ class Raffle(commands.Cog):
             if rolesreq is None:
                 return await ctx.send("There are no required roles.")
 
+        message = "Are you sure you want to clear the role requirement list for this raffle?"
+        can_react = ctx.channel.permissions_for(ctx.me).add_reactions
+        if not can_react:
+            message += " (yes/no)"
+        message = await ctx.send(message)
+        if can_react:
+            start_adding_reactions(message, ReactionPredicate.YES_OR_NO_EMOJIS)
+            predicate = ReactionPredicate.yes_or_no(message, ctx.author)
+            event_type = "reaction_add"
+        else:
+            predicate = MessagePredicate.yes_or_no(ctx)
+            event_type = "message"
+        
+        try:
+            await self.bot.wait_for(event_type, check=predicate, timeout=30)
+        except asyncio.TimeoutError:
+            await ctx.send("You took too long to respond.")
+            return
+
+        if predicate.result:
             with contextlib.suppress(KeyError):
                 # Still wanna remove empty list here
-                del raffle_data["roles_needed_to_enter"]        
-
-            await ctx.send("Role requirement list cleared for this raffle.")
+                del raffle_data["roles_needed_to_enter"]    
+            try:
+                await message.edit(content="Role requirement list cleared for this raffle.")
+            except discord.NotFound:
+                await ctx.send("Role requirement list cleared for this raffle.")
+        
+        else:
+            await ctx.send("No changes have been made.")    
 
         await self.replenish_cache(ctx)
 

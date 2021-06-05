@@ -248,14 +248,36 @@ user IDs. Square brackets (``[]``) are used to denote lists.
 
 .. code-block:: yaml
     
-    BadArgument: Roles must be a list of Discord user IDs, not [invalid type]
+    BadArgument: Users must be a list of Discord user IDs, not [invalid type]
 
 This exception is raised when the prevented_users was not provided in the correct format. 
 Please provide your discord users via IDs, in a list.
 
 .. code-block:: yaml 
 
-    BadArgument: <user id> was not a valid user
+    UnknownEntityError: <user id> was not a valid user
+
+This exception is raised when one of the users provided was not found in the current guild.
+
+^^^^^^^^^^^^^
+allowed_users
+^^^^^^^^^^^^^
+
+A list of users who are allowed to join the raffle. This must be a **list** of 
+user IDs. Square brackets (``[]``) are used to denote lists.
+
+**Potential Exceptions**
+
+.. code-block:: yaml
+    
+    BadArgument: Users must be a list of Discord user IDs, not [invalid type]
+
+This exception is raised when the allowed_users was not provided in the correct format. 
+Please provide your discord users via IDs, in a list.
+
+.. code-block:: yaml 
+
+    UnknownEntityError: <user id> was not a valid user
 
 This exception is raised when one of the users provided was not found in the current guild.
 
