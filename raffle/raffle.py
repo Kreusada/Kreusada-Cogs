@@ -393,6 +393,7 @@ class Raffle(commands.Cog):
     async def docs(self, ctx: Context):
         """Get a link to the docs."""
         message = "**Docs:** {0.docs}".format(self)
+        await ctx.send(message)
 
     @raffle.group()
     async def create(self, ctx: Context):
