@@ -1010,7 +1010,7 @@ class Raffle(commands.Cog):
                     inline=False
                 )
 
-            winner_text = properties["end_message"] or r"Congratulations {winner.mention}, you have won the {raffle} raffle!"
+            winner_text = box(properties["end_message"] or r"Congratulations {winner.mention}, you have won the {raffle} raffle!")
             embed.add_field(
                 name="Winner text",
                 value=winner_text,
