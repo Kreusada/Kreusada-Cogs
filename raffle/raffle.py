@@ -12,6 +12,7 @@ import yaml
 
 from typing import List, Literal, Optional, Union
 
+from yaml.parser import MarkedYAMLError
 from redbot.core import commands, Config
 from redbot.core.commands import BadArgument, Context
 from redbot.core.utils.predicates import MessagePredicate, ReactionPredicate
@@ -26,11 +27,6 @@ from redbot.core.utils.chat_formatting import (
     pagify
 )
 
-from yaml.parser import (
-    ParserError as YAMLParserError,
-    ScannerError as YAMLScannerError,
-    MarkedYAMLError as YAMLMarkedError
-)
 
 with open(pathlib.Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
@@ -315,7 +311,7 @@ class Raffle(commands.Cog):
     def validator(data) -> Union[bool, dict]:
         try:
             loader = yaml.full_load(data)
-        except (YAMLParserError, YAMLScannerError, YAMLMarkedError):
+        except MarkedYAMLError:
             return False
         if not isinstance(loader, dict):
             return False
@@ -458,7 +454,9 @@ class Raffle(commands.Cog):
         valid = self.validator(self.cleanup_code(content))
 
         if not valid:
-            return await ctx.send("Please provide valid YAML.")
+            return await ctx.send(
+                cross("Please provide valid YAML. You can validate your raffle YAML using `{}raffle parse`.").format(ctx.clean_prefix)
+            )
 
         try:
             parser = RaffleManager(valid)
@@ -497,7 +495,7 @@ class Raffle(commands.Cog):
                     data[k] = v
 
             raffle[rafflename] = data
-            await ctx.send(tick("Raffle created."))
+            await ctx.send(tick("Raffle created with the name `{}`.".format(rafflename)))
 
         await self.replenish_cache(ctx)
 
@@ -541,7 +539,7 @@ class Raffle(commands.Cog):
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
 
         quotes = lambda x: f'"{x}"'
-        relevant_data = [("name", raffle)]
+        relevant_data = [("name", quotes(raffle))]
         for k, v in raffle_data.items():
             if k in ("owner", "entries"):
                 # These are not user defined keys
@@ -1300,6 +1298,130 @@ class Raffle(commands.Cog):
                     return await ctx.send(self.format_traceback(e))
                 raffle_data["end_message"] = end_message
                 await ctx.send("End message updated for this raffle.")
+
+        await self.replenish_cache(ctx)
+
+    @edit.command()
+    async def fromyaml(self, ctx, raffle: str):
+        """Edit a raffle directly from yaml.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle to edit.
+        """
+        async with self.config.guild(ctx.guild).raffles() as r:
+
+            raffle_data = r.get(raffle, None)
+            if not raffle_data:
+                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+
+        existing_data = {
+            "end_message": raffle_data.get("end_message", None),
+            "account_age": raffle_data.get("account_age", None),
+            "join_age": raffle_data.get("join_age", None),
+            "roles_needed_to_enter": raffle_data.get("roles_needed_to_enter", None),
+            "prevented_users": raffle_data.get("prevented_users", None),
+            "allowed_users": raffle_data.get("allowed_users", None),
+            "description": raffle_data.get("description", None),
+            "maximum_entries": raffle_data.get("maximum_entries", None),
+            "on_end_action": raffle_data.get("on_end_action", None),
+        }
+
+        message = (
+            "You're about to **edit an existing raffle**.\n\nThe `name` "
+            "block cannot be edited through this command, it's preferred "
+            "if you create a new raffle with the new name instead.\nYou can end "
+            f"this raffle through using `{ctx.clean_prefix}raffle end {raffle}`."
+            "\nPlease consider reading the docs about the various "
+            "conditional blocks if you haven't already.\n\n"
+            + self.docs
+        )
+
+        quotes = lambda x: f'"{x}"'
+        noedits = lambda x: f"{x} # Cannot be edited"
+        relevant_data = [("name", noedits(quotes(raffle)))]
+        for k, v in raffle_data.items():
+            if k in ("owner", "entries"):
+                # These are not user defined keys
+                continue
+            if isinstance(v, str):
+                v = quotes(v)
+            relevant_data.append((k, v))
+
+        message += "\n\n**Current settings:**" + box("\n".join(f"{x[0]}: {x[1]}" for x in relevant_data), lang="yaml")
+        await ctx.send(message)  
+
+        check = lambda x: x.channel == ctx.channel and x.author == ctx.author
+
+        try:
+            content = await self.bot.wait_for("message", timeout=500, check=check)
+        except asyncio.TimeoutError:
+            with contextlib.suppress(discord.NotFound):
+                await message.delete()
+
+
+        content = content.content
+        valid = self.validator(self.cleanup_code(content))
+
+        if not valid:
+            return await ctx.send(
+                "Please provide valid YAML. You can validate your raffle YAML using `{}raffle parse`.".format(ctx.clean_prefix)
+            )
+
+        try:
+            parser = RaffleManager(valid)
+            parser.parser(ctx)
+        except RequiredKeyError:
+            pass
+        except (RaffleError, BadArgument) as e:
+            exc = cross("An exception occured whilst parsing your data.")
+            return await ctx.send(exc + self.format_traceback(e))
+
+        data = {
+            "entries": [],
+            "owner": ctx.author.id,
+        }
+
+        conditions = {
+            "end_message": valid.get("end_message", None),
+            "account_age": valid.get("account_age", None),
+            "join_age": valid.get("join_age", None),
+            "roles_needed_to_enter": valid.get("roles_needed_to_enter", None),
+            "prevented_users": valid.get("prevented_users", None),
+            "allowed_users": valid.get("allowed_users", None),
+            "description": valid.get("description", None),
+            "maximum_entries": valid.get("maximum_entries", None),
+            "on_end_action": valid.get("on_end_action", None),
+        }
+
+        for k, v in conditions.items():
+            if v:
+                data[k] = v
+
+        async with self.config.guild(ctx.guild).raffles() as r:
+            r[raffle] = data
+
+        additions = []
+        deletions = []
+
+        for k, v in conditions.items():
+            if v and not existing_data[k]:
+                additions.append(k)
+                continue
+            if not v and existing_data[k]:
+                deletions.append(k)
+                continue
+
+        if any([additions, deletions]):
+            additions = "\n".join(f"+ {a}" for a in additions)
+            deletions = "\n".join(f"- {d}" for d in deletions)
+
+            diffs = box(f"{additions}\n{deletions}", lang="diff")
+            update = tick("Raffle edited. The following conditions have been added/removed: {}".format(diffs))
+        
+        else:
+            update = tick("Raffle edited. No conditions were added or removed.")
+
+        await ctx.send(update)
 
         await self.replenish_cache(ctx)
 

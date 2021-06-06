@@ -656,6 +656,23 @@ Use `0` or `false` to disable this condition.
     - `<raffle>` - The name of the raffle.
     - `<new_join_age>` - The new join age requirement.
 
+.. _raffle-command-raffle-edit-fromyaml:
+
+^^^^^^^^^^^^^^^^^^^^
+raffle edit fromyaml
+^^^^^^^^^^^^^^^^^^^^
+
+**Syntax**
+
+.. code-block:: python
+
+    [p]raffle edit fromyaml <raffle>
+
+Edit a raffle directly from yaml.
+
+**Arguments:**
+    - `<raffle>` - The name of the raffle to edit.
+
 .. _raffle-command-raffle-edit-maxentries:
 
 ^^^^^^^^^^^^^^^^^^^^^^
