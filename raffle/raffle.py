@@ -1380,8 +1380,8 @@ class Raffle(commands.Cog):
             return await ctx.send(exc + self.format_traceback(e))
 
         data = {
-            "entries": [],
-            "owner": ctx.author.id,
+            "owner": raffle_data.get("owner"),
+            "entries": raffle_data.get("entries")
         }
 
         conditions = {
