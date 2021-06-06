@@ -29,7 +29,7 @@ Finally, you can see my end user data statements, cog requirements, and other co
 Usage
 -----
 
-This cog is going to return spoilers with ``pop`` inside them, so that you can metaphorically pop bubblewrap!
+Get a message and wrap it in a codeblock.
 
 .. _codify-commands:
 
