@@ -979,6 +979,22 @@ Mention all the users entered into a raffle.
 **Arguments:**
     - `<raffle>` - The name of the raffle to mention all the members in.
 
+.. _raffle-command-raffle-parse:
+
+^^^^^^^^^^^^
+raffle parse
+^^^^^^^^^^^^
+
+**Syntax**
+
+.. code-block:: python
+
+    [p]raffle parse
+
+**Description**
+
+Parse a complex raffle without actually creating it.
+
 .. _raffle-command-raffle-raw:
 
 ^^^^^^^^^^

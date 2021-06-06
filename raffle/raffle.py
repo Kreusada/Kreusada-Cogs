@@ -44,6 +44,14 @@ join_age_checker = lambda ctx, x: x < (now - ctx.guild.created_at).days
 log = logging.getLogger("red.kreusada.raffle")
 
 
+def tick(text):
+    return "{} {}".format("\N{BALLOT BOX WITH CHECK}\N{VARIATION SELECTOR-16}", text)
+
+
+def cross(text):
+    return "{} {}".format("\N{CROSS MARK}", text)
+
+
 class RaffleError(Exception):
     """Base exception for all raffle exceptions.
     
@@ -456,7 +464,7 @@ class Raffle(commands.Cog):
             parser = RaffleManager(valid)
             parser.parser(ctx)
         except (RaffleError, BadArgument) as e:
-            exc = "An exception occured whilst parsing your data."
+            exc = cross("An exception occured whilst parsing your data.")
             return await ctx.send(exc + self.format_traceback(e))
 
 
@@ -489,7 +497,7 @@ class Raffle(commands.Cog):
                     data[k] = v
 
             raffle[rafflename] = data
-            await ctx.send("Raffle created.")
+            await ctx.send(tick("Raffle created."))
 
         await self.replenish_cache(ctx)
 
@@ -545,12 +553,51 @@ class Raffle(commands.Cog):
         message = "**YAML Format for the `{}` raffle**\n".format(raffle)
         await ctx.send(message + box("\n".join(f"{x[0]}: {x[1]}" for x in relevant_data), lang="yaml"))
 
+        await self.replenish_cache(ctx)
+
     @raffle.command()
     async def template(self, ctx: Context):
         """Get a template of a raffle."""
         with open(pathlib.Path(__file__).parent / "template.yaml") as f:
             docs = "**For more information:** {}\n".format(self.docs)
             await ctx.send(docs + box("".join(f.readlines()), lang="yaml"))
+
+    @raffle.command()
+    async def parse(self, ctx: Context):
+        """Parse a complex raffle without actually creating it."""
+        await ctx.trigger_typing()
+        check = lambda x: x.author == ctx.author and x.channel == ctx.channel
+        message = (
+            "Paste your YAML here. It will be validated, and if there is "
+            "an exception, it will be returned to you."
+
+        )
+
+        await ctx.send(message)  
+
+        try:
+            content = await self.bot.wait_for("message", timeout=500, check=check)
+        except asyncio.TimeoutError:
+            with contextlib.suppress(discord.NotFound):
+                await message.delete()
+
+
+        content = content.content
+        valid = self.validator(self.cleanup_code(content))
+
+        if not valid:
+            return await ctx.send("This YAML is invalid.")
+
+        try:
+            parser = RaffleManager(valid)
+            parser.parser(ctx)
+        except (RaffleError, BadArgument) as e:
+            exc = "An exception occured whilst parsing your data."
+            return await ctx.send(cross(exc) + self.format_traceback(e))
+        
+        await ctx.send(tick("This YAML is good to go! No errors were found."))
+
+        await self.replenish_cache(ctx)
 
     @raffle.command()
     async def join(self, ctx: Context, raffle: str):
