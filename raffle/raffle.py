@@ -38,6 +38,13 @@ from .safety import RaffleSafeMember
 from .checks import now
 from .formatting import tick, cross
 
+from .helpers import (
+    format_traceback,
+    cleanup_code,
+    validator,
+    raffle_safe_member_scanner
+)
+
 
 with open(pathlib.Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
@@ -54,31 +61,6 @@ class Raffle(commands.Cog):
         self.config = Config.get_conf(self, 583475034985340, force_registration=True)
         self.config.register_guild(raffles={})
         self.docs = "https://kreusadacogs.readthedocs.io/en/latest/cog_raffle.html"
-
-
-    @staticmethod
-    def format_traceback(exc) -> str:
-        boxit = lambda x, y: box(f"{x}: {y}", lang="yaml")
-        return boxit(exc.__class__.__name__, exc)
-
-
-    @staticmethod
-    def cleanup_code(content) -> str:
-        # From redbot.core.dev_commands, thanks will :P
-        if content.startswith("```") and content.endswith("```"):
-            return "\n".join(content.split("\n")[1:-1])
-        return content.strip("` \n")
-
-
-    @staticmethod
-    def validator(data) -> Union[bool, dict]:
-        try:
-            loader = yaml.full_load(data)
-        except MarkedYAMLError:
-            return False
-        if not isinstance(loader, dict):
-            return False
-        return loader
 
 
     async def replenish_cache(self, ctx: Context) -> None:
@@ -159,15 +141,6 @@ class Raffle(commands.Cog):
         return await menu(ctx, embed_pages, control)
 
 
-    async def raffle_safe_member_scanner(self, ctx: commands.Context, content: str) -> None:
-        """We need this to check if the values are formatted properly."""
-        try:
-            # This can raise BadArgument, that's fine
-            content.format(winner=RaffleSafeMember(discord.Member), raffle=r"{raffle}")
-        except KeyError as e:
-            raise BadArgument(f"{e} was an unexpected argument in your new end message")
-
-
     @commands.group()
     async def raffle(self, ctx: Context):
         """Manage raffles for your server."""
@@ -214,7 +187,7 @@ class Raffle(commands.Cog):
 
 
         content = content.content
-        valid = self.validator(self.cleanup_code(content))
+        valid = validator(cleanup_code(content))
 
         if not valid:
             return await ctx.send(
@@ -226,7 +199,7 @@ class Raffle(commands.Cog):
             parser.parser(ctx)
         except (RaffleError, BadArgument) as e:
             exc = cross("An exception occured whilst parsing your data.")
-            return await ctx.send(exc + self.format_traceback(e))
+            return await ctx.send(exc + format_traceback(e))
 
 
         async with self.config.guild(ctx.guild).raffles() as raffle:
@@ -344,7 +317,7 @@ class Raffle(commands.Cog):
 
 
         content = content.content
-        valid = self.validator(self.cleanup_code(content))
+        valid = validator(cleanup_code(content))
 
         if not valid:
             return await ctx.send("This YAML is invalid.")
@@ -354,7 +327,7 @@ class Raffle(commands.Cog):
             parser.parser(ctx)
         except (RaffleError, BadArgument) as e:
             exc = "An exception occured whilst parsing your data."
-            return await ctx.send(cross(exc) + self.format_traceback(e))
+            return await ctx.send(cross(exc) + format_traceback(e))
         
         await ctx.send(tick("This YAML is good to go! No errors were found."))
 
@@ -891,7 +864,7 @@ class Raffle(commands.Cog):
             try:
                 RaffleManager.parse_accage(new_account_age)
             except BadArgument as e:
-                return await ctx.send(self.format_traceback(e))
+                return await ctx.send(format_traceback(e))
 
             raffle_data["account_age"] = new_account_age
             await ctx.send("Account age requirement updated for this raffle.")
@@ -927,7 +900,7 @@ class Raffle(commands.Cog):
                 try:
                     RaffleManager.parse_joinage(ctx, new_join_age)
                 except BadArgument as e:
-                    return await ctx.send(self.format_traceback(e))
+                    return await ctx.send(format_traceback(e))
 
                 raffle_data["join_age"] = new_join_age
                 await ctx.send("Join age requirement updated for this raffle.")
@@ -1056,9 +1029,9 @@ class Raffle(commands.Cog):
 
             else:
                 try:
-                    await self.raffle_safe_member_scanner(ctx, end_message)
+                    raffle_safe_member_scanner(ctx, end_message)
                 except BadArgument as e:
-                    return await ctx.send(self.format_traceback(e))
+                    return await ctx.send(format_traceback(e))
                 raffle_data["end_message"] = end_message
                 await ctx.send("End message updated for this raffle.")
 
@@ -1126,7 +1099,7 @@ class Raffle(commands.Cog):
 
 
         content = content.content
-        valid = self.validator(self.cleanup_code(content))
+        valid = validator(cleanup_code(content))
 
         if not valid:
             return await ctx.send(
@@ -1140,7 +1113,7 @@ class Raffle(commands.Cog):
             pass
         except (RaffleError, BadArgument) as e:
             exc = cross("An exception occured whilst parsing your data.")
-            return await ctx.send(exc + self.format_traceback(e))
+            return await ctx.send(exc + format_traceback(e))
 
         data = {
             "owner": raffle_data.get("owner"),
