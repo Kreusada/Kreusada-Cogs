@@ -10,7 +10,7 @@ import random
 import discord
 import yaml
 
-from typing import List, Literal, Optional, Union
+from typing import List, Optional, Union
 
 from yaml.parser import MarkedYAMLError
 from redbot.core import commands, Config
@@ -27,257 +27,20 @@ from redbot.core.utils.chat_formatting import (
     pagify
 )
 
+from .exceptions import (
+    RequiredKeyError, 
+    RaffleError
+)
+
+from .enums import RaffleComponents
+from .parser import RaffleManager
+from .safety import RaffleSafeMember
+from .checks import now
+from .formatting import tick, cross
+
 
 with open(pathlib.Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
-
-now = datetime.datetime.now()
-discord_creation_date = datetime.datetime(2015, 5, 13)
-
-account_age_checker = lambda x: x < (now - discord_creation_date).days
-join_age_checker = lambda ctx, x: x < (now - ctx.guild.created_at).days
-
-log = logging.getLogger("red.kreusada.raffle")
-
-
-def tick(text):
-    return "{} {}".format("\N{BALLOT BOX WITH CHECK}\N{VARIATION SELECTOR-16}", text)
-
-
-def cross(text):
-    return "{} {}".format("\N{CROSS MARK}", text)
-
-
-class RaffleError(Exception):
-    """Base exception for all raffle exceptions.
-    
-    These exceptions are raised, but then formatted
-    in an except block to create a user-friendly
-    error in which the user can read and improve from."""
-    pass
-
-
-class RequiredKeyError(RaffleError):
-    """Raised when a raffle key is required."""
-
-    def __init__(self, key):
-        self.key = key
-
-    def __str__(self):
-        return f"The \"{self.key}\" key is required"
-
-
-class UnknownEntityError(RaffleError):
-    """Raised when an invalid role or user is provided to the parser."""
-
-    def __init__(self, data, _type: Literal["user", "role"]):
-        self.data = data
-        self.type = _type
-
-    def __str__(self):
-        return f"\"{self.data}\" was not a valid {self.type}"
-
-class RaffleSafeMember(object):
-    """Used for formatting `discord.Member` attributes safely.
-    
-    Special thanks to Flame and Kenny for providing this. I
-    have modified the original slightly, which you can find here:
-
-    https://github.com/kennnyshiwa/kennnyshiwa-cogs/blob/
-    5a84d60018468e5c0346f7ee74b2b4650a6dade7/tickets/core.py#L7
-    """
-
-    def __init__(self, member: discord.Member):
-        self.name = member.name
-        self.mention = member.mention
-        self.id = member.id
-        self.display_name = member.display_name
-        self.discriminator = member.discriminator
-        self.name_and_descriminator = f"{self.name}#{self.discriminator}"
-
-    def __str__(self):
-        return self.name
-
-    def __getattr__(self, *_args):
-        raise BadArgument(r"Your `{winner}` received an unexpected attribute")
-
-class RaffleManager(object):
-    """Parses the required and relevant yaml data to ensure
-    that it matches the specified requirements."""
-
-    def __init__(self, data):
-        super().__init__()
-        self.data = data
-        self.name = data.get("name", None)
-        self.description = data.get("description", None)
-        self.account_age = data.get("account_age", None)
-        self.join_age = data.get("join_age", None)
-        self.maximum_entries = data.get("maximum_entries", None)
-        self.roles_needed_to_enter = data.get("roles_needed_to_enter", None) 
-        self.prevented_users = data.get("prevented_users", None)
-        self.allowed_users = data.get("allowed_users", None)
-        self.end_message = data.get("end_message", None)
-        self.on_draw_action = data.get("on_draw_action", None)
-
-    @classmethod
-    def shorten_description(cls, description, length=50):
-        if len(description) > length:
-            return description[:length].rstrip() + '...'
-        return description
-
-    @classmethod
-    def parse_accage(cls, accage: int):
-        if not account_age_checker(accage):
-            raise BadArgument("Days must be less than Discord's creation date")
-
-    @classmethod
-    def parse_joinage(cls, ctx: Context, new_join_age: int):
-        guildage = (now - ctx.guild.created_at).days
-        if not join_age_checker(ctx, new_join_age):
-            raise BadArgument(
-                "Days must be less than this guild's creation date ({} days)".format(
-                    guildage
-                )
-            )
-
-    def parser(self, ctx: Context):
-        if self.account_age:
-            if not isinstance(self.account_age, int):
-                raise BadArgument("Account age days must be int, not {}".format(type(self.account_age).__name__))
-            if not account_age_checker(self.account_age):
-                raise BadArgument("Account age days must be less than Discord's creation date")
-
-
-        if self.join_age:
-            if not isinstance(self.join_age, int):
-                raise BadArgument("Join age days must be int, not {}".format(type(self.join_age).__name__))
-            if not join_age_checker(ctx, self.join_age):
-                raise BadArgument("Join age days must be less than this guild's creation date")
-
-
-        if self.maximum_entries:
-            if not isinstance(self.maximum_entries, int):
-                raise BadArgument("Maximum entries must be int, not {}".format(type(self.maximum_entries).__name__))
-
-
-        if self.name:
-            if not isinstance(self.name, str):
-                raise BadArgument("Name must be str, not {}".format(type(self.name).__name__))
-            if len(self.name) > 15:
-                raise BadArgument("Name must be under 15 characters, your raffle name had {}".format(len(self.name)))
-            for char in self.name:
-                if char == "_":
-                    # We want to allow underscores
-                    continue
-                if not char.isalnum():
-                    index = self.name.index(char)
-                    marker = f"{self.name}\n{' ' * (index+19)}^"
-                    raise BadArgument(
-                        "Name must only contain alphanumeric characters, "
-                        "found {}.\nInvalid character: {}".format(char, marker)
-                    )
-        else:
-            raise RequiredKeyError("name")
-
-
-        if self.description:
-            if not isinstance(self.description, str):
-                raise BadArgument("Description must be str, not {}".format(type(self.description).__name__))
-
-
-        if self.roles_needed_to_enter:
-            if not isinstance(self.roles_needed_to_enter, list):
-                raise BadArgument("Roles must be a list of Discord role IDs, not {}".format(type(self.roles_needed_to_enter).__name__))
-            for r in self.roles_needed_to_enter:
-                if not ctx.guild.get_role(r):
-                    raise UnknownEntityError(r, "role")
-
-
-        if self.prevented_users:
-            if not isinstance(self.prevented_users, list):
-                raise BadArgument("Prevented users must be a list of Discord user IDs, not {}".format(type(self.prevented_users).__name__))
-            for u in self.prevented_users:
-                if not ctx.bot.get_user(u):
-                    raise UnknownEntityError(u, "user")
-
-        if self.allowed_users:
-            if not isinstance(self.allowed_users, list):
-                raise BadArgument("Allowed users must be a list of Discord user IDs, not {}".format(type(self.allowed_users).__name__))
-            for u in self.allowed_users:
-                if not ctx.bot.get_user(u):
-                    raise UnknownEntityError(u, "user")
-
-        if self.end_message:
-            if not isinstance(self.end_message, str):
-                # Will render {} without quotes, best not to include the type.__name__ here
-                raise BadArgument("End message must be str")
-            try:
-                # This will raise BadArgument
-                self.end_message.format(winner=RaffleSafeMember(discord.Member), raffle=r"{raffle}")
-            except KeyError as e:
-                raise BadArgument(f"{e} was an unexpected argument in your end_message block")
-
-        if self.on_draw_action:
-            valid_actions = ("end", "remove_winner", "keep_winner")
-            if not isinstance(self.on_draw_action, str) or self.on_draw_action not in valid_actions:
-                raise BadArgument("on_draw_action must be one of 'end', 'remove_winner', or 'keep_winner'")
-
-
-class RaffleComponents(enum.Enum):
-    """All of the components which can be
-    used in a raffle. This class is mainly
-    used for the ``[p]raffle conditions`` command.
-    """
-
-    name = (
-        str, 
-        "The name of the raffle. This is the only REQUIRED field."
-    )
-
-    description = (
-        str, 
-        "The description for the raffle. This information appears in the raffle info command."
-    )
-
-    end_message = (
-        str,
-        "The message used to end the raffle. Defaults to \"Congratulations {winner.mention}, you have won the {raffle} raffle!\""
-    )
-
-    account_age = (
-        int, 
-        "The account age requirement for the user who joins the raffle. This must be specified in days."
-    )
-
-    join_age = (
-        int, 
-        "The number of days the user needs to be in the server for in order to join the raffle."
-    )
-
-    roles_needed_to_enter = (
-        list, 
-        "A list of discord roles which the user must have in order to join the raffle. These MUST be specified using IDs."
-    )
-
-    prevented_users = (
-        list, 
-        "A list of discord users who are not allowed to join the raffle. These MUST be specified using IDs."
-    )
-
-    allowed_users = (
-        list,
-        "A list of discord users who are allowed to join the raffle. If this condition exists, no one will be able to join apart from those in the list."
-    )
-
-    maximum_entries = (
-        int, 
-        "The maximum number of entries allowed for a raffle."
-    )
-
-    on_end_action = (
-        str,
-        "The action to perform when a user is drawn. Must be one of 'end', 'remove_winner', or 'keep_winner', defaults to 'keep_winner'."
-    )
 
 
 class Raffle(commands.Cog):
