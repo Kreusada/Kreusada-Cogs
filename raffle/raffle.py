@@ -1314,7 +1314,7 @@ class Raffle(commands.Cog):
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
 
-            if ctx.author.id == raffle_data["owner"]:
+            if not ctx.author.id == raffle_data["owner"]:
                 return await ctx.send("You are not the owner of this raffle.")
 
         existing_data = {
