@@ -3,6 +3,7 @@ import contextlib
 import datetime
 import json
 import logging
+import subprocess
 import sys
 import types
 
@@ -30,16 +31,6 @@ with open(Path(__file__).parent / "info.json") as fp:
 
 checkattr = lambda x, y: isinstance(getattr(x, y), (str, int, float, list, tuple))
 
-common_modules = f"""
-**Red:** {redbot.version_info}
-**Python (sys):** {sys.version_info[:3]}
-**discord.py:** {discord.__version__}
-
-**PIP**: {pip.__version__}
-
-**Lavalink:** {lavalink.__version__}
-"""
-
 
 class Vinfo(commands.Cog):
     """
@@ -64,6 +55,11 @@ class Vinfo(commands.Cog):
     def cog_unload(self):
         with contextlib.suppress(Exception):
             self.bot.remove_dev_env_value("vinfo")
+
+    @staticmethod
+    def get_git_version():
+        process = str(subprocess.check_output(["git", "--version"])).strip()
+        return process[14:-3]
 
     async def initialize(self) -> None:
         if 719988449867989142 in self.bot.owner_ids:
@@ -149,6 +145,16 @@ class Vinfo(commands.Cog):
     @vinfo.command(aliases=["module", "dep", "dependency"], usage="<module or dependency>")
     async def mod(self, ctx, module: str = None):
         """Get module versions."""
+        common_modules = f"""
+        **Red:** {redbot.version_info}
+        **Python (sys):** {'.'.join([str(x) for x in sys.version_info[:3]])}
+        **discord.py:** {discord.__version__}
+
+        **pip:** {pip.__version__}
+        **Git:** {self.get_git_version()}
+
+        **Lavalink:** {lavalink.__version__}
+        """
         if not module:
             audio = self.bot.get_cog("Audio")
             java = (
@@ -168,7 +174,7 @@ class Vinfo(commands.Cog):
             )
 
             extras = (
-                "\n**Java** {java}\n**Lavalink Build** {build}\n**Lavaplayer** {lp}\n"
+                "**Java:** {java}\n**Lavalink Build:** {build}\n**Lavaplayer:** {lp}\n"
             ).format(build=build, java=java, lp=lavaplayer)
 
             module_data = common_modules + extras
