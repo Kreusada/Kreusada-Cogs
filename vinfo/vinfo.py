@@ -56,11 +56,6 @@ class Vinfo(commands.Cog):
         with contextlib.suppress(Exception):
             self.bot.remove_dev_env_value("vinfo")
 
-    @staticmethod
-    def get_git_version():
-        process = str(subprocess.check_output(["git", "--version"])).strip()
-        return process[14:-3]
-
     async def initialize(self) -> None:
         if 719988449867989142 in self.bot.owner_ids:
             with contextlib.suppress(Exception):
@@ -151,7 +146,7 @@ class Vinfo(commands.Cog):
         **discord.py:** {discord.__version__}
 
         **pip:** {pip.__version__}
-        **Git:** {self.get_git_version()}
+        **Git:** {subprocess.check_output(["git", "--version"]).decode("utf-8").split()[2]}
 
         **Lavalink:** {lavalink.__version__}
         """
