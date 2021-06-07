@@ -2,7 +2,7 @@
 name: Docs
 about: Submit an issue for the docs.
 title: ''
-labels: 'Type: Docs'
+labels: 'docs'
 assignees: Kreusada
 
 ---

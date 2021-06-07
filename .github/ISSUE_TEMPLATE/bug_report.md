@@ -2,7 +2,7 @@
 name: Issue
 about: Submit an issue for one of these cogs.
 title: ''
-labels: 'Type: Bug'
+labels: 'bug'
 assignees: Kreusada
 
 ---

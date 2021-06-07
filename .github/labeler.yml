@@ -112,5 +112,5 @@
   - .github/*
   - .github/*/*
   - ./*
-"Type: Docs":
+"docs":
   - docs/**/*
