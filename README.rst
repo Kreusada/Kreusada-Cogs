@@ -53,7 +53,9 @@ Available cogs list
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | encryptor       | Generate and validify the strength of passwords.             | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
-| jsonscanner     | An easy and quick tool to validate json.                     | Tools   | Kreusada       |
+| filev           | Easy and quick tools to validate various file syntax.        | Tools   | Kreusada       |
++-----------------+--------------------------------------------------------------+---------+----------------+
+| githubskylines  | Get your github skyline for your github account.             | Fun     | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | minifier        | Minify your code with the python minifier.                   | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
@@ -86,8 +88,6 @@ Available cogs list
 | vinfo           | Obtain version info for third-party cogs and dependencies.   | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | votechannel     | Designate a channel to add voting reactions (customizable).  | Tools   | Kreusada       |
-+-----------------+--------------------------------------------------------------+---------+----------------+
-| yamlscanner     | An easy and quick tool to validate yaml.                     | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
 
 ------------
