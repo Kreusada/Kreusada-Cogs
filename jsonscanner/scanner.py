@@ -1,7 +1,7 @@
 import asyncio
 import contextlib
 import discord
-import yaml
+import json
 
 from redbot.core import commands
 from redbot.core.utils.menus import start_adding_reactions
@@ -9,8 +9,8 @@ from redbot.core.utils.chat_formatting import pagify, box, humanize_list
 from redbot.core.utils.predicates import ReactionPredicate, MessagePredicate
 
 
-class YamlScanner(commands.Cog):
-    """An easy and quick tool to validate yaml."""
+class JsonScanner(commands.Cog):
+    """An easy and quick tool to validate json."""
 
     __author__ = ["Kreusada"]
     __version__ = "1.0.0"
@@ -33,21 +33,21 @@ class YamlScanner(commands.Cog):
 
     def cog_unload(self):
         with contextlib.suppress(Exception):
-            self.bot.remove_dev_env_value("yamlscanner")
+            self.bot.remove_dev_env_value("jsonscanner")
 
 
     async def initialize(self) -> None:
         if 719988449867989142 in self.bot.owner_ids:
             with contextlib.suppress(Exception):
-                self.bot.add_dev_env_value("yamlscanner", lambda x: self)
+                self.bot.add_dev_env_value("jsonscanner", lambda x: self)
 
 
     @commands.command(usage="[file]")
-    async def yamlscan(self, ctx: commands.Context):
-        """Scan yaml to see if its correct.
+    async def jsonscan(self, ctx: commands.Context):
+        """Scan json to see if its correct.
 
-        Your next message will be used to as the yaml to scan.
-        You can also upload a YAML file.
+        Your next message will be used to as the json to scan.
+        You can also upload a JSON file.
         """
 
         def cleanup_code(content) -> str:
@@ -62,14 +62,13 @@ class YamlScanner(commands.Cog):
         def cross(text) -> str:
             return "{} {}".format("\N{CROSS MARK}", text)
 
-        if ctx.message.attachments[0]:
+        if ctx.message.attachments:
             # attachments will take priority
             file = ctx.message.attachments[0]
-            if not file.filename.split('.')[-1] in ("yaml", "yml", "mir"):
-                return await ctx.send("Please upload a valid YAML file.")
+            if not file.filename.split('.')[-1] == "json":
+                return await ctx.send("Please upload a valid JSON file.")
             try:
                 file = await file.read()
-                print(file.decode(encoding="utf-8"))
                 content = file.decode(encoding="utf-8")
             except UnicodeDecodeError:
                 return await ctx.send("Something went wrong whilst trying to decode the provided file.")
@@ -77,7 +76,7 @@ class YamlScanner(commands.Cog):
         else:
 
             message = await ctx.send(
-                "Your next message will be your YAML content:"
+                "Your next message will be your JSON content:"
             )
 
             check = lambda x: x.channel == ctx.channel and x.author == ctx.author
@@ -95,9 +94,9 @@ class YamlScanner(commands.Cog):
 
 
         try:
-            yaml.full_load(cleanup_code(content))
-        except yaml.parser.MarkedYAMLError as e:
-            message = cross("This was **not** valid YAML. Would you like to see the exception details?")
+            json.loads(cleanup_code(content))
+        except json.JSONDecodeError as e:
+            message = cross("This was **not** valid JSON. Would you like to see the exception details?")
             can_react = ctx.channel.permissions_for(ctx.me).add_reactions
 
             if not can_react:
@@ -118,7 +117,7 @@ class YamlScanner(commands.Cog):
                 await self.bot.wait_for(event_type, check=predicate, timeout=30)
             except asyncio.TimeoutError:
                 with contextlib.suppress(discord.NotFound):
-                    await message.edit(content=cross("This was **not** valid YAML."))
+                    await message.edit(content=cross("This was **not** valid JSON."))
 
             if predicate.result:
                 description = box(str(e), lang="py")
@@ -134,7 +133,7 @@ class YamlScanner(commands.Cog):
                     await message.edit(content=description)
             else:
                 with contextlib.suppress(discord.NotFound):
-                    await message.edit(content=cross("This was **not** valid YAML."))
+                    await message.edit(content=cross("This was **not** valid JSON."))
             return
 
-        await ctx.send(tick("This YAML looks good!"))
+        await ctx.send(tick("This JSON looks good!"))

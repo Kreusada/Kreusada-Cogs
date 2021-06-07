@@ -32,6 +32,7 @@ Useful Links
     cog_dehoister
     cog_encryptor
     cog_githubskylines
+    cog_jsonscanner
     cog_locales
     cog_minifier
     cog_mjolnir

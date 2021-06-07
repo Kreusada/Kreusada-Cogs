@@ -1,0 +1,11 @@
+{
+    "author": ["Kreusada"],
+    "description": "An easy and quick tool to validate json.",
+    "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_jsonscanner.html",
+    "short": "An easy and quick tool to validate json.",
+    "name": "JsonScanner",
+    "tags": ["JSON", "Scanner", "Validator", "File"],
+    "requirements": [],
+    "type": "COG",
+    "end_user_data_statement": "This cog does not persistently store data or metadata about users."
+}

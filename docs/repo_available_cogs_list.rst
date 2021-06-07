@@ -23,6 +23,8 @@ Available cogs list
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | encryptor       | Generate and validify the strength of passwords.             | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
+| jsonscanner     | An easy and quick tool to validate json.                     | Tools   | Kreusada       |
++-----------------+--------------------------------------------------------------+---------+----------------+
 | minifier        | Minify your code with the python minifier.                   | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | mjolnir         | Try to lift Thor's hammer!                                   | Fun     | Jojo, Kreusada |
@@ -55,5 +57,5 @@ Available cogs list
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | votechannel     | Designate a channel to add voting reactions (customizable).  | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
-| yamlscanner     | Scan yaml to see if it is correct.                           | Tools   | Kreusada       |
+| yamlscanner     | An easy and quick tool to validate yaml.                     | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
