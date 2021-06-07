@@ -31,8 +31,8 @@ Useful Links
     cog_consoleclearer
     cog_dehoister
     cog_encryptor
+    cog_filev
     cog_githubskylines
-    cog_jsonscanner
     cog_locales
     cog_minifier
     cog_mjolnir
@@ -54,7 +54,6 @@ Useful Links
     cog_timestables
     cog_vinfo
     cog_votechannel
-    cog_yamlscanner
 
 .. toctree::
     :caption: Repository
