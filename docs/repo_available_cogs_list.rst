@@ -25,7 +25,7 @@ Available cogs list
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | minifier        | Minify your code with the python minifier.                   | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
-| mjolnir         | Try to lift Thor's hammer!                                    | Fun     | Jojo, Kreusada |
+| mjolnir         | Try to lift Thor's hammer!                                   | Fun     | Jojo, Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | namegenerator   | Generate random names will optional gender arguments.        | Fun     | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
@@ -54,4 +54,6 @@ Available cogs list
 | vinfo           | Obtain version info for third-party cogs and dependencies.   | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | votechannel     | Designate a channel to add voting reactions (customizable).  | Tools   | Kreusada       |
++-----------------+--------------------------------------------------------------+---------+----------------+
+| yamlscanner     | Scan yaml to see if it is correct.                           | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
