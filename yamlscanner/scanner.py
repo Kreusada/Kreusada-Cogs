@@ -65,8 +65,7 @@ class YamlScanner(commands.Cog):
         if ctx.message.attachments[0]:
             # attachments will take priority
             file = ctx.message.attachments[0]
-            filename = file.filename
-            if not filename.split('.')[-1] in ("yaml", "yml", "mir"):
+            if not file.filename.split('.')[-1] in ("yaml", "yml", "mir"):
                 return await ctx.send("Please upload a valid YAML file.")
             try:
                 file = await file.read()
