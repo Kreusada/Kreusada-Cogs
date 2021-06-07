@@ -3,7 +3,7 @@ import discord
 from redbot.core.commands import BadArgument, Context
 
 from .safety import RaffleSafeMember
-from .exceptions import RequiredKeyError, UnknownEntityError
+from .exceptions import RequiredKeyError, UnknownEntityError, RaffleSyntaxError
 from .checks import join_age_checker, account_age_checker, now
 
 
@@ -69,19 +69,19 @@ class RaffleManager(object):
         if self.name:
             if not isinstance(self.name, str):
                 raise BadArgument("Name must be str, not {}".format(type(self.name).__name__))
-            if len(self.name) > 15:
-                raise BadArgument("Name must be under 15 characters, your raffle name had {}".format(len(self.name)))
+            if len(self.name) > 25:
+                raise BadArgument("Name must be under 25 characters, your raffle name had {}".format(len(self.name)))
             for char in self.name:
                 if char == "_":
                     # We want to allow underscores
                     continue
                 if not char.isalnum():
                     index = self.name.index(char)
-                    marker = f"{self.name}\n{' ' * (index+19)}^"
-                    raise BadArgument(
-                        "Name must only contain alphanumeric characters, "
-                        "found {}.\nInvalid character: {}".format(char, marker)
+                    marker = (
+                        f"{self.name}\n{' ' * (index)}^\n"
+                        f"Characters must be alphanumeric or underscores, not \"{char}\""
                     )
+                    raise RaffleSyntaxError(f"In \"name\" field, character {index+1}\n\n{marker}")
         else:
             raise RequiredKeyError("name")
 

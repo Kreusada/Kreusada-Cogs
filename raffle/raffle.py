@@ -54,7 +54,7 @@ class Raffle(commands.Cog):
     """Create raffles for your server."""
 
     __author__ = ["Kreusada"]
-    __version__ = "1.0.2"
+    __version__ = "1.0.3"
 
     def __init__(self, bot):
         self.bot = bot
@@ -71,13 +71,13 @@ class Raffle(commands.Cog):
             for k, v in list(r.items()):
 
                 getter = v.get("owner")
-                if not self.bot.get_user(getter):
+                if not ctx.guild.get_member(getter):
                     del r[k]
                     updates["owner"] = True
 
                 getter = v.get("entries")
                 for userid in getter:
-                    if not self.bot.get_user(userid):
+                    if not ctx.guild.get_member(userid):
                         getter.remove(userid)
                         updates["entries"] = True
 

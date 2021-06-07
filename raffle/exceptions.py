@@ -29,3 +29,7 @@ class UnknownEntityError(RaffleError):
 
     def __str__(self):
         return f"\"{self.data}\" was not a valid {self.type}"
+
+class RaffleSyntaxError(RaffleError):
+    """Raised when syntax is not provided properly."""
+    pass

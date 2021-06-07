@@ -63,7 +63,7 @@ Condition Blocks
 name
 ^^^^
 
-The name block is the only required key for a raffle. This block must be under 15
+The name block is the only required key for a raffle. This block must be under 25
 characters in length. It will automatically be converted to lowercase, and will have
 all spaces removed from it.
 
@@ -87,16 +87,18 @@ this would be to place quotation marks around your name content.
 
 .. code-block:: yaml
 
-    BadArgument: Name must be under 15 characters, your raffle name had [count]
+    BadArgument: Name must be under 25 characters, your raffle name had [count]
 
-This exception is raised when your name content has over 15 characters. Be sure to keep it
-nice and short, and then try again with a new name which is under 15 characters.
+This exception is raised when your name content has over 25 characters. Be sure to keep it
+nice and short, and then try again with a new name which is under 25 characters.
 
 .. code-block:: yaml
 
-    BadArgument: Name must only contain alphanumeric characters, found %.
-    Invalid character: hello_there%
-                                  ^
+    RaffleSyntaxError: In "name" field, character 5
+
+    test%01
+        ^
+    Characters must be alphanumeric or underscores, not "%"
 
 This exception is raised when your name contains a non-alphanumeric character. Please only
 use letters or numbers in your raffle name. 
