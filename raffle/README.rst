@@ -145,7 +145,7 @@ to customize this message so that it has context.
         - winner.id 
         - winner.display_name 
         - winner.discriminator
-        - winner.name_and_descriminator
+        - winner.name_and_discriminator
     
 Make sure to use these variables inside curly brackets (``{}``).
 This condition must be provided as a str (text with quotes).
@@ -327,7 +327,7 @@ If not specified, it defaults to ``keep_winner``.
 
 .. code-block:: yaml
     
-    BadArgument: on_draw_action must be one of 'end', 'remove_winner', or 'keep_winner'
+    BadArgument: on_end_action must be one of 'end', 'remove_winner', or 'keep_winner'
 
 This exception is raised when the on_end_action condition is not in the list provided
 above. These are the only actions available at this time.
@@ -820,7 +820,7 @@ raffle edit rolesreq clear
 
 **Description**
 
-Clear the prevented list for a raffle.
+Clear the role requirements list for a raffle.
 
 
 **Arguments:**

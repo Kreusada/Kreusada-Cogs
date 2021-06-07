@@ -11,6 +11,11 @@ class RaffleSafeMember(object):
         self.id = member.id
         self.display_name = member.display_name
         self.discriminator = member.discriminator
+        self.name_and_discriminator = f"{self.name}#{self.discriminator}"
+
+        # This needs to stay for a short while, if existing raffles
+        # are using it. Please refrain from using this variable, 
+        # use `{winner.name_and_discriminator} instead.`
         self.name_and_descriminator = f"{self.name}#{self.discriminator}"
 
     def __str__(self):

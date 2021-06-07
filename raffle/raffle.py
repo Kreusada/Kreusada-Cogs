@@ -54,7 +54,7 @@ class Raffle(commands.Cog):
     """Create raffles for your server."""
 
     __author__ = ["Kreusada"]
-    __version__ = "1.0.0"
+    __version__ = "1.0.2"
 
     def __init__(self, bot):
         self.bot = bot
@@ -1239,36 +1239,34 @@ class Raffle(commands.Cog):
             if prevented is None:
                 return await ctx.send("There are no prevented users.")
 
-        message = "Are you sure you want to clear the prevented users list for this raffle?"
-        can_react = ctx.channel.permissions_for(ctx.me).add_reactions
-        if not can_react:
-            message += " (yes/no)"
-        message = await ctx.send(message)
-        if can_react:
-            start_adding_reactions(message, ReactionPredicate.YES_OR_NO_EMOJIS)
-            predicate = ReactionPredicate.yes_or_no(message, ctx.author)
-            event_type = "reaction_add"
-        else:
-            predicate = MessagePredicate.yes_or_no(ctx)
-            event_type = "message"
-        
-        try:
-            await self.bot.wait_for(event_type, check=predicate, timeout=30)
-        except asyncio.TimeoutError:
-            await ctx.send("You took too long to respond.")
-            return
-
-        if predicate.result:
-            with contextlib.suppress(KeyError):
-                # Still wanna remove empty list here
-                del raffle_data["prevented_users"]    
+            message = "Are you sure you want to clear the prevented users list for this raffle?"
+            can_react = ctx.channel.permissions_for(ctx.me).add_reactions
+            if not can_react:
+                message += " (yes/no)"
+            message = await ctx.send(message)
+            if can_react:
+                start_adding_reactions(message, ReactionPredicate.YES_OR_NO_EMOJIS)
+                predicate = ReactionPredicate.yes_or_no(message, ctx.author)
+                event_type = "reaction_add"
+            else:
+                predicate = MessagePredicate.yes_or_no(ctx)
+                event_type = "message"
+            
             try:
-                await message.edit(content="Prevented users list cleared for this raffle.")
-            except discord.NotFound:
-                await ctx.send("Prevented users list cleared for this raffle.")
-        
-        else:
-            await ctx.send("No changes have been made.")    
+                await self.bot.wait_for(event_type, check=predicate, timeout=30)
+            except asyncio.TimeoutError:
+                await ctx.send("You took too long to respond.")
+                return
+
+            if predicate.result:
+                del raffle_data["prevented_users"]    
+                try:
+                    await message.edit(content="Prevented users list cleared for this raffle.")
+                except discord.NotFound:
+                    await ctx.send("Prevented users list cleared for this raffle.")
+            
+            else:
+                await ctx.send("No changes have been made.")    
 
 
     @edit.group()
@@ -1436,7 +1434,7 @@ class Raffle(commands.Cog):
 
     @rolesreq.command(name="clear")
     async def rolereq_clear(self, ctx, raffle: str):
-        """Clear the prevented list for a raffle.
+        """Clear the role requirement list for a raffle.
 
         
         **Arguments:**
@@ -1453,38 +1451,38 @@ class Raffle(commands.Cog):
             if rolesreq is None:
                 return await ctx.send("There are no required roles.")
 
-        message = "Are you sure you want to clear the role requirement list for this raffle?"
-        can_react = ctx.channel.permissions_for(ctx.me).add_reactions
-        if not can_react:
-            message += " (yes/no)"
-        message = await ctx.send(message)
-        if can_react:
-            start_adding_reactions(message, ReactionPredicate.YES_OR_NO_EMOJIS)
-            predicate = ReactionPredicate.yes_or_no(message, ctx.author)
-            event_type = "reaction_add"
-        else:
-            predicate = MessagePredicate.yes_or_no(ctx)
-            event_type = "message"
-        
-        try:
-            await self.bot.wait_for(event_type, check=predicate, timeout=30)
-        except asyncio.TimeoutError:
-            await ctx.send("You took too long to respond.")
-            return
-
-        if predicate.result:
-            with contextlib.suppress(KeyError):
-                # Still wanna remove empty list here
-                del raffle_data["roles_needed_to_enter"]    
+            message = "Are you sure you want to clear the role requirement list for this raffle?"
+            can_react = ctx.channel.permissions_for(ctx.me).add_reactions
+            if not can_react:
+                message += " (yes/no)"
+            message = await ctx.send(message)
+            if can_react:
+                start_adding_reactions(message, ReactionPredicate.YES_OR_NO_EMOJIS)
+                predicate = ReactionPredicate.yes_or_no(message, ctx.author)
+                event_type = "reaction_add"
+            else:
+                predicate = MessagePredicate.yes_or_no(ctx)
+                event_type = "message"
+            
             try:
-                await message.edit(content="Role requirement list cleared for this raffle.")
-            except discord.NotFound:
-                await ctx.send("Role requirement list cleared for this raffle.")
-        
-        else:
-            await ctx.send("No changes have been made.")    
+                await self.bot.wait_for(event_type, check=predicate, timeout=30)
+            except asyncio.TimeoutError:
+                await ctx.send("You took too long to respond.")
+                return
 
-        await self.replenish_cache(ctx)
+            if predicate.result:
+                with contextlib.suppress(KeyError):
+                    # Still wanna remove empty list here
+                    del raffle_data["roles_needed_to_enter"]    
+                try:
+                    await message.edit(content="Role requirement list cleared for this raffle.")
+                except discord.NotFound:
+                    await ctx.send("Role requirement list cleared for this raffle.")
+            
+            else:
+                await ctx.send("No changes have been made.")    
+
+            await self.replenish_cache(ctx)
 
 
     @raffle.command()

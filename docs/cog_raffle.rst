@@ -145,7 +145,7 @@ to customize this message so that it has context.
         - winner.id 
         - winner.display_name 
         - winner.discriminator
-        - winner.name_and_descriminator
+        - winner.name_and_discriminator
     
 Make sure to use these variables inside curly brackets (``{}``).
 This condition must be provided as a str (text with quotes).
@@ -327,7 +327,7 @@ If not specified, it defaults to ``keep_winner``.
 
 .. code-block:: yaml
     
-    BadArgument: on_draw_action must be one of 'end', 'remove_winner', or 'keep_winner'
+    BadArgument: on_end_action must be one of 'end', 'remove_winner', or 'keep_winner'
 
 This exception is raised when the on_end_action condition is not in the list provided
 above. These are the only actions available at this time.
@@ -634,6 +634,23 @@ Use `0` or `false` to disable this condition.
     - `<raffle>` - The name of the raffle.
     - `<end_message>` - The new ending message.
 
+.. _raffle-command-raffle-edit-fromyaml:
+
+^^^^^^^^^^^^^^^^^^^^
+raffle edit fromyaml
+^^^^^^^^^^^^^^^^^^^^
+
+**Syntax**
+
+.. code-block:: python
+
+    [p]raffle edit fromyaml <raffle>
+
+Edit a raffle directly from yaml.
+
+**Arguments:**
+    - `<raffle>` - The name of the raffle to edit.
+
 .. _raffle-command-raffle-edit-joinage:
 
 ^^^^^^^^^^^^^^^^^^^
@@ -655,23 +672,6 @@ Use `0` or `false` to disable this condition.
 **Arguments:**
     - `<raffle>` - The name of the raffle.
     - `<new_join_age>` - The new join age requirement.
-
-.. _raffle-command-raffle-edit-fromyaml:
-
-^^^^^^^^^^^^^^^^^^^^
-raffle edit fromyaml
-^^^^^^^^^^^^^^^^^^^^
-
-**Syntax**
-
-.. code-block:: python
-
-    [p]raffle edit fromyaml <raffle>
-
-Edit a raffle directly from yaml.
-
-**Arguments:**
-    - `<raffle>` - The name of the raffle to edit.
 
 .. _raffle-command-raffle-edit-maxentries:
 
@@ -820,7 +820,7 @@ raffle edit rolesreq clear
 
 **Description**
 
-Clear the prevented list for a raffle.
+Clear the role requirements list for a raffle.
 
 
 **Arguments:**
@@ -1100,3 +1100,4 @@ Receive Support
 ---------------
 
 Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_kreusada-cogs`.
+

@@ -23,7 +23,7 @@ class RaffleManager(object):
         self.prevented_users = data.get("prevented_users", None)
         self.allowed_users = data.get("allowed_users", None)
         self.end_message = data.get("end_message", None)
-        self.on_draw_action = data.get("on_draw_action", None)
+        self.on_end_action = data.get("on_end_action", None)
 
     @classmethod
     def shorten_description(cls, description, length=50):
@@ -123,7 +123,7 @@ class RaffleManager(object):
             except KeyError as e:
                 raise BadArgument(f"{e} was an unexpected argument in your end_message block")
 
-        if self.on_draw_action:
+        if self.on_end_action:
             valid_actions = ("end", "remove_winner", "keep_winner")
-            if not isinstance(self.on_draw_action, str) or self.on_draw_action not in valid_actions:
-                raise BadArgument("on_draw_action must be one of 'end', 'remove_winner', or 'keep_winner'")
+            if not isinstance(self.on_end_action, str) or self.on_end_action not in valid_actions:
+                raise BadArgument("on_end_action must be one of 'end', 'remove_winner', or 'keep_winner'")
