@@ -1,10 +1,10 @@
-.. _yamlscanner:
+.. _filev:
 
-===========
-YamlScanner
-===========
+=====
+Filev
+=====
 
-This is the cog guide for the yamlscanner cog. You will
+This is the cog guide for the filev cog. You will
 find detailed docs about usage and commands.
 
 Throughout this documentation, ``[p]`` is considered as your prefix.
@@ -19,28 +19,47 @@ Let's firstly add my repository if you haven't already:
 
 Next, let's download the cog from the repo:
 
-* :code:`[p]cog install kreusada yamlscanner`
+* :code:`[p]cog install kreusada filev`
 
 Finally, you can see my end user data statements, cog requirements, and other cog information by using:
 
-* :code:`[p]cog info kreusada yamlscanner`
+* :code:`[p]cog info kreusada filev`
 
-.. _yamlscanner-usage:
+.. _filev-usage:
 
 -----
 Usage
 -----
 
-An easy and quick tool to validate yaml.
+Easy and quick tools to validate various file syntax.
 
 
-.. _yamlscanner-commands:
+.. _filev-commands:
 
 --------
 Commands
 --------
 
-.. _yamlscanner-command-yamlscan:
+.. _filev-command-jsonscan:
+
+^^^^^^^^
+jsonscan
+^^^^^^^^
+
+**Syntax**
+
+.. code-block:: none
+
+    [p]jsonscan [file]
+
+**Description**
+
+Scan json to see if its correct.
+
+Your next message will be used to as the json to scan.
+You can also upload a JSON file.
+
+.. _filev-command-yamlscan:
 
 ^^^^^^^^
 yamlscan
@@ -50,7 +69,7 @@ yamlscan
 
 .. code-block:: none
 
-    [p]yamlscan
+    [p]yamlscan [file]
 
 **Description**
 

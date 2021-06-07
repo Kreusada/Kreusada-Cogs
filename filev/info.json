@@ -1,0 +1,11 @@
+{
+    "author": ["Kreusada"],
+    "description": "Easy and quick tools to validate various file syntax.",
+    "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_filev.html",
+    "short": "Easy and quick tools to validate various file syntax.",
+    "name": "Filev",
+    "tags": ["JSON", "YAML", "Validator", "File", "Scanner"],
+    "requirements": [],
+    "type": "COG",
+    "end_user_data_statement": "This cog does not persistently store data or metadata about users."
+}

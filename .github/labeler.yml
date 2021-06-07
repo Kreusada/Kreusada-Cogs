@@ -29,6 +29,9 @@
   - encryptor/*
   - docs/cog_encryptor
   - docs/_deprecated/changelog_dehoister
+"Cog: Filev":
+  - filev/*
+  - docs/cog_filev
 "Cog: GithubSkylines":
   - githubskylines/*
   - docs/cog_githubskylines
@@ -108,9 +111,6 @@
   - votechannel/*
   - docs/cog_votechannel
   - docs/_deprecated/changelog_votechannel
-"Cog: YamlScanner":
-  - yamlscanner/*
-  - docs/cog_yamlscanner
 "Category: Meta":
   - .github/*
   - .github/*/*
