@@ -3,14 +3,13 @@ import contextlib
 import datetime
 import io
 import logging
+from typing import Union
 
 import discord
 from redbot.core import Config, commands, modlog
 from redbot.core.utils.chat_formatting import box
 from redbot.core.utils.menus import start_adding_reactions
 from redbot.core.utils.predicates import ReactionPredicate
-
-from typing import Union
 
 log = logging.getLogger("red.kreusada.dehoister")
 
@@ -85,7 +84,7 @@ class Dehoister(commands.Cog):
         )
         return await ctx.send(embed=embed)
 
-    async def create_case(self, ctx, user, moderator):
+    async def create_case(self, guild, user, moderator):
         try:
             await modlog.register_casetype(
                 name="Dehoisted",
@@ -98,7 +97,7 @@ class Dehoister(commands.Cog):
             pass
         await modlog.create_case(
             bot=self.bot,
-            guild=ctx.guild,
+            guild=guild,
             created_at=datetime.datetime.utcnow(),
             action_type="Dehoisted",
             user=user,
@@ -128,16 +127,15 @@ class Dehoister(commands.Cog):
     async def on_member_join(self, member: discord.Member):
 
         guild = member.guild
-        ctx = self.bot.get_context(member)
         toggle = await self.config.guild(guild).toggled()
 
         if any([not toggle, member.bot, not guild]):
             return
 
         if member.name.startswith(HOIST):
-            if ctx.channel.permissions_for(self.bot).manage_nicknames:
+            if guild.me.guild_permissions.manage_nicknames:
                 await member.edit(nick=await self.config.guild(guild).nickname())
-                await self.create_case(ctx, member, self.bot)
+                await self.create_case(guild, member, self.bot)
             else:
                 log.error(f"Invalid permissions to edit a members name. [{member.id}]")
 
@@ -168,7 +166,7 @@ class Dehoister(commands.Cog):
         try:
             await member.edit(nick=await self.config.guild(ctx.guild).nickname())
             await ctx.send(f"`{member.name}` has successfully been dehoisted.")
-            await self.create_case(ctx, member, ctx.author)
+            await self.create_case(ctx.guild, member, ctx.author)
         except discord.Forbidden:
             await ctx.send(f"I could not dehoist {member.name}.")
 
@@ -221,7 +219,7 @@ class Dehoister(commands.Cog):
         NOTE: If the server owner is hoisted, [botname] cannot change their nickname.
         """
         hoisted_count = await self.get_hoisted_count(ctx)
-        
+
         guild_config = await self.config.guild(ctx.guild).all()
         nickname = guild_config["nickname"]
         ignored_users = guild_config["ignored_users"]
@@ -260,9 +258,9 @@ class Dehoister(commands.Cog):
                         await m.edit(
                             nick=await self.config.guild(ctx.guild).nickname()
                         )
-                    except discord.Forbidden: 
+                    except discord.Forbidden:
                         # This exception will only occur if an attempt is made to dehoist server owner
-                        exceptions += 1  
+                        exceptions += 1
                         await ctx.send(
                             f"I could not change {ctx.guild.owner.name}'s nickname because I cannot edit owner nicknames."
                         )
@@ -282,7 +280,7 @@ class Dehoister(commands.Cog):
     async def ignore_add(self, ctx: commands.Context, *users: Union[discord.Member, int]):
         """Add users to the ignore list.
 
-        If on the ignore list, the dehoister will not dehoist them if 
+        If on the ignore list, the dehoister will not dehoist them if
         they have a hoisted nickname/username.
         """
         async with self.config.guild(ctx.guild).ignored_users() as ignored_users:
@@ -295,8 +293,8 @@ class Dehoister(commands.Cog):
     @ignore.command(name="remove", aliases=["del"], require_var_positional=True)
     async def ignore_remove(self, ctx: commands.Context, *users: int):
         """Remove users from the ignore list.
-        
-        Once removed, they will be dehoisted by the dehoister if 
+
+        Once removed, they will be dehoisted by the dehoister if
         they have a hoisted nickname/username.
         """
         async with self.config.guild(ctx.guild).ignored_users() as ignored_users:
