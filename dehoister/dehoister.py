@@ -128,7 +128,7 @@ class Dehoister(commands.Cog):
     async def on_member_join(self, member: discord.Member):
 
         guild = member.guild
-        ctx = self.bot.get_context(member)
+        ctx = await self.bot.get_context(member)
         toggle = await self.config.guild(guild).toggled()
 
         if any([not toggle, member.bot, not guild]):
