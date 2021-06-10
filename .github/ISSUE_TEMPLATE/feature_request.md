@@ -2,7 +2,7 @@
 name: Feature request
 about: Suggest an idea for a cog.
 title: ''
-labels: 'Type: Enhancement'
+labels: 'enhancement'
 assignees: ''
 
 ---
