@@ -48,7 +48,7 @@ gitskyline
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]gitskyline <git_username> <year> 
 

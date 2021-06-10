@@ -38,7 +38,7 @@ rpsls
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]rpsls <choice>
 

@@ -48,7 +48,7 @@ rb
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]rb 
 
@@ -64,7 +64,7 @@ rb listroles
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]rb listroles 
 
@@ -80,7 +80,7 @@ rb toproles
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]rb toproles 
 
@@ -96,7 +96,7 @@ rb topusers
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]rb topusers 
 

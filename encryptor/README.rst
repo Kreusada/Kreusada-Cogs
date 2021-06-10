@@ -48,7 +48,7 @@ password
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]password 
 
@@ -64,7 +64,7 @@ password generate
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]password generate 
 
@@ -80,7 +80,7 @@ password generate complex
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]password generate complex 
 
@@ -96,7 +96,7 @@ password generate strong
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]password generate strong [delimeter]
 
@@ -116,7 +116,7 @@ password strength
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]password strength <password>
 

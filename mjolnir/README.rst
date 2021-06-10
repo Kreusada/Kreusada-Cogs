@@ -48,7 +48,7 @@ lifted
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]lifted 
 
@@ -64,7 +64,7 @@ liftedboard
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]liftedboard 
 
@@ -80,7 +80,7 @@ trylift
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]trylift 
 
