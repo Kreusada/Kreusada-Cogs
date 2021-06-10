@@ -48,7 +48,7 @@ locale
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]locale 
 
@@ -66,7 +66,7 @@ locale bot
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]locale bot 
 
@@ -82,7 +82,7 @@ locale get
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]locale get <language_code>
 
@@ -98,7 +98,7 @@ locale isvalid
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]locale isvalid <language_code>
 
@@ -114,7 +114,7 @@ locale populous
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]locale populous <language_code> [writing_or_speaking]
 

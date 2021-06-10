@@ -48,7 +48,7 @@ black
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]black <file> [line_length=99]
 

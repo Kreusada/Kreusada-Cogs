@@ -48,7 +48,7 @@ editor
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]editor 
 
@@ -64,7 +64,7 @@ editor alternating
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]editor alternating <text>
 
@@ -80,7 +80,7 @@ editor charcount
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]editor charcount [include_spaces=True] <text>
 
@@ -96,7 +96,7 @@ editor lower
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]editor lower <text>
 
@@ -112,7 +112,7 @@ editor occurance
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]editor occurance <check> <text>
 
@@ -128,7 +128,7 @@ editor remove
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]editor remove <remove> <text>
 
@@ -144,7 +144,7 @@ editor replace
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]editor replace <text_to_replace> <replacement> <text>
 
@@ -160,7 +160,7 @@ editor reverse
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]editor reverse <text>
 
@@ -176,7 +176,7 @@ editor shuffle
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]editor shuffle <text>
 
@@ -194,7 +194,7 @@ editor snake
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]editor snake <text>
 
@@ -210,7 +210,7 @@ editor squash
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]editor squash <text>
 
@@ -226,7 +226,7 @@ editor title
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]editor title <text>
 
@@ -242,7 +242,7 @@ editor trim
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]editor trim [trimmer= ] <text>
 
@@ -260,7 +260,7 @@ editor upper
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]editor upper <text>
 
@@ -276,7 +276,7 @@ editor wordcount
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]editor wordcount <text>
 

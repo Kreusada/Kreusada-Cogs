@@ -48,7 +48,7 @@ spoilerchannel
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]spoilerchannel 
 
@@ -64,7 +64,7 @@ spoilerchannel add
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]spoilerchannel add <channel>
 
@@ -84,7 +84,7 @@ spoilerchannel clear
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]spoilerchannel clear 
 
@@ -100,7 +100,7 @@ spoilerchannel list
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]spoilerchannel list 
 
@@ -116,7 +116,7 @@ spoilerchannel remove
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]spoilerchannel remove <channel>
 

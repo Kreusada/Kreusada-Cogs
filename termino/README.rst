@@ -50,7 +50,7 @@ restart
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]restart [silently=False]
 
@@ -66,7 +66,7 @@ shutdown
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]shutdown [silently=False]
 
@@ -82,7 +82,7 @@ terminoset
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]terminoset 
 
@@ -98,7 +98,7 @@ terminoset res
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]terminoset res <restart_message>
 
@@ -120,7 +120,7 @@ terminoset res conf
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]terminoset res conf <true_or_false>
 
@@ -140,7 +140,7 @@ terminoset res restartedmessage
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]terminoset restartedmessage <restarted_message>
 
@@ -162,7 +162,7 @@ terminoset settings
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]terminoset settings 
 
@@ -178,7 +178,7 @@ terminoset shut
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]terminoset shut <shutdown_message>
 
@@ -200,7 +200,7 @@ terminoset shut conf
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]terminoset shut conf <true_or_false>
 

@@ -24,7 +24,7 @@ Next, let's download the cog from the repo:
 Finally, you can see my end user data statements, cog requirements, and other cog information by using:
 
 * :code:`[p]cog info kreusada alphanato`
-* 
+
 .. _alphanato-usage:
 
 -----

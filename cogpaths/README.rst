@@ -24,14 +24,14 @@ Next, let's download the cog from the repo:
 Finally, you can see my end user data statements, cog requirements, and other cog information by using:
 
 * :code:`[p]cog info kreusada cogpaths`
-* 
+
 .. _cogpaths-usage:
 
 -----
 Usage
 -----
 
-Get the nato alphabet name from a letter.
+Get the paths for a cog.
 
 
 .. _cogpaths-commands:
@@ -48,7 +48,7 @@ cogpath
 
 **Syntax**
 
-.. code-block:: none
+.. code-block:: ini
 
     [p]cogpath <cog>
 
