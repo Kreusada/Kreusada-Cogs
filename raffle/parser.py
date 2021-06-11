@@ -114,14 +114,22 @@ class RaffleManager(object):
                     raise UnknownEntityError(u, "user")
 
         if self.end_message:
-            if not isinstance(self.end_message, str):
+            if not isinstance(self.end_message, (list, str)):
                 # Will render {} without quotes, best not to include the type.__name__ here
-                raise BadArgument("End message must be str")
-            try:
-                # This will raise BadArgument
-                self.end_message.format(winner=RaffleSafeMember(discord.Member), raffle=r"{raffle}")
-            except KeyError as e:
-                raise BadArgument(f"{e} was an unexpected argument in your end_message block")
+                raise BadArgument("End message must be str, or a list of str")
+            if isinstance(self.end_message, str):
+                try:
+                    # This will raise BadArgument
+                    self.end_message.format(winner=RaffleSafeMember(discord.Member), raffle=r"{raffle}")
+                except KeyError as e:
+                    raise BadArgument(f"{e} was an unexpected argument in your end_message block")
+            else:
+                for m in self.end_message:
+                    try:
+                        m.format(winner=RaffleSafeMember(discord.Member), raffle=r"{raffle}")
+                    except KeyError as e:
+                        raise BadArgument(f"{e} was an unexpected argument in your end_message block")
+
 
         if self.on_end_action:
             valid_actions = ("end", "remove_winner", "keep_winner")

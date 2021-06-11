@@ -42,7 +42,8 @@ from .helpers import (
     format_traceback,
     cleanup_code,
     validator,
-    raffle_safe_member_scanner
+    raffle_safe_member_scanner,
+    start_interactive_end_message_session
 )
 
 
@@ -657,8 +658,10 @@ class Raffle(commands.Cog):
                 return await ctx.send("There are no participants yet for this raffle.")
             winner = random.choice(raffle_entities("entries"))
 
-            if raffle_entities("end_message"):
-                message = raffle_entities("end_message")
+            message = raffle_entities("end_message")
+            if message:
+                if isinstance(message, list):
+                    message = random.choice(message)
             else:
                 message = "Congratulations {winner.mention}, you have won the {raffle} raffle!"
 
@@ -1029,11 +1032,41 @@ class Raffle(commands.Cog):
 
             else:
                 try:
-                    raffle_safe_member_scanner(ctx, end_message)
+                    raffle_safe_member_scanner(end_message)
                 except BadArgument as e:
                     return await ctx.send(format_traceback(e))
-                raffle_data["end_message"] = end_message
-                await ctx.send("End message updated for this raffle.")
+
+                message = "Would you like to add additional end messages to be selected from at random?"
+
+                can_react = ctx.channel.permissions_for(ctx.me).add_reactions
+                if not can_react:
+                    message += " (yes/no)"
+                message = await ctx.send(message)
+                if can_react:
+                    start_adding_reactions(message, ReactionPredicate.YES_OR_NO_EMOJIS)
+                    predicate = ReactionPredicate.yes_or_no(message, ctx.author)
+                    event_type = "reaction_add"
+                else:
+                    predicate = MessagePredicate.yes_or_no(ctx)
+                    event_type = "message"
+                
+                try:
+                    await self.bot.wait_for(event_type, check=predicate, timeout=30)
+                except asyncio.TimeoutError:
+                    await ctx.send("You took too long to respond. Saving end message as \"{}\".".format(end_message))
+
+                if predicate.result:
+                    interaction = await start_interactive_end_message_session(ctx, self.bot, message)
+                    if interaction is False:
+                        data = end_message
+                        await ctx.send("End message set to what you provided previously: {}".format(end_message))
+                    else:
+                        data = [end_message] + interaction
+                        await ctx.send("End message updated for this raffle.")
+                else:
+                    data = end_message
+                    await ctx.send("End message updated for this raffle.")
+                raffle_data["end_message"] = data
 
         await self.replenish_cache(ctx)
 
@@ -1488,6 +1521,6 @@ class Raffle(commands.Cog):
     @raffle.command()
     async def conditions(self, ctx: Context):
         """Get information about how conditions work."""
-        message = "\n".join(f"{e.name}: {e.value[0].__name__}\n\t{e.value[1]}" for e in RaffleComponents)
+        message = "\n".join(f"{e.name}:\n\t{e.value}" for e in RaffleComponents)
         await ctx.send(box(message, lang="yaml"))
         await self.replenish_cache(ctx)
