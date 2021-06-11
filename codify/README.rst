@@ -29,7 +29,7 @@ Finally, you can see my end user data statements, cog requirements, and other co
 Usage
 -----
 
-Get a message and wrap it in a codeblock.
+Place text inside of codeblocks.
 
 .. _codify-commands:
 
@@ -39,17 +39,17 @@ Commands
 
 Here's a list of all commands available for this cog.
 
-.. _codify-command-codify:
+.. _codify-command-codify-frommsg:
 
-^^^^^^
-codify
-^^^^^^
+^^^^^^^^^^^^^^
+codify frommsg
+^^^^^^^^^^^^^^
 
 **Syntax**
 
 .. code-block:: ini
 
-    [p]codify <message_id> [language=python] [escape_markdown=False]
+    [p]codify <message_id> [language=python]
 
 **Description**
 
@@ -59,7 +59,27 @@ Get a message and wrap it in a codeblock.
 
 * ``<message_id>``: The message's ID to convert into a codeblock.
 * ``[language]``: The language of the codeblock. If none is provided, it defaults to python.
-* ``[escape_markdown]``: Determines whether to escape the ``<message_id>``. If none is provided, it defaults to False.
+
+.. _codify-command-codify-fromtext:
+
+^^^^^^^^^^^^^^^
+codify fromtext
+^^^^^^^^^^^^^^^
+
+**Syntax**
+
+.. code-block:: ini
+
+    [p]codify [language=python] <text>
+
+**Description**
+
+Get a message and wrap it in a codeblock.
+
+**Arguments**
+
+* ``[language]``: The language of the codeblock. If none is provided, it defaults to python.
+* ``<text>``: The text to put inside of the codeblock.
 
 ---------------
 Receive Support

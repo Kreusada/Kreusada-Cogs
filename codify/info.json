@@ -1,6 +1,6 @@
 {
 	"author": ["Kreusada"],
-	"description": "Get a message and wrap it in a codeblock.",
+	"description": "Place text inside of codeblocks.",
     "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_codify.html",
 	"short": "Codify messages.",
 	"name": "Codify",
