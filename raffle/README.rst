@@ -67,45 +67,9 @@ The name block is the only required key for a raffle. This block must be under 2
 characters in length. It will automatically be converted to lowercase, and will have
 all spaces removed from it.
 
-This block must be provided as a str (text with quotes)
+This block must be provided as a str (text with quotes).
 
-**Potential Exceptions**
-
-.. code-block:: yaml
-    
-    RequiredKeyError: The "name" key is required
-
-This exception is raised when the name key is missing, because it is required. To fix
-this, simply add the name key inside of your YAML.
-
-.. code-block:: yaml
-    
-    BadArgument: Name must be str, not [invalid type]
-
-This exception is raised when the name was not provided in the correct type. A simple fix for
-this would be to place quotation marks around your name content.
-
-.. code-block:: yaml
-
-    BadArgument: Name must be under 25 characters, your raffle name had [count]
-
-This exception is raised when your name content has over 25 characters. Be sure to keep it
-nice and short, and then try again with a new name which is under 25 characters.
-
-.. code-block:: yaml
-
-    RaffleSyntaxError: In "name" field, character 5
-
-    test%01
-        ^
-    Characters must be alphanumeric or underscores, not "%"
-
-This exception is raised when your name contains a non-alphanumeric character. Please only
-use letters or numbers in your raffle name. 
-
-.. note::
-
-    Underscores are excluded from this alphanumeric rule, so feel free to use them too.
+Please only use alphanumeric characters, with underscores allowed.
 
 ^^^^^^^^^^^
 description
@@ -115,15 +79,6 @@ The description for your raffle. This information appears in the ``[p]raffle inf
 command, so people can see what your raffle's about.
 
 This block must be provided as a str (text with quotes)
-
-**Potential Exceptions**
-
-.. code-block:: yaml
-    
-    BadArgument: Description must be str, not [invalid type]
-
-This exception is raised when the description was not provided in the correct type. A simple fix for
-this would be to place quotation marks around your description's content.
 
 ^^^^^^^^^^^
 end_message
@@ -150,25 +105,16 @@ to customize this message so that it has context.
         - winner.name_and_discriminator
     
 Make sure to use these variables inside curly brackets (``{}``).
-This condition must be provided as a str (text with quotes).
 
-**Potential Exceptions**
+If you want to randomize the end_message, this is now an option as of version 1.1.0.
+Simply provide a list of strings. Otherwise, provide a string by itself.
 
 .. code-block:: yaml
-    
-    BadArgument: End message must be str
 
-This exception is raised when the end_message was not provided in the correct type. A simple fix 
-for this would be to place quotation marks around your end message's content.
-
-.. code-block:: yaml 
-
-    BadArgument: [arg] was an unexpected argument in your end_message block
-
-This exception is raised when the end_message contains an incorrect argument. For example,
-``{winner.abc}``, or ``{something_that_doesn't_exist}``. These variables do not exist, nor 
-does the ``winner`` variable have an attribute "abc", therefore this exception is raised. 
-Please see above for the list of accepted variables.
+    # randomised
+    end_message: ["Congrats {winner.mention}!", "{winner.name} has won the {raffle} raffle."]
+    # selected
+    end_message: "Congrats {winner.mention}! You have won my {raffle} raffle."
 
 ^^^^^^^^^^^
 account_age
@@ -207,22 +153,6 @@ server for.
 This condition must be a number, and it must be provided in days. This number cannot be higher
 than the server's creation date.
 
-**Potential Exceptions**
-
-.. code-block:: yaml
-    
-    BadArgument: Join age days must be int, not [invalid type]
-
-This exception is raised when the join_age was not provided in the correct type. 
-Please simply provide a number for this condition, without quotes.
-
-.. code-block:: yaml 
-
-    BadArgument: Join age days must be less than this guild's creation date
-
-This exception is raised when the join_age number is higher than the number of days that 
-the current server has existed for. Please try and choose a lower number to make it compatible.
-
 ^^^^^^^^^^^^^^^^^^^^^
 roles_needed_to_enter
 ^^^^^^^^^^^^^^^^^^^^^
@@ -237,42 +167,12 @@ role IDs. In case you were unaware, square brackets (``[]``) are used to denote 
     # One role
     roles_needed_to_enter: [749272596050214973]
 
-**Potential Exceptions**
-
-.. code-block:: yaml
-    
-    BadArgument: Roles must be a list of Discord role IDs, not [invalid type]
-
-This exception is raised when the roles_needed_to_enter was not provided in the correct format. 
-Please provide your discord roles via IDs, and in the format shown above in the example.
-
-.. code-block:: yaml 
-
-    BadArgument: <role id> was not a valid role
-
-This exception is raised when one of the roles provided was not found in the current guild.
-
 ^^^^^^^^^^^^^^^
 prevented_users
 ^^^^^^^^^^^^^^^
 
 A list of users who are not allowed to join the raffle. This must be a **list** of 
 user IDs. Square brackets (``[]``) are used to denote lists.
-
-**Potential Exceptions**
-
-.. code-block:: yaml
-    
-    BadArgument: Users must be a list of Discord user IDs, not [invalid type]
-
-This exception is raised when the prevented_users was not provided in the correct format. 
-Please provide your discord users via IDs, in a list.
-
-.. code-block:: yaml 
-
-    UnknownEntityError: <user id> was not a valid user
-
-This exception is raised when one of the users provided was not found in the current guild.
 
 ^^^^^^^^^^^^^
 allowed_users
@@ -281,36 +181,12 @@ allowed_users
 A list of users who are allowed to join the raffle. This must be a **list** of 
 user IDs. Square brackets (``[]``) are used to denote lists.
 
-**Potential Exceptions**
-
-.. code-block:: yaml
-    
-    BadArgument: Users must be a list of Discord user IDs, not [invalid type]
-
-This exception is raised when the allowed_users was not provided in the correct format. 
-Please provide your discord users via IDs, in a list.
-
-.. code-block:: yaml 
-
-    UnknownEntityError: <user id> was not a valid user
-
-This exception is raised when one of the users provided was not found in the current guild.
-
 ^^^^^^^^^^^^^^^
 maximum_entries
 ^^^^^^^^^^^^^^^
 
 The maximum number of entries allowed into the raffle. This condition must be 
 provided as a number.
-
-**Potential Exceptions**
-
-.. code-block:: yaml
-    
-    BadArgument: Maximum entries must be int, not [invalid type]
-
-This exception is raised when the maximum_entries was not provided in the correct type. 
-Please simply provide a number for this condition, without quotes.
 
 ^^^^^^^^^^^^^
 on_end_action
@@ -324,15 +200,6 @@ This is the prompt for the bot when the a winner is picked for the raffle throug
 * ``keep_winner``: The winner stays in the raffle, and could win again.
 
 If not specified, it defaults to ``keep_winner``.
-
-**Potential Exceptions**
-
-.. code-block:: yaml
-    
-    BadArgument: on_end_action must be one of 'end', 'remove_winner', or 'keep_winner'
-
-This exception is raised when the on_end_action condition is not in the list provided
-above. These are the only actions available at this time.
 
 .. _raffle-commands:
 
@@ -630,11 +497,15 @@ raffle edit endmessage
 
 Edit the end message of a raffle.
 
-Use `0` or `false` to disable this condition.
+Once you provide an end message, you will have the chance
+to add additional messages, which will be selected at random
+when a winner is drawn.
+
+Use ``0`` or ``false`` to disable this condition.
 
 **Arguments:**
-    - `<raffle>` - The name of the raffle.
-    - `<end_message>` - The new ending message.
+    - ``<raffle>`` - The name of the raffle.
+    - ``<end_message>`` - The new ending message.
 
 .. _raffle-command-raffle-edit-fromyaml:
 

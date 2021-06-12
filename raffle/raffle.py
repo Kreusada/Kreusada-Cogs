@@ -1009,6 +1009,10 @@ class Raffle(commands.Cog):
     @edit.command()
     async def endmessage(self, ctx, raffle: str, *, end_message: Union[bool, str]):
         """Edit the end message of a raffle.
+
+        Once you provide an end message, you will have the chance
+        to add additional messages, which will be selected at random
+        when a winner is drawn.
         
         Use `0` or `false` to disable this condition.
         
