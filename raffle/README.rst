@@ -173,9 +173,9 @@ Please simply provide a number for this condition, without quotes.
 This exception is raised when the account_age number is higher than the number of days that 
 Discord has existed for. Please try and choose a lower number to make it more realistic.
 
-^^^^^^^^
-join_age
-^^^^^^^^
+^^^^^^^^^^^^^^^
+server_join_age
+^^^^^^^^^^^^^^^
 
 The required length of time in days that the user must have been in the server for. This condition
 is simular to the ``account_age`` condition, but it is instead how long the user has been in the
@@ -183,6 +183,11 @@ server for.
 
 This condition must be a number, and it must be provided in days. This number cannot be higher
 than the server's creation date.
+
+.. warning::
+
+    The ``join_age`` condition was deprecated for ``server_join_age`` in version 1.2.3.
+    Please update to this version, using ``join_age`` is now unsupported and will not work.
 
 ^^^^^^^^^^^^^^^^^^^^^
 roles_needed_to_enter

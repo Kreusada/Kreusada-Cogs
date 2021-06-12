@@ -4,8 +4,14 @@ from redbot.core.commands import BadArgument, Context
 
 from .log import log
 from .safety import RaffleSafeMember
-from .exceptions import RequiredKeyError, UnknownEntityError, RaffleSyntaxError
 from .checks import server_join_age_checker, account_age_checker, now
+
+from .exceptions import (
+    RequiredKeyError, 
+    UnknownEntityError, 
+    RaffleSyntaxError, 
+    RaffleDeprecationWarning
+)
 
 
 class RaffleManager(object):
@@ -18,7 +24,7 @@ class RaffleManager(object):
         self.name = data.get("name", None)
         self.description = data.get("description", None)
         self.account_age = data.get("account_age", None)
-        self.server_join_age = data.get("server_join_age", None) or data.get("join_age", None)
+        self.server_join_age = data.get("server_join_age", None)
         self.maximum_entries = data.get("maximum_entries", None)
         self.roles_needed_to_enter = data.get("roles_needed_to_enter", None) 
         self.prevented_users = data.get("prevented_users", None)
@@ -26,6 +32,9 @@ class RaffleManager(object):
         self.join_message = data.get("join_message", None)
         self.end_message = data.get("end_message", None)
         self.on_end_action = data.get("on_end_action", None)
+
+        if "join_age" in self.data.keys():
+            raise RaffleDeprecationWarning("\"join_age\" has been deprecated in favour of \"server_join_age\". Please use this condition instead.")
 
     @classmethod
     def shorten_description(cls, description, length=50):
@@ -57,8 +66,6 @@ class RaffleManager(object):
 
 
         if self.server_join_age:
-            if "join_age" in self.data.keys():
-                log.warning("\"join_age\" is deprecated in favour of \"server_join_age\". Please use this term instead.")
             if not isinstance(self.server_join_age, int):
                 raise BadArgument("(server_join_age) days must be a number")
             if not server_join_age_checker(ctx, self.server_join_age):

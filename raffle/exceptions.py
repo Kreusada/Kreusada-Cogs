@@ -33,3 +33,7 @@ class UnknownEntityError(RaffleError):
 class RaffleSyntaxError(RaffleError):
     """Raised when syntax is not provided properly."""
     pass
+
+class RaffleDeprecationWarning(RaffleError):
+    """Used for deprecated conditions."""
+    pass

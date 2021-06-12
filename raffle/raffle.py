@@ -64,7 +64,7 @@ class Raffle(commands.Cog):
     """Create raffles for your server."""
 
     __author__ = ["Kreusada"]
-    __version__ = "1.2.2"
+    __version__ = "1.2.3"
 
     def __init__(self, bot):
         self.bot = bot
@@ -914,7 +914,6 @@ class Raffle(commands.Cog):
 
             if not new_server_join_age:
                 with contextlib.suppress(KeyError):
-                    del raffle_data["join_age"]
                     del raffle_data["server_join_age"]
                 return await ctx.send("Server join age requirement removed from this raffle.")
 
