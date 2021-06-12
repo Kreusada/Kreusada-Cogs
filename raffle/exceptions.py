@@ -37,3 +37,7 @@ class RaffleSyntaxError(RaffleError):
 class RaffleDeprecationWarning(RaffleError):
     """Used for deprecated conditions."""
     pass
+
+class UnidentifiedKeyError(RaffleError):
+    """Used when a key is not valid."""
+    pass

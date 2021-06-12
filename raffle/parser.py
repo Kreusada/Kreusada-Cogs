@@ -10,8 +10,11 @@ from .exceptions import (
     RequiredKeyError, 
     UnknownEntityError, 
     RaffleSyntaxError, 
+    UnidentifiedKeyError,
     RaffleDeprecationWarning
 )
+
+from .enums import RaffleComponents
 
 
 class RaffleManager(object):
@@ -33,8 +36,14 @@ class RaffleManager(object):
         self.end_message = data.get("end_message", None)
         self.on_end_action = data.get("on_end_action", None)
 
+        # dep warnings come first
         if "join_age" in self.data.keys():
             raise RaffleDeprecationWarning("\"join_age\" has been deprecated in favour of \"server_join_age\". Please use this condition instead.")
+
+        # now if something isn't recognised
+        for key in self.data.keys():
+            if not key in [x.name for x in RaffleComponents]:
+                raise UnidentifiedKeyError(f"\"{key}\" is not a documented condition/block")
 
     @classmethod
     def shorten_description(cls, description, length=50):

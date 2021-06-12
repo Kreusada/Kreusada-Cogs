@@ -64,7 +64,7 @@ class Raffle(commands.Cog):
     """Create raffles for your server."""
 
     __author__ = ["Kreusada"]
-    __version__ = "1.2.4"
+    __version__ = "1.2.5"
 
     def __init__(self, bot):
         self.bot = bot
