@@ -1139,11 +1139,11 @@ class Raffle(commands.Cog):
                 "Please provide valid YAML. You can validate your raffle YAML using `{}raffle parse`.".format(ctx.clean_prefix)
             )
 
+        valid["name"] = raffle
+
         try:
             parser = RaffleManager(valid)
             parser.parser(ctx)
-        except RequiredKeyError:
-            pass
         except (RaffleError, BadArgument) as e:
             exc = cross("An exception occured whilst parsing your data.")
             return await ctx.send(exc + format_traceback(e))
@@ -1174,6 +1174,7 @@ class Raffle(commands.Cog):
 
         additions = []
         deletions = []
+        changes = []
 
         for k, v in conditions.items():
             if v and not existing_data[k]:
@@ -1182,16 +1183,20 @@ class Raffle(commands.Cog):
             if not v and existing_data[k]:
                 deletions.append(k)
                 continue
+            if v != existing_data[k]:
+                changes.append(k)
+                continue
 
         if any([additions, deletions]):
             additions = "\n".join(f"+ {a}" for a in additions)
             deletions = "\n".join(f"- {d}" for d in deletions)
+            changes = "\n".join(f"> {c}" for c in changes)
 
-            diffs = box(f"{additions}\n{deletions}", lang="diff")
-            update = tick("Raffle edited. The following conditions have been added/removed: {}".format(diffs))
+            diffs = box(f"{additions}\n{changes}\n{deletions}", lang="diff")
+            update = tick("Raffle edited. The following conditions have been edited: {}".format(diffs))
         
         else:
-            update = tick("Raffle edited. No conditions were added or removed.")
+            update = tick("No changes were made.")
 
         await ctx.send(update)
 
