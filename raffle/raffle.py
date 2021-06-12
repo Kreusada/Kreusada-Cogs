@@ -42,7 +42,8 @@ from .helpers import (
     format_traceback,
     cleanup_code,
     validator,
-    raffle_safe_member_scanner
+    raffle_safe_member_scanner,
+    start_interactive_end_message_session
 )
 
 
@@ -54,7 +55,7 @@ class Raffle(commands.Cog):
     """Create raffles for your server."""
 
     __author__ = ["Kreusada"]
-    __version__ = "1.0.3"
+    __version__ = "1.1.0"
 
     def __init__(self, bot):
         self.bot = bot
@@ -657,8 +658,10 @@ class Raffle(commands.Cog):
                 return await ctx.send("There are no participants yet for this raffle.")
             winner = random.choice(raffle_entities("entries"))
 
-            if raffle_entities("end_message"):
-                message = raffle_entities("end_message")
+            message = raffle_entities("end_message")
+            if message:
+                if isinstance(message, list):
+                    message = random.choice(message)
             else:
                 message = "Congratulations {winner.mention}, you have won the {raffle} raffle!"
 
@@ -1006,6 +1009,10 @@ class Raffle(commands.Cog):
     @edit.command()
     async def endmessage(self, ctx, raffle: str, *, end_message: Union[bool, str]):
         """Edit the end message of a raffle.
+
+        Once you provide an end message, you will have the chance
+        to add additional messages, which will be selected at random
+        when a winner is drawn.
         
         Use `0` or `false` to disable this condition.
         
@@ -1029,11 +1036,41 @@ class Raffle(commands.Cog):
 
             else:
                 try:
-                    raffle_safe_member_scanner(ctx, end_message)
+                    raffle_safe_member_scanner(end_message)
                 except BadArgument as e:
                     return await ctx.send(format_traceback(e))
-                raffle_data["end_message"] = end_message
-                await ctx.send("End message updated for this raffle.")
+
+                message = "Would you like to add additional end messages to be selected from at random?"
+
+                can_react = ctx.channel.permissions_for(ctx.me).add_reactions
+                if not can_react:
+                    message += " (yes/no)"
+                message = await ctx.send(message)
+                if can_react:
+                    start_adding_reactions(message, ReactionPredicate.YES_OR_NO_EMOJIS)
+                    predicate = ReactionPredicate.yes_or_no(message, ctx.author)
+                    event_type = "reaction_add"
+                else:
+                    predicate = MessagePredicate.yes_or_no(ctx)
+                    event_type = "message"
+                
+                try:
+                    await self.bot.wait_for(event_type, check=predicate, timeout=30)
+                except asyncio.TimeoutError:
+                    await ctx.send("You took too long to respond. Saving end message as \"{}\".".format(end_message))
+
+                if predicate.result:
+                    interaction = await start_interactive_end_message_session(ctx, self.bot, message)
+                    if interaction is False:
+                        data = end_message
+                        await ctx.send("End message set to what you provided previously: {}".format(end_message))
+                    else:
+                        data = [end_message] + interaction
+                        await ctx.send("End messages updated for this raffle.")
+                else:
+                    data = end_message
+                    await ctx.send("End message updated for this raffle.")
+                raffle_data["end_message"] = data
 
         await self.replenish_cache(ctx)
 
@@ -1106,11 +1143,11 @@ class Raffle(commands.Cog):
                 "Please provide valid YAML. You can validate your raffle YAML using `{}raffle parse`.".format(ctx.clean_prefix)
             )
 
+        valid["name"] = raffle
+
         try:
             parser = RaffleManager(valid)
             parser.parser(ctx)
-        except RequiredKeyError:
-            pass
         except (RaffleError, BadArgument) as e:
             exc = cross("An exception occured whilst parsing your data.")
             return await ctx.send(exc + format_traceback(e))
@@ -1141,6 +1178,7 @@ class Raffle(commands.Cog):
 
         additions = []
         deletions = []
+        changes = []
 
         for k, v in conditions.items():
             if v and not existing_data[k]:
@@ -1149,16 +1187,20 @@ class Raffle(commands.Cog):
             if not v and existing_data[k]:
                 deletions.append(k)
                 continue
+            if v != existing_data[k]:
+                changes.append(k)
+                continue
 
         if any([additions, deletions]):
             additions = "\n".join(f"+ {a}" for a in additions)
             deletions = "\n".join(f"- {d}" for d in deletions)
+            changes = "\n".join(f"> {c}" for c in changes)
 
-            diffs = box(f"{additions}\n{deletions}", lang="diff")
-            update = tick("Raffle edited. The following conditions have been added/removed: {}".format(diffs))
+            diffs = box(f"{additions}\n{changes}\n{deletions}", lang="diff")
+            update = tick("Raffle edited. The following conditions have been edited: {}".format(diffs))
         
         else:
-            update = tick("Raffle edited. No conditions were added or removed.")
+            update = tick("No changes were made.")
 
         await ctx.send(update)
 
@@ -1488,6 +1530,6 @@ class Raffle(commands.Cog):
     @raffle.command()
     async def conditions(self, ctx: Context):
         """Get information about how conditions work."""
-        message = "\n".join(f"{e.name}: {e.value[0].__name__}\n\t{e.value[1]}" for e in RaffleComponents)
+        message = "\n".join(f"{e.name}:\n\t{e.value}" for e in RaffleComponents)
         await ctx.send(box(message, lang="yaml"))
         await self.replenish_cache(ctx)
