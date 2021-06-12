@@ -64,7 +64,7 @@ class Raffle(commands.Cog):
     """Create raffles for your server."""
 
     __author__ = ["Kreusada"]
-    __version__ = "1.2.3"
+    __version__ = "1.2.4"
 
     def __init__(self, bot):
         self.bot = bot
@@ -404,7 +404,7 @@ class Raffle(commands.Cog):
         if join:
             if isinstance(join, list):
                 join = random.choice(join)
-            join_message = join.format(user=RaffleSafeMember(ctx.author), raffle=raffle, entry_count=len(raffle_entities("entries")))
+            join_message = join.format(user=RaffleSafeMember(ctx.author, "user"), raffle=raffle, entry_count=len(raffle_entities("entries")))
             welcome_msg += "\n---\n{}".format(join_message)
 
         await ctx.send(welcome_msg)
@@ -687,7 +687,7 @@ class Raffle(commands.Cog):
                 message = "Congratulations {winner.mention}, you have won the {raffle} raffle!"
 
             on_end_action = raffle_entities("on_end_action") or "keep_winner"
-            message = message.format(winner=RaffleSafeMember(member=self.bot.get_user(winner)), raffle=raffle)
+            message = message.format(winner=RaffleSafeMember(self.bot.get_user(winner), "winner"), raffle=raffle)
 
             # Let's add a bit of suspense, shall we? :P
             await ctx.send("Picking a winner from the pool...")

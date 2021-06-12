@@ -42,10 +42,10 @@ def raffle_safe_member_scanner(content: str, cond: Literal["join_message", "end_
         "raffle": r"{raffle}"
     }
     if cond == "join_message":
-        kwargs["user"] = RaffleSafeMember(discord.Member)
+        kwargs["user"] = RaffleSafeMember(member=discord.Member, obj="user")
         kwargs["entry_count"] = r"{entry_count}"
     else:
-        kwargs["winner"] = RaffleSafeMember(discord.Member)
+        kwargs["winner"] = RaffleSafeMember(member=discord.Member, obj="winner")
     try:
         # This can raise BadArgument, that's fine
         content.format(**kwargs)

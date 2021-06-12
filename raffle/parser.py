@@ -128,7 +128,7 @@ class RaffleManager(object):
             if not isinstance(self.end_message, (list, str)):
                 raise BadArgument("(end_message) End message must be in quotation marks, by itself or inside a list")
             kwargs = {
-                "winner": RaffleSafeMember(discord.Member),
+                "winner": RaffleSafeMember(discord.Member, "winner"),
                 "raffle": r"{raffle}",
             }
             if isinstance(self.end_message, str):
@@ -148,7 +148,7 @@ class RaffleManager(object):
             if not isinstance(self.join_message, (list, str)):
                 raise BadArgument("(join_message) Join message must be in quotation marks, by itself or inside a list")
             kwargs = {
-                "user": RaffleSafeMember(discord.Member),
+                "user": RaffleSafeMember(discord.Member, "user"),
                 "raffle": r"{raffle}",
                 "entry_count": r"{entry_count}"
             }
