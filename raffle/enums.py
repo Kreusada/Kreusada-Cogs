@@ -55,7 +55,7 @@ class RaffleComponents(enum.Enum):
         "The account age requirement for the user who joins the raffle. This must be specified in days."
     )
 
-    join_age = (
+    server_join_age = (
         "The number of days the user needs to be in the server for in order to join the raffle."
     )
 

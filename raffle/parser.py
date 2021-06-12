@@ -2,9 +2,10 @@ import discord
 
 from redbot.core.commands import BadArgument, Context
 
+from .log import log
 from .safety import RaffleSafeMember
 from .exceptions import RequiredKeyError, UnknownEntityError, RaffleSyntaxError
-from .checks import join_age_checker, account_age_checker, now
+from .checks import server_join_age_checker, account_age_checker, now
 
 
 class RaffleManager(object):
@@ -17,7 +18,7 @@ class RaffleManager(object):
         self.name = data.get("name", None)
         self.description = data.get("description", None)
         self.account_age = data.get("account_age", None)
-        self.join_age = data.get("join_age", None)
+        self.server_join_age = data.get("server_join_age", None) or data.get("join_age", None)
         self.maximum_entries = data.get("maximum_entries", None)
         self.roles_needed_to_enter = data.get("roles_needed_to_enter", None) 
         self.prevented_users = data.get("prevented_users", None)
@@ -38,9 +39,9 @@ class RaffleManager(object):
             raise BadArgument("Days must be less than Discord's creation date")
 
     @classmethod
-    def parse_joinage(cls, ctx: Context, new_join_age: int):
+    def parse_serverjoinage(cls, ctx: Context, new_join_age: int):
         guildage = (now - ctx.guild.created_at).days
-        if not join_age_checker(ctx, new_join_age):
+        if not server_join_age_checker(ctx, new_join_age):
             raise BadArgument(
                 "Days must be less than this guild's creation date ({} days)".format(
                     guildage
@@ -55,11 +56,13 @@ class RaffleManager(object):
                 raise BadArgument("(account_age) days must be less than Discord's creation date")
 
 
-        if self.join_age:
-            if not isinstance(self.join_age, int):
-                raise BadArgument("(join_age) days must be a number")
-            if not join_age_checker(ctx, self.join_age):
-                raise BadArgument("(join_age) days must be less than this guild's creation date")
+        if self.server_join_age:
+            if "join_age" in self.data.keys():
+                log.warning("\"join_age\" is deprecated in favour of \"server_join_age\". Please use this term instead.")
+            if not isinstance(self.server_join_age, int):
+                raise BadArgument("(server_join_age) days must be a number")
+            if not server_join_age_checker(ctx, self.server_join_age):
+                raise BadArgument("(server_join_age) days must be less than this servers's creation date")
 
 
         if self.maximum_entries:

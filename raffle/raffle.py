@@ -219,7 +219,7 @@ class Raffle(commands.Cog):
                 "end_message": valid.get("end_message", None),
                 "join_message": valid.get("join_message", None),
                 "account_age": valid.get("account_age", None),
-                "join_age": valid.get("join_age", None),
+                "server_join_age": valid.get("server_join_age", None),
                 "roles_needed_to_enter": valid.get("roles_needed_to_enter", None),
                 "prevented_users": valid.get("prevented_users", None),
                 "allowed_users": valid.get("allowed_users", None),
@@ -716,7 +716,7 @@ class Raffle(commands.Cog):
                 "description": raffle_data.get("description", None),
                 "rolesreq": raffle_data.get("roles_needed_to_enter", None),
                 "agereq": raffle_data.get("account_age", None),
-                "joinreq": raffle_data.get("join_age", None),
+                "joinreq": raffle_data.get("server_join_age", None),
                 "prevented_users": raffle_data.get("prevented_users", None),
                 "allowed_users": raffle_data.get("allowed_users", None),
                 "owner": raffle_data.get("owner", None),
@@ -885,14 +885,14 @@ class Raffle(commands.Cog):
 
 
     @edit.command()
-    async def joinage(self, ctx, raffle: str, new_join_age: Union[int, bool]):
-        """Edit the join age requirement for a raffle.
+    async def serverjoinage(self, ctx, raffle: str, new_server_join_age: Union[int, bool]):
+        """Edit the server join age requirement for a raffle.
         
         Use `0` or `false` to disable this condition.
         
         **Arguments:**
             - `<raffle>` - The name of the raffle.
-            - `<new_join_age>` - The new join age requirement.
+            - `<new_server_join_age>` - The new join age requirement.
         """
         async with self.config.guild(ctx.guild).raffles() as r:
 
@@ -900,22 +900,23 @@ class Raffle(commands.Cog):
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
 
-            if not new_join_age:
+            if not new_server_join_age:
                 with contextlib.suppress(KeyError):
                     del raffle_data["join_age"]
-                return await ctx.send("Join age requirement removed from this raffle.")
+                    del raffle_data["server_join_age"]
+                return await ctx.send("Server join age requirement removed from this raffle.")
 
-            elif new_join_age is True:
+            elif new_server_join_age is True:
                 return await ctx.send("Please provide a number, or \"false\" to disable this condition.")
 
             else:
                 try:
-                    RaffleManager.parse_joinage(ctx, new_join_age)
+                    RaffleManager.parse_serverjoinage(ctx, new_server_join_age)
                 except BadArgument as e:
                     return await ctx.send(format_traceback(e))
 
-                raffle_data["join_age"] = new_join_age
-                await ctx.send("Join age requirement updated for this raffle.")
+                raffle_data["server_join_age"] = new_server_join_age
+                await ctx.send("Server join age requirement updated for this raffle.")
 
         await self.replenish_cache(ctx)
 
@@ -1171,7 +1172,7 @@ class Raffle(commands.Cog):
             "end_message": raffle_data.get("end_message", None),
             "join_message": raffle_data.get("join_message", None),
             "account_age": raffle_data.get("account_age", None),
-            "join_age": raffle_data.get("join_age", None),
+            "server_join_age": raffle_data.get("server_join_age", None),
             "roles_needed_to_enter": raffle_data.get("roles_needed_to_enter", None),
             "prevented_users": raffle_data.get("prevented_users", None),
             "allowed_users": raffle_data.get("allowed_users", None),
@@ -1239,7 +1240,7 @@ class Raffle(commands.Cog):
             "end_message": valid.get("end_message", None),
             "join_message": valid.get("join_message", None),
             "account_age": valid.get("account_age", None),
-            "join_age": valid.get("join_age", None),
+            "server_join_age": valid.get("server_join_age", None),
             "roles_needed_to_enter": valid.get("roles_needed_to_enter", None),
             "prevented_users": valid.get("prevented_users", None),
             "allowed_users": valid.get("allowed_users", None),
