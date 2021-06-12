@@ -49,28 +49,28 @@ class RaffleManager(object):
     def parser(self, ctx: Context):
         if self.account_age:
             if not isinstance(self.account_age, int):
-                raise BadArgument("Account age days must be int, not {}".format(type(self.account_age).__name__))
+                raise BadArgument("(account_age) days must be a number")
             if not account_age_checker(self.account_age):
-                raise BadArgument("Account age days must be less than Discord's creation date")
+                raise BadArgument("(account_age) days must be less than Discord's creation date")
 
 
         if self.join_age:
             if not isinstance(self.join_age, int):
-                raise BadArgument("Join age days must be int, not {}".format(type(self.join_age).__name__))
+                raise BadArgument("(join_age) days must be a number")
             if not join_age_checker(ctx, self.join_age):
-                raise BadArgument("Join age days must be less than this guild's creation date")
+                raise BadArgument("(join_age) days must be less than this guild's creation date")
 
 
         if self.maximum_entries:
             if not isinstance(self.maximum_entries, int):
-                raise BadArgument("Maximum entries must be int, not {}".format(type(self.maximum_entries).__name__))
+                raise BadArgument("(maximum_entries) Maximum entries must be a number")
 
 
         if self.name:
             if not isinstance(self.name, str):
-                raise BadArgument("Name must be str, not {}".format(type(self.name).__name__))
+                raise BadArgument("(name) Name must be in quotation marks")
             if len(self.name) > 25:
-                raise BadArgument("Name must be under 25 characters, your raffle name had {}".format(len(self.name)))
+                raise BadArgument("(name) Name must be under 25 characters, your raffle name had {}".format(len(self.name)))
             for char in self.name:
                 if char == "_":
                     # We want to allow underscores
@@ -88,12 +88,12 @@ class RaffleManager(object):
 
         if self.description:
             if not isinstance(self.description, str):
-                raise BadArgument("Description must be str, not {}".format(type(self.description).__name__))
+                raise BadArgument("(description) Description must be in quotation marks")
 
 
         if self.roles_needed_to_enter:
             if not isinstance(self.roles_needed_to_enter, list):
-                raise BadArgument("Roles must be a list of Discord role IDs, not {}".format(type(self.roles_needed_to_enter).__name__))
+                raise BadArgument("(roles_needed_to_enter) Roles must be a list of Discord role IDs")
             for r in self.roles_needed_to_enter:
                 if not ctx.guild.get_role(r):
                     raise UnknownEntityError(r, "role")
@@ -101,37 +101,36 @@ class RaffleManager(object):
 
         if self.prevented_users:
             if not isinstance(self.prevented_users, list):
-                raise BadArgument("Prevented users must be a list of Discord user IDs, not {}".format(type(self.prevented_users).__name__))
+                raise BadArgument("(prevented_users) Prevented users must be a list of Discord user IDs")
             for u in self.prevented_users:
                 if not ctx.bot.get_user(u):
                     raise UnknownEntityError(u, "user")
 
         if self.allowed_users:
             if not isinstance(self.allowed_users, list):
-                raise BadArgument("Allowed users must be a list of Discord user IDs, not {}".format(type(self.allowed_users).__name__))
+                raise BadArgument("(allowed_users) Allowed users must be a list of Discord user IDs")
             for u in self.allowed_users:
                 if not ctx.bot.get_user(u):
                     raise UnknownEntityError(u, "user")
 
         if self.end_message:
             if not isinstance(self.end_message, (list, str)):
-                # Will render {} without quotes, best not to include the type.__name__ here
-                raise BadArgument("End message must be str, or a list of str")
+                raise BadArgument("(end_message) End message must be in quotation marks, by itself or inside a list")
             if isinstance(self.end_message, str):
                 try:
                     # This will raise BadArgument
                     self.end_message.format(winner=RaffleSafeMember(discord.Member), raffle=r"{raffle}")
                 except KeyError as e:
-                    raise BadArgument(f"{e} was an unexpected argument in your end_message block")
+                    raise BadArgument(f"(end_message) {e} was an unexpected argument")
             else:
                 for m in self.end_message:
                     try:
                         m.format(winner=RaffleSafeMember(discord.Member), raffle=r"{raffle}")
                     except KeyError as e:
-                        raise BadArgument(f"{e} was an unexpected argument in your end_message block")
+                        raise BadArgument(f"(end_message) {e} was an unexpected argument")
 
 
         if self.on_end_action:
             valid_actions = ("end", "remove_winner", "keep_winner")
             if not isinstance(self.on_end_action, str) or self.on_end_action not in valid_actions:
-                raise BadArgument("on_end_action must be one of 'end', 'remove_winner', or 'keep_winner'")
+                raise BadArgument("(on_end_action) must be one of 'end', 'remove_winner', or 'keep_winner'")

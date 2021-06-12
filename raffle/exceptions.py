@@ -17,7 +17,7 @@ class RequiredKeyError(RaffleError):
         self.key = key
 
     def __str__(self):
-        return f"The \"{self.key}\" key is required"
+        return f"({self.key}) The \"{self.key}\" key is required"
 
 
 class UnknownEntityError(RaffleError):
