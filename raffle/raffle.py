@@ -64,7 +64,7 @@ class Raffle(commands.Cog):
     """Create raffles for your server."""
 
     __author__ = ["Kreusada"]
-    __version__ = "1.2.5"
+    __version__ = "1.2.6"
 
     def __init__(self, bot):
         self.bot = bot
@@ -1283,11 +1283,15 @@ class Raffle(commands.Cog):
                 continue
 
         if any([additions, deletions, changes]):
-            additions = "+ Added:\n" + "\n".join(f"+ {a}" for a in additions)
-            deletions = "- Removed:\n" + "\n".join(f"- {d}" for d in deletions)
-            changes = "> Edited:\n" + "\n".join(f"> {c}" for c in changes)
+            message = ""
+            if additions:
+                message += "Added:\n" + "\n".join(f"+ {a}" for a in additions)
+            if changes:
+                message += "\n\nEdited:\n" + "\n".join(f"> {c}" for c in changes)
+            if deletions:
+                message += "\n\nRemoved:\n" + "\n".join(f"- {d}" for d in deletions)
 
-            diffs = box(f"{additions}\n\n{changes}\n\n{deletions}", lang="diff")
+            diffs = box(message, lang="diff")
             update = tick("Raffle edited. {}".format(diffs))
         
         else:
