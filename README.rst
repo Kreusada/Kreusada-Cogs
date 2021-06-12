@@ -55,7 +55,7 @@ Available cogs list
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | minifier        | Minify your code with the python minifier.                   | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
-| mjolnir         | Try to lift Thor's hammer!                                   | Fun    | Jojo, Kreusada |
+| mjolnir         | Try to lift Thor's hammer!                                   | Fun     | Jojo, Kreusada |
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | namegenerator   | Generate random names will optional gender arguments.        | Fun     | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
