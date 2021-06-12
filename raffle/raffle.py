@@ -27,16 +27,25 @@ from redbot.core.utils.chat_formatting import (
     pagify
 )
 
+
+from .enums import RaffleComponents
+from .parser import RaffleManager
+from .safety import RaffleSafeMember
+from .formatting import tick, cross
+
+
 from .exceptions import (
     RequiredKeyError, 
     RaffleError
 )
 
-from .enums import RaffleComponents
-from .parser import RaffleManager
-from .safety import RaffleSafeMember
-from .checks import now
-from .formatting import tick, cross
+
+from .checks import (
+    now,
+    account_age_checker,
+    server_join_age_checker
+)
+
 
 from .helpers import (
     format_traceback,
@@ -55,7 +64,7 @@ class Raffle(commands.Cog):
     """Create raffles for your server."""
 
     __author__ = ["Kreusada"]
-    __version__ = "1.2.1"
+    __version__ = "1.2.2"
 
     def __init__(self, bot):
         self.bot = bot
@@ -378,8 +387,11 @@ class Raffle(commands.Cog):
                     return await ctx.send("You are missing a required role: {}".format(ctx.guild.get_role(r).mention))
 
 
-        if raffle_entities("account_age") and raffle_entities("account_age") > (now - ctx.author.created_at).days:
-                return await ctx.send("Your account must be at least {} days old to join.".format(raffle_entities("account_age")))
+        if raffle_entities("account_age") and not account_age_checker(raffle_entities("account_age")):
+            return await ctx.send("Your account must be at least {} days old to join.".format(raffle_entities("account_age")))
+
+        if raffle_entities("server_join_age") and not server_join_age_checker(ctx, raffle_entities("server_join_age")):
+            return await ctx.send("You must have been in this guild for at least {} days to join.".format(raffle_entities("server_join_age")))
 
 
         async with self.config.guild(ctx.guild).raffles() as r:
