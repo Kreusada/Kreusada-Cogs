@@ -1062,7 +1062,7 @@ class Raffle(commands.Cog):
                         await ctx.send("End message set to what you provided previously: {}".format(end_message))
                     else:
                         data = [end_message] + interaction
-                        await ctx.send("End message updated for this raffle.")
+                        await ctx.send("End messages updated for this raffle.")
                 else:
                     data = end_message
                     await ctx.send("End message updated for this raffle.")

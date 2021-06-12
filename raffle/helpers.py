@@ -11,7 +11,7 @@ from redbot.core.utils.chat_formatting import box
 
 from .safety import RaffleSafeMember
 from .enums import RaffleEMC
-from .formatting import curl, formatenum
+from .formatting import curl, formatenum, cross
 
 
 def format_traceback(exc) -> str:
@@ -47,9 +47,8 @@ def raffle_safe_member_scanner(content: str) -> None:
 async def start_interactive_end_message_session(ctx: Context, bot: RedBot, message: discord.Message):
     guide = (
         "Start adding some messages to add to the list of end messages.\n"
-        "When a user is drawn, one of these messages will be randomly selected.\n"
-        "When you have finished adding messages, **type stop() to discontinue the interactive session.**\n\n"
-        "See below for a list of available variables:"
+        "When a user is drawn, one of these messages will be randomly selected.\n\n"
+        "**Available variables:**"
     )
     b = lambda x: box(x, lang="yaml")
     guide += b("\n".join(f"{curl(formatenum(u.name))}: {u.value}" for u in sorted(RaffleEMC, key=lambda x: len(x.name))))
@@ -62,28 +61,29 @@ async def start_interactive_end_message_session(ctx: Context, bot: RedBot, messa
     messages = []
 
     check = lambda x: x.channel == ctx.channel and x.author == ctx.author
-
+    tostop = lambda x: f"{x}\n> Type **stop()** or **exit()** to discontinue gathering messages."
+    bubble = lambda x: "{} {}".format("\N{RIGHT ANGER BUBBLE}\N{VARIATION SELECTOR-16}", x)
     while True:
         if not messages:
-            await ctx.send("Add your first response:")
+            await ctx.send(tostop(bubble("Add your first response.")))
         elif len(messages) > 20:
-            await ctx.send("That's enough messages!")
-            return messages
+            await ctx.send("Sorry, 20 is the maximum limit for the number of end_message messages.")
+            break
         else:
-            await ctx.send("Add another random response:")
+            await ctx.send(tostop(bubble("Add another random response:")))
         try:
-            message = await bot.wait_for("message", check=check, timeout=40)
+            message = await bot.wait_for("message", check=check, timeout=100)
         except asyncio.TimeoutError:
             await ctx.send("You took too long to continue, aborted session.")
             return False
-        if message.content.lower() == "stop()":
+        if message.content.lower() in ("exit()", "stop()"):
             if messages:
                 break
             return False 
         try:
             raffle_safe_member_scanner(message.content)
         except BadArgument:
-            await ctx.send("That message's variables were not formatted correctly, skipping...")
+            await ctx.send(cross("That message's variables were not formatted correctly, skipping..."))
             continue
         messages.append(message.content)
     return messages
