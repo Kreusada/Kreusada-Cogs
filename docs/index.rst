@@ -53,6 +53,7 @@ Useful Links
     cog_timestables
     cog_vinfo
     cog_votechannel
+    cog_yamlscanner
 
 .. toctree::
     :caption: Repository

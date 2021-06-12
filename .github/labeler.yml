@@ -108,6 +108,9 @@
   - votechannel/*
   - docs/cog_votechannel
   - docs/_deprecated/changelog_votechannel
+"Cog: YamlScanner":
+  - yamlscanner/*
+  - docs/cog_yamlscanner
 "Category: Meta":
   - .github/*
   - .github/*/*
