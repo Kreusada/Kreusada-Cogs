@@ -2,7 +2,7 @@ import asyncio
 import discord
 import yaml
 
-from typing import Union
+from typing import Union, Literal
 from yaml.parser import MarkedYAMLError
 
 from redbot.core.bot import Red as RedBot
@@ -10,7 +10,7 @@ from redbot.core.commands import Context, BadArgument
 from redbot.core.utils.chat_formatting import box
 
 from .safety import RaffleSafeMember
-from .enums import RaffleEMC
+from .enums import RaffleEMC, RaffleJMC
 from .formatting import curl, formatenum, cross
 
 
@@ -36,22 +36,40 @@ def validator(data) -> Union[bool, dict]:
     return loader
 
 
-def raffle_safe_member_scanner(content: str) -> None:
+def raffle_safe_member_scanner(content: str, cond: Literal["join_message", "end_message"]) -> None:
     """We need this to check if the values are formatted properly."""
+    kwargs = {
+        "raffle": r"{raffle}"
+    }
+    if cond == "join_message":
+        kwargs["user"] = RaffleSafeMember(discord.Member)
+        kwargs["entry_count"] = r"{entry_count}"
+    else:
+        kwargs["winner"] = RaffleSafeMember(discord.Member)
     try:
         # This can raise BadArgument, that's fine
-        content.format(winner=RaffleSafeMember(discord.Member), raffle=r"{raffle}")
+        content.format(**kwargs)
     except KeyError as e:
-        raise BadArgument(f"{e} was an unexpected argument in your new end message")
+        raise BadArgument(f"{e} was an unexpected argument in your new {cond.split('_')[0]} message")
 
-async def start_interactive_end_message_session(ctx: Context, bot: RedBot, message: discord.Message):
+
+async def start_interactive_message_session(
+    ctx: Context, bot: RedBot, 
+    sesstype: Literal["join_message", "end_message"], message: discord.Message
+):
+    if sesstype == "join_message":
+        when_phrase = "When a user is drawn"
+        ENUM = RaffleJMC
+    else:
+        when_phrase = "When a user enters the raffle"
+        ENUM = RaffleEMC
     guide = (
-        "Start adding some messages to add to the list of end messages.\n"
-        "When a user is drawn, one of these messages will be randomly selected.\n\n"
+        f"Start adding some messages to add to the list of {sesstype.split('_')[0]} messages.\n"
+        f"{when_phrase}, one of these messages will be randomly selected.\n\n"
         "**Available variables:**"
     )
     b = lambda x: box(x, lang="yaml")
-    guide += b("\n".join(f"{curl(formatenum(u.name))}: {u.value}" for u in sorted(RaffleEMC, key=lambda x: len(x.name))))
+    guide += b("\n".join(f"{curl(formatenum(u.name))}: {u.value}" for u in sorted(ENUM, key=lambda x: len(x.name))))
     try:
         await message.edit(content=guide)
         await message.clear_reactions()
@@ -67,7 +85,7 @@ async def start_interactive_end_message_session(ctx: Context, bot: RedBot, messa
         if not messages:
             await ctx.send(tostop(bubble("Add your first response.")))
         elif len(messages) > 20:
-            await ctx.send("Sorry, 20 is the maximum limit for the number of end_message messages.")
+            await ctx.send(F"Sorry, 20 is the maximum limit for the number of {sesstype} messages.")
             break
         else:
             await ctx.send(tostop(bubble("Add another random response:")))
@@ -81,7 +99,7 @@ async def start_interactive_end_message_session(ctx: Context, bot: RedBot, messa
                 break
             return False 
         try:
-            raffle_safe_member_scanner(message.content)
+            raffle_safe_member_scanner(message.content, sesstype)
         except BadArgument:
             await ctx.send(cross("That message's variables were not formatted correctly, skipping..."))
             continue

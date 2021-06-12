@@ -43,7 +43,7 @@ from .helpers import (
     cleanup_code,
     validator,
     raffle_safe_member_scanner,
-    start_interactive_end_message_session
+    start_interactive_message_session
 )
 
 
@@ -217,6 +217,7 @@ class Raffle(commands.Cog):
 
             conditions = {
                 "end_message": valid.get("end_message", None),
+                "join_message": valid.get("join_message", None),
                 "account_age": valid.get("account_age", None),
                 "join_age": valid.get("join_age", None),
                 "roles_needed_to_enter": valid.get("roles_needed_to_enter", None),
@@ -385,8 +386,16 @@ class Raffle(commands.Cog):
             raffle_entities = lambda x: r[raffle].get(x, None)
             raffle_entities("entries").append(ctx.author.id)
 
+        welcome_msg = "{} you have been added to the raffle.".format(ctx.author.mention)
 
-        await ctx.send(f"{ctx.author.mention} you have been added to the raffle.")
+        join = raffle_entities("join_message")
+        if join:
+            if isinstance(join, list):
+                join = random.choice(join)
+            join_message = join.format(user=RaffleSafeMember(ctx.author), raffle=raffle, entry_count=len(raffle_entities("entries")))
+            welcome_msg += "\n---\n{}".format(join_message)
+
+        await ctx.send(welcome_msg)
         await self.replenish_cache(ctx)
 
 
@@ -1036,7 +1045,7 @@ class Raffle(commands.Cog):
 
             else:
                 try:
-                    raffle_safe_member_scanner(end_message)
+                    raffle_safe_member_scanner(end_message, "end_message")
                 except BadArgument as e:
                     return await ctx.send(format_traceback(e))
 
@@ -1060,7 +1069,7 @@ class Raffle(commands.Cog):
                     await ctx.send("You took too long to respond. Saving end message as \"{}\".".format(end_message))
 
                 if predicate.result:
-                    interaction = await start_interactive_end_message_session(ctx, self.bot, message)
+                    interaction = await start_interactive_message_session(ctx, self.bot, "end_message", message)
                     if interaction is False:
                         data = end_message
                         await ctx.send("End message set to what you provided previously: {}".format(end_message))
@@ -1071,6 +1080,74 @@ class Raffle(commands.Cog):
                     data = end_message
                     await ctx.send("End message updated for this raffle.")
                 raffle_data["end_message"] = data
+
+        await self.replenish_cache(ctx)
+
+    @edit.command()
+    async def joinmessage(self, ctx, raffle: str, *, join_message: Union[bool, str]):
+        """Edit the join message of a raffle.
+
+        Once you provide a join message, you will have the chance
+        to add additional messages, which will be selected at random
+        when a user joins the raffle.
+        
+        Use `0` or `false` to disable this condition.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle.
+            - `<join_message>` - The new joining message.
+        """
+        async with self.config.guild(ctx.guild).raffles() as r:
+
+            raffle_data = r.get(raffle, None)
+            if not raffle_data:
+                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+
+            if not join_message:
+                with contextlib.suppress(KeyError):
+                    del raffle_data["join_message"]
+                return await ctx.send("Join message feature removed from this raffle. It will now use the default.")
+
+            elif join_message is True:
+                return await ctx.send("Please provide a number, or \"false\" to disable this condition.")
+
+            else:
+                try:
+                    raffle_safe_member_scanner(join_message, "join_message")
+                except BadArgument as e:
+                    return await ctx.send(format_traceback(e))
+
+                message = "Would you like to add additional end messages to be selected from at random?"
+
+                can_react = ctx.channel.permissions_for(ctx.me).add_reactions
+                if not can_react:
+                    message += " (yes/no)"
+                message = await ctx.send(message)
+                if can_react:
+                    start_adding_reactions(message, ReactionPredicate.YES_OR_NO_EMOJIS)
+                    predicate = ReactionPredicate.yes_or_no(message, ctx.author)
+                    event_type = "reaction_add"
+                else:
+                    predicate = MessagePredicate.yes_or_no(ctx)
+                    event_type = "message"
+                
+                try:
+                    await self.bot.wait_for(event_type, check=predicate, timeout=30)
+                except asyncio.TimeoutError:
+                    await ctx.send("You took too long to respond. Saving join message as \"{}\".".format(join_message))
+
+                if predicate.result:
+                    interaction = await start_interactive_message_session(ctx, self.bot, "join_message", message)
+                    if interaction is False:
+                        data = join_message
+                        await ctx.send("Join message set to what you provided previously: {}".format(join_message))
+                    else:
+                        data = [join_message] + interaction
+                        await ctx.send("Join messages updated for this raffle.")
+                else:
+                    data = join_message
+                    await ctx.send("Join message updated for this raffle.")
+                raffle_data["join_message"] = data
 
         await self.replenish_cache(ctx)
 
@@ -1092,6 +1169,7 @@ class Raffle(commands.Cog):
 
         existing_data = {
             "end_message": raffle_data.get("end_message", None),
+            "join_message": raffle_data.get("join_message", None),
             "account_age": raffle_data.get("account_age", None),
             "join_age": raffle_data.get("join_age", None),
             "roles_needed_to_enter": raffle_data.get("roles_needed_to_enter", None),
@@ -1159,6 +1237,7 @@ class Raffle(commands.Cog):
 
         conditions = {
             "end_message": valid.get("end_message", None),
+            "join_message": valid.get("join_message", None),
             "account_age": valid.get("account_age", None),
             "join_age": valid.get("join_age", None),
             "roles_needed_to_enter": valid.get("roles_needed_to_enter", None),
@@ -1191,13 +1270,13 @@ class Raffle(commands.Cog):
                 changes.append(k)
                 continue
 
-        if any([additions, deletions]):
-            additions = "\n".join(f"+ {a}" for a in additions)
-            deletions = "\n".join(f"- {d}" for d in deletions)
-            changes = "\n".join(f"> {c}" for c in changes)
+        if any([additions, deletions, changes]):
+            additions = "+ Added:\n" + "\n".join(f"+ {a}" for a in additions)
+            deletions = "- Removed:\n" + "\n".join(f"- {d}" for d in deletions)
+            changes = "> Edited:\n" + "\n".join(f"> {c}" for c in changes)
 
-            diffs = box(f"{additions}\n{changes}\n{deletions}", lang="diff")
-            update = tick("Raffle edited. The following conditions have been edited: {}".format(diffs))
+            diffs = box(f"{additions}\n\n{changes}\n\n{deletions}", lang="diff")
+            update = tick("Raffle edited. {}".format(diffs))
         
         else:
             update = tick("No changes were made.")

@@ -22,6 +22,7 @@ class RaffleManager(object):
         self.roles_needed_to_enter = data.get("roles_needed_to_enter", None) 
         self.prevented_users = data.get("prevented_users", None)
         self.allowed_users = data.get("allowed_users", None)
+        self.join_message = data.get("join_message", None)
         self.end_message = data.get("end_message", None)
         self.on_end_action = data.get("on_end_action", None)
 
@@ -116,18 +117,42 @@ class RaffleManager(object):
         if self.end_message:
             if not isinstance(self.end_message, (list, str)):
                 raise BadArgument("(end_message) End message must be in quotation marks, by itself or inside a list")
+            kwargs = {
+                "winner": RaffleSafeMember(discord.Member),
+                "raffle": r"{raffle}",
+            }
             if isinstance(self.end_message, str):
                 try:
                     # This will raise BadArgument
-                    self.end_message.format(winner=RaffleSafeMember(discord.Member), raffle=r"{raffle}")
+                    self.end_message.format(**kwargs)
                 except KeyError as e:
                     raise BadArgument(f"(end_message) {e} was an unexpected argument")
             else:
                 for m in self.end_message:
                     try:
-                        m.format(winner=RaffleSafeMember(discord.Member), raffle=r"{raffle}")
+                        m.format(**kwargs)
                     except KeyError as e:
                         raise BadArgument(f"(end_message) {e} was an unexpected argument")
+
+        if self.join_message:
+            if not isinstance(self.join_message, (list, str)):
+                raise BadArgument("(join_message) Join message must be in quotation marks, by itself or inside a list")
+            kwargs = {
+                "user": RaffleSafeMember(discord.Member),
+                "raffle": r"{raffle}",
+                "entry_count": r"{entry_count}"
+            }
+            if isinstance(self.join_message, str):
+                try:
+                    self.join_message.format(**kwargs)
+                except KeyError as e:
+                    raise BadArgument(f"(join_message) {e} was an unexpected argument")
+            else:
+                for m in self.join_message:
+                    try:
+                        m.format(**kwargs)
+                    except KeyError as e:
+                        raise BadArgument(f"(join_message) {e} was an unexpected argument")
 
 
         if self.on_end_action:

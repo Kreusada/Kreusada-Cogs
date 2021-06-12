@@ -22,4 +22,4 @@ class RaffleSafeMember(object):
         return self.name
 
     def __getattr__(self, *_args):
-        raise BadArgument(r"Your `{winner}` received an unexpected attribute")
+        raise BadArgument(r"One of your variables received an unexpected attribute")

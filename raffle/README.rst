@@ -80,6 +80,37 @@ command, so people can see what your raffle's about.
 
 This block must be provided as a str (text with quotes)
 
+^^^^^^^^^^^^
+join_message
+^^^^^^^^^^^^
+
+A block used to personalize a section of the output when using ``[p]raffle join``. 
+You can use the special arguments of ``{user}``, ``{entry_count}`` and ``{raffle}`` 
+to customize this message so that it has context.
+
+    ``raffle``:
+        The name of the raffle which the user has won.
+
+    ``entry_count``:
+        The number of entries in the raffle.
+
+    ``winner``:
+        The member object of the user who won the raffle.
+        The winner variable has various attributes, which
+        are self explanatory:
+
+        - user.name
+        - user.mention
+        - user.id 
+        - user.display_name 
+        - user.discriminator
+        - user.name_and_discriminator
+    
+Make sure to use these variables inside curly brackets (``{}``).
+
+If you want to randomize the end_message, simply provide a list of strings. 
+Otherwise, provide a string by itself.
+
 ^^^^^^^^^^^
 end_message
 ^^^^^^^^^^^
@@ -545,6 +576,32 @@ Use `0` or `false` to disable this condition.
 **Arguments:**
     - `<raffle>` - The name of the raffle.
     - `<new_join_age>` - The new join age requirement.
+
+.. _raffle-command-raffle-edit-joinmessage:
+
+^^^^^^^^^^^^^^^^^^^^^^^
+raffle edit joinmessage
+^^^^^^^^^^^^^^^^^^^^^^^
+
+**Syntax**
+
+.. code-block:: python
+
+    [p]raffle edit joinmessage <raffle> <joinmessage>
+
+**Description**
+
+Edit the join message of a raffle.
+
+Once you provide a join message, you will have the chance
+to add additional messages, which will be selected at random
+when a user enters the raffle.
+
+Use ``0`` or ``false`` to disable this condition.
+
+**Arguments:**
+    - ``<raffle>`` - The name of the raffle.
+    - ``<join_message>`` - The new joining message.
 
 .. _raffle-command-raffle-edit-maxentries:
 

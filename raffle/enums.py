@@ -13,6 +13,22 @@ class RaffleEMC(enum.Enum):
     winner__discriminator = "The discriminator of the winner."
     winner__name_and_discriminator = "The name and discriminator of the winner (user#1234)."
 
+
+class RaffleJMC(enum.Enum):
+    """A list of variables and attributes
+    available for the raffle join_message block."""
+
+    raffle = "The name of the raffle when the end_message is used."
+    entry_count = "The number of entries in the raffle."
+
+    user__name = "The username of the user."
+    user__mention = "The mention of the user."
+    user__id = "The ID of the user."
+    user__display_name = "The display name of the user."
+    user__discriminator = "The discriminator of the user."
+    user__name_and_discriminator = "The name and discriminator of the user (user#1234)."
+
+
 class RaffleComponents(enum.Enum):
     """All of the components which can be
     used in a raffle. This class is mainly
@@ -25,6 +41,10 @@ class RaffleComponents(enum.Enum):
 
     description = (
         "The description for the raffle. This information appears in the raffle info command."
+    )
+
+    join_message = (
+        "The message sent when a user joins the raffle."
     )
 
     end_message = (
