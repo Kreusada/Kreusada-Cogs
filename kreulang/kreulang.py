@@ -1,3 +1,6 @@
+import contextlib
+import discord
+
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import box, pagify
 
@@ -52,3 +55,15 @@ class KreuLang(commands.Cog):
         """Translate english to kreulang"""
         for page in pagify(tokreulang(english), page_length=1993):
             await ctx.send(box(page, lang="yaml"))
+
+    @commands.Cog.listener()
+    async def on_message_without_command(self, message):
+        if not message.channel.id in (853716880010117120, 853717911768399882):
+            return
+        if message.author.bot:
+            return
+        for m in message.content.split():
+            if m.isalnum():
+                with contextlib.suppress(discord.HTTPException):
+                    await message.delete()
+                await message.channel.send(f"{message.author.mention} Please only use kreulang in this channel.", delete_after=3)
