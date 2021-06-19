@@ -69,7 +69,7 @@ with open(pathlib.Path(__file__).parent / "info.json") as fp:
 BaseCog = getattr(commands, "Cog", object)
 
 
-class Raffle(BaseCog, metaclass=MetaClass):
+class Raffle(BaseCog):
     """Create raffles for your server."""
 
     __author__ = ["Kreusada"]
