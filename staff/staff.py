@@ -15,7 +15,7 @@ class Staff(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "1.5.2"
+    __version__ = "1.5.3"
 
     def __init__(self, bot):
         self.bot = bot
@@ -121,8 +121,8 @@ class Staff(commands.Cog):
 
         async for message in ctx.channel.history(limit=6):
             author, msg = message.author, message.content.replace('`','')
-            if len(msg) > 30:
-                msg = msg[:30].strip(' ') + '...'
+            if len(msg) > 90:
+                msg = msg[:90].strip(' ') + '...'
             elif not len(msg):
                 msg = "[Embed, Attachment or File]"
             message_list.append(f"{str(author.display_name)}: {msg.replace(backslash, ' ')}")
