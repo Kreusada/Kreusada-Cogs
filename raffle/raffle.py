@@ -31,7 +31,13 @@ from redbot.core.utils.chat_formatting import (
 from .enums import RaffleComponents
 from .parser import RaffleManager
 from .safety import RaffleSafeMember
-from .formatting import tick, cross
+
+
+from .formatting import (
+    tick, 
+    cross, 
+    square, 
+)
 
 
 from .exceptions import (
@@ -41,9 +47,9 @@ from .exceptions import (
 
 
 from .checks import (
-    now,
     account_age_checker,
-    server_join_age_checker
+    server_join_age_checker,
+    now
 )
 
 
@@ -51,6 +57,9 @@ from .helpers import (
     format_traceback,
     cleanup_code,
     validator,
+    getstrftime,
+    number_suffix,
+    format_dashed_title,
     raffle_safe_member_scanner,
     start_interactive_message_session
 )
@@ -59,12 +68,14 @@ from .helpers import (
 with open(pathlib.Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
 
+BaseCog = getattr(commands, "Cog", object)
 
-class Raffle(commands.Cog):
+
+class Raffle(BaseCog):
     """Create raffles for your server."""
 
     __author__ = ["Kreusada"]
-    __version__ = "1.2.6"
+    __version__ = "1.2.7"
 
     def __init__(self, bot):
         self.bot = bot
@@ -219,9 +230,15 @@ class Raffle(commands.Cog):
             if rafflename in [x.lower() for x in raffle.keys()]:
                 return await ctx.send("A raffle with this name already exists.")
 
+            datetimeinfo = (
+                f"{number_suffix(getstrftime('d'))} of {getstrftime('B')}, "
+                f"{getstrftime('Y')} ({getstrftime('X')})"
+            )
+
             data = {
                 "entries": [],
                 "owner": ctx.author.id,
+                "created_at": datetimeinfo,
             }
 
             conditions = {
@@ -261,9 +278,15 @@ class Raffle(commands.Cog):
             if raffle_name in [x.lower() for x in raffle.keys()]:
                 return await ctx.send("A raffle with this name already exists.")
 
+            datetimeinfo = (
+                f"{number_suffix(getstrftime('d'))} of {getstrftime('B')}, "
+                f"{getstrftime('Y')} ({getstrftime('X')})"
+            )
+
             data = {
                 "entries": [],
                 "owner": ctx.author.id,
+                "created_at": datetimeinfo,
             }
 
             if description:
@@ -288,7 +311,7 @@ class Raffle(commands.Cog):
         quotes = lambda x: f'"{x}"'
         relevant_data = [("name", quotes(raffle))]
         for k, v in raffle_data.items():
-            if k in ("owner", "entries"):
+            if k in ("owner", "entries", "created_at"):
                 # These are not user defined keys
                 continue
             if isinstance(v, str):
@@ -721,138 +744,36 @@ class Raffle(commands.Cog):
             if not raffle_data:
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
 
-            raffle_entities = lambda x: raffle_data.get(x, None)
+        quotes = lambda x: f'"{x}"'
+        relevant_data = []
+        for k, v in sorted(raffle_data.items(), key=lambda x: len(x[0])):
+            if k in ("owner", "entries", "created_at", "name", "description"):
+                # These are not user defined keys
+                continue
+            if isinstance(v, str):
+                v = quotes(v)
+            relevant_data.append((k, v))
 
-            properties = {
-                "name": raffle,
-                "description": raffle_data.get("description", None),
-                "rolesreq": raffle_data.get("roles_needed_to_enter", None),
-                "agereq": raffle_data.get("account_age", None),
-                "joinreq": raffle_data.get("server_join_age", None),
-                "prevented_users": raffle_data.get("prevented_users", None),
-                "allowed_users": raffle_data.get("allowed_users", None),
-                "owner": raffle_data.get("owner", None),
-                "maximum_entries": raffle_data.get("maximum_entries", None),
-                "entries": raffle_data.get("entries", None),
-                "end_message": raffle_data.get("end_message", None),
-                "on_end_action": raffle_data.get("on_end_action", None)
-            }
+        pre_determined = {
+            "raffle": quotes(raffle),
+            "description": raffle_data.get("description", None) or "No description was provided.",
+            "owner": str(ctx.guild.get_member(raffle_data['owner'])),
+            "created_at": raffle_data.get("created_at", None),
+            "entries": len(raffle_data['entries']) or "No entries yet.",
+        }
 
-            embed = discord.Embed(
-                title="Raffle information | {}".format(properties["name"]),
-                description=properties["description"] or italics("No description was provided."),
-                color=await ctx.embed_colour(),
-                timestamp=datetime.datetime.now(),
-            )
+        message = format_dashed_title(pre_determined, "Builtin Information")
+        for k, v in pre_determined.items():
+            if v is None:
+                continue
+            message += f"{k.capitalize()}: {v!s}\n"
+        message += "\n" + format_dashed_title(pre_determined, "Conditions")
+        
+        for page in pagify(message + "\n".join(f"{x[0]}: {x[1]}" for x in relevant_data), page_length=1988):
+            await ctx.send(box(page, lang="yaml"))
 
-            embed.add_field(
-                name="Owner",
-                value=self.bot.get_user(properties["owner"]).mention,
-                inline=True
-            )
-
-            embed.add_field(
-                name="Entries",
-                value=len(properties["entries"]),
-                inline=True
-            )
-
-            embed.add_field(
-                name="End Action",
-                value=inline(properties["on_end_action"] or "keep_winner"),
-                inline=False
-            )
-
-            if properties["maximum_entries"]:
-                embed.add_field(
-                    name="Maximum Entries",
-                    value=humanize_number(properties["maximum_entries"]),
-                    inline=False
-                )
-
-            winner_text = box(properties["end_message"] or r"Congratulations {winner.mention}, you have won the {raffle} raffle!")
-            embed.add_field(
-                name="Winner text",
-                value=winner_text,
-                inline=False
-            )
-
-            if any([properties["joinreq"], properties["agereq"]]):
-
-                age_requirements = []
-
-                if properties["joinreq"]:
-                    text = "Guild: {}".format( 
-                        properties["joinreq"]
-                    )
-                    age_requirements.append(text)
-
-                if properties["agereq"]:
-                    text = "Discord: {}\n".format(
-                        properties["agereq"]
-                    )
-                    age_requirements.append(text)
-                
-                embed.add_field(
-                    name="Age Requirements",
-                    value=box("# Days since you've joined:\n" + "\n".join(age_requirements), lang="yaml"),
-                    inline=False
-                )
-
-            if properties["rolesreq"]:
-                roles = []
-                for role in properties["rolesreq"]:
-                    if not ctx.guild.get_role(role):
-                        continue
-                    roles.append(ctx.guild.get_role(role).name)
-
-                if roles:
-
-                    embed.add_field(
-                        name="Roles Required",
-                        value=box("\n".join(f"+ @{v.lstrip('@')}" for v in roles), lang="diff"),
-                        inline=False
-                    )
-
-            if properties["allowed_users"]:
-                users = []
-                for user in properties["allowed_users"]:
-                    if not ctx.guild.get_member(user):
-                        continue
-                    if ctx.author == ctx.guild.get_member(user):
-                        users.append((">>> ", str(ctx.guild.get_member(user))))
-                    else:
-                        users.append(("#", str(ctx.guild.get_member(user))))
-
-                if users:
-                    
-                    embed.add_field(
-                        name="Allowed Users",
-                        value=box("\n".join(f"{v[0]}{c} {v[1]}" for c, v in enumerate(users, 1)), lang="md"),
-                        inline=False
-                    )
-            
-            if properties["prevented_users"]:
-                users = []
-                for user in properties["prevented_users"]:
-                    if not ctx.guild.get_member(user):
-                        continue
-                    if ctx.author == ctx.guild.get_member(user):
-                        users.append((">>> ", str(ctx.guild.get_member(user))))
-                    else:
-                        users.append(("#", str(ctx.guild.get_member(user))))
-
-                if users:
-
-                    embed.add_field(
-                        name="Prevented Users",
-                        value=box("\n".join(f"{v[0]}{c} {v[1]}" for c, v in enumerate(users, 1)), lang="md"),
-                        inline=False
-                    )
-
-            embed.set_author(name=ctx.guild.name, icon_url=ctx.guild.icon_url)
-            await ctx.send(embed=embed)
         await self.replenish_cache(ctx)
+
 
 
     @raffle.group()
@@ -1206,7 +1127,7 @@ class Raffle(commands.Cog):
         noedits = lambda x: f"{x} # Cannot be edited"
         relevant_data = [("name", noedits(quotes(raffle)))]
         for k, v in raffle_data.items():
-            if k in ("owner", "entries"):
+            if k in ("owner", "entries", "created_at"):
                 # These are not user defined keys
                 continue
             if isinstance(v, str):
@@ -1244,8 +1165,11 @@ class Raffle(commands.Cog):
 
         data = {
             "owner": raffle_data.get("owner"),
-            "entries": raffle_data.get("entries")
+            "entries": raffle_data.get("entries"),
         }
+
+        if raffle_data.get("created_at", None):
+            data["created_at"] = raffle_data["created_at"]
 
         conditions = {
             "end_message": valid.get("end_message", None),

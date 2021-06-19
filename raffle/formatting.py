@@ -9,3 +9,6 @@ def curl(enum):
 
 def formatenum(enum):
     return enum.replace("__", ".")
+
+def square(text):
+    return "[{}]".format(text)
