@@ -8,7 +8,6 @@ import pathlib
 import random
 
 import discord
-import tabulate
 import yaml
 
 from typing import List, Optional, Union
@@ -38,7 +37,6 @@ from .formatting import (
     tick, 
     cross, 
     square, 
-    clean_name,
 )
 
 
@@ -744,18 +742,21 @@ class Raffle(BaseCog, metaclass=MetaClass):
                 return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
 
         quotes = lambda x: f'"{x}"'
-        relevant_data = [("name", quotes(raffle))]
-        for k, v in raffle_data.items():
-            if k in ("owner", "entries", "created_at"):
+        relevant_data = []
+        for k, v in sorted(raffle_data.items(), key=lambda x: len(x[0])):
+            if k in ("owner", "entries", "created_at", "name", "description"):
                 # These are not user defined keys
                 continue
             if isinstance(v, str):
                 v = quotes(v)
             relevant_data.append((k, v))
 
-        message = f"Owner: {ctx.guild.get_member(raffle_data['owner'])!s}\n"
+        message = f"Raffle: {quotes(raffle)}\n"
+        message += f"Description: {raffle_data.get('description', None) or 'No description was provided.'}\n"
+        message += f"Owner: {ctx.guild.get_member(raffle_data['owner'])!s}\n"
         created_at = raffle_data.get("created_at", None)
         if created_at:
+            # Versions 1.2.6 and below won't have this builtin conditional block
             message += f"Created: {created_at}\n"
         message += f"Entries: {len(raffle_data['entries'])}\n\n"
         

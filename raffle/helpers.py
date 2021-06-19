@@ -40,8 +40,7 @@ def number_suffix(number: int) -> str:
     suffixes = {0: "th", 1: "st", 2: "nd", 3: "rd"}
     for i in range(5, 10):
         suffixes[i] = "th"
-    lastnum = int(str(number)[-1])
-    return str(number) + suffixes[lastnum]
+    return str(number) + suffixes[int(str(number)[-1])]
 
 
 def raffle_safe_member_scanner(content: str, cond: Literal["join_message", "end_message"]) -> None:
