@@ -764,12 +764,13 @@ class Raffle(BaseCog):
             "entries": len(raffle_data['entries']) or "No entries yet.",
         }
 
-        message = format_dashed_title(pre_determined, "Builtin Information")
+        message = format_dashed_title(pre_determined)
         for k, v in pre_determined.items():
             if v is None:
                 continue
-            message += f"{k.capitalize()}: {v!s}\n"
-        message += "\n" + format_dashed_title(pre_determined, "Conditions")
+            message += f"\n{k.capitalize()}: {v!s}"
+        if relevant_data:
+            message += "\n" + format_dashed_title(pre_determined) + "\n"
         
         for page in pagify(message + "\n".join(f"{x[0]}: {x[1]}" for x in relevant_data), page_length=1988):
             await ctx.send(box(page, lang="yaml"))
