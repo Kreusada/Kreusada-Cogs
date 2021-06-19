@@ -57,6 +57,7 @@ from .helpers import (
     format_traceback,
     cleanup_code,
     validator,
+    getstrftime,
     number_suffix,
     raffle_safe_member_scanner,
     start_interactive_message_session
@@ -228,8 +229,10 @@ class Raffle(BaseCog):
             if rafflename in [x.lower() for x in raffle.keys()]:
                 return await ctx.send("A raffle with this name already exists.")
 
-            time = lambda x: now.strftime(x)
-            datetimeinfo = f"{number_suffix(time('%d'))} of {time('%B')}, {time('%Y')} ({time('%X')})"
+            datetimeinfo = (
+                f"{number_suffix(getstrftime('d'))} of {getstrftime('B')}, "
+                f"{getstrftime('Y')} ({getstrftime('X')})"
+            )
 
             data = {
                 "entries": [],
@@ -274,8 +277,10 @@ class Raffle(BaseCog):
             if raffle_name in [x.lower() for x in raffle.keys()]:
                 return await ctx.send("A raffle with this name already exists.")
 
-            time = lambda x: now.strftime(x)
-            datetimeinfo = f"{number_suffix(time('%d'))} of {time('%B')}, {time('%Y')} ({time('%X')})"
+            datetimeinfo = (
+                f"{number_suffix(getstrftime('d'))} of {getstrftime('B')}, "
+                f"{getstrftime('Y')} ({getstrftime('X')})"
+            )
 
             data = {
                 "entries": [],

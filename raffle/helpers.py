@@ -9,6 +9,7 @@ from redbot.core.bot import Red as RedBot
 from redbot.core.commands import Context, BadArgument
 from redbot.core.utils.chat_formatting import box
 
+from .checks import now
 from .safety import RaffleSafeMember
 from .enums import RaffleEMC, RaffleJMC
 from .formatting import curl, formatenum, cross
@@ -34,6 +35,10 @@ def validator(data) -> Union[bool, dict]:
     if not isinstance(loader, dict):
         return False
     return loader
+
+
+def getstrftime(perc: str) -> Union[str, int]:
+    return now.strftime(f"%{perc}")
 
 
 def number_suffix(number: int) -> str:
