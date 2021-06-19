@@ -1,9 +1,6 @@
 import asyncio
 import contextlib
-import datetime
-import enum
 import json
-import logging
 import pathlib
 import random
 
@@ -64,6 +61,7 @@ from .helpers import (
     start_interactive_message_session
 )
 
+from .versioninfo.version_handler import VersionHandler
 
 with open(pathlib.Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
@@ -75,7 +73,7 @@ class Raffle(BaseCog):
     """Create raffles for your server."""
 
     __author__ = ["Kreusada"]
-    __version__ = "1.2.8"
+    __version__ = VersionHandler.versiongetter(True)
 
     def __init__(self, bot):
         self.bot = bot
@@ -170,7 +168,19 @@ class Raffle(BaseCog):
     @raffle.command()
     async def version(self, ctx: Context):
         """Get the version of your Raffle cog."""
-        await ctx.send(inline(self.__version__))
+        async with ctx.typing():
+            cls = VersionHandler()
+            raw = await cls.rawversiongetter(True)
+            if not await cls.validate():
+                message = (
+                    "**Your raffle cog is out of date!**\n"
+                    "The up to date version is **{1}**, whilst yours is **{0.__version__}**.\n\n"
+                    "Consider updating through `{2}cog update raffle`."
+                )
+            else:
+                message = "Version: {0.__version__}"
+
+        await ctx.send(message.format(self, raw, ctx.clean_prefix))
 
     @raffle.command()
     async def docs(self, ctx: Context):
