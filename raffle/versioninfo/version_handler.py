@@ -34,8 +34,3 @@ class VersionHandler(object):
     @classmethod
     async def validate(cls) -> bool:
         return cls.versiongetter(int) <= await cls.rawversiongetter()
-
-
-
-
-
