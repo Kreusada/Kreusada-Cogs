@@ -38,7 +38,7 @@ def validator(data) -> Union[bool, dict]:
 
 def number_suffix(number: int) -> str:
     suffixes = {0: "th", 1: "st", 2: "nd", 3: "rd"}
-    for i in range(5, 10):
+    for i in range(4, 10):
         suffixes[i] = "th"
     return str(number) + suffixes[int(str(number)[-1])]
 
