@@ -61,7 +61,7 @@ from .helpers import (
     start_interactive_message_session
 )
 
-from .versioninfo.version_handler import VersionHandler
+from .version_handler import VersionHandler
 
 with open(pathlib.Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
