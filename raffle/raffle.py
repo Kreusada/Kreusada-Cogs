@@ -1,9 +1,6 @@
 import asyncio
 import contextlib
-import datetime
-import enum
 import json
-import logging
 import pathlib
 import random
 
@@ -64,6 +61,7 @@ from .helpers import (
     start_interactive_message_session
 )
 
+from .versioninfo.version_handler import VersionHandler
 
 with open(pathlib.Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
@@ -75,7 +73,7 @@ class Raffle(BaseCog):
     """Create raffles for your server."""
 
     __author__ = ["Kreusada"]
-    __version__ = "1.2.7"
+    __version__ = VersionHandler.versiongetter(True)
 
     def __init__(self, bot):
         self.bot = bot
@@ -170,7 +168,19 @@ class Raffle(BaseCog):
     @raffle.command()
     async def version(self, ctx: Context):
         """Get the version of your Raffle cog."""
-        await ctx.send(inline(self.__version__))
+        async with ctx.typing():
+            cls = VersionHandler()
+            raw = await cls.rawversiongetter(True)
+            if not await cls.validate():
+                message = (
+                    "**Your raffle cog is out of date!**\n"
+                    "The up to date version is **{1}**, whilst yours is **{0.__version__}**.\n\n"
+                    "Consider updating through `{2}cog update raffle`."
+                )
+            else:
+                message = "Version: {0.__version__}"
+
+        await ctx.send(message.format(self, raw, ctx.clean_prefix))
 
     @raffle.command()
     async def docs(self, ctx: Context):
@@ -666,18 +676,20 @@ class Raffle(BaseCog):
         embed_pages = []
 
         if len(entries) == 1:
+            entry_grammar = "entry"
             embed = discord.Embed(
                 description=f"Looks like its only {self.bot.get_user(entries[0]).display_name} in here!",
                 color=await ctx.embed_colour()
             )
-            embed_pages.append(embed)
         else:
+            entry_grammar = "entries"
             for page in pagify(humanize_list([self.bot.get_user(u).display_name for u in entries])):
                 embed = discord.Embed(
                     description=page,
                     color=await ctx.embed_colour()
                 )
-                embed_pages.append(embed)
+        embed.title = f"{len(entries)} {entry_grammar}"
+        embed_pages.append(embed)
 
         await self.compose_menu(ctx, embed_pages)
         await self.replenish_cache(ctx)
@@ -762,12 +774,13 @@ class Raffle(BaseCog):
             "entries": len(raffle_data['entries']) or "No entries yet.",
         }
 
-        message = format_dashed_title(pre_determined, "Builtin Information")
+        message = format_dashed_title(pre_determined)
         for k, v in pre_determined.items():
             if v is None:
                 continue
-            message += f"{k.capitalize()}: {v!s}\n"
-        message += "\n" + format_dashed_title(pre_determined, "Conditions")
+            message += f"\n{k.capitalize()}: {v!s}"
+        if relevant_data:
+            message += "\n" + format_dashed_title(pre_determined) + "\n"
         
         for page in pagify(message + "\n".join(f"{x[0]}: {x[1]}" for x in relevant_data), page_length=1988):
             await ctx.send(box(page, lang="yaml"))
