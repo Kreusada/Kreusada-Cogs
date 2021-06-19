@@ -1,4 +1,3 @@
-import ast
 import aiohttp
 import json
 
@@ -20,7 +19,7 @@ class VersionHandler(object):
     def versiongetter(cls, asstr: bool = True) -> Union[str, Tuple[int, ...]]:
         if asstr:
             return ".".join(str(i) for i in cls.__version__)
-        return cls.__version__
+        return tuple(cls.__version__)
 
     @classmethod
     async def rawversiongetter(cls, asstr: bool = True) -> Union[str, Tuple[int, ...]]:
@@ -33,4 +32,4 @@ class VersionHandler(object):
 
     @classmethod
     async def validate(cls) -> bool:
-        return cls.versiongetter(int) <= await cls.rawversiongetter()
+        return cls.versiongetter(False) >= await cls.rawversiongetter(False)
