@@ -2,7 +2,7 @@ import asyncio
 import discord
 import yaml
 
-from typing import Union, Literal
+from typing import Any, Dict, Literal, Union
 from yaml.parser import MarkedYAMLError
 
 from redbot.core.bot import Red as RedBot
@@ -46,6 +46,15 @@ def number_suffix(number: int) -> str:
     for i in range(4, 10):
         suffixes[i] = "th"
     return str(number) + suffixes[int(str(number)[-1])]
+
+
+def format_dashed_title(data: Dict[str, Any], title: str, end: str = "\n") -> str:
+    length = len(min([f"{k}: {v}" for k, v in data.items()]))
+    # if length % 2 != 0:
+    #     length -= 1
+    length -= len(title)
+    dashes = "-" * int(length/2)
+    return f"{dashes}{title}{dashes}{end}"
 
 
 def raffle_safe_member_scanner(content: str, cond: Literal["join_message", "end_message"]) -> None:

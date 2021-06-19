@@ -59,6 +59,7 @@ from .helpers import (
     validator,
     getstrftime,
     number_suffix,
+    format_dashed_title,
     raffle_safe_member_scanner,
     start_interactive_message_session
 )
@@ -753,14 +754,20 @@ class Raffle(BaseCog):
                 v = quotes(v)
             relevant_data.append((k, v))
 
-        message = f"Raffle: {quotes(raffle)}\n"
-        message += f"Description: {raffle_data.get('description', None) or 'No description was provided.'}\n"
-        message += f"Owner: {ctx.guild.get_member(raffle_data['owner'])!s}\n"
-        created_at = raffle_data.get("created_at", None)
-        if created_at:
-            # Versions 1.2.6 and below won't have this builtin conditional block
-            message += f"Created: {created_at}\n"
-        message += f"Entries: {len(raffle_data['entries'])}\n\n"
+        pre_determined = {
+            "raffle": quotes(raffle),
+            "description": raffle_data.get("description", None) or "No description was provided.",
+            "owner": str(ctx.guild.get_member(raffle_data['owner'])),
+            "created_at": raffle_data.get("created_at", None),
+            "entries": len(raffle_data['entries']) or "No entries yet.",
+        }
+
+        message = format_dashed_title(pre_determined, "Builtin Information")
+        for k, v in pre_determined.items():
+            if v is None:
+                continue
+            message += f"{k.capitalize()}: {v!s}\n"
+        message += "\n" + format_dashed_title(pre_determined, "Conditions")
         
         for page in pagify(message + "\n".join(f"{x[0]}: {x[1]}" for x in relevant_data), page_length=1988):
             await ctx.send(box(page, lang="yaml"))
