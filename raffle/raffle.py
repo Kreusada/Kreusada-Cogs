@@ -75,7 +75,7 @@ class Raffle(BaseCog):
     """Create raffles for your server."""
 
     __author__ = ["Kreusada"]
-    __version__ = "1.2.7"
+    __version__ = "1.2.8"
 
     def __init__(self, bot):
         self.bot = bot
@@ -666,18 +666,20 @@ class Raffle(BaseCog):
         embed_pages = []
 
         if len(entries) == 1:
+            entry_grammar = "entry"
             embed = discord.Embed(
                 description=f"Looks like its only {self.bot.get_user(entries[0]).display_name} in here!",
                 color=await ctx.embed_colour()
             )
-            embed_pages.append(embed)
         else:
+            entry_grammar = "entries"
             for page in pagify(humanize_list([self.bot.get_user(u).display_name for u in entries])):
                 embed = discord.Embed(
                     description=page,
                     color=await ctx.embed_colour()
                 )
-                embed_pages.append(embed)
+        embed.title = f"{len(entries)} {entry_grammar}"
+        embed_pages.append(embed)
 
         await self.compose_menu(ctx, embed_pages)
         await self.replenish_cache(ctx)
