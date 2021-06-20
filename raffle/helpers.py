@@ -6,6 +6,7 @@ from typing import Any, Dict, Literal, Union
 from yaml.parser import MarkedYAMLError
 
 from redbot.core.bot import Red as RedBot
+from redbot.core.i18n import Translator
 from redbot.core.commands import Context, BadArgument
 from redbot.core.utils.chat_formatting import box
 
@@ -14,6 +15,7 @@ from .safety import RaffleSafeMember
 from .enums import RaffleEMC, RaffleJMC
 from .formatting import curl, formatenum, cross
 
+_ = Translator("Raffle", __file__)
 
 def format_traceback(exc) -> str:
     boxit = lambda x, y: box(f"{x}: {y}", lang="yaml")
@@ -66,7 +68,14 @@ def raffle_safe_member_scanner(content: str, cond: Literal["join_message", "end_
         # This can raise BadArgument, that's fine
         content.format(**kwargs)
     except KeyError as e:
-        raise BadArgument(f"{e} was an unexpected argument in your new {cond.split('_')[0]} message")
+        raise BadArgument(
+            _(
+                "{e} was an unexpected argument in your new {cond} message".format(
+                    e=e,
+                    cond=cond.split("_")[0]
+                )
+            )
+        )
 
 
 async def start_interactive_message_session(
@@ -74,16 +83,21 @@ async def start_interactive_message_session(
     sesstype: Literal["join_message", "end_message"], message: discord.Message
 ):
     if sesstype == "join_message":
-        when_phrase = "When a user is drawn"
+        when_phrase = _("When a user is drawn")
         ENUM = RaffleJMC
     else:
-        when_phrase = "When a user enters the raffle"
+        when_phrase = _("When a user enters the raffle")
         ENUM = RaffleEMC
-    guide = (
-        f"Start adding some messages to add to the list of {sesstype.split('_')[0]} messages.\n"
-        f"{when_phrase}, one of these messages will be randomly selected.\n\n"
-        "**Available variables:**"
+
+    guide = _(
+        "Start adding some messages to add to the list of {sesstype} messages.\n"
+        "{when_phrase}, one of these messages will be randomly selected.\n\n"
+        "**Available variables:**".format(
+            sesstype=sesstype.split("_")[0],
+            when_phrase=when_phrase
+        )
     )
+
     b = lambda x: box(x, lang="yaml")
     guide += b("\n".join(f"{curl(formatenum(u.name))}: {u.value}" for u in sorted(ENUM, key=lambda x: len(x.name))))
     try:
@@ -95,20 +109,20 @@ async def start_interactive_message_session(
     messages = []
 
     check = lambda x: x.channel == ctx.channel and x.author == ctx.author
-    tostop = lambda x: f"{x}\n> Type **stop()** or **exit()** to discontinue gathering messages."
+    tostop = lambda x: f"{x}\n> " + _("Type {stop} or {exit} to discontinue gathering messages.".format(stop="**stop()**", exit="**exit()**"))
     bubble = lambda x: "{} {}".format("\N{RIGHT ANGER BUBBLE}\N{VARIATION SELECTOR-16}", x)
     while True:
         if not messages:
-            await ctx.send(tostop(bubble("Add your first response.")))
+            await ctx.send(tostop(bubble(_("Add your first response."))))
         elif len(messages) > 20:
-            await ctx.send(F"Sorry, 20 is the maximum limit for the number of {sesstype} messages.")
+            await ctx.send(_("Sorry, 20 is the maximum limit for the number of {sesstype} messages.".format(sesstype=sesstype)))
             break
         else:
-            await ctx.send(tostop(bubble("Add another random response:")))
+            await ctx.send(tostop(bubble(_("Add another random response:"))))
         try:
             message = await bot.wait_for("message", check=check, timeout=100)
         except asyncio.TimeoutError:
-            await ctx.send("You took too long to continue, aborted session.")
+            await ctx.send(_("You took too long to continue, aborted session."))
             return False
         if message.content.lower() in ("exit()", "stop()"):
             if messages:
@@ -117,7 +131,7 @@ async def start_interactive_message_session(
         try:
             raffle_safe_member_scanner(message.content, sesstype)
         except BadArgument:
-            await ctx.send(cross("That message's variables were not formatted correctly, skipping..."))
+            await ctx.send(cross(_("That message's variables were not formatted correctly, skipping...")))
             continue
         messages.append(message.content)
     return messages

@@ -68,10 +68,7 @@ with open(pathlib.Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
 
 BaseCog = getattr(commands, "Cog", object)
-
-# TODO Soon :
 _ = Translator("Raffle", __file__)
-_ = lambda x: x
 
 
 class Raffle(BaseCog):
@@ -1057,15 +1054,15 @@ class Raffle(BaseCog):
 
             raffle_data = r.get(raffle, None)
             if not raffle_data:
-                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
             if not join_message:
                 with contextlib.suppress(KeyError):
                     del raffle_data["join_message"]
-                return await ctx.send("Join message feature removed from this raffle. It will now use the default.")
+                return await ctx.send(_("Join message feature removed from this raffle. It will now use the default."))
 
             elif join_message is True:
-                return await ctx.send("Please provide a number, or \"false\" to disable this condition.")
+                return await ctx.send(_("Please provide a number, or \"false\" to disable this condition."))
 
             else:
                 try:
@@ -1073,11 +1070,11 @@ class Raffle(BaseCog):
                 except BadArgument as e:
                     return await ctx.send(format_traceback(e))
 
-                message = "Would you like to add additional end messages to be selected from at random?"
+                message = _("Would you like to add additional end messages to be selected from at random?")
 
                 can_react = ctx.channel.permissions_for(ctx.me).add_reactions
                 if not can_react:
-                    message += " (yes/no)"
+                    message += " (y/n)"
                 message = await ctx.send(message)
                 if can_react:
                     start_adding_reactions(message, ReactionPredicate.YES_OR_NO_EMOJIS)
@@ -1090,19 +1087,19 @@ class Raffle(BaseCog):
                 try:
                     await self.bot.wait_for(event_type, check=predicate, timeout=30)
                 except asyncio.TimeoutError:
-                    await ctx.send("You took too long to respond. Saving join message as \"{}\".".format(join_message))
+                    await ctx.send(_("You took too long to respond. Saving join message as \"{}\".".format(join_message)))
 
                 if predicate.result:
                     interaction = await start_interactive_message_session(ctx, self.bot, "join_message", message)
                     if interaction is False:
                         data = join_message
-                        await ctx.send("Join message set to what you provided previously: {}".format(join_message))
+                        await ctx.send(_("Join message set to what you provided previously: {}".format(join_message)))
                     else:
                         data = [join_message] + interaction
-                        await ctx.send("Join messages updated for this raffle.")
+                        await ctx.send(_("Join messages updated for this raffle."))
                 else:
                     data = join_message
-                    await ctx.send("Join message updated for this raffle.")
+                    await ctx.send(_("Join message updated for this raffle."))
                 raffle_data["join_message"] = data
 
         await self.replenish_cache(ctx)
@@ -1118,10 +1115,10 @@ class Raffle(BaseCog):
 
             raffle_data = r.get(raffle, None)
             if not raffle_data:
-                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
             if not ctx.author.id == raffle_data["owner"]:
-                return await ctx.send("You are not the owner of this raffle.")
+                return await ctx.send(_("You are not the owner of this raffle."))
 
         existing_data = {
             "end_message": raffle_data.get("end_message", None),
@@ -1136,18 +1133,20 @@ class Raffle(BaseCog):
             "on_end_action": raffle_data.get("on_end_action", None),
         }
 
-        message = (
+        message = _(
             "You're about to **edit an existing raffle**.\n\nThe `name` "
             "block cannot be edited through this command, it's preferred "
             "if you create a new raffle with the new name instead.\nYou can end "
-            f"this raffle through using `{ctx.clean_prefix}raffle end {raffle}`."
+            "this raffle through using `{prefix}raffle end {raffle}`."
             "\nPlease consider reading the docs about the various "
-            "conditional blocks if you haven't already.\n\n"
-            + self.docs
-        )
+            "conditional blocks if you haven't already.\n\n".format(
+                prefix=ctx.clean_prefix,
+                raffle=raffle
+            )
+        ) + self.docs
 
         quotes = lambda x: f'"{x}"'
-        noedits = lambda x: f"{x} # Cannot be edited"
+        noedits = lambda x: _("{x} # Cannot be edited".format(x=x))
         relevant_data = [("name", noedits(quotes(raffle)))]
         for k, v in raffle_data.items():
             if k in ("owner", "entries", "created_at"):
@@ -1157,7 +1156,7 @@ class Raffle(BaseCog):
                 v = quotes(v)
             relevant_data.append((k, v))
 
-        message += "\n\n**Current settings:**" + box("\n".join(f"{x[0]}: {x[1]}" for x in relevant_data), lang="yaml")
+        message += _("\n\n**Current settings:**" + box("\n".join(f"{x[0]}: {x[1]}" for x in relevant_data)), lang="yaml")
         await ctx.send(message)  
 
         check = lambda x: x.channel == ctx.channel and x.author == ctx.author
@@ -1174,7 +1173,9 @@ class Raffle(BaseCog):
 
         if not valid:
             return await ctx.send(
+                _(
                 "Please provide valid YAML. You can validate your raffle YAML using `{}raffle parse`.".format(ctx.clean_prefix)
+                )
             )
 
         valid["name"] = raffle
@@ -1183,7 +1184,7 @@ class Raffle(BaseCog):
             parser = RaffleManager(valid)
             parser.parser(ctx)
         except (RaffleError, BadArgument) as e:
-            exc = cross("An exception occured whilst parsing your data.")
+            exc = cross(_("An exception occured whilst parsing your data."))
             return await ctx.send(exc + format_traceback(e))
 
         data = {
@@ -1232,17 +1233,17 @@ class Raffle(BaseCog):
         if any([additions, deletions, changes]):
             message = ""
             if additions:
-                message += "Added:\n" + "\n".join(f"+ {a}" for a in additions)
+                message += _("Added:\n") + "\n".join(f"+ {a}" for a in additions)
             if changes:
-                message += "\n\nEdited:\n" + "\n".join(f"> {c}" for c in changes)
+                message += _("\n\nEdited:\n") + "\n".join(f"> {c}" for c in changes)
             if deletions:
-                message += "\n\nRemoved:\n" + "\n".join(f"- {d}" for d in deletions)
+                message += _("\n\nRemoved:\n") + "\n".join(f"- {d}" for d in deletions)
 
             diffs = box(message, lang="diff")
-            update = tick("Raffle edited. {}".format(diffs))
+            update = tick(_("Raffle edited. {}".format(diffs)))
         
         else:
-            update = tick("No changes were made.")
+            update = tick(_("No changes were made."))
 
         await ctx.send(update)
 
@@ -1267,15 +1268,15 @@ class Raffle(BaseCog):
 
             raffle_data = r.get(raffle, None)
             if not raffle_data:
-                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
             prevented = raffle_data.get("prevented_users", [])
 
             if member.id in prevented:
-                return await ctx.send("This user is already prevented in this raffle.")
+                return await ctx.send(_("This user is already prevented in this raffle."))
 
             prevented.append(member.id)
-            await ctx.send("{} added to the prevented list for this raffle.".format(member.name))
+            await ctx.send(_("{} added to the prevented list for this raffle.".format(member.name)))
 
         await self.replenish_cache(ctx)
 
@@ -1292,15 +1293,15 @@ class Raffle(BaseCog):
 
             raffle_data = r.get(raffle, None)
             if not raffle_data:
-                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
             prevented = raffle_data.get("prevented_users", [])
 
             if member.id not in prevented:
-                return await ctx.send("This user was not already prevented in this raffle.")
+                return await ctx.send(_("This user was not already prevented in this raffle."))
 
             prevented.remove(member.id)
-            await ctx.send("{} remove from the prevented list for this raffle.".format(member.name))
+            await ctx.send(_("{} remove from the prevented list for this raffle.".format(member.name)))
 
         await self.replenish_cache(ctx)
 
@@ -1316,14 +1317,14 @@ class Raffle(BaseCog):
 
             raffle_data = r.get(raffle, None)
             if not raffle_data:
-                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
             prevented = raffle_data.get("prevented_users", None)
 
             if prevented is None:
-                return await ctx.send("There are no prevented users.")
+                return await ctx.send(_("There are no prevented users."))
 
-            message = "Are you sure you want to clear the prevented users list for this raffle?"
+            message = _("Are you sure you want to clear the prevented users list for this raffle?")
             can_react = ctx.channel.permissions_for(ctx.me).add_reactions
             if not can_react:
                 message += " (yes/no)"
@@ -1339,18 +1340,19 @@ class Raffle(BaseCog):
             try:
                 await self.bot.wait_for(event_type, check=predicate, timeout=30)
             except asyncio.TimeoutError:
-                await ctx.send("You took too long to respond.")
+                await ctx.send(_("You took too long to respond."))
                 return
 
             if predicate.result:
-                del raffle_data["prevented_users"]    
+                del raffle_data["prevented_users"] 
+                message = _("Prevented users list cleared for this raffle.")   
                 try:
-                    await message.edit(content="Prevented users list cleared for this raffle.")
+                    await message.edit(content=message)
                 except discord.NotFound:
-                    await ctx.send("Prevented users list cleared for this raffle.")
+                    await ctx.send(message)
             
             else:
-                await ctx.send("No changes have been made.")    
+                await ctx.send(_("No changes have been made.")) 
 
 
     @edit.group()
@@ -1371,15 +1373,15 @@ class Raffle(BaseCog):
 
             raffle_data = r.get(raffle, None)
             if not raffle_data:
-                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
             allowed = raffle_data.get("allowed_users", [])
 
             if member.id in allowed:
-                return await ctx.send("This user is already allowed in this raffle.")
+                return await ctx.send(_("This user is already allowed in this raffle."))
 
             allowed.append(member.id)
-            await ctx.send("{} added to the allowed list for this raffle.".format(member.name))
+            await ctx.send(_("{} added to the allowed list for this raffle.".format(member.name)))
 
         await self.replenish_cache(ctx)
 
@@ -1396,15 +1398,15 @@ class Raffle(BaseCog):
 
             raffle_data = r.get(raffle, None)
             if not raffle_data:
-                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
             allowed = raffle_data.get("allowed_users", [])
 
             if member.id not in allowed:
-                return await ctx.send("This user was not already allowed in this raffle.")
+                return await ctx.send(_("This user was not already allowed in this raffle."))
 
             allowed.remove(member.id)
-            await ctx.send("{} remove from the allowed list for this raffle.".format(member.name))
+            await ctx.send(_("{} removed from the allowed list for this raffle.".format(member.name)))
 
         await self.replenish_cache(ctx)
 
@@ -1416,17 +1418,17 @@ class Raffle(BaseCog):
 
             raffle_data = r.get(raffle, None)
             if not raffle_data:
-                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
             allowed = raffle_data.get("allowed_users", None)
 
             if allowed is None:
-                return await ctx.send("There are no allowed users.")
+                return await ctx.send(_("There are no allowed users."))
 
-        message = "Are you sure you want to clear the allowed list for this raffle?"
+        message = _("Are you sure you want to clear the allowed list for this raffle?")
         can_react = ctx.channel.permissions_for(ctx.me).add_reactions
         if not can_react:
-            message += " (yes/no)"
+            message += " (y/n)"
         message = await ctx.send(message)
         if can_react:
             start_adding_reactions(message, ReactionPredicate.YES_OR_NO_EMOJIS)
@@ -1439,7 +1441,7 @@ class Raffle(BaseCog):
         try:
             await self.bot.wait_for(event_type, check=predicate, timeout=30)
         except asyncio.TimeoutError:
-            await ctx.send("You took too long to respond.")
+            await ctx.send(_("You took too long to respond."))
             return
 
         if predicate.result:
@@ -1447,12 +1449,12 @@ class Raffle(BaseCog):
                 # Still wanna remove empty list here
                 del raffle_data["allowed_users"]    
             try:
-                await message.edit(content="Allowed list cleared for this raffle.")
+                await message.edit(content=_("Allowed list cleared for this raffle."))
             except discord.NotFound:
-                await ctx.send("Allowed list cleared for this raffle.")
+                await ctx.send(_("Allowed list cleared for this raffle."))
         
         else:
-            await ctx.send("No changes have been made.")    
+            await ctx.send(_("No changes have been made."))   
 
         await self.replenish_cache(ctx)
 
@@ -1475,18 +1477,18 @@ class Raffle(BaseCog):
 
             raffle_data = r.get(raffle, None)
             if not raffle_data:
-                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
             roles = raffle_data.get("roles_needed_to_enter", [])
 
             if role.id in roles:
-                return await ctx.send("This role is already a requirement in this raffle.")
+                return await ctx.send(_("This role is already a requirement in this raffle."))
 
             if not roles:
                 raffle_data["roles_needed_to_enter"] = [role.id]
             else:
                 roles.append(role.id)
-            await ctx.send("{} added to the role requirement list for this raffle.".format(role.name))
+            await ctx.send(_("{} added to the role requirement list for this raffle.".format(role.name)))
 
         await self.replenish_cache(ctx)
 
@@ -1503,15 +1505,15 @@ class Raffle(BaseCog):
 
             raffle_data = r.get(raffle, None)
             if not raffle_data:
-                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
             roles = raffle_data.get("roles_needed_to_enter", [])
 
             if role.id not in roles:
-                return await ctx.send("This role is not already a requirement in this raffle.")
+                return await ctx.send(_("This role is not already a requirement in this raffle."))
 
             roles.remove(role.id)
-            await ctx.send("{} remove from the role requirement list for this raffle.".format(role.name))
+            await ctx.send(_("{} remove from the role requirement list for this raffle.".format(role.name)))
 
         await self.replenish_cache(ctx)
 
@@ -1528,14 +1530,14 @@ class Raffle(BaseCog):
 
             raffle_data = r.get(raffle, None)
             if not raffle_data:
-                return await ctx.send("There is not an ongoing raffle with the name `{}`.".format(raffle))
+                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
             rolesreq = raffle_data.get("roles_needed_to_enter", [])
 
             if rolesreq is None:
-                return await ctx.send("There are no required roles.")
+                return await ctx.send(_("There are no required roles."))
 
-            message = "Are you sure you want to clear the role requirement list for this raffle?"
+            message = _("Are you sure you want to clear the role requirement list for this raffle?")
             can_react = ctx.channel.permissions_for(ctx.me).add_reactions
             if not can_react:
                 message += " (yes/no)"
@@ -1551,20 +1553,21 @@ class Raffle(BaseCog):
             try:
                 await self.bot.wait_for(event_type, check=predicate, timeout=30)
             except asyncio.TimeoutError:
-                await ctx.send("You took too long to respond.")
+                await ctx.send(_("You took too long to respond."))
                 return
 
             if predicate.result:
                 with contextlib.suppress(KeyError):
                     # Still wanna remove empty list here
                     del raffle_data["roles_needed_to_enter"]    
+                message = "Role requirement list cleared for this raffle."
                 try:
-                    await message.edit(content="Role requirement list cleared for this raffle.")
+                    await message.edit(content=message)
                 except discord.NotFound:
-                    await ctx.send("Role requirement list cleared for this raffle.")
+                    await ctx.send(message)
             
             else:
-                await ctx.send("No changes have been made.")    
+                await ctx.send(_("No changes have been made."))
 
             await self.replenish_cache(ctx)
 

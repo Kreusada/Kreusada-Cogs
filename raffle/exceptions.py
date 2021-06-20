@@ -1,5 +1,9 @@
 from typing import Literal
 
+from redbot.core.i18n import Translator
+
+_ = Translator("Raffle", __file__)
+
 
 class RaffleError(Exception):
     """Base exception for all raffle exceptions.
@@ -17,7 +21,7 @@ class RequiredKeyError(RaffleError):
         self.key = key
 
     def __str__(self):
-        return f"({self.key}) The \"{self.key}\" key is required"
+        return _("({0.key}) The \"{0.key}\" key is required".format(self))
 
 
 class UnknownEntityError(RaffleError):
@@ -28,7 +32,7 @@ class UnknownEntityError(RaffleError):
         self.type = _type
 
     def __str__(self):
-        return f"\"{self.data}\" was not a valid {self.type}"
+        return _("\"{0.data}\" was not a valid {0.type}".format(self))
 
 class RaffleSyntaxError(RaffleError):
     """Raised when syntax is not provided properly."""

@@ -16,6 +16,7 @@ from .exceptions import (
 
 from .enums import RaffleComponents
 
+# This file will not be receiving translations, for now
 
 class RaffleManager(object):
     """Parses the required and relevant yaml data to ensure
