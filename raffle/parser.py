@@ -186,6 +186,6 @@ class RaffleManager(object):
 
 
         if self.on_end_action:
-            valid_actions = ("end", "remove_winner", "keep_winner")
+            valid_actions = ("end", "remove_winner", "remove_and_prevent_winner", "keep_winner")
             if not isinstance(self.on_end_action, str) or self.on_end_action not in valid_actions:
-                raise InvalidArgument("(on_end_action) must be one of 'end', 'remove_winner', or 'keep_winner'")
+                raise InvalidArgument("(on_end_action) must be one of 'end', 'remove_winner', 'remove_and_prevent_winner', or 'keep_winner'")

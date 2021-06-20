@@ -80,5 +80,5 @@ class RaffleComponents(enum.Enum):
     )
 
     on_end_action = _(
-        "The action to perform when a user is drawn. Must be one of 'end', 'remove_winner', or 'keep_winner', defaults to 'keep_winner'."
+        "The action to perform when a user is drawn. Must be one of 'end', 'remove_winner', 'remove_and_prevent_winner' or 'keep_winner', defaults to 'keep_winner'."
     )

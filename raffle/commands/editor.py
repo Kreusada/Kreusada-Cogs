@@ -149,7 +149,7 @@ class EditorCommands(RaffleMixin):
         
         **Arguments:**
             - `<raffle>` - The name of the raffle.
-            - `<on_end_action>` - The new action. Must be one of `end`, `remove_winner`, or `keep_winner`.
+            - `<on_end_action>` - The new action. Must be one of `end`, `remove_winner`, 'remove_and_prevent_winner', or `keep_winner`.
         """
         async with self.config.guild(ctx.guild).raffles() as r:
 
@@ -166,8 +166,8 @@ class EditorCommands(RaffleMixin):
                 return await ctx.send(_("Please provide a number, or \"false\" to disable the description."))
 
             else:
-                if not on_end_action in ("end", "remove_winner", "keep_winner"):
-                    return await ctx.send(_("Please provide one of `end`, `remove_winner`, or `keep_winner`."))
+                if not on_end_action in ("end", "remove_winner", "remove_and_prevent_winner", "keep_winner"):
+                    return await ctx.send(_("Please provide one of `end`, `remove_winner`, `remove_and_prevent_winner`, or `keep_winner`."))
                 raffle_data["on_end_action"] = on_end_action
                 await ctx.send(_("On end action updated for this raffle."))
 

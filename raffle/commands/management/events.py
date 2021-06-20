@@ -61,11 +61,16 @@ class EventCommands(RaffleMixin):
 
             await ctx.send(message)
 
-            if on_end_action == "keep_winner":
-                return
             if on_end_action == "remove_winner": 
                 raffle_entities("entries").remove(winner)
-                return
+            elif on_end_action == "keep_winner":
+                pass
+            elif on_end_action == "remove_and_prevent_winner":
+                raffle_entities("entries").remove(winner)
+                if raffle_entities("prevented_users"):
+                    raffle_entities("prevented_users").append(winner)
+                else:
+                    raffle_data["prevented_users"] = [winner]
             else:
                 # end
                 r.pop(raffle)

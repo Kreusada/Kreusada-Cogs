@@ -217,6 +217,7 @@ This is the prompt for the bot when the a winner is picked for the raffle throug
 
 * ``end``: The raffle ends immediately after the first winner is picked.
 * ``remove_winner``: The winner is removed from the raffle's entries, but the raffle continues.
+* ``remove_and_prevent_winner``: The winner is removed from the raffle's entries, and is added to the prevented list.
 * ``keep_winner``: The winner stays in the raffle, and could win again.
 
 If not specified, it defaults to ``keep_winner``.
@@ -526,6 +527,32 @@ Use ``0`` or ``false`` to disable this condition.
 **Arguments:**
     - ``<raffle>`` - The name of the raffle.
     - ``<end_message>`` - The new ending message.
+
+.. _raffle-command-raffle-edit-endaction:
+
+^^^^^^^^^^^^^^^^^^^^^
+raffle edit endaction
+^^^^^^^^^^^^^^^^^^^^^
+
+**Syntax**
+
+.. code-block:: python
+
+    [p]raffle edit endaction <raffle> <on_end_action>
+
+**Description**
+
+Edit the on_end_action for a raffle.
+
+Use ``0`` or ``false`` to remove this feature.
+
+**Arguments:**
+    - ``<raffle>`` - The name of the raffle.
+    - ``<on_end_action>`` - The new action. Must be one of ``end``, ``remove_winner``, ``remove_and_prevent_winner``, or ``keep_winner``.
+
+**Arguments:**
+    - ``<raffle>`` - The name of the raffle.
+    - ``<on_end_action>`` - The new end action.
 
 .. _raffle-command-raffle-edit-fromyaml:
 
