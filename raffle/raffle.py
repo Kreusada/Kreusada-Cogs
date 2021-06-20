@@ -71,6 +71,7 @@ BaseCog = getattr(commands, "Cog", object)
 _ = Translator("Raffle", __file__)
 
 
+@cog_i18n(_)
 class Raffle(BaseCog):
     """Create raffles for your server."""
 
