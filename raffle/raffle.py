@@ -251,9 +251,13 @@ class Raffle(BaseCog):
             if rafflename in [x.lower() for x in raffle.keys()]:
                 return await ctx.send(_("A raffle with this name already exists."))
 
-            datetimeinfo = _(
-                f"{number_suffix(getstrftime('d'))} of {getstrftime('B')}, "
-                f"{getstrftime('Y')} ({getstrftime('X')})"
+            datetimeinfo = (
+                "{day} of {month}, {year} ({time})".format(
+                    day=number_suffix(getstrftime('d')),
+                    month=getstrftime('B'),
+                    year=getstrftime('Y'),
+                    time=getstrftime('X')
+                )
             )
 
             data = {

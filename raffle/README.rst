@@ -157,22 +157,6 @@ The required Discord account age for a user to join. This condition is helpful f
 This condition must be a number, and it must be provided in days. This number cannot be higher
 than the Discord app creation date.
 
-**Potential Exceptions**
-
-.. code-block:: yaml
-    
-    BadArgument: Account age days must be int, not [invalid type]
-
-This exception is raised when the account_age was not provided in the correct type. 
-Please simply provide a number for this condition, without quotes.
-
-.. code-block:: yaml 
-
-    BadArgument: Account age days must be less than Discord's creation date
-
-This exception is raised when the account_age number is higher than the number of days that 
-Discord has existed for. Please try and choose a lower number to make it more realistic.
-
 ^^^^^^^^^^^^^^^
 server_join_age
 ^^^^^^^^^^^^^^^
