@@ -4,7 +4,6 @@ import discord
 
 from typing import Union
 from redbot.core import commands
-from redbot.core.commands import BadArgument
 from redbot.core.i18n import Translator
 
 from redbot.core.utils.chat_formatting import box
@@ -22,7 +21,7 @@ from ..helpers import (
 )
 
 from ..formatting import cross, tick
-from ..exceptions import RaffleError
+from ..exceptions import RaffleError, InvalidArgument
 
     
 _ = Translator("Raffle", __file__)
@@ -66,7 +65,7 @@ class EditorCommands(RaffleMixin):
 
             try:
                 RaffleManager.parse_accage(new_account_age)
-            except BadArgument as e:
+            except InvalidArgument as e:
                 return await ctx.send(format_traceback(e))
 
             raffle_data["account_age"] = new_account_age
@@ -102,7 +101,7 @@ class EditorCommands(RaffleMixin):
             else:
                 try:
                     RaffleManager.parse_serverjoinage(ctx, new_server_join_age)
-                except BadArgument as e:
+                except InvalidArgument as e:
                     return await ctx.send(format_traceback(e))
 
                 raffle_data["server_join_age"] = new_server_join_age
@@ -237,7 +236,7 @@ class EditorCommands(RaffleMixin):
             else:
                 try:
                     raffle_safe_member_scanner(end_message, "end_message")
-                except BadArgument as e:
+                except InvalidArgument as e:
                     return await ctx.send(format_traceback(e))
 
                 message = _("Would you like to add additional end messages to be selected from at random?")
@@ -305,7 +304,7 @@ class EditorCommands(RaffleMixin):
             else:
                 try:
                     raffle_safe_member_scanner(join_message, "join_message")
-                except BadArgument as e:
+                except InvalidArgument as e:
                     return await ctx.send(format_traceback(e))
 
                 message = _("Would you like to add additional end messages to be selected from at random?")
@@ -421,7 +420,7 @@ class EditorCommands(RaffleMixin):
         try:
             parser = RaffleManager(valid)
             parser.parser(ctx)
-        except (RaffleError, BadArgument) as e:
+        except RaffleError as e:
             exc = cross(_("An exception occured whilst parsing your data."))
             return await ctx.send(exc + format_traceback(e))
 

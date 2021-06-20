@@ -7,7 +7,7 @@ from yaml.parser import MarkedYAMLError
 
 from redbot.core.bot import Red as RedBot
 from redbot.core.i18n import Translator
-from redbot.core.commands import Context, BadArgument
+from redbot.core.commands import Context
 from redbot.core.utils.chat_formatting import box
 from redbot.core.utils.menus import menu, close_menu, DEFAULT_CONTROLS
 
@@ -15,6 +15,7 @@ from .checks import now
 from .safety import RaffleSafeMember
 from .enums import RaffleEMC, RaffleJMC
 from .formatting import curl, formatenum, cross
+from .exceptions import InvalidArgument
 
 _ = Translator("Raffle", __file__)
 
@@ -74,10 +75,9 @@ def raffle_safe_member_scanner(content: str, cond: Literal["join_message", "end_
     else:
         kwargs["winner"] = RaffleSafeMember(member=discord.Member, obj="winner")
     try:
-        # This can raise BadArgument, that's fine
         content.format(**kwargs)
     except KeyError as e:
-        raise BadArgument(
+        raise InvalidArgument(
             _(
                 "{e} was an unexpected argument in your new {cond} message".format(
                     e=e,
@@ -140,7 +140,7 @@ async def start_interactive_message_session(
             return False 
         try:
             raffle_safe_member_scanner(message.content, sesstype)
-        except BadArgument:
+        except InvalidArgument:
             await ctx.send(cross(_("That message's variables were not formatted correctly, skipping...")))
             continue
         messages.append(message.content)

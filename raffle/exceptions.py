@@ -45,3 +45,7 @@ class RaffleDeprecationWarning(RaffleError):
 class UnidentifiedKeyError(RaffleError):
     """Used when a key is not valid."""
     pass
+
+class InvalidArgument(RaffleError):
+    """Used when an invalid argument is provided."""
+    pass

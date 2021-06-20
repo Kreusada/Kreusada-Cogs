@@ -1,9 +1,8 @@
 import discord
 
 from typing import Literal
-from redbot.core.commands import BadArgument
-
 from .formatting import curl
+from .exceptions import InvalidArgument
 
 class RaffleSafeMember(object):
     """Used for formatting `discord.Member` attributes safely."""
@@ -27,4 +26,4 @@ class RaffleSafeMember(object):
         exc = "{} is not valid! {} has no attribute {}.".format(
             curl(f"{self.obj}.{attr}"), self.obj.capitalize(), quote(attr)
         )
-        raise BadArgument(exc)
+        raise InvalidArgument(exc)

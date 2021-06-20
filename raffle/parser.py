@@ -1,6 +1,6 @@
 import discord
 
-from redbot.core.commands import BadArgument, Context
+from redbot.core.commands import Context
 
 from .log import log
 from .safety import RaffleSafeMember
@@ -11,7 +11,8 @@ from .exceptions import (
     UnknownEntityError, 
     RaffleSyntaxError, 
     UnidentifiedKeyError,
-    RaffleDeprecationWarning
+    RaffleDeprecationWarning,
+    InvalidArgument
 )
 
 from .enums import RaffleComponents
@@ -55,13 +56,13 @@ class RaffleManager(object):
     @classmethod
     def parse_accage(cls, accage: int):
         if not account_age_checker(accage):
-            raise BadArgument("Days must be less than Discord's creation date")
+            raise InvalidArgument("Days must be less than Discord's creation date")
 
     @classmethod
     def parse_serverjoinage(cls, ctx: Context, new_join_age: int):
         guildage = (now - ctx.guild.created_at).days
         if not server_join_age_checker(ctx, new_join_age):
-            raise BadArgument(
+            raise InvalidArgument(
                 "Days must be less than this guild's creation date ({} days)".format(
                     guildage
                 )
@@ -70,28 +71,28 @@ class RaffleManager(object):
     def parser(self, ctx: Context):
         if self.account_age:
             if not isinstance(self.account_age, int):
-                raise BadArgument("(account_age) days must be a number")
+                raise InvalidArgument("(account_age) days must be a number")
             if not account_age_checker(self.account_age):
-                raise BadArgument("(account_age) days must be less than Discord's creation date")
+                raise InvalidArgument("(account_age) days must be less than Discord's creation date")
 
 
         if self.server_join_age:
             if not isinstance(self.server_join_age, int):
-                raise BadArgument("(server_join_age) days must be a number")
+                raise InvalidArgument("(server_join_age) days must be a number")
             if not server_join_age_checker(ctx, self.server_join_age):
-                raise BadArgument("(server_join_age) days must be less than this servers's creation date")
+                raise InvalidArgument("(server_join_age) days must be less than this servers's creation date")
 
 
         if self.maximum_entries:
             if not isinstance(self.maximum_entries, int):
-                raise BadArgument("(maximum_entries) Maximum entries must be a number")
+                raise InvalidArgument("(maximum_entries) Maximum entries must be a number")
 
 
         if self.name:
             if not isinstance(self.name, str):
-                raise BadArgument("(name) Name must be in quotation marks")
+                raise InvalidArgument("(name) Name must be in quotation marks")
             if len(self.name) > 25:
-                raise BadArgument("(name) Name must be under 25 characters, your raffle name had {}".format(len(self.name)))
+                raise InvalidArgument("(name) Name must be under 25 characters, your raffle name had {}".format(len(self.name)))
             for char in self.name:
                 if char == "_":
                     # We want to allow underscores
@@ -109,12 +110,12 @@ class RaffleManager(object):
 
         if self.description:
             if not isinstance(self.description, str):
-                raise BadArgument("(description) Description must be in quotation marks")
+                raise InvalidArgument("(description) Description must be in quotation marks")
 
 
         if self.roles_needed_to_enter:
             if not isinstance(self.roles_needed_to_enter, list):
-                raise BadArgument("(roles_needed_to_enter) Roles must be a list of Discord role IDs")
+                raise InvalidArgument("(roles_needed_to_enter) Roles must be a list of Discord role IDs")
             for r in self.roles_needed_to_enter:
                 if not ctx.guild.get_role(r):
                     raise UnknownEntityError(r, "role")
@@ -122,41 +123,40 @@ class RaffleManager(object):
 
         if self.prevented_users:
             if not isinstance(self.prevented_users, list):
-                raise BadArgument("(prevented_users) Prevented users must be a list of Discord user IDs")
+                raise InvalidArgument("(prevented_users) Prevented users must be a list of Discord user IDs")
             for u in self.prevented_users:
                 if not ctx.bot.get_user(u):
                     raise UnknownEntityError(u, "user")
 
         if self.allowed_users:
             if not isinstance(self.allowed_users, list):
-                raise BadArgument("(allowed_users) Allowed users must be a list of Discord user IDs")
+                raise InvalidArgument("(allowed_users) Allowed users must be a list of Discord user IDs")
             for u in self.allowed_users:
                 if not ctx.bot.get_user(u):
                     raise UnknownEntityError(u, "user")
 
         if self.end_message:
             if not isinstance(self.end_message, (list, str)):
-                raise BadArgument("(end_message) End message must be in quotation marks, by itself or inside a list")
+                raise InvalidArgument("(end_message) End message must be in quotation marks, by itself or inside a list")
             kwargs = {
                 "winner": RaffleSafeMember(discord.Member, "winner"),
                 "raffle": r"{raffle}",
             }
             if isinstance(self.end_message, str):
                 try:
-                    # This will raise BadArgument
                     self.end_message.format(**kwargs)
                 except KeyError as e:
-                    raise BadArgument(f"(end_message) {e} was an unexpected argument")
+                    raise InvalidArgument(f"(end_message) {e} was an unexpected argument")
             else:
                 for m in self.end_message:
                     try:
                         m.format(**kwargs)
                     except KeyError as e:
-                        raise BadArgument(f"(end_message) {e} was an unexpected argument")
+                        raise InvalidArgument(f"(end_message) {e} was an unexpected argument")
 
         if self.join_message:
             if not isinstance(self.join_message, (list, str)):
-                raise BadArgument("(join_message) Join message must be in quotation marks, by itself or inside a list")
+                raise InvalidArgument("(join_message) Join message must be in quotation marks, by itself or inside a list")
             kwargs = {
                 "user": RaffleSafeMember(discord.Member, "user"),
                 "raffle": r"{raffle}",
@@ -166,16 +166,16 @@ class RaffleManager(object):
                 try:
                     self.join_message.format(**kwargs)
                 except KeyError as e:
-                    raise BadArgument(f"(join_message) {e} was an unexpected argument")
+                    raise InvalidArgument(f"(join_message) {e} was an unexpected argument")
             else:
                 for m in self.join_message:
                     try:
                         m.format(**kwargs)
                     except KeyError as e:
-                        raise BadArgument(f"(join_message) {e} was an unexpected argument")
+                        raise InvalidArgument(f"(join_message) {e} was an unexpected argument")
 
 
         if self.on_end_action:
             valid_actions = ("end", "remove_winner", "keep_winner")
             if not isinstance(self.on_end_action, str) or self.on_end_action not in valid_actions:
-                raise BadArgument("(on_end_action) must be one of 'end', 'remove_winner', or 'keep_winner'")
+                raise InvalidArgument("(on_end_action) must be one of 'end', 'remove_winner', or 'keep_winner'")

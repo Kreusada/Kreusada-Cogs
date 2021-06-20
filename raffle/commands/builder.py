@@ -4,7 +4,7 @@ import discord
 
 from typing import Optional
 from redbot.core import commands
-from redbot.core.commands import Context, BadArgument
+from redbot.core.commands import Context
 from redbot.core.utils.chat_formatting import box
 from redbot.core.i18n import Translator
 
@@ -73,7 +73,7 @@ class BuilderCommands(RaffleMixin):
         try:
             parser = RaffleManager(valid)
             parser.parser(ctx)
-        except (RaffleError, BadArgument) as e:
+        except RaffleError as e:
             exc = cross(_("An exception occured whilst parsing your data."))
             return await ctx.send(exc + format_traceback(e))
 
