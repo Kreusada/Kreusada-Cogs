@@ -156,4 +156,4 @@ class BuilderCommands(RaffleMixin):
                 data["description"] = description
 
             raffle[raffle_name] = data
-        await ctx.send(tick(_("Raffle created with the name `{}`.".format(raffle))))
+        await ctx.send(tick(_("Raffle created with the name `{}`.".format(raffle_name))))
