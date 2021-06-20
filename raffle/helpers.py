@@ -2,13 +2,14 @@ import asyncio
 import discord
 import yaml
 
-from typing import Any, Dict, Literal, Union
+from typing import Any, Dict, List, Literal, Union
 from yaml.parser import MarkedYAMLError
 
 from redbot.core.bot import Red as RedBot
 from redbot.core.i18n import Translator
 from redbot.core.commands import Context, BadArgument
 from redbot.core.utils.chat_formatting import box
+from redbot.core.utils.menus import menu, close_menu, DEFAULT_CONTROLS
 
 from .checks import now
 from .safety import RaffleSafeMember
@@ -54,6 +55,14 @@ def format_dashed_title(data: Dict[str, Any]) -> str:
     return "-" * len(min([f"{k}: {v}" for k, v in data.items()]))
 
 
+async def compose_menu(self, ctx, embed_pages: List[discord.Embed]):
+    if len(embed_pages) == 1:
+        control = {"\N{CROSS MARK}": close_menu}
+    else:
+        control = DEFAULT_CONTROLS
+    return await menu(ctx, embed_pages, control)
+
+
 def raffle_safe_member_scanner(content: str, cond: Literal["join_message", "end_message"]) -> None:
     """We need this to check if the values are formatted properly."""
     kwargs = {
@@ -76,6 +85,7 @@ def raffle_safe_member_scanner(content: str, cond: Literal["join_message", "end_
                 )
             )
         )
+
 
 
 async def start_interactive_message_session(
