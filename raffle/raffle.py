@@ -18,18 +18,26 @@ from .commands.management.misc import MiscCommands
 
 from .mixins.metaclass import MetaClass
 
-
-mixinargs = (InformationalCommands, EditorCommands, BuilderCommands, EventCommands, MiscCommands)
-
-with open(pathlib.Path(__file__).parent / "info.json") as fp:
-    __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
-
-BaseCog = getattr(commands, "Cog", object)
+RaffleCog = getattr(commands, "Cog", object)
 _ = Translator("Raffle", __file__)
 
 
+with open(pathlib.Path(__file__).parent / "info.json") as fp:
+    __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
+    
+
+mixinargs = (
+    InformationalCommands, 
+    EditorCommands, 
+    BuilderCommands, 
+    EventCommands, 
+    MiscCommands,
+    RaffleCog
+)
+
+
 @cog_i18n(_)
-class Raffle(BaseCog, *mixinargs, metaclass=MetaClass):
+class Raffle(*mixinargs, metaclass=MetaClass):
     """Create raffles for your server."""
 
     __author__ = ["Kreusada"]
