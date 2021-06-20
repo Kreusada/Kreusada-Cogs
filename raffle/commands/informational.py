@@ -8,7 +8,7 @@ from redbot.core.utils.chat_formatting import box, pagify, humanize_list
 
 from ..mixins.abc import RaffleMixin
 from ..enums import RaffleComponents
-from ..helpers import format_dashed_title, compose_menu
+from ..helpers import compose_menu
 from ..version_handler import VersionHandler
 from ..parser import RaffleManager
 
@@ -55,13 +55,13 @@ class InformationalCommands(RaffleMixin):
             "entries": len(raffle_data['entries']) or "No entries yet.",
         }
 
-        message = format_dashed_title(pre_determined)
+        message = ""
         for k, v in pre_determined.items():
             if v is None:
                 continue
             message += f"\n{k.capitalize()}: {v!s}"
         if relevant_data:
-            message += "\n" + format_dashed_title(pre_determined) + "\n"
+            message += "\n\n"
         
         for page in pagify(_(message + "\n".join(f"{x[0]}: {x[1]}" for x in relevant_data)), page_length=1975):
             await ctx.send(box(page, lang="yaml"))

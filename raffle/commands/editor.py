@@ -393,7 +393,7 @@ class EditorCommands(RaffleMixin):
                 v = quotes(v)
             relevant_data.append((k, v))
 
-        message += _("\n\n**Current settings:**" + box("\n".join(f"{x[0]}: {x[1]}" for x in relevant_data)), lang="yaml")
+        message += _("\n\n**Current settings:**" + box("\n".join(f"{x[0]}: {x[1]}" for x in relevant_data), lang="yaml"))
         await ctx.send(message)  
 
         check = lambda x: x.channel == ctx.channel and x.author == ctx.author
