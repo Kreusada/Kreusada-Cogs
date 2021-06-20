@@ -88,27 +88,27 @@ A block used to personalize a section of the output when using ``[p]raffle join`
 You can use the special arguments of ``{user}``, ``{entry_count}`` and ``{raffle}`` 
 to customize this message so that it has context.
 
-    ``raffle``:
-        The name of the raffle which the user has won.
+``raffle``:
+    The name of the raffle which the user has joined.
 
-    ``entry_count``:
-        The number of entries in the raffle.
+``entry_count``:
+    The number of entries in the raffle.
 
-    ``winner``:
-        The member object of the user who won the raffle.
-        The winner variable has various attributes, which
-        are self explanatory:
+``winner``:
+    The member object of the user who joined the raffle.
+    The user variable has various attributes, which
+    are self explanatory:
 
-        - user.name
-        - user.mention
-        - user.id 
-        - user.display_name 
-        - user.discriminator
-        - user.name_and_discriminator
+    - user.name
+    - user.mention
+    - user.id 
+    - user.display_name 
+    - user.discriminator
+    - user.name_and_discriminator
     
 Make sure to use these variables inside curly brackets (``{}``).
 
-If you want to randomize the end_message, simply provide a list of strings. 
+If you want to randomize the join_message, simply provide a list of strings. 
 Otherwise, provide a string by itself.
 
 ^^^^^^^^^^^
@@ -120,20 +120,20 @@ is not present, the default message is set to "Congratulations {winner.mention},
 won the {raffle} raffle!". You can use the special arguments of ``{winner}`` and ``{raffle}`` 
 to customize this message so that it has context.
 
-    ``raffle``:
-        The name of the raffle which the user has won.
+``raffle``:
+    The name of the raffle which the user has won.
 
-    ``winner``:
-        The member object of the user who won the raffle.
-        The winner variable has various attributes, which
-        are self explanatory:
+``winner``:
+    The member object of the user who won the raffle.
+    The winner variable has various attributes, which
+    are self explanatory:
 
-        - winner.name
-        - winner.mention
-        - winner.id 
-        - winner.display_name 
-        - winner.discriminator
-        - winner.name_and_discriminator
+    - winner.name
+    - winner.mention
+    - winner.id 
+    - winner.display_name 
+    - winner.discriminator
+    - winner.name_and_discriminator
     
 Make sure to use these variables inside curly brackets (``{}``).
 
