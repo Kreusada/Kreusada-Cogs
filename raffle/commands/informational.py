@@ -172,13 +172,14 @@ class InformationalCommands(RaffleMixin):
             entry_grammar = _("entry")
         else:
             entry_grammar = _("entries")
-            for page in pagify(humanize_list([self.bot.get_user(u).display_name for u in entries])):
-                embed = discord.Embed(
-                    description=page,
-                    color=await ctx.embed_colour()
-                )
-        embed.title = f"{len(entries)} {entry_grammar}"
-        embed_pages.append(embed)
+        for page in pagify("\n".join(f"#{c} ({v}) {self.bot.get_user(v)}" for c, v in enumerate(entries, 1))):
+            embed = discord.Embed(
+                title=f"{len(entries)} {entry_grammar}",
+                description=box(page, lang="md"),
+                color=await ctx.embed_colour()
+            )
+            embed.set_footer(text="Sorted in order of join time.")
+            embed_pages.append(embed)
 
         await compose_menu(ctx, embed_pages)
         await self.replenish_cache(ctx)
