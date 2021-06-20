@@ -71,28 +71,28 @@ class RaffleManager(object):
     def parser(self, ctx: Context):
         if self.account_age:
             if not isinstance(self.account_age, int):
-                raise InvalidArgument("(account_age) days must be a number")
+                raise RaffleSyntaxError("(account_age) days must be a number")
             if not account_age_checker(self.account_age):
-                raise InvalidArgument("(account_age) days must be less than Discord's creation date")
+                raise RaffleSyntaxError("(account_age) days must be less than Discord's creation date")
 
 
         if self.server_join_age:
             if not isinstance(self.server_join_age, int):
-                raise InvalidArgument("(server_join_age) days must be a number")
+                raise RaffleSyntaxError("(server_join_age) days must be a number")
             if not server_join_age_checker(ctx, self.server_join_age):
-                raise InvalidArgument("(server_join_age) days must be less than this servers's creation date")
+                raise RaffleSyntaxError("(server_join_age) days must be less than this servers's creation date")
 
 
         if self.maximum_entries:
             if not isinstance(self.maximum_entries, int):
-                raise InvalidArgument("(maximum_entries) Maximum entries must be a number")
+                raise RaffleSyntaxError("(maximum_entries) Maximum entries must be a number")
 
 
         if self.name:
             if not isinstance(self.name, str):
-                raise InvalidArgument("(name) Name must be in quotation marks")
+                raise RaffleSyntaxError("(name) Name must be in quotation marks")
             if len(self.name) > 25:
-                raise InvalidArgument("(name) Name must be under 25 characters, your raffle name had {}".format(len(self.name)))
+                raise RaffleSyntaxError("(name) Name must be under 25 characters, your raffle name had {}".format(len(self.name)))
             for char in self.name:
                 if char == "_":
                     # We want to allow underscores
@@ -110,34 +110,40 @@ class RaffleManager(object):
 
         if self.description:
             if not isinstance(self.description, str):
-                raise InvalidArgument("(description) Description must be in quotation marks")
+                raise RaffleSyntaxError("(description) Description must be in quotation marks")
 
 
         if self.roles_needed_to_enter:
             if not isinstance(self.roles_needed_to_enter, list):
-                raise InvalidArgument("(roles_needed_to_enter) Roles must be a list of Discord role IDs")
+                raise RaffleSyntaxError("(roles_needed_to_enter) Roles must be a list of Discord role IDs")
             for r in self.roles_needed_to_enter:
+                if not isinstance(r, int):
+                    raise RaffleSyntaxError(f"\"{r}\" must be a number (role ID) without quotation marks")
                 if not ctx.guild.get_role(r):
                     raise UnknownEntityError(r, "role")
 
 
         if self.prevented_users:
             if not isinstance(self.prevented_users, list):
-                raise InvalidArgument("(prevented_users) Prevented users must be a list of Discord user IDs")
+                raise RaffleSyntaxError("(prevented_users) Prevented users must be a list of Discord user IDs")
             for u in self.prevented_users:
+                if not isinstance(u, int):
+                    raise RaffleSyntaxError(f"\"{u}\" must be a number (user ID) without quotation marks")
                 if not ctx.bot.get_user(u):
                     raise UnknownEntityError(u, "user")
 
         if self.allowed_users:
             if not isinstance(self.allowed_users, list):
-                raise InvalidArgument("(allowed_users) Allowed users must be a list of Discord user IDs")
+                raise RaffleSyntaxError("(allowed_users) Allowed users must be a list of Discord user IDs")
             for u in self.allowed_users:
+                if not isinstance(u, int):
+                    raise RaffleSyntaxError(f"\"{u}\" must be a number (user ID) without quotation marks")
                 if not ctx.bot.get_user(u):
                     raise UnknownEntityError(u, "user")
 
         if self.end_message:
             if not isinstance(self.end_message, (list, str)):
-                raise InvalidArgument("(end_message) End message must be in quotation marks, by itself or inside a list")
+                raise RaffleSyntaxError("(end_message) End message must be in quotation marks, by itself or inside a list")
             kwargs = {
                 "winner": RaffleSafeMember(discord.Member, "winner"),
                 "raffle": r"{raffle}",
@@ -149,6 +155,8 @@ class RaffleManager(object):
                     raise InvalidArgument(f"(end_message) {e} was an unexpected argument")
             else:
                 for m in self.end_message:
+                    if not isinstance(m, str):
+                        raise RaffleSyntaxError("All end messages must be wrapped by quotation marks")
                     try:
                         m.format(**kwargs)
                     except KeyError as e:
@@ -156,7 +164,7 @@ class RaffleManager(object):
 
         if self.join_message:
             if not isinstance(self.join_message, (list, str)):
-                raise InvalidArgument("(join_message) Join message must be in quotation marks, by itself or inside a list")
+                raise RaffleSyntaxError("(join_message) Join message must be in quotation marks, by itself or inside a list")
             kwargs = {
                 "user": RaffleSafeMember(discord.Member, "user"),
                 "raffle": r"{raffle}",
@@ -169,6 +177,8 @@ class RaffleManager(object):
                     raise InvalidArgument(f"(join_message) {e} was an unexpected argument")
             else:
                 for m in self.join_message:
+                    if not isinstance(m, str):
+                        raise RaffleSyntaxError("All join messages must be wrapped by quotation marks")
                     try:
                         m.format(**kwargs)
                     except KeyError as e:
