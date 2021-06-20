@@ -56,7 +56,7 @@ def format_dashed_title(data: Dict[str, Any]) -> str:
     return "-" * len(min([f"{k}: {v}" for k, v in data.items()]))
 
 
-async def compose_menu(ctx: commands.Context, embed_pages: List[discord.Embed]):
+async def compose_menu(ctx, embed_pages: List[discord.Embed]):
     if len(embed_pages) == 1:
         control = {"\N{CROSS MARK}": close_menu}
     else:
