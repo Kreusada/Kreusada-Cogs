@@ -8,6 +8,7 @@ from redbot.core.commands import Context
 from redbot.core.i18n import Translator
 from redbot.core.utils.chat_formatting import humanize_list, pagify
 
+from ...helpers import has_badge, format_badge
 from ...safety import RaffleSafeMember
 from ...checks import account_age_checker, server_join_age_checker
 from ...mixins.abc import RaffleMixin
@@ -152,6 +153,11 @@ class EventCommands(RaffleMixin):
 
         if raffle_entities("server_join_age") and not server_join_age_checker(ctx, raffle_entities("server_join_age")):
             return await ctx.send(_("You must have been in this guild for at least {} days to join.".format(raffle_entities("server_join_age"))))
+
+
+        for badge in raffle_entities("badges_needed_to_enter"):
+            if not has_badge(badge, ctx.author):
+                return await ctx.send(_("You must have the \"{}\" Discord badge to join.".format(format_badge(badge))))
 
 
         async with self.config.guild(ctx.guild).raffles() as r:

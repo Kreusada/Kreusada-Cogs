@@ -4,7 +4,12 @@ from redbot.core.commands import Context
 
 from .log import log
 from .safety import RaffleSafeMember
-from .checks import server_join_age_checker, account_age_checker, now
+from .checks import (
+    VALID_USER_BADGES, 
+    server_join_age_checker, 
+    account_age_checker, 
+    now
+)
 
 from .exceptions import (
     RequiredKeyError, 
@@ -32,6 +37,7 @@ class RaffleManager(object):
         self.server_join_age = data.get("server_join_age", None)
         self.maximum_entries = data.get("maximum_entries", None)
         self.roles_needed_to_enter = data.get("roles_needed_to_enter", None) 
+        self.badges_needed_to_enter = data.get("badges_needed_to_enter", None)
         self.prevented_users = data.get("prevented_users", None)
         self.allowed_users = data.get("allowed_users", None)
         self.join_message = data.get("join_message", None)
@@ -118,9 +124,19 @@ class RaffleManager(object):
                 raise RaffleSyntaxError("(roles_needed_to_enter) Roles must be a list of Discord role IDs")
             for r in self.roles_needed_to_enter:
                 if not isinstance(r, int):
-                    raise RaffleSyntaxError(f"\"{r}\" must be a number (role ID) without quotation marks")
+                    raise RaffleSyntaxError(f"(roles_needed_to_enter) \"{r}\" must be a number (role ID) without quotation marks")
                 if not ctx.guild.get_role(r):
                     raise UnknownEntityError(r, "role")
+
+                
+        if self.badges_needed_to_enter:
+            if not isinstance(self.badges_needed_to_enter, list):
+                raise RaffleSyntaxError("(badges_needed_to_enter) Badges must be a list of Discord badge names")
+            for b in self.badges_needed_to_enter:
+                if not isinstance(b, str):
+                    raise RaffleSyntaxError(f"(badges_needed_to_enter) \"{b}\" must be a Discord badge wrapped in quotation marks")
+                if not b in VALID_USER_BADGES:
+                    raise InvalidArgument(f"(badges_needed_to_enter) \"{b}\" is not a recognized Discord badge")
 
 
         if self.prevented_users:

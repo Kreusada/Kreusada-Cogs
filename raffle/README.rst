@@ -187,6 +187,26 @@ role IDs. In case you were unaware, square brackets (``[]``) are used to denote 
     # One role
     roles_needed_to_enter: [749272596050214973]
 
+^^^^^^^^^^^^^^^^^^^^^^
+badges_needed_to_enter
+^^^^^^^^^^^^^^^^^^^^^^
+
+A list of badges which are required in order to join the raffle. This must be a **list** of 
+Discord badges. In case you were unaware, square brackets (``[]``) are used to denote lists.
+
+.. code-block:: yaml
+
+    # Multiple roles
+    badges_needed_to_enter: ["verified_bot_developer", "bug_hunter"]
+    # One role
+    badges_needed_to_enter: [749272596050214973]
+
+.. tip::
+
+    Available badges: bug_hunter, bug_hunter_level_2, early_supporter, hypesquad, 
+    hypesquad_balance, hypesquad_bravery, hypesquad_brilliance, partner, staff, 
+    system, and verified_bot_developer.
+
 ^^^^^^^^^^^^^^^
 prevented_users
 ^^^^^^^^^^^^^^^
@@ -640,6 +660,81 @@ Use `0` or `false` to disable this condition.
 **Arguments:**
     - `<raffle>` - The name of the raffle.
     - `<maximum_entries>` - The new maximum number of entries.
+
+.. _raffle-command-raffle-edit-prevented:
+
+^^^^^^^^^^^^^^^^^^
+raffle edit badges
+^^^^^^^^^^^^^^^^^^
+
+**Syntax**
+
+.. code-block:: python
+
+    [p]raffle edit badges 
+
+**Description**
+
+Manage badge requirements in a raffle.
+
+.. _raffle-command-raffle-edit-badges-add:
+
+^^^^^^^^^^^^^^^^^^^^^^
+raffle edit badges add
+^^^^^^^^^^^^^^^^^^^^^^
+
+**Syntax**
+
+.. code-block:: python
+
+    [p]raffle edit badges add <raffle> <badges...>
+
+**Description**
+
+Add badge(s) to the badges requirement list.
+
+**Arguments:**
+    - `<raffle>` - The name of the raffle.
+    - `<badges...>` - The badge(s) to add to the badge requirement list.
+
+.. _raffle-command-raffle-edit-badges-clear:
+
+^^^^^^^^^^^^^^^^^^^^^^^^
+raffle edit badges clear
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+**Syntax**
+
+.. code-block:: python
+
+    [p]raffle edit badges clear <raffle>
+
+**Description**
+
+Clear the badge requirements list for a raffle.
+
+**Arguments:**
+    - `<raffle>` - The name of the raffle.
+
+.. _raffle-command-raffle-edit-badges-add:
+
+^^^^^^^^^^^^^^^^^^^^^^^^^
+raffle edit badges remove
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**Syntax**
+
+.. code-block:: python
+
+    [p]raffle edit badges remove <raffle> <badges...>
+
+**Description**
+
+Remove badge(s) from the badges requirement list.
+
+**Arguments:**
+    - `<raffle>` - The name of the raffle.
+    - `<badges...>` - The badge(s) to remove from the badge requirement list.
 
 .. _raffle-command-raffle-edit-prevented:
 

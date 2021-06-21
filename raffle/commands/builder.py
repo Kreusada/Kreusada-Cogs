@@ -106,6 +106,7 @@ class BuilderCommands(RaffleMixin):
                 "account_age": valid.get("account_age", None),
                 "server_join_age": valid.get("server_join_age", None),
                 "roles_needed_to_enter": valid.get("roles_needed_to_enter", None),
+                "badges_needed_to_enter": valid.get("badges_needed_to_enter", None),
                 "prevented_users": valid.get("prevented_users", None),
                 "allowed_users": valid.get("allowed_users", None),
                 "description": valid.get("description", None),
