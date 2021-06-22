@@ -20,8 +20,8 @@ restart: commands.Command = None
 class Termino(commands.Cog):
     """Customize bot shutdown and restart messages, with predicates, too."""
 
-    __author__ = ["Kreusada"]
-    __version__ = "1.0.4"
+    __author__ = ["Kreusada", "Jojo#7791"]
+    __version__ = "2.0.0"
 
     def __init__(self, bot):
         self.bot = bot
@@ -63,7 +63,7 @@ class Termino(commands.Cog):
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
         authors = ", ".join(self.__author__)
-        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+        return f"{context}\n\nAuthors: {authors}\nVersion: {self.__version__}"
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""

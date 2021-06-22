@@ -1,5 +1,5 @@
 {
-    "author" : ["Kreusada"],
+    "author" : ["Kreusada", "Jojo#7791"],
     "description" : "Customize restart and shutdown messages with your own text, and predicates.",
     "disabled" : false,
     "end_user_data_statement" : "This cog does not persistently store data or metadata about users.",
