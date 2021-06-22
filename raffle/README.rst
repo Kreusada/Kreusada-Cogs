@@ -196,10 +196,10 @@ Discord badges. In case you were unaware, square brackets (``[]``) are used to d
 
 .. code-block:: yaml
 
-    # Multiple roles
+    # Multiple badges
     badges_needed_to_enter: ["verified_bot_developer", "bug_hunter"]
-    # One role
-    badges_needed_to_enter: [749272596050214973]
+    # One badge
+    badges_needed_to_enter: ["staff"]
 
 .. tip::
 
