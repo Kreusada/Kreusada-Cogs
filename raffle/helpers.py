@@ -51,6 +51,13 @@ def number_suffix(number: int) -> str:
         suffixes[i] = "th"
     return str(number) + suffixes[int(str(number)[-1])]
 
+def has_badge(badge: str, author: discord.Member):
+    badge_data = {k: v for k, v in list(author.public_flags)} 
+    return badge_data[badge]
+
+def format_badge(badge: str):
+    return badge.replace('_', ' ').title()
+
 
 async def compose_menu(ctx, embed_pages: List[discord.Embed]):
     if len(embed_pages) == 1:

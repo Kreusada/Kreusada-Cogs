@@ -6,7 +6,7 @@ from typing import Union
 from redbot.core import commands
 from redbot.core.i18n import Translator
 
-from redbot.core.utils.chat_formatting import box
+from redbot.core.utils.chat_formatting import box, inline
 from redbot.core.utils.menus import start_adding_reactions
 from redbot.core.utils.predicates import ReactionPredicate, MessagePredicate
 
@@ -17,9 +17,11 @@ from ..helpers import (
     raffle_safe_member_scanner,
     start_interactive_message_session,
     validator,
-    cleanup_code
+    cleanup_code,
+    format_badge
 )
 
+from ..checks import VALID_USER_BADGES
 from ..formatting import cross, tick
 from ..exceptions import RaffleError, InvalidArgument
 
@@ -363,6 +365,7 @@ class EditorCommands(RaffleMixin):
             "account_age": raffle_data.get("account_age", None),
             "server_join_age": raffle_data.get("server_join_age", None),
             "roles_needed_to_enter": raffle_data.get("roles_needed_to_enter", None),
+            "badges_needed_to_enter": raffle_data.get("badges_needed_to_enter", None),
             "prevented_users": raffle_data.get("prevented_users", None),
             "allowed_users": raffle_data.get("allowed_users", None),
             "description": raffle_data.get("description", None),
@@ -438,6 +441,7 @@ class EditorCommands(RaffleMixin):
             "account_age": valid.get("account_age", None),
             "server_join_age": valid.get("server_join_age", None),
             "roles_needed_to_enter": valid.get("roles_needed_to_enter", None),
+            "badges_needed_to_enter": valid.get("badges_needed_to_enter", None),
             "prevented_users": valid.get("prevented_users", None),
             "allowed_users": valid.get("allowed_users", None),
             "description": valid.get("description", None),
@@ -511,8 +515,12 @@ class EditorCommands(RaffleMixin):
 
             if member.id in prevented:
                 return await ctx.send(_("This user is already prevented in this raffle."))
+            
+            if not prevented:
+                raffle_data["prevented_users"] = [member]
+            else:
+                prevented.append(member)
 
-            prevented.append(member.id)
             await ctx.send(_("{} added to the prevented list for this raffle.".format(member.name)))
 
         await self.replenish_cache(ctx)
@@ -593,6 +601,94 @@ class EditorCommands(RaffleMixin):
 
 
     @edit.group()
+    async def badges(self, ctx):
+        """Manage required badges in a raffle."""
+        pass
+
+
+    @badges.command(name="add")
+    async def badges_add(self, ctx, raffle: str, *badges: str):
+        """Add a badge to the required badges list of a raffle.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle.
+            - `<badges>` - The badge(s) to add to the required badges list.
+        """
+        async with self.config.guild(ctx.guild).raffles() as r:
+
+            raffle_data = r.get(raffle, None)
+            if not raffle_data:
+                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
+
+            badges_list = raffle_data.get("badges_needed_to_enter", [])
+
+            for badge in badges:
+                if badge not in VALID_USER_BADGES:
+                    return await ctx.send(_("\"{}\" was not a recognized Discord badge.".format(badge)))
+                if badge in badges_list:
+                    return await ctx.send(_("The \"{}\" badge is already required in this raffle.".format(format_badge(badge))))
+                
+                if not badges_list:
+                    raffle_data["badges_needed_to_enter"] = list(badges)
+                else:
+                    badges_list.append(badge)
+
+            await ctx.send(_("Added the following badges as requirements in this raffle: {}.".format(", ".join(inline(format_badge(b)) for b in badges))))
+
+        await self.replenish_cache(ctx)
+
+
+    @badges.command(name="remove", aliases=["del"])
+    async def badges_remove(self, ctx, raffle: str, *badges: str):
+        """Remove a badge from the required badges list of a raffle.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle.
+            - `<member>` - The badge to remove from the required badges list.
+        """
+        async with self.config.guild(ctx.guild).raffles() as r:
+
+            raffle_data = r.get(raffle, None)
+            if not raffle_data:
+                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
+
+            badges_list = raffle_data.get("badges_needed_to_enter", [])
+
+            for badge in badges:
+                if badge not in VALID_USER_BADGES:
+                    return await ctx.send(_("\"{}\" was not a recognized Discord badge.".format(badge)))
+                if badge not in badges_list:
+                    return await ctx.send(_("The \"{}\" badge was not already required in this raffle.".format(badge)))
+
+                badges_list.remove(badge)
+            await ctx.send(_("Added the following badges as requirements in this raffle: {}.".format(", ".join(inline(format_badge(b)) for b in badges))))
+
+        await self.replenish_cache(ctx)
+
+
+    @badges.command(name="clear")
+    async def badges_clear(self, ctx, raffle: str):
+        """Clear the required badges list for a raffle.
+        
+        **Arguments:**
+            - `<raffle>` - The name of the raffle.
+        """
+        async with self.config.guild(ctx.guild).raffles() as r:
+
+            raffle_data = r.get(raffle, None)
+            if not raffle_data:
+                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
+
+            badges_list = raffle_data.get("badges_needed_to_enter", None)
+
+            if badges_list is None:
+                return await ctx.send(_("There are no required badges."))
+
+            del raffle_data["badges_needed_to_enter"] 
+            message = _("Required bages list cleared for this raffle.")   
+
+
+    @edit.group()
     async def allowed(self, ctx):
         """Manage the allowed users list in a raffle."""
         pass
@@ -617,7 +713,11 @@ class EditorCommands(RaffleMixin):
             if member.id in allowed:
                 return await ctx.send(_("This user is already allowed in this raffle."))
 
-            allowed.append(member.id)
+            if not allowed:
+                raffle_data["allowed_users"] = [member]
+            else:
+                allowed.append(member)
+
             await ctx.send(_("{} added to the allowed list for this raffle.".format(member.name)))
 
         await self.replenish_cache(ctx)
@@ -725,6 +825,7 @@ class EditorCommands(RaffleMixin):
                 raffle_data["roles_needed_to_enter"] = [role.id]
             else:
                 roles.append(role.id)
+
             await ctx.send(_("{} added to the role requirement list for this raffle.".format(role.name)))
 
         await self.replenish_cache(ctx)

@@ -67,6 +67,10 @@ class RaffleComponents(enum.Enum):
         "A list of discord roles which the user must have in order to join the raffle. These MUST be specified using IDs."
     )
 
+    badges_needed_to_enter = _(
+        "A list of discord badges which the user must have in order to join the raffle."
+    )
+
     prevented_users = _(
         "A list of discord users who are not allowed to join the raffle. These MUST be specified using IDs."
     )
