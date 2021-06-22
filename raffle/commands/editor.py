@@ -1,6 +1,5 @@
 import asyncio
 import contextlib
-from raffle.checks import VALID_USER_BADGES
 import discord
 
 from typing import Union
@@ -22,6 +21,7 @@ from ..helpers import (
     format_badge
 )
 
+from ..checks import VALID_USER_BADGES
 from ..formatting import cross, tick
 from ..exceptions import RaffleError, InvalidArgument
 
@@ -515,8 +515,12 @@ class EditorCommands(RaffleMixin):
 
             if member.id in prevented:
                 return await ctx.send(_("This user is already prevented in this raffle."))
+            
+            if not prevented:
+                raffle_data["prevented_users"] = [member]
+            else:
+                prevented.append(member)
 
-            prevented.append(member.id)
             await ctx.send(_("{} added to the prevented list for this raffle.".format(member.name)))
 
         await self.replenish_cache(ctx)
@@ -709,7 +713,11 @@ class EditorCommands(RaffleMixin):
             if member.id in allowed:
                 return await ctx.send(_("This user is already allowed in this raffle."))
 
-            allowed.append(member.id)
+            if not allowed:
+                raffle_data["allowed_users"] = [member]
+            else:
+                allowed.append(member)
+
             await ctx.send(_("{} added to the allowed list for this raffle.".format(member.name)))
 
         await self.replenish_cache(ctx)
@@ -817,6 +825,7 @@ class EditorCommands(RaffleMixin):
                 raffle_data["roles_needed_to_enter"] = [role.id]
             else:
                 roles.append(role.id)
+
             await ctx.send(_("{} added to the role requirement list for this raffle.".format(role.name)))
 
         await self.replenish_cache(ctx)
