@@ -1,0 +1,52 @@
+name: Bug Report
+description: Submit an issue for one of these cogs.
+title: "[Bug]: "
+labels: [bug, Triage Requested]
+body:
+  - type: dropdown
+    id: cog
+    attributes:
+      label: Cog
+      description: Which cog has this bug occured in?
+      options:
+        - AdvancedUptime
+        - AlphaNato
+        - BubbleWrap
+        - Codify
+        - CogPaths
+        - ConsoleClearer
+        - Dehoister
+        - Ecryptor
+        - GithubSkylines
+        - Minifier
+        - Mjolnir
+        - NameGenerator
+        - PingInvoke
+        - PingOverride
+        - Quotes
+        - Raffle
+        - RAM
+        - RoleBoards
+        - RPSLS
+        - SendCards
+        - SpoilerChannel
+        - Staff
+        - Termino
+        - TextEditor
+        - TimesTables
+        - Vinfo
+        - VoteChannel
+        - YamlScanner
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        Please fill out the fields below.
+  - type: input
+    id: details
+    attributes:
+      label: Details
+      description: Give some details about the bug. What happened, and what did you expect to happen?
+    validations:
+      required: true

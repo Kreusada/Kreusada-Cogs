@@ -6,6 +6,9 @@
   - alphanato/*
   - docs/cog_alphanato
   - docs/_deprecated/changelog_alphanato
+"Cog: BlackFormatter":
+  - blackformatter/*
+  - docs/cog_blackformatter
 "Cog: BubbleWrap":
   - bubblewrap/*
   - docs/cog_bubblewrap
@@ -33,10 +36,6 @@
   - githubskylines/*
   - docs/cog_githubskylines
   - docs/_deprecated/changelog_githubskylines
-"Cog: Locales":
-  - locales/*
-  - docs/cog_locales
-  - docs/_deprecated/changelog_locales
 "Cog: Minifier":
   - minifier/*
   - docs/cog_minifier
