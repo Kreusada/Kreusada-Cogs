@@ -1,6 +1,5 @@
 name: Bug Report
 description: Submit an issue for one of these cogs.
-title: ""
 labels: [bug, Triage Requested]
 body:
   - type: dropdown

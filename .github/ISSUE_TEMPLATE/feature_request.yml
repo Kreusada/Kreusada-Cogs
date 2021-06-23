@@ -1,6 +1,5 @@
-name: Bug Report
+name: Feature Request
 description: Submit a feature request for one of these cogs.
-title: ""
 labels: [enhancement, Triage Requested]
 body:
   - type: dropdown
