@@ -45,3 +45,11 @@ body:
       description: Give some details about the bug. What happened, and what did you expect to happen?
     validations:
       required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Traceback details (if applicable)
+      description: Please copy and paste any traceback details. This will be automatically formatted into code, so no need for backticks.
+      render: py
+    validations:
+      required: false
