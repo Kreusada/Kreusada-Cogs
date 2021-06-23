@@ -1,13 +1,13 @@
 name: Bug Report
-description: Submit an issue for one of these cogs.
+description: Submit a feature request for one of these cogs.
 title: ""
-labels: [bug, Triage Requested]
+labels: [enhancement, Triage Requested]
 body:
   - type: dropdown
     id: cog
     attributes:
       label: Cog
-      description: Which cog has this bug occured in?
+      description: Which cog are you making a suggestion for?
       options:
         - AdvancedUptime
         - AlphaNato
@@ -42,7 +42,7 @@ body:
   - type: input
     id: details
     attributes:
-      label: Details
-      description: Give some details about the bug. What happened, and what did you expect to happen?
+      label: What would you like to see?
+      description: Give some details about your request/suggestion!
     validations:
       required: true
