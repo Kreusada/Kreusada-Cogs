@@ -21,6 +21,7 @@ from .exceptions import (
 )
 
 from .enums import RaffleComponents
+from .helpers import raffle_safe_member_scanner
 
 # This file will not be receiving translations, for now
 
@@ -160,45 +161,24 @@ class RaffleManager(object):
         if self.end_message:
             if not isinstance(self.end_message, (list, str)):
                 raise RaffleSyntaxError("(end_message) End message must be in quotation marks, by itself or inside a list")
-            kwargs = {
-                "winner": RaffleSafeMember(discord.Member, "winner"),
-                "raffle": r"{raffle}",
-            }
             if isinstance(self.end_message, str):
-                try:
-                    self.end_message.format(**kwargs)
-                except KeyError as e:
-                    raise InvalidArgument(f"(end_message) {e} was an unexpected argument")
+                raffle_safe_member_scanner(self.end_message, "end_message")
             else:
                 for m in self.end_message:
                     if not isinstance(m, str):
                         raise RaffleSyntaxError("All end messages must be wrapped by quotation marks")
-                    try:
-                        m.format(**kwargs)
-                    except KeyError as e:
-                        raise InvalidArgument(f"(end_message) {e} was an unexpected argument")
+                    raffle_safe_member_scanner(m, "end_message")
 
         if self.join_message:
             if not isinstance(self.join_message, (list, str)):
                 raise RaffleSyntaxError("(join_message) Join message must be in quotation marks, by itself or inside a list")
-            kwargs = {
-                "user": RaffleSafeMember(discord.Member, "user"),
-                "raffle": r"{raffle}",
-                "entry_count": r"{entry_count}"
-            }
             if isinstance(self.join_message, str):
-                try:
-                    self.join_message.format(**kwargs)
-                except KeyError as e:
-                    raise InvalidArgument(f"(join_message) {e} was an unexpected argument")
+                raffle_safe_member_scanner(self.join_message, "join_message")
             else:
                 for m in self.join_message:
                     if not isinstance(m, str):
                         raise RaffleSyntaxError("All join messages must be wrapped by quotation marks")
-                    try:
-                        m.format(**kwargs)
-                    except KeyError as e:
-                        raise InvalidArgument(f"(join_message) {e} was an unexpected argument")
+                    raffle_safe_member_scanner(m, "join_message")
 
 
         if self.on_end_action:
