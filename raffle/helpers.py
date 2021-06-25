@@ -2,7 +2,7 @@ import asyncio
 import discord
 import yaml
 
-from typing import Any, Dict, List, Literal, Union
+from typing import List, Literal, Union
 from yaml.parser import MarkedYAMLError
 
 from redbot.core.bot import Red as RedBot
@@ -77,17 +77,15 @@ def raffle_safe_member_scanner(content: str, cond: Literal["join_message", "end_
         kwargs["entry_count"] = r"{entry_count}"
     else:
         kwargs["winner"] = RaffleSafeMember(member=discord.Member, obj="winner")
+    condition = cond.split("_")[0] + " message"
     try:
         content.format(**kwargs)
+    except AttributeError:
+        raise InvalidArgument(f"Please only use top level attributes in your {condition}")
+    except TypeError:
+        raise InvalidArgument("Please define an attribute with {winner}, do not use it alone ({condition})".format(winner=r"{winner}", condition=condition))
     except KeyError as e:
-        raise InvalidArgument(
-            _(
-                "{e} was an unexpected argument in your new {cond} message".format(
-                    e=e,
-                    cond=cond.split("_")[0]
-                )
-            )
-        )
+        raise InvalidArgument("{e} was an unexpected argument in your new {cond} message".format(e=e, cond=condition))
 
 
 async def start_interactive_message_session(
