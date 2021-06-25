@@ -301,7 +301,7 @@ class Termino(commands.Cog):
             if "{author}" in x:
                 footer = True
         message = (
-            f"Announcement channel: {config['announcement_channel']}\n",
+            f"Announcement channel: {config['announcement_channel']}\n"
             f"Shutdown message: {config['shutdown_message']}\n"
             f"Shutdown confirmation: {config['confirm_shutdown']}\n\n"
             f"Restart message: {config['restart_message']}\n"
