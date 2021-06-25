@@ -18,7 +18,7 @@ from ..helpers import (
     start_interactive_message_session,
     validator,
     cleanup_code,
-    format_badge
+    format_badge,
 )
 
 from ..checks import VALID_USER_BADGES
@@ -57,6 +57,9 @@ class EditorCommands(RaffleMixin):
             if not raffle_data:
                 return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
+            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
+                return await ctx.send(_("You are not the owner of this raffle."))
+
             if isinstance(new_account_age, bool):
                 if not new_account_age:
                     with contextlib.suppress(KeyError):
@@ -91,6 +94,9 @@ class EditorCommands(RaffleMixin):
             raffle_data = r.get(raffle, None)
             if not raffle_data:
                 return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
+
+            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
+                return await ctx.send(_("You are not the owner of this raffle."))
 
             if not new_server_join_age:
                 with contextlib.suppress(KeyError):
@@ -127,6 +133,9 @@ class EditorCommands(RaffleMixin):
             raffle_data = r.get(raffle, None)
             if not raffle_data:
                 return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
+                
+            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
+                return await ctx.send(_("You are not the owner of this raffle."))
 
             if not description:
                 with contextlib.suppress(KeyError):
@@ -158,6 +167,9 @@ class EditorCommands(RaffleMixin):
             raffle_data = r.get(raffle, None)
             if not raffle_data:
                 return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
+
+            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
+                return await ctx.send(_("You are not the owner of this raffle."))
 
             if not on_end_action:
                 with contextlib.suppress(KeyError):
@@ -191,6 +203,9 @@ class EditorCommands(RaffleMixin):
             raffle_data = r.get(raffle, None)
             if not raffle_data:
                 return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
+
+            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
+                return await ctx.send(_("You are not the owner of this raffle."))
 
             if not maximum_entries:
                 with contextlib.suppress(KeyError):
@@ -226,6 +241,9 @@ class EditorCommands(RaffleMixin):
             raffle_data = r.get(raffle, None)
             if not raffle_data:
                 return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
+
+            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
+                return await ctx.send(_("You are not the owner of this raffle."))
 
             if not end_message:
                 with contextlib.suppress(KeyError):
@@ -295,6 +313,9 @@ class EditorCommands(RaffleMixin):
             if not raffle_data:
                 return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
+            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
+                return await ctx.send(_("You are not the owner of this raffle."))
+
             if not join_message:
                 with contextlib.suppress(KeyError):
                     del raffle_data["join_message"]
@@ -356,7 +377,7 @@ class EditorCommands(RaffleMixin):
             if not raffle_data:
                 return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
-            if not ctx.author.id == raffle_data["owner"]:
+            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
                 return await ctx.send(_("You are not the owner of this raffle."))
 
         existing_data = {
@@ -511,6 +532,9 @@ class EditorCommands(RaffleMixin):
             if not raffle_data:
                 return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
+            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
+                return await ctx.send(_("You are not the owner of this raffle."))
+
             prevented = raffle_data.get("prevented_users", [])
 
             if member.id in prevented:
@@ -540,6 +564,9 @@ class EditorCommands(RaffleMixin):
             if not raffle_data:
                 return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
+            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
+                return await ctx.send(_("You are not the owner of this raffle."))
+
             prevented = raffle_data.get("prevented_users", [])
 
             if member.id not in prevented:
@@ -563,6 +590,9 @@ class EditorCommands(RaffleMixin):
             raffle_data = r.get(raffle, None)
             if not raffle_data:
                 return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
+
+            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
+                return await ctx.send(_("You are not the owner of this raffle."))
 
             prevented = raffle_data.get("prevented_users", None)
 
@@ -620,6 +650,9 @@ class EditorCommands(RaffleMixin):
             if not raffle_data:
                 return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
+            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
+                return await ctx.send(_("You are not the owner of this raffle."))
+
             badges_list = raffle_data.get("badges_needed_to_enter", [])
 
             for badge in badges:
@@ -652,6 +685,9 @@ class EditorCommands(RaffleMixin):
             if not raffle_data:
                 return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
+            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
+                return await ctx.send(_("You are not the owner of this raffle."))
+
             badges_list = raffle_data.get("badges_needed_to_enter", [])
 
             for badge in badges:
@@ -678,6 +714,9 @@ class EditorCommands(RaffleMixin):
             raffle_data = r.get(raffle, None)
             if not raffle_data:
                 return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
+
+            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
+                return await ctx.send(_("You are not the owner of this raffle."))
 
             badges_list = raffle_data.get("badges_needed_to_enter", None)
 
@@ -708,6 +747,9 @@ class EditorCommands(RaffleMixin):
             if not raffle_data:
                 return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
+            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
+                return await ctx.send(_("You are not the owner of this raffle."))
+
             allowed = raffle_data.get("allowed_users", [])
 
             if member.id in allowed:
@@ -737,6 +779,9 @@ class EditorCommands(RaffleMixin):
             if not raffle_data:
                 return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
+            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
+                return await ctx.send(_("You are not the owner of this raffle."))
+
             allowed = raffle_data.get("allowed_users", [])
 
             if member.id not in allowed:
@@ -756,6 +801,9 @@ class EditorCommands(RaffleMixin):
             raffle_data = r.get(raffle, None)
             if not raffle_data:
                 return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
+
+            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
+                return await ctx.send(_("You are not the owner of this raffle."))
 
             allowed = raffle_data.get("allowed_users", None)
 
@@ -816,6 +864,9 @@ class EditorCommands(RaffleMixin):
             if not raffle_data:
                 return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
+            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
+                return await ctx.send(_("You are not the owner of this raffle."))
+
             roles = raffle_data.get("roles_needed_to_enter", [])
 
             if role.id in roles:
@@ -845,6 +896,9 @@ class EditorCommands(RaffleMixin):
             if not raffle_data:
                 return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
+            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
+                return await ctx.send(_("You are not the owner of this raffle."))
+
             roles = raffle_data.get("roles_needed_to_enter", [])
 
             if role.id not in roles:
@@ -869,6 +923,9 @@ class EditorCommands(RaffleMixin):
             raffle_data = r.get(raffle, None)
             if not raffle_data:
                 return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
+
+            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
+                return await ctx.send(_("You are not the owner of this raffle."))
 
             rolesreq = raffle_data.get("roles_needed_to_enter", [])
 

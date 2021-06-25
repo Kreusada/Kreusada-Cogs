@@ -43,6 +43,10 @@ class EventCommands(RaffleMixin):
 
             if not raffle_entities("entries"):
                 return await ctx.send(_("There are no participants yet for this raffle."))
+
+            if ctx.author.id not in (raffle_entities("owner"), ctx.guild.owner_id):
+                return await ctx.send(_("You are not the owner of this raffle."))
+                
             winner = random.choice(raffle_entities("entries"))
 
             message = raffle_entities("end_message")
@@ -94,7 +98,7 @@ class EventCommands(RaffleMixin):
 
             raffle_entities = lambda x: raffle_data.get(x)
 
-            if not ctx.author.id == raffle_entities("owner"):
+            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
                 return await ctx.send(_("You are not the owner of this raffle."))
 
             if member.id not in raffle_entities("entries"):
@@ -216,7 +220,7 @@ class EventCommands(RaffleMixin):
 
             raffle_entities = lambda x: raffle_data.get(x)
 
-            if not ctx.author.id == raffle_entities("owner"):
+            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
                 return await ctx.send(_("You are not the owner of this raffle."))
 
             if not raffle_entities("entries"):
@@ -241,11 +245,10 @@ class EventCommands(RaffleMixin):
             if not raffle_data:
                 return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
-            msg = await ctx.send(_("Ending the `{raffle}` raffle...".format(raffle=raffle)))
-            raffle_owner = raffle_data.get("owner")
-            
-            if not ctx.author.id == raffle_owner:
+            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
                 return await ctx.send(_("You are not the owner of this raffle."))
+
+            msg = await ctx.send(_("Ending the `{raffle}` raffle...".format(raffle=raffle)))
 
             r.pop(raffle)
 

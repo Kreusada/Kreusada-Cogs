@@ -90,7 +90,6 @@ def raffle_safe_member_scanner(content: str, cond: Literal["join_message", "end_
         )
 
 
-
 async def start_interactive_message_session(
     ctx: Context, bot: RedBot, 
     sesstype: Literal["join_message", "end_message"], message: discord.Message
