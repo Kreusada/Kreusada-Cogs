@@ -19,6 +19,10 @@ from .exceptions import InvalidArgument
 
 _ = Translator("Raffle", __file__)
 
+
+listumerate = lambda *args: list(enumerate(*args))
+
+
 def format_traceback(exc) -> str:
     boxit = lambda x, y: box(f"{x}: {y}", lang="yaml")
     return boxit(exc.__class__.__name__, exc)
@@ -51,9 +55,16 @@ def number_suffix(number: int) -> str:
         suffixes[i] = "th"
     return str(number) + suffixes[int(str(number)[-1])]
 
+
+def yield_sectors(l, n):
+    for i in range(0,len(l),n):
+        yield l[i:i+n]
+
+
 def has_badge(badge: str, author: discord.Member):
     badge_data = {k: v for k, v in list(author.public_flags)} 
     return badge_data[badge]
+
 
 def format_badge(badge: str):
     return badge.replace('_', ' ').title()
