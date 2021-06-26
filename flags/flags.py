@@ -119,7 +119,7 @@ class Flags(Cog):
 
 
         embed = discord.Embed(
-            title=f"{emoji}: {country_name}",
+            title=f"{emoji} {country_name}",
             description=description,
             color=await ctx.embed_colour(),
             timestamp=datetime.datetime.now()
