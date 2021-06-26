@@ -13,9 +13,9 @@ from redbot.core.utils.menus import menu, close_menu, DEFAULT_CONTROLS
 
 from .checks import now
 from .safety import RaffleSafeMember
-from .enums import RaffleEMC, RaffleJMC
+from .enums import RaffleJoinMessageComponents, RaffleEndMessageComponents
 from .formatting import curl, formatenum, cross
-from .exceptions import InvalidArgument
+from .exceptions import InvalidArgument, RaffleError
 
 _ = Translator("Raffle", __file__)
 
@@ -66,8 +66,12 @@ def has_badge(badge: str, author: discord.Member):
     return badge_data[badge]
 
 
-def format_badge(badge: str):
-    return badge.replace('_', ' ').title()
+def format_underscored_text(text: str):
+    return text.replace('_', ' ').title()
+
+
+def revert_underscored_text(text: str):
+    return text.replace(' ', '_').lower()
 
 
 async def compose_menu(ctx, embed_pages: List[discord.Embed]):
@@ -105,10 +109,10 @@ async def start_interactive_message_session(
 ):
     if sesstype == "join_message":
         when_phrase = _("When a user is drawn")
-        ENUM = RaffleJMC
+        ENUM = RaffleJoinMessageComponents
     else:
         when_phrase = _("When a user enters the raffle")
-        ENUM = RaffleEMC
+        ENUM = RaffleEndMessageComponents
 
     guide = _(
         "Start adding some messages to add to the list of {sesstype} messages.\n"

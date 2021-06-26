@@ -18,7 +18,7 @@ from ..helpers import (
     start_interactive_message_session,
     validator,
     cleanup_code,
-    format_badge,
+    format_underscored_text,
 )
 
 from ..checks import VALID_USER_BADGES
@@ -659,14 +659,14 @@ class EditorCommands(RaffleMixin):
                 if badge not in VALID_USER_BADGES:
                     return await ctx.send(_("\"{}\" was not a recognized Discord badge.".format(badge)))
                 if badge in badges_list:
-                    return await ctx.send(_("The \"{}\" badge is already required in this raffle.".format(format_badge(badge))))
+                    return await ctx.send(_("The \"{}\" badge is already required in this raffle.".format(format_underscored_text(badge))))
                 
                 if not badges_list:
                     raffle_data["badges_needed_to_enter"] = list(badges)
                 else:
                     badges_list.append(badge)
 
-            await ctx.send(_("Added the following badges as requirements in this raffle: {}.".format(", ".join(inline(format_badge(b)) for b in badges))))
+            await ctx.send(_("Added the following badges as requirements in this raffle: {}.".format(", ".join(inline(format_underscored_text(b)) for b in badges))))
 
         await self.replenish_cache(ctx)
 
@@ -697,7 +697,7 @@ class EditorCommands(RaffleMixin):
                     return await ctx.send(_("The \"{}\" badge was not already required in this raffle.".format(badge)))
 
                 badges_list.remove(badge)
-            await ctx.send(_("Added the following badges as requirements in this raffle: {}.".format(", ".join(inline(format_badge(b)) for b in badges))))
+            await ctx.send(_("Added the following badges as requirements in this raffle: {}.".format(", ".join(inline(format_underscored_text(b)) for b in badges))))
 
         await self.replenish_cache(ctx)
 

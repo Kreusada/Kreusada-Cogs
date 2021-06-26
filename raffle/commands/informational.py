@@ -4,13 +4,20 @@ import pathlib
 from redbot.core import commands
 from redbot.core.commands import Context
 from redbot.core.i18n import Translator
-from redbot.core.utils.chat_formatting import box, pagify, humanize_list
+from redbot.core.utils.chat_formatting import box, pagify, inline
 
 from ..mixins.abc import RaffleMixin
 from ..enums import RaffleComponents
 from ..version_handler import VersionHandler
+from ..formatting import CURRENT_PAGE, LEFT_ARROW, RIGHT_ARROW, square, curl
 from ..parser import RaffleManager
-from ..helpers import compose_menu, yield_sectors, listumerate
+from ..helpers import (
+    compose_menu, 
+    yield_sectors, 
+    listumerate,
+    format_underscored_text,
+    revert_underscored_text
+)
 
 
 _ = Translator("Raffle", __file__)
@@ -191,8 +198,87 @@ class InformationalCommands(RaffleMixin):
     @raffle.command()
     async def conditions(self, ctx: Context):
         """Get information about how conditions work."""
-        message = "\n".join(f"{e.name}:\n\t{e.value}" for e in RaffleComponents)
-        await ctx.send(box(message, lang="yaml"))
+        pages = []
+        sorted_components = sorted(RaffleComponents, key=lambda x: x.name)
+        sorted_names = [component.name for component in sorted_components]
+
+        for c, v in enumerate(sorted_components, 1):
+            condition = v.name
+            properties = v.value
+
+            info = (
+                f"Qualified name: [{condition}]\n"
+                f"Supported types: [{', '.join(v.__name__ for v in properties['supported_types'])}]\n"
+                f"Potential exceptions: [{', '.join(v.__name__ for v in properties['potential_exceptions'])}]\n"
+            )
+
+            if properties["required_condition"]:
+                emoji = "\N{WHITE HEAVY CHECK MARK}"
+            else:
+                emoji = "\N{CROSS MARK}"
+            info += f"Required condition: [{emoji}]"
+
+            try:
+                next_condition = sorted_names[c]
+            except IndexError:
+                next_condition = sorted_names[0]
+
+            try:
+                prev_condition = sorted_names[c-2]
+            except IndexError:
+                prev_condition = sorted_names[-1]
+
+            embed = discord.Embed(
+                title=f"Condition #{c}/{len(RaffleComponents)}: {format_underscored_text(condition)}",
+                color=await ctx.embed_colour()
+            )
+
+            embed.add_field(
+                name="Description",
+                value=box(f"{v.name} =\n\n{properties['description']}", lang="fix"),
+                inline=False
+            )
+
+            embed.add_field(
+                name="Information",
+                value=box(info, lang="yaml"),
+                inline=False
+            )
+
+            if properties["variables"] is not None:
+                variables = []
+                for var in properties["variables"]:
+                    # Only conditions with variables atm is join_message and end_message
+                    condition_switch = {
+                        "join_message": "user",
+                        "end_message": "winner"
+                    }
+                    if "__" in var:
+                        var = f"{condition_switch[condition]}.{var.split('__')[-1]}"
+                    variables.append(curl(var))
+                
+                embed.add_field(
+                    name="Variables",
+                    value=box("\n".join(f"! {v}" for v in variables), lang="diff")
+                )
+
+            example = properties["example"]
+            if isinstance(example, str):
+                example = "\"{}\"".format(example)
+            embed.add_field(
+                name="Example Usage",
+                value=box(f"{condition}: {example}", lang="yaml"),
+                inline=False
+            )
+            embed.set_footer(
+                text=(
+                    f"{LEFT_ARROW} {prev_condition}\n"
+                    f"{CURRENT_PAGE} {condition}\n"
+                    f"{RIGHT_ARROW} {next_condition}"
+                )
+            )
+            pages.append(embed)
+        await compose_menu(ctx, pages)
         await self.replenish_cache(ctx)
 
 
