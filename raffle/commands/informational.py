@@ -8,9 +8,9 @@ from redbot.core.utils.chat_formatting import box, pagify, humanize_list
 
 from ..mixins.abc import RaffleMixin
 from ..enums import RaffleComponents
-from ..helpers import compose_menu
 from ..version_handler import VersionHandler
 from ..parser import RaffleManager
+from ..helpers import compose_menu, yield_sectors, listumerate
 
 
 _ = Translator("Raffle", __file__)
@@ -172,9 +172,12 @@ class InformationalCommands(RaffleMixin):
             entry_grammar = _("entry")
         else:
             entry_grammar = _("entries")
-        for page in pagify("\n".join(f"#{c} {self.bot.get_user(v)}" for c, v in enumerate(entries, 1))):
+        for chunk in list(yield_sectors(listumerate(entries, 1), 10)):
+            message = ""
+            for c, v in chunk:
+                message += f"#{c} {ctx.guild.get_member(v) or 'Unknown User'}\n"
             embed = discord.Embed(
-                description=box(page, lang="md"),
+                description=box(message, lang="md"),
                 color=await ctx.embed_colour()
             )
             embed.set_author(name=f"{raffle} | {len(entries)} {entry_grammar}", icon_url=self.bot.user.avatar_url)
