@@ -23,6 +23,8 @@ Available cogs list
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | encryptor       | Generate and validify the strength of passwords.             | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
+| flags           | Get the flag for a country.                                  | Tools   | Kreusada       |
++-----------------+--------------------------------------------------------------+---------+----------------+
 | minifier        | Minify your code with the python minifier.                   | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | mjolnir         | Try to lift Thor's hammer!                                   | Fun     | Jojo, Kreusada |
