@@ -31,7 +31,9 @@
 "Cog: Encryptor":
   - encryptor/*
   - docs/cog_encryptor
-  - docs/_deprecated/changelog_dehoister
+"Cog: Flags":
+  - flags/*
+  - docs/cog_flags
 "Cog: GithubSkylines":
   - githubskylines/*
   - docs/cog_githubskylines
