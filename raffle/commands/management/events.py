@@ -8,11 +8,11 @@ from redbot.core.commands import Context
 from redbot.core.i18n import Translator
 from redbot.core.utils.chat_formatting import humanize_list, pagify
 
-from ...helpers import has_badge, format_underscored_text
-from ...safety import RaffleSafeMember
-from ...checks import account_age_checker, server_join_age_checker
+from ...utils.helpers import has_badge, format_underscored_text
+from ...utils.safety import RaffleSafeMember
+from ...utils.checks import account_age_checker, server_join_age_checker
 from ...mixins.abc import RaffleMixin
-from ...converters import RaffleFactoryConverter
+from ...utils.converters import RaffleFactoryConverter
 
     
 _ = Translator("Raffle", __file__)  

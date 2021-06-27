@@ -11,8 +11,8 @@ from redbot.core.utils.menus import start_adding_reactions
 from redbot.core.utils.predicates import ReactionPredicate, MessagePredicate
 
 from ..mixins.abc import RaffleMixin
-from ..parser import RaffleManager
-from ..helpers import (
+from ..utils.parser import RaffleManager
+from ..utils.helpers import (
     format_traceback, 
     raffle_safe_member_scanner,
     start_interactive_message_session,
@@ -21,10 +21,10 @@ from ..helpers import (
     format_underscored_text,
 )
 
-from ..checks import VALID_USER_BADGES
-from ..formatting import cross, tick
-from ..exceptions import RaffleError, InvalidArgument
-from ..converters import RaffleFactoryConverter
+from ..utils.checks import VALID_USER_BADGES
+from ..utils.formatting import cross, tick
+from ..utils.exceptions import RaffleError, InvalidArgument
+from ..utils.converters import RaffleFactoryConverter
 
     
 _ = Translator("Raffle", __file__)

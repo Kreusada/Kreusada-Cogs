@@ -1,21 +1,19 @@
 import asyncio
 import contextlib
 import discord
-import random
 
 from redbot.core import commands
 from redbot.core.commands import Context
 from redbot.core.i18n import Translator
-from redbot.core.utils.chat_formatting import humanize_list, pagify
 from redbot.core.utils.menus import start_adding_reactions
 from redbot.core.utils.predicates import ReactionPredicate, MessagePredicate
 
-from ...parser import RaffleManager
-from ...formatting import tick, cross
+from ...utils.parser import RaffleManager
+from ...utils.formatting import tick, cross
 from ...mixins.abc import RaffleMixin
-from ...exceptions import RaffleError
+from ...utils.exceptions import RaffleError
 
-from ...helpers import (
+from ...utils.helpers import (
     validator,
     cleanup_code,
     format_traceback

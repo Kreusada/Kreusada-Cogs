@@ -2,7 +2,7 @@ import discord
 
 from redbot.core.commands import Context
 
-from .log import log
+from ..log import log
 from .safety import RaffleSafeMember
 from .checks import (
     VALID_USER_BADGES, 
