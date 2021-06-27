@@ -10,6 +10,7 @@ except ModuleNotFoundError:
 from redbot.core import commands
 from redbot.core.commands import Cog, Context
 from redbot.core.utils.chat_formatting import box, humanize_list
+from redbot.core.utils.menus import menu, close_menu
 
 from .functions import format_attr
 from .converters import CountryConverter
@@ -81,5 +82,4 @@ class Flags(Cog):
             timestamp=datetime.datetime.now()
         )
 
-        embed.set_image(url=image)
-        await ctx.send(embed=embed)
+        await menu(ctx, [embed], {"\N{CROSS MARK}": close_menu})
