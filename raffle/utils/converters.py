@@ -1,6 +1,12 @@
 from redbot.core.commands import BadArgument, Context, Converter
 
 
+__all__ = (
+    "RaffleFactoryConverter",
+    "RaffleExists"
+)
+
+
 class RaffleFactoryConverter(Converter):
     """A checker which raises BadArgument if the
     author is not the owner of a raffle or the owner

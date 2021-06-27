@@ -23,6 +23,7 @@ from .exceptions import (
 from .enums import RaffleComponents
 from .helpers import raffle_safe_member_scanner
 
+__all__ = ("RaffleManager")
 # This file will not be receiving translations, for now
 
 class RaffleManager(object):

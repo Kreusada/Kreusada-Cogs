@@ -1,7 +1,7 @@
 import enum
 
 from redbot.core.i18n import Translator
-from typing import Dict, List, Type, Union
+from typing import Any, Dict, List, Type, Union
 
 from .exceptions import (
     RequiredKeyError,
@@ -12,7 +12,13 @@ from .exceptions import (
 )
 
 _ = Translator("Raffle", __file__)
-ComponentsDictionary = Dict[str, Union[str, bool, List[Union[type, Type[RaffleError]]]]]
+ComponentsDictionary = Dict[str, Union[str, bool, List[Type[Union[Any, RaffleError]]]]]
+
+__all__ = (
+    "RaffleEndMessageComponents",
+    "RaffleJoinMessageComponents",
+    "RaffleComponents"
+)
 
 
 class RaffleEndMessageComponents(enum.Enum):
@@ -44,7 +50,7 @@ class RaffleJoinMessageComponents(enum.Enum):
     user__name_and_discriminator = _("The name and discriminator of the user (user#1234).")
 
 
-class _ComponentDescriptions(enum.Enum):
+class ComponentDescriptions(enum.Enum):
     NAME = _(
         "The name for the raffle. This name is not changeable once the "
         "raffle has been created. If you wish to rename the raffle, use "
@@ -106,7 +112,7 @@ class _ComponentDescriptions(enum.Enum):
     )
 
 
-class _ComponentExamples(enum.Enum):
+class ComponentExamples(enum.Enum):
     NAME = "my_raffle"
     DESCRIPTION = "My very first raffle!"
     JOIN_MESSAGE = r"Welcome to the {raffle} raffle {user.mention}! There are now {entry_count} entries."
@@ -132,8 +138,8 @@ class RaffleComponents(enum.Enum):
         "potential_exceptions": [RaffleSyntaxError, RequiredKeyError],
         "variables": None,
         "required_condition": True,
-        "description": _ComponentDescriptions.NAME.value,
-        "example": _ComponentExamples.NAME.value
+        "description": ComponentDescriptions.NAME.value,
+        "example": ComponentExamples.NAME.value
     }
 
     description: ComponentsDictionary = {
@@ -141,8 +147,8 @@ class RaffleComponents(enum.Enum):
         "potential_exceptions": [RaffleSyntaxError],
         "variables": None,
         "required_condition": False,
-        "description": _ComponentDescriptions.DESCRIPTION.value,
-        "example": _ComponentExamples.DESCRIPTION.value
+        "description": ComponentDescriptions.DESCRIPTION.value,
+        "example": ComponentExamples.DESCRIPTION.value
     }
 
     join_message: ComponentsDictionary = {
@@ -150,8 +156,8 @@ class RaffleComponents(enum.Enum):
         "potential_exceptions": [RaffleSyntaxError, InvalidArgument],
         "variables": [x.name for x in RaffleJoinMessageComponents],
         "required_condition": False,
-        "description": _ComponentDescriptions.JOIN_MESSAGE.value,
-        "example": _ComponentExamples.JOIN_MESSAGE.value
+        "description": ComponentDescriptions.JOIN_MESSAGE.value,
+        "example": ComponentExamples.JOIN_MESSAGE.value
     }
 
     end_message: ComponentsDictionary = {
@@ -159,8 +165,8 @@ class RaffleComponents(enum.Enum):
         "potential_exceptions": [RaffleSyntaxError, InvalidArgument],
         "variables": [x.name for x in RaffleEndMessageComponents],
         "required_condition": False,
-        "description": _ComponentDescriptions.END_MESSAGE.value,
-        "example": _ComponentExamples.END_MESSAGE.value
+        "description": ComponentDescriptions.END_MESSAGE.value,
+        "example": ComponentExamples.END_MESSAGE.value
     }
 
     account_age: ComponentsDictionary = {
@@ -168,8 +174,8 @@ class RaffleComponents(enum.Enum):
         "potential_exceptions": [RaffleSyntaxError],
         "variables": None,
         "required_condition": False,
-        "description": _ComponentDescriptions.ACCOUNT_AGE.value,
-        "example": _ComponentExamples.ACCOUNT_AGE.value
+        "description": ComponentDescriptions.ACCOUNT_AGE.value,
+        "example": ComponentExamples.ACCOUNT_AGE.value
     }
 
     server_join_age: ComponentsDictionary = {
@@ -177,8 +183,8 @@ class RaffleComponents(enum.Enum):
         "potential_exceptions": [RaffleSyntaxError],
         "variables": None,
         "required_condition": False,
-        "description": _ComponentDescriptions.SERVER_JOIN_AGE.value,
-        "example": _ComponentExamples.SERVER_JOIN_AGE.value
+        "description": ComponentDescriptions.SERVER_JOIN_AGE.value,
+        "example": ComponentExamples.SERVER_JOIN_AGE.value
     }
 
     roles_needed_to_enter: ComponentsDictionary = {
@@ -186,8 +192,8 @@ class RaffleComponents(enum.Enum):
         "potential_exceptions": [RaffleSyntaxError, UnknownEntityError],
         "variables": None,
         "required_condition": False,
-        "description": _ComponentDescriptions.ROLES_NEEDED_TO_ENTER.value,
-        "example": _ComponentExamples.ROLES_NEEDED_TO_ENTER.value
+        "description": ComponentDescriptions.ROLES_NEEDED_TO_ENTER.value,
+        "example": ComponentExamples.ROLES_NEEDED_TO_ENTER.value
     }
 
     badges_needed_to_enter: ComponentsDictionary = {
@@ -195,8 +201,8 @@ class RaffleComponents(enum.Enum):
         "potential_exceptions": [RaffleSyntaxError, InvalidArgument],
         "variables": None,
         "required_condition": False,
-        "description": _ComponentDescriptions.BADGES_NEEDED_TO_ENTER.value,
-        "example": _ComponentExamples.BADGES_NEEDED_TO_ENTER.value
+        "description": ComponentDescriptions.BADGES_NEEDED_TO_ENTER.value,
+        "example": ComponentExamples.BADGES_NEEDED_TO_ENTER.value
     }
 
     prevented_users: ComponentsDictionary = {
@@ -204,8 +210,8 @@ class RaffleComponents(enum.Enum):
         "potential_exceptions": [RaffleSyntaxError, UnknownEntityError],
         "variables": None,
         "required_condition": False,
-        "description": _ComponentDescriptions.PREVENTED_USERS.value,
-        "example": _ComponentExamples.PREVENTED_USERS.value
+        "description": ComponentDescriptions.PREVENTED_USERS.value,
+        "example": ComponentExamples.PREVENTED_USERS.value
     }
 
     allowed_users: ComponentsDictionary = {
@@ -213,8 +219,8 @@ class RaffleComponents(enum.Enum):
         "potential_exceptions": [RaffleSyntaxError, UnknownEntityError],
         "variables": None,
         "required_condition": False,
-        "description": _ComponentDescriptions.ALLOWED_USERS.value,
-        "example": _ComponentExamples.ALLOWED_USERS.value
+        "description": ComponentDescriptions.ALLOWED_USERS.value,
+        "example": ComponentExamples.ALLOWED_USERS.value
     }
 
     maximum_entries: ComponentsDictionary = {
@@ -222,8 +228,8 @@ class RaffleComponents(enum.Enum):
         "potential_exceptions": [RaffleSyntaxError],
         "variables": None,
         "required_condition": False,
-        "description": _ComponentDescriptions.MAXIMUM_ENTRIES.value,
-        "example": _ComponentExamples.MAXIMUM_ENTRIES.value
+        "description": ComponentDescriptions.MAXIMUM_ENTRIES.value,
+        "example": ComponentExamples.MAXIMUM_ENTRIES.value
     }
 
     on_end_action: ComponentsDictionary = {
@@ -231,6 +237,6 @@ class RaffleComponents(enum.Enum):
         "potential_exceptions": [InvalidArgument],
         "variables": None,
         "required_condition": False,
-        "description": _ComponentDescriptions.ON_END_ACTION.value,
-        "example": _ComponentExamples.ON_END_ACTION.value
+        "description": ComponentDescriptions.ON_END_ACTION.value,
+        "example": ComponentExamples.ON_END_ACTION.value
     }

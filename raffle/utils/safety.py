@@ -13,7 +13,7 @@ class RaffleSafeMember(object):
         self.id = member.id
         self.display_name = member.display_name
         self.discriminator = member.discriminator
-        self.name_and_discriminator = f"{self.name}#{self.discriminator}"
+        self.name_and_discriminator = str(member)
 
         self.obj = obj
 
