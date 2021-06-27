@@ -1,15 +1,14 @@
 import discord
-import pathlib
 
 from redbot.core import commands
 from redbot.core.commands import Context
 from redbot.core.i18n import Translator
-from redbot.core.utils.chat_formatting import box, pagify, inline
+from redbot.core.utils.chat_formatting import box, pagify
 
 from ..mixins.abc import RaffleMixin
 from ..version_handler import VersionHandler
 from ..utils.enums import RaffleComponents
-from ..utils.formatting import CURRENT_PAGE, LEFT_ARROW, RIGHT_ARROW, square, curl
+from ..utils.formatting import CURRENT_PAGE, LEFT_ARROW, RIGHT_ARROW, curl
 from ..utils.parser import RaffleManager
 from ..utils.converters import RaffleExists
 from ..utils.helpers import (
@@ -275,14 +274,6 @@ class InformationalCommands(RaffleMixin):
             pages.append(embed)
         await compose_menu(ctx, pages)
         await self.replenish_cache(ctx)
-
-
-    @raffle.command()
-    async def template(self, ctx: Context):
-        """Get a template of a raffle."""
-        with open(pathlib.Path(__file__).parent / "template.yaml") as f:
-            docs = "**For more information:** {}\n".format(self.docs)
-            await ctx.send(_(docs + box("".join(f.readlines()), lang="yaml")))
 
 
     @raffle.command()
