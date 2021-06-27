@@ -12,6 +12,7 @@ from ...helpers import has_badge, format_underscored_text
 from ...safety import RaffleSafeMember
 from ...checks import account_age_checker, server_join_age_checker
 from ...mixins.abc import RaffleMixin
+from ...converters import RaffleFactoryConverter
 
     
 _ = Translator("Raffle", __file__)  
@@ -27,7 +28,7 @@ class EventCommands(RaffleMixin):
 
 
     @raffle.command()
-    async def draw(self, ctx: Context, raffle: str):
+    async def draw(self, ctx: Context, raffle: RaffleFactoryConverter):
         """Draw a raffle and select a winner.
         
         **Arguments:**
@@ -36,17 +37,11 @@ class EventCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-
             raffle_entities = lambda x: raffle_data.get(x, None)
 
             if not raffle_entities("entries"):
                 return await ctx.send(_("There are no participants yet for this raffle."))
 
-            if ctx.author.id not in (raffle_entities("owner"), ctx.guild.owner_id):
-                return await ctx.send(_("You are not the owner of this raffle."))
-                
             winner = random.choice(raffle_entities("entries"))
 
             message = raffle_entities("end_message")
@@ -83,7 +78,7 @@ class EventCommands(RaffleMixin):
         await self.replenish_cache(ctx)
 
     @raffle.command()
-    async def kick(self, ctx: Context, raffle: str, member: discord.Member):
+    async def kick(self, ctx: Context, raffle: RaffleFactoryConverter, member: discord.Member):
         """Kick a member from your raffle.
         
         **Arguments:**
@@ -93,13 +88,7 @@ class EventCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-
             raffle_entities = lambda x: raffle_data.get(x)
-
-            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
-                return await ctx.send(_("You are not the owner of this raffle."))
 
             if member.id not in raffle_entities("entries"):
                 return await ctx.send(_("This user has not entered this raffle."))
@@ -118,9 +107,6 @@ class EventCommands(RaffleMixin):
         """
         r = await self.config.guild(ctx.guild).raffles()
         raffle_data = r.get(raffle, None)
-
-        if not raffle_data:
-            return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
 
         raffle_entities = lambda x: raffle_data.get(x, None)
@@ -206,7 +192,7 @@ class EventCommands(RaffleMixin):
 
 
     @raffle.command()
-    async def mention(self, ctx: Context, raffle: str):
+    async def mention(self, ctx: Context, raffle: RaffleFactoryConverter):
         """Mention all the users entered into a raffle.
         
         **Arguments:**
@@ -215,13 +201,8 @@ class EventCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
             raffle_entities = lambda x: raffle_data.get(x)
-
-            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
-                return await ctx.send(_("You are not the owner of this raffle."))
 
             if not raffle_entities("entries"):
                 return await ctx.send(_("There are no entries yet for this raffle."))
@@ -233,20 +214,13 @@ class EventCommands(RaffleMixin):
 
 
     @raffle.command()
-    async def end(self, ctx: Context, raffle: str):
+    async def end(self, ctx: Context, raffle: RaffleFactoryConverter):
         """End a raffle.
         
         **Arguments:**
             - `<raffle>` - The name of the raffle to end.
         """
         async with self.config.guild(ctx.guild).raffles() as r:
-
-            raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-
-            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
-                return await ctx.send(_("You are not the owner of this raffle."))
 
             msg = await ctx.send(_("Ending the `{raffle}` raffle...".format(raffle=raffle)))
 

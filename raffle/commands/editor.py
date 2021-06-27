@@ -24,6 +24,7 @@ from ..helpers import (
 from ..checks import VALID_USER_BADGES
 from ..formatting import cross, tick
 from ..exceptions import RaffleError, InvalidArgument
+from ..converters import RaffleFactoryConverter
 
     
 _ = Translator("Raffle", __file__)
@@ -42,7 +43,7 @@ class EditorCommands(RaffleMixin):
         pass
 
     @edit.command()
-    async def accage(self, ctx, raffle: str, new_account_age: Union[int, bool]):
+    async def accage(self, ctx, raffle: RaffleFactoryConverter, new_account_age: Union[int, bool]):
         """Edit the account age requirement for a raffle.
         
         Use `0` or `false` to disable this condition.
@@ -54,11 +55,6 @@ class EditorCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-
-            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
-                return await ctx.send(_("You are not the owner of this raffle."))
 
             if isinstance(new_account_age, bool):
                 if not new_account_age:
@@ -80,7 +76,7 @@ class EditorCommands(RaffleMixin):
 
 
     @edit.command()
-    async def serverjoinage(self, ctx, raffle: str, new_server_join_age: Union[int, bool]):
+    async def serverjoinage(self, ctx, raffle: RaffleFactoryConverter, new_server_join_age: Union[int, bool]):
         """Edit the server join age requirement for a raffle.
         
         Use `0` or `false` to disable this condition.
@@ -92,11 +88,6 @@ class EditorCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-
-            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
-                return await ctx.send(_("You are not the owner of this raffle."))
 
             if not new_server_join_age:
                 with contextlib.suppress(KeyError):
@@ -119,7 +110,7 @@ class EditorCommands(RaffleMixin):
 
 
     @edit.command()
-    async def description(self, ctx, raffle: str, *, description: Union[bool, str]):
+    async def description(self, ctx, raffle: RaffleFactoryConverter, *, description: Union[bool, str]):
         """Edit the description for a raffle.
         
         Use `0` or `false` to remove this feature.
@@ -131,11 +122,6 @@ class EditorCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-                
-            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
-                return await ctx.send(_("You are not the owner of this raffle."))
 
             if not description:
                 with contextlib.suppress(KeyError):
@@ -153,7 +139,7 @@ class EditorCommands(RaffleMixin):
 
 
     @edit.command()
-    async def endaction(self, ctx, raffle: str, *, on_end_action: Union[bool, str]):
+    async def endaction(self, ctx, raffle: RaffleFactoryConverter, *, on_end_action: Union[bool, str]):
         """Edit the on_end_action for a raffle.
         
         Use `0` or `false` to remove this feature.
@@ -165,11 +151,6 @@ class EditorCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-
-            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
-                return await ctx.send(_("You are not the owner of this raffle."))
 
             if not on_end_action:
                 with contextlib.suppress(KeyError):
@@ -189,7 +170,7 @@ class EditorCommands(RaffleMixin):
 
 
     @edit.command()
-    async def maxentries(self, ctx, raffle: str, maximum_entries: Union[int, bool]):
+    async def maxentries(self, ctx, raffle: RaffleFactoryConverter, maximum_entries: Union[int, bool]):
         """Edit the max entries requirement for a raffle.
         
         Use `0` or `false` to disable this condition.
@@ -201,11 +182,6 @@ class EditorCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-
-            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
-                return await ctx.send(_("You are not the owner of this raffle."))
 
             if not maximum_entries:
                 with contextlib.suppress(KeyError):
@@ -223,7 +199,7 @@ class EditorCommands(RaffleMixin):
 
 
     @edit.command()
-    async def endmessage(self, ctx, raffle: str, *, end_message: Union[bool, str]):
+    async def endmessage(self, ctx, raffle: RaffleFactoryConverter, *, end_message: Union[bool, str]):
         """Edit the end message of a raffle.
 
         Once you provide an end message, you will have the chance
@@ -239,11 +215,6 @@ class EditorCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-
-            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
-                return await ctx.send(_("You are not the owner of this raffle."))
 
             if not end_message:
                 with contextlib.suppress(KeyError):
@@ -294,7 +265,7 @@ class EditorCommands(RaffleMixin):
         await self.replenish_cache(ctx)
 
     @edit.command()
-    async def joinmessage(self, ctx, raffle: str, *, join_message: Union[bool, str]):
+    async def joinmessage(self, ctx, raffle: RaffleFactoryConverter, *, join_message: Union[bool, str]):
         """Edit the join message of a raffle.
 
         Once you provide a join message, you will have the chance
@@ -310,11 +281,6 @@ class EditorCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-
-            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
-                return await ctx.send(_("You are not the owner of this raffle."))
 
             if not join_message:
                 with contextlib.suppress(KeyError):
@@ -365,7 +331,7 @@ class EditorCommands(RaffleMixin):
         await self.replenish_cache(ctx)
 
     @edit.command()
-    async def fromyaml(self, ctx, raffle: str):
+    async def fromyaml(self, ctx, raffle: RaffleFactoryConverter):
         """Edit a raffle directly from yaml.
         
         **Arguments:**
@@ -374,11 +340,6 @@ class EditorCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-
-            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
-                return await ctx.send(_("You are not the owner of this raffle."))
 
         existing_data = {
             "end_message": raffle_data.get("end_message", None),
@@ -519,7 +480,7 @@ class EditorCommands(RaffleMixin):
 
 
     @prevented.command(name="add")
-    async def prevented_add(self, ctx, raffle: str, member: discord.Member):
+    async def prevented_add(self, ctx, raffle: RaffleFactoryConverter, member: discord.Member):
         """Add a member to the prevented list of a raffle.
         
         **Arguments:**
@@ -529,11 +490,6 @@ class EditorCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-
-            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
-                return await ctx.send(_("You are not the owner of this raffle."))
 
             prevented = raffle_data.get("prevented_users", [])
 
@@ -551,7 +507,7 @@ class EditorCommands(RaffleMixin):
 
 
     @prevented.command(name="remove", aliases=["del"])
-    async def prevented_remove(self, ctx, raffle: str, member: discord.Member):
+    async def prevented_remove(self, ctx, raffle: RaffleFactoryConverter, member: discord.Member):
         """Remove a member from the prevented list of a raffle.
         
         **Arguments:**
@@ -561,11 +517,6 @@ class EditorCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-
-            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
-                return await ctx.send(_("You are not the owner of this raffle."))
 
             prevented = raffle_data.get("prevented_users", [])
 
@@ -579,7 +530,7 @@ class EditorCommands(RaffleMixin):
 
 
     @prevented.command(name="clear")
-    async def prevented_clear(self, ctx, raffle: str):
+    async def prevented_clear(self, ctx, raffle: RaffleFactoryConverter):
         """Clear the prevented list for a raffle.
         
         **Arguments:**
@@ -588,11 +539,6 @@ class EditorCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-
-            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
-                return await ctx.send(_("You are not the owner of this raffle."))
 
             prevented = raffle_data.get("prevented_users", None)
 
@@ -637,7 +583,7 @@ class EditorCommands(RaffleMixin):
 
 
     @badges.command(name="add")
-    async def badges_add(self, ctx, raffle: str, *badges: str):
+    async def badges_add(self, ctx, raffle: RaffleFactoryConverter, *badges: str):
         """Add a badge to the required badges list of a raffle.
         
         **Arguments:**
@@ -647,11 +593,6 @@ class EditorCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-
-            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
-                return await ctx.send(_("You are not the owner of this raffle."))
 
             badges_list = raffle_data.get("badges_needed_to_enter", [])
 
@@ -672,7 +613,7 @@ class EditorCommands(RaffleMixin):
 
 
     @badges.command(name="remove", aliases=["del"])
-    async def badges_remove(self, ctx, raffle: str, *badges: str):
+    async def badges_remove(self, ctx, raffle: RaffleFactoryConverter, *badges: str):
         """Remove a badge from the required badges list of a raffle.
         
         **Arguments:**
@@ -682,11 +623,6 @@ class EditorCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-
-            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
-                return await ctx.send(_("You are not the owner of this raffle."))
 
             badges_list = raffle_data.get("badges_needed_to_enter", [])
 
@@ -703,7 +639,7 @@ class EditorCommands(RaffleMixin):
 
 
     @badges.command(name="clear")
-    async def badges_clear(self, ctx, raffle: str):
+    async def badges_clear(self, ctx, raffle: RaffleFactoryConverter):
         """Clear the required badges list for a raffle.
         
         **Arguments:**
@@ -712,11 +648,6 @@ class EditorCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-
-            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
-                return await ctx.send(_("You are not the owner of this raffle."))
 
             badges_list = raffle_data.get("badges_needed_to_enter", None)
 
@@ -734,7 +665,7 @@ class EditorCommands(RaffleMixin):
 
 
     @allowed.command(name="add")
-    async def allowed_add(self, ctx, raffle: str, member: discord.Member):
+    async def allowed_add(self, ctx, raffle: RaffleFactoryConverter, member: discord.Member):
         """Add a member to the allowed list of a raffle.
         
         **Arguments:**
@@ -744,11 +675,6 @@ class EditorCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-
-            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
-                return await ctx.send(_("You are not the owner of this raffle."))
 
             allowed = raffle_data.get("allowed_users", [])
 
@@ -766,7 +692,7 @@ class EditorCommands(RaffleMixin):
 
 
     @allowed.command(name="remove", aliases=["del"])
-    async def allowed_remove(self, ctx, raffle: str, member: discord.Member):
+    async def allowed_remove(self, ctx, raffle: RaffleFactoryConverter, member: discord.Member):
         """Remove a member from the allowed list of a raffle.
         
         **Arguments:**
@@ -776,11 +702,6 @@ class EditorCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-
-            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
-                return await ctx.send(_("You are not the owner of this raffle."))
 
             allowed = raffle_data.get("allowed_users", [])
 
@@ -794,16 +715,11 @@ class EditorCommands(RaffleMixin):
 
 
     @allowed.command(name="clear")
-    async def allowed_clear(self, ctx, raffle: str):
+    async def allowed_clear(self, ctx, raffle: RaffleFactoryConverter):
         """Clear the allowed list for a raffle."""
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-
-            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
-                return await ctx.send(_("You are not the owner of this raffle."))
 
             allowed = raffle_data.get("allowed_users", None)
 
@@ -851,7 +767,7 @@ class EditorCommands(RaffleMixin):
 
 
     @rolesreq.command(name="add")
-    async def rolesreq_add(self, ctx, raffle: str, role: discord.Role):
+    async def rolesreq_add(self, ctx, raffle: RaffleFactoryConverter, role: discord.Role):
         """Add a role to the role requirements list of a raffle.
         
         **Arguments:**
@@ -861,11 +777,6 @@ class EditorCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-
-            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
-                return await ctx.send(_("You are not the owner of this raffle."))
 
             roles = raffle_data.get("roles_needed_to_enter", [])
 
@@ -883,7 +794,7 @@ class EditorCommands(RaffleMixin):
 
 
     @rolesreq.command(name="remove", aliases=["del"])
-    async def rolereq_remove(self, ctx, raffle: str, role: discord.Role):
+    async def rolereq_remove(self, ctx, raffle: RaffleFactoryConverter, role: discord.Role):
         """Remove a role from the role requirements list of a raffle.
         
         **Arguments:**
@@ -893,11 +804,6 @@ class EditorCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-
-            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
-                return await ctx.send(_("You are not the owner of this raffle."))
 
             roles = raffle_data.get("roles_needed_to_enter", [])
 
@@ -911,7 +817,7 @@ class EditorCommands(RaffleMixin):
 
 
     @rolesreq.command(name="clear")
-    async def rolereq_clear(self, ctx, raffle: str):
+    async def rolereq_clear(self, ctx, raffle: RaffleFactoryConverter):
         """Clear the role requirement list for a raffle.
 
         
@@ -921,11 +827,6 @@ class EditorCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-
-            if ctx.author.id not in (raffle_data["owner"], ctx.guild.owner_id):
-                return await ctx.send(_("You are not the owner of this raffle."))
 
             rolesreq = raffle_data.get("roles_needed_to_enter", [])
 
