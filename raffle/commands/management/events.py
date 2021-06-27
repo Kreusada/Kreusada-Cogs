@@ -12,7 +12,7 @@ from ...utils.helpers import has_badge, format_underscored_text
 from ...utils.safety import RaffleSafeMember
 from ...utils.checks import account_age_checker, server_join_age_checker
 from ...mixins.abc import RaffleMixin
-from ...utils.converters import RaffleFactoryConverter
+from ...utils.converters import RaffleExists, RaffleFactoryConverter
 
     
 _ = Translator("Raffle", __file__)  
@@ -99,7 +99,7 @@ class EventCommands(RaffleMixin):
         await self.replenish_cache(ctx)
 
     @raffle.command()
-    async def join(self, ctx: Context, raffle: str):
+    async def join(self, ctx: Context, raffle: RaffleExists):
         """Join a raffle.
         
         **Arguments:**
