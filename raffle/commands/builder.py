@@ -9,12 +9,12 @@ from redbot.core.utils.chat_formatting import box
 from redbot.core.i18n import Translator
 
 from ..mixins.abc import RaffleMixin
-from ..enums import RaffleComponents
-from ..parser import RaffleManager
-from ..formatting import tick, cross
-from ..exceptions import RaffleError
+from ..utils.enums import RaffleComponents
+from ..utils.parser import RaffleManager
+from ..utils.formatting import tick, cross
+from ..utils.exceptions import RaffleError
 
-from ..helpers import (
+from ..utils.helpers import (
     cleanup_code,
     validator,
     getstrftime,

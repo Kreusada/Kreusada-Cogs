@@ -7,12 +7,12 @@ from redbot.core.i18n import Translator
 from redbot.core.utils.chat_formatting import box, pagify, inline
 
 from ..mixins.abc import RaffleMixin
-from ..enums import RaffleComponents
 from ..version_handler import VersionHandler
-from ..formatting import CURRENT_PAGE, LEFT_ARROW, RIGHT_ARROW, square, curl
-from ..parser import RaffleManager
-from ..converters import RaffleExists
-from ..helpers import (
+from ..utils.enums import RaffleComponents
+from ..utils.formatting import CURRENT_PAGE, LEFT_ARROW, RIGHT_ARROW, square, curl
+from ..utils.parser import RaffleManager
+from ..utils.converters import RaffleExists
+from ..utils.helpers import (
     compose_menu, 
     yield_sectors, 
     listumerate,
