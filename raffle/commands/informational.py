@@ -11,13 +11,14 @@ from ..enums import RaffleComponents
 from ..version_handler import VersionHandler
 from ..formatting import CURRENT_PAGE, LEFT_ARROW, RIGHT_ARROW, square, curl
 from ..parser import RaffleManager
+from ..converters import RaffleExists
 from ..helpers import (
     compose_menu, 
     yield_sectors, 
     listumerate,
     format_underscored_text,
-    revert_underscored_text
 )
+
 
 
 _ = Translator("Raffle", __file__)
@@ -32,7 +33,7 @@ class InformationalCommands(RaffleMixin):
 
 
     @raffle.command()
-    async def info(self, ctx: Context, raffle: str):
+    async def info(self, ctx: Context, raffle: RaffleExists):
         """Get information about a certain raffle.
         
         **Arguments:**
@@ -41,8 +42,6 @@ class InformationalCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
         quotes = lambda x: f'"{x}"'
         relevant_data = []
@@ -77,7 +76,7 @@ class InformationalCommands(RaffleMixin):
 
 
     @raffle.command()
-    async def asyaml(self, ctx: Context, raffle: str):
+    async def asyaml(self, ctx: Context, raffle: RaffleExists):
         """Get a raffle in its YAML format.
 
         **Arguments:**
@@ -86,8 +85,6 @@ class InformationalCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
         quotes = lambda x: f'"{x}"'
         relevant_data = [("name", quotes(raffle))]
@@ -137,7 +134,7 @@ class InformationalCommands(RaffleMixin):
 
 
     @raffle.command()
-    async def raw(self, ctx: Context, raffle: str):
+    async def raw(self, ctx: Context, raffle: RaffleExists):
         """View the raw dictionary for a raffle.
         
         **Arguments:**
@@ -156,7 +153,7 @@ class InformationalCommands(RaffleMixin):
 
 
     @raffle.command()
-    async def members(self, ctx: Context, raffle: str):
+    async def members(self, ctx: Context, raffle: RaffleExists):
         """Get all the members of a raffle.
         
         **Arguments:**
@@ -165,8 +162,6 @@ class InformationalCommands(RaffleMixin):
         r = await self.config.guild(ctx.guild).raffles()
 
         raffle_data = r.get(raffle, None)
-        if not raffle_data:
-            return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
 
         entries = raffle_data.get("entries")
 
