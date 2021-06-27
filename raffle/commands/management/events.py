@@ -168,7 +168,7 @@ class EventCommands(RaffleMixin):
 
 
     @raffle.command()
-    async def leave(self, ctx: Context, raffle: str):
+    async def leave(self, ctx: Context, raffle: RaffleExists):
         """Leave a raffle.
         
         **Arguments:**
@@ -177,9 +177,6 @@ class EventCommands(RaffleMixin):
         async with self.config.guild(ctx.guild).raffles() as r:
 
             raffle_data = r.get(raffle, None)
-            if not raffle_data:
-                return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-
             raffle_entries = raffle_data.get("entries")
 
             if not ctx.author.id in raffle_entries:
