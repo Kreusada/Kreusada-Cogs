@@ -82,4 +82,5 @@ class Flags(Cog):
             timestamp=datetime.datetime.now()
         )
 
+        embed.set_image(url=image)
         await menu(ctx, [embed], {"\N{CROSS MARK}": close_menu})
