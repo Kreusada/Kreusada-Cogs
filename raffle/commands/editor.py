@@ -497,9 +497,9 @@ class EditorCommands(RaffleMixin):
                 return await ctx.send(_("This user is already prevented in this raffle."))
             
             if not prevented:
-                raffle_data["prevented_users"] = [member]
+                raffle_data["prevented_users"] = [member.id]
             else:
-                prevented.append(member)
+                prevented.append(member.id)
 
             await ctx.send(_("{} added to the prevented list for this raffle.".format(member.name)))
 
@@ -682,9 +682,9 @@ class EditorCommands(RaffleMixin):
                 return await ctx.send(_("This user is already allowed in this raffle."))
 
             if not allowed:
-                raffle_data["allowed_users"] = [member]
+                raffle_data["allowed_users"] = [member.id]
             else:
-                allowed.append(member)
+                allowed.append(member.id)
 
             await ctx.send(_("{} added to the allowed list for this raffle.".format(member.name)))
 
