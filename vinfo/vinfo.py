@@ -38,7 +38,7 @@ class Vinfo(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "2.0.0"
+    __version__ = "2.0.1"
 
     def __init__(self, bot):
         self.bot = bot
@@ -108,7 +108,7 @@ class Vinfo(commands.Cog):
             if self.is_dev():
                 dev_field_value = box(
                     f"getattr(bot.get_cog('{cog}'), '__version__')\n"
-                    f">>> AttributeError: '{cog}' object has no attribute '__version__'",
+                    f">>> AttributeError: 'NoneType' object has no attribute '__version__'",
                     lang="py"
                 )
         else:
