@@ -38,7 +38,7 @@ class Vinfo(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "2.0.1"
+    __version__ = "2.0.2"
 
     def __init__(self, bot):
         self.bot = bot
@@ -107,8 +107,8 @@ class Vinfo(commands.Cog):
             version_info_field_value = box(f"- Could not find a cog matching `{cog}`.", lang='diff')
             if self.is_dev():
                 dev_field_value = box(
-                    f"getattr(bot.get_cog('{cog}'), '__version__')\n"
-                    f">>> AttributeError: 'NoneType' object has no attribute '__version__'",
+                    f"{getattr.__name__}(bot.get_cog('{cog}'), '__version__')\n"
+                    ">>> AttributeError: 'NoneType' object has no attribute '__version__'",
                     lang="py"
                 )
         else:
@@ -117,7 +117,7 @@ class Vinfo(commands.Cog):
                 version_info_field_value = box(f"{_getattr} ({type(_getattr).__name__})", lang="py")
                 if self.isdev():
                     dev_field_value = box(
-                        f"getattr(bot.get_cog('{cog}'), '__version__')\n"
+                        f"{getattr.__name__}(bot.get_cog('{cog}'), '__version__')\n"
                         f">>> '{_getattr}'",
                         lang="py"
                 )
@@ -202,7 +202,7 @@ class Vinfo(commands.Cog):
             if self.isdev():
                 embed.add_field(
                     name="Quick Debug",
-                    value=box(f"__import__('{module}')\n>>> {e.__class__.__name__}: {e}", lang="py"),
+                    value=box(f"{__import__.__name__}('{module}')\n>>> {e.__class__.__name__}: {e}", lang="py"),
                     inline=False
                 )
             await ctx.send(embed=embed)
@@ -220,7 +220,7 @@ class Vinfo(commands.Cog):
             if self.isdev():
                 embed.add_field(
                     name="Quick Debug",
-                    value=box(f"__import__('{module}')\n>>> {e.__class__.__name__}: {e}", lang="py"),
+                    value=box(f"{__import__.__name__}('{module}')\n>>> {e.__class__.__name__}: {e}", lang="py"),
                     inline=False
                 )
             await ctx.send(embed=embed)
@@ -285,7 +285,7 @@ class Vinfo(commands.Cog):
             )
         if attr is not None:
             debug = box(
-                text=f"getattr(__import__('{MOD.__name__}'), '{check_attrs[1]}')\n>>> {value}",
+                text=f"{getattr.__name__}({__import__.__name__}('{MOD.__name__}'), '{check_attrs[1]}')\n>>> {value}",
                 lang="py"
             )
             if self.isdev():
