@@ -524,6 +524,8 @@ class EditorCommands(RaffleMixin):
                 return await ctx.send(_("This user was not already prevented in this raffle."))
 
             prevented.remove(member.id)
+            if not prevented:
+                del raffle_data["prevented_users"]
             await ctx.send(_("{} remove from the prevented list for this raffle.".format(member.name)))
 
         await self.replenish_cache(ctx)
@@ -632,7 +634,9 @@ class EditorCommands(RaffleMixin):
                 if badge not in badges_list:
                     return await ctx.send(_("The \"{}\" badge was not already required in this raffle.".format(badge)))
 
-                badges_list.remove(badge)
+            badges_list.remove(badge)
+            if not badges_list:
+                del raffle_data["badges_list"]
             await ctx.send(_("Added the following badges as requirements in this raffle: {}.".format(", ".join(inline(format_underscored_text(b)) for b in badges))))
 
         await self.replenish_cache(ctx)
@@ -709,6 +713,8 @@ class EditorCommands(RaffleMixin):
                 return await ctx.send(_("This user was not already allowed in this raffle."))
 
             allowed.remove(member.id)
+            if not allowed:
+                del raffle_data["allowed_users"]
             await ctx.send(_("{} removed from the allowed list for this raffle.".format(member.name)))
 
         await self.replenish_cache(ctx)
