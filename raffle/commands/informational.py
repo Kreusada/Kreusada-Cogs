@@ -140,12 +140,7 @@ class InformationalCommands(RaffleMixin):
             - `<raffle>` - The name of the raffle.
         """
         r = await self.config.guild(ctx.guild).raffles()
-
-        raffle_data = r.get(raffle, None)
-        if not raffle_data:
-            return await ctx.send(_("There is not an ongoing raffle with the name `{}`.".format(raffle)))
-
-        for page in pagify(str({raffle: raffle_data})):
+        for page in pagify(str({raffle: r[raffle]}), page_length=1985):
             await ctx.send(box(page, lang="json"))
 
         await self.replenish_cache(ctx)
