@@ -63,9 +63,7 @@ ping
 
 **Description**
 
-Pong? Or not?
-
-Replies with all the PingOverride settings, and your configured response.
+Pong.
 
 .. _pinginvoke-command-pingset:
 
@@ -81,35 +79,7 @@ pingset
 
 **Description**
 
-Commands to configure PingOverride. Settings include:
-
-* Embedded content
-* Replies, and mentions
-* Response with special regex
-* Random responses
-
-.. _pinginvoke-command-pingset-embed:
-
-^^^^^^^^^^^^^
-pingset embed
-^^^^^^^^^^^^^
-
-**Syntax**
-
-.. code-block:: ini
-
-    [p]pingset embed <true_or_false>
-
-**Description**
-
-Sets whether the response is sent inside an embed.
-On cog install, this setting is false.
-
-.. note:: If the bot doesn't have permissions to send embeds, this setting will be bypassed.
-
-**Arguments**
-
-* ``<true_or_false>``: Toggle for embeds setting. Must specify ``true`` or ``false``.
+Set your ping message.
 
 .. _pinginvoke-command-pingset-message:
 
