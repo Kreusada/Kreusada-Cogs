@@ -20,7 +20,7 @@ class Termino(commands.Cog):
     """Customize bot shutdown and restart messages, with predicates, too."""
 
     __author__ = ["Kreusada", "Jojo#7791"]
-    __version__ = "2.0.0"
+    __version__ = "2.0.1"
 
     def __init__(self, bot):
         self.bot = bot
@@ -118,6 +118,7 @@ class Termino(commands.Cog):
                 colour=await self.bot.get_embed_colour(ch),
                 timestamp=datetime.datetime.utcnow(),  # This is fine
             )
+            embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar_url)
             kwargs = {"embed": embed}
         try:
             await ch.send(**kwargs)
@@ -134,11 +135,12 @@ class Termino(commands.Cog):
         kwargs = {"content": f"I am now {shutting_down}. {default_wave}"}
         if channel.permissions_for(channel.guild.me):
             embed = discord.Embed(
-                title=f"{channel.guild.me.name}",
+                title=f"{channel.guild.me.name} is offline.",
                 colour=await self.bot.get_embed_colour(channel),
                 description=f"I am now {shutting_down}. {default_wave}",
                 timestamp=datetime.datetime.utcnow(),
             )
+            embed.set_author(name=channel.guild.me.name, icon_url=self.bot.user.avatar_url)
             kwargs = {"embed": embed}
         try:
             await channel.send(**kwargs)
