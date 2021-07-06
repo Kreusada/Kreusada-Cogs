@@ -8,8 +8,8 @@ setlocal ENABLEDELAYEDEXPANSION
 goto %1
 
 :reformat
-isort --atomic --line-length 99 --use-parentheses .
-black -l 99 .
+isort .
+black .
 exit /B %ERRORLEVEL%
 
 :help
