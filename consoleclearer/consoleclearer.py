@@ -22,7 +22,7 @@ class ConsoleClearer(commands.Cog):
     """Clear your console."""
 
     __author__ = ["Kreusada"]
-    __version__ = "1.0.2"
+    __version__ = "1.1.0"
 
     def __init__(self, bot):
         self.bot = bot
@@ -45,8 +45,8 @@ class ConsoleClearer(commands.Cog):
             with contextlib.suppress(Exception):
                 self.bot.add_dev_env_value("consoleclearer", lambda x: self)
 
-    @commands.command()
-    async def cleanconsole(self, ctx: commands.Context):
+    @commands.command(aliases=["cleanconsole", "consoleclear", "consoleclean"])
+    async def clearconsole(self, ctx: commands.Context):
         """
         Completely clears [botname]'s console.
         """
