@@ -1,14 +1,14 @@
 import contextlib
-import discord
 import logging
-import time
+import pingoverride
+import toml
 
-from redbot.core.bot import Red
 from redbot.core import Config, commands
 from redbot.core.utils.chat_formatting import box
+from redbot.core.utils.menus import menu, DEFAULT_CONTROLS
 
 from .enums import PingOverrideVariables
-from .objects import Latency, Member
+from .objects import Member
 
 log = logging.getLogger("red.kreusada.pingoverride")
 
@@ -75,9 +75,13 @@ class PingOverride(commands.Cog):
     async def ping(self, ctx: commands.Context):
         """Pong."""
         settings = await self.config.all()
+        kwargs = {
+            "author": Member(ctx.author),
+            "latency": round(self.bot.latency * 1000, 2)
+        }
 
         sender = ctx.send
-        kwargs = {"content": settings["response"].format(author=Member(ctx.author))}
+        kwargs = {"content": settings["response"].format(**kwargs)}
 
         if settings["reply_settings"]["toggled"]:
             sender = ctx.reply
@@ -104,10 +108,14 @@ class PingOverride(commands.Cog):
         ` `{author.name_and_discriminator}`
         """
         try:
-            ping_message.format(author=Member(ctx.author))
+            ping_message.format(author=Member(ctx.author), latency=round(self.bot.latency * 1000, 2))
+        except KeyError as e:
+            curled = curl(str(e).strip("'"))
+            await ctx.send(box(f"{e.__class__.__name__}: {curled} is not a recognized variable", lang="yaml"))
+            return
         except commands.BadArgument as e:
             curled = curl(f"author.{e}")
-            await ctx.send(box(f"{e.__class__.__name__}: {curled} is not valid", lang="yaml"))
+            await ctx.send(box(f"{e.__class__.__name__}: {curled} is not valid, author has no attribute {e}", lang="yaml"))
             return
 
         await self.config.response.set(ping_message)
@@ -125,27 +133,45 @@ class PingOverride(commands.Cog):
     @pingset_reply.command(name="mention")
     async def pingset_reply_mention(self, ctx: commands.Context, mention: bool):
         """Set whether the ping message uses replies."""
-        settings = await self.config.all()
-
-        if not settings["reply_settings"]["toggled"]:
-            await ctx.send("Replies need to be enabled for this feature.")
-            return
-
         await self.config.reply_settings.mention.set(mention)
         verb = "enabled" if mention else "disabled"
         await ctx.send("Reply mentions have been {}.".format(verb))
 
 
     @pingset.command(name="variables", aliases=["vars"])
+    @commands.bot_has_permissions(add_reactions=True)
     async def pingset_variables(self, ctx: commands.Context):
         """List the available variables for the ping command."""
-        message = "\n".join(f"{curl('author.' + e.name.lower())}: {e.value[0]}" for e in sorted(PingOverrideVariables, key=lambda x: len(x.name)))
+        data = []
+        key = lambda x: x.name
+        sorted_vars = sorted(PingOverrideVariables, key=key)
+        for c, v in enumerate(sorted_vars, 1):
+            if v.name.lower() == "latency":
+                var = curl(v.name.lower())
+            else:
+                var = curl(f"author.{v.name.lower()}")
+            _dict = {var: {"description": v.value[1], "example": v.value[2]}}
+            page_info = f"Page {c}/{len(sorted_vars)}"
+            kwargs = {"text": toml.dumps(_dict) + page_info, "lang": "toml"}
+            data.append(box(**kwargs))
+
+        await menu(ctx, data, DEFAULT_CONTROLS)
+
+    
+    @pingset.command(name="settings")
+    async def pingset_settings(self, ctx: commands.Context):
+        """See the current settings for PingOverride."""
+        settings = await self.config.all()
+        message = f"Replies: {settings['reply_settings']['toggled']}\n"
+        if settings["reply_settings"]["mention"]:
+            message += "\t- These replies will mention\n"
+        message += f"Response: {settings['response']}"
         await ctx.send(box(message, lang="yaml"))
 
 
 async def setup(bot):
     global ping_com
     cog = PingOverride(bot)
-    restart = bot.remove_command("ping")
+    ping_com = bot.remove_command("ping")
     await cog.initialize()
     bot.add_cog(cog)
