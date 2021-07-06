@@ -52,9 +52,7 @@ class Dehoister(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, IDENTIFIER, force_registration=True)
-        self.config.register_guild(
-            nickname=f"{DELTA} Dehoisted", toggled=False, ignored_users=[]
-        )
+        self.config.register_guild(nickname=f"{DELTA} Dehoisted", toggled=False, ignored_users=[])
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
@@ -119,8 +117,7 @@ class Dehoister(commands.Cog):
             # Pre-formatting for output
             f"{m}:{f'{B}- {m.nick}' if m.nick else ''}{B}-- {m.id}"
             for m in ctx.guild.members
-            if m.display_name.startswith(HOIST)
-            and not m.bot and m.id not in ignored_users
+            if m.display_name.startswith(HOIST) and not m.bot and m.id not in ignored_users
         )
 
     @commands.Cog.listener()
@@ -138,7 +135,6 @@ class Dehoister(commands.Cog):
                 await self.create_case(guild, member, self.bot)
             else:
                 log.error(f"Invalid permissions to edit a members name. [{member.id}]")
-
 
     @commands.group()
     @commands.mod_or_permissions(manage_nicknames=True)
@@ -255,9 +251,7 @@ class Dehoister(commands.Cog):
             for m in ctx.guild.members:
                 if m.display_name.startswith(HOIST) and not m.bot and m.id not in ignored_users:
                     try:
-                        await m.edit(
-                            nick=await self.config.guild(ctx.guild).nickname()
-                        )
+                        await m.edit(nick=await self.config.guild(ctx.guild).nickname())
                     except discord.Forbidden:
                         # This exception will only occur if an attempt is made to dehoist server owner
                         exceptions += 1
@@ -329,9 +323,9 @@ class Dehoister(commands.Cog):
         """
         toggled = await self.config.guild(ctx.guild).toggled()
         await self.config.guild(ctx.guild).toggled.set(not toggled)
-        await ctx.send(
-            "Dehoister has been enabled."
-        ) if not toggled else await ctx.send("Dehoister has been disabled.")
+        await ctx.send("Dehoister has been enabled.") if not toggled else await ctx.send(
+            "Dehoister has been disabled."
+        )
 
     @_set.command()
     async def nickname(self, ctx: commands.Context, *, nickname: str):
@@ -349,9 +343,7 @@ class Dehoister(commands.Cog):
                 f"Discord has a limit of 32 characters for nicknames. Your chosen nickname could not be set."
             )
         await self.config.guild(ctx.guild).nickname.set(nickname)
-        await ctx.send(
-            f"Dehoisted members will now have their nickname set to `{nickname}`."
-        )
+        await ctx.send(f"Dehoisted members will now have their nickname set to `{nickname}`.")
 
     @hoist.group()
     async def explain(self, ctx: commands.Context):

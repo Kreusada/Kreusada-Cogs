@@ -50,7 +50,7 @@ locale
 
 .. code-block:: ini
 
-    [p]locale 
+    [p]locale
 
 **Description**
 
@@ -68,7 +68,7 @@ locale bot
 
 .. code-block:: ini
 
-    [p]locale bot 
+    [p]locale bot
 
 **Description**
 

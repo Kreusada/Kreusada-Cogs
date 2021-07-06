@@ -50,7 +50,7 @@ password
 
 .. code-block:: ini
 
-    [p]flag <argument> 
+    [p]flag <argument>
 
 **Description**
 

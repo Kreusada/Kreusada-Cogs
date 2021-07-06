@@ -50,7 +50,7 @@ lifted
 
 .. code-block:: ini
 
-    [p]lifted 
+    [p]lifted
 
 **Description**
 
@@ -66,7 +66,7 @@ liftedboard
 
 .. code-block:: ini
 
-    [p]liftedboard 
+    [p]liftedboard
 
 **Description**
 
@@ -82,7 +82,7 @@ trylift
 
 .. code-block:: ini
 
-    [p]trylift 
+    [p]trylift
 
 **Description**
 

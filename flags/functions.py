@@ -3,7 +3,7 @@ def square(t):
 
 
 def format_attr(t):
-    return t.replace('_',' ').title()
+    return t.replace("_", " ").title()
 
 
 EXCEPTIONS = {"russia": "ru"}

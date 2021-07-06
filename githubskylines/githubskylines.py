@@ -1,8 +1,8 @@
-import aiohttp
 import contextlib
 import logging
 from datetime import datetime as dt
 
+import aiohttp
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import bold
 
@@ -47,11 +47,10 @@ class GithubSkylines(commands.Cog):
         async with self.session.get(self.skyline.format(git_username)) as session:
             if not session.status == 200:
                 return await ctx.send("Please provide a valid github username.")
-        if not year in [*range(2008, int(dt.now().strftime("%Y"))+1)]:
+        if not year in [*range(2008, int(dt.now().strftime("%Y")) + 1)]:
             return await ctx.send(
                 f"Please provide a valid year, between 2008 and {dt.now().strftime('%Y')}."
             )
         msg = bold("Here is your github skyline:\n")
         msg += self.skyline.format(git_username) + f"/{year}"
         await ctx.send(msg)
-        

@@ -6,7 +6,7 @@ with the conditions, the commands, and the code itself. Please, even if you
 are experienced at coding, open an issue, or speak to me in my support channel
 instead (#support_kreusada-cogs).
 
-Suggestions are always welcome, especially for new conditions. So again, feel 
+Suggestions are always welcome, especially for new conditions. So again, feel
 free to file an issue or speak to me in my support channel.
 
 # What I will refuse to add
