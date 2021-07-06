@@ -11,7 +11,10 @@ perms = {"embed_links": True, "add_reactions": True}
 
 class ValidRoleIndex(commands.Converter):
     async def convert(self, ctx: commands.Context, argument):
-        argument = int(argument)
+        try:
+            argument = int(argument)
+        except ValueError:
+            raise commands.BadArgument("Please provide an integer.")
         if argument > (len(ctx.guild.roles) - 1):
             raise commands.BadArgument(
                 "Please provide an index lower than the number of roles in this guild."
@@ -21,7 +24,10 @@ class ValidRoleIndex(commands.Converter):
 
 class ValidUserIndex(commands.Converter):
     async def convert(self, ctx: commands.Context, argument):
-        argument = int(argument)
+        try:
+            argument = int(argument)
+        except ValueError:
+            raise commands.BadArgument("Please provide an integer.")
         if argument > len(ctx.guild.members):
             raise commands.BadArgument(
                 "Please provide an index lower than the number of users in this guild."
@@ -36,7 +42,7 @@ class RoleBoards(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "3.0.0"
+    __version__ = "3.1.0"
 
     def __init__(self, bot):
         self.bot = bot
