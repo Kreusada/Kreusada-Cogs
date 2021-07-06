@@ -17,3 +17,20 @@
         | adventure\/data
     )/
     '''
+
+[tool.isort]
+    profile = 'black'
+    line_length = 99
+    atomic = true
+    sections = ['FUTURE','STDLIB','FIRSTPARTY','THIRDPARTY','LOCALFOLDER']
+    known_third_party = ['discord', 'redbot']
+    known_first_party = [
+        'announcements',
+        'charlimit',
+        'lockdown',
+        'newspublish',
+        'reports',
+        'sharkytools',
+        'strawpoll',
+        'verify',
+    ]
