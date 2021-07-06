@@ -98,6 +98,7 @@ class RoleBoards(commands.Cog):
         
         \u200b
         **Arguments**
+        
         -   ``<index>``: The number of roles to get the data for.
         """
         data = self.get_roles(ctx.guild, index)
