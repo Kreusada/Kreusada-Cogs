@@ -1,14 +1,14 @@
 import asyncio
 import contextlib
-import discord
 import json
 import pathlib
-import yaml
 
+import discord
+import yaml
 from redbot.core import commands
-from redbot.core.utils.menus import start_adding_reactions
 from redbot.core.utils.chat_formatting import box, humanize_list
-from redbot.core.utils.predicates import ReactionPredicate, MessagePredicate
+from redbot.core.utils.menus import start_adding_reactions
+from redbot.core.utils.predicates import MessagePredicate, ReactionPredicate
 
 with open(pathlib.Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]

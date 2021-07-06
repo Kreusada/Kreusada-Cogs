@@ -1,9 +1,8 @@
 import contextlib
+import random
 from typing import Optional
 
 import discord
-import random
-
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import bold, box
 

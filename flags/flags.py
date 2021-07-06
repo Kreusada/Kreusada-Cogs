@@ -1,5 +1,6 @@
 import contextlib
 import datetime
+
 import discord
 
 try:
@@ -10,10 +11,10 @@ except ModuleNotFoundError:
 from redbot.core import commands
 from redbot.core.commands import Cog, Context
 from redbot.core.utils.chat_formatting import box, humanize_list
-from redbot.core.utils.menus import menu, close_menu
+from redbot.core.utils.menus import close_menu, menu
 
-from .functions import format_attr
 from .converters import CountryConverter
+from .functions import format_attr
 
 
 class Flags(Cog):

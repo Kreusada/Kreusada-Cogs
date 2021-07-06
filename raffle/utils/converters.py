@@ -1,6 +1,5 @@
 from redbot.core.commands import BadArgument, Context, Converter
 
-
 __all__ = (
     "RaffleFactoryConverter",
     "RaffleExists",

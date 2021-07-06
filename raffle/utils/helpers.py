@@ -1,21 +1,20 @@
 import asyncio
+from typing import List, Literal, Union
+
 import discord
 import yaml
-
-from typing import List, Literal, Union
+from redbot.core.bot import Red as RedBot
+from redbot.core.commands import Context
+from redbot.core.i18n import Translator
+from redbot.core.utils.chat_formatting import box
+from redbot.core.utils.menus import DEFAULT_CONTROLS, close_menu, menu
 from yaml.parser import MarkedYAMLError
 
-from redbot.core.bot import Red as RedBot
-from redbot.core.i18n import Translator
-from redbot.core.commands import Context
-from redbot.core.utils.chat_formatting import box
-from redbot.core.utils.menus import menu, close_menu, DEFAULT_CONTROLS
-
 from .checks import now
-from .safety import RaffleSafeMember
-from .enums import RaffleJoinMessageComponents, RaffleEndMessageComponents
-from .formatting import curl, formatenum, cross
+from .enums import RaffleEndMessageComponents, RaffleJoinMessageComponents
 from .exceptions import InvalidArgument, RaffleError
+from .formatting import cross, curl, formatenum
+from .safety import RaffleSafeMember
 
 _ = Translator("Raffle", __file__)
 

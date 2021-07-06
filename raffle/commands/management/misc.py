@@ -1,20 +1,18 @@
 import asyncio
 import contextlib
-import discord
 
+import discord
 from redbot.core import commands
 from redbot.core.commands import Context
 from redbot.core.i18n import Translator
 from redbot.core.utils.menus import start_adding_reactions
-from redbot.core.utils.predicates import ReactionPredicate, MessagePredicate
+from redbot.core.utils.predicates import MessagePredicate, ReactionPredicate
 
-from ...utils.parser import RaffleManager
-from ...utils.formatting import tick, cross
 from ...mixins.abc import RaffleMixin
 from ...utils.exceptions import RaffleError
-
-from ...utils.helpers import validator, cleanup_code, format_traceback
-
+from ...utils.formatting import cross, tick
+from ...utils.helpers import cleanup_code, format_traceback, validator
+from ...utils.parser import RaffleManager
 
 _ = Translator("Raffle", __file__)
 

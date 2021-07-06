@@ -1,23 +1,16 @@
 import discord
-
 from redbot.core import commands
 from redbot.core.commands import Context
 from redbot.core.i18n import Translator
 from redbot.core.utils.chat_formatting import box, pagify
 
 from ..mixins.abc import RaffleMixin
-from ..version_handler import VersionHandler
+from ..utils.converters import RaffleExists
 from ..utils.enums import RaffleComponents
 from ..utils.formatting import CURRENT_PAGE, LEFT_ARROW, RIGHT_ARROW, curl
+from ..utils.helpers import compose_menu, format_underscored_text, listumerate, yield_sectors
 from ..utils.parser import RaffleManager
-from ..utils.converters import RaffleExists
-from ..utils.helpers import (
-    compose_menu,
-    yield_sectors,
-    listumerate,
-    format_underscored_text,
-)
-
+from ..version_handler import VersionHandler
 
 _ = Translator("Raffle", __file__)
 

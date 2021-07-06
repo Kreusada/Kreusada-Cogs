@@ -1,8 +1,8 @@
-import aiohttp
 import json
-
 from pathlib import Path
-from typing import Union, Tuple
+from typing import Tuple, Union
+
+import aiohttp
 
 RAW_VERSION_PATH = Path(__file__).parent / "info.json"
 RAW_VERSION_URL = (

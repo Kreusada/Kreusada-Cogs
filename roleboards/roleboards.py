@@ -1,10 +1,10 @@
 import contextlib
-import discord
-
 from typing import List, Literal, Tuple
+
+import discord
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import box
-from redbot.core.utils.menus import menu, DEFAULT_CONTROLS
+from redbot.core.utils.menus import DEFAULT_CONTROLS, menu
 
 perms = {"embed_links": True, "add_reactions": True}
 

@@ -1,6 +1,6 @@
 import contextlib
-import os
 import datetime
+import os
 
 from redbot.core import commands
 

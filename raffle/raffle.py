@@ -2,21 +2,18 @@ import contextlib
 import json
 import pathlib
 
-from redbot.core import commands, Config
+from redbot.core import Config, commands
 from redbot.core.commands import Context
-from redbot.core.i18n import cog_i18n, Translator
+from redbot.core.i18n import Translator, cog_i18n
 from redbot.core.utils.chat_formatting import humanize_list
 
-from .version_handler import VersionHandler
-
-from .commands.informational import InformationalCommands
-from .commands.editor import EditorCommands
 from .commands.builder import BuilderCommands
-
+from .commands.editor import EditorCommands
+from .commands.informational import InformationalCommands
 from .commands.management.events import EventCommands
 from .commands.management.misc import MiscCommands
-
 from .mixins.metaclass import MetaClass
+from .version_handler import VersionHandler
 
 RaffleCog = getattr(commands, "Cog", object)
 _ = Translator("Raffle", __file__)

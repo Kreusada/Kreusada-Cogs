@@ -1,8 +1,8 @@
-import aiohttp
 import contextlib
 import logging
 from datetime import datetime as dt
 
+import aiohttp
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import bold
 

@@ -1,8 +1,9 @@
+from typing import Literal
+
 import discord
 
-from typing import Literal
-from .formatting import curl
 from .exceptions import InvalidArgument
+from .formatting import curl
 
 
 class RaffleSafeMember(object):

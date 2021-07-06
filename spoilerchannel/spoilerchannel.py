@@ -2,7 +2,7 @@ import contextlib
 import logging
 
 import discord
-from redbot.core import commands, Config
+from redbot.core import Config, commands
 
 log = logging.getLogger("red.kreusada.spoilerchannel")
 

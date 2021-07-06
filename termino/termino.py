@@ -2,13 +2,12 @@ import asyncio
 import contextlib
 import datetime
 import logging
+from typing import Union
 
 import discord
-from redbot.core import commands, Config, version_info, VersionInfo
+from redbot.core import Config, VersionInfo, commands, version_info
 from redbot.core.utils.chat_formatting import box, pagify
 from redbot.core.utils.predicates import MessagePredicate
-
-from typing import Union
 
 default_wave = "\N{WAVING HAND SIGN}\N{EMOJI MODIFIER FITZPATRICK TYPE-3}"
 log = logging.getLogger("red.kreusada.termino")

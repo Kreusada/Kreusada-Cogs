@@ -1,11 +1,11 @@
 import sys
-import pycountry
-
 from typing import Dict, Union
+
+import pycountry
 from redbot.core.commands import BadArgument, Context, Converter
 from redbot.core.utils.chat_formatting import box
 
-from .functions import square, IMAGE_BASE, EXCEPTIONS
+from .functions import EXCEPTIONS, IMAGE_BASE, square
 
 
 class CountryConverter(Converter):

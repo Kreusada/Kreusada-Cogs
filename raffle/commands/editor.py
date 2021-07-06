@@ -1,31 +1,28 @@
 import asyncio
 import contextlib
-import discord
-
 from typing import Union
+
+import discord
 from redbot.core import commands
 from redbot.core.i18n import Translator
-
 from redbot.core.utils.chat_formatting import box, inline
 from redbot.core.utils.menus import start_adding_reactions
-from redbot.core.utils.predicates import ReactionPredicate, MessagePredicate
+from redbot.core.utils.predicates import MessagePredicate, ReactionPredicate
 
 from ..mixins.abc import RaffleMixin
-from ..utils.parser import RaffleManager
+from ..utils.checks import VALID_USER_BADGES
+from ..utils.converters import RaffleFactoryConverter
+from ..utils.exceptions import InvalidArgument, RaffleError
+from ..utils.formatting import cross, tick
 from ..utils.helpers import (
+    cleanup_code,
     format_traceback,
+    format_underscored_text,
     raffle_safe_member_scanner,
     start_interactive_message_session,
     validator,
-    cleanup_code,
-    format_underscored_text,
 )
-
-from ..utils.checks import VALID_USER_BADGES
-from ..utils.formatting import cross, tick
-from ..utils.exceptions import RaffleError, InvalidArgument
-from ..utils.converters import RaffleFactoryConverter
-
+from ..utils.parser import RaffleManager
 
 _ = Translator("Raffle", __file__)
 

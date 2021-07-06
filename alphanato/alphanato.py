@@ -1,10 +1,10 @@
 import contextlib
+
 import discord
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import box
 
 from .alphabet import NATO_ALPHABET
-
 
 _remove_whitespace = lambda x: x.replace(" ", "")
 

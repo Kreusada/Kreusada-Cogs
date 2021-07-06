@@ -2,7 +2,8 @@
 import contextlib
 import json
 from pathlib import Path
-from random import choice as pick, randint
+from random import choice as pick
+from random import randint
 
 import discord
 from redbot.core import commands

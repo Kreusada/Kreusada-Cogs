@@ -1,21 +1,19 @@
 import asyncio
 import contextlib
-import discord
-
 from typing import Optional
+
+import discord
 from redbot.core import commands
 from redbot.core.commands import Context
-from redbot.core.utils.chat_formatting import box
 from redbot.core.i18n import Translator
+from redbot.core.utils.chat_formatting import box
 
 from ..mixins.abc import RaffleMixin
 from ..utils.enums import RaffleComponents
-from ..utils.parser import RaffleManager
-from ..utils.formatting import tick, cross
 from ..utils.exceptions import RaffleError
-
-from ..utils.helpers import cleanup_code, validator, getstrftime, format_traceback, number_suffix
-
+from ..utils.formatting import cross, tick
+from ..utils.helpers import cleanup_code, format_traceback, getstrftime, number_suffix, validator
+from ..utils.parser import RaffleManager
 
 _ = Translator("Raffle", __file__)
 

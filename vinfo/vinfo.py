@@ -6,16 +6,14 @@ import logging
 import subprocess
 import sys
 import types
+from importlib import import_module
+from pathlib import Path
+from sys import argv as cli_flags
 
 import discord
 import lavalink
 import pip
 import redbot
-
-from importlib import import_module
-from pathlib import Path
-from sys import argv as cli_flags
-
 from redbot.cogs.audio.manager import JAR_BUILD
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import bold, box
