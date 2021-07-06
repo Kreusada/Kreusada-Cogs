@@ -8,6 +8,7 @@ from redbot.core.utils.menus import menu, DEFAULT_CONTROLS
 
 perms = {"embed_links": True, "add_reactions": True}
 
+
 class ValidRoleIndex(commands.Converter):
     async def convert(self, ctx: commands.Context, argument):
         argument = int(argument)
