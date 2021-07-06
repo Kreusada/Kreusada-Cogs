@@ -42,35 +42,19 @@ Commands
 
 .. _roleboards-command-rb:
 
-^^
-rb
-^^
+^^^^^^^^^
+roleboard
+^^^^^^^^^
 
 **Syntax**
 
 .. code-block:: ini
 
-    [p]rb 
+    [p]roleboard 
 
 **Description**
 
-Get roleboards for this server..
-
-.. _roleboards-command-rb-listroles:
-
-""""""""""""
-rb listroles
-""""""""""""
-
-**Syntax**
-
-.. code-block:: ini
-
-    [p]rb listroles 
-
-**Description**
-
-List all roles in this guild.
+Get roleboards for this server.
 
 .. _roleboards-command-rb-toproles:
 
@@ -82,27 +66,35 @@ rb toproles
 
 .. code-block:: ini
 
-    [p]rb toproles 
+    [p]rb toproles <index> 
 
 **Description**
 
 Get the roles with the most users.
 
-.. _roleboards-command-rb-topusers:
+**Arguments**
 
-"""""""""""
-rb topusers
-"""""""""""
+-   ``<index>``: The number of roles to get the data for.
+
+.. _roleboards-command-rb-topmembers:
+
+"""""""""""""
+rb topmembers
+"""""""""""""
 
 **Syntax**
 
 .. code-block:: ini
 
-    [p]rb topusers 
+    [p]rb topmembers <index> 
 
 **Description**
 
-Get the users with the most roles.
+Get the members with the most roles.
+
+**Arguments**
+
+-   ``<index>``: The number of members to get the data for.
 
 ---------------
 Receive Support

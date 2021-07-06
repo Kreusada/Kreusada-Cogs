@@ -71,7 +71,13 @@ class RoleBoards(commands.Cog):
 
     @roleboard.command(aliases=["topusers"])
     async def topmembers(self, ctx, index: ValidUserIndex):
-        """Get the members with the most roles."""
+        """Get the members with the most roles.
+        
+        \u200b
+        **Arguments**
+
+        -   ``<index>``: The number of members to get the data for.
+        """
         data = self.get_users(ctx.guild, index)
         data = self.format_embed_pages(ctx, data, "members")
         await menu(ctx, await data, DEFAULT_CONTROLS)
@@ -86,7 +92,12 @@ class RoleBoards(commands.Cog):
 
     @roleboard.command()
     async def toproles(self, ctx, index: ValidRoleIndex):
-        """Get the roles with the most members."""
+        """Get the roles with the most members.
+        
+        \u200b
+        **Arguments**
+        -   ``<index>``: The number of roles to get the data for.
+        """
         data = self.get_roles(ctx.guild, index)
         data = self.format_embed_pages(ctx, data, "roles")
         await menu(ctx, await data, DEFAULT_CONTROLS)
