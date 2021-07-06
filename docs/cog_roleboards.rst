@@ -31,7 +31,7 @@ Finally, you can see my end user data statements, cog requirements, and other co
 Usage
 -----
 
-Get 'leaderboards' about guild roles, such as the users with the most roles, 
+Get 'leaderboards' about guild roles, such as the users with the most roles,
 the roles with the most users, and a full list of all the roles.
 
 .. _roleboards-commands:
@@ -50,7 +50,7 @@ roleboard
 
 .. code-block:: ini
 
-    [p]roleboard 
+    [p]roleboard
 
 **Description**
 
@@ -66,7 +66,7 @@ rb toproles
 
 .. code-block:: ini
 
-    [p]rb toproles <index> 
+    [p]rb toproles <index>
 
 **Description**
 
@@ -86,7 +86,7 @@ rb topmembers
 
 .. code-block:: ini
 
-    [p]rb topmembers <index> 
+    [p]rb topmembers <index>
 
 **Description**
 

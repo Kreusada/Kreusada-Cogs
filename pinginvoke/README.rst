@@ -31,7 +31,7 @@ Usage
 
 This cog will invoke the ping command by asking if your bot is there.
 
-For instance, if your bot was called WALL-E, whenever I say "walle?", 
+For instance, if your bot was called WALL-E, whenever I say "walle?",
 it will invoke the ping command. This can be set to whatever you want, as long as it ends in a question mark.
 
 .. tip::
@@ -76,7 +76,7 @@ pingi reset
 
 **Description**
 
-Resets and disables PingInvoke. Your bot will no longer respond if you 
+Resets and disables PingInvoke. Your bot will no longer respond if you
 call for it.
 
 .. _pinginvoke-command-pingi-set:

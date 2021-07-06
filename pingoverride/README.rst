@@ -32,7 +32,7 @@ Usage
 This cog will allow you to customize the response from the ``ping`` command.
 So instead of "Pong.", it could be "Beep boop.", or whatever you want!
 
-.. note:: 
+.. note::
 
     This cog replaces the core's ``ping`` command. If you wish to have the old ping command
     back, you can simply unload this cog.
@@ -160,7 +160,7 @@ pingset reply
 
 **Description**
 
-Toggles whether the ping response will use Discord replies. 
+Toggles whether the ping response will use Discord replies.
 Additionally, you can toggle this to mention, or not.
 
 **Arguments**

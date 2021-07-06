@@ -84,7 +84,7 @@ terminoset
 
 .. code-block:: ini
 
-    [p]terminoset 
+    [p]terminoset
 
 **Description**
 
@@ -164,7 +164,7 @@ terminoset settings
 
 .. code-block:: ini
 
-    [p]terminoset settings 
+    [p]terminoset settings
 
 **Description**
 

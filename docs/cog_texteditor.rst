@@ -50,7 +50,7 @@ editor
 
 .. code-block:: ini
 
-    [p]editor 
+    [p]editor
 
 **Description**
 

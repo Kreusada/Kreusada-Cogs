@@ -10,7 +10,7 @@ This is my repository for Red Discord-Bot. I built these cogs because these were
 Installation
 ------------
 
-Primarily, make sure you have `downloader` loaded. 
+Primarily, make sure you have `downloader` loaded.
 
 .. code-block:: ini
 

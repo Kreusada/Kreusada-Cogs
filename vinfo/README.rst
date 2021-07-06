@@ -105,7 +105,7 @@ Get a module's version information.
 
 * ``<module>``: The module to get the version from.
 
-.. warning:: 
+.. warning::
 
     The ``<module>`` **must** be installed, and provided in the correct case.
     There are a few modules such as `Levenshtein`, which start with capitals.

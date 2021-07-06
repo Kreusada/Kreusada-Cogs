@@ -50,7 +50,7 @@ cleanconsole
 
 .. code-block:: ini
 
-    [p]cleanconsole 
+    [p]cleanconsole
 
 **Description**
 

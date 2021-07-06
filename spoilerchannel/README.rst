@@ -50,7 +50,7 @@ spoilerchannel
 
 .. code-block:: ini
 
-    [p]spoilerchannel 
+    [p]spoilerchannel
 
 **Description**
 
@@ -86,7 +86,7 @@ spoilerchannel clear
 
 .. code-block:: ini
 
-    [p]spoilerchannel clear 
+    [p]spoilerchannel clear
 
 **Description**
 
@@ -102,7 +102,7 @@ spoilerchannel list
 
 .. code-block:: ini
 
-    [p]spoilerchannel list 
+    [p]spoilerchannel list
 
 **Description**
 
