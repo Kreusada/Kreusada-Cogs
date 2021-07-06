@@ -6,6 +6,7 @@ from redbot.core import commands
 from redbot.core.utils.chat_formatting import box
 from redbot.core.utils.menus import menu, DEFAULT_CONTROLS
 
+perms = {"embed_links": True, "add_reactions": True}
 
 class ValidRoleIndex(commands.Converter):
     async def convert(self, ctx: commands.Context, argument):
@@ -68,6 +69,7 @@ class RoleBoards(commands.Cog):
 
 
     @roleboard.command(aliases=["topusers"])
+    @commands.bot_has_permissions(**perms)
     async def topmembers(self, ctx, index: ValidUserIndex):
         """Get the members with the most roles.
         
@@ -89,6 +91,7 @@ class RoleBoards(commands.Cog):
 
 
     @roleboard.command()
+    @commands.bot_has_permissions(**perms)
     async def toproles(self, ctx, index: ValidRoleIndex):
         """Get the roles with the most members.
         
