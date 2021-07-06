@@ -48,7 +48,9 @@ class CogPaths(commands.Cog):
             await ctx.send("Could not find a cog with this name.")
             return
         cog_path = pathlib.Path(inspect.getfile(cog_obj.__class__)).parent.resolve()
-        cog_data_path = pathlib.Path(data_manager.cog_data_path() / cog_obj.qualified_name).resolve()
+        cog_data_path = pathlib.Path(
+            data_manager.cog_data_path() / cog_obj.qualified_name
+        ).resolve()
         if not os.path.exists(cog_data_path):
             cog_data_path = None
             if not isinstance(getattr(cog_obj, "config", None), Config):
@@ -57,4 +59,3 @@ class CogPaths(commands.Cog):
                 reason = "This cog had its data directory removed."
         message = "Cog path: {}\nData path: {}".format(cog_path, cog_data_path or reason)
         await ctx.send(box(message, lang="yaml"))
-

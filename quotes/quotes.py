@@ -16,7 +16,7 @@ class Quotes(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.api = 'https://api.quotable.io/random'
+        self.api = "https://api.quotable.io/random"
         self.session = aiohttp.ClientSession()
 
     def cog_unload(self):

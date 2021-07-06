@@ -57,21 +57,21 @@ def number_suffix(number: int) -> str:
 
 
 def yield_sectors(l, n):
-    for i in range(0,len(l),n):
-        yield l[i:i+n]
+    for i in range(0, len(l), n):
+        yield l[i : i + n]
 
 
 def has_badge(badge: str, author: discord.Member):
-    badge_data = {k: v for k, v in list(author.public_flags)} 
+    badge_data = {k: v for k, v in list(author.public_flags)}
     return badge_data[badge]
 
 
 def format_underscored_text(text: str):
-    return text.replace('_', ' ').title()
+    return text.replace("_", " ").title()
 
 
 def revert_underscored_text(text: str):
-    return text.replace(' ', '_').lower()
+    return text.replace(" ", "_").lower()
 
 
 async def compose_menu(ctx, embed_pages: List[discord.Embed]):
@@ -84,9 +84,7 @@ async def compose_menu(ctx, embed_pages: List[discord.Embed]):
 
 def raffle_safe_member_scanner(content: str, cond: Literal["join_message", "end_message"]) -> None:
     """We need this to check if the values are formatted properly."""
-    kwargs = {
-        "raffle": r"{raffle}"
-    }
+    kwargs = {"raffle": r"{raffle}"}
     if cond == "join_message":
         kwargs["user"] = RaffleSafeMember(member=discord.Member, obj="user")
         kwargs["entry_count"] = r"{entry_count}"
@@ -98,14 +96,22 @@ def raffle_safe_member_scanner(content: str, cond: Literal["join_message", "end_
     except AttributeError:
         raise InvalidArgument(f"Please only use top level attributes in your {condition}")
     except TypeError:
-        raise InvalidArgument("Please define an attribute with {winner}, do not use it alone ({condition})".format(winner=r"{winner}", condition=condition))
+        raise InvalidArgument(
+            "Please define an attribute with {winner}, do not use it alone ({condition})".format(
+                winner=r"{winner}", condition=condition
+            )
+        )
     except KeyError as e:
-        raise InvalidArgument("{e} was an unexpected argument in your new {cond} message".format(e=e, cond=condition))
+        raise InvalidArgument(
+            "{e} was an unexpected argument in your new {cond} message".format(e=e, cond=condition)
+        )
 
 
 async def start_interactive_message_session(
-    ctx: Context, bot: RedBot, 
-    sesstype: Literal["join_message", "end_message"], message: discord.Message
+    ctx: Context,
+    bot: RedBot,
+    sesstype: Literal["join_message", "end_message"],
+    message: discord.Message,
 ):
     if sesstype == "join_message":
         when_phrase = _("When a user is drawn")
@@ -117,30 +123,42 @@ async def start_interactive_message_session(
     guide = _(
         "Start adding some messages to add to the list of {sesstype} messages.\n"
         "{when_phrase}, one of these messages will be randomly selected.\n\n"
-        "**Available variables:**".format(
-            sesstype=sesstype.split("_")[0],
-            when_phrase=when_phrase
-        )
+        "**Available variables:**".format(sesstype=sesstype.split("_")[0], when_phrase=when_phrase)
     )
 
     b = lambda x: box(x, lang="yaml")
-    guide += b("\n".join(f"{curl(formatenum(u.name))}: {u.value}" for u in sorted(ENUM, key=lambda x: len(x.name))))
+    guide += b(
+        "\n".join(
+            f"{curl(formatenum(u.name))}: {u.value}"
+            for u in sorted(ENUM, key=lambda x: len(x.name))
+        )
+    )
     try:
         await message.edit(content=guide)
         await message.clear_reactions()
     except discord.HTTPException:
         await ctx.send(guide)
-    
+
     messages = []
 
     check = lambda x: x.channel == ctx.channel and x.author == ctx.author
-    tostop = lambda x: f"{x}\n> " + _("Type {stop} or {exit} to discontinue gathering messages.".format(stop="**stop()**", exit="**exit()**"))
+    tostop = lambda x: f"{x}\n> " + _(
+        "Type {stop} or {exit} to discontinue gathering messages.".format(
+            stop="**stop()**", exit="**exit()**"
+        )
+    )
     bubble = lambda x: "{} {}".format("\N{RIGHT ANGER BUBBLE}\N{VARIATION SELECTOR-16}", x)
     while True:
         if not messages:
             await ctx.send(tostop(bubble(_("Add your first response."))))
         elif len(messages) > 20:
-            await ctx.send(_("Sorry, 20 is the maximum limit for the number of {sesstype} messages.".format(sesstype=sesstype)))
+            await ctx.send(
+                _(
+                    "Sorry, 20 is the maximum limit for the number of {sesstype} messages.".format(
+                        sesstype=sesstype
+                    )
+                )
+            )
             break
         else:
             await ctx.send(tostop(bubble(_("Add another random response:"))))
@@ -152,11 +170,13 @@ async def start_interactive_message_session(
         if message.content.lower() in ("exit()", "stop()"):
             if messages:
                 break
-            return False 
+            return False
         try:
             raffle_safe_member_scanner(message.content, sesstype)
         except InvalidArgument:
-            await ctx.send(cross(_("That message's variables were not formatted correctly, skipping...")))
+            await ctx.send(
+                cross(_("That message's variables were not formatted correctly, skipping..."))
+            )
             continue
         messages.append(message.content)
     return messages

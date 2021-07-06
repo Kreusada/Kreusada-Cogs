@@ -5,9 +5,11 @@ from pathlib import Path
 from typing import Union, Tuple
 
 RAW_VERSION_PATH = Path(__file__).parent / "info.json"
-RAW_VERSION_URL = "https://raw.githubusercontent.com/Kreusada/Kreusada-Cogs/master/raffle/info.json"
+RAW_VERSION_URL = (
+    "https://raw.githubusercontent.com/Kreusada/Kreusada-Cogs/master/raffle/info.json"
+)
 
-__all__ = ("VersionHandler")
+__all__ = ("VersionHandler",)
 
 
 class VersionHandler(object):

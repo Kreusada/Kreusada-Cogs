@@ -39,6 +39,6 @@ class RAM(commands.Cog):
                 f"Percentage: [{m.percent}%]\n"
                 f"Scaled: [{str(round(m.used / 1024 / 1024))}M/"
                 f"{str(round(m.total / 1024 / 1024))}M]",
-                lang="apache"
+                lang="apache",
             )
         )

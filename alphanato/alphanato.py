@@ -6,7 +6,7 @@ from redbot.core.utils.chat_formatting import box
 from .alphabet import NATO_ALPHABET
 
 
-_remove_whitespace = lambda x: x.replace(' ','')
+_remove_whitespace = lambda x: x.replace(" ", "")
 
 
 class AlphaNato(commands.Cog):
@@ -55,11 +55,11 @@ class AlphaNato(commands.Cog):
             return await ctx.send_help()
         factory = {}
         for x in NATO_ALPHABET:
-            if letter.lower().strip() == 'all':
-                    factory[x[0].lower()] = x
+            if letter.lower().strip() == "all":
+                factory[x[0].lower()] = x
             else:
                 for let in tuple(_remove_whitespace(letter)):
                     if x[0].lower() == let and let.isalpha():
                         factory[let] = x
         msg = "\n".join("'{}' = {}".format(k, v) for k, v in sorted(factory.items()))
-        await ctx.send(box(msg, lang='ml'))
+        await ctx.send(box(msg, lang="ml"))

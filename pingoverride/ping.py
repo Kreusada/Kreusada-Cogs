@@ -22,9 +22,7 @@ class PingOverride(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.config = Config.get_conf(
-            self, identifier=59365034743, force_registration=True
-        )
+        self.config = Config.get_conf(self, identifier=59365034743, force_registration=True)
         self.config.register_global(response=[], reply=False, mention=True, embed=False)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
@@ -50,17 +48,11 @@ class PingOverride(commands.Cog):
 
     async def converter(self, ctx: commands.Context, match, bool):
         if bool:
-            return match.replace(
-                '{latency}', str(round(self.bot.latency * 1000))
-            ).replace(
-                '{author}', ctx.author.display_name
+            return match.replace("{latency}", str(round(self.bot.latency * 1000))).replace(
+                "{author}", ctx.author.display_name
             )
         else:
-            return match.replace(
-                '{latency}', "[Latency]"
-            ).replace(
-                '{author}', "[Author]"
-            )
+            return match.replace("{latency}", "[Latency]").replace("{author}", "[Author]")
 
     async def enum(self, ctx, message_list):
         msg_list = [await self.converter(ctx, x, False) for x in message_list]
@@ -100,9 +92,7 @@ class PingOverride(commands.Cog):
         """Settings for ping."""
 
     @pingset.command()
-    async def reply(
-        self, ctx: commands.Context, true_or_false: bool, mention: bool = False
-    ):
+    async def reply(self, ctx: commands.Context, true_or_false: bool, mention: bool = False):
         """Set whether ping will use replies in their output."""
         await self.config.reply.set(true_or_false)
         await self.config.mention.set(mention)
@@ -143,9 +133,7 @@ class PingOverride(commands.Cog):
             cross = "\N{CROSS MARK}"
             check = "\N{WHITE HEAVY CHECK MARK}"
 
-            output.add_field(
-                name="Replies", value=check if reply else cross, inline=True
-            )
+            output.add_field(name="Replies", value=check if reply else cross, inline=True)
 
             if reply:
                 output.add_field(
@@ -159,11 +147,15 @@ class PingOverride(commands.Cog):
             pinginvoke = await self.pinginvoke()
 
             if pinginvoke:
-                output.add_field(name="Invoke Settings", value=pinginvoke + '?')
-                output.description = f"Use `{ctx.clean_prefix}pingi` for more information on invoking ping."
+                output.add_field(name="Invoke Settings", value=pinginvoke + "?")
+                output.description = (
+                    f"Use `{ctx.clean_prefix}pingi` for more information on invoking ping."
+                )
 
             output.add_field(name="Responses", value=pre_processed, inline=False)
-            output.set_footer(text=f"See {ctx.clean_prefix}pingset regex, for information on response regex.")
+            output.set_footer(
+                text=f"See {ctx.clean_prefix}pingset regex, for information on response regex."
+            )
 
             await ctx.send(embed=output)
         else:
@@ -175,9 +167,7 @@ class PingOverride(commands.Cog):
         description = "`{latency}`: Bot Latency\n`{author}`: Author's Display Name"
         if await ctx.embed_requested():
             await ctx.send(
-                embed=discord.Embed(
-                    description=description, color=await ctx.embed_colour()
-                )
+                embed=discord.Embed(description=description, color=await ctx.embed_colour())
             )
         else:
             await ctx.send(description)
@@ -215,9 +205,7 @@ class PingOverride(commands.Cog):
         To exit out of the random selection session, type `stop()` or `exit()`.
         """
 
-        msg = await ctx.send(
-            "Would you like to add any other responses, to be chosen at random?"
-        )
+        msg = await ctx.send("Would you like to add any other responses, to be chosen at random?")
         pred = ReactionPredicate.yes_or_no(msg, ctx.author)
         start_adding_reactions(msg, ReactionPredicate.YES_OR_NO_EMOJIS)
 
@@ -228,12 +216,12 @@ class PingOverride(commands.Cog):
             response = await self.config.response()
             response.append(message)
             await self.config.response.set(response)
-            return await ctx.send(
-                "You took too long to answer, I'll stick to this one response!"
-            )
+            return await ctx.send("You took too long to answer, I'll stick to this one response!")
 
         if pred.result:
-            await ctx.send("Okay, let's add some random responses. Type `stop()` or `exit()` once you're done!")
+            await ctx.send(
+                "Okay, let's add some random responses. Type `stop()` or `exit()` once you're done!"
+            )
             await asyncio.sleep(1)
             await self.config.response.clear()
 
@@ -252,9 +240,7 @@ class PingOverride(commands.Cog):
                     return x.author == ctx.author and x.channel == ctx.channel
 
                 try:
-                    add_response = await self.bot.wait_for(
-                        "message", timeout=50, check=check
-                    )
+                    add_response = await self.bot.wait_for("message", timeout=50, check=check)
                 except asyncio.TimeoutError:
                     return await ctx.send("Timed out. No changes have been made.")
 
@@ -284,10 +270,7 @@ class PingOverride(commands.Cog):
         content = await self.converter(ctx, resp, True)
 
         if embed:
-            content = discord.Embed(
-                description=content,
-                color=await ctx.embed_colour()
-            )
+            content = discord.Embed(description=content, color=await ctx.embed_colour())
 
         kwargs = {}
 
@@ -306,6 +289,7 @@ class PingOverride(commands.Cog):
             await ctx.reply(**kwargs)
         else:
             await ctx.send(**kwargs)
+
 
 async def setup(bot):
     cping = PingOverride(bot)

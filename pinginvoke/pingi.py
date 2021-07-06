@@ -17,7 +17,7 @@ class PingInvoke(commands.Cog):
         self.bot = bot
         self.config = Config.get_conf(self, 32482347932, force_registration=True)
         self.config.register_global(botname=None)
-    
+
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
         authors = ", ".join(self.__author__)
@@ -54,11 +54,13 @@ class PingInvoke(commands.Cog):
         Usage:
         When you type [botname]?, or whatever you configure your name as,
         it will invoke the ping command.
-        
+
         NOTE: Do not include the question mark.
         """
         await self.config.botname.set(botname)
-        await ctx.send(f"{ctx.me.name} will now invoke the ping command when it hears `{botname}?`.")
+        await ctx.send(
+            f"{ctx.me.name} will now invoke the ping command when it hears `{botname}?`."
+        )
 
     @pingi.command()
     async def reset(self, ctx):
@@ -90,6 +92,6 @@ class PingInvoke(commands.Cog):
             return
         if not await self.bot.allowed_by_whitelist_blacklist(message.author):
             return
-        if message.content.lower().startswith(botname.lower()) and message.content.endswith('?'):
+        if message.content.lower().startswith(botname.lower()) and message.content.endswith("?"):
             ctx = await self.bot.get_context(message)
-            return await ctx.invoke(self.bot.get_command('ping'))
+            return await ctx.invoke(self.bot.get_command("ping"))

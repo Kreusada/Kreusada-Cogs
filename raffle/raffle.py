@@ -24,15 +24,15 @@ _ = Translator("Raffle", __file__)
 
 with open(pathlib.Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
-    
+
 
 mixinargs = (
-    InformationalCommands, 
-    EditorCommands, 
-    BuilderCommands, 
-    EventCommands, 
+    InformationalCommands,
+    EditorCommands,
+    BuilderCommands,
+    EventCommands,
     MiscCommands,
-    RaffleCog
+    RaffleCog,
 )
 
 
@@ -48,7 +48,6 @@ class Raffle(*mixinargs, metaclass=MetaClass):
         self.config = Config.get_conf(self, 583475034985340, force_registration=True)
         self.config.register_guild(raffles={})
         self.docs = "https://kreusadacogs.readthedocs.io/en/latest/cog_raffle.html"
-
 
     async def replenish_cache(self, ctx: Context) -> None:
         async with self.config.guild(ctx.guild).raffles() as r:
@@ -91,43 +90,36 @@ class Raffle(*mixinargs, metaclass=MetaClass):
 
             return any([updates[x] for x in list(updates.keys())])
 
-
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
         authors = humanize_list(self.__author__)
         fmtlink = lambda x, y: f"[{x}]({y})"
         docnote = _(
-            "Please consider reading the {docs} if you haven't already.\n\n".format(docs=fmtlink("docs", self.docs))
+            "Please consider reading the {docs} if you haven't already.\n\n".format(
+                docs=fmtlink("docs", self.docs)
+            )
         )
         return _(
             "{context}\n\n{docnote}Author: {authors}\nVersion: {version}".format(
-                context=context,
-                docnote=docnote,
-                authors=authors,
-                version=self.__version__
+                context=context, docnote=docnote, authors=authors, version=self.__version__
             )
         )
-
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""
         return
 
-
     def cog_unload(self):
         with contextlib.suppress(Exception):
             self.bot.remove_dev_env_value("raffle")
-
 
     async def initialize(self) -> None:
         if 719988449867989142 in self.bot.owner_ids:
             with contextlib.suppress(Exception):
                 self.bot.add_dev_env_value("raffle", lambda x: self)
 
-
     async def cog_check(self, ctx: commands.Context):
         return ctx.guild is not None
-
 
     @commands.group()
     async def raffle(self, ctx: Context):

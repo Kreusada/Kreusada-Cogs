@@ -94,21 +94,18 @@ class Staff(commands.Cog):
         channel = "None set." if not channel else channel.mention
         await ctx.send(f"{bold('Role:')} {role}\n{bold('Channel:')} {channel}")
 
-
     @commands.command()
     @commands.cooldown(1, 600, commands.BucketType.guild)
     async def staff(self, ctx: commands.Context, *, reason: str = None):
         """
         Alert for the staff.
         """
-        
+
         channel = await self.config.guild(ctx.guild).channel()
         role = await self.config.guild(ctx.guild).role()
 
         if not channel:
-            return await ctx.send(
-                error("The staff have not yet setup a staff channel.")
-            )
+            return await ctx.send(error("The staff have not yet setup a staff channel."))
 
         channel = self.bot.get_channel(channel)
         role = ctx.guild.get_role(role)
@@ -117,17 +114,17 @@ class Staff(commands.Cog):
         date = now.strftime("%d/%m/%y")
 
         message_list = []
-        backslash = '\n'
+        backslash = "\n"
 
         async for message in ctx.channel.history(limit=6):
-            author, msg = message.author, message.content.replace('`','')
+            author, msg = message.author, message.content.replace("`", "")
             if len(msg) > 90:
-                msg = msg[:90].strip(' ') + '...'
+                msg = msg[:90].strip(" ") + "..."
             elif not len(msg):
                 msg = "[Embed, Attachment or File]"
             message_list.append(f"{str(author.display_name)}: {msg.replace(backslash, ' ')}")
 
-        context = box('\n'.join(message_list), lang='yaml')
+        context = box("\n".join(message_list), lang="yaml")
         reason = reason or "No reason was provided."
 
         embed = discord.Embed(
@@ -153,4 +150,6 @@ class Staff(commands.Cog):
             except discord.Forbidden:
                 return await ctx.send("I do not have permissions to alert the staff.")
         else:
-            return await ctx.send("I do not have permissions to send embeds in the staff's channel.")
+            return await ctx.send(
+                "I do not have permissions to send embeds in the staff's channel."
+            )

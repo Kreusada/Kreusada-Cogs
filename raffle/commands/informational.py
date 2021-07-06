@@ -12,29 +12,27 @@ from ..utils.formatting import CURRENT_PAGE, LEFT_ARROW, RIGHT_ARROW, curl
 from ..utils.parser import RaffleManager
 from ..utils.converters import RaffleExists
 from ..utils.helpers import (
-    compose_menu, 
-    yield_sectors, 
+    compose_menu,
+    yield_sectors,
     listumerate,
     format_underscored_text,
 )
 
 
-
 _ = Translator("Raffle", __file__)
+
 
 class InformationalCommands(RaffleMixin):
     """Informational commands."""
-    
 
     @commands.group()
     async def raffle(self, ctx: Context):
         pass
 
-
     @raffle.command()
     async def info(self, ctx: Context, raffle: RaffleExists):
         """Get information about a certain raffle.
-        
+
         **Arguments:**
             - `<raffle>` - The name of the raffle to get information for.
         """
@@ -55,9 +53,9 @@ class InformationalCommands(RaffleMixin):
         pre_determined = {
             "raffle": quotes(raffle),
             "description": raffle_data.get("description", None) or "No description was provided.",
-            "owner": str(ctx.guild.get_member(raffle_data['owner'])),
+            "owner": str(ctx.guild.get_member(raffle_data["owner"])),
             "created_at": raffle_data.get("created_at", None),
-            "entries": len(raffle_data['entries']) or "No entries yet.",
+            "entries": len(raffle_data["entries"]) or "No entries yet.",
         }
 
         message = ""
@@ -67,12 +65,13 @@ class InformationalCommands(RaffleMixin):
             message += f"\n{k.capitalize()}: {v!s}"
         if relevant_data:
             message += "\n\n"
-        
-        for page in pagify(_(message + "\n".join(f"{x[0]}: {x[1]}" for x in relevant_data)), page_length=1975):
+
+        for page in pagify(
+            _(message + "\n".join(f"{x[0]}: {x[1]}" for x in relevant_data)), page_length=1975
+        ):
             await ctx.send(box(page, lang="yaml"))
 
         await self.replenish_cache(ctx)
-
 
     @raffle.command()
     async def asyaml(self, ctx: Context, raffle: RaffleExists):
@@ -96,10 +95,11 @@ class InformationalCommands(RaffleMixin):
             relevant_data.append((k, v))
 
         message = _("**YAML Format for the `{}` raffle**\n".format(raffle))
-        await ctx.send(message + box("\n".join(f"{x[0]}: {x[1]}" for x in relevant_data), lang="yaml"))
+        await ctx.send(
+            message + box("\n".join(f"{x[0]}: {x[1]}" for x in relevant_data), lang="yaml")
+        )
 
         await self.replenish_cache(ctx)
-
 
     @raffle.command(name="list")
     async def _list(self, ctx: Context):
@@ -113,7 +113,7 @@ class InformationalCommands(RaffleMixin):
         for k, v in sorted(r.items()):
             description = v.get("description", None)
             if not description:
-                description=""
+                description = ""
             lines.append("**{}** {}".format(k, RaffleManager.shorten_description(description)))
 
         embeds = []
@@ -121,9 +121,7 @@ class InformationalCommands(RaffleMixin):
 
         for index, page in enumerate(data, 1):
             embed = discord.Embed(
-                title=_("Current raffles"),
-                description=page,
-                color=await ctx.embed_colour()
+                title=_("Current raffles"), description=page, color=await ctx.embed_colour()
             )
             embed.set_footer(text="Page {}/{}".format(index, len(data)))
             embeds.append(embed)
@@ -131,11 +129,10 @@ class InformationalCommands(RaffleMixin):
         await compose_menu(ctx, embeds)
         await self.replenish_cache(ctx)
 
-
     @raffle.command()
     async def raw(self, ctx: Context, raffle: RaffleExists):
         """View the raw dictionary for a raffle.
-        
+
         **Arguments:**
             - `<raffle>` - The name of the raffle.
         """
@@ -145,11 +142,10 @@ class InformationalCommands(RaffleMixin):
 
         await self.replenish_cache(ctx)
 
-
     @raffle.command()
     async def members(self, ctx: Context, raffle: RaffleExists):
         """Get all the members of a raffle.
-        
+
         **Arguments:**
             - `<raffle>` - The name of the raffle to get the members from.
         """
@@ -173,16 +169,17 @@ class InformationalCommands(RaffleMixin):
             for c, v in chunk:
                 message += f"#{c} {ctx.guild.get_member(v) or 'Unknown User'}\n"
             embed = discord.Embed(
-                description=box(message, lang="md"),
-                color=await ctx.embed_colour()
+                description=box(message, lang="md"), color=await ctx.embed_colour()
             )
-            embed.set_author(name=f"{raffle} | {len(entries)} {entry_grammar}", icon_url=self.bot.user.avatar_url)
+            embed.set_author(
+                name=f"{raffle} | {len(entries)} {entry_grammar}",
+                icon_url=self.bot.user.avatar_url,
+            )
             embed.set_footer(text="Sorted in order of join time.")
             embed_pages.append(embed)
 
         await compose_menu(ctx, embed_pages)
         await self.replenish_cache(ctx)
-
 
     @raffle.command()
     async def conditions(self, ctx: Context):
@@ -213,26 +210,22 @@ class InformationalCommands(RaffleMixin):
                 next_condition = sorted_names[0]
 
             try:
-                prev_condition = sorted_names[c-2]
+                prev_condition = sorted_names[c - 2]
             except IndexError:
                 prev_condition = sorted_names[-1]
 
             embed = discord.Embed(
                 title=f"Condition #{c}/{len(RaffleComponents)}: {format_underscored_text(condition)}",
-                color=await ctx.embed_colour()
+                color=await ctx.embed_colour(),
             )
 
             embed.add_field(
                 name="Description",
                 value=box(f"{v.name} =\n\n{properties['description']}", lang="fix"),
-                inline=False
+                inline=False,
             )
 
-            embed.add_field(
-                name="Information",
-                value=box(info, lang="yaml"),
-                inline=False
-            )
+            embed.add_field(name="Information", value=box(info, lang="yaml"), inline=False)
 
             if properties["variables"] is not None:
                 variables = []
@@ -240,24 +233,24 @@ class InformationalCommands(RaffleMixin):
                     # Only conditions with variables atm is join_message and end_message
                     condition_switch = {
                         "join_message": "user",
-                        "end_message": "winner"
+                        "end_message": "winner",
                     }
                     if "__" in var:
                         var = f"{condition_switch[condition]}.{var.split('__')[-1]}"
                     variables.append(curl(var))
-                
+
                 embed.add_field(
                     name="Variables",
-                    value=box("\n".join(f"! {v}" for v in variables), lang="diff")
+                    value=box("\n".join(f"! {v}" for v in variables), lang="diff"),
                 )
 
             example = properties["example"]
             if isinstance(example, str):
-                example = "\"{}\"".format(example)
+                example = '"{}"'.format(example)
             embed.add_field(
                 name="Example Usage",
                 value=box(f"{condition}: {example}", lang="yaml"),
-                inline=False
+                inline=False,
             )
             embed.set_footer(
                 text=(
@@ -269,7 +262,6 @@ class InformationalCommands(RaffleMixin):
             pages.append(embed)
         await compose_menu(ctx, pages)
         await self.replenish_cache(ctx)
-
 
     @raffle.command()
     async def version(self, ctx: Context):
@@ -287,7 +279,6 @@ class InformationalCommands(RaffleMixin):
                 message = _("Version: {0.__version__}")
 
         await ctx.send(message.format(self, raw, ctx.clean_prefix))
-
 
     @raffle.command()
     async def docs(self, ctx: Context):

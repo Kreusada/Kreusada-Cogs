@@ -14,16 +14,11 @@ from ..utils.parser import RaffleManager
 from ..utils.formatting import tick, cross
 from ..utils.exceptions import RaffleError
 
-from ..utils.helpers import (
-    cleanup_code,
-    validator,
-    getstrftime,
-    format_traceback,
-    number_suffix
-)
+from ..utils.helpers import cleanup_code, validator, getstrftime, format_traceback, number_suffix
 
 
 _ = Translator("Raffle", __file__)
+
 
 class BuilderCommands(RaffleMixin):
     """Mixin for commands under ``[p]raffle edit``."""
@@ -32,12 +27,10 @@ class BuilderCommands(RaffleMixin):
     async def raffle(self, ctx: Context):
         pass
 
-
     @raffle.group()
     async def create(self, ctx: Context):
         """Create a raffle."""
         pass
-
 
     @create.command(name="complex")
     async def _complex(self, ctx: Context):
@@ -47,13 +40,13 @@ class BuilderCommands(RaffleMixin):
         message = _(
             "You're about to create a new raffle.\n"
             "Please consider reading the docs about the various "
-            "conditional blocks if you haven't already.\n\n"
-            + self.docs
+            "conditional blocks if you haven't already.\n\n" + self.docs
         )
 
-        message += _("\n\n**Conditions Blocks:**") + box("\n".join(f"+ {e.name}" for e in RaffleComponents), lang="diff") 
-        await ctx.send(message)  
-
+        message += _("\n\n**Conditions Blocks:**") + box(
+            "\n".join(f"+ {e.name}" for e in RaffleComponents), lang="diff"
+        )
+        await ctx.send(message)
 
         try:
             content = await self.bot.wait_for("message", timeout=500, check=check)
@@ -61,13 +54,16 @@ class BuilderCommands(RaffleMixin):
             with contextlib.suppress(discord.NotFound):
                 await message.delete()
 
-
         content = content.content
         valid = validator(cleanup_code(content))
 
         if not valid:
             return await ctx.send(
-                cross(_("Please provide valid YAML. You can validate your raffle YAML using `{}raffle parse`.")).format(ctx.clean_prefix)
+                cross(
+                    _(
+                        "Please provide valid YAML. You can validate your raffle YAML using `{}raffle parse`."
+                    )
+                ).format(ctx.clean_prefix)
             )
 
         try:
@@ -76,7 +72,6 @@ class BuilderCommands(RaffleMixin):
         except RaffleError as e:
             exc = cross(_("An exception occured whilst parsing your data."))
             return await ctx.send(exc + format_traceback(e))
-
 
         async with self.config.guild(ctx.guild).raffles() as raffle:
 
@@ -87,10 +82,10 @@ class BuilderCommands(RaffleMixin):
 
             datetimeinfo = _(
                 "{day} of {month}, {year} ({time})".format(
-                    day=number_suffix(getstrftime('d')),
-                    month=getstrftime('B'),
-                    year=getstrftime('Y'),
-                    time=getstrftime('X')
+                    day=number_suffix(getstrftime("d")),
+                    month=getstrftime("B"),
+                    year=getstrftime("Y"),
+                    time=getstrftime("X"),
                 )
             )
 
@@ -123,11 +118,10 @@ class BuilderCommands(RaffleMixin):
 
         await self.replenish_cache(ctx)
 
-
     @create.command()
     async def simple(self, ctx, raffle_name: str, *, description: Optional[str] = None):
         """Create a simple arguments with just a name and description.
-        
+
         **Arguments:**
             - `<name>` - The name for the raffle.
             - `[description]` - The description for the raffle.
@@ -140,10 +134,10 @@ class BuilderCommands(RaffleMixin):
 
             datetimeinfo = _(
                 "{day} of {month}, {year} ({time})".format(
-                    day=number_suffix(getstrftime('d')),
-                    month=getstrftime('B'),
-                    year=getstrftime('Y'),
-                    time=getstrftime('X')
+                    day=number_suffix(getstrftime("d")),
+                    month=getstrftime("B"),
+                    year=getstrftime("Y"),
+                    time=getstrftime("X"),
                 )
             )
 

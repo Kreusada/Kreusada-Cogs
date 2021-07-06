@@ -24,6 +24,7 @@ emojis = {
     4: spock,
 }
 
+
 class RPSLS(commands.Cog):
     """Rock, paper, scizzors, lizard, spock."""
 
@@ -56,7 +57,7 @@ class RPSLS(commands.Cog):
     async def rpsls(self, ctx, choice: str):
         """
         Play rock, paper, scizzors, lizard, spock.
-        
+
         Use `[p]rpsls help` for a diagram."""
         choice = choice.lower()
         if choice == "help":
@@ -66,22 +67,21 @@ class RPSLS(commands.Cog):
             return await ctx.send("Please enter a valid choice.")
         b = self.converter(pick(choices))
         h = self.converter(choice)
-        k = {0:[1,3],1:[2,4],2:[3,0],3:[4,1],4:[0,2]}
+        k = {0: [1, 3], 1: [2, 4], 2: [3, 0], 3: [4, 1], 4: [0, 2]}
         if h == b:
             title = f"{emojis[h]} vs {emojis[b]}"
             description = f"It's a draw."
-            color = 0x87ceeb
+            color = 0x87CEEB
         elif b in k[h]:
             title = f"{emojis[h]} vs {emojis[b]}"
             description = f"You win!"
-            color = 0x22ce70
+            color = 0x22CE70
         else:
             title = f"{emojis[h]} vs {emojis[b]}"
             description = f"{ctx.me.name} wins."
-            color = 0xff5151
-        kwargs = {"title": title,"description": description, "color": color}
+            color = 0xFF5151
+        kwargs = {"title": title, "description": description, "color": color}
         if await ctx.embed_requested():
             await ctx.send(embed=discord.Embed(**kwargs))
         else:
-            await ctx.send(bold(title) + '\n' + description)
-
+            await ctx.send(bold(title) + "\n" + description)
