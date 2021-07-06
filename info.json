@@ -1,7 +1,9 @@
 {
-    "author" : ["Kreusada"],
-    "install_msg" : "Thanks for adding my repository! Head over to my docs if you need additional support, I have guides for all the cogs on my repo: https://kreusadacogs.readthedocs.io/en/latest/. Additionally, feel free to join my support server (https://discord.gg/JmCFyq7), or you can ping me in #support_kreusada-cogs in the Red cog support server.",
-    "name" : "Kreusada-Cogs",
-    "short" : "Cogs by Kreusada for Red-DiscordBot V3.",
-    "description" : "Cogs by Kreusada for Red-DiscordBot V3."
+    "author": [
+        "Kreusada"
+    ],
+    "install_msg": "Thanks for adding my repository! Head over to my docs if you need additional support, I have guides for all the cogs on my repo: https://kreusadacogs.readthedocs.io/en/latest/. Additionally, feel free to join my support server (https://discord.gg/JmCFyq7), or you can ping me in #support_kreusada-cogs in the Red cog support server.",
+    "name": "Kreusada-Cogs",
+    "short": "Cogs by Kreusada for Red-DiscordBot V3.",
+    "description": "Cogs by Kreusada for Red-DiscordBot V3."
 }

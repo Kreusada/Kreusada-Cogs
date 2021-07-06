@@ -1,17 +1,19 @@
 {
-    "author" : ["Kreusada"],
-    "description" : "Detect hoisted usernames and change their nicknames as a result. A variety of tools to 'protect' your guild from hoisted users. Features include automatic dehoisting of usernames into configured nicknames, scanning against hoisted users, changing all hoisted display names at once, and more.",
-    "disabled" : false,
-    "end_user_data_statement" : "This cog does not persistently store data or metadata about users.",
-    "hidden" : false,
-    "install_msg" : "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_dehoister.html",
-    "name" : "Dehoister",
-    "required_cogs" : {},
-    "requirements" : [],
-    "short" : "Detect hoisted usernames and change their nicknames as a result.",
-    "tags" : [
+    "author": [
+        "Kreusada"
+    ],
+    "description": "Detect hoisted usernames and change their nicknames as a result. A variety of tools to 'protect' your guild from hoisted users. Features include automatic dehoisting of usernames into configured nicknames, scanning against hoisted users, changing all hoisted display names at once, and more.",
+    "disabled": false,
+    "end_user_data_statement": "This cog does not persistently store data or metadata about users.",
+    "hidden": false,
+    "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_dehoister.html",
+    "name": "Dehoister",
+    "required_cogs": {},
+    "requirements": [],
+    "short": "Detect hoisted usernames and change their nicknames as a result.",
+    "tags": [
         "Hoist",
         "Nickname"
     ],
-    "type" : "COG"
+    "type": "COG"
 }
