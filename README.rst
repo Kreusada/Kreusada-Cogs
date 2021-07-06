@@ -110,6 +110,7 @@ Credits
 
 * Everyone who has helped from Red! <3
 * Special thanks to Jojo for kickstarting me with python.
+* Thanks Jackenmen for some awesome work on this repo's workflows and pre-commit stuff <3
 
 -------
 LICENSE
