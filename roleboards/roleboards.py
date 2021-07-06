@@ -1,21 +1,25 @@
 import contextlib
-
 import discord
-from redbot.core import commands, checks
+
+from typing import List, Literal, Tuple
+from tabulate import tabulate
+
+from redbot.core import commands
 from redbot.core.utils.chat_formatting import pagify, box
 from redbot.core.utils.menus import menu, DEFAULT_CONTROLS
-from tabulate import tabulate
 
 
 class ValidRoleIndex(commands.Converter):
-    async def convert(self, ctx: commands.Context, argument: int):
-        if argument > len(ctx.guild.roles):
+    async def convert(self, ctx: commands.Context, argument):
+        argument = int(argument)
+        if argument > (len(ctx.guild.roles) - 1):
             raise commands.BadArgument("Please provide an index lower than the number of roles in this guild.")
         return argument
 
     
 class ValidUserIndex(commands.Converter):
-    async def convert(self, ctx: commands.Context, argument: int):
+    async def convert(self, ctx: commands.Context, argument):
+        argument = int(argument)
         if argument > len(ctx.guild.members):
             raise commands.BadArgument("Please provide an index lower than the number of users in this guild.")
         return argument
@@ -65,70 +69,12 @@ class RoleBoards(commands.Cog):
         pass
 
 
-    @roleboard.command()
-    async def listroles(self, ctx: commands.Context):
-        """List all roles in this guild."""
-        data = []
-        description = f"Roles for {ctx.guild.name}"
-        for r in sorted(list(ctx.guild.roles), key=lambda x: x.position, reverse=True):
-            if r.name == "@everyone":
-                continue
-            name = r.name[:10] + "..." if len(r.name) > 13 else r.name
-            data.append([name, str(r.id), f"{r.color} (0x{str(r.color).strip('#')})"])
-        kwargs = {
-            "tabular_data": data,
-            "tablefmt": "simple",
-            "headers": ["Role Name", "Role ID", "Color"],
-        }
-        data = tabulate(**kwargs)
-        for page in pagify(data, page_length=1990):
-            await ctx.send(box(page, lang="cs"))
-
-
-    @roleboard.command()
-    async def topusers(self, ctx, index: ValidUserIndex):
-        """Get the users with the most roles."""
-        g = ctx.guild
-        data = self.get_users(g, index)
-
-        pages = []
-        enum = 1
-
-        for sector in data:
-            embed = discord.Embed(
-                title="Users with the most roles",
-                description=box("\n".join(f"#{self.td(c)} [{self.td(v[1])}] {v[0]}" for c, v in enumerate(sector, enum)), lang="css"),
-                color=await ctx.embed_colour()
-            )
-
-            embed.set_footer(text=f"Page {data.index(sector)+1}/{len(data)}")
-            pages.append(embed)
-            enum += 10
-
-        await menu(ctx, pages, DEFAULT_CONTROLS)
-
-
-    @roleboard.command()
-    async def toproles(self, ctx, index: ValidRoleIndex):
-        """Get the roles with the most users."""
-        g = ctx.guild
-        data = self.get_roles(g, index)
-
-        pages = []
-        enum = 1
-
-        for sector in data:
-            embed = discord.Embed(
-                title="Roles with the most users",
-                description=box("\n".join(f"#{self.td(c)} [{self.td(v[1])}] {v[0]}" for c, v in enumerate(sector, enum)), lang="css"),
-                color=await ctx.embed_colour()
-            )
-
-            embed.set_footer(text=f"Page {data.index(sector)+1}/{len(data)}")
-            pages.append(embed)
-            enum += 10
-
-        await menu(ctx, pages, DEFAULT_CONTROLS)
+    @roleboard.command(aliases=["topusers"])
+    async def topmembers(self, ctx, index: ValidUserIndex):
+        """Get the members with the most roles."""
+        data = self.get_users(ctx.guild, index)
+        data = self.format_embed_pages(ctx, data, "members")
+        await menu(ctx, await data, DEFAULT_CONTROLS)
 
 
     def get_users(self, guild: discord.Guild, index: int):
@@ -138,19 +84,65 @@ class RoleBoards(commands.Cog):
         return list(self.yield_chunks(data, 10))
 
 
+    @roleboard.command()
+    async def toproles(self, ctx, index: ValidRoleIndex):
+        """Get the roles with the most members."""
+        data = self.get_roles(ctx.guild, index)
+        data = self.format_embed_pages(ctx, data, "roles")
+        await menu(ctx, await data, DEFAULT_CONTROLS)
+
+
     def get_roles(self, guild: discord.Guild, index: int):
         key = lambda x: len(x.members)
-        top_roles = sorted([r for r in guild.roles], key=key, reverse=True)[1:]
+        roles = []
+
+        for r in guild.roles:
+            if r.id == guild.id:
+                continue
+            roles.append(r)
+
+        top_roles = sorted(roles, key=key, reverse=True)
         data = [(x.name, len(x.members)) for x in top_roles[:index]]
         return list(self.yield_chunks(data, 10))
-
-
-    @staticmethod
-    def td(item):
-        return f"0{item}" if len(str(item)) == 1 else item
 
 
     @staticmethod
     def yield_chunks(l, n):
         for i in range(0,len(l),n):
             yield l[i:i+n]
+
+
+    @staticmethod
+    async def format_embed_pages(
+        ctx: commands.Context, 
+        data: List[Tuple[str, int]], 
+        data_type: Literal["roles", "members"],
+    ):
+        pages = []
+        enum = 1
+        two_digits = lambda x: f"0{x}" if len(str(x)) == 1 else x
+        reverse_types = {"roles": "members", "members": "roles"}
+        total_data = len(getattr(ctx.guild, data_type))
+
+        if data_type == "roles":
+            total_data -= 1
+
+        for sector in data:
+            description = "\n".join(f"#{two_digits(c)} [{two_digits(v[1])}] {v[0]}" for c, v in enumerate(sector, enum))
+            embed = discord.Embed(
+                title=f"{data_type.capitalize()} with the most {reverse_types[data_type]}",
+                description=box(description, lang="css"),
+                color=await ctx.embed_colour()
+            )
+
+            embed.set_footer(text=f"Page {data.index(sector)+1}/{len(data)}")
+
+            embed.set_author(
+                name=ctx.guild.name + f" | {total_data} {data_type}", 
+                icon_url=ctx.guild.icon_url
+            )
+
+            pages.append(embed)
+            enum += 10
+        
+        return pages
