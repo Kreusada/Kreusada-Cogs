@@ -1,12 +1,11 @@
 @echo off
 
+CALL %userprofile%\redenv\Scripts\activate.bat REM win
 if [%1] == [] goto help
 
 REM This allows us to expand variables at execution
 setlocal ENABLEDELAYEDEXPANSION
 
-REM Edit after venv= for your own venv
-set venv=%userprofile%\redenv\Scripts\activate.bat
 goto %1
 
 :reformat
