@@ -25,16 +25,9 @@ class PingOverride(commands.Cog):
     """Override the Core's ping command with your own response."""
 
     settings = {
-        "response": "Pong.", 
-        "reply_settings": {
-            "toggled": False, 
-            "mention": False
-        },
-        "embed": {
-            "title": None,
-            "description": None,
-            "color": None
-        }
+        "response": "Pong.",
+        "reply_settings": {"toggled": False, "mention": False},
+        "embed": {"title": None, "description": None, "color": None},
     }
 
     __author__ = ["Kreusada"]
@@ -192,7 +185,7 @@ class PingOverride(commands.Cog):
             message = "Color set to {}".format(str(color))
         await self.config.embed.color.set(color)
         await ctx.send(message)
-    
+
     @pingset.command(name="settings")
     async def pingset_settings(self, ctx: commands.Context):
         """See the current settings for PingOverride."""
@@ -202,7 +195,9 @@ class PingOverride(commands.Cog):
             message += "\t- These replies will mention\n"
         message += f"Response: {settings['response']}"
         if any(settings["embed"].values()):
-            message += "\nEmbed settings:\n" + "\n".join(f"\t{k}: {v}" for k, v in settings["embed"].items() if v)
+            message += "\nEmbed settings:\n" + "\n".join(
+                f"\t{k}: {v}" for k, v in settings["embed"].items() if v
+            )
         await ctx.send(box(message, lang="yaml"))
 
 
