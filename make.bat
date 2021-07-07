@@ -9,21 +9,21 @@ setlocal ENABLEDELAYEDEXPANSION
 goto %1
 
 :reformat
-%venv% isort .
-%venv% black .
+isort .
+black .
 exit /B %ERRORLEVEL%
 
 :isort
-%venv% isort .
+isort .
 exit /B %ERRORLEVEL%
 
 :black
-%venv% black .
+black .
 exit /B %ERRORLEVEL%
 
 :stylediff
-%venv% isort --atomic --check --diff --line-length 99 --use-parentheses .
-%venv% black --check --diff -l 99 .
+isort --atomic --check --diff --line-length 99 --use-parentheses .
+black --check --diff -l 99 .
 exit /B %ERRORLEVEL%
 
 :help
