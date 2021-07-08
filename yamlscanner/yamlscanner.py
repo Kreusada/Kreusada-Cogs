@@ -19,7 +19,7 @@ class YamlScanner(commands.Cog):
     """An easy and quick tool to validate yaml."""
 
     __author__ = ["Kreusada"]
-    __version__ = "1.1.0"
+    __version__ = "1.1.1"
 
     def __init__(self, bot):
         self.bot = bot
@@ -120,7 +120,9 @@ class YamlScanner(commands.Cog):
                     await message.edit(content=cross("This was **not** valid YAML."))
 
             if predicate.result:
-                description = box("".join(traceback.format_exception(type(e), e, e.__traceback__)), lang="py")
+                description = box(
+                    "".join(traceback.format_exception(type(e), e, e.__traceback__)), lang="py"
+                )
                 await message.clear_reactions()
                 await message.edit(content=description)
             else:
