@@ -20,7 +20,9 @@ async def add_random_messages(ctx, original_ping_message):
         await ctx.send("You took too long to respond, I assumed yes.")
         return original_ping_message
     if pred.result:
-        await ctx.send("Keep adding messages until you are satisfied. Type **stop()** to stop gathering messages.")
+        await ctx.send(
+            "Keep adding messages until you are satisfied. Type **stop()** to stop gathering messages."
+        )
         check = lambda x: x.author == ctx.author and x.channel == ctx.channel
         messages = [original_ping_message]
         while True:
@@ -28,7 +30,9 @@ async def add_random_messages(ctx, original_ping_message):
             try:
                 message = await ctx.bot.wait_for("message", check=check, timeout=60)
             except asyncio.TimeoutError:
-                await ctx.send(f"You took too long to respond - gathered {len(messages)} messages.")
+                await ctx.send(
+                    f"You took too long to respond - gathered {len(messages)} messages."
+                )
                 return messages
             if message.content.lower() in ("stop()", "exit()", "quit()"):
                 await ctx.send(f"Stopping - gathered {len(messages)} messages.")
