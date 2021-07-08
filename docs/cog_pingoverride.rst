@@ -47,8 +47,6 @@ So instead of "Pong.", it could be "Beep boop.", or whatever you want!
 Commands
 --------
 
-Here's a list of all commands available for this cog.
-
 .. _pingoverride-command-ping:
 
 ^^^^
@@ -57,132 +55,128 @@ ping
 
 **Syntax**
 
-.. code-block:: ini
+.. code-block:: none
 
-    [p]ping
+    [p]ping 
 
 **Description**
 
-Pong? Or not?
+Pong. Or not?
 
-Replies with all the PingOverride settings, and your configured response.
-
-.. _pinginvoke-command-pingset:
+.. _pingoverride-command-pingset:
 
 ^^^^^^^
 pingset
 ^^^^^^^
 
+.. note:: |owner-lock|
+
 **Syntax**
 
-.. code-block:: ini
+.. code-block:: none
 
-    [p]pingset
+    [p]pingset 
 
 **Description**
 
-Commands to configure PingOverride. Settings include:
+Settings for ping.
 
-* Embedded content
-* Replies, and mentions
-* Response with special regex
-* Random responses
+.. _pingoverride-command-pingset-embed:
 
-.. _pinginvoke-command-pingset-embed:
-
-^^^^^^^^^^^^^
+"""""""""""""
 pingset embed
-^^^^^^^^^^^^^
+"""""""""""""
 
 **Syntax**
 
-.. code-block:: ini
+.. code-block:: none
 
     [p]pingset embed <true_or_false>
 
 **Description**
 
-Sets whether the response is sent inside an embed.
-On cog install, this setting is false.
+Toggle whether to use embeds in replies.
 
-.. note:: If the bot doesn't have permissions to send embeds, this setting will be bypassed.
+Your message will be put into the description.
+Embeds will not send if they have been disabled via ``[p]embedset``.
 
-**Arguments**
+.. _pingoverride-command-pingset-message:
 
-* ``<true_or_false>``: Toggle for embeds setting. Must specify ``true`` or ``false``.
-
-.. _pinginvoke-command-pingset-message:
-
-^^^^^^^^^^^^^^^
+"""""""""""""""
 pingset message
-^^^^^^^^^^^^^^^
+"""""""""""""""
 
 **Syntax**
 
-.. code-block:: ini
+.. code-block:: none
 
-    [p]pingset message <response>
+    [p]pingset message <message>
 
 **Description**
 
-Set the message that is sent via the ``ping`` command.
+Set your custom ping message.
 
-Example Usage: ``[p]pingset message Hello {author}! My latency is {latency} ms.``
+Optional Regex:
+``{author}``: Replaces with the authors display name.
+``{latency}``: Replaces with the bots latency.
 
-**Response Regex**
+Example Usage:
+``[p]pingset message Hello {author}! My latency is {latency} ms.``
 
-* ``{author}`` - Replaced with the author's display name.
-* ``{latency}`` - Replaces with the bot's latency.
-
-**Random Responses**
-
-When you specify <message>, you will be asked if you want to add
+Random Responses:
+When you specify ``<message>``, you will be asked if you want to add
 more responses. These responses will be chosen at random when you run the
 ping command.
 
 To exit out of the random selection session, type ``stop()`` or ``exit()``.
 
-**Arguments**
+.. _pingoverride-command-pingset-regex:
 
-* ``<response>``: The message that is sent via the ``ping`` command.
-
-.. _pinginvoke-command-pingset-reply:
-
-^^^^^^^^^^^^^
-pingset reply
-^^^^^^^^^^^^^
+"""""""""""""
+pingset regex
+"""""""""""""
 
 **Syntax**
 
-.. code-block:: ini
+.. code-block:: none
+
+    [p]pingset regex 
+
+**Description**
+
+Get information on the types of ping regex.
+
+.. _pingoverride-command-pingset-reply:
+
+"""""""""""""
+pingset reply
+"""""""""""""
+
+**Syntax**
+
+.. code-block:: none
 
     [p]pingset reply <true_or_false> [mention=False]
 
 **Description**
 
-Toggles whether the ping response will use Discord replies.
-Additionally, you can toggle this to mention, or not.
+Set whether ping will use replies in their output.
 
-**Arguments**
+.. _pingoverride-command-pingset-settings:
 
-* ``<true_or_false>``: Toggle for the replies setting. Must specify ``true`` or ``false``.
-* ``[mention=False]``: Toggle whether replies will mention. Specify ``true`` or ``false``. Defaults to False.
-
-.. _pinginvoke-command-pingset-settings:
-
-^^^^^^^^^^^^^^^^
+""""""""""""""""
 pingset settings
-^^^^^^^^^^^^^^^^
+""""""""""""""""
 
 **Syntax**
 
-.. code-block:: ini
+.. code-block:: none
 
-    [p]pingset settings
+    [p]pingset settings 
 
 **Description**
 
-Shows the settings for PingOverride.
+Get the settings for the ping command.
 
 ---------------
 Receive Support
