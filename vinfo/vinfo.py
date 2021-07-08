@@ -1,29 +1,26 @@
 import asyncio
 import contextlib
 import datetime
+import importlib
 import json
 import logging
+import pathlib
 import subprocess
 import sys
 import types
-from importlib import import_module
-from pathlib import Path
-from sys import argv as cli_flags
 
 import discord
 import lavalink
 import pip
 import redbot
-from redbot.cogs.audio.manager import JAR_BUILD
 from redbot.core import commands
-from redbot.core.utils.chat_formatting import bold, box
-from redbot.core.utils.predicates import MessagePredicate
+from redbot.core.utils.chat_formatting import box
 from stdlib_list import stdlib_list
 
 log = logging.getLogger("red.kreusada.vinfo")
 attrs = ["__version__", "version_info", "_version_", "version"]
 
-with open(Path(__file__).parent / "info.json") as fp:
+with open(pathlib.Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
 
 
@@ -36,7 +33,7 @@ class Vinfo(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "2.0.2"
+    __version__ = "2.0.3"
 
     def __init__(self, bot):
         self.bot = bot
@@ -61,11 +58,7 @@ class Vinfo(commands.Cog):
 
     @staticmethod
     def isdev():
-        return "--dev" in cli_flags
-
-    @property
-    def is_dev(self):
-        return self.isdev
+        return "--dev" in sys.argv
 
     @staticmethod
     def check_attrs(module: types.ModuleType):
@@ -105,7 +98,7 @@ class Vinfo(commands.Cog):
             version_info_field_value = box(
                 f"- Could not find a cog matching `{cog}`.", lang="diff"
             )
-            if self.is_dev():
+            if self.isdev():
                 dev_field_value = box(
                     f"{getattr.__name__}(bot.get_cog('{cog}'), '__version__')\n"
                     ">>> AttributeError: 'NoneType' object has no attribute '__version__'",
@@ -184,31 +177,20 @@ class Vinfo(commands.Cog):
             timestamp=datetime.datetime.now(),
         )
         try:
-            MOD = import_module(module)
-        except ModuleNotFoundError as e:
-            embed.title = f"Information on {module.upper()}"
-            embed.add_field(name="Version Information", value=box("- " + str(e), lang="diff"))
-            if self.isdev():
-                embed.add_field(
-                    name="Quick Debug",
-                    value=box(
-                        f"{__import__.__name__}('{module}')\n>>> {e.__class__.__name__}: {e}",
-                        lang="py",
-                    ),
-                    inline=False,
-                )
-            await ctx.send(embed=embed)
-            return
-        except OSError as e:
-            embed.title = f"Information on {module.upper()}"
-            embed.add_field(
-                name="Version Information",
-                value=box(
+            MOD = importlib.import_module(module)
+        except Exception as e:
+            if isinstance(e, OSError):
+                value = box(
                     "- An operating system error occured whilst trying to "
                     "retrieve version information for this module.",
-                    lang="diff",
-                ),
-            )
+                    lang="diff"
+                )
+            else:
+                value = box("- " + str(e), )
+
+            embed.title = f"Information on {module.upper()}"
+            embed.add_field(name="Version Information", value=value)
+
             if self.isdev():
                 embed.add_field(
                     name="Quick Debug",
@@ -220,6 +202,7 @@ class Vinfo(commands.Cog):
                 )
             await ctx.send(embed=embed)
             return
+
         check_attrs = self.check_attrs(MOD)
         embed.title = f"Version Information on {MOD.__name__.upper()}"
 
