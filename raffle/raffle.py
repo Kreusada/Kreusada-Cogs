@@ -34,6 +34,7 @@ mixinargs = (
 
 version = VersionHandler.__version__
 
+
 @cog_i18n(_)
 class Raffle(*mixinargs, metaclass=MetaClass):
     """Create raffles for your server."""
