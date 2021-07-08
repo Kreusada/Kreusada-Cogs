@@ -1,5 +1,6 @@
 import contextlib
 import logging
+import random
 
 import discord
 import toml
@@ -10,12 +11,9 @@ from redbot.core.utils.menus import DEFAULT_CONTROLS, menu
 from .converters import EmbedTitle
 from .enums import PingOverrideVariables
 from .objects import Member
+from .utils import add_random_messages, curl
 
 log = logging.getLogger("red.kreusada.pingoverride")
-
-
-def curl(t):
-    return "{{{}}}".format(t)
 
 
 ping_com: commands.Command = None
@@ -31,7 +29,7 @@ class PingOverride(commands.Cog):
     }
 
     __author__ = ["Kreusada"]
-    __version__ = "3.0.0"
+    __version__ = "3.1.0"
 
     def __init__(self, bot):
         self.bot = bot
@@ -68,8 +66,12 @@ class PingOverride(commands.Cog):
         settings = await self.config.all()
         fmt_kwargs = {"author": Member(ctx.author), "latency": round(self.bot.latency * 1000, 2)}
 
+        content = settings["response"]
+        if isinstance(content, list):
+            content = random.choice(content)
+
         sender = ctx.send
-        kwargs = {"content": settings["response"].format(**fmt_kwargs)}
+        kwargs = {"content": content.format(**fmt_kwargs)}
 
         if any([v for v in settings["embed"].values()]):
             embed_from_dict = {}
@@ -101,7 +103,7 @@ class PingOverride(commands.Cog):
         - `{author.mention}`
         - `{author.id}`
         - `{author.discriminator}`
-        ` `{author.name_and_discriminator}`
+        - `{author.name_and_discriminator}`
         - `{latency}`
         """
         try:
@@ -124,8 +126,14 @@ class PingOverride(commands.Cog):
             )
             return
 
-        await self.config.response.set(ping_message)
-        await ctx.send("The ping response has been set.")
+        setter = await add_random_messages(ctx, ping_message)
+
+        await self.config.response.set(setter)
+        if len(setter) != 1:
+            message = "The ping responses have been set."
+        else:
+            message = "The ping response has been set."
+        await ctx.send(message)
 
     @pingset.group(name="reply", invoke_without_command=True)
     async def pingset_reply(self, ctx: commands.Context, reply: bool):
@@ -190,10 +198,16 @@ class PingOverride(commands.Cog):
     async def pingset_settings(self, ctx: commands.Context):
         """See the current settings for PingOverride."""
         settings = await self.config.all()
+
         message = f"Replies: {settings['reply_settings']['toggled']}\n"
         if settings["reply_settings"]["mention"]:
             message += "\t- These replies will mention\n"
-        message += f"Response: {settings['response']}"
+
+        response = settings["response"]
+        if isinstance(response, list):
+            message += "Responses:\n" + "\n".join(f"\t- {i}" for i in response)
+        else:
+            message += "Response: " + response
         if any(settings["embed"].values()):
             message += "\nEmbed settings:\n" + "\n".join(
                 f"\t{k}: {v}" for k, v in settings["embed"].items() if v
