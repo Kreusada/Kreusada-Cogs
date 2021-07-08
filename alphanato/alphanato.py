@@ -15,11 +15,11 @@ class AlphaNato(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "1.0.2"
+    __version__ = "1.0.3"
 
     def __init__(self, bot):
         self.bot = bot
-        self.bot_add_dev_env_value("alphanato", lambda x: self)
+        self.bot.add_dev_env_value("alphanato", lambda x: self)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
