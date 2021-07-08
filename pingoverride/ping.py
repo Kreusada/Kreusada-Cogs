@@ -1,301 +1,208 @@
-import asyncio
 import contextlib
 import logging
-import random
 
 import discord
+import toml
 from redbot.core import Config, commands
-from redbot.core.utils.chat_formatting import bold, box, pagify
-from redbot.core.utils.menus import start_adding_reactions
-from redbot.core.utils.predicates import ReactionPredicate
+from redbot.core.utils.chat_formatting import box
+from redbot.core.utils.menus import DEFAULT_CONTROLS, menu
+
+from .converters import EmbedTitle
+from .enums import PingOverrideVariables
+from .objects import Member
 
 log = logging.getLogger("red.kreusada.pingoverride")
 
 
+def curl(t):
+    return "{{{}}}".format(t)
+
+
+ping_com: commands.Command = None
+
+
 class PingOverride(commands.Cog):
-    """
-    Custom ping message.
-    """
+    """Override the Core's ping command with your own response."""
+
+    settings = {
+        "response": "Pong.",
+        "reply_settings": {"toggled": False, "mention": False},
+        "embed": {"title": None, "description": None, "color": None},
+    }
 
     __author__ = ["Kreusada"]
-    __version__ = "1.8.1"
+    __version__ = "3.0.0"
 
     def __init__(self, bot):
         self.bot = bot
-        self.config = Config.get_conf(self, identifier=59365034743, force_registration=True)
-        self.config.register_global(response=[], reply=False, mention=True, embed=False)
+        self.config = Config.get_conf(self, 6465983465798475, True)
+        self.config.register_global(**self.settings)
 
-    def format_help_for_context(self, ctx: commands.Context) -> str:
-        context = super().format_help_for_context(ctx)
-        authors = ", ".join(self.__author__)
-        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
-
-    def cog_unload(self):
-        global _old_ping
-        if _old_ping:
-            try:
-                self.bot.remove_command("ping")
-            except Exception as error:
-                log.info(error)
-            self.bot.add_command(_old_ping)
-        with contextlib.suppress(Exception):
-            self.bot.remove_dev_env_value("pingoverride")
-
-    async def initialize(self) -> None:
         if 719988449867989142 in self.bot.owner_ids:
             with contextlib.suppress(Exception):
                 self.bot.add_dev_env_value("pingoverride", lambda x: self)
 
-    async def converter(self, ctx: commands.Context, match, bool):
-        if bool:
-            return match.replace("{latency}", str(round(self.bot.latency * 1000))).replace(
-                "{author}", ctx.author.display_name
-            )
-        else:
-            return match.replace("{latency}", "[Latency]").replace("{author}", "[Author]")
+    def cog_unload(self):
+        global ping_com
+        if ping_com:
+            try:
+                self.bot.remove_command("ping")
+            except Exception as e:
+                log.info(e)
+            self.bot.add_command(ping_com)
+        with contextlib.suppress(Exception):
+            self.bot.remove_dev_env_value("pingoverride")
 
-    async def enum(self, ctx, message_list):
-        msg_list = [await self.converter(ctx, x, False) for x in message_list]
+    def format_help_for_context(self, ctx: commands.Context) -> str:
+        context = super().format_help_for_context(ctx)
+        authors = ", ".join(self.__author__)
+        return f"{context}\n\nAuthors: {authors}\nVersion: {self.__version__}"
 
-        pre_processed = box(
-            "\n".join(f"+ {c+1}: {self.shorten(v)}" for c, v in enumerate(msg_list)),
-            lang="diff",
-        )
-        message = f"The following responses have been set! {pre_processed}"
-
-        response = await self.config.response()
-        for z in message_list:
-            response.append(z)
-        await self.config.response.set(response)
-
-        return await ctx.send(message)
-
-    async def pinginvoke(self):
-        if "PingInvoke" in self.bot.cogs:
-            cog = self.bot.get_cog("PingInvoke")
-            config = await cog.config.botname()
-            if config:
-                return config
-            return None
-        return None
-
-    @staticmethod
-    def shorten(text):
-        if len(text) > 30:
-            return text[:30] + "..."
-        else:
-            return text
-
-    @commands.is_owner()
-    @commands.group()
-    async def pingset(self, ctx: commands.Context):
-        """Settings for ping."""
-
-    @pingset.command()
-    async def reply(self, ctx: commands.Context, true_or_false: bool, mention: bool = False):
-        """Set whether ping will use replies in their output."""
-        await self.config.reply.set(true_or_false)
-        await self.config.mention.set(mention)
-        await ctx.tick()
-        verb = "now" if true_or_false else "no longer"
-        msg = f"Running `{ctx.clean_prefix}ping` will {verb} use replies."
-        if not mention:
-            if true_or_false:
-                msg += " Replies will not mention."
-        else:
-            msg += " Replies will mention."
-        await ctx.send(msg)
-
-    @pingset.command()
-    async def settings(self, ctx: commands.Context):
-        """Get the settings for the ping command."""
-        response = await self.config.response()
-        reply = await self.config.reply()
-        mention = await self.config.mention()
-        embed = await self.config.embed()
-
-        if not response:
-            pre_processed = "+ Pong."
-        else:
-            message_list = [await self.converter(ctx, x, False) for x in response]
-            pre_processed = "\n".join(
-                f"+ {c+1}: {self.shorten(v)}" for c, v in enumerate(message_list)
-            )
-
-        pre_processed = box(pre_processed, lang="diff")
-
-        if await ctx.embed_requested():
-            output = discord.Embed(
-                title=f"Ping Settings for {ctx.bot.user.name}",
-                color=await ctx.embed_colour(),
-            )
-
-            cross = "\N{CROSS MARK}"
-            check = "\N{WHITE HEAVY CHECK MARK}"
-
-            output.add_field(name="Replies", value=check if reply else cross, inline=True)
-
-            if reply:
-                output.add_field(
-                    name="Reply mentions",
-                    value=check if mention else cross,
-                    inline=True,
-                )
-
-            output.add_field(name="Embeds", value=check if embed else cross, inline=True)
-
-            pinginvoke = await self.pinginvoke()
-
-            if pinginvoke:
-                output.add_field(name="Invoke Settings", value=pinginvoke + "?")
-                output.description = (
-                    f"Use `{ctx.clean_prefix}pingi` for more information on invoking ping."
-                )
-
-            output.add_field(name="Responses", value=pre_processed, inline=False)
-            output.set_footer(
-                text=f"See {ctx.clean_prefix}pingset regex, for information on response regex."
-            )
-
-            await ctx.send(embed=output)
-        else:
-            await ctx.send("I need to be able to send embeds.")
-
-    @pingset.command()
-    async def regex(self, ctx: commands.Context):
-        """Get information on the types of ping regex."""
-        description = "`{latency}`: Bot Latency\n`{author}`: Author's Display Name"
-        if await ctx.embed_requested():
-            await ctx.send(
-                embed=discord.Embed(description=description, color=await ctx.embed_colour())
-            )
-        else:
-            await ctx.send(description)
-
-    @pingset.command()
-    async def embed(self, ctx: commands.Context, true_or_false: bool):
-        """
-        Toggle whether to use embeds in replies.
-
-        Your message will be put into the description.
-        Embeds will not send if they have been disabled via `[p]embedset`.
-        """
-        await self.config.embed.set(true_or_false)
-        verb = "now" if true_or_false else "not"
-        await ctx.send(f"`{ctx.clean_prefix}ping` will {verb} use embeds.")
-
-    @pingset.command()
-    @commands.guild_only()
-    async def message(self, ctx: commands.Context, *, message: str):
-        """
-        Set your custom ping message.
-
-        Optional Regex:
-        `{author}`: Replaces with the authors display name.
-        `{latency}`: Replaces with the bots latency.
-
-        Example Usage:
-        `[p]pingset message Hello {author}! My latency is {latency} ms.`
-
-        Random Responses:
-        When you specify `<message>`, you will be asked if you want to add
-        more responses. These responses will be chosen at random when you run the
-        ping command.
-
-        To exit out of the random selection session, type `stop()` or `exit()`.
-        """
-
-        msg = await ctx.send("Would you like to add any other responses, to be chosen at random?")
-        pred = ReactionPredicate.yes_or_no(msg, ctx.author)
-        start_adding_reactions(msg, ReactionPredicate.YES_OR_NO_EMOJIS)
-
-        try:
-            await self.bot.wait_for("reaction_add", check=pred, timeout=30)
-        except asyncio.TimeoutError:
-            await self.config.response.clear()
-            response = await self.config.response()
-            response.append(message)
-            await self.config.response.set(response)
-            return await ctx.send("You took too long to answer, I'll stick to this one response!")
-
-        if pred.result:
-            await ctx.send(
-                "Okay, let's add some random responses. Type `stop()` or `exit()` once you're done!"
-            )
-            await asyncio.sleep(1)
-            await self.config.response.clear()
-
-            message_list = [message]
-            response = await self.config.response()
-
-            while True:
-
-                if len(message_list) > 9:
-                    await ctx.send("You've reached the maximum number of responses!")
-                    return await self.enum(ctx, message_list)
-
-                await ctx.send("Add a random response:")
-
-                def check(x):
-                    return x.author == ctx.author and x.channel == ctx.channel
-
-                try:
-                    add_response = await self.bot.wait_for("message", timeout=50, check=check)
-                except asyncio.TimeoutError:
-                    return await ctx.send("Timed out. No changes have been made.")
-
-                if add_response.content.lower().startswith(("exit()", "stop()")):
-                    await ctx.send("Ended!")
-                    return await self.enum(ctx, message_list)
-                else:
-                    message_list.append(add_response.content)
-
-        else:
-            await self.config.response.clear()
-            response = await self.config.response()
-            response.append(message)
-            await self.config.response.set(response)
-            return await ctx.send("Ok, I'll stick to this one response!")
+    async def red_delete_data_for_user(self, **kwargs):
+        """Nothing to delete"""
+        return
 
     @commands.command()
     async def ping(self, ctx: commands.Context):
-        """Pong. Or not?"""
-        resp = await self.config.response()
-        resp = "Pong." if not resp else random.choice(resp)
+        """Pong."""
+        settings = await self.config.all()
+        fmt_kwargs = {"author": Member(ctx.author), "latency": round(self.bot.latency * 1000, 2)}
 
-        reply = await self.config.reply()
-        mention = await self.config.mention()
-        embed = await self.config.embed()
+        sender = ctx.send
+        kwargs = {"content": settings["response"].format(**fmt_kwargs)}
 
-        content = await self.converter(ctx, resp, True)
+        if any([v for v in settings["embed"].values()]):
+            embed_from_dict = {}
+            for k, v in settings["embed"].items():
+                if k == "color" and not v:
+                    v = (await ctx.embed_colour()).value
+                if not v:
+                    continue
+                embed_from_dict[k] = v
+            kwargs["embed"] = discord.Embed.from_dict(embed_from_dict)
 
-        if embed:
-            content = discord.Embed(description=content, color=await ctx.embed_colour())
+        if settings["reply_settings"]["toggled"]:
+            sender = ctx.reply
+            kwargs["mention_author"] = settings["reply_settings"]["mention"]
 
-        kwargs = {}
+        await sender(**kwargs)
 
-        if reply and ctx.channel.permissions_for(ctx.me).read_message_history:
-            kwargs["mention_author"] = mention
+    @commands.group()
+    async def pingset(self, ctx: commands.Context):
+        """Set your ping message."""
 
-        if isinstance(content, str):
-            kwargs["content"] = content
-        else:
-            if await ctx.embed_requested():
-                kwargs["embed"] = content
+    @pingset.command(name="message", aliases=["response"])
+    async def pingset_message(self, ctx: commands.Context, *, ping_message: str):
+        """Set the ping message sent when a user runs the ping command.
+
+        **Variables:**
+
+        - `{author.name}`
+        - `{author.mention}`
+        - `{author.id}`
+        - `{author.discriminator}`
+        ` `{author.name_and_discriminator}`
+        - `{latency}`
+        """
+        try:
+            ping_message.format(
+                author=Member(ctx.author), latency=round(self.bot.latency * 1000, 2)
+            )
+        except KeyError as e:
+            curled = curl(str(e).strip("'"))
+            await ctx.send(
+                box(f"{e.__class__.__name__}: {curled} is not a recognized variable", lang="yaml")
+            )
+            return
+        except commands.BadArgument as e:
+            curled = curl(f"author.{e}")
+            await ctx.send(
+                box(
+                    f"{e.__class__.__name__}: {curled} is not valid, author has no attribute {e}",
+                    lang="yaml",
+                )
+            )
+            return
+
+        await self.config.response.set(ping_message)
+        await ctx.send("The ping response has been set.")
+
+    @pingset.group(name="reply", invoke_without_command=True)
+    async def pingset_reply(self, ctx: commands.Context, reply: bool):
+        """Set whether the ping message uses replies."""
+        await self.config.reply_settings.toggled.set(reply)
+        verb = "enabled" if reply else "disabled"
+        await ctx.send("Replies have been {}.".format(verb))
+
+    @pingset_reply.command(name="mention")
+    async def pingset_reply_mention(self, ctx: commands.Context, mention: bool):
+        """Set whether the ping message uses replies."""
+        await self.config.reply_settings.mention.set(mention)
+        verb = "enabled" if mention else "disabled"
+        await ctx.send("Reply mentions have been {}.".format(verb))
+
+    @pingset.command(name="variables", aliases=["vars"])
+    @commands.bot_has_permissions(add_reactions=True)
+    async def pingset_variables(self, ctx: commands.Context):
+        """List the available variables for the ping command."""
+        data = []
+        key = lambda x: x.name
+        sorted_vars = sorted(PingOverrideVariables, key=key)
+        for c, v in enumerate(sorted_vars, 1):
+            if v.name.lower() == "latency":
+                var = curl(v.name.lower())
             else:
-                kwargs["content"] = content
+                var = curl(f"author.{v.name.lower()}")
+            _dict = {var: {"description": v.value[1], "example": v.value[2]}}
+            page_info = f"Page {c}/{len(sorted_vars)}"
+            kwargs = {"text": toml.dumps(_dict) + page_info, "lang": "toml"}
+            data.append(box(**kwargs))
 
-        if reply:
-            await ctx.reply(**kwargs)
+        await menu(ctx, data, DEFAULT_CONTROLS)
+
+    @pingset.group(name="embed")
+    async def pingset_embed(self, ctx: commands.Context):
+        """Manage your ping command's embed."""
+
+    @pingset_embed.command(name="title")
+    async def pingset_embed_title(self, ctx: commands.Context, title: EmbedTitle):
+        """Set your embed's title."""
+        await self.config.embed.title.set(title)
+        await ctx.send("Title set.")
+
+    @pingset_embed.command(name="description")
+    async def pingset_embed_description(self, ctx: commands.Context, description: str):
+        """Set your embed's description."""
+        await self.config.embed.description.set(description)
+        await ctx.send("Description set.")
+
+    @pingset_embed.command(name="color", aliases=["colour"])
+    async def pingset_embed_color(self, ctx: commands.Context, color: discord.Colour = None):
+        """Set your embed's color. Leave blank for bot color."""
+        if not color:
+            message = "Color reset to bot color."
         else:
-            await ctx.send(**kwargs)
+            message = "Color set to {}".format(str(color))
+        await self.config.embed.color.set(color)
+        await ctx.send(message)
+
+    @pingset.command(name="settings")
+    async def pingset_settings(self, ctx: commands.Context):
+        """See the current settings for PingOverride."""
+        settings = await self.config.all()
+        message = f"Replies: {settings['reply_settings']['toggled']}\n"
+        if settings["reply_settings"]["mention"]:
+            message += "\t- These replies will mention\n"
+        message += f"Response: {settings['response']}"
+        if any(settings["embed"].values()):
+            message += "\nEmbed settings:\n" + "\n".join(
+                f"\t{k}: {v}" for k, v in settings["embed"].items() if v
+            )
+        await ctx.send(box(message, lang="yaml"))
 
 
-async def setup(bot):
-    cping = PingOverride(bot)
-    global _old_ping
-    _old_ping = bot.get_command("ping")
-    if _old_ping:
-        bot.remove_command(_old_ping.name)
-    await cping.initialize()
-    bot.add_cog(cping)
+def setup(bot):
+    global ping_com
+    cog = PingOverride(bot)
+    ping_com = bot.remove_command("ping")
+    bot.add_cog(cog)
