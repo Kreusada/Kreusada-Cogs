@@ -11,4 +11,6 @@ class AlphaConverter(Converter):
             raise BadArgument("Please only use alphabetic characters.")
 
         alpha = {a[0].lower(): a for a in NATO_ALPHABET}
+        if argument.lower() == "all":
+            return box("\n".join(f"'{k}' = {v}" for k, v in alpha.items()), lang="ml")
         return box("\n".join(f"'{a}' = {alpha[a.lower()]}" for a in argument), lang="ml")

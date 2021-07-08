@@ -1,3 +1,4 @@
+import contextlib
 import json
 import pathlib
 
@@ -15,7 +16,7 @@ class AlphaNato(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "1.0.3"
+    __version__ = "1.1.0"
 
     def __init__(self, bot):
         self.bot = bot
@@ -25,6 +26,10 @@ class AlphaNato(commands.Cog):
         context = super().format_help_for_context(ctx)
         authors = ", ".join(self.__author__)
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+
+    def cog_unload(self):
+        with contextlib.suppress(Exception):
+            self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""
