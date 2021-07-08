@@ -57,11 +57,11 @@ ping
 
 .. code-block:: none
 
-    [p]ping 
+    [p]ping
 
 **Description**
 
-Pong. Or not?
+Pong.
 
 .. _pingoverride-command-pingset:
 
@@ -69,17 +69,15 @@ Pong. Or not?
 pingset
 ^^^^^^^
 
-.. note:: |owner-lock|
-
 **Syntax**
 
 .. code-block:: none
 
-    [p]pingset 
+    [p]pingset
 
 **Description**
 
-Settings for ping.
+Set your ping message.
 
 .. _pingoverride-command-pingset-embed:
 
@@ -91,14 +89,61 @@ pingset embed
 
 .. code-block:: none
 
-    [p]pingset embed <true_or_false>
+    [p]pingset embed
 
 **Description**
 
-Toggle whether to use embeds in replies.
+Manage your ping command's embed.
 
-Your message will be put into the description.
-Embeds will not send if they have been disabled via ``[p]embedset``.
+.. _pingoverride-command-pingset-embed-color:
+
+"""""""""""""""""""
+pingset embed color
+"""""""""""""""""""
+
+**Syntax**
+
+.. code-block:: none
+
+    [p]pingset embed color [color]
+
+.. tip:: Alias: ``pingset embed colour``
+
+**Description**
+
+Set your embed's color. Leave blank for bot color.
+
+.. _pingoverride-command-pingset-embed-description:
+
+"""""""""""""""""""""""""
+pingset embed description
+"""""""""""""""""""""""""
+
+**Syntax**
+
+.. code-block:: none
+
+    [p]pingset embed description <description>
+
+**Description**
+
+Set your embed's description.
+
+.. _pingoverride-command-pingset-embed-title:
+
+"""""""""""""""""""
+pingset embed title
+"""""""""""""""""""
+
+**Syntax**
+
+.. code-block:: none
+
+    [p]pingset embed title <title>
+
+**Description**
+
+Set your embed's title.
 
 .. _pingoverride-command-pingset-message:
 
@@ -110,41 +155,22 @@ pingset message
 
 .. code-block:: none
 
-    [p]pingset message <message>
+    [p]pingset message <ping_message>
+
+.. tip:: Alias: ``pingset response``
 
 **Description**
 
-Set your custom ping message.
+Set the ping message sent when a user runs the ping command.
 
-Optional Regex:
-``{author}``: Replaces with the authors display name.
-``{latency}``: Replaces with the bots latency.
+**Variables:**
 
-Example Usage:
-``[p]pingset message Hello {author}! My latency is {latency} ms.``
-
-Random Responses:
-When you specify ``<message>``, you will be asked if you want to add
-more responses. These responses will be chosen at random when you run the
-ping command.
-
-To exit out of the random selection session, type ``stop()`` or ``exit()``.
-
-.. _pingoverride-command-pingset-regex:
-
-"""""""""""""
-pingset regex
-"""""""""""""
-
-**Syntax**
-
-.. code-block:: none
-
-    [p]pingset regex 
-
-**Description**
-
-Get information on the types of ping regex.
+- ``{author.name}``
+- ``{author.mention}``
+- ``{author.id}``
+- ``{author.discriminator}``
+`` ``{author.name_and_discriminator}``
+- ``{latency}``
 
 .. _pingoverride-command-pingset-reply:
 
@@ -156,11 +182,27 @@ pingset reply
 
 .. code-block:: none
 
-    [p]pingset reply <true_or_false> [mention=False]
+    [p]pingset reply <reply>
 
 **Description**
 
-Set whether ping will use replies in their output.
+Set whether the ping message uses replies.
+
+.. _pingoverride-command-pingset-reply-mention:
+
+"""""""""""""""""""""
+pingset reply mention
+"""""""""""""""""""""
+
+**Syntax**
+
+.. code-block:: none
+
+    [p]pingset reply mention <mention>
+
+**Description**
+
+Set whether the ping message uses replies.
 
 .. _pingoverride-command-pingset-settings:
 
@@ -172,11 +214,29 @@ pingset settings
 
 .. code-block:: none
 
-    [p]pingset settings 
+    [p]pingset settings
 
 **Description**
 
-Get the settings for the ping command.
+See the current settings for PingOverride.
+
+.. _pingoverride-command-pingset-variables:
+
+"""""""""""""""""
+pingset variables
+"""""""""""""""""
+
+**Syntax**
+
+.. code-block:: none
+
+    [p]pingset variables
+
+.. tip:: Alias: ``pingset vars``
+
+**Description**
+
+List the available variables for the ping command.
 
 ---------------
 Receive Support
