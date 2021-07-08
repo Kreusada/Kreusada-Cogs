@@ -33,7 +33,7 @@ class Vinfo(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "2.0.3"
+    __version__ = "2.0.4"
 
     def __init__(self, bot):
         self.bot = bot
@@ -183,10 +183,10 @@ class Vinfo(commands.Cog):
                 value = box(
                     "- An operating system error occured whilst trying to "
                     "retrieve version information for this module.",
-                    lang="diff"
+                    lang="diff",
                 )
             else:
-                value = box("- " + str(e), )
+                value = box("- " + str(e), lang="diff")
 
             embed.title = f"Information on {module.upper()}"
             embed.add_field(name="Version Information", value=value)
