@@ -32,13 +32,15 @@ mixinargs = (
     RaffleCog,
 )
 
+version = VersionHandler.__version__
 
 @cog_i18n(_)
 class Raffle(*mixinargs, metaclass=MetaClass):
     """Create raffles for your server."""
 
     __author__ = ["Kreusada"]
-    __version__ = VersionHandler.versiongetter(True)
+
+    __version__ = VersionHandler.tuple_to_str(version)
 
     def __init__(self, bot):
         self.bot = bot

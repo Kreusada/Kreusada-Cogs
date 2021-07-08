@@ -261,7 +261,7 @@ class InformationalCommands(RaffleMixin):
         """Get the version of your Raffle cog."""
         async with ctx.typing():
             cls = VersionHandler()
-            raw = await cls.rawversiongetter(True)
+            raw = await cls.request_raw_version()
             if not await cls.validate():
                 message = _(
                     "**Your raffle cog is out of date!**\n"
@@ -269,9 +269,9 @@ class InformationalCommands(RaffleMixin):
                     "Consider updating through `{2}cog update raffle`."
                 )
             else:
-                message = _("Version: {0.__version__}")
+                message = _("Version: **{0.__version__}**")
 
-        await ctx.send(message.format(self, raw, ctx.clean_prefix))
+        await ctx.send(message.format(self, cls.tuple_to_str(raw), ctx.clean_prefix))
 
     @raffle.command()
     async def docs(self, ctx: Context):
