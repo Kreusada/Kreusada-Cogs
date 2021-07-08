@@ -25,11 +25,11 @@ class PingOverride(commands.Cog):
     settings = {
         "response": "Pong.",
         "reply_settings": {"toggled": False, "mention": False},
-        "embed": {"title": None, "description": None, "color": None},
+        "embed": {"title": None, "color": None},
     }
 
     __author__ = ["Kreusada"]
-    __version__ = "3.1.0"
+    __version__ = "3.2.0"
 
     def __init__(self, bot):
         self.bot = bot
@@ -71,7 +71,7 @@ class PingOverride(commands.Cog):
             content = random.choice(content)
 
         sender = ctx.send
-        kwargs = {"content": content.format(**fmt_kwargs)}
+        kwargs = {}
 
         if any([v for v in settings["embed"].values()]):
             embed_from_dict = {}
@@ -80,8 +80,11 @@ class PingOverride(commands.Cog):
                     v = (await ctx.embed_colour()).value
                 if not v:
                     continue
+                embed_from_dict["description"] = content.format(**fmt_kwargs)
                 embed_from_dict[k] = v
             kwargs["embed"] = discord.Embed.from_dict(embed_from_dict)
+        else:
+            kwargs["content"] = content.format(**fmt_kwargs)
 
         if settings["reply_settings"]["toggled"]:
             sender = ctx.reply
@@ -177,12 +180,6 @@ class PingOverride(commands.Cog):
         """Set your embed's title."""
         await self.config.embed.title.set(title)
         await ctx.send("Title set.")
-
-    @pingset_embed.command(name="description")
-    async def pingset_embed_description(self, ctx: commands.Context, description: str):
-        """Set your embed's description."""
-        await self.config.embed.description.set(description)
-        await ctx.send("Description set.")
 
     @pingset_embed.command(name="color", aliases=["colour"])
     async def pingset_embed_color(self, ctx: commands.Context, color: discord.Colour = None):
