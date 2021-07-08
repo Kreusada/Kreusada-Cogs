@@ -1,8 +1,12 @@
-import contextlib
+import json
+import pathlib
 
 from redbot.core import commands
 
 from .converters import AlphaConverter
+
+with open(pathlib.Path(__file__).parent / "info.json") as fp:
+    __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
 
 
 class AlphaNato(commands.Cog):
@@ -11,7 +15,7 @@ class AlphaNato(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "1.0.0"
+    __version__ = "1.0.2"
 
     def __init__(self, bot):
         self.bot = bot
@@ -25,11 +29,6 @@ class AlphaNato(commands.Cog):
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""
         return
-
-    async def initialize(self) -> None:
-        if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(Exception):
-                self.bot.add_dev_env_value("alphanato", lambda x: self)
 
     @commands.command(usage="<letters...>")
     async def nato(self, ctx, *, letters: AlphaConverter):
