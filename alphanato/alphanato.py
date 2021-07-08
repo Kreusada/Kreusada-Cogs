@@ -1,12 +1,8 @@
 import contextlib
 
-import discord
 from redbot.core import commands
-from redbot.core.utils.chat_formatting import box
 
-from .alphabet import NATO_ALPHABET
-
-_remove_whitespace = lambda x: x.replace(" ", "")
+from .converters import AlphaConverter
 
 
 class AlphaNato(commands.Cog):
@@ -15,10 +11,11 @@ class AlphaNato(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "0.3.1"
+    __version__ = "1.0.0"
 
     def __init__(self, bot):
         self.bot = bot
+        self.bot_add_dev_env_value("alphanato", lambda x: self)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
@@ -35,7 +32,7 @@ class AlphaNato(commands.Cog):
                 self.bot.add_dev_env_value("alphanato", lambda x: self)
 
     @commands.command(usage="<letters...>")
-    async def nato(self, ctx, *, letter: str):
+    async def nato(self, ctx, *, letters: AlphaConverter):
         """
         Get the nato phonetic name from a letter.
 
@@ -51,15 +48,5 @@ class AlphaNato(commands.Cog):
         **Returns:**
         The NATO alphabet name for the provided characters.
         """
-        if not letter.isalpha():
-            return await ctx.send_help()
-        factory = {}
-        for x in NATO_ALPHABET:
-            if letter.lower().strip() == "all":
-                factory[x[0].lower()] = x
-            else:
-                for let in tuple(_remove_whitespace(letter)):
-                    if x[0].lower() == let and let.isalpha():
-                        factory[let] = x
-        msg = "\n".join("'{}' = {}".format(k, v) for k, v in sorted(factory.items()))
-        await ctx.send(box(msg, lang="ml"))
+        # Oh boy, I love converters :P
+        await ctx.send(letters)
