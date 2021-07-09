@@ -242,6 +242,13 @@ This is the prompt for the bot when the a winner is picked for the raffle throug
 
 If not specified, it defaults to ``keep_winner``.
 
+^^^^^^^^^^^^^^
+suspense_timer
+^^^^^^^^^^^^^^
+
+This condition allows you to set the time for which the bot types when drawing a winner from the raffle.
+This must be provided as a number, and must be between 0 and 10.
+
 .. _raffle-commands:
 
 --------
@@ -886,6 +893,26 @@ Remove a role from the role requirements list of a raffle.
 **Arguments:**
     - `<raffle>` - The name of the raffle.
     - `<role>` - The role to remove from the list of role requirements.
+
+.. _raffle-command-raffle-edit-stimer:
+
+^^^^^^^^^^^^^^^^^^
+raffle edit stimer
+^^^^^^^^^^^^^^^^^^
+
+**Syntax**
+
+.. code-block:: python
+
+    [p]raffle edit stimer <raffle> <suspense_timer>
+
+**Description**
+
+Edit the suspense timer for a raffle.
+
+**Arguments:**
+    - `<raffle>` - The name of the raffle.
+    - `<suspense_timer>` - The new suspense timer for the raffle.
 
 .. _raffle-command-raffle-end:
 
