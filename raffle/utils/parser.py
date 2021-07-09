@@ -38,6 +38,7 @@ class RaffleManager(object):
         self.join_message = data.get("join_message", None)
         self.end_message = data.get("end_message", None)
         self.on_end_action = data.get("on_end_action", None)
+        self.suspense_timer = data.get("suspense_timer", None)
 
         # dep warnings come first
         if "join_age" in self.data.keys():
@@ -207,3 +208,9 @@ class RaffleManager(object):
                 raise InvalidArgument(
                     "(on_end_action) must be one of 'end', 'remove_winner', 'remove_and_prevent_winner', or 'keep_winner'"
                 )
+
+        if self.suspense_timer:
+            if not isinstance(self.suspense_timer, int) or self.suspense_timer not in [
+                *range(0, 11)
+            ]:
+                raise InvalidArgument("(suspense_timer) must be a number between 0 and 10")

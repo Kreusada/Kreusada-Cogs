@@ -105,6 +105,7 @@ class BuilderCommands(RaffleMixin):
                 "description": valid.get("description", None),
                 "maximum_entries": valid.get("maximum_entries", None),
                 "on_end_action": valid.get("on_end_action", None),
+                "suspense_timer": valid.get("suspense_timer", None),
             }
 
             for k, v in conditions.items():
