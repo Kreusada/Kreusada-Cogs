@@ -56,7 +56,7 @@ class EventCommands(RaffleMixin):
             # Let's add a bit of suspense, shall we? :P
             await ctx.send(_("Picking a winner from the pool..."))
             await ctx.trigger_typing()
-            await asyncio.sleep(2)
+            await asyncio.sleep(raffle_data.get("suspense_timer", 2))
 
             await ctx.send(message)
 

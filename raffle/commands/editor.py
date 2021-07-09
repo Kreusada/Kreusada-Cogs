@@ -143,6 +143,39 @@ class EditorCommands(RaffleMixin):
         await self.replenish_cache(ctx)
 
     @edit.command()
+    async def stimer(self, ctx, raffle: RaffleFactoryConverter, suspense_timer: Union[int, bool]):
+        """Edit the suspense timer for a raffle.
+
+        Use `0` or `false` to remove this feature.
+        This feature defaults to 2 seconds if not set.
+
+        **Arguments:**
+            - `<raffle>` - The name of the raffle.
+            - `<description>` - The new suspense timer.
+        """
+        async with self.config.guild(ctx.guild).raffles() as r:
+
+            raffle_data = r.get(raffle, None)
+
+            if not suspense_timer:
+                with contextlib.suppress(KeyError):
+                    del raffle_data["suspense_timer"]
+                return await ctx.send(_("Suspense timer reset to the default: 2 seconds."))
+
+            elif suspense_timer is True:
+                return await ctx.send(
+                    _('Please provide a number, or "false" to disable the description.')
+                )
+
+            else:
+                if not suspense_timer in [*range(0, 11)]:
+                    await ctx.send("New suspense timer must be a number between 0 and 10.")
+                raffle_data["suspense_timer"] = suspense_timer
+                await ctx.send(_("Suspense timer updated for this raffle."))
+
+        await self.replenish_cache(ctx)
+
+    @edit.command()
     async def endaction(
         self, ctx, raffle: RaffleFactoryConverter, *, on_end_action: Union[bool, str]
     ):
@@ -418,6 +451,7 @@ class EditorCommands(RaffleMixin):
             "description": raffle_data.get("description", None),
             "maximum_entries": raffle_data.get("maximum_entries", None),
             "on_end_action": raffle_data.get("on_end_action", None),
+            "suspense_timer": raffle_data.get("suspense_timer", None),
         }
 
         message = (
@@ -500,6 +534,7 @@ class EditorCommands(RaffleMixin):
             "description": valid.get("description", None),
             "maximum_entries": valid.get("maximum_entries", None),
             "on_end_action": valid.get("on_end_action", None),
+            "suspense_timer": valid.get("suspense_timer", None),
         }
 
         for k, v in conditions.items():

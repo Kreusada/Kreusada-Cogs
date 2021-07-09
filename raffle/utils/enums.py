@@ -110,6 +110,10 @@ class ComponentDescriptions(enum.Enum):
         "a raffle. This must be one of 'end', 'keep_winner', 'remove_winner', or "
         "'remove_and_prevent_winner'."
     )
+    SUSPENSE_TIMER = _(
+        "The amount of seconds that the bot types for before the winner is shown. "
+        "Must be a number between 1 and 10."
+    )
 
 
 class ComponentExamples(enum.Enum):
@@ -127,6 +131,7 @@ class ComponentExamples(enum.Enum):
     ALLOWED_USERS = [719988449867989142]
     MAXIMUM_ENTRIES = 10
     ON_END_ACTION = "remove_and_prevent_winner"
+    SUSPENSE_TIMER = 3
 
 
 class RaffleComponents(enum.Enum):
@@ -241,4 +246,13 @@ class RaffleComponents(enum.Enum):
         "required_condition": False,
         "description": ComponentDescriptions.ON_END_ACTION.value,
         "example": ComponentExamples.ON_END_ACTION.value,
+    }
+
+    suspense_timer: ComponentsDictionary = {
+        "supported_types": [int],
+        "potential_exceptions": [InvalidArgument],
+        "variables": None,
+        "required_condition": False,
+        "description": ComponentDescriptions.SUSPENSE_TIMER.value,
+        "example": ComponentExamples.SUSPENSE_TIMER.value,
     }
