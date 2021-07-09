@@ -12,6 +12,7 @@ from redbot.core.utils.predicates import MessagePredicate, ReactionPredicate
 from ..mixins.abc import RaffleMixin
 from ..utils.checks import VALID_USER_BADGES
 from ..utils.converters import RaffleFactoryConverter
+from ..utils.enums import RaffleComponents
 from ..utils.exceptions import InvalidArgument, RaffleError
 from ..utils.formatting import cross, tick
 from ..utils.helpers import (
@@ -70,6 +71,56 @@ class EditorCommands(RaffleMixin):
 
             raffle_data["account_age"] = new_account_age
             await ctx.send(_("Account age requirement updated for this raffle."))
+
+        await self.replenish_cache(ctx)
+
+    @edit.command()
+    async def convertsimple(self, ctx, raffle: RaffleFactoryConverter):
+        """Convert a raffle to a simple one (name and description).
+
+        **Arguments**
+            - `<raffle>` - The name of the raffle.
+        """
+        components = [e.name for e in RaffleComponents][2:]
+
+        async with self.config.guild(ctx.guild).raffles() as r:
+
+            raffle_data = r.get(raffle, None)
+
+            message = _(
+                ":warning: Are you sure you want to convert this raffle to a simple raffle?\n"
+                "It will remove all the conditions!"
+            )
+
+            can_react = ctx.channel.permissions_for(ctx.me).add_reactions
+            if not can_react:
+                message += " (y/n)"
+            message = await ctx.send(message)
+
+            if can_react:
+                start_adding_reactions(message, ReactionPredicate.YES_OR_NO_EMOJIS)
+                predicate = ReactionPredicate.yes_or_no(message, ctx.author)
+                event_type = "reaction_add"
+            else:
+                predicate = MessagePredicate.yes_or_no(ctx)
+                event_type = "message"
+
+            try:
+                await self.bot.wait_for(event_type, check=predicate, timeout=30)
+            except asyncio.TimeoutError:
+                await ctx.send(_("You took too long to respond."))
+
+            if predicate.result:
+                delkeys = []
+                for k in raffle_data.keys():
+                    if k in components:
+                        delkeys.append(k)
+                for k in delkeys:
+                    del raffle_data[k]
+                await ctx.send(_("Raffle converted to simple raffle."))
+
+            else:
+                await ctx.send(_("No changes have been made."))
 
         await self.replenish_cache(ctx)
 

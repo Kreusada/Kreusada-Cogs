@@ -507,6 +507,25 @@ Remove a member from the allowed list of a raffle.
     - `<raffle>` - The name of the raffle.
     - `<member>` - The member to remove from the allowed list.
 
+.. _raffle-command-raffle-edit-convertsimple:
+
+^^^^^^^^^^^^^^^^^^^^^^^^^
+raffle edit convertsimple
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**Syntax**
+
+.. code-block:: python
+
+    [p]raffle edit convertsimple <raffle>
+
+**Description**
+
+Convert a raffle to a simple one (name and description).
+
+**Arguments**
+    - ``<raffle>`` - The name of the raffle.
+
 .. _raffle-command-raffle-edit-description:
 
 ^^^^^^^^^^^^^^^^^^^^^^^
