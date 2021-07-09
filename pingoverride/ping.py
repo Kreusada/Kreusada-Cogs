@@ -29,7 +29,7 @@ class PingOverride(commands.Cog):
     }
 
     __author__ = ["Kreusada"]
-    __version__ = "3.3.0"
+    __version__ = "3.3.1"
 
     def __init__(self, bot):
         self.bot = bot
