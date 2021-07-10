@@ -10,7 +10,7 @@ This is my repository for Red Discord-Bot. I built these cogs because these were
 Installation
 ------------
 
-Primarily, make sure you have `downloader` loaded. 
+Primarily, make sure you have `downloader` loaded.
 
 .. code-block:: ini
 
@@ -52,6 +52,8 @@ Available cogs list
 | dehoister       | Dehoist new users with a variety of powerful tools.          | Mod     | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | encryptor       | Generate and validify the strength of passwords.             | Tools   | Kreusada       |
++-----------------+--------------------------------------------------------------+---------+----------------+
+| flags           | Get the flag for a country.                                  | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
 | minifier        | Minify your code with the python minifier.                   | Tools   | Kreusada       |
 +-----------------+--------------------------------------------------------------+---------+----------------+
@@ -108,6 +110,7 @@ Credits
 
 * Everyone who has helped from Red! <3
 * Special thanks to Jojo for kickstarting me with python.
+* Thanks Jackenmen for some awesome work on this repo's workflows and pre-commit stuff <3
 
 -------
 LICENSE

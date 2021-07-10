@@ -4,7 +4,7 @@
 Installation
 ============
 
-Primarily, make sure you have `downloader` loaded. 
+Primarily, make sure you have `downloader` loaded.
 
 .. code-block:: ini
 

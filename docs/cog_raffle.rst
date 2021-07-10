@@ -36,7 +36,7 @@ and you can learn more about the condition blocks throughout this documentation.
 There are simple and complex raffles. Simple raffles simply include a title and
 description, and you can pick multiple users until you decide to end it.
 
-Complex raffles, however, are much more complex (as the name says), as you can 
+Complex raffles, however, are much more complex (as the name says), as you can
 implement various conditions to prevent certain users from joining, or certain
 requirements such as account age, roles, and more. They are built using YAML -
 which is very easy to get started with. Here's a quick peak into what a complex
@@ -75,7 +75,7 @@ Please only use alphanumeric characters, with underscores allowed.
 description
 ^^^^^^^^^^^
 
-The description for your raffle. This information appears in the ``[p]raffle info`` 
+The description for your raffle. This information appears in the ``[p]raffle info``
 command, so people can see what your raffle's about.
 
 This block must be provided as a str (text with quotes)
@@ -84,8 +84,8 @@ This block must be provided as a str (text with quotes)
 join_message
 ^^^^^^^^^^^^
 
-A block used to personalize a section of the output when using ``[p]raffle join``. 
-You can use the special arguments of ``{user}``, ``{entry_count}`` and ``{raffle}`` 
+A block used to personalize a section of the output when using ``[p]raffle join``.
+You can use the special arguments of ``{user}``, ``{entry_count}`` and ``{raffle}``
 to customize this message so that it has context.
 
 ``raffle``:
@@ -101,14 +101,14 @@ to customize this message so that it has context.
 
     - user.name
     - user.mention
-    - user.id 
-    - user.display_name 
+    - user.id
+    - user.display_name
     - user.discriminator
     - user.name_and_discriminator
-    
+
 Make sure to use these variables inside curly brackets (``{}``).
 
-If you want to randomize the join_message, simply provide a list of strings. 
+If you want to randomize the join_message, simply provide a list of strings.
 Otherwise, provide a string by itself.
 
 ^^^^^^^^^^^
@@ -116,8 +116,8 @@ end_message
 ^^^^^^^^^^^
 
 A block used to personalize the draw message when using ``[p]raffle draw``. If this key
-is not present, the default message is set to "Congratulations {winner.mention}, you have 
-won the {raffle} raffle!". You can use the special arguments of ``{winner}`` and ``{raffle}`` 
+is not present, the default message is set to "Congratulations {winner.mention}, you have
+won the {raffle} raffle!". You can use the special arguments of ``{winner}`` and ``{raffle}``
 to customize this message so that it has context.
 
 ``raffle``:
@@ -130,11 +130,11 @@ to customize this message so that it has context.
 
     - winner.name
     - winner.mention
-    - winner.id 
-    - winner.display_name 
+    - winner.id
+    - winner.display_name
     - winner.discriminator
     - winner.name_and_discriminator
-    
+
 Make sure to use these variables inside curly brackets (``{}``).
 
 If you want to randomize the end_message, this is now an option as of version 1.1.0.
@@ -151,7 +151,7 @@ Simply provide a list of strings. Otherwise, provide a string by itself.
 account_age
 ^^^^^^^^^^^
 
-The required Discord account age for a user to join. This condition is helpful for reducing 
+The required Discord account age for a user to join. This condition is helpful for reducing
 "cheaters" who join on alternate accounts in an attempt to have a greater chance at winning.
 
 This condition must be a number, and it must be provided in days. This number cannot be higher
@@ -163,7 +163,7 @@ server_join_age
 
 The required length of time in days that the user must have been in the server for. This condition
 is simular to the ``account_age`` condition, but it is instead how long the user has been in the
-server for. 
+server for.
 
 This condition must be a number, and it must be provided in days. This number cannot be higher
 than the server's creation date.
@@ -177,7 +177,7 @@ than the server's creation date.
 roles_needed_to_enter
 ^^^^^^^^^^^^^^^^^^^^^
 
-A list of roles which are required in order to join the raffle. This must be a **list** of 
+A list of roles which are required in order to join the raffle. This must be a **list** of
 role IDs. In case you were unaware, square brackets (``[]``) are used to denote lists.
 
 .. code-block:: yaml
@@ -191,7 +191,7 @@ role IDs. In case you were unaware, square brackets (``[]``) are used to denote 
 badges_needed_to_enter
 ^^^^^^^^^^^^^^^^^^^^^^
 
-A list of badges which are required in order to join the raffle. This must be a **list** of 
+A list of badges which are required in order to join the raffle. This must be a **list** of
 Discord badges. In case you were unaware, square brackets (``[]``) are used to denote lists.
 
 .. code-block:: yaml
@@ -203,29 +203,29 @@ Discord badges. In case you were unaware, square brackets (``[]``) are used to d
 
 .. tip::
 
-    Available badges: bug_hunter, bug_hunter_level_2, early_supporter, hypesquad, 
-    hypesquad_balance, hypesquad_bravery, hypesquad_brilliance, partner, staff, 
+    Available badges: bug_hunter, bug_hunter_level_2, early_supporter, hypesquad,
+    hypesquad_balance, hypesquad_bravery, hypesquad_brilliance, partner, staff,
     system, and verified_bot_developer.
 
 ^^^^^^^^^^^^^^^
 prevented_users
 ^^^^^^^^^^^^^^^
 
-A list of users who are not allowed to join the raffle. This must be a **list** of 
+A list of users who are not allowed to join the raffle. This must be a **list** of
 user IDs. Square brackets (``[]``) are used to denote lists.
 
 ^^^^^^^^^^^^^
 allowed_users
 ^^^^^^^^^^^^^
 
-A list of users who are allowed to join the raffle. This must be a **list** of 
+A list of users who are allowed to join the raffle. This must be a **list** of
 user IDs. Square brackets (``[]``) are used to denote lists.
 
 ^^^^^^^^^^^^^^^
 maximum_entries
 ^^^^^^^^^^^^^^^
 
-The maximum number of entries allowed into the raffle. This condition must be 
+The maximum number of entries allowed into the raffle. This condition must be
 provided as a number.
 
 ^^^^^^^^^^^^^
@@ -242,13 +242,20 @@ This is the prompt for the bot when the a winner is picked for the raffle throug
 
 If not specified, it defaults to ``keep_winner``.
 
+^^^^^^^^^^^^^^
+suspense_timer
+^^^^^^^^^^^^^^
+
+This condition allows you to set the time for which the bot types when drawing a winner from the raffle.
+This must be provided as a number, and must be between 0 and 10.
+
 .. _raffle-commands:
 
 --------
 Commands
 --------
 
-Here is a list of all commands available for this cog. 
+Here is a list of all commands available for this cog.
 There are 31 in total.
 
 .. _raffle-command-raffle:
@@ -262,7 +269,7 @@ raffle
 
 .. code-block:: python
 
-    [p]raffle 
+    [p]raffle
 
 **Description**
 
@@ -278,7 +285,7 @@ raffle asyaml
 
 .. code-block:: python
 
-    [p]raffle asyaml <raffle> 
+    [p]raffle asyaml <raffle>
 
 **Description**
 
@@ -297,7 +304,7 @@ raffle conditions
 
 .. code-block:: python
 
-    [p]raffle conditions 
+    [p]raffle conditions
 
 **Description**
 
@@ -313,7 +320,7 @@ raffle create
 
 .. code-block:: python
 
-    [p]raffle create 
+    [p]raffle create
 
 **Description**
 
@@ -329,7 +336,7 @@ raffle create complex
 
 .. code-block:: python
 
-    [p]raffle create complex 
+    [p]raffle create complex
 
 **Description**
 
@@ -365,7 +372,7 @@ raffle docs
 
 .. code-block:: python
 
-    [p]raffle docs 
+    [p]raffle docs
 
 **Description**
 
@@ -400,7 +407,7 @@ raffle edit
 
 .. code-block:: python
 
-    [p]raffle edit 
+    [p]raffle edit
 
 **Description**
 
@@ -438,7 +445,7 @@ raffle edit allowed
 
 .. code-block:: python
 
-    [p]raffle edit allowed 
+    [p]raffle edit allowed
 
 **Description**
 
@@ -499,6 +506,25 @@ Remove a member from the allowed list of a raffle.
 **Arguments:**
     - `<raffle>` - The name of the raffle.
     - `<member>` - The member to remove from the allowed list.
+
+.. _raffle-command-raffle-edit-convertsimple:
+
+^^^^^^^^^^^^^^^^^^^^^^^^^
+raffle edit convertsimple
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**Syntax**
+
+.. code-block:: python
+
+    [p]raffle edit convertsimple <raffle>
+
+**Description**
+
+Convert a raffle to a simple one (name and description).
+
+**Arguments**
+    - ``<raffle>`` - The name of the raffle.
 
 .. _raffle-command-raffle-edit-description:
 
@@ -671,7 +697,7 @@ raffle edit badges
 
 .. code-block:: python
 
-    [p]raffle edit badges 
+    [p]raffle edit badges
 
 **Description**
 
@@ -746,7 +772,7 @@ raffle edit prevented
 
 .. code-block:: python
 
-    [p]raffle edit prevented 
+    [p]raffle edit prevented
 
 **Description**
 
@@ -821,7 +847,7 @@ raffle edit rolesreq
 
 .. code-block:: python
 
-    [p]raffle edit rolesreq 
+    [p]raffle edit rolesreq
 
 **Description**
 
@@ -886,6 +912,26 @@ Remove a role from the role requirements list of a raffle.
 **Arguments:**
     - `<raffle>` - The name of the raffle.
     - `<role>` - The role to remove from the list of role requirements.
+
+.. _raffle-command-raffle-edit-stimer:
+
+^^^^^^^^^^^^^^^^^^
+raffle edit stimer
+^^^^^^^^^^^^^^^^^^
+
+**Syntax**
+
+.. code-block:: python
+
+    [p]raffle edit stimer <raffle> <suspense_timer>
+
+**Description**
+
+Edit the suspense timer for a raffle.
+
+**Arguments:**
+    - `<raffle>` - The name of the raffle.
+    - `<suspense_timer>` - The new suspense timer for the raffle.
 
 .. _raffle-command-raffle-end:
 
@@ -993,7 +1039,7 @@ raffle list
 
 .. code-block:: python
 
-    [p]raffle list 
+    [p]raffle list
 
 **Description**
 
@@ -1082,7 +1128,7 @@ raffle refresh
 
 .. code-block:: python
 
-    [p]raffle refresh 
+    [p]raffle refresh
 
 **Description**
 
@@ -1098,7 +1144,7 @@ raffle teardown
 
 .. code-block:: python
 
-    [p]raffle teardown 
+    [p]raffle teardown
 
 **Description**
 
@@ -1114,7 +1160,7 @@ raffle template
 
 .. code-block:: python
 
-    [p]raffle template 
+    [p]raffle template
 
 **Description**
 
@@ -1130,7 +1176,7 @@ raffle version
 
 .. code-block:: python
 
-    [p]raffle version 
+    [p]raffle version
 
 **Description**
 
@@ -1141,4 +1187,3 @@ Receive Support
 ---------------
 
 Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_kreusada-cogs`.
-

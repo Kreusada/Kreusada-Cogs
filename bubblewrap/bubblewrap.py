@@ -13,9 +13,9 @@ class BubbleWrap(commands.Cog):
     off in your user settings.
     """
 
-    __author__ = ["Kreusada", ]
+    __author__ = ["Kreusada"]
     __version__ = "1.0.0"
-    
+
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
         authors = ", ".join(self.__author__)

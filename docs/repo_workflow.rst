@@ -15,9 +15,9 @@ There are four sections:
 * Rejected/Infeasible
 
 If your issue/PR is in the ``To do`` section, that means that I haven't
-started looking at it. 
+started looking at it.
 
-If your issue/PR is in the ``In progress`` section, that means that I have started to 
+If your issue/PR is in the ``In progress`` section, that means that I have started to
 outline, test or develop the requested changes.
 
 If your issue/PR is in the ``Done`` section, that means the requested changes have been implemented or merged!

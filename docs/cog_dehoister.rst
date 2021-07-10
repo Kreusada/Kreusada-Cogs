@@ -33,7 +33,7 @@ Dehoister will protect your guild against users with hoisted usernames. Hoisted 
 promote scams, hate speech, guilds, and other things which may come across as malicious. Or, its just your
 average discord user going "I'm at the top of the member list look at me look at meeee!".
 
-This cog will take action on any user, if their name starts with one of `these characters <https://github.com/kreusada/Kreusada-Cogs/blob/master/dehoister/dehoister.py#L40>`_.
+This cog will take action on any user, if their name starts with one of `these characters <https://github.com/Kreusada/Kreusada-Cogs/blob/f4e59c138e79604d327001a7b4f63bc156bf79ae/dehoister/dehoister.py#L18>`_.
 
 They are the only characters that come above numbers and letters in ASCII, and if a user's name starts
 with one of these, 90% of the time it will be because they want to be hoisted.
@@ -158,8 +158,8 @@ hoist explain scanclean
 
 Explain how scanning and cleaning works.
 
-If users were able to bypass the auto dehoister, due to the bot being down, or it was toggled off, there are still tools you can use to 
-protect your guild against hoisted names. ``[p]hoist scan`` will return a full list of users who have hoisted nicknames or usernames. 
+If users were able to bypass the auto dehoister, due to the bot being down, or it was toggled off, there are still tools you can use to
+protect your guild against hoisted names. ``[p]hoist scan`` will return a full list of users who have hoisted nicknames or usernames.
 ``[p]hoist clean`` will change everyones nickname to the configured nickname if they have a hoisted username/nickname.
 
 .. _dehoister-command-hoist-scan:

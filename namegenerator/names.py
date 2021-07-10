@@ -82,4 +82,4 @@ class NameGenerator(commands.Cog):
         """
         a = word1
         b = word2
-        await ctx.send(a[:len(a) // 2].strip() + b[len(b) // 2:].strip())
+        await ctx.send(a[: len(a) // 2].strip() + b[len(b) // 2 :].strip())

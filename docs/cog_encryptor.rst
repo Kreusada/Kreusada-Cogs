@@ -50,7 +50,7 @@ password
 
 .. code-block:: ini
 
-    [p]password 
+    [p]password
 
 **Description**
 
@@ -66,7 +66,7 @@ password generate
 
 .. code-block:: ini
 
-    [p]password generate 
+    [p]password generate
 
 **Description**
 
@@ -82,7 +82,7 @@ password generate complex
 
 .. code-block:: ini
 
-    [p]password generate complex 
+    [p]password generate complex
 
 **Description**
 

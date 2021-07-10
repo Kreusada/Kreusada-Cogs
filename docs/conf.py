@@ -21,5 +21,5 @@ master_doc = "index"
 exclude_patterns = []
 add_function_parentheses = True
 
-project = u"Kreusada-Cogs"
-copyright = u"2021 | Kreusada"
+project = "Kreusada-Cogs"
+copyright = "2021 | Kreusada"

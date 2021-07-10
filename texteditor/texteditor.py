@@ -1,9 +1,8 @@
 import contextlib
+import random
 from typing import Optional
 
 import discord
-import random
-
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import bold, box
 
@@ -44,7 +43,9 @@ class TextEditor(commands.Cog):
         """Base command for editting text."""
 
     @editor.command(name="charcount")
-    async def editor_charcount(self, ctx: commands.Context, include_spaces: Optional[bool] = True, *, text: str):
+    async def editor_charcount(
+        self, ctx: commands.Context, include_spaces: Optional[bool] = True, *, text: str
+    ):
         """Count the number of characters appearing in the text."""
         if include_spaces:
             await ctx.send("Character count (with spaces): {}".format(bold(str(len(text)))))
@@ -99,12 +100,12 @@ class TextEditor(commands.Cog):
 
     @editor.command(name="replace")
     async def editor_replace(
-        self, 
-        ctx: commands.Context, 
+        self,
+        ctx: commands.Context,
         text_to_replace: str,
         replacement: str,
-        *, 
-        text: str
+        *,
+        text: str,
     ):
         """Replace certain parts of the text."""
         replace = lambda x: x.replace(text_to_replace, replacement)

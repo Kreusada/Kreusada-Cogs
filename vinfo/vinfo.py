@@ -1,8 +1,10 @@
 import asyncio
 import contextlib
 import datetime
+import importlib
 import json
 import logging
+import pathlib
 import subprocess
 import sys
 import types
@@ -11,21 +13,14 @@ import discord
 import lavalink
 import pip
 import redbot
-
-from importlib import import_module
-from pathlib import Path
-from sys import argv as cli_flags
-
-from redbot.cogs.audio.manager import JAR_BUILD
 from redbot.core import commands
-from redbot.core.utils.chat_formatting import bold, box
-from redbot.core.utils.predicates import MessagePredicate
+from redbot.core.utils.chat_formatting import box
 from stdlib_list import stdlib_list
 
 log = logging.getLogger("red.kreusada.vinfo")
 attrs = ["__version__", "version_info", "_version_", "version"]
 
-with open(Path(__file__).parent / "info.json") as fp:
+with open(pathlib.Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
 
 
@@ -38,7 +33,7 @@ class Vinfo(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "2.0.0"
+    __version__ = "2.0.4"
 
     def __init__(self, bot):
         self.bot = bot
@@ -63,11 +58,7 @@ class Vinfo(commands.Cog):
 
     @staticmethod
     def isdev():
-        return "--dev" in cli_flags
-
-    @property
-    def is_dev(self):
-        return self.isdev
+        return "--dev" in sys.argv
 
     @staticmethod
     def check_attrs(module: types.ModuleType):
@@ -97,44 +88,42 @@ class Vinfo(commands.Cog):
         embed = discord.Embed(
             title=f"Version Information on {cog}",
             color=await ctx.embed_colour(),
-            timestamp=datetime.datetime.now()
+            timestamp=datetime.datetime.now(),
         )
 
         cog_obj = self.bot.get_cog(cog)
         dev_field_value = None
 
         if not cog_obj:
-            version_info_field_value = box(f"- Could not find a cog matching `{cog}`.", lang='diff')
-            if self.is_dev():
+            version_info_field_value = box(
+                f"- Could not find a cog matching `{cog}`.", lang="diff"
+            )
+            if self.isdev():
                 dev_field_value = box(
-                    f"getattr(bot.get_cog('{cog}'), '__version__')\n"
-                    f">>> AttributeError: '{cog}' object has no attribute '__version__'",
-                    lang="py"
+                    f"{getattr.__name__}(bot.get_cog('{cog}'), '__version__')\n"
+                    ">>> AttributeError: 'NoneType' object has no attribute '__version__'",
+                    lang="py",
                 )
         else:
-            _getattr = getattr(cog_obj, '__version__', None)
+            _getattr = getattr(cog_obj, "__version__", None)
             if _getattr is not None:
-                version_info_field_value = box(f"{_getattr} ({type(_getattr).__name__})", lang="py")
+                version_info_field_value = box(
+                    f"{_getattr} ({type(_getattr).__name__})", lang="py"
+                )
                 if self.isdev():
                     dev_field_value = box(
-                        f"getattr(bot.get_cog('{cog}'), '__version__')\n"
+                        f"{getattr.__name__}(bot.get_cog('{cog}'), '__version__')\n"
                         f">>> '{_getattr}'",
-                        lang="py"
-                )
+                        lang="py",
+                    )
             else:
-                version_info_field_value = box(f"- Could not find a version for {cog}.", lang='diff')
+                version_info_field_value = box(
+                    f"- Could not find a version for {cog}.", lang="diff"
+                )
 
-        embed.add_field(
-            name="Version Information",
-            value=version_info_field_value,
-            inline=False
-        )
+        embed.add_field(name="Version Information", value=version_info_field_value, inline=False)
         if dev_field_value is not None:
-            embed.add_field(
-                name="Quick Debug",
-                value=dev_field_value,
-                inline=False
-            )
+            embed.add_field(name="Quick Debug", value=dev_field_value, inline=False)
         await ctx.send(embed=embed)
 
     @vinfo.command(aliases=["module", "dep", "dependency"], usage="<module or dependency>")
@@ -175,13 +164,9 @@ class Vinfo(commands.Cog):
             module_data = common_modules + extras
 
             embed = discord.Embed(
-                title="Common Modules",
-                description=module_data,
-                color=await ctx.embed_colour()
+                title="Common Modules", description=module_data, color=await ctx.embed_colour()
             )
-            embed.set_footer(
-                text="Find a specific module version by adding the module argument."
-            )
+            embed.set_footer(text="Find a specific module version by adding the module argument.")
             await ctx.send(embed=embed)
             return await ctx.send_help()
 
@@ -192,51 +177,44 @@ class Vinfo(commands.Cog):
             timestamp=datetime.datetime.now(),
         )
         try:
-            MOD = import_module(module)
-        except ModuleNotFoundError as e:
-            embed.title = f"Information on {module.upper()}"
-            embed.add_field(
-                name="Version Information",
-                value=box('- ' + str(e), lang="diff")
-            )
-            if self.isdev():
-                embed.add_field(
-                    name="Quick Debug",
-                    value=box(f"__import__('{module}')\n>>> {e.__class__.__name__}: {e}", lang="py"),
-                    inline=False
-                )
-            await ctx.send(embed=embed)
-            return
-        except OSError as e:
-            embed.title = f"Information on {module.upper()}"
-            embed.add_field(
-                name="Version Information",
-                value=box(
-                    "- An operating system error occured whilst trying to " 
+            MOD = importlib.import_module(module)
+        except Exception as e:
+            if isinstance(e, OSError):
+                value = box(
+                    "- An operating system error occured whilst trying to "
                     "retrieve version information for this module.",
-                    lang="diff"
+                    lang="diff",
                 )
-            )
+            else:
+                value = box("- " + str(e), lang="diff")
+
+            embed.title = f"Information on {module.upper()}"
+            embed.add_field(name="Version Information", value=value)
+
             if self.isdev():
                 embed.add_field(
                     name="Quick Debug",
-                    value=box(f"__import__('{module}')\n>>> {e.__class__.__name__}: {e}", lang="py"),
-                    inline=False
+                    value=box(
+                        f"{__import__.__name__}('{module}')\n>>> {e.__class__.__name__}: {e}",
+                        lang="py",
+                    ),
+                    inline=False,
                 )
             await ctx.send(embed=embed)
             return
+
         check_attrs = self.check_attrs(MOD)
         embed.title = f"Version Information on {MOD.__name__.upper()}"
 
         if not check_attrs:
             embed.add_field(
                 name="Version Information",
-                value=box("# Could not find a version for `{}`.", lang="cs").format(MOD.__name__)
+                value=box("# Could not find a version for `{}`.", lang="cs").format(MOD.__name__),
             )
             embed.add_field(
                 name="Attributes Checked",
                 value=box("\n".join(f"- {v}" for v in attrs), lang="diff"),
-                inline=False
+                inline=False,
             )
             await ctx.send(embed=embed)
             return
@@ -244,11 +222,11 @@ class Vinfo(commands.Cog):
         attr = f"`{MOD.__name__}.{check_attrs[1]}`"
 
         if isinstance(check_attrs[0], tuple) and check_attrs[1] is None:
-            value = ("{}." * len(check_attrs[0])).strip('.').format(*check_attrs[0])
+            value = ("{}." * len(check_attrs[0])).strip(".").format(*check_attrs[0])
             attr = None
 
         elif isinstance(check_attrs[0], (list, tuple)):
-            value = ("{}." * len(check_attrs[0])).strip('.').format(*check_attrs[0])
+            value = ("{}." * len(check_attrs[0])).strip(".").format(*check_attrs[0])
 
         elif isinstance(check_attrs[0], float):
             value = str(check_attrs[0])
@@ -259,15 +237,14 @@ class Vinfo(commands.Cog):
         embed.add_field(
             name="Version Information",
             value=box(
-                text=f"Attribute: {attr}\nFound version info for [{module}]: {value}",
-                lang="yaml"
+                text=f"Attribute: {attr}\nFound version info for [{module}]: {value}", lang="yaml"
             ),
-            inline=False
+            inline=False,
         )
 
         if check_attrs[1] is not None:
             reasons = []
-            for v in attrs[:attrs.index(check_attrs[1])]:
+            for v in attrs[: attrs.index(check_attrs[1])]:
                 _getattr = getattr(MOD, v, None)
                 if _getattr is None:
                     reasons.append(f"{v}\n\t| This attribute was not found.")
@@ -276,24 +253,26 @@ class Vinfo(commands.Cog):
                         reasons.append(f"{v}\n\t| This attribute was an unsupported type.")
                     else:
                         # This *should* never happen
-                        reasons.append(f"{v}\n\t| This attribute failed for an unknown reason, consider reporting this.")
+                        reasons.append(
+                            f"{v}\n\t| This attribute failed for an unknown reason, consider reporting this."
+                        )
 
             embed.add_field(
                 name="Attributes Checked",
-                value=box("\n".join(f"- {v}" for v in reasons) + f"\n+ {check_attrs[1]}\n\t| Found attribute for {MOD.__name__}!", lang="diff"),
-                inline=False
+                value=box(
+                    "\n".join(f"- {v}" for v in reasons)
+                    + f"\n+ {check_attrs[1]}\n\t| Found attribute for {MOD.__name__}!",
+                    lang="diff",
+                ),
+                inline=False,
             )
         if attr is not None:
             debug = box(
-                text=f"getattr(__import__('{MOD.__name__}'), '{check_attrs[1]}')\n>>> {value}",
-                lang="py"
+                text=f"{getattr.__name__}({__import__.__name__}('{MOD.__name__}'), '{check_attrs[1]}')\n>>> {value}",
+                lang="py",
             )
             if self.isdev():
-                embed.add_field(
-                    name="Quick Debug",
-                    value=debug,
-                    inline=False
-                )
+                embed.add_field(name="Quick Debug", value=debug, inline=False)
         else:
             embed.description = (
                 "This library does not have it's own version attribute, "
