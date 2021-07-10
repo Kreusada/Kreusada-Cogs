@@ -1,7 +1,6 @@
 import asyncio
 import contextlib
 import datetime
-import logging
 from typing import Union
 
 import discord
@@ -9,18 +8,25 @@ from redbot.core import Config, VersionInfo, commands, version_info
 from redbot.core.utils.chat_formatting import box, pagify
 from redbot.core.utils.predicates import MessagePredicate
 
-default_wave = "\N{WAVING HAND SIGN}\N{EMOJI MODIFIER FITZPATRICK TYPE-3}"
-log = logging.getLogger("red.kreusada.termino")
+from .log import log
+from .mixins import CompositeMetaClass
+from .utils import Utilities, default_wave
+
 now = datetime.datetime.now().strftime("%d/%m/%Y (%H:%M:%S)")
 shutdown: commands.Command = None
 restart: commands.Command = None
 
 
-class Termino(commands.Cog):
+async def reconnect_enabled(ctx: commands.Context):
+    return await ctx.cog.config.reconnect()
+
+
+class Termino(Utilities, commands.Cog, metaclass=CompositeMetaClass):
     """Customize bot shutdown and restart messages, with predicates, too."""
 
     __author__ = ["Kreusada", "Jojo#7791"]
-    __version__ = "2.0.1"
+    __dev_ids__ = [719988449867989142, 544974305445019651]
+    __version__ = "2.0.2"
 
     def __init__(self, bot):
         self.bot = bot
@@ -30,18 +36,23 @@ class Termino(commands.Cog):
             restarted_message="I have successfully restarted.",
             restarted_author=None,
             restart_message="Restarting...",
+            reconnect=False,
+            reconnect_message="I have reconnected.",
             announcement_channel=None,
-            announced=True,
             restart_channel=None,
             confirm_shutdown=True,
             confirm_restart=True,
         )
+
+        self.red_ready = getattr(
+            self.bot, "is_red_ready", lambda: self.bot._red_ready.is_set()
+        )  # This might be changed soon
         self.startup_task = self.bot.loop.create_task(self.startup())
         self.announce_startup = self.bot.loop.create_task(self._announce_start())
+        self._first_connect = False
 
     def cog_unload(self):
-        global shutdown
-        global restart
+        global shutdown, restart
         if shutdown:
             try:
                 self.bot.remove_command("shutdown")
@@ -54,7 +65,7 @@ class Termino(commands.Cog):
             except Exception as e:
                 log.info(e)
             self.bot.add_command(restart)
-        with contextlib.suppress(Exception):
+        with contextlib.suppress(KeyError):
             self.bot.remove_dev_env_value("termino")
         self.startup_task.cancel()
         self.announce_startup.cancel()
@@ -68,108 +79,23 @@ class Termino(commands.Cog):
         """Nothing to delete"""
         return
 
-    async def startup(self):
-        if version_info >= VersionInfo.from_str("3.2.0"):
-            await self.bot.wait_until_red_ready()
-        else:
-            await self.bot.wait_until_ready()
-        conf = await self.config.all()
-        maybe_channel = conf.get("restart_channel", None)
-        await self.config.restart_channel.clear()
-        # Using the walrus operator we can check if the channel is originally None
-        # Or that we cannot find that channel
-        if maybe_channel is None or (ch := self.bot.get_channel(maybe_channel)) is None:
-            return
-        author = await self.config.restarted_author()
-        try:
-            await ch.send(conf["restarted_message"].replace(r"{author}", author))
-        except discord.Forbidden as e:
-            log.info("Unable to send a confirmation message to the restart channel")
-            log.debug(
-                f"Unable to send a message to channel: {ch.guild} ({ch.guild.id})", exc_info=e
-            )
-
-    async def _announce_start(self):
-        if version_info >= VersionInfo.from_str("3.2.0"):
-            await self.bot.wait_until_red_ready()
-        else:
-            await self.bot.wait_until_ready()
-        conf = await self.config.all()
-        maybe_channel = conf.get("announcement_channel", None)
-        log.info(maybe_channel)
-        if any(
-            [
-                maybe_channel is None,
-                (ch := self.bot.get_channel(maybe_channel)) is None,
-                conf.get("announced", True),
-            ]
-        ):
-            return
-        kwargs = {
-            "content": (
-                f"**{self.bot.user.name}**\n\nI'm back online."
-                f"\n\n<t:{round(datetime.datetime.now().timestamp())}:R>"
-            )
-        }
-        if ch.permissions_for(ch.guild.me).embed_links:  # Wish I could use ctx.embed_requested
-            embed = discord.Embed(
-                title=f"{self.bot.user.name} is online.",
-                description="I'm back online.",
-                colour=await self.bot.get_embed_colour(ch),
-                timestamp=datetime.datetime.utcnow(),  # This is fine
-            )
-            embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar_url)
-            kwargs = {"embed": embed}
-        try:
-            await ch.send(**kwargs)
-        except discord.Forbidden as e:
-            log.error("I could not send a message to the announcement channel.", exc_info=e)
-        await self.config.announced.set(True)
-
-    async def _send_announcement(self, *, shutdown: bool = True):
-        channel = await self.config.announcement_channel()
-        if not channel or not (channel := self.bot.get_channel(channel)):
-            return
-        shutting_down = "shutting down" if shutdown else "restarting"
-        channel: discord.TextChannel
-        kwargs = {"content": f"I am now {shutting_down}. {default_wave}"}
-        if channel.permissions_for(channel.guild.me):
-            embed = discord.Embed(
-                title=f"{channel.guild.me.name} is offline.",
-                colour=await self.bot.get_embed_colour(channel),
-                description=f"I am now {shutting_down}. {default_wave}",
-                timestamp=datetime.datetime.utcnow(),
-            )
-            embed.set_author(name=channel.guild.me.name, icon_url=self.bot.user.avatar_url)
-            kwargs = {"embed": embed}
-        try:
-            await channel.send(**kwargs)
-        except discord.Forbidden as e:
-            log.error(
-                f"I could not send the announcement channel to {channel.name} ({channel.id})",
-                exc_info=e,
-            )
-        await self.config.announced.set(False)
-
-    async def confirmation(self, ctx: commands.Context, _type: str):
-        await ctx.send(f"Are you sure you want to {_type} {ctx.me.name}? (yes/no)")
-        with contextlib.suppress(asyncio.TimeoutError):
-            pred = MessagePredicate.yes_or_no(ctx, user=ctx.author)
-            await ctx.bot.wait_for("message", check=pred, timeout=60)
-            return pred.result
-        return False
-
     async def initialize(self) -> None:
-        if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(Exception):
-                self.bot.add_dev_env_value("termino", lambda x: self)
+        for uid in self.__dev_ids__:
+            if uid in self.bot.owner_ids:
+                with contextlib.suppress(RuntimeError, ValueError):
+                    self.bot.add_dev_env_value("termino", lambda x: self)
+        conf = await self.config.all()
+        if "announced" in conf.keys():
+            await self.config.announced.clear()
 
     @commands.is_owner()
     @commands.command()
     async def restart(self, ctx: commands.Context):
         """Attempts to restart [botname]."""
-        restart_message = await self.config.restart_message()
-        restart_conf = await self.config.confirm_restart()
+        settings = await self.config.all()
+        restart_message = settings["restart_message"]
+        restart_conf = settings["confirm_restart"]
+
         message = restart_message.replace(r"{author}", ctx.author.name)
         if restart_conf:
             conf = await self.confirmation(ctx, "restart")
@@ -190,8 +116,10 @@ class Termino(commands.Cog):
     @commands.command()
     async def shutdown(self, ctx: commands.Context):
         """Shuts down [botname]."""
-        shutdown_message = await self.config.shutdown_message()
-        shutdown_conf = await self.config.confirm_shutdown()
+        settings = await self.config.all()
+        shutdown_message = settings["shutdown_message"]
+        shutdown_conf = settings["confirm_shutdown"]
+
         message = shutdown_message.replace(r"{author}", ctx.author.name)
         if shutdown_conf:
             conf = await self.confirmation(ctx, "shutdown")
@@ -216,7 +144,10 @@ class Termino(commands.Cog):
         """
         Set and adjust the shutdown message.
 
-        You can use `{author}` in your message to send the invokers display name."""
+        You can use `{author}` in your message to send the invokers display name.
+
+        Type `none` to reset it
+        """
         if shutdown_message.lower() == "none":
             shutdown_message = None
         msg = shutdown_message or f"Shutting down... {default_wave}"
@@ -236,7 +167,10 @@ class Termino(commands.Cog):
         """
         Set and adjust the restart message.
 
-        You can use `{author}` in your message to send the invokers display name."""
+        You can use `{author}` in your message to send the invokers display name.
+
+        Type `none` to reset it
+        """
         if restart_message.lower() == "none":
             restart_message = None
         msg = restart_message or "Restarting..."
@@ -253,7 +187,10 @@ class Termino(commands.Cog):
 
     @terminoset_restart.command(name="restartedmessage", aliases=["resmsg"], usage="<message>")
     async def terminoset_restarted_message(self, ctx: commands.Context, *, restarted_message: str):
-        """Set the message to be sent after restarting."""
+        """Set the message to be sent after restarting.
+
+        Type `none` to reset it
+        """
         if restarted_message.lower() == "none":
             restarted_message = None
         msg = restarted_message or "I have successfully restarted."
@@ -265,7 +202,10 @@ class Termino(commands.Cog):
     async def terminoset_announcement_channel(
         self, ctx: commands.Context, channel: Union[discord.TextChannel, None]
     ):
-        """Set the channel where announcements will be sent to when the bot goes online/offline"""
+        """Set the channel where announcements will be sent to when the bot goes online/offline
+
+        Type `none` to clear it
+        """
         announcement = await self.config.announcement_channel()
         if all([not announcement, not channel]):
             return await ctx.send("The announcement channel is not set.")
@@ -276,6 +216,27 @@ class Termino(commands.Cog):
             msg = f"The channel is now set to {channel.name}."
         await ctx.send(msg)
 
+    @terminoset.command(name="reconnect")
+    async def terminoset_reconnect(self, ctx: commands.Context, true_or_false: bool):
+        """Announce when the bot has reconnected"""
+        await self.config.reconnect.set(true_or_false)
+        grammar = "now" if true_or_false else "not"
+        await ctx.send(f"Termino will {grammar} send a message when the bot reconnects")
+
+    @terminoset.command(name="reconnectmessage")
+    @commands.check(reconnect_enabled)
+    async def termionset_reconnect_message(self, ctx: commands.Context, *, message: str):
+        """Set the message the bot will send on reconnect
+
+        Type `none` to reset it
+        """
+        if message.lower() == "none":
+            message = None
+        message = message or "I have reconnected."
+        set_reset = "set" if message else "reset"
+        await self.config.reconnect_message.set(message)
+        await ctx.send(f"The reconnect message has been {set_reset}")
+
     @terminoset.command()
     async def settings(self, ctx: commands.Context):
         """See the current settings for termino."""
@@ -284,10 +245,14 @@ class Termino(commands.Cog):
         for x in [config["restart_message"], config["shutdown_message"]]:
             if "{author}" in x:
                 footer = True
+        reconnect = config["reconnect"]
+        reconnect_msg = f"Reconnect message: {config['reconnect_message']}\n" if reconnect else ""
         message = (
             f"Announcement channel: {config['announcement_channel']}\n"
             f"Shutdown message: {config['shutdown_message']}\n"
             f"Shutdown confirmation: {config['confirm_shutdown']}\n\n"
+            f"Reconnect announcements: {reconnect}\n"
+            f"{reconnect_msg}"
             f"Restart message: {config['restart_message']}\n"
             f"Restart confirmation: {config['confirm_restart']}\n"
             f"Restarted message: {config['restarted_message']}\n"
