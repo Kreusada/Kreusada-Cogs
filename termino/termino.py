@@ -16,8 +16,10 @@ now = datetime.datetime.now().strftime("%d/%m/%Y (%H:%M:%S)")
 shutdown: commands.Command = None
 restart: commands.Command = None
 
+
 async def reconnect_enabled(ctx: commands.Context):
     return await ctx.cog.config.reconnect()
+
 
 class Termino(Utilities, commands.Cog, metaclass=CompositeMetaClass):
     """Customize bot shutdown and restart messages, with predicates, too."""
@@ -184,12 +186,7 @@ class Termino(Utilities, commands.Cog, metaclass=CompositeMetaClass):
         await ctx.send(f"Restarts will {grammar} confirm before shutting down.")
 
     @terminoset_restart.command(name="restartedmessage", aliases=["resmsg"], usage="<message>")
-    async def terminoset_restarted_message(
-        self,
-        ctx: commands.Context,
-        *,
-        restarted_message: str
-    ):
+    async def terminoset_restarted_message(self, ctx: commands.Context, *, restarted_message: str):
         """Set the message to be sent after restarting.
 
         Type `none` to reset it
