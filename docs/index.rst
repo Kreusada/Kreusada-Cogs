@@ -31,6 +31,7 @@ Useful Links
     cog_consoleclearer
     cog_dehoister
     cog_encryptor
+    cog_flags
     cog_githubskylines
     cog_locales
     cog_minifier

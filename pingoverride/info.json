@@ -1,11 +1,20 @@
 {
-	"author": ["Kreusada"],
-	"description": "Override the default ping response with a custom message.",
+    "author": [
+        "Kreusada"
+    ],
+    "description": "Override the default ping response with a custom message.",
     "install_msg": "This cog replaces the core's ping command, which can always be reverted by unloading the cog. Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_pingoverride.html",
-	"min_bot_version": "3.4.6",
-	"short": "Custom ping response.",
-	"name": "PingOverride",
-	"tags": ["Ping", "Pong", "Custom"],
-	"type": "COG",
-	"end_user_data_statement": "This cog does not persistently store data or metadata about users."
+    "min_bot_version": "3.4.6",
+    "short": "Custom ping response.",
+    "name": "PingOverride",
+    "tags": [
+        "Ping",
+        "Pong",
+        "Custom"
+    ],
+    "type": "COG",
+    "requirements": [
+        "toml"
+    ],
+    "end_user_data_statement": "This cog does not persistently store data or metadata about users."
 }

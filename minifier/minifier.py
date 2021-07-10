@@ -52,7 +52,6 @@ class Minifier(commands.Cog):
             converted = io.BytesIO(minifier.minify(file).encode(encoding="utf-8"))
             content = "Please see the attached file below, with your minimized code."
             return await ctx.send(
-                content=content,
-                file=discord.File(converted, filename=file_name)
+                content=content, file=discord.File(converted, filename=file_name)
             )
         return await ctx.send("The file provided was in an unsupported format.")

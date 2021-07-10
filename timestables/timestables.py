@@ -29,11 +29,11 @@ class TimesTables(commands.Cog):
             "Awesome work",
             "Nice stuff",
         ]
-        self.how_to_exit_early = "Remember, you can type `exit()` or `stop()` at any time to quit the session."
-        self.config = Config.get_conf(self, 2345987543534, force_registration=True)
-        self.config.register_guild(
-            tt_inactive=3, tt_timeout=10, tt_sleep=2, tt_time_taken=True
+        self.how_to_exit_early = (
+            "Remember, you can type `exit()` or `stop()` at any time to quit the session."
         )
+        self.config = Config.get_conf(self, 2345987543534, force_registration=True)
+        self.config.register_guild(tt_inactive=3, tt_timeout=10, tt_sleep=2, tt_time_taken=True)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
@@ -217,9 +217,7 @@ class TimesTables(commands.Cog):
             try:
                 if time_taken:
                     time_start = self.time()
-                answer = await self.bot.wait_for(
-                    "message", timeout=timeout, check=check
-                )
+                answer = await self.bot.wait_for("message", timeout=timeout, check=check)
                 if answer.content == str(F * S):
                     time_end = self.time()
                     await answer.add_reaction(self.correct)

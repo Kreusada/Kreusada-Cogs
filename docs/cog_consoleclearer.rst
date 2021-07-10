@@ -40,17 +40,17 @@ Clear your console.
 Commands
 --------
 
-.. _consoleclearer-command-cleanconsole:
+.. _consoleclearer-command-consoleclear:
 
 ^^^^^^^^^^^^
-cleanconsole
+consoleclear
 ^^^^^^^^^^^^
 
 **Syntax**
 
 .. code-block:: ini
 
-    [p]cleanconsole 
+    [p]consoleclear
 
 **Description**
 

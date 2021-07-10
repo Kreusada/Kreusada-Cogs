@@ -1,38 +1,28 @@
 import asyncio
 import contextlib
-import discord
-import random
 
+import discord
 from redbot.core import commands
 from redbot.core.commands import Context
 from redbot.core.i18n import Translator
-from redbot.core.utils.chat_formatting import humanize_list, pagify
 from redbot.core.utils.menus import start_adding_reactions
-from redbot.core.utils.predicates import ReactionPredicate, MessagePredicate
+from redbot.core.utils.predicates import MessagePredicate, ReactionPredicate
 
-from ...parser import RaffleManager
-from ...formatting import tick, cross
 from ...mixins.abc import RaffleMixin
-from ...exceptions import RaffleError
+from ...utils.exceptions import RaffleError
+from ...utils.formatting import cross, tick
+from ...utils.helpers import cleanup_code, format_traceback, validator
+from ...utils.parser import RaffleManager
 
-from ...helpers import (
-    validator,
-    cleanup_code,
-    format_traceback
-)
+_ = Translator("Raffle", __file__)
 
-    
-_ = Translator("Raffle", __file__)  
-    
-    
+
 class MiscCommands(RaffleMixin):
     """All the rest of the commands, such as guildowner-only, and ``[p]raffle parse``."""
-   
 
     @commands.group()
     async def raffle(self, ctx: Context):
         pass
-
 
     @raffle.command()
     async def parse(self, ctx: Context):
@@ -42,17 +32,15 @@ class MiscCommands(RaffleMixin):
         message = _(
             "Paste your YAML here. It will be validated, and if there is "
             "an exception, it will be returned to you."
-
         )
 
-        await ctx.send(message)  
+        await ctx.send(message)
 
         try:
             content = await self.bot.wait_for("message", timeout=500, check=check)
         except asyncio.TimeoutError:
             with contextlib.suppress(discord.NotFound):
                 await message.delete()
-
 
         content = content.content
         valid = validator(cleanup_code(content))
@@ -66,11 +54,10 @@ class MiscCommands(RaffleMixin):
         except RaffleError as e:
             exc = _("An exception occured whilst parsing your data.")
             return await ctx.send(cross(exc) + format_traceback(e))
-        
+
         await ctx.send(tick(_("This YAML is good to go! No errors were found.")))
 
         await self.replenish_cache(ctx)
-    
 
     @raffle.command()
     @commands.guildowner()
@@ -81,7 +68,6 @@ class MiscCommands(RaffleMixin):
             return await ctx.send(_("Raffles updated."))
         else:
             return await ctx.send(_("Everything was already up to date."))
-
 
     @raffle.command()
     @commands.guildowner()
@@ -105,7 +91,7 @@ class MiscCommands(RaffleMixin):
         else:
             predicate = MessagePredicate.yes_or_no(ctx)
             event_type = "message"
-        
+
         try:
             await self.bot.wait_for(event_type, check=predicate, timeout=30)
         except asyncio.TimeoutError:
@@ -119,7 +105,7 @@ class MiscCommands(RaffleMixin):
             async with self.config.guild(ctx.guild).raffles() as r:
                 r.clear()
             await ctx.send(_("Raffles cleared."))
-        
+
         else:
             await ctx.send(_("No changes have been made."))
 

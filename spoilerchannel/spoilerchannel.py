@@ -2,7 +2,7 @@ import contextlib
 import logging
 
 import discord
-from redbot.core import commands, Config
+from redbot.core import Config, commands
 
 log = logging.getLogger("red.kreusada.spoilerchannel")
 
@@ -12,7 +12,7 @@ class SpoilerChannel(commands.Cog):
 
     __author__ = ["Kreusada"]
     __version__ = "1.0.1"
-    
+
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, 458347565486546, force_registration=True)
@@ -88,7 +88,7 @@ class SpoilerChannel(commands.Cog):
         if channel.id in config:
             config.remove(channel.id)
             await self.config.guild(channel.guild).channels.set(config)
-    
+
     @commands.Cog.listener()
     async def on_message(self, message):
         if not message.guild:

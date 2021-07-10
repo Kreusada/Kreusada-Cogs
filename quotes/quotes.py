@@ -1,7 +1,7 @@
-import aiohttp
 import contextlib
 import logging
 
+import aiohttp
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import bold
 
@@ -16,7 +16,7 @@ class Quotes(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.api = 'https://api.quotable.io/random'
+        self.api = "https://api.quotable.io/random"
         self.session = aiohttp.ClientSession()
 
     def cog_unload(self):

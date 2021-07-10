@@ -51,13 +51,13 @@ class SendCards(commands.Cog):
     ):
         """
         Send a christmas card to someone.
-        
+
         Your message will be sent in this format:
-        
+
         Dear [person],
-        
+
         {message}
-        
+
         From [your_name]
         """
         await self.card_send(ctx, "christmas", user_id, message)
@@ -73,13 +73,13 @@ class SendCards(commands.Cog):
     ):
         """
         Send a birthday card to someone.
-        
+
         Your message will be sent in this format:
-        
+
         Dear [person],
-        
+
         {message}
-        
+
         From [your_name]
         """
         await self.card_send(ctx, "birthday", user_id, message)
@@ -95,13 +95,13 @@ class SendCards(commands.Cog):
     ):
         """
         Send a get well soon card to someone.
-        
+
         Your message will be sent in this format:
-        
+
         Dear [person],
-        
+
         {message}
-        
+
         From [your_name]
         """
         await self.card_send(ctx, "get well soon", user_id, message)
@@ -117,20 +117,18 @@ class SendCards(commands.Cog):
     ):
         """
         Send a valentines card to someone.
-        
+
         Your message will be sent in this format:
-        
+
         Dear [person],
-        
+
         {message}
-        
+
         From [your_name]
         """
         await self.card_send(ctx, "valentines", user_id, message)
 
-    async def card_send(
-        self, ctx: commands.Context, type: str, user_id: int, message: str
-    ):
+    async def card_send(self, ctx: commands.Context, type: str, user_id: int, message: str):
         if len(message) > 1900:
             return await ctx.send("This message is *too* long. Please try again.")
         if type == "christmas":
@@ -145,12 +143,8 @@ class SendCards(commands.Cog):
         if not name:
             return await ctx.send(f"Could not find a user matching `{user_id}`.")
         title = f"{emoji} {type.title()} card from {ctx.author.name}!"
-        description = (
-            f"Dear {name.name},\n\n{message}\n\nFrom {ctx.author.name} {emoji}."
-        )
-        embed = discord.Embed(
-            title=title, description=description, color=await ctx.embed_colour()
-        )
+        description = f"Dear {name.name},\n\n{message}\n\nFrom {ctx.author.name} {emoji}."
+        embed = discord.Embed(title=title, description=description, color=await ctx.embed_colour())
         embed.set_footer(
             text=f"Send {type} cards by using: {ctx.clean_prefix}send {type.replace(' ', '')}!"
         )
@@ -159,15 +153,11 @@ class SendCards(commands.Cog):
             embed.set_image(url="attachment://" + str(image.filename))
         try:
             if await ctx.embed_requested():
-                await name.send(
-                    embed=embed, file=image if ctx.message.attachments else None
-                )
+                await name.send(embed=embed, file=image if ctx.message.attachments else None)
             else:
                 await ctx.send(f"{bold(title)}\n\n{description}")
             return await ctx.send(
                 f"A {type.capitalize()} card has been successfully sent to {name.name}! {emoji}"
             )
         except discord.Forbidden:
-            return await ctx.send(
-                f"Unfortunately, {name.name} has their DMs turned off. Sorry!"
-            )
+            return await ctx.send(f"Unfortunately, {name.name} has their DMs turned off. Sorry!")

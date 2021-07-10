@@ -32,7 +32,7 @@ Usage
 This cog will allow you to customize the response from the ``ping`` command.
 So instead of "Pong.", it could be "Beep boop.", or whatever you want!
 
-.. note:: 
+.. note::
 
     This cog replaces the core's ``ping`` command. If you wish to have the old ping command
     back, you can simply unload this cog.
@@ -47,8 +47,6 @@ So instead of "Pong.", it could be "Beep boop.", or whatever you want!
 Commands
 --------
 
-Here's a list of all commands available for this cog.
-
 .. _pingoverride-command-ping:
 
 ^^^^
@@ -57,17 +55,15 @@ ping
 
 **Syntax**
 
-.. code-block:: ini
+.. code-block:: none
 
     [p]ping
 
 **Description**
 
-Pong? Or not?
+Pong.
 
-Replies with all the PingOverride settings, and your configured response.
-
-.. _pinginvoke-command-pingset:
+.. _pingoverride-command-pingset:
 
 ^^^^^^^
 pingset
@@ -75,114 +71,172 @@ pingset
 
 **Syntax**
 
-.. code-block:: ini
+.. code-block:: none
 
     [p]pingset
 
 **Description**
 
-Commands to configure PingOverride. Settings include:
+Set your ping message.
 
-* Embedded content
-* Replies, and mentions
-* Response with special regex
-* Random responses
+.. _pingoverride-command-pingset-embed:
 
-.. _pinginvoke-command-pingset-embed:
-
-^^^^^^^^^^^^^
+"""""""""""""
 pingset embed
-^^^^^^^^^^^^^
+"""""""""""""
 
 **Syntax**
 
-.. code-block:: ini
+.. code-block:: none
 
-    [p]pingset embed <true_or_false>
+    [p]pingset embed
 
 **Description**
 
-Sets whether the response is sent inside an embed.
-On cog install, this setting is false.
+Manage your ping command's embed.
 
-.. note:: If the bot doesn't have permissions to send embeds, this setting will be bypassed.
+.. _pingoverride-command-pingset-embed-color:
 
-**Arguments**
+"""""""""""""""""""
+pingset embed color
+"""""""""""""""""""
 
-* ``<true_or_false>``: Toggle for embeds setting. Must specify ``true`` or ``false``.
+**Syntax**
 
-.. _pinginvoke-command-pingset-message:
+.. code-block:: none
 
-^^^^^^^^^^^^^^^
+    [p]pingset embed color [color]
+
+.. tip:: Alias: ``pingset embed colour``
+
+**Description**
+
+Set your embed's color. Leave blank for bot color.
+
+.. _pingoverride-command-pingset-embed-description:
+
+"""""""""""""""""""""""""
+pingset embed description
+"""""""""""""""""""""""""
+
+**Syntax**
+
+.. code-block:: none
+
+    [p]pingset embed description <description>
+
+**Description**
+
+Set your embed's description.
+
+.. _pingoverride-command-pingset-embed-title:
+
+"""""""""""""""""""
+pingset embed title
+"""""""""""""""""""
+
+**Syntax**
+
+.. code-block:: none
+
+    [p]pingset embed title <title>
+
+**Description**
+
+Set your embed's title.
+
+.. _pingoverride-command-pingset-message:
+
+"""""""""""""""
 pingset message
-^^^^^^^^^^^^^^^
+"""""""""""""""
 
 **Syntax**
 
-.. code-block:: ini
+.. code-block:: none
 
-    [p]pingset message <response>
+    [p]pingset message <ping_message>
+
+.. tip:: Alias: ``pingset response``
 
 **Description**
 
-Set the message that is sent via the ``ping`` command.
+Set the ping message sent when a user runs the ping command.
 
-Example Usage: ``[p]pingset message Hello {author}! My latency is {latency} ms.``
+**Variables:**
 
-**Response Regex**
+- ``{author.name}``
+- ``{author.mention}``
+- ``{author.id}``
+- ``{author.discriminator}``
+`` ``{author.name_and_discriminator}``
+- ``{latency}``
 
-* ``{author}`` - Replaced with the author's display name.
-* ``{latency}`` - Replaces with the bot's latency.
+.. _pingoverride-command-pingset-reply:
 
-**Random Responses**
-
-When you specify <message>, you will be asked if you want to add
-more responses. These responses will be chosen at random when you run the
-ping command.
-
-To exit out of the random selection session, type ``stop()`` or ``exit()``.
-
-**Arguments**
-
-* ``<response>``: The message that is sent via the ``ping`` command.
-
-.. _pinginvoke-command-pingset-reply:
-
-^^^^^^^^^^^^^
+"""""""""""""
 pingset reply
-^^^^^^^^^^^^^
+"""""""""""""
 
 **Syntax**
 
-.. code-block:: ini
+.. code-block:: none
 
-    [p]pingset reply <true_or_false> [mention=False]
+    [p]pingset reply <reply>
 
 **Description**
 
-Toggles whether the ping response will use Discord replies. 
-Additionally, you can toggle this to mention, or not.
+Set whether the ping message uses replies.
 
-**Arguments**
+.. _pingoverride-command-pingset-reply-mention:
 
-* ``<true_or_false>``: Toggle for the replies setting. Must specify ``true`` or ``false``.
-* ``[mention=False]``: Toggle whether replies will mention. Specify ``true`` or ``false``. Defaults to False.
-
-.. _pinginvoke-command-pingset-settings:
-
-^^^^^^^^^^^^^^^^
-pingset settings
-^^^^^^^^^^^^^^^^
+"""""""""""""""""""""
+pingset reply mention
+"""""""""""""""""""""
 
 **Syntax**
 
-.. code-block:: ini
+.. code-block:: none
+
+    [p]pingset reply mention <mention>
+
+**Description**
+
+Set whether the ping message uses replies.
+
+.. _pingoverride-command-pingset-settings:
+
+""""""""""""""""
+pingset settings
+""""""""""""""""
+
+**Syntax**
+
+.. code-block:: none
 
     [p]pingset settings
 
 **Description**
 
-Shows the settings for PingOverride.
+See the current settings for PingOverride.
+
+.. _pingoverride-command-pingset-variables:
+
+"""""""""""""""""
+pingset variables
+"""""""""""""""""
+
+**Syntax**
+
+.. code-block:: none
+
+    [p]pingset variables
+
+.. tip:: Alias: ``pingset vars``
+
+**Description**
+
+List the available variables for the ping command.
 
 ---------------
 Receive Support

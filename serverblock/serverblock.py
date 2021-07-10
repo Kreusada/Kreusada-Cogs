@@ -40,7 +40,7 @@ class ServerBlock(commands.Cog):
         if 719988449867989142 in self.bot.owner_ids:
             with contextlib.suppress(Exception):
                 self.bot.add_dev_env_value("serverblock", lambda x: self)
-        
+
     @commands.is_owner()
     @commands.group(aliases=["serverblacklist", "serverblocklist"])
     async def sbl(self, ctx):
@@ -97,18 +97,20 @@ class ServerBlock(commands.Cog):
         if not b:
             return await ctx.send("There are no blocklisted servers.")
         if len(b) == 1:
-            return await ctx.send(box(title + ': ' + str(b[0]), lang='yaml'))
-        await ctx.send(box(f'{title}s:' + '\n\n' + "\n".join(f"\t{x}" for x in b), lang='yaml'))
+            return await ctx.send(box(title + ": " + str(b[0]), lang="yaml"))
+        await ctx.send(box(f"{title}s:" + "\n\n" + "\n".join(f"\t{x}" for x in b), lang="yaml"))
 
     @sbl.command()
     async def clear(self, ctx):
         """Clears the server blocklist."""
         blacklist = await self.config.blacklist()
-        s = 's' if len(blacklist) > 1 else ''
-        are = 'are' if len(blacklist) > 1 else 'is'
+        s = "s" if len(blacklist) > 1 else ""
+        are = "are" if len(blacklist) > 1 else "is"
         if not blacklist:
             return await ctx.send("There are no servers on the server blocklist.")
-        await ctx.send(f"There {are} currently {len(blacklist)} server{s} on the blocklist. Are you sure? (yes/no)")
+        await ctx.send(
+            f"There {are} currently {len(blacklist)} server{s} on the blocklist. Are you sure? (yes/no)"
+        )
         try:
             pred = MessagePredicate.yes_or_no(ctx, user=ctx.author)
             msg = await ctx.bot.wait_for("message", check=pred, timeout=60)

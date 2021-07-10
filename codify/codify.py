@@ -4,6 +4,7 @@ import discord
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import box
 
+
 def cleanup_code(content):
     if content.startswith("```") and content.endswith("```"):
         return "\n".join(content.split("\n")[1:-1])

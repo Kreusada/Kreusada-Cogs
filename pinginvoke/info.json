@@ -1,10 +1,16 @@
 {
-	"author": ["Kreusada"],
-	"description": "Invoke the ping command when calling for your bot.",
+    "author": [
+        "Kreusada"
+    ],
+    "description": "Invoke the ping command when calling for your bot.",
     "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_pinginvoke.html",
-	"short": "Invoke your bot.",
-	"name": "PingInvoke",
-	"tags": ["Invoke", "Bot", "Ping"],
-	"type": "COG",
-	"end_user_data_statement": "This cog does not persistently store data or metadata about users."
+    "short": "Invoke your bot.",
+    "name": "PingInvoke",
+    "tags": [
+        "Invoke",
+        "Bot",
+        "Ping"
+    ],
+    "type": "COG",
+    "end_user_data_statement": "This cog does not persistently store data or metadata about users."
 }

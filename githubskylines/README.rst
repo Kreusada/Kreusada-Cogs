@@ -50,7 +50,7 @@ gitskyline
 
 .. code-block:: ini
 
-    [p]gitskyline <git_username> <year> 
+    [p]gitskyline <git_username> <year>
 
 **Description**
 

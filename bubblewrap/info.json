@@ -1,11 +1,15 @@
 {
-	"author": ["Kreusada"],
-	"description": "Get some bubblewrap.",
+    "author": [
+        "Kreusada"
+    ],
+    "description": "Get some bubblewrap.",
     "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_bubblewrap.html",
-	"short": "Bubblewrap.",
-	"name": "BubbleWrap",
-	"tags": ["Bubblewrap"],
-	"min_bot_version" : "3.4.6",
-	"type": "COG",
-	"end_user_data_statement": "This cog does not persistently store data or metadata about users."
+    "short": "Bubblewrap.",
+    "name": "BubbleWrap",
+    "tags": [
+        "Bubblewrap"
+    ],
+    "min_bot_version": "3.4.6",
+    "type": "COG",
+    "end_user_data_statement": "This cog does not persistently store data or metadata about users."
 }

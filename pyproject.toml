@@ -1,0 +1,36 @@
+[tool.black]
+    line-length = 99
+    target-version = ['py38']
+    include = '\.py$'
+    exclude = '''
+    /(
+          \.eggs
+        | \.git
+        | \.hg
+        | \.mypy_cache
+        | \.tox
+        | \.venv
+        | _build
+        | buck-out
+        | build
+        | dist
+        | adventure\/data
+    )/
+    '''
+
+[tool.isort]
+    profile = 'black'
+    line_length = 99
+    atomic = true
+    sections = ['FUTURE','STDLIB','FIRSTPARTY','THIRDPARTY','LOCALFOLDER']
+    known_third_party = ['discord', 'redbot']
+    known_first_party = [
+        'announcements',
+        'charlimit',
+        'lockdown',
+        'newspublish',
+        'reports',
+        'sharkytools',
+        'strawpoll',
+        'verify',
+    ]

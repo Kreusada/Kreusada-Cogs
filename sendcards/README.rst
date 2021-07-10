@@ -55,7 +55,7 @@ send
 
 Commands with sendcards.
 
-.. warning:: 
+.. warning::
 
     When the birthday card is sent, we already add the recipients in the card for you.
     Please consider this to improve your card sending and to avoid repetition.

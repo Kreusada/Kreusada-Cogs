@@ -1,0 +1,8 @@
+[console_scripts]
+redbot = redbot.__main__:main
+redbot-launcher = redbot.launcher:main
+redbot-setup = redbot.setup:run_cli
+
+[pytest11]
+red-discordbot = redbot.pytest
+

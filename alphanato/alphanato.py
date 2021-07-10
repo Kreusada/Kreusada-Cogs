@@ -1,12 +1,13 @@
 import contextlib
-import discord
+import json
+import pathlib
+
 from redbot.core import commands
-from redbot.core.utils.chat_formatting import box
 
-from .alphabet import NATO_ALPHABET
+from .converters import AlphaConverter
 
-
-_remove_whitespace = lambda x: x.replace(' ','')
+with open(pathlib.Path(__file__).parent / "info.json") as fp:
+    __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
 
 
 class AlphaNato(commands.Cog):
@@ -15,27 +16,27 @@ class AlphaNato(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "0.3.1"
+    __version__ = "1.1.0"
 
     def __init__(self, bot):
         self.bot = bot
+        self.bot.add_dev_env_value("alphanato", lambda x: self)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
         authors = ", ".join(self.__author__)
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
 
+    def cog_unload(self):
+        with contextlib.suppress(Exception):
+            self.bot.remove_dev_env_value(self.__class__.__name__.lower())
+
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""
         return
 
-    async def initialize(self) -> None:
-        if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(Exception):
-                self.bot.add_dev_env_value("alphanato", lambda x: self)
-
     @commands.command(usage="<letters...>")
-    async def nato(self, ctx, *, letter: str):
+    async def nato(self, ctx, *, letters: AlphaConverter):
         """
         Get the nato phonetic name from a letter.
 
@@ -51,15 +52,5 @@ class AlphaNato(commands.Cog):
         **Returns:**
         The NATO alphabet name for the provided characters.
         """
-        if not letter.isalpha():
-            return await ctx.send_help()
-        factory = {}
-        for x in NATO_ALPHABET:
-            if letter.lower().strip() == 'all':
-                    factory[x[0].lower()] = x
-            else:
-                for let in tuple(_remove_whitespace(letter)):
-                    if x[0].lower() == let and let.isalpha():
-                        factory[let] = x
-        msg = "\n".join("'{}' = {}".format(k, v) for k, v in sorted(factory.items()))
-        await ctx.send(box(msg, lang='ml'))
+        # Oh boy, I love converters :P
+        await ctx.send(letters)

@@ -16,6 +16,7 @@ body:
         - ConsoleClearer
         - Dehoister
         - Ecryptor
+        - Flags
         - GithubSkylines
         - Minifier
         - Mjolnir
