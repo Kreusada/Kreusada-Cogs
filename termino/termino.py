@@ -87,8 +87,10 @@ class Termino(Utilities, commands.Cog, metaclass=CompositeMetaClass):
     @commands.command()
     async def restart(self, ctx: commands.Context):
         """Attempts to restart [botname]."""
-        restart_message = await self.config.restart_message()
-        restart_conf = await self.config.confirm_restart()
+        settings = await self.config.all()
+        restart_message = settings["restart_message"]
+        restart_conf = settings["confirm_restart"]
+
         message = restart_message.replace(r"{author}", ctx.author.name)
         if restart_conf:
             conf = await self.confirmation(ctx, "restart")
@@ -109,8 +111,10 @@ class Termino(Utilities, commands.Cog, metaclass=CompositeMetaClass):
     @commands.command()
     async def shutdown(self, ctx: commands.Context):
         """Shuts down [botname]."""
-        shutdown_message = await self.config.shutdown_message()
-        shutdown_conf = await self.config.confirm_shutdown()
+        settings = await self.config.all()
+        shutdown_message = settings["shutdown_message"]
+        shutdown_conf = settings["confirm_shutdown"]
+
         message = shutdown_message.replace(r"{author}", ctx.author.name)
         if shutdown_conf:
             conf = await self.confirmation(ctx, "shutdown")
