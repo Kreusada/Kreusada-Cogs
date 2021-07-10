@@ -38,7 +38,9 @@ class Termino(commands.Cog):
             confirm_shutdown=True,
             confirm_restart=True,
         )
-        self.red_ready = getattr(self.bot, "is_red_ready", lambda: self.bot._red_ready.is_set()) # This might be changed soon
+        self.red_ready = getattr(
+            self.bot, "is_red_ready", lambda: self.bot._red_ready.is_set()
+        )  # This might be changed soon
         self.startup_task = self.bot.loop.create_task(self.startup())
         self.announce_startup = self.bot.loop.create_task(self._announce_start())
         self._first_connect = False
@@ -95,7 +97,7 @@ class Termino(commands.Cog):
     async def _announce_start(self, *, reconnect: bool = False):
         if not reconnect:
             if self.red_ready():
-                return # So, the bot has already been initialized and that means that we don't have to do anything here
+                return  # So, the bot has already been initialized and that means that we don't have to do anything here
             if RED_3_2_0:
                 await self.bot.wait_until_red_ready()
             else:
@@ -103,14 +105,13 @@ class Termino(commands.Cog):
             self._already_connected = True
         conf = await self.config.all()
         maybe_channel = conf.get("announcement_channel", None)
-        if any(
-            [
-                maybe_channel is None,
-                (ch := self.bot.get_channel(maybe_channel)) is None
-            ]
-        ):
+        if any([maybe_channel is None, (ch := self.bot.get_channel(maybe_channel)) is None]):
             return
-        online = ("I have reconnected.", "has reconnected") if reconnect else ("I'm back online.", "is online")
+        online = (
+            ("I have reconnected.", "has reconnected")
+            if reconnect
+            else ("I'm back online.", "is online")
+        )
         kwargs = {
             "content": (
                 f"**{self.bot.user.name} {online[1]}**\n\n{online[0]}"
@@ -317,9 +318,12 @@ class Termino(commands.Cog):
 
     @commands.Cog.listener()
     async def on_connect(self):
-        if self._first_connect or not await self.config.reconnect(): # This is the way Red checks this
-            return # The announcement will be sent by the _announcement_start
+        if (
+            self._first_connect or not await self.config.reconnect()
+        ):  # This is the way Red checks this
+            return  # The announcement will be sent by the _announcement_start
         await self._announce_start(reconnect=True)
+
 
 async def setup(bot):
     cog = Termino(bot)
