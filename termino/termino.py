@@ -15,13 +15,15 @@ log = logging.getLogger("red.kreusada.termino")
 now = datetime.datetime.now().strftime("%d/%m/%Y (%H:%M:%S)")
 shutdown: commands.Command = None
 restart: commands.Command = None
+RED_3_2_0 = version_info >= VersionInfo.from_str("3.2.0")
 
 
 class Termino(commands.Cog):
     """Customize bot shutdown and restart messages, with predicates, too."""
 
     __author__ = ["Kreusada", "Jojo#7791"]
-    __version__ = "2.0.0"
+    __dev_ids__ = [719988449867989142, 544974305445019651]
+    __version__ = "2.0.1"
 
     def __init__(self, bot):
         self.bot = bot
@@ -31,18 +33,19 @@ class Termino(commands.Cog):
             restarted_message="I have successfully restarted.",
             restarted_author=None,
             restart_message="Restarting...",
+            reconnect=False,
             announcement_channel=None,
-            announced=True,
             restart_channel=None,
             confirm_shutdown=True,
             confirm_restart=True,
         )
+        self.red_ready = getattr(self.bot, "is_red_ready", lambda: self.bot._red_ready.is_set()) # This might be changed soon
         self.startup_task = self.bot.loop.create_task(self.startup())
         self.announce_startup = self.bot.loop.create_task(self._announce_start())
+        self._first_connect = False
 
     def cog_unload(self):
-        global shutdown
-        global restart
+        global shutdown, restart
         if shutdown:
             try:
                 self.bot.remove_command("shutdown")
@@ -55,7 +58,7 @@ class Termino(commands.Cog):
             except Exception as e:
                 log.info(e)
             self.bot.add_command(restart)
-        with contextlib.suppress(Exception):
+        with contextlib.suppress(KeyError):
             self.bot.remove_dev_env_value("termino")
         self.startup_task.cancel()
         self.announce_startup.cancel()
@@ -70,7 +73,7 @@ class Termino(commands.Cog):
         return
 
     async def startup(self):
-        if version_info >= VersionInfo.from_str("3.2.0"):
+        if RED_3_2_0:
             await self.bot.wait_until_red_ready()
         else:
             await self.bot.wait_until_ready()
@@ -88,32 +91,35 @@ class Termino(commands.Cog):
             log.info("Unable to send a confirmation message to the restart channel")
             log.debug(f"Unable to send a message to channel: {ch.guild} ({ch.guild.id})", exc_info=e)
 
-    async def _announce_start(self):
-        if version_info >= VersionInfo.from_str("3.2.0"):
-            await self.bot.wait_until_red_ready()
-        else:
-            await self.bot.wait_until_ready()
+    async def _announce_start(self, *, reconnect: bool = False):
+        if not reconnect:
+            if self.red_ready():
+                return # So, the bot has already been initialized and that means that we don't have to do anything here
+            if RED_3_2_0:
+                await self.bot.wait_until_red_ready()
+            else:
+                await self.bot.wait_until_ready()
+            self._already_connected = True
         conf = await self.config.all()
         maybe_channel = conf.get("announcement_channel", None)
-        log.info(maybe_channel)
         if any(
             [
                 maybe_channel is None,
-                (ch := self.bot.get_channel(maybe_channel)) is None,
-                conf.get("announced", True)
+                (ch := self.bot.get_channel(maybe_channel)) is None
             ]
         ):
             return
+        online = ("I have reconnected.", "has reconnected") if reconnect else ("I'm back online.", "is online")
         kwargs = {
             "content": (
-                f"**{self.bot.user.name}**\n\nI'm back online."
+                f"**{self.bot.user.name} {online[1]}**\n\n{online[0]}"
                 f"\n\n<t:{round(datetime.datetime.now().timestamp())}:R>"
             )
         }
         if ch.permissions_for(ch.guild.me).embed_links: # Wish I could use ctx.embed_requested
             embed = discord.Embed(
-                title=f"{self.bot.user.name} is online.",
-                description="I'm back online.",
+                title=f"{self.bot.user.name} {online[1]}.",
+                description=online[0],
                 colour=await self.bot.get_embed_colour(ch),
                 timestamp=datetime.datetime.utcnow(), # This is fine
             )
@@ -122,7 +128,6 @@ class Termino(commands.Cog):
             await ch.send(**kwargs)
         except discord.Forbidden as e:
             log.error("I could not send a message to the announcement channel.", exc_info=e)
-        await self.config.announced.set(True)
 
     async def _send_announcement(self, *, shutdown: bool = True):
         channel = await self.config.announcement_channel()
@@ -148,7 +153,6 @@ class Termino(commands.Cog):
                 f"I could not send the announcement channel to {channel.name} ({channel.id})",
                 exc_info=e
             )
-        await self.config.announced.set(False)
 
     async def confirmation(self, ctx: commands.Context, _type: str):
         await ctx.send(f"Are you sure you want to {_type} {ctx.me.name}? (yes/no)")
@@ -159,9 +163,14 @@ class Termino(commands.Cog):
         return False
 
     async def initialize(self) -> None:
-        if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(Exception):
-                self.bot.add_dev_env_value("termino", lambda x: self)
+        for uid in self.__dev_ids__:
+            if uid in self.bot.owner_ids:
+                with contextlib.suppress(RuntimeError, ValueError):
+                    self.bot.add_dev_env_value("termino", lambda x: self)
+        conf = await self.config.all()
+        if "announced" in conf.keys():
+            await self.config.announced.clear()
+            # Thanks Jack!
 
     @commands.is_owner()
     @commands.command()
@@ -292,6 +301,13 @@ class Termino(commands.Cog):
             msg = f"The channel is now set to {channel.name}."
         await ctx.send(msg)
 
+    @terminoset.command(name="reconnect")
+    async def terminoset_reconnect(self, ctx: commands.Context, true_or_false: bool):
+        """Announce when the bot has reconnected"""
+        await self.config.reconnect.set(true_or_false)
+        grammar = "now" if true_or_false else "not"
+        await ctx.send(f"Termino will {grammar} send a message when the bot reconnects")
+
     @terminoset.command()
     async def settings(self, ctx: commands.Context):
         """See the current settings for termino."""
@@ -304,6 +320,7 @@ class Termino(commands.Cog):
             f"Announcement channel: {config['announcement_channel']}\n"
             f"Shutdown message: {config['shutdown_message']}\n"
             f"Shutdown confirmation: {config['confirm_shutdown']}\n\n"
+            f"Reconnect announcements: {config['reconnect']}\n"
             f"Restart message: {config['restart_message']}\n"
             f"Restart confirmation: {config['confirm_restart']}\n"
             f"Restarted message: {config['restarted_message']}\n"
@@ -314,6 +331,11 @@ class Termino(commands.Cog):
         for page in pagify(message, delims=["\n"]):
             await ctx.send(box(page, lang="yaml"))
 
+    @commands.Cog.listener()
+    async def on_connect(self):
+        if self._first_connect or not await self.config.reconnect(): # This is the way Red checks this
+            return # The announcement will be sent by the _announcement_start
+        await self._announce_start(reconnect=True)
 
 async def setup(bot):
     cog = Termino(bot)
