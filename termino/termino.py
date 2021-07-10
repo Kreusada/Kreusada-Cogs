@@ -17,6 +17,8 @@ shutdown: commands.Command = None
 restart: commands.Command = None
 RED_3_2_0 = version_info >= VersionInfo.from_str("3.2.0")
 
+async def reconnect_enabled(ctx: commands.Context):
+    return await ctx.cog.config.reconnect()
 
 class Termino(commands.Cog):
     """Customize bot shutdown and restart messages, with predicates, too."""
@@ -34,6 +36,7 @@ class Termino(commands.Cog):
             restarted_author=None,
             restart_message="Restarting...",
             reconnect=False,
+            reconnect_message="I have reconnected.",
             announcement_channel=None,
             restart_channel=None,
             confirm_shutdown=True,
@@ -109,7 +112,9 @@ class Termino(commands.Cog):
             ]
         ):
             return
-        online = ("I have reconnected.", "has reconnected") if reconnect else ("I'm back online.", "is online")
+        online = (
+            await self.config.reconnect_message(), "has reconnected"
+        ) if reconnect else ("I'm back online.", "is online")
         kwargs = {
             "content": (
                 f"**{self.bot.user.name} {online[1]}**\n\n{online[0]}"
@@ -229,7 +234,10 @@ class Termino(commands.Cog):
         """
         Set and adjust the shutdown message.
 
-        You can use `{author}` in your message to send the invokers display name."""
+        You can use `{author}` in your message to send the invokers display name.
+
+        Type `none` to reset it
+        """
         if shutdown_message.lower() == "none":
             shutdown_message = None
         msg = shutdown_message or f"Shutting down... {default_wave}"
@@ -254,7 +262,10 @@ class Termino(commands.Cog):
         """
         Set and adjust the restart message.
 
-        You can use `{author}` in your message to send the invokers display name."""
+        You can use `{author}` in your message to send the invokers display name.
+
+        Type `none` to reset it
+        """
         if restart_message.lower() == "none":
             restart_message = None
         msg = restart_message or "Restarting..."
@@ -276,7 +287,10 @@ class Termino(commands.Cog):
         *,
         restarted_message: str
     ):
-        """Set the message to be sent after restarting."""
+        """Set the message to be sent after restarting.
+
+        Type `none` to reset it
+        """
         if restarted_message.lower() == "none":
             restarted_message = None
         msg = restarted_message or "I have successfully restarted."
@@ -290,7 +304,10 @@ class Termino(commands.Cog):
         ctx: commands.Context,
         channel: Union[discord.TextChannel, None]
     ):
-        """Set the channel where announcements will be sent to when the bot goes online/offline"""
+        """Set the channel where announcements will be sent to when the bot goes online/offline
+
+        Type `none` to clear it
+        """
         announcement = await self.config.announcement_channel()
         if all([not announcement, not channel]):
             return await ctx.send("The announcement channel is not set.")
@@ -308,6 +325,20 @@ class Termino(commands.Cog):
         grammar = "now" if true_or_false else "not"
         await ctx.send(f"Termino will {grammar} send a message when the bot reconnects")
 
+    @terminoset.command(name="reconnectmessage")
+    @commands.check(reconnect_enabled)
+    async def termionset_reconnect_message(self, ctx: commands.Context, *, message: str):
+        """Set the message the bot will send on reconnect
+
+        Type `none` to reset it
+        """
+        if message.lower() == "none":
+            message = None
+        message = message or "I have reconnected."
+        set_reset = "set" if message else "reset"
+        await self.config.reconnect_message.set(message)
+        await ctx.send(f"The reconnect message has been {set_reset}")
+
     @terminoset.command()
     async def settings(self, ctx: commands.Context):
         """See the current settings for termino."""
@@ -316,11 +347,14 @@ class Termino(commands.Cog):
         for x in [config["restart_message"], config["shutdown_message"]]:
             if "{author}" in x:
                 footer = True
+        reconnect = config["reconnect"]
+        reconnect_msg = f"Reconnect message: {config['reconnect_message']}\n" if reconnect else ""
         message = (
             f"Announcement channel: {config['announcement_channel']}\n"
             f"Shutdown message: {config['shutdown_message']}\n"
             f"Shutdown confirmation: {config['confirm_shutdown']}\n\n"
-            f"Reconnect announcements: {config['reconnect']}\n"
+            f"Reconnect announcements: {reconnect}\n"
+            f"{reconnect_msg}"
             f"Restart message: {config['restart_message']}\n"
             f"Restart confirmation: {config['confirm_restart']}\n"
             f"Restarted message: {config['restarted_message']}\n"
