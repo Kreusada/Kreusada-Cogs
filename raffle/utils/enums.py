@@ -181,8 +181,8 @@ class RaffleComponents(enum.Enum):
         POTENTIAL_EXCEPTIONS: [RaffleSyntaxError],
         VARIABLES: None,
         REQUIRED_CONDITION: False,
-        "description": ComponentDescriptions.DESCRIPTION.value,
-        "example": ComponentExamples.DESCRIPTION.value,
+        DESCRIPTION: ComponentDescriptions.DESCRIPTION.value,
+        EXAMPLE: ComponentExamples.DESCRIPTION.value,
     }
 
     end_message: ComponentsDictionary = {
@@ -217,8 +217,8 @@ class RaffleComponents(enum.Enum):
         POTENTIAL_EXCEPTIONS: [RaffleSyntaxError, RequiredKeyError],
         VARIABLES: None,
         REQUIRED_CONDITION: True,
-        "description": ComponentDescriptions.NAME.value,
-        "example": ComponentExamples.NAME.value,
+        DESCRIPTION: ComponentDescriptions.NAME.value,
+        EXAMPLE: ComponentExamples.NAME.value,
     }
 
     on_end_action: ComponentsDictionary = {
