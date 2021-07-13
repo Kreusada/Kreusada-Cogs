@@ -134,12 +134,14 @@ class ComponentExamples(enum.Enum):
     ON_END_ACTION = "remove_and_prevent_winner"
     SUSPENSE_TIMER = 3
 
+
 SUPPORTED_TYPES = "supported_types"
 POTENTIAL_EXCEPTIONS = "potential_exceptions"
 VARIABLES = "variables"
 REQUIRED_CONDITION = "required_condition"
 DESCRIPTION = "description"
 EXAMPLE = "example"
+
 
 class RaffleComponents(enum.Enum):
     """All of the components which can be

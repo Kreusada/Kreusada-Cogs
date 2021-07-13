@@ -160,7 +160,7 @@ class TextEditor(commands.Cog):
     async def editor_reverse(self, ctx: commands.Context, *, text: str):
         """Reverse the text."""
         await self.format_text(ctx, inspect.stack()[0][3], text)
-        
+
     @editor.command(name="replace")
     async def editor_replace(
         self,
@@ -172,9 +172,9 @@ class TextEditor(commands.Cog):
     ):
         """Replace certain parts of the text."""
         await self.format_text(
-            ctx, 
-            inspect.stack()[0][3], 
-            text, 
+            ctx,
+            inspect.stack()[0][3],
+            text,
             text_to_replace,
             replacement,
         )
