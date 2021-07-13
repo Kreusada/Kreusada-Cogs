@@ -1,3 +1,4 @@
+import dataclasses
 import enum
 from typing import Any, Dict, List, Type, Union
 
@@ -133,6 +134,12 @@ class ComponentExamples(enum.Enum):
     ON_END_ACTION = "remove_and_prevent_winner"
     SUSPENSE_TIMER = 3
 
+SUPPORTED_TYPES = "supported_types"
+POTENTIAL_EXCEPTIONS = "potential_exceptions"
+VARIABLES = "variables"
+REQUIRED_CONDITION = "required_condition"
+DESCRIPTION = "description"
+EXAMPLE = "example"
 
 class RaffleComponents(enum.Enum):
     """All of the components which can be
@@ -140,119 +147,119 @@ class RaffleComponents(enum.Enum):
     used for the ``[p]raffle conditions`` command.
     """
 
-    name: ComponentsDictionary = {
-        "supported_types": [str],
-        "potential_exceptions": [RaffleSyntaxError, RequiredKeyError],
-        "variables": None,
-        "required_condition": True,
-        "description": ComponentDescriptions.NAME.value,
-        "example": ComponentExamples.NAME.value,
+    account_age: ComponentsDictionary = {
+        SUPPORTED_TYPES: [int],
+        POTENTIAL_EXCEPTIONS: [RaffleSyntaxError],
+        VARIABLES: None,
+        REQUIRED_CONDITION: False,
+        DESCRIPTION: ComponentDescriptions.ACCOUNT_AGE.value,
+        EXAMPLE: ComponentExamples.ACCOUNT_AGE.value,
+    }
+
+    allowed_users: ComponentsDictionary = {
+        SUPPORTED_TYPES: [list],
+        POTENTIAL_EXCEPTIONS: [RaffleSyntaxError, UnknownEntityError],
+        VARIABLES: None,
+        REQUIRED_CONDITION: False,
+        DESCRIPTION: ComponentDescriptions.ALLOWED_USERS.value,
+        EXAMPLE: ComponentExamples.ALLOWED_USERS.value,
+    }
+
+    badges_needed_to_enter: ComponentsDictionary = {
+        SUPPORTED_TYPES: [list],
+        POTENTIAL_EXCEPTIONS: [RaffleSyntaxError, InvalidArgument],
+        VARIABLES: None,
+        REQUIRED_CONDITION: False,
+        DESCRIPTION: ComponentDescriptions.BADGES_NEEDED_TO_ENTER.value,
+        EXAMPLE: ComponentExamples.BADGES_NEEDED_TO_ENTER.value,
     }
 
     description: ComponentsDictionary = {
-        "supported_types": [str],
-        "potential_exceptions": [RaffleSyntaxError],
-        "variables": None,
-        "required_condition": False,
+        SUPPORTED_TYPES: [str],
+        POTENTIAL_EXCEPTIONS: [RaffleSyntaxError],
+        VARIABLES: None,
+        REQUIRED_CONDITION: False,
         "description": ComponentDescriptions.DESCRIPTION.value,
         "example": ComponentExamples.DESCRIPTION.value,
     }
 
-    join_message: ComponentsDictionary = {
-        "supported_types": [str],
-        "potential_exceptions": [RaffleSyntaxError, InvalidArgument],
-        "variables": [x.name for x in RaffleJoinMessageComponents],
-        "required_condition": False,
-        "description": ComponentDescriptions.JOIN_MESSAGE.value,
-        "example": ComponentExamples.JOIN_MESSAGE.value,
-    }
-
     end_message: ComponentsDictionary = {
-        "supported_types": [str],
-        "potential_exceptions": [RaffleSyntaxError, InvalidArgument],
-        "variables": [x.name for x in RaffleEndMessageComponents],
-        "required_condition": False,
-        "description": ComponentDescriptions.END_MESSAGE.value,
-        "example": ComponentExamples.END_MESSAGE.value,
+        SUPPORTED_TYPES: [str],
+        POTENTIAL_EXCEPTIONS: [RaffleSyntaxError, InvalidArgument],
+        VARIABLES: [x.name for x in RaffleEndMessageComponents],
+        REQUIRED_CONDITION: False,
+        DESCRIPTION: ComponentDescriptions.END_MESSAGE.value,
+        EXAMPLE: ComponentExamples.END_MESSAGE.value,
     }
 
-    account_age: ComponentsDictionary = {
-        "supported_types": [int],
-        "potential_exceptions": [RaffleSyntaxError],
-        "variables": None,
-        "required_condition": False,
-        "description": ComponentDescriptions.ACCOUNT_AGE.value,
-        "example": ComponentExamples.ACCOUNT_AGE.value,
-    }
-
-    server_join_age: ComponentsDictionary = {
-        "supported_types": [int],
-        "potential_exceptions": [RaffleSyntaxError],
-        "variables": None,
-        "required_condition": False,
-        "description": ComponentDescriptions.SERVER_JOIN_AGE.value,
-        "example": ComponentExamples.SERVER_JOIN_AGE.value,
-    }
-
-    roles_needed_to_enter: ComponentsDictionary = {
-        "supported_types": [list],
-        "potential_exceptions": [RaffleSyntaxError, UnknownEntityError],
-        "variables": None,
-        "required_condition": False,
-        "description": ComponentDescriptions.ROLES_NEEDED_TO_ENTER.value,
-        "example": ComponentExamples.ROLES_NEEDED_TO_ENTER.value,
-    }
-
-    badges_needed_to_enter: ComponentsDictionary = {
-        "supported_types": [list],
-        "potential_exceptions": [RaffleSyntaxError, InvalidArgument],
-        "variables": None,
-        "required_condition": False,
-        "description": ComponentDescriptions.BADGES_NEEDED_TO_ENTER.value,
-        "example": ComponentExamples.BADGES_NEEDED_TO_ENTER.value,
-    }
-
-    prevented_users: ComponentsDictionary = {
-        "supported_types": [list],
-        "potential_exceptions": [RaffleSyntaxError, UnknownEntityError],
-        "variables": None,
-        "required_condition": False,
-        "description": ComponentDescriptions.PREVENTED_USERS.value,
-        "example": ComponentExamples.PREVENTED_USERS.value,
-    }
-
-    allowed_users: ComponentsDictionary = {
-        "supported_types": [list],
-        "potential_exceptions": [RaffleSyntaxError, UnknownEntityError],
-        "variables": None,
-        "required_condition": False,
-        "description": ComponentDescriptions.ALLOWED_USERS.value,
-        "example": ComponentExamples.ALLOWED_USERS.value,
+    join_message: ComponentsDictionary = {
+        SUPPORTED_TYPES: [str],
+        POTENTIAL_EXCEPTIONS: [RaffleSyntaxError, InvalidArgument],
+        VARIABLES: [x.name for x in RaffleJoinMessageComponents],
+        REQUIRED_CONDITION: False,
+        DESCRIPTION: ComponentDescriptions.JOIN_MESSAGE.value,
+        EXAMPLE: ComponentExamples.JOIN_MESSAGE.value,
     }
 
     maximum_entries: ComponentsDictionary = {
-        "supported_types": [int],
-        "potential_exceptions": [RaffleSyntaxError],
-        "variables": None,
-        "required_condition": False,
-        "description": ComponentDescriptions.MAXIMUM_ENTRIES.value,
-        "example": ComponentExamples.MAXIMUM_ENTRIES.value,
+        SUPPORTED_TYPES: [int],
+        POTENTIAL_EXCEPTIONS: [RaffleSyntaxError],
+        VARIABLES: None,
+        REQUIRED_CONDITION: False,
+        DESCRIPTION: ComponentDescriptions.MAXIMUM_ENTRIES.value,
+        EXAMPLE: ComponentExamples.MAXIMUM_ENTRIES.value,
+    }
+
+    name: ComponentsDictionary = {
+        SUPPORTED_TYPES: [str],
+        POTENTIAL_EXCEPTIONS: [RaffleSyntaxError, RequiredKeyError],
+        VARIABLES: None,
+        REQUIRED_CONDITION: True,
+        "description": ComponentDescriptions.NAME.value,
+        "example": ComponentExamples.NAME.value,
     }
 
     on_end_action: ComponentsDictionary = {
-        "supported_types": [str],
-        "potential_exceptions": [InvalidArgument],
-        "variables": None,
-        "required_condition": False,
-        "description": ComponentDescriptions.ON_END_ACTION.value,
-        "example": ComponentExamples.ON_END_ACTION.value,
+        SUPPORTED_TYPES: [str],
+        POTENTIAL_EXCEPTIONS: [InvalidArgument],
+        VARIABLES: None,
+        REQUIRED_CONDITION: False,
+        DESCRIPTION: ComponentDescriptions.ON_END_ACTION.value,
+        EXAMPLE: ComponentExamples.ON_END_ACTION.value,
+    }
+
+    prevented_users: ComponentsDictionary = {
+        SUPPORTED_TYPES: [list],
+        POTENTIAL_EXCEPTIONS: [RaffleSyntaxError, UnknownEntityError],
+        VARIABLES: None,
+        REQUIRED_CONDITION: False,
+        DESCRIPTION: ComponentDescriptions.PREVENTED_USERS.value,
+        EXAMPLE: ComponentExamples.PREVENTED_USERS.value,
+    }
+
+    server_join_age: ComponentsDictionary = {
+        SUPPORTED_TYPES: [int],
+        POTENTIAL_EXCEPTIONS: [RaffleSyntaxError],
+        VARIABLES: None,
+        REQUIRED_CONDITION: False,
+        DESCRIPTION: ComponentDescriptions.SERVER_JOIN_AGE.value,
+        EXAMPLE: ComponentExamples.SERVER_JOIN_AGE.value,
     }
 
     suspense_timer: ComponentsDictionary = {
-        "supported_types": [int],
-        "potential_exceptions": [InvalidArgument],
-        "variables": None,
-        "required_condition": False,
-        "description": ComponentDescriptions.SUSPENSE_TIMER.value,
-        "example": ComponentExamples.SUSPENSE_TIMER.value,
+        SUPPORTED_TYPES: [int],
+        POTENTIAL_EXCEPTIONS: [InvalidArgument],
+        VARIABLES: None,
+        REQUIRED_CONDITION: False,
+        DESCRIPTION: ComponentDescriptions.SUSPENSE_TIMER.value,
+        EXAMPLE: ComponentExamples.SUSPENSE_TIMER.value,
+    }
+
+    roles_needed_to_enter: ComponentsDictionary = {
+        SUPPORTED_TYPES: [list],
+        POTENTIAL_EXCEPTIONS: [RaffleSyntaxError, UnknownEntityError],
+        VARIABLES: None,
+        REQUIRED_CONDITION: False,
+        DESCRIPTION: ComponentDescriptions.ROLES_NEEDED_TO_ENTER.value,
+        EXAMPLE: ComponentExamples.ROLES_NEEDED_TO_ENTER.value,
     }
