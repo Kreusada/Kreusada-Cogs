@@ -1,4 +1,8 @@
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
+from datetime import datetime
+
+_now = datetime.now().strftime("%Y")
+
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", ".venv", "venv"]
 html_css_files = ["literals.css"]
 extensions = ["sphinx_rtd_theme"]
 templates_path = ["_templates"]
@@ -22,4 +26,5 @@ exclude_patterns = []
 add_function_parentheses = True
 
 project = "Kreusada-Cogs"
-copyright = "2021 | Kreusada"
+copyright = f"{_now} - 2021 | Kreusada"
+html_logo = "image-cog-creators-logo.png"
