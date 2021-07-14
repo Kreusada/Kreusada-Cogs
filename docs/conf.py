@@ -27,4 +27,4 @@ add_function_parentheses = True
 
 project = "Kreusada-Cogs"
 copyright = f"{_now} - 2021 | Kreusada"
-html_logo = "image-cog-creators-logo.png"
+html_logo = "image_cog-creators-logo.png"
