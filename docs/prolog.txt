@@ -1,9 +1,0 @@
-.. |qa-vetted| replace:: This cog has been vetted by the Red-DiscordBot QA team as approved.
-    For inquiries, see to the contact options below.
-
-.. |get-more-support| replace:: Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_
-    in ``#support_kreusada-cogs``.
-
-
-
-.. |bool-input| replace:: You must provide either ``true`` or ``false``.
