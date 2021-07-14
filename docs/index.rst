@@ -4,7 +4,7 @@
 Kreusada-Cogs
 =============
 
-.. image:: /image_repo_artwork.png
+.. image:: /image_repo_artwork2.png
     :target: https://github.com/Kreusada/Kreusada-Cogs
     :alt: Kreusada-Cogs
 
