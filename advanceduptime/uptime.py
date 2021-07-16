@@ -72,7 +72,6 @@ class AdvancedUptime(commands.Cog):
         else:
             title = f"[{botname} has been up for {uptime_str}.]"
             msg = (
-                f"Instance name: {ctx.bot.user}\n"
                 f"Instance owner: {owner}\n"
                 f"Number of guilds: {servers}\n"
                 f"Unique users: {users}\n"
