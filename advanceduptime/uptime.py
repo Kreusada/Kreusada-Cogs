@@ -63,11 +63,10 @@ class AdvancedUptime(commands.Cog):
                 timestamp=ctx.message.created_at,
             )
             e.add_field(name=f"{botname} has been up for...", value=uptime_str, inline=False)
-            e.add_field(name="Instance name:", value=ctx.bot.user, inline=True)
-            e.add_field(name="Instance owner:", value=owner, inline=True)
-            e.add_field(name="Number of guilds:", value=servers, inline=False)
-            e.add_field(name="Unique users:", value=users, inline=False)
-            e.add_field(name="Commands available:", value=commands_available, inline=False)
+            e.add_field(name="Instance owner", value=owner, inline=True)
+            e.add_field(name="Number of guilds", value=servers, inline=False)
+            e.add_field(name="Unique users", value=users, inline=False)
+            e.add_field(name="Commands available", value=commands_available, inline=False)
             e.set_thumbnail(url=ctx.bot.user.avatar_url)
             await ctx.send(embed=e)
         else:
