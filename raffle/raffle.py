@@ -12,6 +12,7 @@ from .commands.editor import EditorCommands
 from .commands.informational import InformationalCommands
 from .commands.management.events import EventCommands
 from .commands.management.misc import MiscCommands
+from .utils.cleanup import CleanupHelpers
 from .mixins.metaclass import MetaClass
 from .version_handler import VersionHandler
 
@@ -24,6 +25,7 @@ with open(pathlib.Path(__file__).parent / "info.json") as fp:
 
 
 mixinargs = (
+    CleanupHelpers,
     InformationalCommands,
     EditorCommands,
     BuilderCommands,
@@ -48,47 +50,9 @@ class Raffle(*mixinargs, metaclass=MetaClass):
         self.config = Config.get_conf(self, 583475034985340, force_registration=True)
         self.config.register_guild(raffles={})
         self.docs = "https://kreusadacogs.readthedocs.io/en/latest/cog_raffle.html"
-
-    async def replenish_cache(self, ctx: Context) -> None:
-        async with self.config.guild(ctx.guild).raffles() as r:
-
-            updates = {}
-
-            for k, v in list(r.items()):
-
-                getter = v.get("owner")
-                if not ctx.guild.get_member(getter):
-                    del r[k]
-                    updates["owner"] = True
-
-                getter = v.get("entries")
-                for userid in getter:
-                    if not ctx.guild.get_member(userid):
-                        getter.remove(userid)
-                        updates["entries"] = True
-
-                getter = v.get("prevented_users", None)
-                if getter:
-                    for userid in getter:
-                        if not ctx.guild.get_member(userid):
-                            getter.remove(userid)
-                            updates["prevented_users"] = True
-
-                getter = v.get("allowed_users", None)
-                if getter:
-                    for userid in getter:
-                        if not ctx.guild.get_member(userid):
-                            getter.remove(userid)
-                            updates["allowed_users"] = True
-
-                getter = v.get("roles_needed_to_enter", None)
-                if getter:
-                    for roleid in getter:
-                        if not ctx.guild.get_role(roleid):
-                            getter.remove(roleid)
-                            updates["roles_needed_to_enter"] = True
-
-            return any([updates[x] for x in list(updates.keys())])
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(Exception):
+                self.bot.add_dev_env_value("raffle", lambda x: self)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
@@ -112,11 +76,6 @@ class Raffle(*mixinargs, metaclass=MetaClass):
     def cog_unload(self):
         with contextlib.suppress(Exception):
             self.bot.remove_dev_env_value("raffle")
-
-    async def initialize(self) -> None:
-        if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(Exception):
-                self.bot.add_dev_env_value("raffle", lambda x: self)
 
     async def cog_check(self, ctx: commands.Context):
         return ctx.guild is not None

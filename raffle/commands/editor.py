@@ -72,7 +72,7 @@ class EditorCommands(RaffleMixin):
             raffle_data["account_age"] = new_account_age
             await ctx.send(_("Account age requirement updated for this raffle."))
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @edit.command()
     async def convertsimple(self, ctx, raffle: RaffleFactoryConverter):
@@ -122,7 +122,7 @@ class EditorCommands(RaffleMixin):
             else:
                 await ctx.send(_("No changes have been made."))
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @edit.command()
     async def serverjoinage(
@@ -159,7 +159,7 @@ class EditorCommands(RaffleMixin):
                 raffle_data["server_join_age"] = new_server_join_age
                 await ctx.send(_("Server join age requirement updated for this raffle."))
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @edit.command()
     async def description(
@@ -191,7 +191,7 @@ class EditorCommands(RaffleMixin):
                 raffle_data["description"] = description
                 await ctx.send(_("Description updated for this raffle."))
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @edit.command()
     async def stimer(self, ctx, raffle: RaffleFactoryConverter, suspense_timer: Union[int, bool]):
@@ -224,7 +224,7 @@ class EditorCommands(RaffleMixin):
                 raffle_data["suspense_timer"] = suspense_timer
                 await ctx.send(_("Suspense timer updated for this raffle."))
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @edit.command()
     async def endaction(
@@ -267,7 +267,7 @@ class EditorCommands(RaffleMixin):
                 raffle_data["on_end_action"] = on_end_action
                 await ctx.send(_("On end action updated for this raffle."))
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @edit.command()
     async def maxentries(
@@ -299,7 +299,7 @@ class EditorCommands(RaffleMixin):
                 raffle_data["maximum_entries"] = maximum_entries
                 await ctx.send(_("Max entries requirement updated for this raffle."))
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @edit.command()
     async def endmessage(
@@ -387,7 +387,7 @@ class EditorCommands(RaffleMixin):
                     await ctx.send(_("End message updated for this raffle."))
                 raffle_data["end_message"] = data
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @edit.command()
     async def joinmessage(
@@ -477,7 +477,7 @@ class EditorCommands(RaffleMixin):
                     await ctx.send(_("Join message updated for this raffle."))
                 raffle_data["join_message"] = data
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @edit.command()
     async def fromyaml(self, ctx, raffle: RaffleFactoryConverter):
@@ -627,7 +627,7 @@ class EditorCommands(RaffleMixin):
 
         await ctx.send(update)
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @edit.group()
     async def prevented(self, ctx):
@@ -660,7 +660,7 @@ class EditorCommands(RaffleMixin):
                 _("{} added to the prevented list for this raffle.".format(member.name))
             )
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @prevented.command(name="remove", aliases=["del"])
     async def prevented_remove(self, ctx, raffle: RaffleFactoryConverter, member: discord.Member):
@@ -686,7 +686,7 @@ class EditorCommands(RaffleMixin):
                 _("{} remove from the prevented list for this raffle.".format(member.name))
             )
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @prevented.command(name="clear")
     async def prevented_clear(self, ctx, raffle: RaffleFactoryConverter):
@@ -780,7 +780,7 @@ class EditorCommands(RaffleMixin):
                 )
             )
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @badges.command(name="remove", aliases=["del"])
     async def badges_remove(self, ctx, raffle: RaffleFactoryConverter, *badges: str):
@@ -817,7 +817,7 @@ class EditorCommands(RaffleMixin):
                 )
             )
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @badges.command(name="clear")
     async def badges_clear(self, ctx, raffle: RaffleFactoryConverter):
@@ -867,7 +867,7 @@ class EditorCommands(RaffleMixin):
 
             await ctx.send(_("{} added to the allowed list for this raffle.".format(member.name)))
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @allowed.command(name="remove", aliases=["del"])
     async def allowed_remove(self, ctx, raffle: RaffleFactoryConverter, member: discord.Member):
@@ -893,7 +893,7 @@ class EditorCommands(RaffleMixin):
                 _("{} removed from the allowed list for this raffle.".format(member.name))
             )
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @allowed.command(name="clear")
     async def allowed_clear(self, ctx, raffle: RaffleFactoryConverter):
@@ -938,7 +938,7 @@ class EditorCommands(RaffleMixin):
         else:
             await ctx.send(_("No changes have been made."))
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @edit.group()
     async def rolesreq(self, ctx):
@@ -971,7 +971,7 @@ class EditorCommands(RaffleMixin):
                 _("{} added to the role requirement list for this raffle.".format(role.name))
             )
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @rolesreq.command(name="remove", aliases=["del"])
     async def rolereq_remove(self, ctx, raffle: RaffleFactoryConverter, role: discord.Role):
@@ -995,7 +995,7 @@ class EditorCommands(RaffleMixin):
                 _("{} remove from the role requirement list for this raffle.".format(role.name))
             )
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @rolesreq.command(name="clear")
     async def rolereq_clear(self, ctx, raffle: RaffleFactoryConverter):
@@ -1048,4 +1048,4 @@ class EditorCommands(RaffleMixin):
             else:
                 await ctx.send(_("No changes have been made."))
 
-            await self.replenish_cache(ctx)
+            await self.clean_guild_raffles(ctx)
