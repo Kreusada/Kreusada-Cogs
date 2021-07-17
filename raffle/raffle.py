@@ -12,8 +12,8 @@ from .commands.editor import EditorCommands
 from .commands.informational import InformationalCommands
 from .commands.management.events import EventCommands
 from .commands.management.misc import MiscCommands
-from .utils.cleanup import CleanupHelpers
 from .mixins.metaclass import MetaClass
+from .utils.cleanup import CleanupHelpers
 from .version_handler import VersionHandler
 
 RaffleCog = getattr(commands, "Cog", object)
