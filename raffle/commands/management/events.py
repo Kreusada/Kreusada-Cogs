@@ -74,7 +74,7 @@ class EventCommands(RaffleMixin):
                 # end
                 r.pop(raffle)
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @raffle.command()
     async def kick(self, ctx: Context, raffle: RaffleFactoryConverter, member: discord.Member):
@@ -95,7 +95,7 @@ class EventCommands(RaffleMixin):
             raffle_entities("entries").remove(member.id)
             await ctx.send(_("User removed from the raffle."))
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @raffle.command()
     async def join(self, ctx: Context, raffle: RaffleExists):
@@ -194,7 +194,7 @@ class EventCommands(RaffleMixin):
             welcome_msg += "\n---\n{}".format(join_message)
 
         await ctx.send(welcome_msg)
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @raffle.command()
     async def leave(self, ctx: Context, raffle: RaffleExists):
@@ -216,7 +216,7 @@ class EventCommands(RaffleMixin):
                 _("{0.mention} you have been removed from the raffle.".format(ctx.author))
             )
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @raffle.command()
     async def mention(self, ctx: Context, raffle: RaffleFactoryConverter):
@@ -239,7 +239,7 @@ class EventCommands(RaffleMixin):
             ):
                 await ctx.send(page)
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @raffle.command()
     async def end(self, ctx: Context, raffle: RaffleFactoryConverter):
@@ -258,4 +258,4 @@ class EventCommands(RaffleMixin):
         with contextlib.suppress(discord.NotFound):
             await msg.edit(content=_("Raffle ended."))
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)

@@ -115,7 +115,7 @@ class BuilderCommands(RaffleMixin):
             raffle[rafflename] = data
             await ctx.send(tick(_("Raffle created with the name `{}`.".format(rafflename))))
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @create.command()
     async def simple(self, ctx, raffle_name: str, *, description: Optional[str] = None):
@@ -151,3 +151,4 @@ class BuilderCommands(RaffleMixin):
 
             raffle[raffle_name] = data
         await ctx.send(tick(_("Raffle created with the name `{}`.".format(raffle_name))))
+        await self.clean_guild_raffles(ctx)

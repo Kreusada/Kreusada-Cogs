@@ -64,7 +64,7 @@ class InformationalCommands(RaffleMixin):
         ):
             await ctx.send(box(page, lang="yaml"))
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @raffle.command()
     async def asyaml(self, ctx: Context, raffle: RaffleExists):
@@ -92,7 +92,7 @@ class InformationalCommands(RaffleMixin):
             message + box("\n".join(f"{x[0]}: {x[1]}" for x in relevant_data), lang="yaml")
         )
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @raffle.command(name="list")
     async def _list(self, ctx: Context):
@@ -120,7 +120,7 @@ class InformationalCommands(RaffleMixin):
             embeds.append(embed)
 
         await compose_menu(ctx, embeds)
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @raffle.command()
     async def raw(self, ctx: Context, raffle: RaffleExists):
@@ -133,7 +133,7 @@ class InformationalCommands(RaffleMixin):
         for page in pagify(str({raffle: r[raffle]}), page_length=1985):
             await ctx.send(box(page, lang="json"))
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @raffle.command()
     async def members(self, ctx: Context, raffle: RaffleExists):
@@ -172,7 +172,7 @@ class InformationalCommands(RaffleMixin):
             embed_pages.append(embed)
 
         await compose_menu(ctx, embed_pages)
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @raffle.command()
     async def conditions(self, ctx: Context):
@@ -254,7 +254,7 @@ class InformationalCommands(RaffleMixin):
             )
             pages.append(embed)
         await compose_menu(ctx, pages)
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
     @raffle.command()
     async def version(self, ctx: Context):

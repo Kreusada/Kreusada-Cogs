@@ -1,6 +1,8 @@
 import asyncio
 import contextlib
 
+from raffle.utils.converters import RaffleFactoryConverter
+
 import discord
 from redbot.core import commands
 from redbot.core.commands import Context
@@ -57,17 +59,35 @@ class MiscCommands(RaffleMixin):
 
         await ctx.send(tick(_("This YAML is good to go! No errors were found.")))
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
 
-    @raffle.command()
+    @raffle.group(invoke_without_command=True)
+    async def refresh(self, ctx: Context, raffle: RaffleFactoryConverter):
+        """Refresh raffle(s)."""
+        cleaner = await self.clean_singular_raffle(ctx, raffle)
+        if cleaner:
+            return await ctx.send(_("Raffle updated."))
+        else:
+            return await ctx.send(_("Everything was already up to date."))
+
     @commands.guildowner()
-    async def refresh(self, ctx: Context):
-        """Refresh all of the raffle caches."""
-        cleaner = await self.replenish_cache(ctx)
+    @refresh.command(name="guild")
+    async def refresh_guild(self, ctx: Context):
+        """Refresh this guild's raffles."""
+        await ctx.trigger_typing()
+        cleaner = await self.clean_guild_raffles(ctx)
         if cleaner:
             return await ctx.send(_("Raffles updated."))
         else:
             return await ctx.send(_("Everything was already up to date."))
+
+    @commands.is_owner()
+    @refresh.command(name="global")
+    async def refresh_global(self, ctx: Context):
+        """Refresh global raffles."""
+        await ctx.trigger_typing()
+        await self.initialize()
+        await ctx.send("Global raffles updated.")
 
     @raffle.command()
     @commands.guildowner()
@@ -109,4 +129,4 @@ class MiscCommands(RaffleMixin):
         else:
             await ctx.send(_("No changes have been made."))
 
-        await self.replenish_cache(ctx)
+        await self.clean_guild_raffles(ctx)
