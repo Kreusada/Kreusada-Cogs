@@ -1,6 +1,5 @@
 import asyncio
 import contextlib
-from raffle.mixins.metaclass import MetaClass
 
 import discord
 from redbot.core import commands

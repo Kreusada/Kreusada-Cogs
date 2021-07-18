@@ -16,7 +16,7 @@ _ = Translator("Raffle", __file__)
 
 class RoleRequirements(RaffleMixin, metaclass=MetaClass):
     """Commands used to edit the role requirements lists for raffles."""
-    
+
     @commands.group()
     async def raffle(self, *args, **kwargs):
         pass
