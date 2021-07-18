@@ -5,6 +5,7 @@ from redbot.core.i18n import Translator
 from redbot.core.utils.chat_formatting import box, pagify
 
 from ..mixins.abc import RaffleMixin
+from ..mixins.metaclass import MetaClass
 from ..utils.converters import RaffleExists
 from ..utils.enums import RaffleComponents
 from ..utils.formatting import CURRENT_PAGE, LEFT_ARROW, RIGHT_ARROW, curl
@@ -15,7 +16,7 @@ from ..version_handler import VersionHandler
 _ = Translator("Raffle", __file__)
 
 
-class InformationalCommands(RaffleMixin):
+class InformationalCommands(RaffleMixin, metaclass=MetaClass):
     """Informational commands."""
 
     @commands.group()

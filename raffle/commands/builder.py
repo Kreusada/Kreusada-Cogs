@@ -9,6 +9,7 @@ from redbot.core.i18n import Translator
 from redbot.core.utils.chat_formatting import box
 
 from ..mixins.abc import RaffleMixin
+from ..mixins.metaclass import MetaClass
 from ..utils.enums import RaffleComponents
 from ..utils.exceptions import RaffleError
 from ..utils.formatting import cross, tick
@@ -18,7 +19,7 @@ from ..utils.parser import RaffleManager
 _ = Translator("Raffle", __file__)
 
 
-class BuilderCommands(RaffleMixin):
+class BuilderCommands(RaffleMixin, metaclass=MetaClass):
     """Mixin for commands under ``[p]raffle edit``."""
 
     @commands.group()
