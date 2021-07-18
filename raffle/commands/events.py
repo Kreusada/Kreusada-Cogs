@@ -8,16 +8,17 @@ from redbot.core.commands import Context
 from redbot.core.i18n import Translator
 from redbot.core.utils.chat_formatting import humanize_list, pagify
 
-from ...mixins.abc import RaffleMixin
-from ...utils.checks import account_age_checker, server_join_age_checker
-from ...utils.converters import RaffleExists, RaffleFactoryConverter
-from ...utils.helpers import format_underscored_text, has_badge
-from ...utils.safety import RaffleSafeMember
+from ..mixins.abc import RaffleMixin
+from ..mixins.metaclass import MetaClass
+from ..utils.checks import account_age_checker, server_join_age_checker
+from ..utils.converters import RaffleExists, RaffleFactoryConverter
+from ..utils.helpers import format_underscored_text, has_badge
+from ..utils.safety import RaffleSafeMember
 
 _ = Translator("Raffle", __file__)
 
 
-class EventCommands(RaffleMixin):
+class EventCommands(RaffleMixin, metaclass=MetaClass):
     """All the raffle event leading commands."""
 
     @commands.group()

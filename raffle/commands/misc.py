@@ -10,16 +10,17 @@ from redbot.core.i18n import Translator
 from redbot.core.utils.menus import start_adding_reactions
 from redbot.core.utils.predicates import MessagePredicate, ReactionPredicate
 
-from ...mixins.abc import RaffleMixin
-from ...utils.exceptions import RaffleError
-from ...utils.formatting import cross, tick
-from ...utils.helpers import cleanup_code, format_traceback, validator
-from ...utils.parser import RaffleManager
+from ..mixins.abc import RaffleMixin
+from ..mixins.metaclass import MetaClass
+from ..utils.exceptions import RaffleError
+from ..utils.formatting import cross, tick
+from ..utils.helpers import cleanup_code, format_traceback, validator
+from ..utils.parser import RaffleManager
 
 _ = Translator("Raffle", __file__)
 
 
-class MiscCommands(RaffleMixin):
+class MiscCommands(RaffleMixin, metaclass=MetaClass):
     """All the rest of the commands, such as guildowner-only, and ``[p]raffle parse``."""
 
     @commands.group()

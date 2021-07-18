@@ -7,11 +7,7 @@ from redbot.core.commands import Context
 from redbot.core.i18n import Translator, cog_i18n
 from redbot.core.utils.chat_formatting import humanize_list
 
-from .commands.builder import BuilderCommands
-from .commands.editor import EditorCommands
-from .commands.informational import InformationalCommands
-from .commands.management.events import EventCommands
-from .commands.management.misc import MiscCommands
+from .commands import Commands
 from .mixins.metaclass import MetaClass
 from .utils.cleanup import CleanupHelpers
 from .version_handler import VersionHandler
@@ -26,11 +22,7 @@ with open(pathlib.Path(__file__).parent / "info.json") as fp:
 
 mixinargs = (
     CleanupHelpers,
-    InformationalCommands,
-    EditorCommands,
-    BuilderCommands,
-    EventCommands,
-    MiscCommands,
+    Commands,
     RaffleCog,
 )
 
