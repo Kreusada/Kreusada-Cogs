@@ -45,6 +45,7 @@ class ConsoleClearer(commands.Cog):
             with contextlib.suppress(Exception):
                 self.bot.add_dev_env_value("consoleclearer", lambda x: self)
 
+    @commands.is_owner()
     @commands.command(aliases=["cleanconsole", "consoleclear", "consoleclean"])
     async def clearconsole(self, ctx: commands.Context):
         """
