@@ -78,7 +78,8 @@ class CleanupHelpers(RaffleMixin):
                         if not getattr(gobj, f"get_{v}")(obj):
                             del raffles[k][obj]
                             changed_guilds.append(g)
-        await self.config.guild(gobj).raffles.set(raffles)
+            if changed_guilds:
+                await self.config.guild(gobj).raffles.set(raffles)
         log.info("Raffles cleaned up across %s guilds" % len(all_guilds.keys()))
         if changed_guilds:
             log.info(
