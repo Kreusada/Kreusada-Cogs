@@ -28,7 +28,7 @@ class VersionHandler(object):
     @classmethod
     async def validate(cls) -> bool:
         raw_version = await cls.request_raw_version()
-        return cls.__version__ >= raw_version
+        return cls.__version__ > raw_version
 
     @classmethod
     def tuple_to_str(cls, v) -> str:

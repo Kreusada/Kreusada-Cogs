@@ -1,5 +1,6 @@
 import contextlib
 import logging
+import math
 from datetime import datetime, timedelta
 
 import discord
@@ -15,7 +16,7 @@ class AdvancedUptime(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "2.0.0"
+    __version__ = "2.0.1"
 
     def __init__(self, bot):
         self.bot = bot
@@ -64,7 +65,7 @@ class AdvancedUptime(commands.Cog):
 
         def format_timedelta(delta: timedelta, unit: str):
             mapper = {"seconds": 1, "minutes": 60, "hours": 3600, "days": 86400}
-            return humanize_number(round(delta.total_seconds() / mapper[unit]))
+            return humanize_number(math.floor(delta.total_seconds() / mapper[unit]))
 
         delta = datetime.utcnow() - self.bot.uptime
         description = f"{self.bot.user} has been up for {bold(humanize_timedelta(timedelta=delta) or 'less than one second')}.\n\n"
@@ -107,10 +108,10 @@ class AdvancedUptime(commands.Cog):
 
         if self.commands_run:
             most_run_command = sorted(self.commands_run.items(), key=lambda x: x[1], reverse=True)
-            format_time = lambda x: f"{x} time" if x == 1 else f"{x} times"
-            command_usage = f"The most used command whilst the bot has been online is `{ctx.clean_prefix}{most_run_command[0][0]}`, which has been used {format_time(most_run_command[0][1])}."
+            format_time = lambda x: "once" if x == 1 else f"{x} times"
+            command_usage = f"The most used command whilst the bot has been online is `{most_run_command[0][0]}`, which has been used {format_time(most_run_command[0][1])}."
             if len(self.commands_run) != 1:
-                command_usage += f"\n\nThe least used command is `{ctx.clean_prefix}{most_run_command[-1][0]}`, which has been used {format_time(most_run_command[-1][1])}."
+                command_usage += f"\n\nThe least used command is `{most_run_command[-1][0]}`, which has been used {format_time(most_run_command[-1][1])}."
 
             embed.add_field(
                 name="Command usage during this uptime", value=command_usage, inline=False
