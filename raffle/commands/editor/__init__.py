@@ -1,7 +1,7 @@
 from ...mixins.metaclass import MetaClass
 from .allowed import Allowed
 from .badges import Badges
-from .editor import EditorCommands as Editor
+from .main import EditorCommands as Editor
 from .prevented import Prevented
 from .role_requirements import RoleRequirements
 
