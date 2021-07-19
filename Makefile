@@ -6,7 +6,7 @@ reformat:
 	$(PYTHON) -m black .
 
 gettext:
-	redgettext --command-docstrings --verbose --recursive --exclude-files "docs/*" --exclude-files "instantcmd/*" .
+	redgettext --command-docstrings --verbose --recursive --exclude-files "docs/*" .
 
 upload_translations:
 	crowdin upload sources
