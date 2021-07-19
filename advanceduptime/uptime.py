@@ -114,7 +114,9 @@ class AdvancedUptime(commands.Cog):
                 command_usage += f"\n\nThe least used command is `{most_run_command[-1][0]}`, which has been used {format_time(most_run_command[-1][1])}."
 
             embed.add_field(
-                name="Command usage since this cog has been loaded", value=command_usage, inline=False
+                name="Command usage since this cog has been loaded",
+                value=command_usage,
+                inline=False,
             )
 
         embed.set_author(name=self.bot.user, icon_url=self.bot.user.avatar_url)
