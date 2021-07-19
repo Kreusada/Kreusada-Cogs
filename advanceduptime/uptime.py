@@ -16,7 +16,7 @@ class AdvancedUptime(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "2.0.1"
+    __version__ = "2.0.2"
 
     def __init__(self, bot):
         self.bot = bot
@@ -117,6 +117,7 @@ class AdvancedUptime(commands.Cog):
                 name="Command usage during this uptime", value=command_usage, inline=False
             )
 
+        embed.set_author(name=self.bot.user, icon_url=self.bot.user.avatar_url)
         await ctx.send(embed=embed)
 
 
