@@ -53,6 +53,9 @@ class Editor(str):
     def _reverse(self):
         return box(self[::-1])
 
+    def _multiply(self, mul):
+        return box(self * mul)
+
 
 class TextEditor(commands.Cog):
     """
@@ -60,7 +63,7 @@ class TextEditor(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "3.0.0"
+    __version__ = "3.0.1"
 
     def __init__(self, bot):
         self.bot = bot
@@ -160,6 +163,11 @@ class TextEditor(commands.Cog):
     async def editor_reverse(self, ctx: commands.Context, *, text: str):
         """Reverse the text."""
         await self.format_text(ctx, inspect.stack()[0][3], text)
+
+    @editor.command(name="multiply")
+    async def editor_multiply(self, ctx: commands.Context, multiplier: int, *, text: str):
+        """Multiply the text."""
+        await self.format_text(ctx, inspect.stack()[0][3], text, multiplier)
 
     @editor.command(name="replace")
     async def editor_replace(

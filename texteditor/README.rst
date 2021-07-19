@@ -104,6 +104,22 @@ editor lower
 
 Convert the text to lowercase.
 
+.. _texteditor-command-editor-multiply:
+
+"""""""""""""""
+editor multiply
+"""""""""""""""
+
+**Syntax**
+
+.. code-block:: ini
+
+    [p]editor multiply <multiplier> <text>
+
+**Description**
+
+Multiply the text.
+
 .. _texteditor-command-editor-occurance:
 
 """"""""""""""""
