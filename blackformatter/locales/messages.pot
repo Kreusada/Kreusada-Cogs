@@ -11,12 +11,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: redgettext 3.3\n"
 
-#: raffle\raffle.py:34
+#: blackformatter\black.py:39
 #, docstring
-msgid "Create raffles for your server."
-msgstr ""
-
-#: raffle\raffle.py:77
-#, docstring
-msgid "Manage raffles for your server."
+msgid ""
+"Format a python file with black.\n"
+"\n"
+"        You need to attach a file to this command, and it's extension needs to be `.py`.\n"
+"        Your `line_length` is black setting which defaults to 99.\n"
+"        "
 msgstr ""

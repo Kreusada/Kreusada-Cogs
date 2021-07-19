@@ -11,12 +11,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: redgettext 3.3\n"
 
-#: raffle\raffle.py:34
+#: staff\staff.py:58
 #, docstring
-msgid "Create raffles for your server."
+msgid "Staff notifier configuration."
 msgstr ""
 
-#: raffle\raffle.py:77
+#: staff\staff.py:63
 #, docstring
-msgid "Manage raffles for your server."
+msgid "Sets the channel for staff to receive notifications."
+msgstr ""
+
+#: staff\staff.py:76
+#, docstring
+msgid "Sets the Staff role."
+msgstr ""
+
+#: staff\staff.py:87
+#, docstring
+msgid "Show the current settings with Staff."
+msgstr ""
+
+#: staff\staff.py:99
+#, docstring
+msgid ""
+"\n"
+"        Alert for the staff.\n"
+"        "
 msgstr ""

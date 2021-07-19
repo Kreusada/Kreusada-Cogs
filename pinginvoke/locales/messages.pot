@@ -1,0 +1,46 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2021-07-19 22:13+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: redgettext 3.3\n"
+
+#: pinginvoke\pingi.py:42
+#, docstring
+msgid "Commands to configure PingInvoke."
+msgstr ""
+
+#: pinginvoke\pingi.py:46
+#, docstring
+msgid ""
+"\n"
+"        Set the bot name to listen for.\n"
+"\n"
+"        Example Input:\n"
+"        `[p]pingi set wall-e`\n"
+"        `[p]pingi set r2d2`\n"
+"        `[p]pingi set [botname]`\n"
+"\n"
+"        Usage:\n"
+"        When you type [botname]?, or whatever you configure your name as,\n"
+"        it will invoke the ping command.\n"
+"\n"
+"        NOTE: Do not include the question mark.\n"
+"        "
+msgstr ""
+
+#: pinginvoke\pingi.py:67
+#, docstring
+msgid "Reset and disable PingInvoke."
+msgstr ""
+
+#: pinginvoke\pingi.py:73
+#, docstring
+msgid "Show the current settings for PingInvoke."
+msgstr ""

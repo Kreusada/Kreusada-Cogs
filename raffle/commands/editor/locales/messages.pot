@@ -1,0 +1,506 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2021-07-19 22:13+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: redgettext 3.3\n"
+
+#: raffle\commands\editor\allowed.py:26 raffle\commands\editor\badges.py:23
+#: raffle\commands\editor\main.py:39 raffle\commands\editor\prevented.py:25
+#: raffle\commands\editor\role_requirements.py:26
+#, docstring
+msgid "Edit the settings for a raffle."
+msgstr ""
+
+#: raffle\commands\editor\allowed.py:31
+#, docstring
+msgid "Manage the allowed users list in a raffle."
+msgstr ""
+
+#: raffle\commands\editor\allowed.py:36
+#, docstring
+msgid ""
+"Add a member to the allowed list of a raffle.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle.\n"
+"            - `<member>` - The member to add to the allowed list.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\editor\allowed.py:49
+msgid "This user is already allowed in this raffle."
+msgstr ""
+
+#: raffle\commands\editor\allowed.py:62
+#, docstring
+msgid ""
+"Remove a member from the allowed list of a raffle.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle.\n"
+"            - `<member>` - The member to remove from the allowed list.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\editor\allowed.py:75
+msgid "This user was not already allowed in this raffle."
+msgstr ""
+
+#: raffle\commands\editor\allowed.py:88
+#, docstring
+msgid "Clear the allowed list for a raffle."
+msgstr ""
+
+#: raffle\commands\editor\allowed.py:96
+msgid "There are no allowed users."
+msgstr ""
+
+#: raffle\commands\editor\allowed.py:98
+msgid "Are you sure you want to clear the allowed list for this raffle?"
+msgstr ""
+
+#: raffle\commands\editor\allowed.py:114 raffle\commands\editor\main.py:110
+#: raffle\commands\editor\prevented.py:119
+#: raffle\commands\editor\role_requirements.py:121
+msgid "You took too long to respond."
+msgstr ""
+
+#: raffle\commands\editor\allowed.py:121
+msgid "Allowed list cleared for this raffle."
+msgstr ""
+
+#: raffle\commands\editor\allowed.py:128 raffle\commands\editor\main.py:122
+#: raffle\commands\editor\prevented.py:131
+#: raffle\commands\editor\role_requirements.py:135
+msgid "No changes have been made."
+msgstr ""
+
+#: raffle\commands\editor\badges.py:28
+#, docstring
+msgid "Manage required badges in a raffle."
+msgstr ""
+
+#: raffle\commands\editor\badges.py:33
+#, docstring
+msgid ""
+"Add a badge to the required badges list of a raffle.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle.\n"
+"            - `<badges>` - The badge(s) to add to the required badges list.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\editor\badges.py:76
+#, docstring
+msgid ""
+"Remove a badge from the required badges list of a raffle.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle.\n"
+"            - `<member>` - The badge to remove from the required badges list.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\editor\badges.py:113
+#, docstring
+msgid ""
+"Clear the required badges list for a raffle.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\editor\badges.py:125
+msgid "There are no required badges."
+msgstr ""
+
+#: raffle\commands\editor\badges.py:128
+msgid "Required bages list cleared for this raffle."
+msgstr ""
+
+#: raffle\commands\editor\main.py:44
+#, docstring
+msgid ""
+"Edit the account age requirement for a raffle.\n"
+"\n"
+"        Use `0` or `false` to disable this condition.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle.\n"
+"            - `<new_account_age>` - The new account age requirement.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\editor\main.py:60
+msgid "Account age requirement removed from this raffle."
+msgstr ""
+
+#: raffle\commands\editor\main.py:63 raffle\commands\editor\main.py:149
+#: raffle\commands\editor\main.py:294 raffle\commands\editor\main.py:332
+#: raffle\commands\editor\main.py:422
+msgid "Please provide a number, or \"false\" to disable this condition."
+msgstr ""
+
+#: raffle\commands\editor\main.py:72
+msgid "Account age requirement updated for this raffle."
+msgstr ""
+
+#: raffle\commands\editor\main.py:78
+#, docstring
+msgid ""
+"Convert a raffle to a simple one (name and description).\n"
+"\n"
+"        **Arguments**\n"
+"            - `<raffle>` - The name of the raffle.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\editor\main.py:89
+msgid ""
+":warning: Are you sure you want to convert this raffle to a simple raffle?\n"
+"It will remove all the conditions!"
+msgstr ""
+
+#: raffle\commands\editor\main.py:119
+msgid "Raffle converted to simple raffle."
+msgstr ""
+
+#: raffle\commands\editor\main.py:130
+#, docstring
+msgid ""
+"Edit the server join age requirement for a raffle.\n"
+"\n"
+"        Use `0` or `false` to disable this condition.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle.\n"
+"            - `<new_server_join_age>` - The new join age requirement.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\editor\main.py:145
+msgid "Server join age requirement removed from this raffle."
+msgstr ""
+
+#: raffle\commands\editor\main.py:159
+msgid "Server join age requirement updated for this raffle."
+msgstr ""
+
+#: raffle\commands\editor\main.py:167
+#, docstring
+msgid ""
+"Edit the description for a raffle.\n"
+"\n"
+"        Use `0` or `false` to remove this feature.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle.\n"
+"            - `<description>` - The new description.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\editor\main.py:182
+msgid "Description removed from this raffle."
+msgstr ""
+
+#: raffle\commands\editor\main.py:186 raffle\commands\editor\main.py:217
+#: raffle\commands\editor\main.py:251
+msgid "Please provide a number, or \"false\" to disable the description."
+msgstr ""
+
+#: raffle\commands\editor\main.py:191
+msgid "Description updated for this raffle."
+msgstr ""
+
+#: raffle\commands\editor\main.py:197
+#, docstring
+msgid ""
+"Edit the suspense timer for a raffle.\n"
+"\n"
+"        Use `0` or `false` to remove this feature.\n"
+"        This feature defaults to 2 seconds if not set.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle.\n"
+"            - `<description>` - The new suspense timer.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\editor\main.py:213
+msgid "Suspense timer reset to the default: 2 seconds."
+msgstr ""
+
+#: raffle\commands\editor\main.py:224
+msgid "Suspense timer updated for this raffle."
+msgstr ""
+
+#: raffle\commands\editor\main.py:232
+#, docstring
+msgid ""
+"Edit the on_end_action for a raffle.\n"
+"\n"
+"        Use `0` or `false` to remove this feature.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle.\n"
+"            - `<on_end_action>` - The new action. Must be one of `end`, `remove_winner`, 'remove_and_prevent_winner', or `keep_winner`.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\editor\main.py:247
+msgid "On end action reset to the default: `keep_winner`."
+msgstr ""
+
+#: raffle\commands\editor\main.py:262
+msgid ""
+"Please provide one of `end`, `remove_winner`, `remove_and_prevent_winner`, "
+"or `keep_winner`."
+msgstr ""
+
+#: raffle\commands\editor\main.py:267
+msgid "On end action updated for this raffle."
+msgstr ""
+
+#: raffle\commands\editor\main.py:275
+#, docstring
+msgid ""
+"Edit the max entries requirement for a raffle.\n"
+"\n"
+"        Use `0` or `false` to disable this condition.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle.\n"
+"            - `<maximum_entries>` - The new maximum number of entries.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\editor\main.py:290
+msgid "Maximum entries condition removed from this raffle."
+msgstr ""
+
+#: raffle\commands\editor\main.py:299
+msgid "Max entries requirement updated for this raffle."
+msgstr ""
+
+#: raffle\commands\editor\main.py:307
+#, docstring
+msgid ""
+"Edit the end message of a raffle.\n"
+"\n"
+"        Once you provide an end message, you will have the chance\n"
+"        to add additional messages, which will be selected at random\n"
+"        when a winner is drawn.\n"
+"\n"
+"        Use `0` or `false` to disable this condition.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle.\n"
+"            - `<end_message>` - The new ending message.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\editor\main.py:327
+msgid ""
+"End message feature removed from this raffle. It will now use the default."
+msgstr ""
+
+#: raffle\commands\editor\main.py:341 raffle\commands\editor\main.py:431
+msgid ""
+"Would you like to add additional end messages to be selected from at random?"
+msgstr ""
+
+#: raffle\commands\editor\main.py:383
+msgid "End messages updated for this raffle."
+msgstr ""
+
+#: raffle\commands\editor\main.py:386
+msgid "End message updated for this raffle."
+msgstr ""
+
+#: raffle\commands\editor\main.py:395
+#, docstring
+msgid ""
+"Edit the join message of a raffle.\n"
+"\n"
+"        Once you provide a join message, you will have the chance\n"
+"        to add additional messages, which will be selected at random\n"
+"        when a user joins the raffle.\n"
+"\n"
+"        Use `0` or `false` to disable this condition.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle.\n"
+"            - `<join_message>` - The new joining message.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\editor\main.py:415
+msgid ""
+"Join message feature removed from this raffle. It will now use the default."
+msgstr ""
+
+#: raffle\commands\editor\main.py:473
+msgid "Join messages updated for this raffle."
+msgstr ""
+
+#: raffle\commands\editor\main.py:476
+msgid "Join message updated for this raffle."
+msgstr ""
+
+#: raffle\commands\editor\main.py:483
+#, docstring
+msgid ""
+"Edit a raffle directly from yaml.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle to edit.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\editor\main.py:564
+msgid "An exception occured whilst parsing your data."
+msgstr ""
+
+#: raffle\commands\editor\main.py:615
+msgid "Added:\n"
+msgstr ""
+
+#: raffle\commands\editor\main.py:617
+msgid ""
+"\n"
+"\n"
+"Edited:\n"
+msgstr ""
+
+#: raffle\commands\editor\main.py:619
+msgid ""
+"\n"
+"\n"
+"Removed:\n"
+msgstr ""
+
+#: raffle\commands\editor\main.py:625
+msgid "No changes were made."
+msgstr ""
+
+#: raffle\commands\editor\prevented.py:30
+#, docstring
+msgid "Manage prevented users in a raffle."
+msgstr ""
+
+#: raffle\commands\editor\prevented.py:35
+#, docstring
+msgid ""
+"Add a member to the prevented list of a raffle.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle.\n"
+"            - `<member>` - The member to add to the prevented list.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\editor\prevented.py:48
+msgid "This user is already prevented in this raffle."
+msgstr ""
+
+#: raffle\commands\editor\prevented.py:63
+#, docstring
+msgid ""
+"Remove a member from the prevented list of a raffle.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle.\n"
+"            - `<member>` - The member to remove from the prevented list.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\editor\prevented.py:76
+msgid "This user was not already prevented in this raffle."
+msgstr ""
+
+#: raffle\commands\editor\prevented.py:89
+#, docstring
+msgid ""
+"Clear the prevented list for a raffle.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\editor\prevented.py:101
+msgid "There are no prevented users."
+msgstr ""
+
+#: raffle\commands\editor\prevented.py:103
+msgid ""
+"Are you sure you want to clear the prevented users list for this raffle?"
+msgstr ""
+
+#: raffle\commands\editor\prevented.py:124
+msgid "Prevented users list cleared for this raffle."
+msgstr ""
+
+#: raffle\commands\editor\role_requirements.py:31
+#, docstring
+msgid "Manage role requirements in a raffle."
+msgstr ""
+
+#: raffle\commands\editor\role_requirements.py:36
+#, docstring
+msgid ""
+"Add a role to the role requirements list of a raffle.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle.\n"
+"            - `<role>` - The role to add to the list of role requirements.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\editor\role_requirements.py:49
+msgid "This role is already a requirement in this raffle."
+msgstr ""
+
+#: raffle\commands\editor\role_requirements.py:64
+#, docstring
+msgid ""
+"Remove a role from the role requirements list of a raffle.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle.\n"
+"            - `<role>` - The role to remove from the list of role requirements.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\editor\role_requirements.py:77
+msgid "This role is not already a requirement in this raffle."
+msgstr ""
+
+#: raffle\commands\editor\role_requirements.py:88
+#, docstring
+msgid ""
+"Clear the role requirement list for a raffle.\n"
+"\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\editor\role_requirements.py:101
+msgid "There are no required roles."
+msgstr ""
+
+#: raffle\commands\editor\role_requirements.py:103
+msgid ""
+"Are you sure you want to clear the role requirement list for this raffle?"
+msgstr ""

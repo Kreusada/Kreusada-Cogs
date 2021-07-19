@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-06-20 11:59+0000\n"
+"POT-Creation-Date: 2021-07-19 22:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,236 +11,233 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: redgettext 3.3\n"
 
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/builder.py:54
+#: raffle\commands\builder.py:31
+#, docstring
+msgid "Create a raffle."
+msgstr ""
+
+#: raffle\commands\builder.py:36
+#, docstring
+msgid "Create a raffle with complex conditions."
+msgstr ""
+
+#: raffle\commands\builder.py:45
 msgid ""
 "\n"
 "\n"
 "**Conditions Blocks:**"
 msgstr ""
 
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/builder.py:70
+#: raffle\commands\builder.py:62
 msgid ""
 "Please provide valid YAML. You can validate your raffle YAML using `{}raffle"
 " parse`."
 msgstr ""
 
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/builder.py:77
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:425
+#: raffle\commands\builder.py:72 raffle\commands\misc.py:58
 msgid "An exception occured whilst parsing your data."
 msgstr ""
 
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/builder.py:86
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/builder.py:138
+#: raffle\commands\builder.py:80 raffle\commands\builder.py:133
 msgid "A raffle with this name already exists."
 msgstr ""
 
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:63
-msgid "Account age requirement removed from this raffle."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:65
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:100
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:200
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:235
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:303
-msgid "Please provide a number, or \"false\" to disable this condition."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:73
-msgid "Account age requirement updated for this raffle."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:97
-msgid "Server join age requirement removed from this raffle."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:109
-msgid "Server join age requirement updated for this raffle."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:133
-msgid "Description removed from this raffle."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:136
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:167
-msgid "Please provide a number, or \"false\" to disable the description."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:140
-msgid "Description updated for this raffle."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:164
-msgid "On end action reset to the default: `keep_winner`."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:171
-msgid "Please provide one of `end`, `remove_winner`, or `keep_winner`."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:173
-msgid "On end action updated for this raffle."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:197
-msgid "Maximum entries condition removed from this raffle."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:204
-msgid "Max entries requirement updated for this raffle."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:232
+#: raffle\commands\builder.py:123
+#, docstring
 msgid ""
-"End message feature removed from this raffle. It will now use the default."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:243
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:311
-msgid ""
-"Would you like to add additional end messages to be selected from at random?"
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:269
-msgid "End messages updated for this raffle."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:272
-msgid "End message updated for this raffle."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:300
-msgid ""
-"Join message feature removed from this raffle. It will now use the default."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:337
-msgid "Join messages updated for this raffle."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:340
-msgid "Join message updated for this raffle."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:359
-msgid "You are not the owner of this raffle."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:474
-msgid "Added:\n"
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:476
-msgid ""
+"Create a simple arguments with just a name and description.\n"
 "\n"
-"\n"
-"Edited:\n"
+"        **Arguments:**\n"
+"            - `<name>` - The name for the raffle.\n"
+"            - `[description]` - The description for the raffle.\n"
+"        "
 msgstr ""
 
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:478
+#: raffle\commands\events.py:30
+#, docstring
 msgid ""
+"Draw a raffle and select a winner.\n"
 "\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle to draw a winner from.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\events.py:41
+msgid "There are no participants yet for this raffle."
+msgstr ""
+
+#: raffle\commands\events.py:50
+msgid "Congratulations {winner.mention}, you have won the {raffle} raffle!"
+msgstr ""
+
+#: raffle\commands\events.py:58
+msgid "Picking a winner from the pool..."
+msgstr ""
+
+#: raffle\commands\events.py:82
+#, docstring
+msgid ""
+"Kick a member from your raffle.\n"
 "\n"
-"Removed:\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle.\n"
+"            - `<member>` - The member to kick from the raffle.\n"
+"        "
 msgstr ""
 
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:484
-msgid "No changes were made."
+#: raffle\commands\events.py:94
+msgid "This user has not entered this raffle."
 msgstr ""
 
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:514
-msgid "This user is already prevented in this raffle."
+#: raffle\commands\events.py:97
+msgid "User removed from the raffle."
 msgstr ""
 
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:539
-msgid "This user was not already prevented in this raffle."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:563
-msgid "There are no prevented users."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:565
+#: raffle\commands\events.py:103
+#, docstring
 msgid ""
-"Are you sure you want to clear the prevented users list for this raffle?"
+"Join a raffle.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle to join.\n"
+"        "
 msgstr ""
 
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:581
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:682
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:794
-msgid "You took too long to respond."
+#: raffle\commands\events.py:114
+msgid "You are already in this raffle."
 msgstr ""
 
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:586
-msgid "Prevented users list cleared for this raffle."
+#: raffle\commands\events.py:119
+msgid "You are not allowed to join this particular raffle."
 msgstr ""
 
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:593
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:695
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:808
-msgid "No changes have been made."
+#: raffle\commands\events.py:124
+msgid "You are not allowed to join this particular raffle"
 msgstr ""
 
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:619
-msgid "This user is already allowed in this raffle."
+#: raffle\commands\events.py:127
+msgid "You cannot join your own raffle."
 msgstr ""
 
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:644
-msgid "This user was not already allowed in this raffle."
+#: raffle\commands\events.py:133
+msgid "Sorry, the maximum number of users have entered this raffle."
 msgstr ""
 
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:664
-msgid "There are no allowed users."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:666
-msgid "Are you sure you want to clear the allowed list for this raffle?"
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:690
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:692
-msgid "Allowed list cleared for this raffle."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:723
-msgid "This role is already a requirement in this raffle."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:751
-msgid "This role is not already a requirement in this raffle."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:776
-msgid "There are no required roles."
-msgstr ""
-
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/editor.py:778
+#: raffle\commands\events.py:202
+#, docstring
 msgid ""
-"Are you sure you want to clear the role requirement list for this raffle?"
+"Leave a raffle.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle to leave.\n"
+"        "
 msgstr ""
 
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/informational.py:107
-msgid "There are no ongoing raffles."
+#: raffle\commands\events.py:213
+msgid "You are not entered into this raffle."
 msgstr ""
 
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/informational.py:121
-msgid "Current raffles"
+#: raffle\commands\events.py:224
+#, docstring
+msgid ""
+"Mention all the users entered into a raffle.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle to mention all the members in.\n"
+"        "
 msgstr ""
 
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/informational.py:167
+#: raffle\commands\events.py:236 raffle\commands\informational.py:153
 msgid "There are no entries yet for this raffle."
 msgstr ""
 
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/informational.py:172
+#: raffle\commands\events.py:247
+#, docstring
+msgid ""
+"End a raffle.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle to end.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\events.py:260
+msgid "Raffle ended."
+msgstr ""
+
+#: raffle\commands\informational.py:28
+#, docstring
+msgid ""
+"Get information about a certain raffle.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle to get information for.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\informational.py:72
+#, docstring
+msgid ""
+"Get a raffle in its YAML format.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle to get the YAML for.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\informational.py:100
+#, docstring
+msgid "List the currently ongoing raffles."
+msgstr ""
+
+#: raffle\commands\informational.py:104
+msgid "There are no ongoing raffles."
+msgstr ""
+
+#: raffle\commands\informational.py:118
+msgid "Current raffles"
+msgstr ""
+
+#: raffle\commands\informational.py:128
+#, docstring
+msgid ""
+"View the raw dictionary for a raffle.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\informational.py:141
+#, docstring
+msgid ""
+"Get all the members of a raffle.\n"
+"\n"
+"        **Arguments:**\n"
+"            - `<raffle>` - The name of the raffle to get the members from.\n"
+"        "
+msgstr ""
+
+#: raffle\commands\informational.py:158
 msgid "entry"
 msgstr ""
 
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/informational.py:174
+#: raffle\commands\informational.py:160
 msgid "entries"
 msgstr ""
 
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/informational.py:210
+#: raffle\commands\informational.py:180
+#, docstring
+msgid "Get information about how conditions work."
+msgstr ""
+
+#: raffle\commands\informational.py:262
+#, docstring
+msgid "Get the version of your Raffle cog."
+msgstr ""
+
+#: raffle\commands\informational.py:267
 msgid ""
 "**Your raffle cog is out of date!**\n"
 "The up to date version is **{1}**, whilst yours is **{0.__version__}**.\n"
@@ -248,6 +245,82 @@ msgid ""
 "Consider updating through `{2}cog update raffle`."
 msgstr ""
 
-#: /home/ubuntu/.local/share/Red-DiscordBot/data/kreusada/cogs/CogManager/cogs/raffle/commands/informational.py:216
-msgid "Version: {0.__version__}"
+#: raffle\commands\informational.py:273
+msgid "Version: **{0.__version__}**"
+msgstr ""
+
+#: raffle\commands\informational.py:279
+#, docstring
+msgid "Get a link to the docs."
+msgstr ""
+
+#: raffle\commands\misc.py:32
+#, docstring
+msgid "Parse a complex raffle without actually creating it."
+msgstr ""
+
+#: raffle\commands\misc.py:35
+msgid ""
+"Paste your YAML here. It will be validated, and if there is an exception, it"
+" will be returned to you."
+msgstr ""
+
+#: raffle\commands\misc.py:52
+msgid "This YAML is invalid."
+msgstr ""
+
+#: raffle\commands\misc.py:61
+msgid "This YAML is good to go! No errors were found."
+msgstr ""
+
+#: raffle\commands\misc.py:67
+#, docstring
+msgid "Refresh raffle(s)."
+msgstr ""
+
+#: raffle\commands\misc.py:70
+msgid "Raffle updated."
+msgstr ""
+
+#: raffle\commands\misc.py:72 raffle\commands\misc.py:83
+msgid "Everything was already up to date."
+msgstr ""
+
+#: raffle\commands\misc.py:77
+#, docstring
+msgid "Refresh this guild's raffles."
+msgstr ""
+
+#: raffle\commands\misc.py:81
+msgid "Raffles updated."
+msgstr ""
+
+#: raffle\commands\misc.py:88
+#, docstring
+msgid "Refresh global raffles."
+msgstr ""
+
+#: raffle\commands\misc.py:96
+#, docstring
+msgid "End ALL ongoing raffles."
+msgstr ""
+
+#: raffle\commands\misc.py:100
+msgid "There are no ongoing raffles in this guild."
+msgstr ""
+
+#: raffle\commands\misc.py:103
+msgid "Are you sure you want to tear down all ongoing raffles in this guild?"
+msgstr ""
+
+#: raffle\commands\misc.py:119
+msgid "You took too long to respond."
+msgstr ""
+
+#: raffle\commands\misc.py:128
+msgid "Raffles cleared."
+msgstr ""
+
+#: raffle\commands\misc.py:131
+msgid "No changes have been made."
 msgstr ""

@@ -1,0 +1,179 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2021-07-19 22:13+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: redgettext 3.3\n"
+
+#: raffle\utils\enums.py:29 raffle\utils\enums.py:43
+msgid "The name of the raffle when the end_message is used."
+msgstr ""
+
+#: raffle\utils\enums.py:31
+msgid "The username of the winner."
+msgstr ""
+
+#: raffle\utils\enums.py:32
+msgid "The mention of the winner."
+msgstr ""
+
+#: raffle\utils\enums.py:33
+msgid "The ID of the winner."
+msgstr ""
+
+#: raffle\utils\enums.py:34
+msgid "The display name of the winner."
+msgstr ""
+
+#: raffle\utils\enums.py:35
+msgid "The discriminator of the winner."
+msgstr ""
+
+#: raffle\utils\enums.py:36
+msgid "The name and discriminator of the winner (user#1234)."
+msgstr ""
+
+#: raffle\utils\enums.py:44
+msgid "The number of entries in the raffle."
+msgstr ""
+
+#: raffle\utils\enums.py:46
+msgid "The username of the user."
+msgstr ""
+
+#: raffle\utils\enums.py:47
+msgid "The mention of the user."
+msgstr ""
+
+#: raffle\utils\enums.py:48
+msgid "The ID of the user."
+msgstr ""
+
+#: raffle\utils\enums.py:49
+msgid "The display name of the user."
+msgstr ""
+
+#: raffle\utils\enums.py:50
+msgid "The discriminator of the user."
+msgstr ""
+
+#: raffle\utils\enums.py:51
+msgid "The name and discriminator of the user (user#1234)."
+msgstr ""
+
+#: raffle\utils\enums.py:55
+msgid ""
+"The name for the raffle. This name is not changeable once the raffle has "
+"been created. If you wish to rename the raffle, use the `[p]raffle asyaml` "
+"command, and copy across the settings with a different name."
+msgstr ""
+
+#: raffle\utils\enums.py:61
+msgid ""
+"The description for the raffle. This text will appear in various informative"
+" commands such as `[p]raffle list`, and `[p]raffle info`. You can use this "
+"condition to give your users an explanation of what the raffle is about, how"
+" the winners can claim their prize..."
+msgstr ""
+
+#: raffle\utils\enums.py:67
+msgid ""
+"This condition allows you to customise a section of the message that is sent"
+" when a user joins a raffle. You can use various variables in this message "
+"too."
+msgstr ""
+
+#: raffle\utils\enums.py:72
+msgid ""
+"This condition allows you to customise a section of the message that is sent"
+" when a user is drawn from a raffle. You can use various variables in this "
+"message too."
+msgstr ""
+
+#: raffle\utils\enums.py:77
+msgid ""
+"This condition allows you to block users from joining the raffle if their "
+"account age in DAYS is fewer than the provided condition."
+msgstr ""
+
+#: raffle\utils\enums.py:81
+msgid ""
+"This condition allows you to block users from joining the raffle if they "
+"have been in the server for less DAYS than the provided condition."
+msgstr ""
+
+#: raffle\utils\enums.py:85
+msgid ""
+"A list of Discord role IDs which the user must have in order to join the "
+"raffle. They must be provided as IDs in a list."
+msgstr ""
+
+#: raffle\utils\enums.py:89
+msgid ""
+"A list of Discord badges which the user must have in order to join the "
+"raffle. They must be provided as badge names in a list."
+msgstr ""
+
+#: raffle\utils\enums.py:93
+msgid ""
+"A list of Discord user IDs, of users who who will not be able to join the "
+"raffle. They must be provided as IDs in a list."
+msgstr ""
+
+#: raffle\utils\enums.py:97
+msgid ""
+"A list of Discord user IDs, of users who who will be able to join the "
+"raffle. They must be provided as IDs in a list. If this condition is not "
+"provided normally, anyone will be allowed in the raffle. It's useful for "
+"when you only want particular users to be able to join a raffle."
+msgstr ""
+
+#: raffle\utils\enums.py:104
+msgid ""
+"This condition allows you to only allow a certain amount of server entries "
+"into a raffle. Once this limit has been reached, no more users will be able "
+"to join the raffle."
+msgstr ""
+
+#: raffle\utils\enums.py:109
+msgid ""
+"This condition allows you to decide what happens when a user is drawn from a"
+" raffle. This must be one of 'end', 'keep_winner', 'remove_winner', or "
+"'remove_and_prevent_winner'."
+msgstr ""
+
+#: raffle\utils\enums.py:114
+msgid ""
+"The amount of seconds that the bot types for before the winner is shown. "
+"Must be a number between 1 and 10."
+msgstr ""
+
+#: raffle\utils\helpers.py:116
+msgid "When a user is drawn"
+msgstr ""
+
+#: raffle\utils\helpers.py:119
+msgid "When a user enters the raffle"
+msgstr ""
+
+#: raffle\utils\helpers.py:152
+msgid "Add your first response."
+msgstr ""
+
+#: raffle\utils\helpers.py:163
+msgid "Add another random response:"
+msgstr ""
+
+#: raffle\utils\helpers.py:167
+msgid "You took too long to continue, aborted session."
+msgstr ""
+
+#: raffle\utils\helpers.py:177
+msgid "That message's variables were not formatted correctly, skipping..."
+msgstr ""

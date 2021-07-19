@@ -11,12 +11,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: redgettext 3.3\n"
 
-#: raffle\raffle.py:34
+#: bubblewrap\bubblewrap.py:42
 #, docstring
-msgid "Create raffles for your server."
-msgstr ""
-
-#: raffle\raffle.py:77
-#, docstring
-msgid "Manage raffles for your server."
+msgid ""
+"\n"
+"        Get some bubblewrap.\n"
+"\n"
+"        This will not work if you have spoilers turned\n"
+"        off in your user settings.\n"
+"        "
 msgstr ""

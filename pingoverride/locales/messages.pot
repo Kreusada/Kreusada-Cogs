@@ -1,0 +1,73 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2021-07-19 22:13+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: redgettext 3.3\n"
+
+#: pingoverride\ping.py:65
+#, docstring
+msgid "Pong."
+msgstr ""
+
+#: pingoverride\ping.py:103
+#, docstring
+msgid "Set your ping message."
+msgstr ""
+
+#: pingoverride\ping.py:107
+#, docstring
+msgid ""
+"Set the ping message sent when a user runs the ping command.\n"
+"\n"
+"        **Variables:**\n"
+"\n"
+"        - `{author.name}`\n"
+"        - `{author.mention}`\n"
+"        - `{author.id}`\n"
+"        - `{author.discriminator}`\n"
+"        - `{author.name_and_discriminator}`\n"
+"        - `{latency}`\n"
+"        "
+msgstr ""
+
+#: pingoverride\ping.py:149 pingoverride\ping.py:156
+#, docstring
+msgid "Set whether the ping message uses replies."
+msgstr ""
+
+#: pingoverride\ping.py:164
+#, docstring
+msgid "List the available variables for the ping command."
+msgstr ""
+
+#: pingoverride\ping.py:182
+#, docstring
+msgid "Manage your ping command's embed."
+msgstr ""
+
+#: pingoverride\ping.py:186
+#, docstring
+msgid "Set your embed's title."
+msgstr ""
+
+#: pingoverride\ping.py:192
+#, docstring
+msgid "Toggle embeds."
+msgstr ""
+
+#: pingoverride\ping.py:198
+#, docstring
+msgid "Set your embed's color. Leave blank for bot color."
+msgstr ""
+
+#: pingoverride\ping.py:208
+#, docstring
+msgid "See the current settings for PingOverride."
+msgstr ""

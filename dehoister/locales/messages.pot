@@ -1,0 +1,138 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2021-07-19 22:13+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: redgettext 3.3\n"
+
+#: dehoister\dehoister.py:142
+#, docstring
+msgid "Commands for Dehoister."
+msgstr ""
+
+#: dehoister\dehoister.py:146
+#, docstring
+msgid ""
+"\n"
+"        Manually dehoist a particular user.\n"
+"\n"
+"        **Example Usage**\n"
+"        `[p]dehoist spongebob`\n"
+"        `[p]dehoist 1234567890`\n"
+"\n"
+"        Users who are dehoisted will have their nicknames changed to the set nickname.\n"
+"        You can set the nickname by using `[p]hoist set nickname`.\n"
+"        "
+msgstr ""
+
+#: dehoister\dehoister.py:171
+#, docstring
+msgid ""
+"\n"
+"        Scan for hoisted members.\n"
+"\n"
+"        This command will return a count and list of members.\n"
+"        It will follow this format:\n"
+"        ---------------------------------\n"
+"        X users found:\n"
+"        user#0001:\n"
+"        - Their nickname (if applicable)\n"
+"        -- Their user ID.\n"
+"        ---------------------------------\n"
+"\n"
+"        If there are more than 10 hoisted users, this list\n"
+"        will instead be sent as a Discord file, named `hoisted.txt`.\n"
+"        "
+msgstr ""
+
+#: dehoister\dehoister.py:212
+#, docstring
+msgid ""
+"\n"
+"        Dehoist all members in the guild.\n"
+"\n"
+"        NOTE: If the server owner is hoisted, [botname] cannot change their nickname.\n"
+"        "
+msgstr ""
+
+#: dehoister\dehoister.py:267
+#, docstring
+msgid "Settings for Dehoister."
+msgstr ""
+
+#: dehoister\dehoister.py:271
+#, docstring
+msgid "Add and remove certain users from being ignored by the auto-dehoister."
+msgstr ""
+
+#: dehoister\dehoister.py:275
+#, docstring
+msgid ""
+"Add users to the ignore list.\n"
+"\n"
+"        If on the ignore list, the dehoister will not dehoist them if\n"
+"        they have a hoisted nickname/username.\n"
+"        "
+msgstr ""
+
+#: dehoister\dehoister.py:289
+#, docstring
+msgid ""
+"Remove users from the ignore list.\n"
+"\n"
+"        Once removed, they will be dehoisted by the dehoister if\n"
+"        they have a hoisted nickname/username.\n"
+"        "
+msgstr ""
+
+#: dehoister\dehoister.py:304
+#, docstring
+msgid "List the users ignored by the auto-dehoister."
+msgstr ""
+
+#: dehoister\dehoister.py:317
+#, docstring
+msgid ""
+"\n"
+"        Toggle the auto-dehoister.\n"
+"\n"
+"        When this cog is installed for the first time,\n"
+"        it is automatically set **off**. Use this command to turn\n"
+"        it on. You can always turn it off again at a later date.\n"
+"        "
+msgstr ""
+
+#: dehoister\dehoister.py:332
+#, docstring
+msgid ""
+"\n"
+"        Set the nickname for dehoisted members.\n"
+"\n"
+"        This nickname will be referred to everytime this cog takes\n"
+"        action on members with hoisted display names, so make sure you\n"
+"        find a suitable display name!\n"
+"\n"
+"        If none is set, the default nickname is `δ Dehoisted`.\n"
+"        "
+msgstr ""
+
+#: dehoister\dehoister.py:350
+#, docstring
+msgid "Explain how Dehoister works."
+msgstr ""
+
+#: dehoister\dehoister.py:354
+#, docstring
+msgid "Explains how auto-dehoist works."
+msgstr ""
+
+#: dehoister\dehoister.py:359
+#, docstring
+msgid "Explains how scanning and cleaning works."
+msgstr ""

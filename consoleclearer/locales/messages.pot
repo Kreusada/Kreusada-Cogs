@@ -11,12 +11,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: redgettext 3.3\n"
 
-#: raffle\raffle.py:34
+#: consoleclearer\consoleclearer.py:51
 #, docstring
-msgid "Create raffles for your server."
-msgstr ""
-
-#: raffle\raffle.py:77
-#, docstring
-msgid "Manage raffles for your server."
+msgid ""
+"\n"
+"        Completely clears [botname]'s console.\n"
+"        "
 msgstr ""

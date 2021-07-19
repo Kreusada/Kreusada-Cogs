@@ -1,0 +1,81 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2021-07-19 22:13+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: redgettext 3.3\n"
+
+#: sendcards\sendcards.py:41
+#, docstring
+msgid "Send a card to someone!"
+msgstr ""
+
+#: sendcards\sendcards.py:52
+#, docstring
+msgid ""
+"\n"
+"        Send a christmas card to someone.\n"
+"\n"
+"        Your message will be sent in this format:\n"
+"\n"
+"        Dear [person],\n"
+"\n"
+"        {message}\n"
+"\n"
+"        From [your_name]\n"
+"        "
+msgstr ""
+
+#: sendcards\sendcards.py:74
+#, docstring
+msgid ""
+"\n"
+"        Send a birthday card to someone.\n"
+"\n"
+"        Your message will be sent in this format:\n"
+"\n"
+"        Dear [person],\n"
+"\n"
+"        {message}\n"
+"\n"
+"        From [your_name]\n"
+"        "
+msgstr ""
+
+#: sendcards\sendcards.py:96
+#, docstring
+msgid ""
+"\n"
+"        Send a get well soon card to someone.\n"
+"\n"
+"        Your message will be sent in this format:\n"
+"\n"
+"        Dear [person],\n"
+"\n"
+"        {message}\n"
+"\n"
+"        From [your_name]\n"
+"        "
+msgstr ""
+
+#: sendcards\sendcards.py:118
+#, docstring
+msgid ""
+"\n"
+"        Send a valentines card to someone.\n"
+"\n"
+"        Your message will be sent in this format:\n"
+"\n"
+"        Dear [person],\n"
+"\n"
+"        {message}\n"
+"\n"
+"        From [your_name]\n"
+"        "
+msgstr ""

@@ -11,12 +11,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: redgettext 3.3\n"
 
-#: raffle\raffle.py:34
+#: mjolnir\mjolnir.py:60
 #, docstring
-msgid "Create raffles for your server."
+msgid "Shows how many times you've lifted the hammer."
 msgstr ""
 
-#: raffle\raffle.py:77
+#: mjolnir\mjolnir.py:68
 #, docstring
-msgid "Manage raffles for your server."
+msgid "Try and lift Thor's hammer!"
+msgstr ""
+
+#: mjolnir\mjolnir.py:81
+#, docstring
+msgid "Shows the leaderboard for those who have lifted the hammer."
 msgstr ""

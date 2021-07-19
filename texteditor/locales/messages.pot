@@ -1,0 +1,92 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2021-07-19 22:13+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: redgettext 3.3\n"
+
+#: texteditor\texteditor.py:98
+#, docstring
+msgid "Base command for editting text."
+msgstr ""
+
+#: texteditor\texteditor.py:104
+#, docstring
+msgid "Count the number of characters appearing in the text."
+msgstr ""
+
+#: texteditor\texteditor.py:109
+#, docstring
+msgid "Count the number of words appearing in the text."
+msgstr ""
+
+#: texteditor\texteditor.py:114
+#, docstring
+msgid "Count how many times something appears in the text."
+msgstr ""
+
+#: texteditor\texteditor.py:119
+#, docstring
+msgid "Convert the text to uppercase."
+msgstr ""
+
+#: texteditor\texteditor.py:124
+#, docstring
+msgid "Convert the text to lowercase."
+msgstr ""
+
+#: texteditor\texteditor.py:129
+#, docstring
+msgid "Convert the text to titlecase."
+msgstr ""
+
+#: texteditor\texteditor.py:134
+#, docstring
+msgid "Convert all spaces to underscores."
+msgstr ""
+
+#: texteditor\texteditor.py:139
+#, docstring
+msgid "Convert the text to alternating case."
+msgstr ""
+
+#: texteditor\texteditor.py:144
+#, docstring
+msgid "Squash all the words into one."
+msgstr ""
+
+#: texteditor\texteditor.py:149
+#, docstring
+msgid "Remove something from the text."
+msgstr ""
+
+#: texteditor\texteditor.py:154
+#, docstring
+msgid "Trim the outskirts of the text."
+msgstr ""
+
+#: texteditor\texteditor.py:159
+#, docstring
+msgid "Completely shuffle the text."
+msgstr ""
+
+#: texteditor\texteditor.py:164
+#, docstring
+msgid "Reverse the text."
+msgstr ""
+
+#: texteditor\texteditor.py:169
+#, docstring
+msgid "Multiply the text."
+msgstr ""
+
+#: texteditor\texteditor.py:181
+#, docstring
+msgid "Replace certain parts of the text."
+msgstr ""

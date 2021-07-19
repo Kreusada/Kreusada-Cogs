@@ -1,0 +1,74 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2021-07-19 22:13+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: redgettext 3.3\n"
+
+#: votechannel\vote.py:51
+#, docstring
+msgid "Commands with VoteChannel."
+msgstr ""
+
+#: votechannel\vote.py:55
+#, docstring
+msgid "Set channels where votes can take place."
+msgstr ""
+
+#: votechannel\vote.py:60
+#, docstring
+msgid "Add a channel."
+msgstr ""
+
+#: votechannel\vote.py:69
+#, docstring
+msgid "Remove a channel."
+msgstr ""
+
+#: votechannel\vote.py:80
+#, docstring
+msgid "List the current voting channels."
+msgstr ""
+
+#: votechannel\vote.py:93
+#, docstring
+msgid "Toggle VoteChannel."
+msgstr ""
+
+#: votechannel\vote.py:102
+#, docstring
+msgid "Set the emojis for VoteChannel."
+msgstr ""
+
+#: votechannel\vote.py:107
+#, docstring
+msgid ""
+"\n"
+"        Set the up emoji.\n"
+"\n"
+"        If an invalid emoji is given, your vote channel will error.\n"
+"        If left blank, defaults to the default up emoji.\n"
+"        "
+msgstr ""
+
+#: votechannel\vote.py:123
+#, docstring
+msgid ""
+"\n"
+"        Set the down emoji.\n"
+"\n"
+"        If an invalid emoji is given, your vote channel will error.\n"
+"        If left blank, defaults to the default down emoji.\n"
+"        "
+msgstr ""
+
+#: votechannel\vote.py:138
+#, docstring
+msgid "View the current emojis for VoteChannel."
+msgstr ""

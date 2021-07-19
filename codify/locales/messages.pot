@@ -11,12 +11,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: redgettext 3.3\n"
 
-#: raffle\raffle.py:34
+#: codify\codify.py:45
 #, docstring
-msgid "Create raffles for your server."
+msgid "Wrap text in codeblocks."
 msgstr ""
 
-#: raffle\raffle.py:77
+#: codify\codify.py:49
 #, docstring
-msgid "Manage raffles for your server."
+msgid "Get a message and wrap it in a codeblock."
+msgstr ""
+
+#: codify\codify.py:60
+#, docstring
+msgid "Wrap custom text into a codeblock."
 msgstr ""

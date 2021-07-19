@@ -11,12 +11,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: redgettext 3.3\n"
 
-#: raffle\raffle.py:34
+#: vinfo\vinfo.py:77
 #, docstring
-msgid "Create raffles for your server."
+msgid "Get versions of 3rd party cogs, and modules."
 msgstr ""
 
-#: raffle\raffle.py:77
+#: vinfo\vinfo.py:81
 #, docstring
-msgid "Manage raffles for your server."
+msgid ""
+"\n"
+"        Get the version information for a Red cog.\n"
+"\n"
+"        The cog must be loaded, and provided in the correct casing.\n"
+"        "
+msgstr ""
+
+#: vinfo\vinfo.py:131
+#, docstring
+msgid "Get module versions."
 msgstr ""

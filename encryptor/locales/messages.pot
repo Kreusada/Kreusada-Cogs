@@ -1,0 +1,47 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2021-07-19 22:13+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: redgettext 3.3\n"
+
+#: encryptor\encryptor.py:47
+#, docstring
+msgid ""
+"\n"
+"        Create, and validify the strength of passwords.\n"
+"        "
+msgstr ""
+
+#: encryptor\encryptor.py:54
+#, docstring
+msgid "Generate passwords."
+msgstr ""
+
+#: encryptor\encryptor.py:59
+#, docstring
+msgid "Generate a complex password."
+msgstr ""
+
+#: encryptor\encryptor.py:68
+#, docstring
+msgid ""
+"\n"
+"        Generate a strong password.\n"
+"\n"
+"        **Arguments**\n"
+"\n"
+"        * ``<delimeter>``: The character used to seperate each random word. Defaults to \"-\"\n"
+"        "
+msgstr ""
+
+#: encryptor\encryptor.py:84
+#, docstring
+msgid "Validate a passwords strength."
+msgstr ""

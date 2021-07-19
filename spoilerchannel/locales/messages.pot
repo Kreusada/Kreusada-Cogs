@@ -1,0 +1,37 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2021-07-19 22:13+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: redgettext 3.3\n"
+
+#: spoilerchannel\spoilerchannel.py:43
+#, docstring
+msgid "Base command for SpoilerChannel."
+msgstr ""
+
+#: spoilerchannel\spoilerchannel.py:48
+#, docstring
+msgid "Add a channel to the list of spoiler channels."
+msgstr ""
+
+#: spoilerchannel\spoilerchannel.py:58
+#, docstring
+msgid "Remove a channel from the list of spoiler channels."
+msgstr ""
+
+#: spoilerchannel\spoilerchannel.py:68
+#, docstring
+msgid "List all the spoiler channels."
+msgstr ""
+
+#: spoilerchannel\spoilerchannel.py:81
+#, docstring
+msgid "Clear the spoiler channel list."
+msgstr ""
