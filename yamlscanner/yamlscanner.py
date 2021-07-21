@@ -19,7 +19,7 @@ class YamlScanner(commands.Cog):
     """An easy and quick tool to validate yaml."""
 
     __author__ = ["Kreusada"]
-    __version__ = "1.1.1"
+    __version__ = "1.1.2"
 
     def __init__(self, bot):
         self.bot = bot
@@ -45,6 +45,7 @@ class YamlScanner(commands.Cog):
     @commands.command(usage="[file]")
     async def yamlscan(self, ctx: commands.Context):
         """Scan yaml to see if its correct.
+        
         Your next message will be used to as the yaml to scan.
         You can also upload a YAML file.
         """
@@ -68,7 +69,6 @@ class YamlScanner(commands.Cog):
                 return await ctx.send("Please upload a valid YAML file.")
             try:
                 file = await file.read()
-                print(file.decode(encoding="utf-8"))
                 content = file.decode(encoding="utf-8")
             except UnicodeDecodeError:
                 return await ctx.send(
