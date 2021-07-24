@@ -67,7 +67,7 @@ class RPSLS(commands.Cog):
     """Rock, paper, scizzors, lizard, spock."""
 
     __author__ = ["Kreusada"]
-    __version__ = "2.0.0"
+    __version__ = "2.0.1"
 
     def __init__(self, bot):
         self.bot = bot
@@ -94,9 +94,6 @@ class RPSLS(commands.Cog):
 
         Use `[p]rpsls help` for a diagram.
         """
-        if not isinstance(choice, tuple):
-            await ctx.send(choice)
-            return
         human_choice, human_number = choice
         bot_choice, bot_number = generate_bot_rpsls()
         if bot_number == human_number:
