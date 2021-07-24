@@ -97,4 +97,6 @@ class Encryptor(commands.Cog):
         else:
             emoji = GREEN_CIRCLE
             text = "This is an **excellent** password!"
-        await ctx.maybe_send_embed(f"**Strength rating: {round(converter * 100)}%** {emoji}\n{cf.quote(text)}")
+        await ctx.maybe_send_embed(
+            f"**Strength rating: {round(converter * 100)}%** {emoji}\n{cf.quote(text)}"
+        )
