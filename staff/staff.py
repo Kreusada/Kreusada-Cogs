@@ -100,7 +100,6 @@ class Staff(commands.Cog):
             await ctx.send(embed=embed)
             return
         await ctx.send(description)
-            
 
     @commands.command()
     @commands.cooldown(1, 600, commands.BucketType.guild)
