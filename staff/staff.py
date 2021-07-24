@@ -14,12 +14,13 @@ class Staff(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "1.5.3"
+    __version__ = "1.5.4"
 
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, 200730042020, force_registration=True)
         self.config.register_guild(role=None, channel=None)
+        self.timestamp = f"<t:{int(datetime.utcnow().timestamp())}>"
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
@@ -109,9 +110,6 @@ class Staff(commands.Cog):
         channel = self.bot.get_channel(channel)
         role = ctx.guild.get_role(role)
 
-        now = datetime.now()
-        date = now.strftime("%d/%m/%y")
-
         message_list = []
         backslash = "\n"
 
@@ -134,7 +132,7 @@ class Staff(commands.Cog):
 
         embed.add_field(name="Member", value=ctx.author.mention, inline=True)
         embed.add_field(name="Channel", value=ctx.channel.mention, inline=True)
-        embed.add_field(name="Date", value=date, inline=True)
+        embed.add_field(name="Time", value=self.timestamp, inline=True)
         embed.add_field(name="Reason", value=reason, inline=False)
         embed.add_field(name="Context", value=context, inline=False)
 
