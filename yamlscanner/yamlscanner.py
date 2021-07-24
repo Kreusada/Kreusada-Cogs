@@ -45,7 +45,7 @@ class YamlScanner(commands.Cog):
     @commands.command(usage="[file]")
     async def yamlscan(self, ctx: commands.Context):
         """Scan yaml to see if its correct.
-        
+
         Your next message will be used to as the yaml to scan.
         You can also upload a YAML file.
         """
