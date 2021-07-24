@@ -14,7 +14,7 @@ class Staff(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "1.5.4"
+    __version__ = "1.5.5"
 
     def __init__(self, bot):
         self.bot = bot
@@ -86,13 +86,21 @@ class Staff(commands.Cog):
     @commands.admin_or_permissions(manage_guild=True)
     async def settings(self, ctx: commands.Context):
         """Show the current settings with Staff."""
-        role = await self.config.guild(ctx.guild).role()
-        channel = await self.config.guild(ctx.guild).channel()
-        role = ctx.guild.get_role(role)
-        channel = self.bot.get_channel(channel)
-        role = "None set." if not role else role.mention
-        channel = "None set." if not channel else channel.mention
-        await ctx.send(f"{bold('Role:')} {role}\n{bold('Channel:')} {channel}")
+        settings = await self.config.guild(ctx.guild).all()
+        role = ctx.guild.get_role(settings["role"]) or "None set."
+        channel = ctx.guild.get_channel(settings["channel"]) or "None set."
+
+        description = f"Role: {role}\nChannel: {channel}"
+        if await ctx.embed_requested():
+            embed = discord.Embed(
+                title="Staff settings",
+                description=description,
+                color=await ctx.embed_colour(),
+            )
+            await ctx.send(embed=embed)
+            return
+        await ctx.send(description)
+            
 
     @commands.command()
     @commands.cooldown(1, 600, commands.BucketType.guild)
