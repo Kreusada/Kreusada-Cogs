@@ -33,7 +33,7 @@ class Vinfo(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "2.0.4"
+    __version__ = "2.0.5"
 
     def __init__(self, bot):
         self.bot = bot
@@ -56,9 +56,8 @@ class Vinfo(commands.Cog):
             with contextlib.suppress(Exception):
                 self.bot.add_dev_env_value("vinfo", lambda x: self)
 
-    @staticmethod
-    def isdev():
-        return "--dev" in sys.argv
+    def isdev(self):
+        return "--dev" in sys.argv or "Dev" in self.bot.cogs
 
     @staticmethod
     def check_attrs(module: types.ModuleType):
