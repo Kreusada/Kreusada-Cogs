@@ -11,8 +11,8 @@ Encryptor,Generate and validify the strength of passwords.,"Tools, Fun",Kreusada
 Flags,Get the flag for a country,Tools,Kreusada
 Minifier,Minify your code with python minifier,Tools,Kreusada
 Mjolnir,Try to lift Thor's hammer,Fun,"Jojo, Kreusada"
-NameGenerator,Generate random names will optional gender arguments.,Fun,Kreusada
-PingInvoke,r2d2? wall-e? Invoke ping by asking if your bot's there.,"Tools, Fun",Kreusada 
+NameGenerator,Generate random names with optional gender arguments.,Fun,Kreusada
+PingInvoke,r2d2? wall-e? Invoke ping by asking if your bot's there.,"Tools, Fun",Kreusada
 PingOverride,Replace the default ping response with your own response!,"Tools, Fun",Kreusada
 Quotes,Get a random quote,Fun,Kreusada
 Raffle,Create raffles for your guild,Fun,Kreusada
