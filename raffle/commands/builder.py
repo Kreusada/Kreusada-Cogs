@@ -45,13 +45,13 @@ class BuilderCommands(RaffleMixin, metaclass=MetaClass):
         message += _("\n\n**Conditions Blocks:**") + box(
             "\n".join(f"+ {e.name}" for e in RaffleComponents), lang="diff"
         )
-        await ctx.send(message)
+        instruction_message = await ctx.send(message)
 
         try:
             content = await self.bot.wait_for("message", timeout=500, check=check)
         except asyncio.TimeoutError:
             with contextlib.suppress(discord.NotFound):
-                await message.delete()
+                await instruction_message.delete()
 
         content = content.content
         valid = validator(cleanup_code(content))
