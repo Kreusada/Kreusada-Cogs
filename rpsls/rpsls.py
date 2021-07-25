@@ -28,7 +28,10 @@ class ValidChoiceConverter(Converter):
         valid_args = [e.name.lower() for e in RPSLSEnum]
         if not argument in valid_args:
             raise BadArgument(
-                "Choice must be one of {}.".format(humanize_list(valid_args, style="or"))
+                "Choice must be one of {}. You can also use "
+                "`{}rpsls help` for a help diagram.".format(
+                    humanize_list(valid_args, style="or"), ctx.clean_prefix
+                )
             )
         mapper = {v: c for c, v in enumerate(valid_args, start=1)}
         return argument, mapper[argument]
@@ -67,7 +70,7 @@ class RPSLS(commands.Cog):
     """Rock, paper, scizzors, lizard, spock."""
 
     __author__ = ["Kreusada"]
-    __version__ = "2.0.1"
+    __version__ = "2.1.0"
 
     def __init__(self, bot):
         self.bot = bot
@@ -100,7 +103,7 @@ class RPSLS(commands.Cog):
             phrase = italics("It's a draw! We're fair and square.")
             bot_user = self.bot.user
             human_user = ctx.author
-        elif human_number in IntMapper[bot_number]:
+        elif bot_number in IntMapper[human_number]:
             phrase = italics("You won - nice job!")
             bot_user = self.bot.user
             human_user = bold(str(ctx.author))
