@@ -16,14 +16,14 @@ class AdvancedUptime(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "3.0.0"
+    __version__ = "3.1.0"
 
     def __init__(self, bot):
         self.bot = bot
         self.commands_run = {}
         self.settings = {}
         self.config = Config.get_conf(self, 4589035903485, True)
-        self.config.register_global(show_bot_stats=True, show_latency_stats=True)
+        self.config.register_global(show_bot_stats=True, show_latency_stats=True, show_usage_stats=True)
         if 719988449867989142 in self.bot.owner_ids:
             with contextlib.suppress(Exception):
                 self.bot.add_dev_env_value("advanceduptime", lambda x: self)
@@ -35,6 +35,9 @@ class AdvancedUptime(commands.Cog):
         if not await self.bot.ignored_channel_or_guild(ctx):
             return
         if not await self.bot.allowed_by_whitelist_blacklist(ctx.author):
+            return
+
+        if not self.settings["show_usage_stats"]:
             return
 
         command = str(ctx.command)
@@ -83,7 +86,18 @@ class AdvancedUptime(commands.Cog):
         word = "enabled" if true_or_false else "disabled"
         await ctx.send("Latency stats {}.".format(word))
         self.settings["show_latency_stats"] = true_or_false
-        await self.config.show_shard_stats.set(true_or_false)
+        await self.config.show_latency_stats.set(true_or_false)
+
+    @uptimeset.command(name="usagestats")
+    async def uptimeset_usagestats(self, ctx: commands.Context, true_or_false: bool):
+        """Toggles whether usage stats are shown in the uptime command."""
+        word = "enabled" if true_or_false else "disabled"
+        message = "Usage stats {}.".format(word)
+        if true_or_false:
+            message += " Command usage will not be tracked with this cog whilst this setting is disabled."
+        await ctx.send(message)
+        self.settings["show_usage_stats"] = true_or_false
+        await self.config.show_usage_stats.set(true_or_false)
 
     @commands.command()
     async def uptime(self, ctx: commands.Context):
@@ -145,18 +159,19 @@ class AdvancedUptime(commands.Cog):
                 inline=False,
             )
 
-        if self.commands_run:
-            most_run_command = sorted(self.commands_run.items(), key=lambda x: x[1], reverse=True)
-            format_time = lambda x: "once" if x == 1 else f"{x} times"
-            command_usage = f"The most used command whilst the bot has been online is `{most_run_command[0][0]}`, which has been used {format_time(most_run_command[0][1])}."
-            if len(self.commands_run) != 1:
-                command_usage += f"\n\nThe least used command is `{most_run_command[-1][0]}`, which has been used {format_time(most_run_command[-1][1])}."
+        if self.settings["show_usage_stats"]:
+            if self.commands_run:
+                most_run_command = sorted(self.commands_run.items(), key=lambda x: x[1], reverse=True)
+                format_time = lambda x: "once" if x == 1 else f"{x} times"
+                command_usage = f"The most used command whilst the bot has been online is `{most_run_command[0][0]}`, which has been used {format_time(most_run_command[0][1])}."
+                if len(self.commands_run) != 1:
+                    command_usage += f"\n\nThe least used command is `{most_run_command[-1][0]}`, which has been used {format_time(most_run_command[-1][1])}."
 
-            embed.add_field(
-                name="Command usage since this cog has been loaded",
-                value=command_usage,
-                inline=False,
-            )
+                embed.add_field(
+                    name="Command usage since this cog has been loaded",
+                    value=command_usage,
+                    inline=False,
+                )
 
         embed.set_author(name=self.bot.user, icon_url=self.bot.user.avatar_url)
         await ctx.send(embed=embed)
