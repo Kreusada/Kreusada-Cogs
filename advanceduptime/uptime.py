@@ -4,7 +4,7 @@ import math
 from datetime import datetime, timedelta
 
 import discord
-from redbot.core import commands
+from redbot.core import Config, commands
 from redbot.core.utils.chat_formatting import bold, box, humanize_number, humanize_timedelta
 
 log = logging.getLogger("red.kreusada.advanceduptime")
@@ -16,11 +16,14 @@ class AdvancedUptime(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "2.0.3"
+    __version__ = "3.0.0"
 
     def __init__(self, bot):
         self.bot = bot
         self.commands_run = {}
+        self.settings = {}
+        self.config = Config.get_conf(self, 4589035903485, True)
+        self.config.register_global(show_bot_stats=True, show_latency_stats=True)
         if 719988449867989142 in self.bot.owner_ids:
             with contextlib.suppress(Exception):
                 self.bot.add_dev_env_value("advanceduptime", lambda x: self)
@@ -59,9 +62,33 @@ class AdvancedUptime(commands.Cog):
                 log.info(error)
             self.bot.add_command(_old_uptime)
 
+    async def initialize(self):
+        self.settings = await self.config.all()
+
+    @commands.group()
+    async def uptimeset(self, ctx: commands.Context):
+        """Settings for the uptime command."""
+
+    @uptimeset.command(name="botstats")
+    async def uptimeset_botstats(self, ctx: commands.Context, true_or_false: bool):
+        """Toggles whether bot stats are shown in the uptime command."""
+        word = "enabled" if true_or_false else "disabled"
+        await ctx.send("Bot stats {}.".format(word))
+        self.settings["show_bot_stats"] = true_or_false
+        await self.config.show_bot_stats.set(true_or_false)
+
+    @uptimeset.command(name="latencystats")
+    async def uptimeset_latencystats(self, ctx: commands.Context, true_or_false: bool):
+        """Toggles whether latency stats are shown in the uptime command."""
+        word = "enabled" if true_or_false else "disabled"
+        await ctx.send("Latency stats {}.".format(word))
+        self.settings["show_latency_stats"] = true_or_false
+        await self.config.show_shard_stats.set(true_or_false)
+
     @commands.command()
     async def uptime(self, ctx: commands.Context):
         """Shows [botname]'s uptime."""
+        settings = await self.config.all()
 
         def format_timedelta(delta: timedelta, unit: str):
             mapper = {"seconds": 1, "minutes": 60, "hours": 3600, "days": 86400}
@@ -87,24 +114,36 @@ class AdvancedUptime(commands.Cog):
         unit_details = "\n".join(f"+ {plural_unit(x)}" for x in units)
         embed.add_field(name="Unit Details", value=box(unit_details, lang="diff"), inline=False)
 
-        app_info = await self.bot.application_info()
-        bot_stats = {
-            "users": humanize_number(len(self.bot.users)),
-            "servers": humanize_number(len(self.bot.guilds)),
-            "commands_available": humanize_number(len(set(self.bot.walk_commands()))),
-            "owner": app_info.team.name if app_info.team else app_info.owner,
-        }
+        if self.settings["show_bot_stats"]:
+            app_info = await self.bot.application_info()
+            bot_stats = {
+                "users": humanize_number(len(self.bot.users)),
+                "servers": humanize_number(len(self.bot.guilds)),
+                "commands_available": humanize_number(len(set(self.bot.walk_commands()))),
+                "owner": app_info.team.name if app_info.team else app_info.owner,
+            }
 
-        format_key = lambda x: x.replace("_", " ").capitalize()
-        sorted_bot_stats = sorted(bot_stats.items(), key=lambda x: len(x[0]))
+            format_key = lambda x: x.replace("_", " ").capitalize()
+            sorted_bot_stats = sorted(bot_stats.items(), key=lambda x: len(x[0]))
 
-        embed.add_field(
-            name="Bot Stats",
-            value=box(
-                "\n".join(f"{format_key(k)}: {v}" for k, v in sorted_bot_stats), lang="yaml"
-            ),
-            inline=False,
-        )
+            embed.add_field(
+                name="Bot Stats",
+                value=box(
+                    "\n".join(f"{format_key(k)}: {v}" for k, v in sorted_bot_stats), lang="yaml"
+                ),
+                inline=False,
+            )
+
+        if self.settings["show_latency_stats"]:
+            value = "Bot latency: {}ms".format(str(round(self.bot.latency * 1000, 2)))
+            for shard, time in self.bot.latencies: # Thanks aika
+                value += f"\nShard {shard+1}/{len(self.bot.latencies)}: {round(time * 1000)}ms"
+
+            embed.add_field(
+                name="Shard and Latency Stats",
+                value=box(value, lang="yaml"),
+                inline=False,
+            )
 
         if self.commands_run:
             most_run_command = sorted(self.commands_run.items(), key=lambda x: x[1], reverse=True)
@@ -123,10 +162,11 @@ class AdvancedUptime(commands.Cog):
         await ctx.send(embed=embed)
 
 
-def setup(bot):
+async def setup(bot):
     au = AdvancedUptime(bot)
     global _old_uptime
     _old_uptime = bot.get_command("uptime")
     if _old_uptime:
         bot.remove_command(_old_uptime.name)
+    await au.initialize()
     bot.add_cog(au)
