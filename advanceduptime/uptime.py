@@ -23,7 +23,9 @@ class AdvancedUptime(commands.Cog):
         self.commands_run = {}
         self.settings = {}
         self.config = Config.get_conf(self, 4589035903485, True)
-        self.config.register_global(show_bot_stats=True, show_latency_stats=True, show_usage_stats=True)
+        self.config.register_global(
+            show_bot_stats=True, show_latency_stats=True, show_usage_stats=True
+        )
         if 719988449867989142 in self.bot.owner_ids:
             with contextlib.suppress(Exception):
                 self.bot.add_dev_env_value("advanceduptime", lambda x: self)
@@ -94,7 +96,9 @@ class AdvancedUptime(commands.Cog):
         word = "enabled" if true_or_false else "disabled"
         message = "Usage stats {}.".format(word)
         if true_or_false:
-            message += " Command usage will not be tracked with this cog whilst this setting is disabled."
+            message += (
+                " Command usage will not be tracked with this cog whilst this setting is disabled."
+            )
         await ctx.send(message)
         self.settings["show_usage_stats"] = true_or_false
         await self.config.show_usage_stats.set(true_or_false)
@@ -150,7 +154,7 @@ class AdvancedUptime(commands.Cog):
 
         if self.settings["show_latency_stats"]:
             value = "Bot latency: {}ms".format(str(round(self.bot.latency * 1000, 2)))
-            for shard, time in self.bot.latencies: # Thanks aika
+            for shard, time in self.bot.latencies:  # Thanks aika
                 value += f"\nShard {shard+1}/{len(self.bot.latencies)}: {round(time * 1000)}ms"
 
             embed.add_field(
@@ -161,7 +165,9 @@ class AdvancedUptime(commands.Cog):
 
         if self.settings["show_usage_stats"]:
             if self.commands_run:
-                most_run_command = sorted(self.commands_run.items(), key=lambda x: x[1], reverse=True)
+                most_run_command = sorted(
+                    self.commands_run.items(), key=lambda x: x[1], reverse=True
+                )
                 format_time = lambda x: "once" if x == 1 else f"{x} times"
                 command_usage = f"The most used command whilst the bot has been online is `{most_run_command[0][0]}`, which has been used {format_time(most_run_command[0][1])}."
                 if len(self.commands_run) != 1:
