@@ -10,14 +10,11 @@ body:
       options:
         - AdvancedUptime
         - AlphaNato
-        - BubbleWrap
-        - Codify
         - CogPaths
         - ConsoleClearer
         - Dehoister
         - Ecryptor
         - Flags
-        - GithubSkylines
         - Minifier
         - Mjolnir
         - NameGenerator
@@ -25,10 +22,8 @@ body:
         - PingOverride
         - Quotes
         - Raffle
-        - RAM
         - RoleBoards
         - RPSLS
-        - SendCards
         - SpoilerChannel
         - Staff
         - Termino

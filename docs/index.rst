@@ -25,15 +25,11 @@ Useful Links
     cog_advanceduptime
     cog_alphanato
     cog_blackformatter
-    cog_bubblewrap
-    cog_codify
     cog_cogpaths
     cog_consoleclearer
     cog_dehoister
     cog_encryptor
     cog_flags
-    cog_githubskylines
-    cog_locales
     cog_minifier
     cog_mjolnir
     cog_namegenerator
@@ -42,11 +38,8 @@ Useful Links
     cog_quotes
     cog_minifier
     cog_raffle
-    cog_ram
     cog_roleboards
     cog_rpsls
-    cog_sendcards
-    cog_serverblock
     cog_spoilerchannel
     cog_staff
     cog_termino

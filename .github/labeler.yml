@@ -1,120 +1,107 @@
 "Cog: AdvancedUptime":
   - advanceduptime/*
   - docs/cog_advanceduptime.rst
-  - docs/_deprecated/changelog_advanceduptime.rst
+
 "Cog: AlphaNato":
   - alphanato/*
   - docs/cog_alphanato.rst
-  - docs/_deprecated/changelog_alphanato.rst
+
 "Cog: BlackFormatter":
   - blackformatter/*
   - docs/cog_blackformatter.rst
-"Cog: BubbleWrap":
-  - bubblewrap/*
-  - docs/cog_bubblewrap.rst
-  - docs/_deprecated/changelog_bubblewrap.rst
-"Cog: Codify":
-  - codify/*
-  - docs/cog_codify.rst
-  - docs/_deprecated/changelog_codify.rst
+
 "Cog: CogPaths":
   - cogpaths/*
   - docs/cog_cogpaths.rst
+
 "Cog: ConsoleClearer":
   - consoleclearer/*
   - docs/cog_consoleclearer.rst
-  - docs/_deprecated/changelog_consoleclearer.rst
+
 "Cog: Dehoister":
   - dehoister/*
   - docs/cog_dehoister.rst
-  - docs/_deprecated/changelog_dehoister.rst
+
 "Cog: Encryptor":
   - encryptor/*
   - docs/cog_encryptor.rst
+
 "Cog: Flags":
   - flags/*
   - docs/cog_flags.rst
-"Cog: GithubSkylines":
-  - githubskylines/*
-  - docs/cog_githubskylines.rst
-  - docs/_deprecated/changelog_githubskylines.rst
+
 "Cog: Minifier":
   - minifier/*
   - docs/cog_minifier.rst
-  - docs/_deprecated/changelog_minifier.rst
+
 "Cog: Mjolnir":
   - mjolnir/*
   - docs/cog_mjolnir.rst
-  - docs/_deprecated/changelog_mjolnir.rst
+
 "Cog: NameGenerator":
   - namegenerator/*
   - docs/cog_namegenerator.rst
-  - docs/_deprecated/changelog_namegenerator.rst
+
 "Cog: PingInvoke":
   - pinginvoke/*
   - docs/cog_pinginvoke.rst
-  - docs/_deprecated/changelog_pinginvoke.rst
+
 "Cog: PingOverride":
   - pingoverride/*
   - docs/cog_pingoverride.rst
-  - docs/_deprecated/changelog_pingoverride.rst
+
 "Cog: Quotes":
   - quotes/*
   - docs/cog_quotes.rst
-  - docs/_deprecated/changelog_quotes.rst
+
 "Cog: Raffle":
   - raffle/*
   - docs/cog_raffle.rst
-"Cog: RAM":
-  - ram/*
-  - docs/cog_ram.rst
-  - docs/_deprecated/changelog_ram.rst
+
 "Cog: RoleBoards":
   - roleboards/*
   - docs/cog_roleboards.rst
-  - docs/_deprecated/changelog_roleboards.rst
+
 "Cog: RPSLS":
   - rpsls/*
   - docs/cog_rpsls.rst
-  - docs/_deprecated/changelog_rpsls.rst
-"Cog: SendCards":
-  - sendcards/*
-  - docs/cog_sendcards.rst
-  - docs/_deprecated/changelog_sendcards.rst
+
 "Cog: SpoilerChannel":
   - spoilerchannel/*
   - docs/cog_spoilerchannel.rst
-  - docs/_deprecated/changelog_spoilerchannel.rst
+
 "Cog: Staff":
   - staff/*
   - docs/cog_staff.rst
-  - docs/_deprecated/changelog_staff.rst
+
 "Cog: Termino":
   - termino/*
   - docs/cog_termino.rst
-  - docs/_deprecated/changelog_termino.rst
+
 "Cog: TextEditor":
   - texteditor/*
   - docs/cog_texteditor.rst
-  - docs/_deprecated/changelog_textmanipulator.rst
+
 "Cog: TimesTables":
   - timestables/*
   - docs/cog_timestables.rst
-  - docs/_deprecated/changelog_timestables.rst
+
 "Cog: Vinfo":
   - vinfo/*
   - docs/cog_vinfo.rst
-  - docs/_deprecated/changelog_vinfo.rst
+
 "Cog: VoteChannel":
   - votechannel/*
   - docs/cog_votechannel.rst
-  - docs/_deprecated/changelog_votechannel.rst
+
 "Cog: YamlScanner":
   - yamlscanner/*
   - docs/cog_yamlscanner.rst
+
 "Category: Meta":
   - .github/*
   - .github/*/*
   - ./*
+
 "docs":
   - docs/**/*
