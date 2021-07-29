@@ -16,11 +16,13 @@ class AlphaNato(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "1.1.0"
+    __version__ = "1.1.1"
 
     def __init__(self, bot):
         self.bot = bot
-        self.bot.add_dev_env_value("alphanato", lambda x: self)
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(RuntimeError, ValueError):
+                self.bot.add_dev_env_value("alphanato", lambda x: self)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
