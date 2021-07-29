@@ -2,8 +2,6 @@ Cog Name,Description,Tags,Authors
 AdvancedUptime,Uptime but with additional statistics and inside an embed.,"Tools, Informative",Kreusada
 AlphaNato,Get NATO phonetics through given letters., "Tools, Fun",Kreusada
 BlackFormatter,Style your code with the Black formatter,Tools,Kreusada
-Bubblewrap,Get some bubblewrap,Fun,Kreusada
-Codify,Get messages and transform them into code blocks.,Tools,Kreusada
 CogPaths,Get various paths for a cog.,"Tools, Informative",Kreusada
 ConsoleClearer,Completely clear your Red console,Tools,Kreusada
 Dehoister,Dehoist new users with a variety of tools.,Mod,Kreusada
@@ -16,9 +14,7 @@ PingInvoke,r2d2? wall-e? Invoke ping by asking if your bot's there.,"Tools, Fun"
 PingOverride,Replace the default ping response with your own response!,"Tools, Fun",Kreusada
 Quotes,Get a random quote,Fun,Kreusada
 Raffle,Create raffles for your guild,Fun,Kreusada
-RAM,Get your bot's random access memory,Tools,Kreusada
 RPSLS,"Rock, paper, scissors, lizard, rock",Fun,Kreusada
-SendCards,"Send christmas, birthday, valentines and get well soon cards",Fun,Kreusada
 Staff,Alert staff for conspicuous activity.,Mod,Kreusada
 Termino,"Custom shutdown and restart messages, and announcements",Tools,Kreusada
 TextEditor,Edit and manipulate with text,"Fun, Tools",Kreusada
