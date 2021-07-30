@@ -17,7 +17,7 @@ class TimesTables(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "1.1.2"
+    __version__ = "1.1.3"
 
     def __init__(self, bot):
         self.bot = bot
@@ -34,6 +34,9 @@ class TimesTables(commands.Cog):
         )
         self.config = Config.get_conf(self, 2345987543534, force_registration=True)
         self.config.register_guild(tt_inactive=3, tt_timeout=10, tt_sleep=2, tt_time_taken=True)
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(Exception):
+                self.bot.add_dev_env_value("timestables", lambda x: self)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
@@ -47,11 +50,6 @@ class TimesTables(commands.Cog):
     def cog_unload(self):
         with contextlib.suppress(Exception):
             self.bot.remove_dev_env_value("timestables")
-
-    async def initialize(self) -> None:
-        if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(Exception):
-                self.bot.add_dev_env_value("timestables", lambda x: self)
 
     async def tt_build_stats(
         self, ctx, correct, incorrect, inactive, average_time, exited_early: bool
@@ -149,10 +147,11 @@ class TimesTables(commands.Cog):
         """
         Shows the current settings for times tables.
         """
-        time = await self.config.guild(ctx.guild).tt_time_taken()
-        inactive = await self.config.guild(ctx.guild).tt_inactive()
-        timeout = await self.config.guild(ctx.guild).tt_timeout()
-        sleep = await self.config.guild(ctx.guild).tt_sleep()
+        settings = await self.config.guild(ctx.guild).all()
+        time = settings["tt_time_taken"]
+        inactive = settings["tt_inactive"]
+        timeout = settings["tt_timeout"]
+        sleep = settings["tt_sleep"]
         text = (
             f"Time toggled: {'Yes' if time else 'No'}\n"
             f"Inactive count: {inactive} questions\n"
@@ -187,10 +186,11 @@ class TimesTables(commands.Cog):
     async def start(self, ctx, number_of_questions: int):
         """Start a timestables session."""
 
-        inactive = await self.config.guild(ctx.guild).tt_inactive()
-        timeout = await self.config.guild(ctx.guild).tt_timeout()
-        sleep = await self.config.guild(ctx.guild).tt_sleep()
-        time_taken = await self.config.guild(ctx.guild).tt_time_taken()
+        settings = await self.config.guild(ctx.guild).all()
+        time_taken = settings["tt_time_taken"]
+        inactive = settings["tt_inactive"]
+        timeout = settings["tt_timeout"]
+        sleep = settings["tt_sleep"]
 
         if number_of_questions > 20:
             return await ctx.send("Sorry, you cannot have more than 20 questions.")
@@ -218,6 +218,14 @@ class TimesTables(commands.Cog):
                 if time_taken:
                     time_start = self.time()
                 answer = await self.bot.wait_for("message", timeout=timeout, check=check)
+            except asyncio.TimeoutError:
+                inactive_counter += 1
+                if inactive_counter == inactive:
+                    return await ctx.send("Session ended due to inactivity.")
+                await ctx.send(
+                    f"You took too long! Not to worry - the answer was {bold(str(F*S))}."
+                )
+            else:
                 if answer.content == str(F * S):
                     time_end = self.time()
                     await answer.add_reaction(self.correct)
@@ -238,21 +246,13 @@ class TimesTables(commands.Cog):
                         average_time if time_taken else None,
                         True,
                     )
-                    break
                 else:
                     await answer.add_reaction(self.incorrect)
                     await ctx.send(f"Not quite! The answer was {bold(str(F*S))}.")
                     incorrect_answers += 1
-                async with ctx.typing():
-                    await asyncio.sleep(sleep)
-            except asyncio.TimeoutError:
-                inactive_counter += 1
-                if inactive_counter == inactive:
-                    return await ctx.send("Session ended due to inactivity.")
-                    break
-                await ctx.send(
-                    f"You took too long! Not to worry - the answer was {bold(str(F*S))}."
-                )
+                await ctx.trigger_typing()
+                await asyncio.sleep(sleep)
+                
 
         await self.tt_build_stats(
             ctx,
