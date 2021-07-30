@@ -42,7 +42,7 @@ class RoleBoards(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "3.1.0"
+    __version__ = "3.1.1"
 
     def __init__(self, bot):
         self.bot = bot
@@ -65,7 +65,7 @@ class RoleBoards(commands.Cog):
             with contextlib.suppress(Exception):
                 self.bot.add_dev_env_value("roleboards", lambda x: self)
 
-    @commands.group(aliases=["rb"])
+    @commands.group(aliases=["roleboards", "rb"])
     @commands.guild_only()
     async def roleboard(self, ctx):
         """Get roleboards for this server.."""
