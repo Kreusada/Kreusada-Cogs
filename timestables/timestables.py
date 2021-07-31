@@ -252,7 +252,6 @@ class TimesTables(commands.Cog):
                     incorrect_answers += 1
                 await ctx.trigger_typing()
                 await asyncio.sleep(sleep)
-                
 
         await self.tt_build_stats(
             ctx,
