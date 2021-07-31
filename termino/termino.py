@@ -17,16 +17,12 @@ shutdown: commands.Command = None
 restart: commands.Command = None
 
 
-async def reconnect_enabled(ctx: commands.Context):
-    return await ctx.cog.config.reconnect()
-
-
 class Termino(Utilities, commands.Cog, metaclass=CompositeMetaClass):
     """Customize bot shutdown and restart messages, with predicates, too."""
 
     __author__ = ["Kreusada", "Jojo#7791"]
     __dev_ids__ = [719988449867989142, 544974305445019651]
-    __version__ = "2.0.2"
+    __version__ = "2.0.3"
 
     def __init__(self, bot):
         self.bot = bot
@@ -146,7 +142,7 @@ class Termino(Utilities, commands.Cog, metaclass=CompositeMetaClass):
 
         You can use `{author}` in your message to send the invokers display name.
 
-        Type `none` to reset it
+        Type `none` to reset it.
         """
         if shutdown_message.lower() == "none":
             shutdown_message = None
@@ -169,7 +165,7 @@ class Termino(Utilities, commands.Cog, metaclass=CompositeMetaClass):
 
         You can use `{author}` in your message to send the invokers display name.
 
-        Type `none` to reset it
+        Type `none` to reset it.
         """
         if restart_message.lower() == "none":
             restart_message = None
@@ -189,7 +185,7 @@ class Termino(Utilities, commands.Cog, metaclass=CompositeMetaClass):
     async def terminoset_restarted_message(self, ctx: commands.Context, *, restarted_message: str):
         """Set the message to be sent after restarting.
 
-        Type `none` to reset it
+        Type `none` to reset it.
         """
         if restarted_message.lower() == "none":
             restarted_message = None
@@ -202,7 +198,7 @@ class Termino(Utilities, commands.Cog, metaclass=CompositeMetaClass):
     async def terminoset_announcement_channel(
         self, ctx: commands.Context, channel: Union[discord.TextChannel, None]
     ):
-        """Set the channel where announcements will be sent to when the bot goes online/offline
+        """Set the channel where announcements will be sent to when the bot goes online/offline.
 
         Type `none` to clear it
         """
@@ -216,26 +212,25 @@ class Termino(Utilities, commands.Cog, metaclass=CompositeMetaClass):
             msg = f"The channel is now set to {channel.name}."
         await ctx.send(msg)
 
-    @terminoset.command(name="reconnect")
+    @terminoset.group(name="reconnect", invoke_without_command=True)
     async def terminoset_reconnect(self, ctx: commands.Context, true_or_false: bool):
-        """Announce when the bot has reconnected"""
+        """Announce when the bot has reconnected."""
         await self.config.reconnect.set(true_or_false)
         grammar = "now" if true_or_false else "not"
-        await ctx.send(f"Termino will {grammar} send a message when the bot reconnects")
+        await ctx.send(f"Termino will {grammar} send a message when the bot reconnects.")
 
-    @terminoset.command(name="reconnectmessage")
-    @commands.check(reconnect_enabled)
-    async def termionset_reconnect_message(self, ctx: commands.Context, *, message: str):
-        """Set the message the bot will send on reconnect
+    @terminoset_reconnect.command(name="message")
+    async def terminoset_reconnect_message(self, ctx: commands.Context, *, message: str):
+        """Set the message the bot will send on reconnect.
 
-        Type `none` to reset it
+        Type `none` to reset it.
         """
         if message.lower() == "none":
             message = None
         message = message or "I have reconnected."
         set_reset = "set" if message else "reset"
         await self.config.reconnect_message.set(message)
-        await ctx.send(f"The reconnect message has been {set_reset}")
+        await ctx.send(f"The reconnect message has been {set_reset}.")
 
     @terminoset.command()
     async def settings(self, ctx: commands.Context):
