@@ -22,7 +22,7 @@ class Termino(Utilities, commands.Cog, metaclass=CompositeMetaClass):
 
     __author__ = ["Kreusada", "Jojo#7791"]
     __dev_ids__ = [719988449867989142, 544974305445019651]
-    __version__ = "2.0.3"
+    __version__ = "2.0.4"
 
     def __init__(self, bot):
         self.bot = bot
@@ -80,9 +80,9 @@ class Termino(Utilities, commands.Cog, metaclass=CompositeMetaClass):
             if uid in self.bot.owner_ids:
                 with contextlib.suppress(RuntimeError, ValueError):
                     self.bot.add_dev_env_value("termino", lambda x: self)
-        conf = await self.config.all()
-        if "announced" in conf.keys():
-            await self.config.announced.clear()
+
+        # remove no longer used config key
+        await self.config.clear_raw("announced")
 
     @commands.is_owner()
     @commands.command()
