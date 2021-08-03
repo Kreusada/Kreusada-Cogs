@@ -30,6 +30,7 @@ Useful Links
     cog_dehoister
     cog_encryptor
     cog_flags
+    cog_inverter
     cog_minifier
     cog_mjolnir
     cog_namegenerator

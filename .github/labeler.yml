@@ -30,6 +30,10 @@
   - flags/*
   - docs/cog_flags.rst
 
+"Cog: Inverter":
+  - inverter/*
+  - docs/cog_inverter.rst
+
 "Cog: Minifier":
   - minifier/*
   - docs/cog_minifier.rst
