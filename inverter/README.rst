@@ -50,7 +50,7 @@ invert
 
 .. code-block:: none
 
-    [p]invert 
+    [p]invert
 
 **Description**
 
