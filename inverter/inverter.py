@@ -13,13 +13,16 @@ with open(pathlib.Path(__file__).parent / "info.json") as fp:
 
 
 class Inverter(commands.Cog):
-    """Invert images."""
+    """Invert images and avatars."""
+
+    __author__ = ["Kreusada"]
+    __version__ = "1.0.0"
 
     def __init__(self, bot):
         self.bot = bot
         if 719988449867989142 in self.bot.owner_ids:
             with contextlib.suppress(RuntimeError, ValueError):
-                self.bot.add_dev_env_value("inverter", lambda x: self)
+                self.bot.add_dev_env_value(self.__class__.__name__.lower(), lambda x: self)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
@@ -27,7 +30,7 @@ class Inverter(commands.Cog):
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
 
     def cog_unload(self):
-        with contextlib.suppress(Exception):
+        with contextlib.suppress(KeyError):
             self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     async def red_delete_data_for_user(self, **kwargs):
@@ -41,11 +44,11 @@ class Inverter(commands.Cog):
         user: discord.Member,
         image_type: str,
     ):
-        # Than
+        # Some of this image/url handling came from Red-DiscordBot, thanks
         await ctx.trigger_typing()
         if len(ctx.message.attachments) > 0:
             data = await ctx.message.attachments[0].read()
-        elif url is not None:
+        else:
             if url.startswith("<") and url.endswith(">"):
                 url = url[1:-1]
 
@@ -57,9 +60,6 @@ class Inverter(commands.Cog):
                     return await ctx.send("That URL is invalid.")
                 except aiohttp.ClientError:
                     return await ctx.send("Something went wrong while trying to get the image.")
-        else:
-            await ctx.send_help()
-            return
 
         data = io.BytesIO(data)
         try:
@@ -77,16 +77,26 @@ class Inverter(commands.Cog):
             title=f"Inverted {image_type.capitalize()}",
             color=await ctx.embed_colour(),
         )
-        embed.set_image(url="attachment://image.png")
-        embed.set_author(name=user.name, icon_url=user.avatar_url)
-        await ctx.send(file=discord.File(buff, filename="image.png"), embed=embed)
+        try:
+            embed.set_image(url="attachment://image.png")
+            embed.set_author(name=user.name, icon_url=user.avatar_url)
+            await ctx.send(file=discord.File(buff, filename="image.png"), embed=embed)
+        except discord.HTTPException:
+            await ctx.send("The image quality was too high, sorry!")
+            return
 
-    @commands.group(invoke_without_command=True)
-    async def invert(self, ctx, url: str = None):
+    @commands.group()
+    async def invert(self, ctx: commands.Context):
+        """Invert images and avatars."""
+
+    @invert.command()
+    async def image(self, ctx, url: str = None):
         """Invert an image.
 
         You can either upload an image or paste a URL.
         """
+        if not any([url, ctx.message.attachments]):
+            return await ctx.send_help()
         msg = await ctx.send("Inverting image...")
         await self.invert_image(
             ctx=ctx,

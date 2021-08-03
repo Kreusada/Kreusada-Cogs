@@ -15,6 +15,7 @@ body:
         - Dehoister
         - Ecryptor
         - Flags
+        - Inverter
         - Minifier
         - Mjolnir
         - NameGenerator
