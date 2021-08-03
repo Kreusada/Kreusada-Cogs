@@ -10,7 +10,7 @@
     "name": "Inverter",
     "required_cogs": {},
     "requirements": [
-        "PIL"
+        "pillow"
     ],
     "short": "Invert images and avatars.",
     "tags": [
