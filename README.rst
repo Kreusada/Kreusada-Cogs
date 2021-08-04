@@ -35,6 +35,12 @@ Available cogs list
 Please see `here <https://github.com/Kreusada/Kreusada-Cogs/blob/master/cogs.csv>`_ for the list of
 available cogs.
 
+------------------
+Supporting my work
+------------------
+
+I'm accepting donations to my `patreon <https://patreon.com/kreusada>`_, I'm very grateful for anything!
+
 ------------
 Contributing
 ------------
