@@ -1,4 +1,5 @@
 import contextlib
+import functools
 import logging
 import random
 
@@ -29,7 +30,7 @@ class PingOverride(commands.Cog):
     }
 
     __author__ = ["Kreusada"]
-    __version__ = "3.3.1"
+    __version__ = "3.3.2"
 
     def __init__(self, bot):
         self.bot = bot
@@ -71,7 +72,6 @@ class PingOverride(commands.Cog):
             content = random.choice(content)
         content = content.format(**fmt_kwargs)
 
-        sender = ctx.send
         kwargs = {}
 
         if settings["embed"]["toggled"]:
@@ -93,10 +93,12 @@ class PingOverride(commands.Cog):
             kwargs["content"] = content
 
         if settings["reply_settings"]["toggled"]:
-            sender = ctx.reply
             kwargs["mention_author"] = settings["reply_settings"]["mention"]
+            sender = functools.partial(ctx.reply, **kwargs)
+        else:
+            sender = functools.partial(ctx.send, **kwargs)
 
-        await sender(**kwargs)
+        await sender()
 
     @commands.group()
     async def pingset(self, ctx: commands.Context):
