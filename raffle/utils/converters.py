@@ -33,3 +33,19 @@ class RaffleExists(Converter):
                     "There is not an ongoing raffle with the name `{}`.".format(argument)
                 )
         return argument
+
+
+class RaffleNameConverter(Converter):
+    async def convert(self, ctx: Context, argument: str):
+        if len(argument) > 25:
+            raise BadArgument(
+                "Name must be under 25 characters, your raffle name had {}.".format(len(argument))
+            )
+        for char in argument:
+            if char == "_":
+                # We want to allow underscores
+                continue
+            if not char.isalnum():
+                raise BadArgument(f"`{char}` is not an alphanumeric character.")
+
+        return argument
