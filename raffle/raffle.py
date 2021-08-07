@@ -10,7 +10,7 @@ from redbot.core.utils.chat_formatting import humanize_list
 from .commands import Commands
 from .mixins.metaclass import MetaClass
 from .utils.cleanup import CleanupHelpers
-from .version_handler import VersionHandler
+from .utils.version_handler import VersionHandler
 
 RaffleCog = getattr(commands, "Cog", object)
 _ = Translator("Raffle", __file__)

@@ -4,7 +4,7 @@ from typing import Tuple
 
 import aiohttp
 
-RAW_VERSION_PATH = Path(__file__).parent / "info.json"
+RAW_VERSION_PATH = Path(__file__).parent.parent / "info.json"
 RAW_VERSION_URL = (
     "https://raw.githubusercontent.com/Kreusada/Kreusada-Cogs/master/raffle/info.json"
 )

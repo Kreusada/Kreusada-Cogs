@@ -11,7 +11,7 @@ from ..utils.enums import RaffleComponents
 from ..utils.formatting import CURRENT_PAGE, LEFT_ARROW, RIGHT_ARROW, curl
 from ..utils.helpers import compose_menu, format_underscored_text, listumerate, yield_sectors
 from ..utils.parser import RaffleManager
-from ..version_handler import VersionHandler
+from ..utils.version_handler import VersionHandler
 
 _ = Translator("Raffle", __file__)
 

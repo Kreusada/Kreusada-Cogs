@@ -26,6 +26,6 @@ class RaffleSafeMember(object):
         curled = curl(f"{self.obj}.{attr}")
         quote = lambda x: f'"{x}"'
         exc = "{} is not valid! {} has no attribute {}.".format(
-            curl(f"{self.obj}.{attr}"), self.obj.capitalize(), quote(attr)
+            curled, self.obj.capitalize(), quote(attr)
         )
         raise InvalidArgument(exc)

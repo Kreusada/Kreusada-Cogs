@@ -1,8 +1,6 @@
 import asyncio
 import contextlib
 
-from raffle.utils.converters import RaffleFactoryConverter
-
 import discord
 from redbot.core import commands
 from redbot.core.commands import Context
@@ -12,6 +10,7 @@ from redbot.core.utils.predicates import MessagePredicate, ReactionPredicate
 
 from ..mixins.abc import RaffleMixin
 from ..mixins.metaclass import MetaClass
+from ..utils.converters import RaffleFactoryConverter
 from ..utils.exceptions import RaffleError
 from ..utils.formatting import cross, tick
 from ..utils.helpers import cleanup_code, format_traceback, validator
