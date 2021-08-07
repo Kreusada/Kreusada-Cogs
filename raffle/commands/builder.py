@@ -120,7 +120,9 @@ class BuilderCommands(RaffleMixin, metaclass=MetaClass):
         await self.clean_guild_raffles(ctx)
 
     @create.command()
-    async def simple(self, ctx, raffle_name: RaffleNameConverter, *, description: Optional[str] = None):
+    async def simple(
+        self, ctx, raffle_name: RaffleNameConverter, *, description: Optional[str] = None
+    ):
         """Create a simple arguments with just a name and description.
 
         **Arguments:**

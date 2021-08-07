@@ -39,9 +39,7 @@ class RaffleNameConverter(Converter):
     async def convert(self, ctx: Context, argument: str):
         if len(argument) > 25:
             raise BadArgument(
-                "Name must be under 25 characters, your raffle name had {}.".format(
-                    len(argument)
-                )
+                "Name must be under 25 characters, your raffle name had {}.".format(len(argument))
             )
         for char in argument:
             if char == "_":
