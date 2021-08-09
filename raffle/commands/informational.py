@@ -263,7 +263,7 @@ class InformationalCommands(RaffleMixin, metaclass=MetaClass):
         async with ctx.typing():
             cls = VersionHandler()
             raw = await cls.request_raw_version()
-            if not await cls.validate():
+            if await cls.validate():
                 message = _(
                     "**Your raffle cog is out of date!**\n"
                     "The up to date version is **{1}**, whilst yours is **{0.__version__}**.\n\n"
