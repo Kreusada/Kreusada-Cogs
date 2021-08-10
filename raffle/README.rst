@@ -94,7 +94,7 @@ to customize this message so that it has context.
 ``entry_count``:
     The number of entries in the raffle.
 
-``winner``:
+``user``:
     The member object of the user who joined the raffle.
     The user variable has various attributes, which
     are self explanatory:
