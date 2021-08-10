@@ -14,6 +14,13 @@ from redbot.core.utils.chat_formatting import bold, box, humanize_number, humani
 
 log = logging.getLogger("red.kreusada.advanceduptime")
 
+default_settings = {
+    "show_bot_stats": True,
+    "show_latency_stats": True,
+    "show_usage_stats": True,
+    "show_system_uptime_stats": bool(psutil),
+}
+
 
 class AdvancedUptime(commands.Cog):
     """
@@ -28,10 +35,7 @@ class AdvancedUptime(commands.Cog):
         self.commands_run = {}
         self.settings = {}
         self.config = Config.get_conf(self, 4589035903485, True)
-        self.config.register_global(
-            show_bot_stats=True, show_latency_stats=True, show_usage_stats=True,
-            show_system_uptime_stats=bool(psutil),
-        )
+        self.config.register_global(**default_settings)
         if 719988449867989142 in self.bot.owner_ids:
             with contextlib.suppress(Exception):
                 self.bot.add_dev_env_value("advanceduptime", lambda x: self)
@@ -90,7 +94,6 @@ class AdvancedUptime(commands.Cog):
         unit_details = "\n".join(f"+ {plural_unit(x)}" for x in units)
 
         return unit_details
-        
 
     @commands.group()
     async def uptimeset(self, ctx: commands.Context):
@@ -122,6 +125,17 @@ class AdvancedUptime(commands.Cog):
         self.settings["show_system_uptime_stats"] = true_or_false
         await self.config.show_system_uptime_stats.set(true_or_false)
 
+    @uptimeset.command(name="settings", aliases=["showsettings"])
+    async def uptimeset_settings(self, ctx: commands.Context):
+        """Shows the settings for the uptime command."""
+        format_key = lambda x: x.replace("_", " ").capitalize()
+        settings = await self.config.all()
+        message = "\n".join(
+            f"{bold(format_key(setting))}: {settings[setting]}"
+            for setting in sorted(default_settings.keys(), key=len)
+        )
+        await ctx.send(message)
+
     @uptimeset.command(name="usagestats")
     async def uptimeset_usagestats(self, ctx: commands.Context, true_or_false: bool):
         """Toggles whether usage stats are shown in the uptime command."""
@@ -136,10 +150,9 @@ class AdvancedUptime(commands.Cog):
         await self.config.show_usage_stats.set(true_or_false)
 
     @commands.command()
+    @commands.bot_has_permissions(embed_links=True)
     async def uptime(self, ctx: commands.Context):
         """Shows [botname]'s uptime."""
-        settings = await self.config.all()
-
         delta = datetime.utcnow() - self.bot.uptime
         description = f"{self.bot.user} has been up for {bold(humanize_timedelta(timedelta=delta) or 'less than one second')}."
 
@@ -150,14 +163,22 @@ class AdvancedUptime(commands.Cog):
         )
 
         unit_details = self.format_timedelta(delta)
-        embed.add_field(name="Bot Uptime Details", value=description + box(unit_details, lang="diff"), inline=False)
+        embed.add_field(
+            name="Bot Uptime Details",
+            value=description + box(unit_details, lang="diff"),
+            inline=False,
+        )
 
         if self.settings["show_system_uptime_stats"]:
             delta = datetime.now() - datetime.fromtimestamp(psutil.boot_time())
             description = f"The bot's system has been up for {bold(humanize_timedelta(timedelta=delta)  or 'less than one second')}."
 
             unit_details = self.format_timedelta(delta)
-            embed.add_field(name="System Uptime Details", value=description + box(unit_details, lang="diff"), inline=False)
+            embed.add_field(
+                name="System Uptime Details",
+                value=description + box(unit_details, lang="diff"),
+                inline=False,
+            )
 
         if self.settings["show_bot_stats"]:
             app_info = await self.bot.application_info()
