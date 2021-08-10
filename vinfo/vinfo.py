@@ -33,7 +33,7 @@ class Vinfo(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "2.0.5"
+    __version__ = "2.0.6"
 
     def __init__(self, bot):
         self.bot = bot
@@ -87,7 +87,7 @@ class Vinfo(commands.Cog):
         embed = discord.Embed(
             title=f"Version Information on {cog}",
             color=await ctx.embed_colour(),
-            timestamp=datetime.datetime.now(),
+            timestamp=datetime.datetime.now(datetime.timezone.utc),
         )
 
         cog_obj = self.bot.get_cog(cog)
