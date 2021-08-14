@@ -8,18 +8,18 @@ from redbot.core.utils.chat_formatting import box, pagify
 from redbot.core.utils.embed import randomize_colour
 
 
-def diffbox(t):
-    return box(f"+ {t}", "diff")
-
-
 def build_embed(codetype: Literal["encoder", "decoder"], input, output):
     embed = discord.Embed()
     embed.set_author(
         name=f"OceanScript {codetype.capitalize()}",
         url="https://github.com/Kreusada/OceanScript#readme",
     )
+    if codetype == "encoder":
+        output = "\n".join(output.split())
+    else:
+        input = "\n".join(input.split())
     embed.add_field(name="Input", value=box(input), inline=False)
-    embed.add_field(name="Output", value=diffbox(output), inline=False)
+    embed.add_field(name="Output", value=box(output), inline=False)
     randomize_colour(embed)
     return embed
 
