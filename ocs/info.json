@@ -1,0 +1,5 @@
+{
+    "name": "OceanScript",
+    "requirements": ["oceanscript"],
+    "hidden": true
+}
