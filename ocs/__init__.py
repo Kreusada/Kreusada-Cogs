@@ -14,10 +14,6 @@ def build_embed(codetype: Literal["encoder", "decoder"], input, output):
         name=f"OceanScript {codetype.capitalize()}",
         url="https://github.com/Kreusada/OceanScript#readme",
     )
-    if codetype == "encoder":
-        output = "\n".join(output.split())
-    else:
-        input = "\n".join(input.split())
     embed.add_field(name="Input", value=box(input), inline=False)
     embed.add_field(name="Output", value=box(output), inline=False)
     randomize_colour(embed)
