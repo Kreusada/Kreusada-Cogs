@@ -74,7 +74,7 @@ class PyPi(commands.Cog):
                 license = license.capitalize()
         embed.add_field(name="License", value=license)
 
-        if (python_requires := info["requires_python"]) :
+        if python_requires := info["requires_python"]:
             name = "Python Version Requirement"
             if len(python_requires.split(",")) > 1:
                 name += "s"
@@ -84,7 +84,7 @@ class PyPi(commands.Cog):
                 inline=False,
             )
 
-        if (links := info["project_urls"]) :
+        if links := info["project_urls"]:
             filtered_links = filter(lambda x: re.match(URL_RE, x[1]), list(links.items()))
             embed.add_field(
                 name="Project URLs",
@@ -92,7 +92,7 @@ class PyPi(commands.Cog):
                 inline=False,
             )
 
-        if (classifiers := info["classifiers"]) :
+        if classifiers := info["classifiers"]:
             sort = sorted(classifiers, key=lambda x: len(x.split("::")[0]))
             embed.add_field(
                 name=f"Classifiers ({len(classifiers)})",

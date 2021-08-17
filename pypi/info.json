@@ -1,6 +1,7 @@
 {
     "author": [
-        "Kreusada", "OofChair"
+        "Kreusada", 
+        "OofChair"
     ],
     "description": "Get information about a package available on PyPi.",
     "install_msg": "Thanks for installing, have fun!",
