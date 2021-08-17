@@ -20,7 +20,7 @@ class PyPi(commands.Cog):
     """Get information about a package available on PyPi."""
 
     __author__ = ["Kreusada", "OofChair"]
-    __version__ = "1.0.0"
+    __version__ = "1.0.1"
     __dev_ids__ = [719988449867989142, 572944636209922059]
 
     def __init__(self, bot):
@@ -46,7 +46,7 @@ class PyPi(commands.Cog):
     async def pypi(self, ctx, project: str):
         """Get information about a project on PyPi."""
         await ctx.trigger_typing()
-        async with self.session.get(f"https://pypi.org/project/{project}/json") as request:
+        async with self.session.get(f"https://pypi.org/pypi/{project}/json") as request:
             if request.status != 200:
                 return await ctx.send(f"Project with the name '{project}' not found.")
             request = await request.json()
