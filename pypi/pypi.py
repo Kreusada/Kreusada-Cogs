@@ -26,9 +26,6 @@ class PyPi(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.session = aiohttp.ClientSession()
-
-    def __init__(self, bot):
-        self.bot = bot
         for user in self.__dev_ids__:
             if user in self.bot.owner_ids:
                 with contextlib.suppress(RuntimeError, ValueError):
@@ -45,6 +42,7 @@ class PyPi(commands.Cog):
             self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     @commands.command()
+    @commands.has_permissions(embed_links=True)
     async def pypi(self, ctx, project: str):
         """Get information about a project on PyPi."""
         await ctx.trigger_typing()
