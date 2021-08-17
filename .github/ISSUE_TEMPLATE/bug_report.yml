@@ -21,6 +21,7 @@ body:
         - NameGenerator
         - PingInvoke
         - PingOverride
+        - PyPi
         - Quotes
         - Raffle
         - RoleBoards

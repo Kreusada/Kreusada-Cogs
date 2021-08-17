@@ -26,10 +26,6 @@ isort --atomic --check --diff --line-length 99 --use-parentheses .
 black --check --diff -l 99 .
 exit /B %ERRORLEVEL%
 
-:gettext
-redgettext --command-docstrings --verbose --recursive --exclude-files "docs/*" .
-exit /B %ERRORLEVEL%
-
 :help
 echo Usage:
 echo   make ^<command^>
