@@ -48,7 +48,7 @@ class PyPi(commands.Cog):
         await ctx.trigger_typing()
         async with self.session.get(f"https://pypi.org/project/{project}/json") as request:
             if request.status != 200:
-                return await ctx.send("Project not found.")
+                return await ctx.send(f"Project with the name '{project}' not found.")
             request = await request.json()
 
         info = request["info"]
