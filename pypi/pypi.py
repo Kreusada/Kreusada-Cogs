@@ -47,6 +47,7 @@ class PyPi(commands.Cog):
     @commands.command()
     async def pypi(self, ctx, project: str):
         """Get information about a project on PyPi."""
+        await ctx.trigger_typing()
         async with self.session.get(f"https://pypi.org/project/{project}/json") as request:
             if request.status != 200:
                 return await ctx.send("Project not found.")
