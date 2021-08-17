@@ -54,6 +54,9 @@
   - pingoverride/*
   - docs/cog_pingoverride.rst
 
+"Cog: PyPi":
+  - pypi/*
+
 "Cog: Quotes":
   - quotes/*
   - docs/cog_quotes.rst
