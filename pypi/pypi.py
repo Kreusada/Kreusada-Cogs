@@ -17,10 +17,12 @@ with open(Path(__file__).parent / "info.json") as fp:
 
 
 class PyPi(commands.Cog):
+    """Get information about a package available on PyPi."""
 
     __author__ = ["Kreusada", "OofChair"]
     __version__ = "1.0.0"
     __dev_ids__ = [719988449867989142, 572944636209922059]
+
     def __init__(self, bot):
         self.bot = bot
         self.session = aiohttp.ClientSession()
