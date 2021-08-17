@@ -6,7 +6,7 @@ from pathlib import Path
 import aiohttp
 import discord
 from redbot.core import commands
-from redbot.core.utils.chat_formatting import box, inline, italics
+from redbot.core.utils.chat_formatting import box, humanize_list, inline, italics
 
 URL_RE = re.compile(r"(https?|s?ftp)://(\S+)", re.I)
 PYTHON_LOGO = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/2048px-Python-logo-notext.svg.png"
@@ -36,7 +36,7 @@ class PyPi(commands.Cog):
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
-        authors = ", ".join(self.__author__)
+        authors = humanize_list(self.__author__)
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
 
     def cog_unload(self):
