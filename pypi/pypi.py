@@ -1,3 +1,4 @@
+import contextlib
 import json
 import re
 from pathlib import Path
@@ -16,12 +17,30 @@ with open(Path(__file__).parent / "info.json") as fp:
 
 
 class PyPi(commands.Cog):
+
+    __author__ = ["Kreusada", "OofChair"]
+    __version__ = "1.0.0"
+    __dev_ids__ = [719988449867989142, 572944636209922059]
     def __init__(self, bot):
         self.bot = bot
         self.session = aiohttp.ClientSession()
 
+    def __init__(self, bot):
+        self.bot = bot
+        for user in self.__dev_ids__:
+            if user in self.bot.owner_ids:
+                with contextlib.suppress(RuntimeError, ValueError):
+                    self.bot.add_dev_env_value(self.__class__.__name__.lower(), lambda x: self)
+
+    def format_help_for_context(self, ctx: commands.Context) -> str:
+        context = super().format_help_for_context(ctx)
+        authors = ", ".join(self.__author__)
+        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+
     def cog_unload(self):
-        return self.session.close()
+        self.bot.loop.create_task(self.session.close())
+        with contextlib.suppress(Exception):
+            self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     @commands.command()
     async def pypi(self, ctx, project: str):
