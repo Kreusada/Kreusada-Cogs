@@ -43,7 +43,7 @@ class PyPi(commands.Cog):
             self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     @commands.command()
-    @commands.has_permissions(embed_links=True)
+    @commands.bot_has_permissions(embed_links=True)
     async def pypi(self, ctx, project: str):
         """Get information about a project on PyPi."""
         await ctx.trigger_typing()
