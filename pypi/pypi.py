@@ -1,4 +1,5 @@
 import contextlib
+import io
 import json
 import re
 from pathlib import Path
@@ -20,7 +21,7 @@ class PyPi(commands.Cog):
     """Get information about a package available on PyPi."""
 
     __author__ = ["Kreusada", "OofChair"]
-    __version__ = "1.0.1"
+    __version__ = "1.0.2"
     __dev_ids__ = [719988449867989142, 572944636209922059]
 
     def __init__(self, bot):
@@ -53,6 +54,8 @@ class PyPi(commands.Cog):
 
         info = request["info"]
 
+        kwargs = {}
+
         embed = discord.Embed(
             title=f"{info['name']} {info['version']}", color=0x3498DB, url=info["package_url"]
         )
@@ -72,6 +75,10 @@ class PyPi(commands.Cog):
             if license == "UNKNOWN":
                 #  If it's still unknown
                 license = license.capitalize()
+        if len(license) > 35:
+            license = "[TRUNCATED] See file attached"
+            bytesio = io.BytesIO(license.encode("utf-8"))
+            kwargs["file"] = discord.File(bytesio, filename="LICENSE")
         embed.add_field(name="License", value=license)
 
         if python_requires := info["requires_python"]:
@@ -102,4 +109,7 @@ class PyPi(commands.Cog):
         embed.set_author(
             name="Python Package Index", icon_url=PYTHON_LOGO, url="https://pypi.org/"
         )
-        await ctx.send(embed=embed)
+
+        kwargs["embed"] = embed
+
+        await ctx.send(**kwargs)
