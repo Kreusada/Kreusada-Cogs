@@ -53,7 +53,7 @@ class BuilderCommands(RaffleMixin, metaclass=MetaClass):
         except asyncio.TimeoutError:
             with contextlib.suppress(discord.NotFound):
                 await instruction_message.delete()
-                return
+            return
 
         content = content.content
         valid = validator(cleanup_code(content))
