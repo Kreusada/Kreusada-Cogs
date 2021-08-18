@@ -284,7 +284,7 @@ class Settings(MixinMeta, metaclass=ABCMeta):
         await ctx.send(f"Alright, it's been set to {str(number_of_retries)}")
 
     # Taken from my logic at
-    # https://github.com/SharkyTheKing/Sharky/blob/master/verify/verification.py#L163, thank buddy
+    # https://github.com/SharkyTheKing/Sharky/blob/master/verify/verification.py, thank buddy
     # What the f*ck do you mean I'm lazy? Dude I made 3/4 of the cog and logic in less a week, I
     # deserve understanding what sleep schedule mean!
 
