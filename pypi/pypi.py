@@ -76,8 +76,8 @@ class PyPi(commands.Cog):
                 #  If it's still unknown
                 license = license.capitalize()
         if len(license) > 35:
-            license = "[TRUNCATED] See file attached"
             bytesio = io.BytesIO(license.encode("utf-8"))
+            license = "[TRUNCATED] See file attached"
             kwargs["file"] = discord.File(bytesio, filename="LICENSE")
         embed.add_field(name="License", value=license)
 
