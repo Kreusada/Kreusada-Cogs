@@ -10,6 +10,7 @@ body:
       options:
         - AdvancedUptime
         - AlphaNato
+        - Captcha
         - CogPaths
         - ConsoleClearer
         - Dehoister

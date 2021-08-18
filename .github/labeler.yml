@@ -10,6 +10,9 @@
   - blackformatter/*
   - docs/cog_blackformatter.rst
 
+"Cog: Captcha":
+  - captcha/*
+
 "Cog: CogPaths":
   - cogpaths/*
   - docs/cog_cogpaths.rst

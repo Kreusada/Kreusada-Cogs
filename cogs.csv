@@ -2,6 +2,7 @@ Cog Name,Description,Tags,Authors
 AdvancedUptime,Uptime but with additional statistics and inside an embed.,"Tools, Informative",Kreusada
 AlphaNato,Get NATO phonetics through given letters., "Tools, Fun",Kreusada
 BlackFormatter,Style your code with the Black formatter,Tools,Kreusada
+Captcha,A Captcha defensive system. to challenge the new users and protect yourself a bit more from raids,Tools,"Predeactor, Kreusada"
 CogPaths,Get various paths for a cog.,"Tools, Informative",Kreusada
 ConsoleClearer,Completely clear your Red console,Tools,Kreusada
 Dehoister,Dehoist new users with a variety of tools.,Mod,Kreusada
@@ -13,7 +14,7 @@ Mjolnir,Try to lift Thor's hammer,Fun,"Jojo, Kreusada"
 NameGenerator,Generate random names with optional gender arguments.,Fun,Kreusada
 PingInvoke,r2d2? wall-e? Invoke ping by asking if your bot's there.,"Tools, Fun",Kreusada
 PingOverride,Replace the default ping response with your own response!,"Tools, Fun",Kreusada
-PyPi,Get information about a package available on PyPi.,Tools,Kreusada
+PyPi,Get information about a package available on PyPi.,Tools,"Kreusada, OofChair"
 Quotes,Get a random quote,Fun,Kreusada
 Raffle,Create raffles for your guild,Fun,Kreusada
 RPSLS,"Rock, paper, scissors, lizard, rock",Fun,Kreusada
