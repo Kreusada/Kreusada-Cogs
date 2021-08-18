@@ -37,7 +37,7 @@ class Challenge:
 
         self.type: str = self.config["type"]
 
-        self.messages: dict = dict()
+        self.messages: dict = {}
         # bot_challenge: Message send for the challenge, contain captcha.
         # logs: The message that has been sent in the logging channel.
         # answer: Member's answer to captcha, may or may not exist.

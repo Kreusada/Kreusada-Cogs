@@ -36,7 +36,7 @@ async def build_embed_with_missing_permissions(permissions: List[str]):
         ),
         colour=discord.Colour.red().value,
     )
-    strmissing = str()
+    strmissing = ""
     for perm in permissions:
         strmissing += "".join(("\n", form.inline(perm.replace("_", " ").capitalize())))
     embed.add_field(
@@ -55,7 +55,7 @@ async def build_embed_with_missing_settings(settings: List[str]):
         ),
         colour=discord.Colour.red().value,
     )
-    strmissing = str()
+    strmissing = ""
     for setting in settings:
         strmissing += "".join(("\n", form.inline(setting.replace("_", " ").capitalize())))
     embed.add_field(name=f"Missing setting{'s' if len(settings) > 1 else ''}:", value=strmissing)
