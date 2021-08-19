@@ -20,7 +20,7 @@ class VoteChannel(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "2.0.0"
+    __version__ = "2.0.1"
 
     def __init__(self, bot):
         self.bot = bot
@@ -166,4 +166,5 @@ class VoteChannel(commands.Cog):
             return
 
         for emoji in ("up", "down"):
-            await message.add_reaction(settings[emoji])
+            with contextlib.suppress(discord.Forbidden):
+                await message.add_reaction(settings[emoji])
