@@ -147,9 +147,6 @@ class VoteChannel(commands.Cog):
         if message.guild is None:
             return
 
-        if message.author.bot:
-            return
-
         channel_perms = message.channel.permissions_for(message.guild)
         if not channel_perms.add_reactions:
             return
@@ -161,9 +158,6 @@ class VoteChannel(commands.Cog):
             return
 
         if not await self.bot.allowed_by_whitelist_blacklist(message.author):
-            return
-
-        if not message.guild:
             return
 
         settings = self.cache[message.channel.id]
