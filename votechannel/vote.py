@@ -2,29 +2,34 @@ import contextlib
 
 import discord
 from redbot.core import Config, commands
-from redbot.core.utils.chat_formatting import bold
+from redbot.core.utils.chat_formatting import box
 
 DEFAULT_UP = "\N{UPWARDS BLACK ARROW}\N{VARIATION SELECTOR-16}"
 DEFAULT_DOWN = "\N{DOWNWARDS BLACK ARROW}\N{VARIATION SELECTOR-16}"
 
+_default_settings = {
+    "up": DEFAULT_UP,
+    "down": DEFAULT_DOWN,
+    "toggled": False,
+}
+
 
 class VoteChannel(commands.Cog):
     """
-    Designate a channel(s) to have vote reactions on each post.
+    Designate channels to have vote reactions on each post.
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "1.1.1"
+    __version__ = "2.0.0"
 
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, 45345435, force_registration=True)
-        self.config.register_guild(
-            up=DEFAULT_UP,
-            down=DEFAULT_DOWN,
-            channels=[],
-            toggled=True,
-        )
+        self.config.register_channel(**_default_settings)
+        self.cache = {}
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(RuntimeError, ValueError):
+                self.bot.add_dev_env_value(self.__class__.__name__.lower(), lambda _: self)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
@@ -38,138 +43,127 @@ class VoteChannel(commands.Cog):
         return
 
     def cog_unload(self):
-        with contextlib.suppress(Exception):
-            self.bot.remove_dev_env_value("votechannel")
+        with contextlib.suppress(KeyError):
+            self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
-    async def initialize(self) -> None:
-        if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(Exception):
-                self.bot.add_dev_env_value("votechannel", lambda x: self)
+    async def initialize(self):
+        self.cache = await self.config.all_channels()
 
     @commands.group()
-    async def vote(self, ctx):
+    async def votechannel(self, ctx: commands.Context):
         """Commands with VoteChannel."""
 
-    @vote.group()
-    async def channel(self, ctx):
-        """Set channels where votes can take place."""
-
+    @votechannel.command(name="add")
     @commands.mod_or_permissions(administrator=True)
-    @channel.command()
-    async def add(self, ctx, channel: discord.TextChannel):
+    async def votechannel_add(self, ctx: commands.Context, channel: discord.TextChannel):
         """Add a channel."""
-        channels = await self.config.guild(ctx.guild).channels()
-        channels.append(channel.id)
-        await self.config.guild(ctx.guild).channels.set(channels)
-        await ctx.send(f"{channel.mention} is now a voting channel.")
+        toggle = await self.config.channel(channel).toggled()
+        if toggle:
+            await ctx.send("This channel is already being used as a vote channel.")
+        else:
+            if not channel.permissions_for(ctx.me).add_reactions:
+                await ctx.send("I need to be able to add reactions in that channel.")
+                return
+            await self.config.channel(channel).toggled.set(True)
+            self.cache[channel.id] = _default_settings
+            self.cache[channel.id]["toggled"] = True
+            await ctx.send(f"{channel.mention} is now a vote channel.")
 
+    @votechannel.command(name="remove", aliases=["del", "delete"])
     @commands.mod_or_permissions(administrator=True)
-    @channel.command(aliases=["del", "delete"])
-    async def remove(self, ctx, channel: discord.TextChannel):
+    async def votechannel_remove(self, ctx: commands.Context, channel: discord.TextChannel):
         """Remove a channel."""
-        channels = await self.config.guild(ctx.guild).channels()
-        if channel.id in channels:
-            channels.remove(channel.id)
-            await self.config.guild(ctx.guild).channels.set(channels)
-            await ctx.send(f"{channel.mention} has been removed.")
+        toggle = await self.config.channel(channel).toggled()
+        if not toggle:
+            await ctx.send("This channel is not already being used as a vote channel.")
         else:
-            await ctx.send(f"{channel.mention} was not a voting channel.")
+            await self.config.channel(channel).toggled.set(False)
+            del self.cache[channel.id]
+            await ctx.send(f"{channel.mention} is no longer a vote channel.")
 
-    @channel.command(name="list")
-    async def _list(self, ctx):
-        """List the current voting channels."""
-        channels = await self.config.guild(ctx.guild).channels()
-        if channels:
-            await ctx.send(
-                bold("Current channels with VoteChannel:\n")
-                + ", ".join(self.bot.get_channel(c).mention for c in channels)
-            )
-        else:
-            await ctx.send(bold("No channels are being used for VoteChannel yet."))
-
+    @votechannel.command(name="list", aliases=["show"])
     @commands.mod_or_permissions(administrator=True)
-    @vote.command()
-    async def toggle(self, ctx):
-        """Toggle VoteChannel."""
-        toggled = await self.config.guild(ctx.guild).toggled()
-        x = not toggled
-        verb = "disabled" if toggled else "enabled"
-        await self.config.guild(ctx.guild).toggled.set(x)
-        await ctx.send(f"VoteChannel has been {verb}.")
+    async def votechannel_list(self, ctx: commands.Context):
+        """List the vote channels."""
+        channels = []
+        for channel in ctx.guild.text_channels:
+            with contextlib.suppress(KeyError):
+                if self.cache[channel.id]["toggled"]:
+                    channels.append(channel.name)
+        if not channels:
+            await ctx.send("There are no vote channels.")
+            return
+        channels = box("\n".join(f"+ {c}" for c in channels), lang="diff")
+        await ctx.send(f"**Current vote channels:**\n{channels}")
 
-    @vote.group()
-    async def emoji(self, ctx):
-        """Set the emojis for VoteChannel."""
-
+    @votechannel.command(name="upemoji")
     @commands.mod_or_permissions(administrator=True)
-    @emoji.command()
-    async def up(self, ctx, emoji: str = None):
-        """
-        Set the up emoji.
-
-        If an invalid emoji is given, your vote channel will error.
-        If left blank, defaults to the default up emoji.
-        """
-        if not emoji:
-            await self.config.guild(ctx.guild).up.set(DEFAULT_UP)
-            await ctx.send(f"Up reaction has been reset to `{DEFAULT_UP}`.")
+    async def votechannel_upemoji(
+        self, ctx: commands.Context, channel: discord.TextChannel, emoji: str
+    ):
+        """Change the up emoji for a channel."""
+        try:
+            await ctx.message.add_reaction(emoji)
+        except discord.HTTPException:
+            message = "Invalid emoji."
         else:
-            await self.config.guild(ctx.guild).up.set(emoji)
-            await ctx.tick()
+            toggle = await self.config.channel(channel).toggled()
+            if not toggle:
+                message = "This channel is not yet a vote channel."
+            elif emoji == self.cache[channel.id]["down"]:
+                message = "The emoji cannot be the same as the down emoji."
+            else:
+                message = f'Set the up emoji for {channel.mention} to "{emoji}".'
+                await self.config.channel(channel).up.set(emoji)
+                self.cache[channel.id]["up"] = emoji
+        finally:
+            await ctx.send(message)
 
+    @votechannel.command(name="downemoji")
     @commands.mod_or_permissions(administrator=True)
-    @emoji.command()
-    async def down(self, ctx, emoji: str = None):
-        """
-        Set the down emoji.
-
-        If an invalid emoji is given, your vote channel will error.
-        If left blank, defaults to the default down emoji.
-        """
-        if not emoji:
-            await self.config.guild(ctx.guild).down.set(DEFAULT_DOWN)
-            await ctx.send(f"Down reaction has been reset to `{DEFAULT_DOWN}`.")
+    async def votechannel_downemoji(
+        self, ctx: commands.Context, channel: discord.TextChannel, emoji: str
+    ):
+        """Change the down emoji for a channel."""
+        try:
+            await ctx.message.add_reaction(emoji)
+        except discord.HTTPException:
+            message = "Invalid emoji."
         else:
-            await self.config.guild(ctx.guild).down.set(emoji)
-            await ctx.tick()
-
-    @emoji.command()
-    async def presets(self, ctx):
-        """View the current emojis for VoteChannel."""
-        UP = await self.config.guild(ctx.guild).up()
-        DOWN = await self.config.guild(ctx.guild).down()
-        await ctx.send(f"{bold('Up Emoji: ')}{UP}\n{bold('Down Emoji: ')}{DOWN}")
+            toggle = await self.config.channel(channel).toggled()
+            if not toggle:
+                message = "This channel is not yet a vote channel."
+            elif emoji == self.cache[channel.id]["up"]:
+                message = "The emoji cannot be the same as the up emoji."
+            else:
+                message = f'Set the down emoji for {channel.mention} to "{emoji}".'
+                await self.config.channel(channel).down.set(emoji)
+                self.cache[channel.id]["down"] = emoji
+        finally:
+            await ctx.send(message)
 
     @commands.Cog.listener()
-    async def on_message_without_command(self, message):
-        ### We will allow bots to receive reactions here
-        if not message.guild:
-            return
-        if not await self.config.guild(message.guild).toggled():
-            return
-        if message.channel.id not in await self.config.guild(message.guild).channels():
+    async def on_message_without_command(self, message: discord.Message):
+        if message.guild is None:
             return
 
-        UP = await self.config.guild(message.guild).up()
-        DOWN = await self.config.guild(message.guild).down()
+        channel_perms = message.channel.permissions_for(message.guild)
+        if not channel_perms.add_reactions:
+            return
 
-        try:
-            await message.add_reaction(UP)
-            await message.add_reaction(DOWN)
-        #### Seeing as we've allowed bot's to react to themselves,
-        #### we now need to disable the exceptions on themselves to nullify any spam.
-        except discord.Forbidden:
-            if not message.author.bot:
-                msg = (
-                    f"{message.author.mention} Looks like I cannot add reactions to your message. "
-                )
-                if not message.channel.permissions_for(message.guild.me).add_reactions:
-                    msg += "I do not have permissions to add reactions here."
-                else:
-                    msg += "You most likely have blocked me."
-                return await message.channel.send(msg, delete_after=5)
-        except discord.HTTPException:
-            if not message.author.bot:
-                return await message.channel.send(
-                    "You did not enter a valid emoji in the setup.", delete_after=5
-                )
+        if await self.bot.cog_disabled_in_guild(self, message.guild):
+            return
+
+        if not await self.bot.ignored_channel_or_guild(message):
+            return
+
+        if not await self.bot.allowed_by_whitelist_blacklist(message.author):
+            return
+
+        settings = self.cache[message.channel.id]
+
+        if not self.cache[message.channel.id]["toggled"]:
+            return
+
+        for emoji in ("up", "down"):
+            await message.add_reaction(settings[emoji])

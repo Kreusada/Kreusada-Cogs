@@ -5,6 +5,7 @@ from typing import Union
 import discapty
 import discord
 from redbot.core.bot import Red
+from redbot.core.commands import MissingPermissions
 from redbot.core.utils import chat_formatting as form
 from redbot.core.utils.predicates import MessagePredicate, ReactionPredicate
 
@@ -148,12 +149,12 @@ class Challenge:
                 delete_after=900,  # Delete after 15 minutes.
             )
         except discord.Forbidden:
-            raise PermissionError("Cannot send message in verification channel.")
+            raise MissingPermissions("Cannot send message in verification channel.")
         self.messages["bot_challenge"] = bot_message
         try:
             await bot_message.add_reaction("🔁")
         except discord.Forbidden:
-            raise PermissionError("Cannot react in verification channel.")
+            raise MissingPermissions("Cannot react in verification channel.")
 
     async def wait_for_action(self) -> Union[discord.Reaction, discord.Message, None]:
         """Wait for an action from the user.
@@ -213,12 +214,12 @@ class Challenge:
                 delete_after=900,  # Delete after 15 minutes.
             )
         except discord.Forbidden:
-            raise PermissionError("Cannot send message in verification channel.")
+            raise MissingPermissions("Cannot send message in verification channel.")
         self.messages["bot_challenge"] = bot_message
         try:
             await bot_message.add_reaction("🔁")
         except discord.Forbidden:
-            raise PermissionError("Cannot react in verification channel.")
+            raise MissingPermissions("Cannot react in verification channel.")
 
     async def verify(self, code_input: str) -> bool:
         """Verify a code."""
@@ -250,7 +251,7 @@ class Challenge:
             except discord.Forbidden:
                 if not isinstance(self.channel, discord.DMChannel):
                     # We're fine with not deleting user's message if it's in DM.
-                    raise PermissionError("Cannot delete message.")
+                    raise MissingPermissions("Cannot delete message.")
             except discord.HTTPException:
                 errored = True
         return not errored  # Return if deleted, contrary of erroring, big brain
