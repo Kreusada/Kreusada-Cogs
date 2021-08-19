@@ -2,6 +2,7 @@ __author__ = ["Predeactor", "Kreusada"]
 __version__ = "v1.0.2"
 
 __patchnote__ = (
+    "**This message was written by Predeactor:**\n\n"
     "Hello user. Thank for installing my new Captcha cog!\n"
     "This cog is the super, evolved version of my old cog, Captcher, which is now officially "
     "deprecated for this cog, and oh god, this is really a big step for me!\n\n"
@@ -30,6 +31,7 @@ __patchnote_version__ = "1"
 
 __OLD_PATCHNOTES__ = {
     1: (
+        "**This message was written by Predeactor:**\n\n"
         "Hello user. Thank for installing my new Captcha cog!\n"
         "This cog is the super, evolved version of my old cog, Captcher, which is now officially "
         "deprecated for this cog, and oh god, this is really a big step for me!\n\n"
