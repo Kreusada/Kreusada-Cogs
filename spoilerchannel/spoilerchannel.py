@@ -99,4 +99,3 @@ class SpoilerChannel(commands.Cog):
             for attachment in message.attachments:
                 if not attachment.is_spoiler():
                     await message.delete()
-
