@@ -202,7 +202,7 @@ class Challenge:
             title="{guild} Verification System".format(guild=self.guild.name),
             footer={"text": f"Tries: {self.trynum} / Limit: {self.limit}"},
             description=(
-                "Please return me the code on the followiing image. The code is made of 8 "
+                "Please return me the code on the following image. The code is made of 8 "
                 "characters."
             ),
         )
