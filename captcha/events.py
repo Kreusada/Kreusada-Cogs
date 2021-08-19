@@ -25,7 +25,7 @@ class Listeners(MixinMeta, metaclass=ABCMeta):
             except Exception as e:
                 log.critical(
                     f"An unexpected error happened!\n"
-                    f"Guild Name & ID: {challenge.guild.name} | {challenge.guild.id}"
+                    f"Guild Name & ID: {challenge.guild.name} | {challenge.guild.id}\n"
                     f"Error: {format_exception(type(e), e, e.__traceback__)}"
                 )
             finally:
