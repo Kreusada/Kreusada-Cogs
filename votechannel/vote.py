@@ -8,10 +8,11 @@ DEFAULT_UP = "\N{UPWARDS BLACK ARROW}\N{VARIATION SELECTOR-16}"
 DEFAULT_DOWN = "\N{DOWNWARDS BLACK ARROW}\N{VARIATION SELECTOR-16}"
 
 _default_settings = {
-    'up': DEFAULT_UP,
-    'down': DEFAULT_DOWN,
-    'toggled': False,
+    "up": DEFAULT_UP,
+    "down": DEFAULT_DOWN,
+    "toggled": False,
 }
+
 
 class VoteChannel(commands.Cog):
     """
@@ -97,7 +98,9 @@ class VoteChannel(commands.Cog):
 
     @votechannel.command(name="upemoji")
     @commands.mod_or_permissions(administrator=True)
-    async def votechannel_upemoji(self, ctx: commands.Context, channel: discord.TextChannel, emoji: str):
+    async def votechannel_upemoji(
+        self, ctx: commands.Context, channel: discord.TextChannel, emoji: str
+    ):
         """Change the up emoji for a channel."""
         try:
             await ctx.message.add_reaction(emoji)
@@ -110,7 +113,7 @@ class VoteChannel(commands.Cog):
             elif emoji == self.cache[channel.id]["down"]:
                 message = "The emoji cannot be the same as the down emoji."
             else:
-                message = f"Set the up emoji for {channel.mention} to \"{emoji}\"."
+                message = f'Set the up emoji for {channel.mention} to "{emoji}".'
                 await self.config.channel(channel).up.set(emoji)
                 self.cache[channel.id]["up"] = emoji
         finally:
@@ -118,7 +121,9 @@ class VoteChannel(commands.Cog):
 
     @votechannel.command(name="downemoji")
     @commands.mod_or_permissions(administrator=True)
-    async def votechannel_downemoji(self, ctx: commands.Context, channel: discord.TextChannel, emoji: str):
+    async def votechannel_downemoji(
+        self, ctx: commands.Context, channel: discord.TextChannel, emoji: str
+    ):
         """Change the down emoji for a channel."""
         try:
             await ctx.message.add_reaction(emoji)
@@ -131,7 +136,7 @@ class VoteChannel(commands.Cog):
             elif emoji == self.cache[channel.id]["up"]:
                 message = "The emoji cannot be the same as the up emoji."
             else:
-                message = f"Set the down emoji for {channel.mention} to \"{emoji}\"."
+                message = f'Set the down emoji for {channel.mention} to "{emoji}".'
                 await self.config.channel(channel).down.set(emoji)
                 self.cache[channel.id]["down"] = emoji
         finally:
@@ -157,7 +162,7 @@ class VoteChannel(commands.Cog):
 
         if not await self.bot.allowed_by_whitelist_blacklist(message.author):
             return
-        
+
         if not message.guild:
             return
 
@@ -166,5 +171,5 @@ class VoteChannel(commands.Cog):
         if not self.cache[message.channel.id]["toggled"]:
             return
 
-        for emoji in ('up', 'down'):
+        for emoji in ("up", "down"):
             await message.add_reaction(settings[emoji])
