@@ -6,6 +6,7 @@ from typing import Optional, Union
 import discord
 from redbot.core import Config, commands
 from redbot.core.bot import Red
+from redbot.core.commands import MissingPermissions
 from redbot.core.utils.chat_formatting import bold, error, humanize_list
 
 from .abc import CompositeMetaClass
@@ -178,7 +179,7 @@ class Captcha(
                     challenge.guild.get_role(temprole), reason="Beginning Captcha challenge."
                 )
             except discord.Forbidden:
-                raise PermissionError('Bot miss the "manage_roles" permission.')
+                raise MissingPermissions('Bot miss the "manage_roles" permission.')
 
     async def remove_temprole(self, challenge: Challenge) -> None:
         temprole = challenge.config["temprole"]
@@ -188,7 +189,7 @@ class Captcha(
                     challenge.guild.get_role(temprole), reason="Finishing Captcha challenge."
                 )
             except discord.Forbidden:
-                raise PermissionError('Bot miss the "manage_roles" permission.')
+                raise MissingPermissions('Bot miss the "manage_roles" permission.')
 
     async def realize_challenge(self, challenge: Challenge) -> None:
         # Seems to be the last goddamn function I'll be writing...
@@ -247,7 +248,7 @@ class Captcha(
                         logmsg,
                         member=challenge.member,
                     )
-                except PermissionError:
+                except MissingPermissions:
                     await self.send_or_update_log_message(
                         challenge.guild,
                         error(bold("Permission missing for kicking member!")),
@@ -269,7 +270,7 @@ class Captcha(
                     logmsg,
                     member=challenge.member,
                 )
-            except PermissionError:
+            except MissingPermissions:
                 roles_name = [role.name for role in roles]
                 try:
                     await challenge.member.send(
@@ -298,7 +299,7 @@ class Captcha(
         finally:
             try:
                 await challenge.cleanup_messages()
-            except PermissionError:
+            except MissingPermissions:
                 await self.send_or_update_log_message(
                     challenge.guild,
                     error(bold("Missing permissions for deleting all messages for verification!")),
@@ -320,7 +321,7 @@ class Captcha(
             else challenge.guild.text_channels[0]
         )
         if not channel.permissions_for(self.bot.get_guild(challenge.guild.id).me).manage_roles:
-            raise PermissionError('Bot miss the "manage_roles" permission.')
+            raise MissingPermissions('Bot miss the "manage_roles" permission.')
 
         await challenge.member.add_roles(*roles, reason="Passed Captcha successfully.")
 
@@ -336,14 +337,14 @@ class Captcha(
             else challenge.guild.text_channels[0]
         )
         if not channel.permissions_for(self.bot.get_guild(challenge.guild.id).me).kick_members:
-            raise PermissionError('Bot miss the "kick_members" permission.')
+            raise MissingPermissions('Bot miss the "kick_members" permission.')
 
         with suppress(discord.Forbidden, discord.HTTPException):
             await challenge.member.send(embed=build_kick_embed(challenge.guild, reason))
         try:
             await challenge.guild.kick(challenge.member, reason=reason)
         except discord.Forbidden:
-            raise PermissionError("Unable to kick member.")
+            raise MissingPermissions("Unable to kick member.")
         return True
 
     # PLEASE DON'T TOUCH THOSE FUNCTIONS WITH YOUR COG OR EVAL. Thanks. - Pred
