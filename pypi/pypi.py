@@ -21,7 +21,7 @@ class PyPi(commands.Cog):
     """Get information about a package available on PyPi."""
 
     __author__ = ["Kreusada", "OofChair"]
-    __version__ = "1.0.2"
+    __version__ = "1.0.3"
     __dev_ids__ = [719988449867989142, 572944636209922059]
 
     def __init__(self, bot):
@@ -93,11 +93,12 @@ class PyPi(commands.Cog):
 
         if links := info["project_urls"]:
             filtered_links = filter(lambda x: re.match(URL_RE, x[1]), list(links.items()))
-            embed.add_field(
-                name="Project URLs",
-                value="\n".join(f"- [{k}]({v})" for k, v in filtered_links),
-                inline=False,
-            )
+            if value := "\n".join(f"- [{k}]({v})" for k, v in filtered_links):
+                embed.add_field(
+                    name="Project URLs",
+                    value=value,
+                    inline=False,
+                )
 
         if classifiers := info["classifiers"]:
             sort = sorted(classifiers, key=lambda x: len(x.split("::")[0]))
