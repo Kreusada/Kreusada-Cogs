@@ -21,7 +21,7 @@ class PyPi(commands.Cog):
     """Get information about a package available on PyPi."""
 
     __author__ = ["Kreusada", "OofChair"]
-    __version__ = "1.0.3"
+    __version__ = "1.0.4"
     __dev_ids__ = [719988449867989142, 572944636209922059]
 
     def __init__(self, bot):
@@ -63,7 +63,8 @@ class PyPi(commands.Cog):
             "No description was provided for this project."
         )
 
-        embed.add_field(name="Author", value=info["author"] or "Unknown")
+        if (author := info["author"]) and author != " ":
+            embed.add_field(name="Author", value=author)
 
         license = info["license"] or "UNKNOWN"
         # License is UNKNOWN if unprovided
@@ -105,6 +106,7 @@ class PyPi(commands.Cog):
             embed.add_field(
                 name=f"Classifiers ({len(classifiers)})",
                 value=box("\n".join(sort), lang="asciidoc"),
+                inline=False,
             )
 
         embed.set_author(
