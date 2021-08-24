@@ -1,0 +1,24 @@
+{
+    "author": [
+        "Kreusada"
+    ],
+    "description": "Generate QR codes.",
+    "disabled": false,
+    "end_user_data_statement": "This cog does not persistently store data or metadata about users.",
+    "hidden": false,
+    "install_msg": "Thanks for installing, have fun.",
+    "name": "QR",
+    "required_cogs": {},
+    "requirements": [
+        "qrcode"
+    ],
+    "short": "Generate QR codes.",
+    "tags": [
+        "Codes",
+        "Images",
+        "PIL",
+        "Pillow",
+        "QR"
+    ],
+    "type": "COG"
+}
