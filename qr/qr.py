@@ -80,34 +80,22 @@ that would prevent the QR code from working reliably.
 with open(pathlib.Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
 
+
 class ColourConverter(commands.ColourConverter):
     async def convert(self, ctx, argument: str):
-        extra_map = {
-            discord.Colour(16777215): [
-                '0xffffff',
-                '#ffffff',
-                '0x#ffffff',
-                'white',
-            ],
-            discord.Colour(0): [
-                '0x000000',
-                '#000000',
-                '0x#000000',
-                'black',
-            ]
-        }
+        extra_map = {discord.Colour(16777215): ["white"], discord.Colour(0): ["black"]}
         try:
             original_arg = await super().convert(ctx, argument)
         except commands.BadColourArgument:
             for key, values in extra_map.items():
                 if argument.lower() in values:
                     return key
-            
+
             raise
 
         else:
             return original_arg
-            
+
 
 class QR(commands.Cog):
     """Generate a QR code."""
