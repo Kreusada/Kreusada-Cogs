@@ -83,13 +83,13 @@ with open(pathlib.Path(__file__).parent / "info.json") as fp:
 
 class ColourConverter(commands.ColourConverter):
     async def convert(self, ctx, argument: str):
-        extra_map = {discord.Colour(16777215): ["white"], discord.Colour(0): ["black"]}
+        extra_map = {"black": 0, "white": 16777215}
         try:
             original_arg = await super().convert(ctx, argument)
         except commands.BadColourArgument:
-            for key, values in extra_map.items():
-                if argument.lower() in values:
-                    return key
+            for key, value in extra_map.items():
+                if argument.lower() == key:
+                    return discord.Colour(value)
 
             raise
 
