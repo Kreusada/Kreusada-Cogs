@@ -80,6 +80,34 @@ that would prevent the QR code from working reliably.
 with open(pathlib.Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
 
+class ColourConverter(commands.ColourConverter):
+    async def convert(self, ctx, argument: str):
+        extra_map = {
+            discord.Colour(16777215): [
+                '0xffffff',
+                '#ffffff',
+                '0x#ffffff',
+                'white',
+            ],
+            discord.Colour(0): [
+                '0x000000',
+                '#000000',
+                '0x#000000',
+                'black',
+            ]
+        }
+        try:
+            original_arg = await super().convert(ctx, argument)
+        except commands.BadColourArgument:
+            for key, values in extra_map.items():
+                if argument.lower() in values:
+                    return key
+            
+            raise
+
+        else:
+            return original_arg
+            
 
 class QR(commands.Cog):
     """Generate a QR code."""
@@ -127,10 +155,10 @@ class QR(commands.Cog):
         self, ctx: commands.Context, content: str, default: Literal["black", "white"]
     ):
         default_mapping = {"white": 16777215, "black": 0}
-        colour_converter = commands.ColourConverter().convert
+        colour_converter = ColourConverter()
         has_sent = False
         try:
-            color = await colour_converter(ctx, content)
+            color = await colour_converter.convert(ctx, content)
         except commands.BadArgument:
             await ctx.send(
                 f'Failed to identify a colour from "{content}". The default fill colour ({default}) will be used instead.'
@@ -219,10 +247,14 @@ class QR(commands.Cog):
         else:
             result = int(result.content)
             qrc_kwargs = {}
+            embed_kwargs = {"color": 16777215}
 
             if result == 1:
                 for shade in ("background", "fill"):
                     update = await self.get_colour_data(ctx, setup_message, shade)
+                    if shade == "background":
+                        embed_kwargs["color"] = discord.Colour.from_rgb(*update["back_color"])
+                        print(embed_kwargs)
                     if update is False:
                         return
                     qrc_kwargs.update(update)
@@ -254,8 +286,8 @@ class QR(commands.Cog):
             buff = io.BytesIO()
             qrc.save(buff, "png")
             buff.seek(0)
-            embed = discord.Embed()
-            embed.color = await ctx.embed_color()
+            print(embed_kwargs)
+            embed = discord.Embed(**embed_kwargs)
             embed.set_image(url="attachment://qr.png")
             embed.set_author(name="Generated QR code")
             embed.add_field(name="Content", value=text)
