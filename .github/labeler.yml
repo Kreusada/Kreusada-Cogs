@@ -60,6 +60,9 @@
 "Cog: PyPi":
   - pypi/*
 
+"Cog: QR":
+  - qr/*
+
 "Cog: Quotes":
   - quotes/*
   - docs/cog_quotes.rst

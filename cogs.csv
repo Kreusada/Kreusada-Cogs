@@ -15,6 +15,7 @@ NameGenerator,Generate random names with optional gender arguments.,Fun,Kreusada
 PingInvoke,r2d2? wall-e? Invoke ping by asking if your bot's there.,"Tools, Fun",Kreusada
 PingOverride,Replace the default ping response with your own response!,"Tools, Fun",Kreusada
 PyPi,Get information about a package available on PyPi.,Tools,"Kreusada, OofChair"
+QR,Create QR codes.,Tools,Kreusada
 Quotes,Get a random quote,Fun,Kreusada
 Raffle,Create raffles for your guild,Fun,Kreusada
 RPSLS,"Rock, paper, scissors, lizard, rock",Fun,Kreusada
