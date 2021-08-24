@@ -1,4 +1,4 @@
-from .qr import QR
+from .qr import QR, __red_end_user_data_statement__
 
 
 def setup(bot):
