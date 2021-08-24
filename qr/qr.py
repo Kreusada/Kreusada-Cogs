@@ -184,7 +184,7 @@ class QR(commands.Cog):
         try:
             await setup_message.edit(content=mapper[style_type]["message"])
         except discord.NotFound:
-            setup_message = await ctx.send(mapper[style_type]["message"])
+            await ctx.send(mapper[style_type]["message"])
         try:
             check = pred(len(self.styles[style_type]))
             message = await self.bot.wait_for("message", check=check, timeout=100)
