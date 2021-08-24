@@ -242,7 +242,6 @@ class QR(commands.Cog):
                     update = await self.get_colour_data(ctx, setup_message, shade)
                     if shade == "background":
                         embed_kwargs["color"] = discord.Colour.from_rgb(*update["back_color"])
-                        print(embed_kwargs)
                     if update is False:
                         return
                     qrc_kwargs.update(update)
@@ -274,7 +273,6 @@ class QR(commands.Cog):
             buff = io.BytesIO()
             qrc.save(buff, "png")
             buff.seek(0)
-            print(embed_kwargs)
             embed = discord.Embed(**embed_kwargs)
             embed.set_image(url="attachment://qr.png")
             embed.set_author(name="Generated QR code")
