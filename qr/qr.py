@@ -171,10 +171,7 @@ class QR(commands.Cog):
                 "message": DEFAULT_DRAWER_MESSAGE,
                 "kwarg_key": "module_drawer",
             },
-            "masks": {
-                "message": DEFAULT_MASK_MESSAGE,
-                "kwarg_key": "color_mask"
-            }
+            "masks": {"message": DEFAULT_MASK_MESSAGE, "kwarg_key": "color_mask"},
         }
         pred = lambda x: MessagePredicate.contained_in(list(map(str, range(1, x + 1))))
         try:
@@ -264,4 +261,3 @@ class QR(commands.Cog):
             except (discord.HTTPException, TypeError):
                 # TypeError raised because of nonjsonserializable discord.File object
                 await ctx.send(**sender_kwargs)
-
