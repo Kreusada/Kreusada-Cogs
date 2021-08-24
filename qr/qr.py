@@ -48,7 +48,7 @@ Fear not, none of these styles will prevent the QR code from working.
 """.strip()
 
 DEFAULT_MASK_MESSAGE = """
-Please also provide a number from 1 to 6 based on the color mask you'd like.
+Please also provide a number from 1 to 5 based on the color mask you'd like.
 If you want the 'classic' QR code style, `1` is the option you'd want to go for.
 
 `1:` Solid black fill (most common)
