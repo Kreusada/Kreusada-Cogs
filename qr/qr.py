@@ -123,7 +123,9 @@ class QR(commands.Cog):
         """Nothing to delete"""
         return
 
-    async def convert_colour(self, ctx: commands.Context, content: str, default: Literal["black", "white"]):
+    async def convert_colour(
+        self, ctx: commands.Context, content: str, default: Literal["black", "white"]
+    ):
         default_mapping = {"white": 16777215, "black": 0}
         colour_converter = commands.ColourConverter().convert
         has_sent = False
@@ -138,7 +140,9 @@ class QR(commands.Cog):
         finally:
             return color, has_sent
 
-    async def get_colour_data(self, ctx, setup_message: discord.Message, shade: Literal["background", "fill"]):
+    async def get_colour_data(
+        self, ctx, setup_message: discord.Message, shade: Literal["background", "fill"]
+    ):
         check = lambda x: all(
             operator.eq(getattr(ctx, y), getattr(x, y)) for y in ("author", "channel")
         )
@@ -166,7 +170,9 @@ class QR(commands.Cog):
 
             return {f"{shade[:4]}_color": color.to_rgb()}
 
-    async def get_style_data(self, ctx, setup_message: discord.Message, style_type: Literal["drawers", "masks"]):
+    async def get_style_data(
+        self, ctx, setup_message: discord.Message, style_type: Literal["drawers", "masks"]
+    ):
         mapper = {
             "drawers": {
                 "message": DEFAULT_DRAWER_MESSAGE,
