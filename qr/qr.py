@@ -220,12 +220,16 @@ class QR(commands.Cog):
                 background = await self.get_colour_data(ctx, setup_message, "background")
                 fill = await self.get_colour_data(ctx, setup_message, "fill")
                 for shade in (background, fill):
+                    if shade is False:
+                        return
                     qrc_kwargs.update(shade)
 
             if result == 2:
                 qrc_kwargs["image_factory"] = styledpil.StyledPilImage
                 for style_type in ("drawers", "masks"):
                     update = await self.get_style_data(ctx, setup_message, style_type)
+                    if update is False:
+                        return
                     qrc_kwargs.update(update)
 
         try:
