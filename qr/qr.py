@@ -214,10 +214,9 @@ class QR(commands.Cog):
             qrc_kwargs = {}
 
             if result == 1:
-                background = await self.get_colour_data(ctx, setup_message, "background")
-                fill = await self.get_colour_data(ctx, setup_message, "fill")
-                for shade in (background, fill):
-                    if shade is False:
+                for shade in ("background", "fill"):
+                    update = await self.get_colour_data(ctx, setup_message, shade)
+                    if update is False:
                         return
                     qrc_kwargs.update(shade)
 
