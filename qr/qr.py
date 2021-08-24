@@ -51,7 +51,7 @@ DEFAULT_MASK_MESSAGE = """
 Please also provide a number from 1 to 5 based on the color mask you'd like.
 If you want the 'classic' QR code style, `1` is the option you'd want to go for.
 
-`1:` Solid black fill (most common)
+`1:` Solid black fill (most common, recommended)
 `2:` Radial Gradient
 `3:` Square Gradient
 `4:` Horizontal Gradient
@@ -140,54 +140,42 @@ class QR(commands.Cog):
         return
 
     async def convert_colour(
-        self, ctx: commands.Context, content: str, default: Literal["black", "white"]
+        self, ctx: commands.Context, content: str
     ):
-        default_mapping = {"white": 16777215, "black": 0}
         colour_converter = ColourConverter()
-        has_sent = False
         try:
-            color = await colour_converter.convert(ctx, content)
+            ret = await colour_converter.convert(ctx, content)
         except commands.BadArgument:
-            await ctx.send(
-                f'Failed to identify a colour from "{content}". The default fill colour ({default}) will be used instead.'
+            ret = (
+                f'Failed to identify a colour from "{content}" - please start over.'
             )
-            color = discord.Colour(default_mapping[default])
-            has_sent = True
         finally:
-            return color, has_sent
+            return ret
 
     async def get_colour_data(
-        self, ctx, setup_message: discord.Message, shade: Literal["background", "fill"]
+        self, ctx, shade: Literal["background", "fill"]
     ):
         check = lambda x: all(
             operator.eq(getattr(ctx, y), getattr(x, y)) for y in ("author", "channel")
         )
         message = DEFAULT_COLOR_MESSAGE_HEADER.format(shade) + DEFAULT_COLOR_MESSAGE()
+        await ctx.send(message)
 
-        try:
-            await setup_message.edit(content=message)
-        except discord.NotFound:
-            await ctx.send(message)
         try:
             message = await self.bot.wait_for("message", check=check, timeout=100)
         except asyncio.TimeoutError:
             await ctx.send("You took too long to respond, please start over.")
             return False
         else:
-            default_mapping = {"background": "white", "fill": "black"}
-            color, has_sent = await self.convert_colour(
-                ctx, message.content, default=default_mapping[shade]
-            )
-            if not has_sent:
-                message = f"{shade.capitalize()} set to {color}."
-                if shade == "background":
-                    message += " Please provide a fill colour."
-                await ctx.send(message)
+            color = await self.convert_colour(ctx, message.content)
+            if not isinstance(color, discord.Colour):
+                await ctx.send(color)
+                return False
 
             return {f"{shade[:4]}_color": color.to_rgb()}
 
     async def get_style_data(
-        self, ctx, setup_message: discord.Message, style_type: Literal["drawers", "masks"]
+        self, ctx, style_type: Literal["drawers", "masks"]
     ):
         mapper = {
             "drawers": {
@@ -197,10 +185,7 @@ class QR(commands.Cog):
             "masks": {"message": DEFAULT_MASK_MESSAGE, "kwarg_key": "color_mask"},
         }
         pred = lambda x: MessagePredicate.contained_in(list(map(str, range(1, x + 1))))
-        try:
-            await setup_message.edit(content=mapper[style_type]["message"])
-        except discord.NotFound:
-            await ctx.send(mapper[style_type]["message"])
+        await ctx.send(mapper[style_type]["message"])
         try:
             check = pred(len(self.styles[style_type]))
             message = await self.bot.wait_for("message", check=check, timeout=100)
@@ -225,7 +210,7 @@ class QR(commands.Cog):
         qrc.add_data(text)
 
         pred = lambda x: MessagePredicate.contained_in(list(map(str, range(1, x + 1))))
-        setup_message: discord.Message = await ctx.send(DEFAULT_OPENING_MESSAGE.format(text))
+        await ctx.send(DEFAULT_OPENING_MESSAGE.format(text))
 
         try:
             result = await self.bot.wait_for("message", check=pred(3), timeout=100)
@@ -239,29 +224,23 @@ class QR(commands.Cog):
 
             if result == 1:
                 for shade in ("background", "fill"):
-                    update = await self.get_colour_data(ctx, setup_message, shade)
-                    if shade == "background":
-                        embed_kwargs["color"] = discord.Colour.from_rgb(*update["back_color"])
+                    update = await self.get_colour_data(ctx, shade)
                     if update is False:
                         return
+                    if shade == "background":
+                        embed_kwargs["color"] = discord.Colour.from_rgb(*update["back_color"])
                     qrc_kwargs.update(update)
 
             if result == 2:
                 qrc_kwargs["image_factory"] = styledpil.StyledPilImage
                 for style_type in ("drawers", "masks"):
-                    update = await self.get_style_data(ctx, setup_message, style_type)
+                    update = await self.get_style_data(ctx, style_type)
                     if update is False:
                         return
                     qrc_kwargs.update(update)
 
-        try:
-            await setup_message.edit(content="Generating QR code...")
-        except discord.NotFound:
-            setup_message = await ctx.send(content="Generating QR code...")
-
+        confirmation_message = await ctx.send("Generating QR code...")
         await ctx.trigger_typing()
-        # Increase time between message deletion and
-        # embed sending for clarity
         await asyncio.sleep(1)
         sender_kwargs = {}
 
@@ -281,7 +260,7 @@ class QR(commands.Cog):
             sender_kwargs["file"] = discord.File(buff, filename="qr.png")
         finally:
             try:
-                await setup_message.edit(**sender_kwargs)
+                await confirmation_message.edit(**sender_kwargs)
             except (discord.HTTPException, TypeError):
                 # TypeError raised because of nonjsonserializable discord.File object
                 await ctx.send(**sender_kwargs)
