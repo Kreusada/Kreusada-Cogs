@@ -23,6 +23,7 @@ body:
         - PingInvoke
         - PingOverride
         - PyPi
+        - QR
         - Quotes
         - Raffle
         - RoleBoards
