@@ -225,7 +225,7 @@ class QR(commands.Cog):
                     update = await self.get_colour_data(ctx, setup_message, shade)
                     if update is False:
                         return
-                    qrc_kwargs.update(shade)
+                    qrc_kwargs.update(update)
 
             if result == 2:
                 qrc_kwargs["image_factory"] = styledpil.StyledPilImage
