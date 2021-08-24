@@ -132,7 +132,7 @@ class QR(commands.Cog):
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
 
     def cog_unload(self):
-        with contextlib.suppress(Exception):
+        with contextlib.suppress(KeyError):
             self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     async def red_delete_data_for_user(self, **kwargs):
