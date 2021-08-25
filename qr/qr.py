@@ -127,7 +127,7 @@ class QR(commands.Cog):
     """Generate a QR code."""
 
     __author__ = ["Kreusada"]
-    __version__ = "1.1.0"
+    __version__ = "1.1.1"
 
     def __init__(self, bot):
         self.bot: Red = bot
@@ -270,11 +270,12 @@ class QR(commands.Cog):
             buff = io.BytesIO()
             qrc.save(buff, "png")
             buff.seek(0)
-            embed = discord.Embed(**embed_kwargs)
-            embed.set_image(url="attachment://qr.png")
-            embed.set_author(name="Generated QR code")
-            embed.add_field(name="Content", value=text)
-            sender_kwargs["embed"] = embed
+            if await ctx.embed_requested():
+                embed = discord.Embed(**embed_kwargs)
+                embed.set_image(url="attachment://qr.png")
+                embed.set_author(name="Generated QR code")
+                embed.add_field(name="Content", value=text)
+                sender_kwargs["embed"] = embed
             sender_kwargs["file"] = discord.File(buff, filename="qr.png")
         finally:
             try:
