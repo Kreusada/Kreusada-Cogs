@@ -41,9 +41,8 @@ RANDOM_COLOURS = list(
 )
 
 DEFAULT_OPENING_MESSAGE = """
-Your message "{0}" will be converted into a QR code, but first you can customize
-how your QR code looks. Customization does **not** prevent QR codes from working
-as intended.
+Your message "{0}" will be converted into a QR code, but first you can customize how your QR code looks. 
+Customization does **not** prevent QR codes from working as intended.
 
 Would you rather be able to change the colours, or the pattern of your QR code?
 You can also go with option 3 if you want the default QR code style.
@@ -89,7 +88,7 @@ DEFAULT_COLOR_MESSAGE = (
     lambda: f"""
 This should be provided as a hex code.
 
-Make sure this colour is differentiable. 
+Make sure this colour is differentiable.
 Refrain from using colours that would prevent the QR code from working reliably.
 
 **Examples**
