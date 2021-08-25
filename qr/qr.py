@@ -1,7 +1,7 @@
 import asyncio
 import contextlib
-import io
 import inspect
+import io
 import json
 import operator
 import pathlib
@@ -19,19 +19,17 @@ from redbot.core.utils.predicates import MessagePredicate
 
 _EXCLUDED_COLOURS = (
     # These colors are excluded from showing as examples,
-    # but they may still be used in the generation of 
+    # but they may still be used in the generation of
     # QR codes.
-    "dark_theme"
-    "darker_grey",
+    "dark_theme" "darker_grey",
     "darker_gray",
     "lighter_grey",
     "lighter_gray",
     "greyple",
-    "random", # already included
+    "random",  # already included
     "default",
     "from_hsv",
     "from_rgb",
-
 )
 RANDOM_COLOURS = list(
     filter(
