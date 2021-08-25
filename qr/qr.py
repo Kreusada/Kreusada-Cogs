@@ -41,7 +41,7 @@ RANDOM_COLOURS = list(
 )
 
 DEFAULT_OPENING_MESSAGE = """
-Your message "{0}" will be converted into a QR code, but first you can customize how your QR code looks. 
+Your message "{0}" will be converted into a QR code, but first you can customize how your QR code looks.
 Customization does **not** prevent QR codes from working as intended.
 
 Would you rather be able to change the colours, or the pattern of your QR code?
