@@ -1,6 +1,7 @@
 import asyncio
 import contextlib
 import io
+import inspect
 import json
 import operator
 import pathlib
@@ -15,6 +16,31 @@ from redbot.core import commands
 from redbot.core.bot import Red
 from redbot.core.utils.chat_formatting import humanize_list
 from redbot.core.utils.predicates import MessagePredicate
+
+_EXCLUDED_COLOURS = (
+    # These colors are excluded from showing as examples,
+    # but they may still be used in the generation of 
+    # QR codes.
+    "dark_theme"
+    "darker_grey",
+    "darker_gray",
+    "lighter_grey",
+    "lighter_gray",
+    "greyple",
+    "random", # already included
+    "default",
+    "from_hsv",
+    "from_rgb",
+
+)
+RANDOM_COLOURS = list(
+    filter(
+        lambda x: (obj := getattr(discord.Colour, x, None))
+        and inspect.ismethod(obj)
+        and x not in _EXCLUDED_COLOURS,
+        dir(discord.Colour),
+    )
+)
 
 DEFAULT_OPENING_MESSAGE = """
 Your message "{0}" will be converted into a QR code, but first you can customize
@@ -65,13 +91,15 @@ DEFAULT_COLOR_MESSAGE = (
     lambda: f"""
 This should be provided as a hex code.
 
-Make sure this colour is differentiable. Refrain from using colours
-that would prevent the QR code from working reliably.
+Make sure this colour is differentiable. 
+Refrain from using colours that would prevent the QR code from working reliably.
 
 **Examples**
 
 - `{discord.Colour(random.randint(0x000000, 0xFFFFFF))}`
 - `{discord.Colour(random.randint(0x000000, 0xFFFFFF))}`
+- `{random.choice(RANDOM_COLOURS).replace("_", " ")}`
+- `random`
 
 **Send your message as the corresponding number**
 """.strip()
@@ -101,7 +129,7 @@ class QR(commands.Cog):
     """Generate a QR code."""
 
     __author__ = ["Kreusada"]
-    __version__ = "1.0.0"
+    __version__ = "1.1.0"
 
     def __init__(self, bot):
         self.bot: Red = bot
@@ -153,7 +181,7 @@ class QR(commands.Cog):
             operator.eq(getattr(ctx, y), getattr(x, y)) for y in ("author", "channel")
         )
         message = DEFAULT_COLOR_MESSAGE_HEADER.format(shade) + DEFAULT_COLOR_MESSAGE()
-        await ctx.send(message)
+        await ctx.maybe_send_embed(message)
 
         try:
             message = await self.bot.wait_for("message", check=check, timeout=100)
@@ -177,7 +205,7 @@ class QR(commands.Cog):
             "masks": {"message": DEFAULT_MASK_MESSAGE, "kwarg_key": "color_mask"},
         }
         pred = lambda x: MessagePredicate.contained_in(list(map(str, range(1, x + 1))))
-        await ctx.send(mapper[style_type]["message"])
+        await ctx.maybe_send_embed(mapper[style_type]["message"])
         try:
             check = pred(len(self.styles[style_type]))
             message = await self.bot.wait_for("message", check=check, timeout=100)
@@ -202,7 +230,7 @@ class QR(commands.Cog):
         qrc.add_data(text)
 
         pred = lambda x: MessagePredicate.contained_in(list(map(str, range(1, x + 1))))
-        await ctx.send(DEFAULT_OPENING_MESSAGE.format(text))
+        await ctx.maybe_send_embed(DEFAULT_OPENING_MESSAGE.format(text))
 
         try:
             result = await self.bot.wait_for("message", check=pred(3), timeout=100)
@@ -231,7 +259,7 @@ class QR(commands.Cog):
                         return
                     qrc_kwargs.update(update)
 
-        confirmation_message = await ctx.send("Generating QR code...")
+        confirmation_message = await ctx.maybe_send_embed("Generating QR code...")
         await ctx.trigger_typing()
         await asyncio.sleep(1)
         sender_kwargs = {}
