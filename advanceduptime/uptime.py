@@ -96,6 +96,7 @@ class AdvancedUptime(commands.Cog):
         return unit_details
 
     @commands.group()
+    @commands.is_owner()
     async def uptimeset(self, ctx: commands.Context):
         """Settings for the uptime command."""
 
