@@ -28,7 +28,7 @@ class AdvancedUptime(commands.Cog):
     """
 
     __author__ = ["Kreusada"]
-    __version__ = "3.2.0"
+    __version__ = "3.3.0"
 
     def __init__(self, bot):
         self.bot = bot
@@ -96,6 +96,7 @@ class AdvancedUptime(commands.Cog):
         return unit_details
 
     @commands.group()
+    @commands.is_owner()
     async def uptimeset(self, ctx: commands.Context):
         """Settings for the uptime command."""
 
