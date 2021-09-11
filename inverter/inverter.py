@@ -16,7 +16,7 @@ class Inverter(commands.Cog):
     """Invert images and avatars."""
 
     __author__ = ["Kreusada"]
-    __version__ = "1.0.0"
+    __version__ = "1.1.0"
 
     def __init__(self, bot):
         self.bot = bot
@@ -41,7 +41,6 @@ class Inverter(commands.Cog):
         self,
         ctx: commands.Context,
         url,
-        user: discord.Member,
         image_type: str,
     ):
         # Some of this image/url handling came from Red-DiscordBot, thanks
@@ -79,7 +78,6 @@ class Inverter(commands.Cog):
         )
         try:
             embed.set_image(url="attachment://image.png")
-            embed.set_author(name=user.name, icon_url=user.avatar_url)
             await ctx.send(file=discord.File(buff, filename="image.png"), embed=embed)
         except discord.HTTPException:
             await ctx.send("The image quality was too high, sorry!")
@@ -101,7 +99,6 @@ class Inverter(commands.Cog):
         await self.invert_image(
             ctx=ctx,
             url=url,
-            user=ctx.author,
             image_type="image",
         )
         with contextlib.suppress(discord.NotFound):
@@ -120,7 +117,6 @@ class Inverter(commands.Cog):
         await self.invert_image(
             ctx=ctx,
             url=avvy,
-            user=ctx.author,
             image_type="avatar",
         )
         with contextlib.suppress(discord.NotFound):
