@@ -18,22 +18,21 @@ class CountryConverter(Converter):
         get = lambda **kwargs: pycountry.countries.get(**kwargs)
 
         if argument in SPECIAL_IMAGES.keys():
+            emoji = SPECIAL_IMAGES[argument]["emoji"]
 
             if sys.modules.get("tabulate", None) is not None:
-                description = box(f"Emoji Information  [:{argument}:]", lang="ini")
+                description = box(f"Emoji Information  [:{emoji}:]", lang="ini")
             else:
                 description = box(f"Emoji Information: :{argument}:", lang="yaml")
 
-            emoji = f":{argument}:"
             country_name = argument.title()
-            image = IMAGE_BASE.format(SPECIAL_IMAGES[argument])
-            name = country_name.title()
+            image = IMAGE_BASE.format(SPECIAL_IMAGES[argument]["url"])
 
             return {
                 "description": description,
                 "emoji": emoji,
-                "name": square(country_name.title()),
-                "title": f"{emoji} {name}",
+                "name": square(country_name),
+                "title": f":{emoji}: {country_name}",
                 "image": image,
             }
 

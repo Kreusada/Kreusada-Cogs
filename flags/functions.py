@@ -9,8 +9,20 @@ def format_attr(t):
 EXCEPTIONS = {"russia": "ru"}
 IMAGE_BASE = "https://flagpedia.net/data/flags/w580/{}.png"
 SPECIAL_IMAGES = {
-    "england": "gb-eng",
-    "wales": "gb-wls",
-    "scotland": "gb-sct",
-    "kosovo": "xk",
+    "england": {
+        "url": "gb-eng",
+        "emoji": "england",
+    },
+    "wales": {
+        "url": "gb-wls",
+        "emoji": "wales",
+    },
+    "scotland": {
+        "url": "gb-sct",
+        "emoji": "scotland",
+    },
+    "kosovo": {
+        "url": "xk",
+        "emoji": "flag_xk",
+    },
 }
