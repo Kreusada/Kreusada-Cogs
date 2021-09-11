@@ -5,7 +5,7 @@ import pycountry
 from redbot.core.commands import BadArgument, Context, Converter
 from redbot.core.utils.chat_formatting import box
 
-from .functions import EXCEPTIONS, IMAGE_BASE, square
+from .functions import EXCEPTIONS, IMAGE_BASE, SPECIAL_IMAGES, square
 
 
 class CountryConverter(Converter):
@@ -17,9 +17,7 @@ class CountryConverter(Converter):
         argument = argument.lower()
         get = lambda **kwargs: pycountry.countries.get(**kwargs)
 
-        if argument in ("england", "scotland", "wales"):
-
-            special_images = {"england": "gb-eng", "wales": "gb-wls", "scotland": "gb-sct"}
+        if argument in SPECIAL_IMAGES.keys():
 
             if sys.modules.get("tabulate", None) is not None:
                 description = box(f"Emoji Information  [:{argument}:]", lang="ini")
@@ -28,7 +26,7 @@ class CountryConverter(Converter):
 
             emoji = f":{argument}:"
             country_name = argument.title()
-            image = IMAGE_BASE.format(special_images[argument])
+            image = IMAGE_BASE.format(SPECIAL_IMAGES[argument])
             name = country_name.title()
 
             return {

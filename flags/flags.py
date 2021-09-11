@@ -20,7 +20,7 @@ from .functions import format_attr
 class Flags(Cog):
     """Get flags from country names."""
 
-    __version__ = "1.0.0"
+    __version__ = "1.1.0"
     __author__ = ["Kreusada"]
 
     def __init__(self, bot):
