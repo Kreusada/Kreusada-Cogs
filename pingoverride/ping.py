@@ -9,7 +9,6 @@ from redbot.core import Config, commands
 from redbot.core.utils.chat_formatting import box
 from redbot.core.utils.menus import DEFAULT_CONTROLS, menu
 
-from .converters import EmbedTitle
 from .enums import PingOverrideVariables
 from .objects import Member
 from .utils import add_random_messages, curl
@@ -26,11 +25,10 @@ class PingOverride(commands.Cog):
     settings = {
         "response": "Pong.",
         "reply_settings": {"toggled": False, "mention": False},
-        "embed": {"toggled": False, "title": None, "color": None},
     }
 
     __author__ = ["Kreusada"]
-    __version__ = "3.3.2"
+    __version__ = "3.4.0"
 
     def __init__(self, bot):
         self.bot = bot
@@ -38,8 +36,8 @@ class PingOverride(commands.Cog):
         self.config.register_global(**self.settings)
 
         if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(Exception):
-                self.bot.add_dev_env_value("pingoverride", lambda x: self)
+            with contextlib.suppress(RuntimeError, ValueError):
+                self.bot.add_dev_env_value(self.__class__.__name__.lower(), lambda x: self)
 
     def cog_unload(self):
         global ping_com
@@ -49,8 +47,8 @@ class PingOverride(commands.Cog):
             except Exception as e:
                 log.info(e)
             self.bot.add_command(ping_com)
-        with contextlib.suppress(Exception):
-            self.bot.remove_dev_env_value("pingoverride")
+        with contextlib.suppress(KeyError):
+            self.bot.add_dev_env_value(self.__class__.__name__.lower(), lambda x: self)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
@@ -70,27 +68,9 @@ class PingOverride(commands.Cog):
         content = settings["response"]
         if isinstance(content, list):
             content = random.choice(content)
-        content = content.format(**fmt_kwargs)
+        content = content.format(**fmt_kwargs) 
 
-        kwargs = {}
-
-        if settings["embed"]["toggled"]:
-            del settings["embed"]["toggled"]
-            if any([v for v in settings["embed"].values()]):
-                embed_from_dict = {}
-                for k, v in settings["embed"].items():
-                    if k == "color" and not v:
-                        v = (await ctx.embed_colour()).value
-                    if not v:
-                        continue
-                    embed_from_dict["description"] = content
-                    embed_from_dict[k] = v
-                kwargs["embed"] = discord.Embed.from_dict(embed_from_dict)
-            else:
-                kwargs["content"] = content
-
-        else:
-            kwargs["content"] = content
+        kwargs = {"content": content}
 
         if settings["reply_settings"]["toggled"]:
             kwargs["mention_author"] = settings["reply_settings"]["mention"]
@@ -179,32 +159,6 @@ class PingOverride(commands.Cog):
 
         await menu(ctx, data, DEFAULT_CONTROLS)
 
-    @pingset.group(name="embed")
-    async def pingset_embed(self, ctx: commands.Context):
-        """Manage your ping command's embed."""
-
-    @pingset_embed.command(name="title")
-    async def pingset_embed_title(self, ctx: commands.Context, title: EmbedTitle):
-        """Set your embed's title."""
-        await self.config.embed.title.set(title)
-        await ctx.send("Title set.")
-
-    @pingset_embed.command(name="toggle")
-    async def pingset_embed_toggle(self, ctx: commands.Context, toggled: bool):
-        """Toggle embeds."""
-        await self.config.embed.toggled.set(toggled)
-        await ctx.send("Embeds are now " + ("on." if toggled else "off."))
-
-    @pingset_embed.command(name="color", aliases=["colour"])
-    async def pingset_embed_color(self, ctx: commands.Context, color: discord.Colour = None):
-        """Set your embed's color. Leave blank for bot color."""
-        if not color:
-            message = "Color reset to bot color."
-        else:
-            message = "Color set to {}".format(str(color))
-        await self.config.embed.color.set(color)
-        await ctx.send(message)
-
     @pingset.command(name="settings")
     async def pingset_settings(self, ctx: commands.Context):
         """See the current settings for PingOverride."""
@@ -219,14 +173,6 @@ class PingOverride(commands.Cog):
             message += "Responses:\n" + "\n".join(f"\t- {i}" for i in response)
         else:
             message += "Response: " + response
-        if settings["embed"]["toggled"]:
-            del settings["embed"]["toggled"]
-            if any(settings["embed"].values()):
-                message += "\nEmbed settings:\n" + "\n".join(
-                    f"\t{k}: {v}" for k, v in settings["embed"].items() if v
-                )
-        else:
-            message += "\nEmbed: False"
         await ctx.send(box(message, lang="yaml"))
 
 

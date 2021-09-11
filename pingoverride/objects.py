@@ -4,14 +4,7 @@ from redbot.core import commands
 from .enums import PingOverrideVariables
 
 
-class PingObject(object):
-    """Superclass for objects."""
-
-    def __getattr__(self, arg):
-        raise commands.BadArgument(arg)
-
-
-class Member(PingObject):
+class Member:
     """SafeMember object for formatting."""
 
     def __init__(self, member: discord.Member):
@@ -22,3 +15,6 @@ class Member(PingObject):
 
     def __str__(self):
         return self.name_and_discriminator
+
+    def __getattr__(self, arg):
+        raise commands.BadArgument(arg)
