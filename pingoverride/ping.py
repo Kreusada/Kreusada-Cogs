@@ -68,7 +68,7 @@ class PingOverride(commands.Cog):
         content = settings["response"]
         if isinstance(content, list):
             content = random.choice(content)
-        content = content.format(**fmt_kwargs) 
+        content = content.format(**fmt_kwargs)
 
         kwargs = {"content": content}
 

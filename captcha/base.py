@@ -80,7 +80,7 @@ class Captcha(
         """
         Send a message or update one in the log channel.
         """
-        time = datetime.now().strftime("%H:%M - %w/%d/%Y")
+        time = datetime.now().strftime("%H:%M - %m/%d/%Y")
         content = ""
         if message_to_update:
             content += message_to_update.content + "\n"
