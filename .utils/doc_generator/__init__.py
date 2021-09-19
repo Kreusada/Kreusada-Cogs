@@ -1,12 +1,13 @@
 """Private tool to generate docs for cogs."""
 
-import pathlib
 import inspect
 import os
+import pathlib
 
 from redbot.core import commands
 from redbot.core.commands import BadArgument, Cog, Command, Context, Converter
 from redbot.core.utils.chat_formatting import box
+
 
 class CogConverter(Converter):
     async def convert(self, ctx: Context, cog: str):
@@ -14,9 +15,11 @@ class CogConverter(Converter):
             raise BadArgument("No cog with the name '%s'" % cog)
         return obj
 
-def header(text: str, style: str = '='):
-    head = (style * len(text))
-    return head + '\n' + text + '\n' + head
+
+def header(text: str, style: str = "="):
+    head = style * len(text)
+    return head + "\n" + text + "\n" + head
+
 
 def format_command(ctx: Context, command: Command):
     base = f"* ``[p]{command.qualified_name}"
@@ -25,6 +28,7 @@ def format_command(ctx: Context, command: Command):
     else:
         base += "``"
     return f"{base}\n {command.format_shortdoc_for_context(ctx)}"
+
 
 class CogGuide(Cog):
     """Private tool to generate docs for cogs."""
@@ -106,9 +110,10 @@ I have my own channel over there at #support_kreusada-cogs. Feel free to join my
             + box(
                 f"%userprofile%/Desktop/Github/Kreusada-Cogs/{cog_name.lower()}/README.rst\n"
                 f"%userprofile%/Desktop/Github/Kreusada-Cogs/docs/cog_{cog_name.lower()}.rst\n",
-                lang="autohotkey"
+                lang="autohotkey",
             )
         )
+
 
 def setup(bot):
     bot.add_cog(CogGuide())
