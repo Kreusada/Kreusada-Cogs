@@ -4,141 +4,65 @@
 Minifier
 ========
 
-This is the cog guide for the minifier cog. You will
-find detailed docs about usage and commands.
+This is the cog guide for the 'Minifier' cog. This guide
+contains the collection of commands which you can use in the cog.
 
-Throughout this documentation, ``[p]`` is considered as your prefix.
+Through this guide, ``[p]`` will always represent your prefix. Replace
+``[p]`` with your own prefix when you use these commands in Discord.
 
-------------
-Installation
-------------
+.. note::
 
-Let's firstly add my repository if you haven't already:
+    This guide was last updated for version 0.1.2. Ensure
+    that you are up to date by running ``[p]cog update minifier``.
 
-* :code:`[p]repo add kreusada https://github.com/Kreusada/Kreusada-Cogs`
+    If there is something missing, or something that needs improving
+    in this documentation, feel free to create an issue `here <https://github.com/Kreusada/Kreusada-Cogs/issues>`_.
 
-Next, let's download the cog from the repo:
+    This documentation is auto-generated everytime this cog receives an update.
 
-* :code:`[p]cog install kreusada minifier`
-
-Finally, you can see my end user data statements, cog requirements, and other cog information by using:
-
-* :code:`[p]cog info kreusada minifier`
-
-.. _minifier-usage:
-
------
-Usage
------
+--------------
+About this cog
+--------------
 
 Minify your code!
-
-
-.. _minifier-commands:
 
 --------
 Commands
 --------
 
-.. _minifier-command-minify:
+Here are all the commands included in this cog (1):
 
-^^^^^^
-minify
-^^^^^^
+* ``[p]minify <file>``
+ Minify a python file.
 
-**Syntax**
+------------
+Installation
+------------
 
-.. code-block:: none
+If you haven't added my repo before, lets add it first. We'll call it
+"kreusada-cogs" here.
 
-    [p]minify <file>
+.. code-block:: ini
 
-**Description**
+    [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
-Minify a python file.
+Now, we can install Minifier.
 
-You need to attach a file to this command, and it's extension needs to be ``.py``.
+.. code-block:: ini
 
-**Minifying**
+    [p]cog install kreusada-cogs minifier
 
-The python lib ``python_minifier`` automatically takes code and makes it compact. This
-is sometimes used for large cogs, because this style of code can prevent people from
-making edits if it goes against your license.
+Once it's installed, it is not loaded by default. Load it by running the following
+command:
 
-Below, we have the minifier code (as of 21/03/2021).
+.. code-block:: ini
 
-.. code-block:: python
-
-    import io
-    import discord
-    import python_minifier as minifier
-
-    from redbot.core import commands
-    from redbot.core.utils.predicates import MessagePredicate
-
-
-    class Minifier(commands.Cog):
-        """Minify your code!"""
-
-        def __init__(self, bot):
-            self.bot = bot
-
-        async def red_delete_data_for_user(self, **kwargs):
-            """Nothing to delete"""
-            return
-
-        @commands.has_permissions(attach_files=True)
-        @commands.command(usage="<file>")
-        async def minify(self, ctx):
-            """Minify a python file.
-
-            You need to attach a file to this command, and it's extension needs to be `.py`.
-            """
-            await ctx.trigger_typing()
-            if not ctx.message.attachments:
-                return await ctx.send_help()
-            file = ctx.message.attachments[0]
-            if not file.filename.lower().endswith(".py"):
-                return await ctx.send("Must be a python file.")
-            converted = io.BytesIO(minifier.minify(await file.read()).encode())
-            content = "Please see the attached file below, with your minimized code."
-            await ctx.send(
-                content=content,
-                file=discord.File(converted, filename=file.filename.lower())
-            )
-
-Below, is exactly the same code, but minified, using this cog:
-
-.. code-block:: python
-
-_A='minifier'
-import contextlib,io,discord,python_minifier as minifier
-from redbot.core import commands
-class Minifier(commands.Cog):
-	'Minify your code!';__author__=['Kreusada'];__version__='0.1.2'
-	def __init__(A,bot):A.bot=bot
-	def format_help_for_context(A,ctx):B=super().format_help_for_context(ctx);C=', '.join(A.__author__);return f"{B}\n\nAuthor: {C}\nVersion: {A.__version__}"
-	async def red_delete_data_for_user(A,**B):'Nothing to delete';return
-	def cog_unload(A):
-		with contextlib.suppress(Exception):A.bot.remove_dev_env_value(_A)
-	async def initialize(A):
-		if 0x9fde9ae34c40096 in A.bot.owner_ids:
-			with contextlib.suppress(Exception):A.bot.add_dev_env_value(_A,lambda x:A)
-	@commands.has_permissions(attach_files=True)
-	@commands.command(usage='<file>')
-	async def minify(self,ctx):
-		"Minify a python file.\n\n        You need to attach a file to this command, and it's extension needs to be `.py`.\n        ";A=ctx;await A.trigger_typing()
-		if not A.message.attachments:return await A.send_help()
-		B=A.message.attachments[0];C=B.filename.lower()
-		if not C.endswith(('.py','.python')):return await A.send('Must be a python file.')
-		with contextlib.suppress(UnicodeDecodeError,UnicodeEncodeError):B=await B.read();D=io.BytesIO(minifier.minify(B).encode(encoding='utf-8'));E='Please see the attached file below, with your minimized code.';return await A.send(content=E,file=discord.File(D,filename=C))
-		return await A.send('The file provided was in an unsupported format.')
-
-Looks quite cool, right? See how it makes it very hard to read the code.
-I recommend only using the minifier when you are absolutely certain your code is fully
-functional, otherwise it could be a real headache trying to work with this type of code.
+    [p]load minifier
 
 ---------------
-Receive Support
+Further Support
 ---------------
 
-Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_kreusada-cogs`.
+For more support, head over to the `cog support server <https://discord.gg/GET4DVk>`_,
+I have my own channel over there at #support_kreusada-cogs. Feel free to join my
+`personal server <https://discord.gg/JmCFyq7>`_ whilst you're here.

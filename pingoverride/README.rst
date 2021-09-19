@@ -4,242 +4,77 @@
 PingOverride
 ============
 
-This is the cog guide for the pingoverride cog. You will
-find detailed docs about usage and commands.
+This is the cog guide for the 'PingOverride' cog. This guide
+contains the collection of commands which you can use in the cog.
 
-Throughout this documentation, ``[p]`` is considered as your prefix.
-
-------------
-Installation
-------------
-
-Let's firstly add my repository if you haven't already:
-
-* :code:`[p]repo add kreusada https://github.com/Kreusada/Kreusada-Cogs`
-
-Next, let's download the cog from the repo:
-
-* :code:`[p]cog install kreusada pingoverride`
-
-Finally, you can see my end user data statements, cog requirements, and other cog information by using:
-
-* :code:`[p]cog info kreusada pingoverride`
-
------
-Usage
------
-
-This cog will allow you to customize the response from the ``ping`` command.
-So instead of "Pong.", it could be "Beep boop.", or whatever you want!
+Through this guide, ``[p]`` will always represent your prefix. Replace
+``[p]`` with your own prefix when you use these commands in Discord.
 
 .. note::
 
-    This cog replaces the core's ``ping`` command. If you wish to have the old ping command
-    back, you can simply unload this cog.
+    This guide was last updated for version 3.4.0. Ensure
+    that you are up to date by running ``[p]cog update pingoverride``.
 
-.. tip::
+    If there is something missing, or something that needs improving
+    in this documentation, feel free to create an issue `here <https://github.com/Kreusada/Kreusada-Cogs/issues>`_.
 
-    This cog works amazingly with my PingInvoke cog! I suggest you install that too (not required, suggested).
+    This documentation is auto-generated everytime this cog receives an update.
 
-.. _pingoverride-commands:
+--------------
+About this cog
+--------------
+
+Override the Core's ping command with your own response.
 
 --------
 Commands
 --------
 
-.. _pingoverride-command-ping:
+Here are all the commands included in this cog (7):
 
-^^^^
-ping
-^^^^
+* ``[p]ping``
+ Pong.
+* ``[p]pingset``
+ Set your ping message.
+* ``[p]pingset message <ping_message>``
+ Set the ping message sent when a user runs the ping command.
+* ``[p]pingset reply <reply>``
+ Set whether the ping message uses replies.
+* ``[p]pingset reply mention <mention>``
+ Set whether the ping message uses replies.
+* ``[p]pingset settings``
+ See the current settings for PingOverride.
+* ``[p]pingset variables``
+ List the available variables for the ping command.
 
-**Syntax**
+------------
+Installation
+------------
 
-.. code-block:: none
+If you haven't added my repo before, lets add it first. We'll call it
+"kreusada-cogs" here.
 
-    [p]ping
+.. code-block:: ini
 
-**Description**
+    [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
-Pong.
+Now, we can install PingOverride.
 
-.. _pingoverride-command-pingset:
+.. code-block:: ini
 
-^^^^^^^
-pingset
-^^^^^^^
+    [p]cog install kreusada-cogs pingoverride
 
-**Syntax**
+Once it's installed, it is not loaded by default. Load it by running the following
+command:
 
-.. code-block:: none
+.. code-block:: ini
 
-    [p]pingset
-
-**Description**
-
-Set your ping message.
-
-.. _pingoverride-command-pingset-embed:
-
-"""""""""""""
-pingset embed
-"""""""""""""
-
-**Syntax**
-
-.. code-block:: none
-
-    [p]pingset embed
-
-**Description**
-
-Manage your ping command's embed.
-
-.. _pingoverride-command-pingset-embed-color:
-
-"""""""""""""""""""
-pingset embed color
-"""""""""""""""""""
-
-**Syntax**
-
-.. code-block:: none
-
-    [p]pingset embed color [color]
-
-.. tip:: Alias: ``pingset embed colour``
-
-**Description**
-
-Set your embed's color. Leave blank for bot color.
-
-.. _pingoverride-command-pingset-embed-description:
-
-"""""""""""""""""""""""""
-pingset embed description
-"""""""""""""""""""""""""
-
-**Syntax**
-
-.. code-block:: none
-
-    [p]pingset embed description <description>
-
-**Description**
-
-Set your embed's description.
-
-.. _pingoverride-command-pingset-embed-title:
-
-"""""""""""""""""""
-pingset embed title
-"""""""""""""""""""
-
-**Syntax**
-
-.. code-block:: none
-
-    [p]pingset embed title <title>
-
-**Description**
-
-Set your embed's title.
-
-.. _pingoverride-command-pingset-message:
-
-"""""""""""""""
-pingset message
-"""""""""""""""
-
-**Syntax**
-
-.. code-block:: none
-
-    [p]pingset message <ping_message>
-
-.. tip:: Alias: ``pingset response``
-
-**Description**
-
-Set the ping message sent when a user runs the ping command.
-
-**Variables:**
-
-- ``{author.name}``
-- ``{author.mention}``
-- ``{author.id}``
-- ``{author.discriminator}``
-`` ``{author.name_and_discriminator}``
-- ``{latency}``
-
-.. _pingoverride-command-pingset-reply:
-
-"""""""""""""
-pingset reply
-"""""""""""""
-
-**Syntax**
-
-.. code-block:: none
-
-    [p]pingset reply <reply>
-
-**Description**
-
-Set whether the ping message uses replies.
-
-.. _pingoverride-command-pingset-reply-mention:
-
-"""""""""""""""""""""
-pingset reply mention
-"""""""""""""""""""""
-
-**Syntax**
-
-.. code-block:: none
-
-    [p]pingset reply mention <mention>
-
-**Description**
-
-Set whether the ping message uses replies.
-
-.. _pingoverride-command-pingset-settings:
-
-""""""""""""""""
-pingset settings
-""""""""""""""""
-
-**Syntax**
-
-.. code-block:: none
-
-    [p]pingset settings
-
-**Description**
-
-See the current settings for PingOverride.
-
-.. _pingoverride-command-pingset-variables:
-
-"""""""""""""""""
-pingset variables
-"""""""""""""""""
-
-**Syntax**
-
-.. code-block:: none
-
-    [p]pingset variables
-
-.. tip:: Alias: ``pingset vars``
-
-**Description**
-
-List the available variables for the ping command.
+    [p]load pingoverride
 
 ---------------
-Receive Support
+Further Support
 ---------------
 
-Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_kreusada-cogs`.
+For more support, head over to the `cog support server <https://discord.gg/GET4DVk>`_,
+I have my own channel over there at #support_kreusada-cogs. Feel free to join my
+`personal server <https://discord.gg/JmCFyq7>`_ whilst you're here.

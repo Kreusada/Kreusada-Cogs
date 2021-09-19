@@ -4,123 +4,73 @@
 PingInvoke
 ==========
 
-This is the cog guide for the pinginvoke cog. You will
-find detailed docs about usage and commands.
+This is the cog guide for the 'PingInvoke' cog. This guide
+contains the collection of commands which you can use in the cog.
 
-Throughout this documentation, ``[p]`` is considered as your prefix.
+Through this guide, ``[p]`` will always represent your prefix. Replace
+``[p]`` with your own prefix when you use these commands in Discord.
 
-------------
-Installation
-------------
+.. note::
 
-Let's firstly add my repository if you haven't already:
+    This guide was last updated for version 1.1.1. Ensure
+    that you are up to date by running ``[p]cog update pinginvoke``.
 
-* :code:`[p]repo add kreusada https://github.com/Kreusada/Kreusada-Cogs`
+    If there is something missing, or something that needs improving
+    in this documentation, feel free to create an issue `here <https://github.com/Kreusada/Kreusada-Cogs/issues>`_.
 
-Next, let's download the cog from the repo:
+    This documentation is auto-generated everytime this cog receives an update.
 
-* :code:`[p]cog install kreusada pinginvoke`
+--------------
+About this cog
+--------------
 
-Finally, you can see my end user data statements, cog requirements, and other cog information by using:
+Bot? [botname]?
 
-* :code:`[p]cog info kreusada pinginvoke`
-
------
-Usage
------
-
-This cog will invoke the ping command by asking if your bot is there.
-
-For instance, if your bot was called WALL-E, whenever I say "walle?",
-it will invoke the ping command. This can be set to whatever you want, as long as it ends in a question mark.
-
-.. tip::
-
-    This cog works amazingly with my PingOverride cog! I suggest you install that too (not required, suggested).
-
-.. _pinginvoke-commands:
+Invoke the ping command by asking if your bot is there.
 
 --------
 Commands
 --------
 
-Here's a list of all commands available for this cog.
+Here are all the commands included in this cog (4):
 
-.. _pinginvoke-command-pingi:
+* ``[p]pingi``
+ Commands to configure PingInvoke.
+* ``[p]pingi reset``
+ Reset and disable PingInvoke.
+* ``[p]pingi set <botname>``
+ Set the bot name to listen for.
+* ``[p]pingi settings``
+ Show the current settings for PingInvoke.
 
-^^^^^
-pingi
-^^^^^
+------------
+Installation
+------------
 
-**Syntax**
-
-.. code-block:: ini
-
-    [p]pingi
-
-**Description**
-
-Commands to configure PingInvoke.
-
-.. _pinginvoke-command-pingi-reset:
-
-"""""""""""
-pingi reset
-"""""""""""
-
-**Syntax**
+If you haven't added my repo before, lets add it first. We'll call it
+"kreusada-cogs" here.
 
 .. code-block:: ini
 
-    [p]pingi reset
+    [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
-**Description**
-
-Resets and disables PingInvoke. Your bot will no longer respond if you
-call for it.
-
-.. _pinginvoke-command-pingi-set:
-
-"""""""""
-pingi set
-"""""""""
-
-**Syntax**
+Now, we can install PingInvoke.
 
 .. code-block:: ini
 
-    [p]pingi set <botname>
+    [p]cog install kreusada-cogs pinginvoke
 
-**Description**
-
-Sets the botname to respond to. This is case insensitive.
-For example, if you used ``[p]pingi set walle``, and then you said
-"walle?", it would invoke the ping command.
-
-.. note:: There is no need to include the question mark in ``<botname>``.
-
-**Arguments**
-
-* ``<botname>``: The name to listen for.
-
-.. _pinginvoke-command-pingi-settings:
-
-""""""""""""""
-pingi settings
-""""""""""""""
-
-**Syntax**
+Once it's installed, it is not loaded by default. Load it by running the following
+command:
 
 .. code-block:: ini
 
-    [p]pingi settings
-
-**Description**
-
-Shows the settings for PingInvoke.
+    [p]load pinginvoke
 
 ---------------
-Receive Support
+Further Support
 ---------------
 
-Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_kreusada-cogs`.
+For more support, head over to the `cog support server <https://discord.gg/GET4DVk>`_,
+I have my own channel over there at #support_kreusada-cogs. Feel free to join my
+`personal server <https://discord.gg/JmCFyq7>`_ whilst you're here.

@@ -4,92 +4,69 @@
 Mjolnir
 =======
 
-This is the cog guide for the mjolnir cog. You will
-find detailed docs about usage and commands.
+This is the cog guide for the 'Mjolnir' cog. This guide
+contains the collection of commands which you can use in the cog.
 
-Throughout this documentation, ``[p]`` is considered as your prefix.
+Through this guide, ``[p]`` will always represent your prefix. Replace
+``[p]`` with your own prefix when you use these commands in Discord.
 
-------------
-Installation
-------------
+.. note::
 
-Let's firstly add my repository if you haven't already:
+    This guide was last updated for version 0.1.1. Ensure
+    that you are up to date by running ``[p]cog update mjolnir``.
 
-* :code:`[p]repo add kreusada https://github.com/Kreusada/Kreusada-Cogs`
+    If there is something missing, or something that needs improving
+    in this documentation, feel free to create an issue `here <https://github.com/Kreusada/Kreusada-Cogs/issues>`_.
 
-Next, let's download the cog from the repo:
+    This documentation is auto-generated everytime this cog receives an update.
 
-* :code:`[p]cog install kreusada mjolnir`
-
-Finally, you can see my end user data statements, cog requirements, and other cog information by using:
-
-* :code:`[p]cog info kreusada mjolnir`
-
-.. _mjolnir-usage:
-
------
-Usage
------
+--------------
+About this cog
+--------------
 
 Attempt to lift Thor's hammer!
-
-
-.. _mjolnir-commands:
 
 --------
 Commands
 --------
 
-.. _mjolnir-command-lifted:
+Here are all the commands included in this cog (3):
 
-^^^^^^
-lifted
-^^^^^^
+* ``[p]lifted``
+ Shows how many times you've lifted the hammer.
+* ``[p]liftedboard``
+ Shows the leaderboard for those who have lifted the hammer.
+* ``[p]trylift``
+ Try and lift Thor's hammer!
 
-**Syntax**
+------------
+Installation
+------------
 
-.. code-block:: ini
-
-    [p]lifted
-
-**Description**
-
-Shows how many times you've lifted the hammer.
-
-.. _mjolnir-command-liftedboard:
-
-^^^^^^^^^^^
-liftedboard
-^^^^^^^^^^^
-
-**Syntax**
+If you haven't added my repo before, lets add it first. We'll call it
+"kreusada-cogs" here.
 
 .. code-block:: ini
 
-    [p]liftedboard
+    [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
-**Description**
-
-Shows the leaderboard for those who have lifted the hammer.
-
-.. _mjolnir-command-trylift:
-
-^^^^^^^
-trylift
-^^^^^^^
-
-**Syntax**
+Now, we can install Mjolnir.
 
 .. code-block:: ini
 
-    [p]trylift
+    [p]cog install kreusada-cogs mjolnir
 
-**Description**
+Once it's installed, it is not loaded by default. Load it by running the following
+command:
 
-Try and lift Thor's hammer!
+.. code-block:: ini
+
+    [p]load mjolnir
 
 ---------------
-Receive Support
+Further Support
 ---------------
 
-Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_kreusada-cogs`.
+For more support, head over to the `cog support server <https://discord.gg/GET4DVk>`_,
+I have my own channel over there at #support_kreusada-cogs. Feel free to join my
+`personal server <https://discord.gg/JmCFyq7>`_ whilst you're here.

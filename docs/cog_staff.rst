@@ -4,117 +4,75 @@
 Staff
 =====
 
-This is the cog guide for the staff cog. You will
-find detailed docs about usage and commands.
+This is the cog guide for the 'Staff' cog. This guide
+contains the collection of commands which you can use in the cog.
 
-Throughout this documentation, ``[p]`` is considered as your prefix.
+Through this guide, ``[p]`` will always represent your prefix. Replace
+``[p]`` with your own prefix when you use these commands in Discord.
 
-------------
-Installation
-------------
+.. note::
 
-Let's firstly add my repository if you haven't already:
+    This guide was last updated for version 1.5.5. Ensure
+    that you are up to date by running ``[p]cog update staff``.
 
-* :code:`[p]repo add kreusada https://github.com/Kreusada/Kreusada-Cogs`
+    If there is something missing, or something that needs improving
+    in this documentation, feel free to create an issue `here <https://github.com/Kreusada/Kreusada-Cogs/issues>`_.
 
-Next, let's download the cog from the repo:
+    This documentation is auto-generated everytime this cog receives an update.
 
-* :code:`[p]cog install kreusada staff`
-
-Finally, you can see my end user data statements, cog requirements, and other cog information by using:
-
-* :code:`[p]cog info kreusada staff`
-
------
-Usage
------
+--------------
+About this cog
+--------------
 
 This cog will allow you to alert staff using a command, which will be sent
 to the specified staff channel. Provides additional details such as the last messages
 in the channel, the date, author, and more.
 
-.. _staff-commands:
-
 --------
 Commands
 --------
 
-Here's a list of all commands available for this cog.
+Here are all the commands included in this cog (5):
 
-.. _staff-command-staff:
+* ``[p]staff [reason]``
+ Alert for the staff.
+* ``[p]staffset``
+ Staff notifier configuration.
+* ``[p]staffset channel [channel]``
+ Sets the channel for staff to receive notifications.
+* ``[p]staffset role [role]``
+ Sets the Staff role.
+* ``[p]staffset settings``
+ Show the current settings with Staff.
 
-^^^^^
-staff
-^^^^^
+------------
+Installation
+------------
 
-**Syntax**
-
-.. code-block:: ini
-
-    [p]staff
-
-**Description**
-
-Alert the staff members.
-
-.. _staff-command-staffset:
-
-^^^^^^^^
-staffset
-^^^^^^^^
-
-**Syntax**
+If you haven't added my repo before, lets add it first. We'll call it
+"kreusada-cogs" here.
 
 .. code-block:: ini
 
-    [p]staffset
+    [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
-**Description**
-
-Commands to configure the staff cog.
-
-.. _staff-command-staffset-channel:
-
-""""""""""""""""
-staffset channel
-""""""""""""""""
-
-**Syntax**
+Now, we can install Staff.
 
 .. code-block:: ini
 
-    [p]staffset channel [channel]
+    [p]cog install kreusada-cogs staff
 
-**Description**
-
-Set the channel to receive alerts for staff.
-
-**Arguments**
-
-* ``[channel]``: The channel used for notifications. If none provided, it resets.
-
-.. _staff-command-staffset-role:
-
-"""""""""""""
-staffset role
-"""""""""""""
-
-**Syntax**
+Once it's installed, it is not loaded by default. Load it by running the following
+command:
 
 .. code-block:: ini
 
-    [p]staffset role [role]
-
-**Description**
-
-Set the staff role to be pinged for staff alerts.
-
-**Arguments**
-
-* ``[role]``: The staff role. This is optional. If none provided, it resets.
+    [p]load staff
 
 ---------------
-Receive Support
+Further Support
 ---------------
 
-Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_kreusada-cogs`.
+For more support, head over to the `cog support server <https://discord.gg/GET4DVk>`_,
+I have my own channel over there at #support_kreusada-cogs. Feel free to join my
+`personal server <https://discord.gg/JmCFyq7>`_ whilst you're here.

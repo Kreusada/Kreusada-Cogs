@@ -1,76 +1,68 @@
 .. _alphanato:
 
 =========
-AlphaNATO
+AlphaNato
 =========
 
-This is the cog guide for the alphanato cog. You will
-find detailed docs about usage and commands.
+This is the cog guide for the 'AlphaNato' cog. This guide
+contains the collection of commands which you can use in the cog.
 
-Throughout this documentation, ``[p]`` is considered as your prefix.
+Through this guide, ``[p]`` will always represent your prefix. Replace
+``[p]`` with your own prefix when you use these commands in Discord.
 
-------------
-Installation
-------------
+.. note::
 
-Let's firstly add my repository if you haven't already:
+    This guide was last updated for version 1.1.1. Ensure
+    that you are up to date by running ``[p]cog update alphanato``.
 
-* :code:`[p]repo add kreusada https://github.com/Kreusada/Kreusada-Cogs`
+    If there is something missing, or something that needs improving
+    in this documentation, feel free to create an issue `here <https://github.com/Kreusada/Kreusada-Cogs/issues>`_.
 
-Next, let's download the cog from the repo:
+    This documentation is auto-generated everytime this cog receives an update.
 
-* :code:`[p]cog install kreusada alphanato`
+--------------
+About this cog
+--------------
 
-Finally, you can see my end user data statements, cog requirements, and other cog information by using:
-
-* :code:`[p]cog info kreusada alphanato`
-
-.. _alphanato-usage:
-
------
-Usage
------
-
-Get the nato alphabet name from a letter.
-
-
-.. _alphanato-commands:
+Get the names of the NATO phonetics through easy-to-use syntax.
 
 --------
 Commands
 --------
 
-.. _alphanato-command-nato:
+Here are all the commands included in this cog (1):
 
-^^^^
-nato
-^^^^
+* ``[p]nato <letters...>``
+ Get the nato phonetic name from a letter.
 
-**Syntax**
+------------
+Installation
+------------
 
-.. code-block:: none
+If you haven't added my repo before, lets add it first. We'll call it
+"kreusada-cogs" here.
 
-    [p]nato <letters...>
+.. code-block:: ini
 
-**Description**
+    [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
-Get the nato alphabet name from a letter.
-You may provide multiple letters.
+Now, we can install AlphaNato.
 
-**Example Usage**
+.. code-block:: ini
 
-``[p]nato adh``
-``[p]nato a, p, q``
+    [p]cog install kreusada-cogs alphanato
 
-.. image:: /image_alphanato-nato.png
-    :alt: nato
+Once it's installed, it is not loaded by default. Load it by running the following
+command:
 
-**Arguments**
+.. code-block:: ini
 
-* ``<letters...>``: The letters to convert to NATO.
+    [p]load alphanato
 
 ---------------
-Receive Support
+Further Support
 ---------------
 
-Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_kreusada-cogs`.
+For more support, head over to the `cog support server <https://discord.gg/GET4DVk>`_,
+I have my own channel over there at #support_kreusada-cogs. Feel free to join my
+`personal server <https://discord.gg/JmCFyq7>`_ whilst you're here.

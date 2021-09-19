@@ -4,73 +4,65 @@
 Quotes
 ======
 
-This is the cog guide for the quotes cog. You will
-find detailed docs about usage and commands.
+This is the cog guide for the 'Quotes' cog. This guide
+contains the collection of commands which you can use in the cog.
 
-Throughout this documentation, ``[p]`` is considered as your prefix.
+Through this guide, ``[p]`` will always represent your prefix. Replace
+``[p]`` with your own prefix when you use these commands in Discord.
 
-------------
-Installation
-------------
+.. note::
 
-Let's firstly add my repository if you haven't already:
+    This guide was last updated for version 1.0.1. Ensure
+    that you are up to date by running ``[p]cog update quotes``.
 
-* :code:`[p]repo add kreusada https://github.com/Kreusada/Kreusada-Cogs`
+    If there is something missing, or something that needs improving
+    in this documentation, feel free to create an issue `here <https://github.com/Kreusada/Kreusada-Cogs/issues>`_.
 
-Next, let's download the cog from the repo:
+    This documentation is auto-generated everytime this cog receives an update.
 
-* :code:`[p]cog install kreusada quotes`
-
-Finally, you can see my end user data statements, cog requirements, and other cog information by using:
-
-* :code:`[p]cog info kreusada quotes`
-
-.. _quotes-usage:
-
------
-Usage
------
+--------------
+About this cog
+--------------
 
 Get a random quote.
-
-
-.. _quotes-commands:
 
 --------
 Commands
 --------
 
-.. _quotes-command-quote:
+Here are all the commands included in this cog (1):
 
-^^^^^
-quote
-^^^^^
+* ``[p]quote``
+ Get a random quote.
 
-**Syntax**
+------------
+Installation
+------------
+
+If you haven't added my repo before, lets add it first. We'll call it
+"kreusada-cogs" here.
 
 .. code-block:: ini
 
-    [p]quote
+    [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
-**Description**
+Now, we can install Quotes.
 
-Get a random quote.
+.. code-block:: ini
 
-.. tip::
+    [p]cog install kreusada-cogs quotes
 
-    We can use bobloy's `FIFO <https://github.com/bobloy/Fox-V3/tree/master/fifo>`_
-    cog, with this cog, to run QOTD (Quote of the day).
+Once it's installed, it is not loaded by default. Load it by running the following
+command:
 
-    **Steps**
+.. code-block:: ini
 
-    1. ``[p]fifo add qotd quote``
-    2. ``[p]fifo addtrigger cron qotd 0 0 * * *``
-    3. ``[p]fifo set qotd <feed_channel>``
-
-    Your feed channel is whatever channel you'd like QOTD to be posted in.
+    [p]load quotes
 
 ---------------
-Receive Support
+Further Support
 ---------------
 
-Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_kreusada-cogs`.
+For more support, head over to the `cog support server <https://discord.gg/GET4DVk>`_,
+I have my own channel over there at #support_kreusada-cogs. Feel free to join my
+`personal server <https://discord.gg/JmCFyq7>`_ whilst you're here.

@@ -1,70 +1,84 @@
 .. _advanceduptime:
 
-===============
-Advanced Uptime
-===============
+==============
+AdvancedUptime
+==============
 
-This is the cog guide for the advanceduptime cog. You will
-find detailed docs about usage and commands.
+This is the cog guide for the 'AdvancedUptime' cog. This guide
+contains the collection of commands which you can use in the cog.
 
-Throughout this documentation, ``[p]`` is considered as your prefix.
+Through this guide, ``[p]`` will always represent your prefix. Replace
+``[p]`` with your own prefix when you use these commands in Discord.
 
-------------
-Installation
-------------
+.. note::
 
-Let's firstly add my repository if you haven't already:
+    This guide was last updated for version 3.3.0. Ensure
+    that you are up to date by running ``[p]cog update advanceduptime``.
 
-* :code:`[p]repo add kreusada https://github.com/Kreusada/Kreusada-Cogs`
+    If there is something missing, or something that needs improving
+    in this documentation, feel free to create an issue `here <https://github.com/Kreusada/Kreusada-Cogs/issues>`_.
 
-Next, let's download the cog from the repo:
+    This documentation is auto-generated everytime this cog receives an update.
 
-* :code:`[p]cog install kreusada advanceduptime`
+--------------
+About this cog
+--------------
 
-Finally, you can see my end user data statements, cog requirements, and other cog information by using:
-
-* :code:`[p]cog info kreusada advanceduptime`
-
------
-Usage
------
-
-This cog is going to show your bot's uptime, with extra information and stats about the bot.
-
-.. _advanceduptime-commands:
+Show [botname]'s uptime, with extra stats.
 
 --------
 Commands
 --------
 
-Here's a list of all commands available for this cog.
+Here are all the commands included in this cog (7):
 
-.. _advanceduptime-command-uptime:
+* ``[p]uptime``
+ Shows MO's uptime.
+* ``[p]uptimeset``
+ Settings for the uptime command.
+* ``[p]uptimeset botstats <true_or_false>``
+ Toggles whether bot stats are shown in the uptime command.
+* ``[p]uptimeset latencystats <true_or_false>``
+ Toggles whether latency stats are shown in the uptime command.
+* ``[p]uptimeset settings``
+ Shows the settings for the uptime command.
+* ``[p]uptimeset sysuptime <true_or_false>``
+ Toggles whether system uptime stats are shown in the uptime command.
+* ``[p]uptimeset usagestats <true_or_false>``
+ Toggles whether usage stats are shown in the uptime command.
 
-^^^^^^
-uptime
-^^^^^^
+------------
+Installation
+------------
 
-**Syntax**
+If you haven't added my repo before, lets add it first. We'll call it
+"kreusada-cogs" here.
 
 .. code-block:: ini
 
-    [p]uptime
+    [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
-**Description**
+Now, we can install AdvancedUptime.
 
-Shows your bot's uptime and additional stats.
+.. code-block:: ini
+
+    [p]cog install kreusada-cogs advanceduptime
+
+Once it's installed, it is not loaded by default. Load it by running the following
+command:
+
+.. code-block:: ini
+
+    [p]load advanceduptime
 
 You might be wondering, how are you able to use a new uptime command if one already exists in core?
 This cog will replace the core uptime command, and then will add the core uptime command back
-if the :code:`AdvancedUptime` cog is unloaded/uninstalled.
-
-This command's output will provide information on your bot's uptime, your bot's name,
-your bot's owner (you), the current discord guild, the number of guilds the bot is present in,
-the number of unique users your bot has, and the number of commands available!
+if the ``AdvancedUptime`` cog is unloaded/uninstalled.
 
 ---------------
-Receive Support
+Further Support
 ---------------
 
-Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_kreusada-cogs`.
+For more support, head over to the `cog support server <https://discord.gg/GET4DVk>`_,
+I have my own channel over there at #support_kreusada-cogs. Feel free to join my
+`personal server <https://discord.gg/JmCFyq7>`_ whilst you're here.

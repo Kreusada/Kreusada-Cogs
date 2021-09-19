@@ -4,132 +4,73 @@
 Encryptor
 =========
 
-This is the cog guide for the encryptor cog. You will
-find detailed docs about usage and commands.
+This is the cog guide for the 'Encryptor' cog. This guide
+contains the collection of commands which you can use in the cog.
 
-Throughout this documentation, ``[p]`` is considered as your prefix.
+Through this guide, ``[p]`` will always represent your prefix. Replace
+``[p]`` with your own prefix when you use these commands in Discord.
 
-------------
-Installation
-------------
+.. note::
 
-Let's firstly add my repository if you haven't already:
+    This guide was last updated for version 1.1.0. Ensure
+    that you are up to date by running ``[p]cog update encryptor``.
 
-* :code:`[p]repo add kreusada https://github.com/Kreusada/Kreusada-Cogs`
+    If there is something missing, or something that needs improving
+    in this documentation, feel free to create an issue `here <https://github.com/Kreusada/Kreusada-Cogs/issues>`_.
 
-Next, let's download the cog from the repo:
+    This documentation is auto-generated everytime this cog receives an update.
 
-* :code:`[p]cog install kreusada encryptor`
+--------------
+About this cog
+--------------
 
-Finally, you can see my end user data statements, cog requirements, and other cog information by using:
-
-* :code:`[p]cog info kreusada encryptor`
-
-.. _encryptor-usage:
-
------
-Usage
------
-
-Create, save, and validify passwords.
-
-
-.. _encryptor-commands:
+Create, and validify the strength of passwords.
 
 --------
 Commands
 --------
 
-.. _encryptor-command-password:
+Here are all the commands included in this cog (5):
 
-^^^^^^^^
-password
-^^^^^^^^
+* ``[p]password``
+ Create, and validify the strength of passwords.
+* ``[p]password generate``
+ Generate passwords.
+* ``[p]password generate complex``
+ Generate a complex password.
+* ``[p]password generate strong [delimeter]``
+ Generate a strong password.
+* ``[p]password strength <password>``
+ Validate a passwords strength.
 
-**Syntax**
+------------
+Installation
+------------
 
-.. code-block:: ini
-
-    [p]password
-
-**Description**
-
-Create, save, and validify passwords.
-
-.. _encryptor-command-password-generate:
-
-"""""""""""""""""
-password generate
-"""""""""""""""""
-
-**Syntax**
+If you haven't added my repo before, lets add it first. We'll call it
+"kreusada-cogs" here.
 
 .. code-block:: ini
 
-    [p]password generate
+    [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
-**Description**
-
-Generate passwords.
-
-.. _encryptor-command-password-generate-complex:
-
-"""""""""""""""""""""""""
-password generate complex
-"""""""""""""""""""""""""
-
-**Syntax**
+Now, we can install Encryptor.
 
 .. code-block:: ini
 
-    [p]password generate complex
+    [p]cog install kreusada-cogs encryptor
 
-**Description**
-
-Generate a complex password.
-
-.. _encryptor-command-password-generate-strong:
-
-""""""""""""""""""""""""
-password generate strong
-""""""""""""""""""""""""
-
-**Syntax**
+Once it's installed, it is not loaded by default. Load it by running the following
+command:
 
 .. code-block:: ini
 
-    [p]password generate strong [delimeter]
-
-**Description**
-
-Generate a strong password.
-
-**Arguments**
-
-* ``<delimeter>``: The character used to seperate each random word. Defaults to "-"
-
-.. _encryptor-command-password-strength:
-
-"""""""""""""""""
-password strength
-"""""""""""""""""
-
-**Syntax**
-
-.. code-block:: ini
-
-    [p]password strength <password>
-
-**Description**
-
-Validate a passwords strength.
-
-**Arguments**
-
-* ``<password>``: The password to get a strength rating for.
+    [p]load encryptor
 
 ---------------
-Receive Support
+Further Support
 ---------------
 
-Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_kreusada-cogs`.
+For more support, head over to the `cog support server <https://discord.gg/GET4DVk>`_,
+I have my own channel over there at #support_kreusada-cogs. Feel free to join my
+`personal server <https://discord.gg/JmCFyq7>`_ whilst you're here.
