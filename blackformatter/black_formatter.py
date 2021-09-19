@@ -6,11 +6,11 @@ import discord
 from redbot.core import commands
 
 
-class Black(commands.Cog):
+class BlackFormatter(commands.Cog):
     """Run black on code."""
 
     __author__ = ["Kreusada"]
-    __version__ = "0.1.1"
+    __version__ = "1.0.0"
 
     def __init__(self, bot):
         self.bot = bot
