@@ -40,6 +40,17 @@ Here are all the commands included in this cog (4):
  Reset and disable PingInvoke.
 * ``[p]pingi set <botname>``
  Set the bot name to listen for.
+
+Example Input:
+`[p]pingi set wall-e`
+`[p]pingi set r2d2`
+`[p]pingi set [botname]`
+
+Usage:
+When you type [botname]?, or whatever you configure your name as,
+it will invoke the ping command.
+
+NOTE: Do not include the question mark.
 * ``[p]pingi settings``
  Show the current settings for PingInvoke.
 

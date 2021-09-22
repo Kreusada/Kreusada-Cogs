@@ -33,7 +33,7 @@ Commands
 Here are all the commands included in this cog (7):
 
 * ``[p]uptime``
- Shows MO's uptime.
+ Shows [botname]'s uptime.
 * ``[p]uptimeset``
  Settings for the uptime command.
 * ``[p]uptimeset botstats <true_or_false>``
@@ -70,10 +70,6 @@ command:
 .. code-block:: ini
 
     [p]load advanceduptime
-
-You might be wondering, how are you able to use a new uptime command if one already exists in core?
-This cog will replace the core uptime command, and then will add the core uptime command back
-if the ``AdvancedUptime`` cog is unloaded/uninstalled.
 
 ---------------
 Further Support

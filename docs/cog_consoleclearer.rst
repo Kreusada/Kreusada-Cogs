@@ -33,7 +33,7 @@ Commands
 Here are all the commands included in this cog (1):
 
 * ``[p]clearconsole``
- Completely clears MO's console.
+ Completely clears [botname]'s console.
 
 ------------
 Installation

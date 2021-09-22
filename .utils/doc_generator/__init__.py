@@ -27,7 +27,7 @@ def format_command(ctx: Context, command: Command):
         base += f" {command.signature}``"
     else:
         base += "``"
-    return f"{base}\n {command.format_shortdoc_for_context(ctx)}"
+    return f"{base}\n {inspect.cleandoc(command.help)}"
 
 
 class CogGuide(Cog):
