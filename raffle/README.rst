@@ -151,7 +151,7 @@ of the account age requirement in **days**.
 **Example usage**
 
 .. code-block:: yaml
-    
+
     account_age: 30
 
 *************
