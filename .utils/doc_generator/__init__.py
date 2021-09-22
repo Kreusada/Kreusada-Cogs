@@ -1,12 +1,16 @@
 """Private tool to generate docs for cogs."""
 
+import builtins
 import inspect
+import io
 import os
-import pathlib
+import logging
 
 from redbot.core import commands
 from redbot.core.commands import BadArgument, Cog, Command, Context, Converter
-from redbot.core.utils.chat_formatting import box
+from redbot.core.utils.chat_formatting import box, warning
+
+log = logging.getLogger("doc_generator")
 
 
 class CogConverter(Converter):
@@ -27,7 +31,13 @@ def format_command(ctx: Context, command: Command):
         base += f" {command.signature}``"
     else:
         base += "``"
-    return f"{base}\n {inspect.cleandoc(command.help)}"
+    doc = inspect.cleandoc(command.help).split("\n")[0]
+    return f"{base}\n {doc}"
+
+
+def format_traceback(exc) -> str:
+    fmt = lambda x, y: f"# Exception details\n{x}: {y}"
+    return fmt(exc.__class__.__name__, exc)
 
 
 class CogGuide(Cog):
@@ -102,9 +112,20 @@ I have my own channel over there at #support_kreusada-cogs. Feel free to join my
             (f"{cog_name.lower()}", "README.rst"),
         ]
         for path in paths:
-            cogpath = os.path.join("Desktop", "Github", "Kreusada-Cogs")
-            with open(os.path.join(os.environ["USERPROFILE"], cogpath, *path), "w") as fp:
-                fp.write(message)
+            path = os.path.join(os.environ["USERPROFILE"], "Desktop", "Github", "Kreusada-Cogs", *path)
+            with open(path, "w") as fp:
+                try:
+                    fp.write(message)
+                except Exception as exc:
+                    log.info("Exception occured in doc generation", exc_info=exc)
+                    await ctx.send(
+                        warning(
+                            "Unfortunately, an error occured when trying to write to the following file:" +
+                            box(path.replace(os.environ["USERPROFILE"], r"%userprofile%"), lang="autohotkey") +
+                            box(format_traceback(exc), lang="py")
+                        )
+                    )
+                    return
         await ctx.send(
             "Cog guide updated at the following locations:\n"
             + box(

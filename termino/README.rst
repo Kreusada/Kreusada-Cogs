@@ -40,34 +40,20 @@ Here are all the commands included in this cog (12):
  Settings for the shutdown and restart commands.
 * ``[p]terminoset announcement [channel]``
  Set the channel where announcements will be sent to when the bot goes online/offline.
-
-Type `none` to clear it
 * ``[p]terminoset reconnect <true_or_false>``
  Announce when the bot has reconnected.
 * ``[p]terminoset reconnect message <message>``
  Set the message the bot will send on reconnect.
-
-Type `none` to reset it.
 * ``[p]terminoset restart <restart_message>``
  Set and adjust the restart message.
-
-You can use `{author}` in your message to send the invokers display name.
-
-Type `none` to reset it.
 * ``[p]terminoset restart conf <true_or_false>``
  Toggle whether restarts confirm before restarting.
 * ``[p]terminoset restart restartedmessage <message>``
  Set the message to be sent after restarting.
-
-Type `none` to reset it.
 * ``[p]terminoset settings``
  See the current settings for termino.
 * ``[p]terminoset shutdown <shutdown_message>``
  Set and adjust the shutdown message.
-
-You can use `{author}` in your message to send the invokers display name.
-
-Type `none` to reset it.
 * ``[p]terminoset shutdown conf <true_or_false>``
  Toggle whether shutdowns confirm before shutting down.
 

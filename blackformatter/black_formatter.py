@@ -14,6 +14,9 @@ class BlackFormatter(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(RuntimeError, ValueError):
+                self.bot.add_dev_env_value(self.__class__.__name__.lower(), lambda x: self)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
@@ -21,17 +24,12 @@ class BlackFormatter(commands.Cog):
         return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
 
     def cog_unload(self):
-        with contextlib.suppress(Exception):
-            self.bot.remove_dev_env_value("blackformatter")
+        with contextlib.suppress(KeyError):
+            self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""
         return
-
-    async def initialize(self) -> None:
-        if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(Exception):
-                self.bot.add_dev_env_value("blackformatter", lambda x: self)
 
     @commands.has_permissions(attach_files=True)
     @commands.command(name="black", usage="<file> [line_length=99]")
