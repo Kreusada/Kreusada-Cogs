@@ -1,10 +1,8 @@
 """Private tool to generate docs for cogs."""
 
-import builtins
 import inspect
-import io
-import os
 import logging
+import os
 
 from redbot.core import commands
 from redbot.core.commands import BadArgument, Cog, Command, Context, Converter
@@ -112,7 +110,9 @@ I have my own channel over there at #support_kreusada-cogs. Feel free to join my
             (f"{cog_name.lower()}", "README.rst"),
         ]
         for path in paths:
-            path = os.path.join(os.environ["USERPROFILE"], "Desktop", "Github", "Kreusada-Cogs", *path)
+            path = os.path.join(
+                os.environ["USERPROFILE"], "Desktop", "Github", "Kreusada-Cogs", *path
+            )
             with open(path, "w") as fp:
                 try:
                     fp.write(message)
@@ -120,9 +120,12 @@ I have my own channel over there at #support_kreusada-cogs. Feel free to join my
                     log.info("Exception occured in doc generation", exc_info=exc)
                     await ctx.send(
                         warning(
-                            "Unfortunately, an error occured when trying to write to the following file:" +
-                            box(path.replace(os.environ["USERPROFILE"], r"%userprofile%"), lang="autohotkey") +
-                            box(format_traceback(exc), lang="py")
+                            "Unfortunately, an error occured when trying to write to the following file:"
+                            + box(
+                                path.replace(os.environ["USERPROFILE"], r"%userprofile%"),
+                                lang="autohotkey",
+                            )
+                            + box(format_traceback(exc), lang="py")
                         )
                     )
                     return
