@@ -133,6 +133,242 @@ Here are all the commands included in this cog (50):
 * ``[p]raffle version``
  Get the version of your Raffle cog.
 
+----------
+Conditions
+----------
+
+This section of the documentation will give you an insight into some
+of the conditions you can include in your raffles.
+
+***********
+account_age
+***********
+
+This condition can prevent people from joining your raffle if their account age
+in days is below the required amount. Provide this condition as a number, as a representation
+of the account age requirement in **days**.
+
+**Example usage**
+
+.. code-block:: yaml
+    
+    account_age: 30
+
+*************
+allowed_users
+*************
+
+This condition will allow only certain individuals to join the raffle. This is essentially a raffle
+whitelist. Provide users as a list, with their IDs.
+
+**Example usage**
+
+.. code-block:: yaml
+
+    allowed_users: [123456780, 987654321, 2468013579]
+
+**********************
+badges_needed_to_enter
+**********************
+
+This condition only allows users that have specified badges.
+
+**Available badges**
+
+* bug_hunter
+* bug_hunter_level_2
+* early_supporter
+* hypesquad
+* hypesquad_balance
+* hypesquad_bravery
+* hypesquad_brilliance
+* partner
+* staff
+* system
+* verified_bot_developer
+
+**Example usage**
+
+.. code-block:: yaml
+
+    badges_needed_to_enter: ["hypesquad_bravery", "verified_bot_developer"]
+
+***********
+description
+***********
+
+This is the description for your raffle. It's completely optional, and will appear in various
+commands such as ``[p]raffle info`` and ``[p]raffle list``. It's objective is to give your users
+the best understanding of what your raffle is about.
+
+**Example usage**
+
+.. code-block:: yaml
+
+    description: "This raffle contains not 1, but multiple prizes!"
+
+***********
+end_message
+***********
+
+This message is sent at the end of the raffle, when the winner is drawn from the pool.
+There are various variables you can use to customize the output further.
+
+**Variables**
+
+* {raffle}
+* {winner.name}
+* {winner.mention}
+* {winner.id}
+* {winner.display_name}
+* {winner.discriminator}
+* {winner.name_and_discriminator}
+
+**Example usage**
+
+.. code-block:: yaml
+
+    end_message: "Congratulations {winner.mention}! You have won the {raffle} raffle. :tada:"
+
+************
+join_message
+************
+
+This message is sent when a user joins the raffle.
+There are various variables you can use to customize the output further.
+
+**Variables**
+
+* {raffle}
+* {entry_count}
+* {user.name}
+* {user.mention}
+* {user.id}
+* {user.display_name}
+* {user.discriminator}
+* {user.name_and_discriminator}
+
+**Example usage**
+
+.. code-block:: yaml
+
+    end_message: "Welcome to the {raffle} raffle {user.mention}! There are now {entry_count} entries."
+
+***************
+maximum_entries
+***************
+
+This conditions allows you to limit the number of entries that this raffle can take.
+Once the limit is reached, no more users will be able to join, unless a previous user
+was kicked, or they left themselves.
+
+**Example usage**
+
+.. code-block:: yaml
+
+    maximum_entries: 10
+
+****
+name
+****
+
+This key is **required**. This is used as the name of the raffle.
+
+* Must be provided as a string (a word encased with quotation marks).
+* Must be under 25 characters in length.
+* Must be made up of alphanumeric characters (may also contain an underscore).
+* The use of spaces is forbidden. Use underscores instead.
+
+**Example usage**
+
+.. code-block:: yaml
+
+    name: "kreusada_raffle"
+
+*************
+on_end_action
+*************
+
+This is the prompt for the bot when the a winner is picked for the raffle through
+``[p]raffle draw``. Must be one of the following:
+
+* ``end``: The raffle ends immediately after the first winner is picked.
+* ``remove_winner``: The winner is removed from the raffle's entries, but the raffle continues.
+* ``remove_and_prevent_winner``: The winner is removed from the raffle's entries, and is added to the prevented list.
+* ``keep_winner``: The winner stays in the raffle, and could win again.
+
+If not specified, it defaults to ``keep_winner``.
+
+**Example usage**
+
+.. code-block:: yaml
+
+    on_end_action: remove_and_prevent_winner
+
+***************
+prevented_users
+***************
+
+This condition will block certain individuals from joining the raffle. This is essentially a raffle
+blacklist. Provide users as a list, with their IDs.
+
+**Example usage**
+
+.. code-block:: yaml
+
+    prevented_users: [123456780, 987654321, 2468013579]
+
+***************
+server_join_age
+***************
+
+The required length of time in days that the user must have been in the server for. This condition
+is simular to the ``account_age`` condition, but it is instead how long the user has been in the
+server for.
+
+This condition must be a number, and it must be provided in days. This number cannot be higher
+than the server's creation date.
+
+.. warning::
+
+    The ``join_age`` condition was deprecated for ``server_join_age`` in version 1.2.3.
+    Please update to this version, using ``join_age`` is now unsupported and will not work.
+
+**Example usage**
+
+.. code-block:: yaml
+
+    server_join_age: 15
+
+**************
+suspense_timer
+**************
+
+This condition allows you to set the time for which the bot types when drawing a winner from the raffle.
+This must be provided as a number, and must be between 0 and 10.
+
+**Example usage**
+
+.. code-block:: yaml
+
+    suspense_timer: 3
+
+*********************
+roles_needed_to_enter
+*********************
+
+A list of roles which are required in order to join the raffle. This must be a list of
+role IDs.
+
+**Example usage**
+
+.. code-block:: yaml
+
+    # Multiple roles
+    roles_needed_to_enter: [123456789, 987654321]
+    # One role
+    roles_needed_to_enter: [123456789]
+
 ------------
 Installation
 ------------
