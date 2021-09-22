@@ -4,96 +4,69 @@
 Inverter
 ========
 
-This is the cog guide for the inverter cog. You will
-find detailed docs about usage and commands.
+This is the cog guide for the 'Inverter' cog. This guide
+contains the collection of commands which you can use in the cog.
 
-Throughout this documentation, ``[p]`` is considered as your prefix.
+Through this guide, ``[p]`` will always represent your prefix. Replace
+``[p]`` with your own prefix when you use these commands in Discord.
 
-------------
-Installation
-------------
+.. note::
 
-Let's firstly add my repository if you haven't already:
+    This guide was last updated for version 1.1.0. Ensure
+    that you are up to date by running ``[p]cog update inverter``.
 
-* :code:`[p]repo add kreusada https://github.com/Kreusada/Kreusada-Cogs`
+    If there is something missing, or something that needs improving
+    in this documentation, feel free to create an issue `here <https://github.com/Kreusada/Kreusada-Cogs/issues>`_.
 
-Next, let's download the cog from the repo:
+    This documentation is auto-generated everytime this cog receives an update.
 
-* :code:`[p]cog install kreusada inverter`
+--------------
+About this cog
+--------------
 
-Finally, you can see my end user data statements, cog requirements, and other cog information by using:
-
-* :code:`[p]cog info kreusada inverter`
-
-.. _inverter-usage:
-
------
-Usage
------
-
-Invert images.
-
-
-.. _inverter-commands:
+Invert images and avatars.
 
 --------
 Commands
 --------
 
-.. _inverter-command-invert:
+Here are all the commands included in this cog (3):
 
-^^^^^^
-invert
-^^^^^^
+* ``[p]invert``
+ Invert images and avatars.
+* ``[p]invert avatar [member]``
+ Invert a user's avatar.
+* ``[p]invert image [url]``
+ Invert an image.
 
-**Syntax**
+------------
+Installation
+------------
 
-.. code-block:: none
+If you haven't added my repo before, lets add it first. We'll call it
+"kreusada-cogs" here.
 
-    [p]invert
+.. code-block:: ini
 
-**Description**
+    [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
-Invert images and avatars.
+Now, we can install Inverter.
 
-.. _inverter-command-invert-avatar:
+.. code-block:: ini
 
-"""""""""""""
-invert avatar
-"""""""""""""
+    [p]cog install kreusada-cogs inverter
 
-**Syntax**
+Once it's installed, it is not loaded by default. Load it by running the following
+command:
 
-.. code-block:: none
+.. code-block:: ini
 
-    [p]invert avatar [member]
-
-**Description**
-
-Invert a user's avatar.
-
-If no user is provided, it defaults to yourself.
-
-.. _inverter-command-invert-image:
-
-""""""""""""
-invert image
-""""""""""""
-
-**Syntax**
-
-.. code-block:: none
-
-    [p]invert image [url]
-
-**Description**
-
-Invert an image.
-
-You can either upload an image or paste a URL.
+    [p]load inverter
 
 ---------------
-Receive Support
+Further Support
 ---------------
 
-Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_kreusada-cogs`.
+For more support, head over to the `cog support server <https://discord.gg/GET4DVk>`_,
+I have my own channel over there at #support_kreusada-cogs. Feel free to join my
+`personal server <https://discord.gg/JmCFyq7>`_ whilst you're here.

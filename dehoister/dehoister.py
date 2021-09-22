@@ -16,7 +16,6 @@ log = logging.getLogger("red.kreusada.dehoister")
 IDENTIFIER = 435089473534
 
 HOIST = tuple("!\"#$%&'()*+,-./:;<=>?@")
-DELTA = "δ"
 
 HOISTING_STANDARDS = (
     "\n\nDehoister will take actions on users if their name starts with one of the following:\n"
@@ -52,7 +51,7 @@ class Dehoister(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, IDENTIFIER, force_registration=True)
-        self.config.register_guild(nickname=f"{DELTA} Dehoisted", toggled=False, ignored_users=[])
+        self.config.register_guild(nickname=f"❌ Dehoisted", toggled=False, ignored_users=[])
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
@@ -336,7 +335,7 @@ class Dehoister(commands.Cog):
         action on members with hoisted display names, so make sure you
         find a suitable display name!
 
-        If none is set, the default nickname is `δ Dehoisted`.
+        If none is set, the default nickname is `:x: Dehoisted`.
         """
         if len(nickname) > 31:
             return await ctx.send(

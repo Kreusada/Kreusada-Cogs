@@ -4,100 +4,70 @@
 RoleBoards
 ==========
 
-This is the cog guide for the roleboards cog. You will
-find detailed docs about usage and commands.
+This is the cog guide for the 'RoleBoards' cog. This guide
+contains the collection of commands which you can use in the cog.
 
-Throughout this documentation, ``[p]`` is considered as your prefix.
+Through this guide, ``[p]`` will always represent your prefix. Replace
+``[p]`` with your own prefix when you use these commands in Discord.
 
-------------
-Installation
-------------
+.. note::
 
-Let's firstly add my repository if you haven't already:
+    This guide was last updated for version 3.1.1. Ensure
+    that you are up to date by running ``[p]cog update roleboards``.
 
-* :code:`[p]repo add kreusada https://github.com/Kreusada/Kreusada-Cogs`
+    If there is something missing, or something that needs improving
+    in this documentation, feel free to create an issue `here <https://github.com/Kreusada/Kreusada-Cogs/issues>`_.
 
-Next, let's download the cog from the repo:
+    This documentation is auto-generated everytime this cog receives an update.
 
-* :code:`[p]cog install kreusada roleboards`
-
-Finally, you can see my end user data statements, cog requirements, and other cog information by using:
-
-* :code:`[p]cog info kreusada roleboards`
-
-.. _roleboards-usage:
-
------
-Usage
------
+--------------
+About this cog
+--------------
 
 Get 'leaderboards' about guild roles, such as the users with the most roles,
 the roles with the most users, and a full list of all the roles.
-
-.. _roleboards-commands:
 
 --------
 Commands
 --------
 
-.. _roleboards-command-rb:
+Here are all the commands included in this cog (3):
 
-^^^^^^^^^
-roleboard
-^^^^^^^^^
+* ``[p]roleboard``
+ Get roleboards for this server..
+* ``[p]roleboard topmembers <index>``
+ Get the members with the most roles.
+* ``[p]roleboard toproles <index>``
+ Get the roles with the most members.
 
-**Syntax**
+------------
+Installation
+------------
 
-.. code-block:: ini
-
-    [p]roleboard
-
-**Description**
-
-Get roleboards for this server.
-
-.. _roleboards-command-rb-toproles:
-
-"""""""""""
-rb toproles
-"""""""""""
-
-**Syntax**
+If you haven't added my repo before, lets add it first. We'll call it
+"kreusada-cogs" here.
 
 .. code-block:: ini
 
-    [p]rb toproles <index>
+    [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
-**Description**
-
-Get the roles with the most users.
-
-**Arguments**
-
--   ``<index>``: The number of roles to get the data for.
-
-.. _roleboards-command-rb-topmembers:
-
-"""""""""""""
-rb topmembers
-"""""""""""""
-
-**Syntax**
+Now, we can install RoleBoards.
 
 .. code-block:: ini
 
-    [p]rb topmembers <index>
+    [p]cog install kreusada-cogs roleboards
 
-**Description**
+Once it's installed, it is not loaded by default. Load it by running the following
+command:
 
-Get the members with the most roles.
+.. code-block:: ini
 
-**Arguments**
-
--   ``<index>``: The number of members to get the data for.
+    [p]load roleboards
 
 ---------------
-Receive Support
+Further Support
 ---------------
 
-Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_kreusada-cogs`.
+For more support, head over to the `cog support server <https://discord.gg/GET4DVk>`_,
+I have my own channel over there at #support_kreusada-cogs. Feel free to join my
+`personal server <https://discord.gg/JmCFyq7>`_ whilst you're here.

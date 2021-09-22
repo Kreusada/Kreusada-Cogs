@@ -4,220 +4,75 @@
 VoteChannel
 ===========
 
-This is the cog guide for the votechannel cog. You will
-find detailed docs about usage and commands.
+This is the cog guide for the 'VoteChannel' cog. This guide
+contains the collection of commands which you can use in the cog.
 
-Throughout this documentation, ``[p]`` is considered as your prefix.
+Through this guide, ``[p]`` will always represent your prefix. Replace
+``[p]`` with your own prefix when you use these commands in Discord.
 
-------------
-Installation
-------------
+.. note::
 
-Let's firstly add my repository if you haven't already:
+    This guide was last updated for version 2.0.1. Ensure
+    that you are up to date by running ``[p]cog update votechannel``.
 
-* :code:`[p]repo add kreusada https://github.com/Kreusada/Kreusada-Cogs`
+    If there is something missing, or something that needs improving
+    in this documentation, feel free to create an issue `here <https://github.com/Kreusada/Kreusada-Cogs/issues>`_.
 
-Next, let's download the cog from the repo:
+    This documentation is auto-generated everytime this cog receives an update.
 
-* :code:`[p]cog install kreusada votechannel`
+--------------
+About this cog
+--------------
 
-Finally, you can see my end user data statements, cog requirements, and other cog information by using:
-
-* :code:`[p]cog info kreusada votechannel`
-
------
-Usage
------
-
-Designate multiple channels to have poll emojis reacted to each
-message sent in them.
-
-.. _votechannel-commands:
+Designate channels to have vote reactions on each post.
 
 --------
 Commands
 --------
 
-Here's a list of all commands available for this cog.
+Here are all the commands included in this cog (6):
 
-.. _votechannel-command-vote:
+* ``[p]votechannel``
+ Commands with VoteChannel.
+* ``[p]votechannel add <channel>``
+ Add a channel.
+* ``[p]votechannel downemoji <channel> <emoji>``
+ Change the down emoji for a channel.
+* ``[p]votechannel list``
+ List the vote channels.
+* ``[p]votechannel remove <channel>``
+ Remove a channel.
+* ``[p]votechannel upemoji <channel> <emoji>``
+ Change the up emoji for a channel.
 
-^^^^
-vote
-^^^^
+------------
+Installation
+------------
 
-**Syntax**
-
-.. code-block:: ini
-
-    [p]vote
-
-**Description**
-
-Commands with votechannel.
-
-.. _votechannel-command-vote-channel:
-
-""""""""""""
-vote channel
-""""""""""""
-
-**Syntax**
+If you haven't added my repo before, lets add it first. We'll call it
+"kreusada-cogs" here.
 
 .. code-block:: ini
 
-    [p]vote channel
+    [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
-**Description**
-
-Settings for channels.
-
-.. _votechannel-command-vote-channel-add:
-
-""""""""""""""""
-vote channel add
-""""""""""""""""
-
-**Syntax**
+Now, we can install VoteChannel.
 
 .. code-block:: ini
 
-    [p]vote channel add <channel>
+    [p]cog install kreusada-cogs votechannel
 
-**Description**
-
-Add a channel to the votechannel list.
-
-**Arguments**
-
-* ``<channel>``: The Discord channel to receive poll reactions for each message sent inside it.
-
-.. _votechannel-command-vote-channel-remove:
-
-"""""""""""""""""""
-vote channel remove
-"""""""""""""""""""
-
-**Syntax**
+Once it's installed, it is not loaded by default. Load it by running the following
+command:
 
 .. code-block:: ini
 
-    [p]vote channel remove <channel>
-
-**Description**
-
-Remove a channel from the votechannel list.
-
-**Arguments**
-
-* ``<channel>``: The Discord channel to remove from the votechannel list.
-
-.. _votechannel-command-vote-channel-list:
-
-"""""""""""""""""
-vote channel list
-"""""""""""""""""
-
-**Syntax**
-
-.. code-block:: ini
-
-    [p]vote channel list
-
-**Description**
-
-List the current voting channels.
-
-.. _votechannel-command-vote-emoji:
-
-""""""""""
-vote emoji
-""""""""""
-
-**Syntax**
-
-.. code-block:: ini
-
-    [p]vote emoji
-
-**Description**
-
-Set and view the current emojis used for votechannel.
-
-.. _votechannel-command-vote-emoji-down:
-
-"""""""""""""""
-vote emoji down
-"""""""""""""""
-
-**Syntax**
-
-.. code-block:: ini
-
-    [p]vote emoji down [emoji]
-
-**Description**
-
-Sets the downvote emoji for votechannel.
-
-**Arguments**
-
-* ``[emoji]``: The emoji to react with.
-
-.. _votechannel-command-vote-emoji-down:
-
-"""""""""""""
-vote emoji up
-"""""""""""""
-
-**Syntax**
-
-.. code-block:: ini
-
-    [p]vote emoji up [emoji]
-
-**Description**
-
-Sets the upvote emoji for votechannel.
-
-**Arguments**
-
-* ``[emoji]``: The emoji to react with.
-
-.. _votechannel-command-vote-emoji-presets:
-
-""""""""""""""""""
-vote emoji presets
-""""""""""""""""""
-
-**Syntax**
-
-.. code-block:: ini
-
-    [p]vote emoji presets
-
-**Description**
-
-Shows the current emojis used for votechannel.
-
-.. _votechannel-command-vote-toggle:
-
-"""""""""""
-vote toggle
-"""""""""""
-
-**Syntax**
-
-.. code-block:: ini
-
-    [p]vote toggle
-
-**Description**
-
-Toggle votechannel.
+    [p]load votechannel
 
 ---------------
-Receive Support
+Further Support
 ---------------
 
-Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_kreusada-cogs`.
+For more support, head over to the `cog support server <https://discord.gg/GET4DVk>`_,
+I have my own channel over there at #support_kreusada-cogs. Feel free to join my
+`personal server <https://discord.gg/JmCFyq7>`_ whilst you're here.

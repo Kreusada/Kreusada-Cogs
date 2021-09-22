@@ -1,5 +1,5 @@
 __author__ = ["Predeactor", "Kreusada"]
-__version__ = "v1.0.2"
+__version__ = "1.0.2"
 
 __patchnote__ = (
     "**This message was written by Predeactor:**\n\n"

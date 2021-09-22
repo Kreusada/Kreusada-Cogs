@@ -4,119 +4,69 @@
 Vinfo
 =====
 
-This is the cog guide for the vinfo cog. You will
-find detailed docs about usage and commands.
+This is the cog guide for the 'Vinfo' cog. This guide
+contains the collection of commands which you can use in the cog.
 
-Throughout this documentation, ``[p]`` is considered as your prefix.
+Through this guide, ``[p]`` will always represent your prefix. Replace
+``[p]`` with your own prefix when you use these commands in Discord.
 
-------------
-Installation
-------------
+.. note::
 
-Let's firstly add my repository if you haven't already:
+    This guide was last updated for version 2.0.6. Ensure
+    that you are up to date by running ``[p]cog update vinfo``.
 
-* :code:`[p]repo add kreusada https://github.com/Kreusada/Kreusada-Cogs`
+    If there is something missing, or something that needs improving
+    in this documentation, feel free to create an issue `here <https://github.com/Kreusada/Kreusada-Cogs/issues>`_.
 
-Next, let's download the cog from the repo:
+    This documentation is auto-generated everytime this cog receives an update.
 
-* :code:`[p]cog install kreusada vinfo`
+--------------
+About this cog
+--------------
 
-Finally, you can see my end user data statements, cog requirements, and other cog information by using:
-
-* :code:`[p]cog info kreusada vinfo`
-
------
-Usage
------
-
-This cog will attempt to pull version attributes from modules
-and third party cogs and provide you with their version.
-
-.. _vinfo-commands:
+Get versions of 3rd party cogs, and modules.
 
 --------
 Commands
 --------
 
-Here's a list of all commands available for this cog.
+Here are all the commands included in this cog (3):
 
-.. _vinfo-command-vinfo:
+* ``[p]vinfo``
+ Get versions of 3rd party cogs, and modules.
+* ``[p]vinfo cog <cog>``
+ Get the version information for a Red cog.
+* ``[p]vinfo mod <module or dependency>``
+ Get module versions.
 
-^^^^^
-vinfo
-^^^^^
+------------
+Installation
+------------
 
-**Syntax**
-
-.. code-block:: ini
-
-    [p]vinfo
-
-**Description**
-
-Get versions of 3rd party cogs, and modules.
-
-.. _vinfo-command-vinfo-cog:
-
-"""""""""
-vinfo cog
-"""""""""
-
-**Syntax**:
+If you haven't added my repo before, lets add it first. We'll call it
+"kreusada-cogs" here.
 
 .. code-block:: ini
 
-    [p]vinfo cog <cog>
+    [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
-**Description**
-
-Get's the version of a third party cog. Some author's do not implement
-version attributes in their cogs, meaning that this command may not be able to
-return a version if it hasn't been defined in the cog's code.
-
-**Arguments**
-
-* ``<cog>``: The cog to get the version from.
-
-.. warning:: The ``<cog>`` **must** be loaded, and provided in the correct case.
-
-**Example Usage**
-
-.. image:: /image_vinfo-cog.png
-    :alt: vinfo cog
-
-.. _vinfo-command-vinfo-mod:
-
-"""""""""
-vinfo mod
-"""""""""
-
-**Syntax**:
+Now, we can install Vinfo.
 
 .. code-block:: ini
 
-    [p]tt mod <module>
+    [p]cog install kreusada-cogs vinfo
 
-**Description**
+Once it's installed, it is not loaded by default. Load it by running the following
+command:
 
-Get a module's version information.
+.. code-block:: ini
 
-**Arguments**
-
-* ``<module>``: The module to get the version from.
-
-.. warning::
-
-    The ``<module>`` **must** be installed, and provided in the correct case.
-    There are a few modules such as `Levenshtein`, which start with capitals.
-
-**Example Usage**
-
-.. image:: /image_vinfo-mod.png
-    :alt: vinfo mod
+    [p]load vinfo
 
 ---------------
-Receive Support
+Further Support
 ---------------
 
-Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_kreusada-cogs`.
+For more support, head over to the `cog support server <https://discord.gg/GET4DVk>`_,
+I have my own channel over there at #support_kreusada-cogs. Feel free to join my
+`personal server <https://discord.gg/JmCFyq7>`_ whilst you're here.

@@ -4,56 +4,65 @@
 RPSLS
 =====
 
-This is the cog guide for the rpsls cog. You will
-find detailed docs about usage and commands.
+This is the cog guide for the 'RPSLS' cog. This guide
+contains the collection of commands which you can use in the cog.
 
-``[p]`` is considered as your prefix.
+Through this guide, ``[p]`` will always represent your prefix. Replace
+``[p]`` with your own prefix when you use these commands in Discord.
 
-.. note:: To use this cog, load it by typing this::
+.. note::
 
-        [p]load rpsls
+    This guide was last updated for version 2.1.0. Ensure
+    that you are up to date by running ``[p]cog update rpsls``.
 
-.. _rpsls-usage:
+    If there is something missing, or something that needs improving
+    in this documentation, feel free to create an issue `here <https://github.com/Kreusada/Kreusada-Cogs/issues>`_.
 
------
-Usage
------
+    This documentation is auto-generated everytime this cog receives an update.
+
+--------------
+About this cog
+--------------
 
 Rock, paper, scizzors, lizard, spock.
-
-.. image:: /image_rpsls-help.png
-    :alt: rlpls help
-
-.. _rpsls-commands:
 
 --------
 Commands
 --------
 
-.. _rpsls-command-rpsls:
+Here are all the commands included in this cog (1):
 
-^^^^^
-rpsls
-^^^^^
+* ``[p]rpsls <choice>``
+ Play rock, paper, scizzors, lizard, spock.
 
-**Syntax**
+------------
+Installation
+------------
+
+If you haven't added my repo before, lets add it first. We'll call it
+"kreusada-cogs" here.
 
 .. code-block:: ini
 
-    [p]rpsls <choice>
+    [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
-**Description**
+Now, we can install RPSLS.
 
-Play rock, paper, scizzors, lizard, spock.
+.. code-block:: ini
 
-Use ``[p]rpsls help`` for a diagram.
+    [p]cog install kreusada-cogs rpsls
 
-**Arguments**
+Once it's installed, it is not loaded by default. Load it by running the following
+command:
 
-* ``<choice>``: Your choice to play. Must be of rock, paper, scissors, lizard, or spock.
+.. code-block:: ini
+
+    [p]load rpsls
 
 ---------------
-Receive Support
+Further Support
 ---------------
 
-Feel free to ping me at the `Red Cog Support Server <https://discord.gg/GET4DVk>`_ in :code:`#support_kreusada-cogs`.
+For more support, head over to the `cog support server <https://discord.gg/GET4DVk>`_,
+I have my own channel over there at #support_kreusada-cogs. Feel free to join my
+`personal server <https://discord.gg/JmCFyq7>`_ whilst you're here.

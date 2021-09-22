@@ -25,6 +25,7 @@ Useful Links
     cog_advanceduptime
     cog_alphanato
     cog_blackformatter
+    cog_captcha
     cog_cogpaths
     cog_consoleclearer
     cog_dehoister
@@ -36,8 +37,9 @@ Useful Links
     cog_namegenerator
     cog_pinginvoke
     cog_pingoverride
+    cog_pypi
     cog_quotes
-    cog_minifier
+    cog_qr
     cog_raffle
     cog_roleboards
     cog_rpsls

@@ -1,10 +1,10 @@
-.. _namegenerator:
+.. _black:
 
-=============
-NameGenerator
-=============
+=====
+Black
+=====
 
-This is the cog guide for the 'NameGenerator' cog. This guide
+This is the cog guide for the 'Black' cog. This guide
 contains the collection of commands which you can use in the cog.
 
 Through this guide, ``[p]`` will always represent your prefix. Replace
@@ -12,8 +12,8 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 
 .. note::
 
-    This guide was last updated for version 2.0.3. Ensure
-    that you are up to date by running ``[p]cog update namegenerator``.
+    This guide was last updated for version 0.1.1. Ensure
+    that you are up to date by running ``[p]cog update black``.
 
     If there is something missing, or something that needs improving
     in this documentation, feel free to create an issue `here <https://github.com/Kreusada/Kreusada-Cogs/issues>`_.
@@ -24,24 +24,16 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 About this cog
 --------------
 
-Generates random names.
+Run black on code.
 
 --------
 Commands
 --------
 
-Here are all the commands included in this cog (5):
+Here are all the commands included in this cog (1):
 
-* ``[p]name``
- Commands for NameGenerator.
-* ``[p]name first [gender]``
- Generates a first name.
-* ``[p]name full [gender]``
- Generates a full name.
-* ``[p]name last``
- Generates a last name.
-* ``[p]name mash <word1> <word2>``
- Mash two words together.
+* ``[p]black <file> [line_length=99]``
+ Format a python file with black.
 
 ------------
 Installation
@@ -54,18 +46,18 @@ If you haven't added my repo before, lets add it first. We'll call it
 
     [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
-Now, we can install NameGenerator.
+Now, we can install Black.
 
 .. code-block:: ini
 
-    [p]cog install kreusada-cogs namegenerator
+    [p]cog install kreusada-cogs black
 
 Once it's installed, it is not loaded by default. Load it by running the following
 command:
 
 .. code-block:: ini
 
-    [p]load namegenerator
+    [p]load black
 
 ---------------
 Further Support
