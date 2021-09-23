@@ -1,17 +1,17 @@
 import contextlib
 import io
 import json
+import logging
 import re
 from pathlib import Path
 
 import aiohttp
 import discord
 from redbot.core import commands
-from redbot.core.utils.chat_formatting import box, humanize_list, inline, italics
+from redbot.core.utils.chat_formatting import box, humanize_list, inline, italics, pagify
 
 URL_RE = re.compile(r"(https?|s?ftp)://(\S+)", re.I)
 PYTHON_LOGO = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/2048px-Python-logo-notext.svg.png"
-
 
 with open(Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
@@ -21,7 +21,7 @@ class PyPi(commands.Cog):
     """Get information about a package available on PyPi."""
 
     __author__ = ["Kreusada", "OofChair"]
-    __version__ = "1.0.4"
+    __version__ = "1.0.5"
     __dev_ids__ = [719988449867989142, 572944636209922059]
 
     def __init__(self, bot):
@@ -103,11 +103,19 @@ class PyPi(commands.Cog):
 
         if classifiers := info["classifiers"]:
             sort = sorted(classifiers, key=lambda x: len(x.split("::")[0]))
-            embed.add_field(
-                name=f"Classifiers ({len(classifiers)})",
-                value=box("\n".join(sort), lang="asciidoc"),
-                inline=False,
-            )
+            data = "\n".join(sort)
+            if len(data) <= 1000:
+                embed.add_field(
+                    name=f"Classifiers ({len(classifiers)})",
+                    value=box("\n".join(sort), lang="asciidoc"),
+                    inline=False,
+                )
+            else:
+                for _, page in enumerate(pagify(data, page_length=1000)):
+                    title = "Classifiers"
+                    if _:  # Non-zero ints == True
+                        title += " (continued)"
+                    embed.add_field(name=title, value=box(page, lang="asciidoc"), inline=False)
 
         embed.set_author(
             name="Python Package Index", icon_url=PYTHON_LOGO, url="https://pypi.org/"
