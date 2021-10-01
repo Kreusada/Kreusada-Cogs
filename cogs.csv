@@ -22,6 +22,7 @@ RPSLS,"Rock, paper, scissors, lizard, rock",Fun,Kreusada
 Staff,Alert staff for conspicuous activity.,Mod,Kreusada
 Termino,"Custom shutdown and restart messages, and announcements",Tools,Kreusada
 TextEditor,Edit and manipulate with text,"Fun, Tools",Kreusada
+TimeStamps,Produce Discord timestamps.Tools,Kreusada
 TimesTables,Learn your times tables with an against the clock game.,Fun,Kreusada
 Vinfo,Obtain version info for third-party cogs and dependencies.,Tools,Kreusada
 VoteChannel,Designate a channel to add voting reactions (customizable).,"Fun, Tools",Kreusada
