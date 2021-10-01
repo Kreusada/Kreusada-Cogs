@@ -34,7 +34,7 @@ class TimeStamps(Cog):
     """Retrieve timestamps for certain dates."""
 
     __author__ = ["Kreusada"]
-    __version__ = "1.0.0"
+    __version__ = "1.0.1"
 
     def __init__(self, bot):
         self.bot: Red = bot
@@ -55,8 +55,9 @@ class TimeStamps(Cog):
     async def timestamp(self, ctx: Context, *, dti: DateConverter):
         """Produce a Discord timestamp.
 
-        Timestamps are a feature added to Discord in the summer of 2021, which allows you
-        to send timestamps will which update accordingly with any user's date time settings.
+        Timestamps are a feature added to Discord in the summer of 2021, 
+        which allows you to send timestamps will which update accordingly 
+        with any user's date time settings.
 
         **Example Usage**
 
@@ -64,7 +65,7 @@ class TimeStamps(Cog):
         - `[p]timestamp 20 hours ago`
         - `[p]timestamp in 50 minutes`
         - `[p]timestamp 01/10/2021`
-        - `[p]timestamp now
+        - `[p]timestamp now`
         """
         ts = int(dti.timestamp())
         superscript = DateConverter.get_superscript(int(dti.strftime("%d").lstrip("0")))
