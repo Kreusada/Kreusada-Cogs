@@ -75,6 +75,6 @@ class TimeStamps(Cog):
         for i in "fdt":
             message += f"`<t:{ts}:{i.upper()}>`: <t:{ts}:{i.upper()}>\n"
             message += f"`<t:{ts}:{i.lower()}>`: <t:{ts}:{i.lower()}>\n"
-            message += f"`<t:{ts}:R>`: <t:{ts}R>\n"
+        message += f"`<t:{ts}:R>`: <t:{ts}:R>\n"
         await ctx.tick()
         await ctx.maybe_send_embed(message)
