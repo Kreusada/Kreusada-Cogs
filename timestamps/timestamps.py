@@ -55,8 +55,8 @@ class TimeStamps(Cog):
     async def timestamp(self, ctx: Context, *, dti: DateConverter):
         """Produce a Discord timestamp.
 
-        Timestamps are a feature added to Discord in the summer of 2021, 
-        which allows you to send timestamps will which update accordingly 
+        Timestamps are a feature added to Discord in the summer of 2021,
+        which allows you to send timestamps will which update accordingly
         with any user's date time settings.
 
         **Example Usage**
