@@ -47,6 +47,7 @@ Useful Links
     cog_staff
     cog_termino
     cog_texteditor
+    cog_timestamps
     cog_timestables
     cog_vinfo
     cog_votechannel

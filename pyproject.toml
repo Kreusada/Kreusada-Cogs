@@ -49,6 +49,7 @@
         'staff',
         'termino',
         'texteditor',
+        'timestamps',
         'timestables',
         'vinfo',
         'votechannel',
