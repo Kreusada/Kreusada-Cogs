@@ -12,7 +12,7 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 
 .. note::
 
-    This guide was last updated for version 3.4.0. Ensure
+    This guide was last updated for version 3.5.0. Ensure
     that you are up to date by running ``[p]cog update pingoverride``.
 
     If there is something missing, or something that needs improving
@@ -38,6 +38,12 @@ Here are all the commands included in this cog (7):
  Set your ping message.
 * ``[p]pingset message <ping_message>``
  Set the ping message sent when a user runs the ping command.
+* ``[p]pingset embed``
+ Manage the embed settings for the ping command.
+* ``[p]pingset embed title <title>``
+ Set the title for the ping embed.
+* ``[p]pingset embed toggle <toggle>``
+ Set whether the ping command should be embedded.
 * ``[p]pingset reply <reply>``
  Set whether the ping message uses replies.
 * ``[p]pingset reply mention <mention>``
