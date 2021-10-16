@@ -30,7 +30,7 @@ class PingOverride(commands.Cog):
     }
 
     __author__ = ["Kreusada"]
-    __version__ = "3.5.1"
+    __version__ = "3.5.2"
 
     def __init__(self, bot):
         self.bot = bot
@@ -79,7 +79,7 @@ class PingOverride(commands.Cog):
                 "timestamp": datetime.utcnow(),
             }
             if (title := settings["embed"]["title"]) is not None:
-                ekwds["title"] = title
+                ekwds["title"] = title.format(**fmt_kwargs)
             embed = discord.Embed(**ekwds)
             kwargs = {"embed": embed}
         else:
