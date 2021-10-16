@@ -76,7 +76,7 @@ class PingOverride(commands.Cog):
             ekwds = {
                 "description": content,
                 "color": await ctx.embed_colour(),
-                "timestamp":datetime.utcnow(),
+                "timestamp": datetime.utcnow(),
             }
             if (title := settings["embed"]["title"]) is not None:
                 ekwds["title"] = title
@@ -190,7 +190,10 @@ class PingOverride(commands.Cog):
             except KeyError as e:
                 curled = curl(str(e).split("'"))
                 await ctx.send(
-                    box(f"{e.__class__.__name__}: {curled} is not a recognized variable", lang="yaml")
+                    box(
+                        f"{e.__class__.__name__}: {curled} is not a recognized variable",
+                        lang="yaml",
+                    )
                 )
                 return
             except commands.BadArgument as e:
@@ -206,7 +209,7 @@ class PingOverride(commands.Cog):
             await ctx.send("The embed title has been set.")
         else:
             await ctx.send("Embeds will no longer have a title.")
-        
+
         await self.config.embed.title.set(title)
 
     @pingset.command(name="variables", aliases=["vars"])
