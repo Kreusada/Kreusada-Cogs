@@ -13,8 +13,6 @@
         "Custom"
     ],
     "type": "COG",
-    "requirements": [
-        "toml"
-    ],
+    "requirements": [],
     "end_user_data_statement": "This cog does not persistently store data or metadata about users."
 }

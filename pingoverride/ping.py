@@ -2,9 +2,10 @@ import contextlib
 import functools
 import logging
 import random
+from datetime import datetime
 
 import discord
-import toml
+import yaml
 from redbot.core import Config, commands
 from redbot.core.utils.chat_formatting import box
 from redbot.core.utils.menus import DEFAULT_CONTROLS, menu
@@ -19,16 +20,21 @@ log = logging.getLogger("red.kreusada.pingoverride")
 ping_com: commands.Command = None
 
 
+async def embed_check(ctx: commands.Context) -> bool:
+    return await ctx.cog.config.embed.toggled()
+
+
 class PingOverride(commands.Cog):
     """Override the Core's ping command with your own response."""
 
     settings = {
         "response": "Pong.",
+        "embed": {"toggled": False, "title": "Ping"},
         "reply_settings": {"toggled": False, "mention": False},
     }
 
     __author__ = ["Kreusada"]
-    __version__ = "3.4.0"
+    __version__ = "3.5.0"
 
     def __init__(self, bot):
         self.bot = bot
@@ -70,7 +76,16 @@ class PingOverride(commands.Cog):
             content = random.choice(content)
         content = content.format(**fmt_kwargs)
 
-        kwargs = {"content": content}
+        if settings["embed"]["toggled"] and await ctx.embed_requested():
+            embed = discord.Embed(
+                title=settings["embed"]["title"].format(**fmt_kwargs),
+                description=content,
+                colour=await ctx.embed_colour(),
+                timestamp=datetime.utcnow(),
+            )
+            kwargs = {"embed": embed}
+        else:
+            kwargs = {"content": content}
 
         if settings["reply_settings"]["toggled"]:
             kwargs["mention_author"] = settings["reply_settings"]["mention"]
@@ -140,24 +155,75 @@ class PingOverride(commands.Cog):
         verb = "enabled" if mention else "disabled"
         await ctx.send("Reply mentions have been {}.".format(verb))
 
+    @pingset.group(name="embed")
+    @commands.bot_has_permissions(embed_links=True)
+    async def pingset_embed(self, ctx: commands.Context):
+        """Manage the embed settings for the ping command."""
+
+    @pingset_embed.command(name="toggle")
+    async def pingset_embed_toggle(self, ctx: commands.Context, toggle: bool):
+        """Toggle whether embeds should be enabled for the ping command.
+
+        Note, this will only affect the output if the bot has the permissions to embed.
+        """
+        await self.config.embed.toggled.set(toggle)
+        verb = "enabled" if toggle else "disabled"
+        await ctx.send("Embeds have been {} for the ping message.".format(verb))
+
+    @pingset_embed.command(name="title")
+    @commands.check(embed_check)
+    async def pingset_embed_title(self, ctx: commands.Context, *, title: str):
+        """Set the title for the embed.
+
+        **Variables:**
+
+        - `{author.name}`
+        - `{author.id}`
+        - `{author.discriminator}`
+        - `{author.name_and_discriminator}`
+        - `{latency}`
+        """
+        title = title.replace("{author.mention}", "{author.name}")
+        try:
+            title.format(author=Member(ctx.author), latency=round(self.bot.latency * 1000, 2))
+        except KeyError as e:
+            curled = curl(str(e).split("'"))
+            await ctx.send(
+                box(f"{e.__class__.__name__}: {curled} is not a recognized variable", lang="yaml")
+            )
+            return
+        except commands.BadArgument as e:
+            curled = curl(f"author.{e}")
+            await ctx.send(
+                box(
+                    f"{e.__class__.__name__}: {curled} is not valid, author has no attribute {e}",
+                    lang="yaml",
+                )
+            )
+            return
+
+        await self.config.embed.title.set(title)
+        await ctx.send("The embed title has been set.")
+
     @pingset.command(name="variables", aliases=["vars"])
-    @commands.bot_has_permissions(add_reactions=True)
     async def pingset_variables(self, ctx: commands.Context):
         """List the available variables for the ping command."""
         data = []
         key = lambda x: x.name
         sorted_vars = sorted(PingOverrideVariables, key=key)
+        var_length = len(sorted_vars)
         for c, v in enumerate(sorted_vars, 1):
-            if v.name.lower() == "latency":
-                var = curl(v.name.lower())
-            else:
-                var = curl(f"author.{v.name.lower()}")
+            var = v.name.lower()
+            if v.name.lower() != "latency":
+                var = f"author.{var}"
             _dict = {var: {"description": v.value[1], "example": v.value[2]}}
-            page_info = f"Page {c}/{len(sorted_vars)}"
-            kwargs = {"text": toml.dumps(_dict) + page_info, "lang": "toml"}
+            page_info = f"Page {c}/{var_length}"
+            kwargs = {"text": yaml.dump(_dict) + page_info, "lang": "yaml"}
             data.append(box(**kwargs))
-
-        await menu(ctx, data, DEFAULT_CONTROLS)
+        if ctx.channel.permissions_for(ctx.me).add_reactions:
+            await menu(ctx, data, DEFAULT_CONTROLS)
+        else:
+            await ctx.send_interactive(data)
 
     @pingset.command(name="settings")
     async def pingset_settings(self, ctx: commands.Context):
@@ -167,6 +233,7 @@ class PingOverride(commands.Cog):
         message = f"Replies: {settings['reply_settings']['toggled']}\n"
         if settings["reply_settings"]["mention"]:
             message += "\t- These replies will mention\n"
+        message += f"Embed:\n\tenabled: {settings['embed']['toggled']}\n\ttitle: {settings['embed']['title']}\n"
 
         response = settings["response"]
         if isinstance(response, list):
