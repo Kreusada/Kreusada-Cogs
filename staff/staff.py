@@ -138,7 +138,9 @@ class Staff(commands.Cog):
 
         embed.add_field(name="Member", value=ctx.author.mention, inline=True)
         embed.add_field(name="Channel", value=ctx.channel.mention, inline=True)
-        embed.add_field(name="Time", value=f"<t:{int(datetime.utcnow().timestamp())}>", inline=True)
+        embed.add_field(
+            name="Time", value=f"<t:{int(datetime.utcnow().timestamp())}>", inline=True
+        )
         embed.add_field(name="Reason", value=reason, inline=False)
         embed.add_field(name="Context", value=context, inline=False)
 
