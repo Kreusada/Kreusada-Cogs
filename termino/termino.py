@@ -22,7 +22,7 @@ class Termino(Utilities, commands.Cog, metaclass=CompositeMetaClass):
 
     __author__ = ["Kreusada", "Jojo#7791"]
     __dev_ids__ = [719988449867989142, 544974305445019651]
-    __version__ = "2.0.4"
+    __version__ = "2.0.5"
 
     def __init__(self, bot):
         self.bot = bot
@@ -179,7 +179,7 @@ class Termino(Utilities, commands.Cog, metaclass=CompositeMetaClass):
         """Toggle whether restarts confirm before restarting."""
         await self.config.confirm_restart.set(true_or_false)
         grammar = "not" if not true_or_false else "now"
-        await ctx.send(f"Restarts will {grammar} confirm before shutting down.")
+        await ctx.send(f"Restarts will {grammar} confirm before restarting.")
 
     @terminoset_restart.command(name="restartedmessage", aliases=["resmsg"], usage="<message>")
     async def terminoset_restarted_message(self, ctx: commands.Context, *, restarted_message: str):
