@@ -69,9 +69,7 @@ class TimeStamps(Cog):
         """
         ts = int(dti.timestamp())
         superscript = DateConverter.get_superscript(int(dti.strftime("%d").lstrip("0")))
-        message = dti.strftime(
-            "Timestamps for **%A, the {} of %B, %Y (%H:%M)**\n\n".format(superscript)
-        )
+        message = f"Timestamps for **<t:{ts}:F>**\n\n"
         for i in "fdt":
             message += f"`<t:{ts}:{i.upper()}>`: <t:{ts}:{i.upper()}>\n"
             message += f"`<t:{ts}:{i.lower()}>`: <t:{ts}:{i.lower()}>\n"
