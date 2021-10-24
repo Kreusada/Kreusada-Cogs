@@ -68,7 +68,6 @@ class TimeStamps(Cog):
         - `[p]timestamp now`
         """
         ts = int(dti.timestamp())
-        superscript = DateConverter.get_superscript(int(dti.strftime("%d").lstrip("0")))
         message = f"Timestamps for **<t:{ts}:F>**\n\n"
         for i in "fdt":
             message += f"`<t:{ts}:{i.upper()}>`: <t:{ts}:{i.upper()}>\n"
