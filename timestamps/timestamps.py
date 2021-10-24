@@ -22,13 +22,6 @@ class DateConverter(Converter):
             raise BadArgument("Unrecognized date/time.")
         return parsed
 
-    @staticmethod
-    def get_superscript(number: int) -> str:
-        suffixes = {0: "th", 1: "st", 2: "nd", 3: "rd"}
-        for i in range(4, 10):
-            suffixes[i] = "th"
-        return str(number) + suffixes[int(str(number)[-1])]
-
 
 class TimeStamps(Cog):
     """Retrieve timestamps for certain dates."""
