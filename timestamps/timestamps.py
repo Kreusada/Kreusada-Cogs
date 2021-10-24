@@ -22,13 +22,6 @@ class DateConverter(Converter):
             raise BadArgument("Unrecognized date/time.")
         return parsed
 
-    @staticmethod
-    def get_superscript(number: int) -> str:
-        suffixes = {0: "th", 1: "st", 2: "nd", 3: "rd"}
-        for i in range(4, 10):
-            suffixes[i] = "th"
-        return str(number) + suffixes[int(str(number)[-1])]
-
 
 class TimeStamps(Cog):
     """Retrieve timestamps for certain dates."""
@@ -68,10 +61,7 @@ class TimeStamps(Cog):
         - `[p]timestamp now`
         """
         ts = int(dti.timestamp())
-        superscript = DateConverter.get_superscript(int(dti.strftime("%d").lstrip("0")))
-        message = dti.strftime(
-            "Timestamps for **%A, the {} of %B, %Y (%H:%M)**\n\n".format(superscript)
-        )
+        message = f"Timestamps for **<t:{ts}:F>**\n\n"
         for i in "fdt":
             message += f"`<t:{ts}:{i.upper()}>`: <t:{ts}:{i.upper()}>\n"
             message += f"`<t:{ts}:{i.lower()}>`: <t:{ts}:{i.lower()}>\n"
