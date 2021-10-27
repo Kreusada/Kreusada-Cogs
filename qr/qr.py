@@ -98,7 +98,7 @@ Refrain from using colours that would prevent the QR code from working reliably.
 - `{random.choice(RANDOM_COLOURS).replace("_", " ")}`
 - `random`
 
-**Send your message as the corresponding number**
+**Your next message should be a colour of your choice**
 """.strip()
 )
 
