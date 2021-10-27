@@ -20,7 +20,7 @@ class PyPi(commands.Cog):
     """Get information about a package available on PyPi."""
 
     __author__ = ["Kreusada", "OofChair"]
-    __version__ = "1.0.5"
+    __version__ = "1.0.6"
     __dev_ids__ = [719988449867989142, 572944636209922059]
 
     def __init__(self, bot):
@@ -41,6 +41,15 @@ class PyPi(commands.Cog):
         with contextlib.suppress(Exception):
             self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
+    @staticmethod
+    async def send_embed(ctx, embed: discord.Embed, **kwargs):
+        embed.set_author(
+            name="Python Package Index", icon_url=PYTHON_LOGO, url="https://pypi.org/"
+        )
+        embed.color = 0x3498DB
+        kwargs["embed"] = embed
+        await ctx.send(**kwargs)
+
     @commands.command()
     @commands.bot_has_permissions(embed_links=True)
     async def pypi(self, ctx, project: str):
@@ -48,7 +57,10 @@ class PyPi(commands.Cog):
         await ctx.trigger_typing()
         async with self.session.get(f"https://pypi.org/pypi/{project}/json") as request:
             if request.status != 200:
-                return await ctx.send(f"Project with the name '{project}' not found.")
+                embed = discord.Embed(
+                    description=f"There were no results for \"{project}\"."
+                )
+                return await self.send_embed(ctx, embed)
             request = await request.json()
 
         info = request["info"]
@@ -56,7 +68,7 @@ class PyPi(commands.Cog):
         kwargs = {}
 
         embed = discord.Embed(
-            title=f"{info['name']} {info['version']}", color=0x3498DB, url=info["package_url"]
+            title=f"{info['name']} {info['version']}", url=info["package_url"]
         )
         embed.description = info["summary"] or italics(
             "No description was provided for this project."
@@ -116,10 +128,4 @@ class PyPi(commands.Cog):
                         title += " (continued)"
                     embed.add_field(name=title, value=box(page, lang="asciidoc"), inline=False)
 
-        embed.set_author(
-            name="Python Package Index", icon_url=PYTHON_LOGO, url="https://pypi.org/"
-        )
-
-        kwargs["embed"] = embed
-
-        await ctx.send(**kwargs)
+        return await self.send_embed(ctx, embed, **kwargs)
