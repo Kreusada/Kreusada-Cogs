@@ -61,8 +61,9 @@ class Listeners(MixinMeta, metaclass=ABCMeta):
     async def on_member_remove(self, member: Member):
         await self.cleaner(member)
         
-    @commands.is_owner()
+    @commands.mod_or_permissions(manage_roles=True)
     @commands.command()
+    @commands.guild_only()
     async def captcha(self, ctx, *members: discord.Member):
         """Start a captcha challenge for the specified user"""
         await ctx.send("The challenge has been launched for all members of the server specified in the command.\n"+"```"+ctx.message.content+"```")
