@@ -1,5 +1,5 @@
 # Discord/Red related
-import logging
+import logging, discord
 
 # Local
 from abc import ABCMeta
@@ -60,3 +60,15 @@ class Listeners(MixinMeta, metaclass=ABCMeta):
     @commands.Cog.listener()
     async def on_member_remove(self, member: Member):
         await self.cleaner(member)
+        
+    @commands.is_owner()
+    @commands.command()
+    async def captcha(self, ctx, *members: discord.Member):
+        """Start a captcha challenge for the specified user"""
+        await ctx.send("The challenge has been launched for all members of the server specified in the command.\n"+"```"+ctx.message.content+"```")
+        time = await self.data.guild(ctx.guild).timeout()
+        await self.data.guild(ctx.guild).timeout.set(20)
+        for i in members:
+            await self.runner(i)
+        await self.data.guild(ctx.guild).timeout.set(time)
+        await ctx.send("The challenge is over for all the users specified in the command. This does not mean that all users were not bots and therefore are still there.\n"+"```"+ctx.message.content+"```")
