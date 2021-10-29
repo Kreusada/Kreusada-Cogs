@@ -35,20 +35,6 @@ def chunks(l, n):
         yield l[i : i + n]
 
 
-def three_letter_int(x):
-    if x <= 9:
-        return f"00{x}"
-    if x <= 99:
-        return f"0{x}"
-    return str(x)
-
-
-def two_letter_int(x):
-    if x <= 9:
-        return f"0{x}"
-    return str(x)
-
-
 TYPES = {
     "rhy": {
         "endpoint": "https://api.datamuse.com/words?rel_rhy=",
@@ -123,11 +109,12 @@ class WordBase(commands.Cog):
                 data.remove(x)
         sorted_data = list(chunks(sorted(data, key=lambda x: x.get("score", 0), reverse=True), 10))
         if len(data) + 1 <= 9:
-            placement = lambda x: data.index(x) + 1
-        elif len(data) <= 99:
-            placement = lambda x: two_letter_int(data.index(x) + 1)
+            filler = 1
+        elif len(data) + 1 <= 99:
+            filler = 2
         else:
-            placement = lambda x: three_letter_int(data.index(x) + 1)
+            filler = 3
+        placement = lambda x: str(data.index(x) + 1).zfill(filler)
         for w in sorted_data:
             message = ""
             for x in w:
