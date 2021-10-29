@@ -57,9 +57,7 @@ class PyPi(commands.Cog):
         await ctx.trigger_typing()
         async with self.session.get(f"https://pypi.org/pypi/{project}/json") as request:
             if request.status != 200:
-                embed = discord.Embed(
-                    description=f"There were no results for \"{project}\"."
-                )
+                embed = discord.Embed(description=f'There were no results for "{project}".')
                 return await self.send_embed(ctx, embed)
             request = await request.json()
 
@@ -67,9 +65,7 @@ class PyPi(commands.Cog):
 
         kwargs = {}
 
-        embed = discord.Embed(
-            title=f"{info['name']} {info['version']}", url=info["package_url"]
-        )
+        embed = discord.Embed(title=f"{info['name']} {info['version']}", url=info["package_url"])
         embed.description = info["summary"] or italics(
             "No description was provided for this project."
         )
