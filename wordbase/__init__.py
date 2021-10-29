@@ -158,30 +158,35 @@ class WordBase(commands.Cog):
             await self.create_menu(ctx, word_type, word, data)
 
     @commands.command()
+    @commands.has_permissions(embed_links=True)
     async def rhymes(self, ctx: commands.Context, word: str):
         """Get rhymes for a word."""
         await ctx.trigger_typing()
         await self.gettinfo(ctx, "rhy", word)
 
     @commands.command()
+    @commands.has_permissions(embed_links=True)
     async def homophones(self, ctx: commands.Context, word: str):
         """Get homophones for a word."""
         await ctx.trigger_typing()
         await self.gettinfo(ctx, "hom", word)
 
     @commands.command()
+    @commands.has_permissions(embed_links=True)
     async def triggers(self, ctx: commands.Context, word: str):
         """Get triggers for a word."""
         await ctx.trigger_typing()
         await self.gettinfo(ctx, "trg", word)
 
     @commands.command()
+    @commands.has_permissions(embed_links=True)
     async def consonants(self, ctx: commands.Context, word: str):
         """Get consonant matches for a word."""
         await ctx.trigger_typing()
         await self.gettinfo(ctx, "cns", word)
 
     @commands.command()
+    @commands.has_permissions(embed_links=True)
     async def reversedefine(self, ctx: commands.Context, *, definition: str):
         """Get a list of words from a definition."""
         await ctx.trigger_typing()
