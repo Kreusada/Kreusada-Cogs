@@ -12,6 +12,7 @@
 
 "Cog: Captcha":
   - captcha/*
+  - docs/cog_captcha.rst
 
 "Cog: CogPaths":
   - cogpaths/*
@@ -59,9 +60,11 @@
 
 "Cog: PyPi":
   - pypi/*
+  - docs/cog_pypi.rst
 
 "Cog: QR":
   - qr/*
+  - docs/cog_qr.rst
 
 "Cog: Quotes":
   - quotes/*
@@ -106,6 +109,10 @@
 "Cog: VoteChannel":
   - votechannel/*
   - docs/cog_votechannel.rst
+
+"Cog: WordBase":
+  - wordbase/*
+  - docs/cog_wordbase.rst
 
 "Cog: YamlScanner":
   - yamlscanner/*

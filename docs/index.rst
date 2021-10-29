@@ -51,6 +51,7 @@ Useful Links
     cog_timestables
     cog_vinfo
     cog_votechannel
+    cog_wordbase
     cog_yamlscanner
 
 .. toctree::
