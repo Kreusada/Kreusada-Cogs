@@ -93,6 +93,10 @@ class WordBase(commands.Cog):
             with contextlib.suppress(KeyError):
                 self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
+    async def red_delete_data_for_user(self, **kwargs):
+        """Nothing to delete"""
+        return
+
     async def create_menu(
         self,
         ctx: commands.Context,
