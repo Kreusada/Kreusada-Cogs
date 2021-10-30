@@ -151,9 +151,9 @@ class OnThisDay(commands.Cog):
                 except asyncio.TimeoutError:
                     return await ctx.send("You took too long to respond.")
                 container = get_years(tuple(data.keys()))
-                if (result := message.content.lstrip("0").upper()) not in container:
+                if (result := message.content) not in container:
                     return await ctx.send(
-                        f"{inline(result.lower())} was not a valid year for this day."
+                        f"{inline(result)} was not a valid year for this day."
                     )
                 event = data[result]
                 years_ago = int(year) - int("".join(filter(str.isdigit, result)))
@@ -190,7 +190,7 @@ class OnThisDay(commands.Cog):
         """
         await ctx.trigger_typing()
         if day is None:
-            day = datetime.datetime.now()
+            day = now()
         month_number = day.strftime(r"%m").lstrip("0")
         date_number = day.strftime(r"%d").lstrip("0")
         year = day.strftime(r"%Y")
@@ -205,7 +205,7 @@ class OnThisDay(commands.Cog):
         """
         await ctx.trigger_typing()
         if day is None:
-            day = datetime.datetime.now()
+            day = now()
         month_number = day.strftime(r"%m").lstrip("0")
         date_number = day.strftime(r"%d").lstrip("0")
         year = day.strftime(r"%Y")
