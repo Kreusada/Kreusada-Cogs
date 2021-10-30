@@ -35,6 +35,7 @@ Useful Links
     cog_minifier
     cog_mjolnir
     cog_namegenerator
+    cog_onthisday
     cog_pinginvoke
     cog_pingoverride
     cog_pypi
