@@ -152,9 +152,7 @@ class OnThisDay(commands.Cog):
                     return await ctx.send("You took too long to respond.")
                 container = get_years(tuple(data.keys()))
                 if (result := message.content) not in container:
-                    return await ctx.send(
-                        f"{inline(result)} was not a valid year for this day."
-                    )
+                    return await ctx.send(f"{inline(result)} was not a valid year for this day.")
                 event = data[result]
                 years_ago = int(year) - int("".join(filter(str.isdigit, result)))
             embed = discord.Embed(
