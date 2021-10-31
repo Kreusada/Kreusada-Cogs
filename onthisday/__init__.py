@@ -60,10 +60,6 @@ def columns(years):
     return m
 
 
-def get_years(years):
-    return set(years + tuple(map(lambda s: s.zfill(4), years)))
-
-
 def date_suffix(number) -> str:
     number = int(number)
     suffixes = {0: "th", 1: "st", 2: "nd", 3: "rd"}
@@ -91,7 +87,7 @@ class DateConverter(Converter):
 class OnThisDay(commands.Cog):
     """Find out what happened today, in multiple different years in history."""
 
-    __version__ = "1.0.0"
+    __version__ = "1.0.1"
     __author__ = "Kreusada"
 
     def __init__(self, bot: Red):
@@ -142,7 +138,6 @@ class OnThisDay(commands.Cog):
             }
             if _random:
                 result = random.choice(list(data.keys()))
-                event = data[result]
             else:
                 message = f"**Events for this day ({MONTH_MAPPING[month_number].capitalize()} the {date_suffix(date_number)})**\n"
                 await ctx.maybe_send_embed(
@@ -153,9 +148,9 @@ class OnThisDay(commands.Cog):
                 except asyncio.TimeoutError:
                     return await ctx.send("You took too long to respond.")
                 container = get_years(tuple(data.keys()))
-                if (result := message.content) not in container:
+                if (result := message.content.lstrip("0")) not in container:
                     return await ctx.send(f"{inline(result)} was not a valid year for this day.")
-                event = data[result]
+            event = data[result]
             years_ago = int(year) - int("".join(filter(str.isdigit, result)))
             embed = discord.Embed(
                 title=f"On this day, {years_ago} years ago...",
