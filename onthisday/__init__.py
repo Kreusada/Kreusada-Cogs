@@ -87,7 +87,7 @@ class DateConverter(Converter):
 class OnThisDay(commands.Cog):
     """Find out what happened today, in multiple different years in history."""
 
-    __version__ = "1.0.1"
+    __version__ = "1.0.2"
     __author__ = "Kreusada"
 
     def __init__(self, bot: Red):
@@ -147,7 +147,7 @@ class OnThisDay(commands.Cog):
                     message = await self.bot.wait_for("message", check=check(ctx), timeout=50)
                 except asyncio.TimeoutError:
                     return await ctx.send("You took too long to respond.")
-                container = get_years(tuple(data.keys()))
+                container = tuple(data.keys())
                 if (result := message.content.lstrip("0")) not in container:
                     return await ctx.send(f"{inline(result)} was not a valid year for this day.")
             event = data[result]
