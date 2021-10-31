@@ -123,6 +123,10 @@ class OnThisDay(commands.Cog):
             async with self.session.get(
                 ENDPOINT.format(f"{month_number}/{date_number}")
             ) as session:
+                if session.status != 200:
+                    return await ctx.maybe_send_embed(
+                        warning("An error occured whilst retrieving information for this day.")
+                    )
                 content = await session.json()
         except aiohttp.ClientError as e:
             log.exception(e)
@@ -137,10 +141,8 @@ class OnThisDay(commands.Cog):
                 for e in events
             }
             if _random:
-                _c = random.choice(list(data.keys()))
-                event = data[_c]
-                result = _c
-                years_ago = int(year) - int("".join(filter(str.isdigit, _c)))
+                result = random.choice(list(data.keys()))
+                event = data[result]
             else:
                 message = f"**Events for this day ({MONTH_MAPPING[month_number].capitalize()} the {date_suffix(date_number)})**\n"
                 await ctx.maybe_send_embed(
@@ -154,7 +156,7 @@ class OnThisDay(commands.Cog):
                 if (result := message.content) not in container:
                     return await ctx.send(f"{inline(result)} was not a valid year for this day.")
                 event = data[result]
-                years_ago = int(year) - int("".join(filter(str.isdigit, result)))
+            years_ago = int(year) - int("".join(filter(str.isdigit, result)))
             embed = discord.Embed(
                 title=f"On this day, {years_ago} years ago...",
                 description=highlight_numerical_data(event["content"]),
