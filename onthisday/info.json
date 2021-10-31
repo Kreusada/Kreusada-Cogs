@@ -1,0 +1,24 @@
+{
+    "author": [
+        "Kreusada"
+    ],
+    "description": "Find out what happened today, in multiple different years in history.",
+    "disabled": false,
+    "end_user_data_statement": "This cog does not persistently store data or metadata about users.",
+    "hidden": false,
+    "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_onthisday.html",
+    "name": "OnThisDay",
+    "required_cogs": {},
+    "requirements": [
+        "dateparser"
+    ],
+    "short": "Find out what happened today, in multiple different years in history.",
+    "tags": [
+        "On This Day",
+        "History",
+        "Year",
+        "Time",
+        "Date"
+    ],
+    "type": "COG"
+}

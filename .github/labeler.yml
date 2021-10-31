@@ -50,6 +50,10 @@
   - namegenerator/*
   - docs/cog_namegenerator.rst
 
+"Cog: OnThisDay":
+  - onthisday/*
+  - docs/cog_onthisday.rst
+
 "Cog: PingInvoke":
   - pinginvoke/*
   - docs/cog_pinginvoke.rst
