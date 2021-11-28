@@ -63,7 +63,7 @@ class Listeners(MixinMeta, metaclass=ABCMeta):
 
     @commands.is_owner()
     @commands.command()
-    async def captcha(self, ctx, *members: discord.Member):
+    async def captcha(self, ctx, *members: Member):
         """Start a captcha challenge for the specified user"""
         await ctx.send(
             "The challenge has been launched for all members of the server specified in the command.\n"
