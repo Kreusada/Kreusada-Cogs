@@ -72,9 +72,13 @@ class Listeners(MixinMeta, metaclass=ABCMeta):
         for i in members:
             await self.runner(i)
         await self.data.guild(ctx.guild).timeout.set(time)
-        await ctx.send(
-            "The challenge is over for all the users specified in the command. This does not mean that all users were not bots and therefore are still there.\n"
-            + "```"
-            + ctx.message.content
-            + "```"
+        message = (
+            "**The challenge has finished for the following members**\n"
+            + ", ".join(member.name for member in members if not member.bot)
         )
+        if any(member.bot for member in members):
+            message += (
+                "\n\n**The following members were not challenged because they were bots**\n"
+                + ", ".join(member.name for member in members if member.bot)
+            )
+        await ctx.send(message)
