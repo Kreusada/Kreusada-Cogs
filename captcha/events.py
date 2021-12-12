@@ -73,7 +73,7 @@ class Listeners(MixinMeta, metaclass=ABCMeta):
             await self.runner(i)
         await self.data.guild(ctx.guild).timeout.set(time)
         message = (
-            "**The challenge has finished for the following members**\n"
+            "**The challenge has finished for the following members:**\n"
             + ", ".join(member.name for member in members if not member.bot)
         )
         if any(member.bot for member in members):
