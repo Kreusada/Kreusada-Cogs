@@ -61,7 +61,7 @@ class Listeners(MixinMeta, metaclass=ABCMeta):
     async def on_member_remove(self, member: Member):
         await self.cleaner(member)
 
-    @commands.is_owner()
+    @commands.guildowner()
     @commands.command()
     async def captcha(self, ctx, *members: Member):
         """Start a captcha challenge for the specified user"""
