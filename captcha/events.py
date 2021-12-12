@@ -65,12 +65,8 @@ class Listeners(MixinMeta, metaclass=ABCMeta):
     @commands.command()
     async def captcha(self, ctx, *members: Member):
         """Start a captcha challenge for the specified user"""
-        await ctx.send(
-            "The challenge has been launched for all members of the server specified in the command.\n"
-            + "```"
-            + ctx.message.content
-            + "```"
-        )
+        await ctx.send("Running Captcha challenges... this may take a while!")
+        await ctx.trigger_typing()
         time = await self.data.guild(ctx.guild).timeout()
         await self.data.guild(ctx.guild).timeout.set(20)
         for i in members:
