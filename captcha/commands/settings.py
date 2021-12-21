@@ -210,7 +210,7 @@ class Settings(MixinMeta, metaclass=ABCMeta):
         Time will be expressed in minutes.
         """
         if time > 15:
-            await ctx.send("I think 15 minutes is enough, don't you think?")
+            await ctx.send("Time cannot be more than 15.")
             return
         if time < 1:
             await ctx.send("Time must be more than 0.")
@@ -239,7 +239,7 @@ class Settings(MixinMeta, metaclass=ABCMeta):
         if isinstance(role, str):
             if role.lower() == "none":
                 await self.data.guild(ctx.guild).temprole.clear()
-                await ctx.send("Cleared! Don't grin like that.")
+                await ctx.send("Cleared.")
             else:
                 await ctx.send(
                     'Converting to "discord.Role" or "str" failed for parameter "role".'
@@ -266,18 +266,8 @@ class Settings(MixinMeta, metaclass=ABCMeta):
         """
         Set the number of retries allowed before getting kicked.
         """
-        lol = [
-            "You're totally hopeless.",
-            "Pathetic. Just pathetic.",
-            "Oh, you annoy me.",
-            "Bored?",
-            "Enough, we're done here.",
-            "How depraved.",
-            "Trash will be trash.",
-            "Sadist.",
-        ]
         if number_of_retries < 1:
-            await ctx.send(choice(lol))
+            await ctx.send("The number of retries cannot be less than 1.")
             return
 
         await self.data.guild(ctx.guild).retry.set(number_of_retries)
@@ -432,4 +422,4 @@ class Settings(MixinMeta, metaclass=ABCMeta):
             await self.data.guild(ctx.guild).clear()
             await ctx.send("Done!")
             return
-        await ctx.send("So? What next? :)")
+        await ctx.send("Aborted.")
