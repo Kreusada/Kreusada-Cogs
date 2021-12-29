@@ -16,6 +16,7 @@ with open(Path(__file__).parent / "info.json") as fp:
 
 ANTISPAM_TIMEOUT = 20
 
+
 class ReplyNoPing(commands.Cog):
     """Sends a message when someone pings you on a reply."""
 
