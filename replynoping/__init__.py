@@ -65,11 +65,21 @@ class ReplyNoPing(commands.Cog):
     async def on_message_without_command(self, message: discord.Message):
         guild = message.guild
         author = message.author
+        channel = message.channel
         if not guild:
             return
         if author.bot:
             return
         if not message.reference:
+            return
+        channel_perms = channel.permissions_for(guild)
+        if not channel_perms.send_messages:
+            return
+        if await self.bot.cog_disabled_in_guild(self, guild):
+            return
+        if not await self.bot.ignored_channel_or_guild(message):
+            return
+        if not await self.bot.allowed_by_whitelist_blacklist(author):
             return
         settings = await self.config.guild(message.guild).all()
         if not settings["toggled"]:
