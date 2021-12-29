@@ -78,6 +78,10 @@
   - raffle/*
   - docs/cog_raffle.rst
 
+"Cog: ReplyNoPing":
+  - replynoping/*
+  - docs/cog_replynoping.rst
+
 "Cog: RoleBoards":
   - roleboards/*
   - docs/cog_roleboards.rst

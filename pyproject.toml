@@ -38,9 +38,11 @@
         'minifier',
         'mjolnir',
         'namegenerator',
+        'onthisday',
         'pinginvoke',
         'pingoverride',
         'pypi',
+        'qr',
         'quotes',
         'raffle',
         'roleboards',
@@ -53,5 +55,6 @@
         'timestables',
         'vinfo',
         'votechannel',
+        'wordbase',
         'yamlscanner'
     ]
