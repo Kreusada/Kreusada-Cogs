@@ -14,6 +14,7 @@ from redbot.core.utils.predicates import MessagePredicate
 with open(Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
 
+ANTISPAM_TIMEOUT = 20
 
 class ReplyNoPing(commands.Cog):
     """Sends a message when someone pings you on a reply."""
@@ -91,7 +92,7 @@ class ReplyNoPing(commands.Cog):
         if guild.id not in self.antispam:
             self.antispam[guild.id] = {}
         if author.id not in self.antispam[guild.id]:
-            self.antispam[guild.id][author.id] = AntiSpam([(timedelta(seconds=20), 1)])
+            self.antispam[guild.id][author.id] = AntiSpam([(timedelta(seconds=ANTISPAM_TIMEOUT), 1)])
         if self.antispam[guild.id][author.id].spammy:
             return
         self.antispam[guild.id][author.id].stamp()
@@ -150,6 +151,7 @@ class ReplyNoPing(commands.Cog):
         embed.add_field(name="Replies:", value=settings["reply_settings"]["toggled"])
         embed.add_field(name="Reply mentions:", value=settings["reply_settings"]["mention"])
         embed.add_field(name="Message", value=settings["message"], inline=False)
+        embed.set_footer(text=f"Triggers will have a {ANTISPAM_TIMEOUT} second timeout per user after each reply ping.")
         await ctx.send(embed=embed)
 
     @rnp.command(name="toggle")
