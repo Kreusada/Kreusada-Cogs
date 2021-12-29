@@ -19,6 +19,8 @@ PyPi,Get information about a package available on PyPi.,Tools,"Kreusada, OofChai
 QR,Create QR codes.,Tools,Kreusada
 Quotes,Get a random quote,Fun,Kreusada
 Raffle,Create raffles for your guild,Fun,Kreusada
+ReplyNoPing,Sends a message when someone pings you on a reply.,Moderation,Kreusada
+RoleBoards,"Get 'leaderboards' about guild roles, such as the users with the most roles,the roles with the most users, and a full list of all the roles.",Tools,Kreusada
 RPSLS,"Rock, paper, scissors, lizard, rock",Fun,Kreusada
 Staff,Alert staff for conspicuous activity.,Mod,Kreusada
 Termino,"Custom shutdown and restart messages, and announcements",Tools,Kreusada
