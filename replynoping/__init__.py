@@ -27,10 +27,10 @@ class ReplyNoPing(commands.Cog):
         self.config.register_guild(
             message=None,
             toggled=False,
-            reply_settings = {
+            reply_settings={
                 "toggled": True,
                 "mention": False,
-            }
+            },
         )
         self.antispam = {}
         if 719988449867989142 in self.bot.owner_ids:
@@ -52,13 +52,13 @@ class ReplyNoPing(commands.Cog):
 
     @staticmethod
     def determine_reply(message: discord.Message) -> bool:
-        message.content = None # we set this to None to clear message.mentions from actual content
+        message.content = None  # we set this to None to clear message.mentions from actual content
         mentions = message.mentions
-        if mentions: # can only have 1 or 0 elements
+        if mentions:  # can only have 1 or 0 elements
             if mentions[0] == message.author or mentions[0].bot:
-                return False # pinged on a reply by the same author, pointless (also bots don't get triggered)
-            return True # pinged on a reply by a different user
-        return False # no mentions == no reply pings, happy days :P
+                return False  # pinged on a reply by the same author, pointless (also bots don't get triggered)
+            return True  # pinged on a reply by a different user
+        return False  # no mentions == no reply pings, happy days :P
         # it should never get to this last return anyway, seeing as i checked against message.reference in the listener
 
     @commands.Cog.listener()
@@ -110,7 +110,9 @@ class ReplyNoPing(commands.Cog):
         return func(**kwargs)
 
     @staticmethod
-    async def pred(ctx: commands.Context, *, message: str, predicate_type: Literal["bool", "input"]):
+    async def pred(
+        ctx: commands.Context, *, message: str, predicate_type: Literal["bool", "input"]
+    ):
         await ctx.send(message)
         if predicate_type == "bool":
             pred = MessagePredicate.yes_or_no(ctx, user=ctx.author)
@@ -142,7 +144,7 @@ class ReplyNoPing(commands.Cog):
         embed = discord.Embed(
             title="Settings for ReplyNoPing",
             description=f"You can reconfigure all these settings through `{ctx.clean_prefix}rnp set`.",
-            colour=await ctx.embed_colour()
+            colour=await ctx.embed_colour(),
         )
         embed.add_field(name="Enabled:", value=settings["toggled"])
         embed.add_field(name="Replies:", value=settings["reply_settings"]["toggled"])
@@ -168,19 +170,17 @@ class ReplyNoPing(commands.Cog):
         message = await self.pred(
             ctx,
             message="Your next message will be the message sent when users ping on their replies:",
-            predicate_type="input"
+            predicate_type="input",
         )
         reply_toggled = await self.pred(
             ctx,
             message=f"When this message is sent, do you want {self.bot.user.name} to use a reply for their message? (y/n)",
-            predicate_type="bool"
+            predicate_type="bool",
         )
         reply_mention = False
         if reply_toggled:
             reply_mention = await self.pred(
-                ctx,
-                message="Would you like this reply to mention? (y/n)",
-                predicate_type="bool"
+                ctx, message="Would you like this reply to mention? (y/n)", predicate_type="bool"
             )
         settings = await self.config.guild(ctx.guild).all()
         toggled = settings["toggled"]
@@ -188,7 +188,7 @@ class ReplyNoPing(commands.Cog):
             toggle = await self.pred(
                 ctx,
                 message=f"ReplyNoPing is currently disabled for this guild. Would you like to enable it now? (y/n)",
-                predicate_type="bool"
+                predicate_type="bool",
             )
             settings["toggled"] = toggle
         settings["message"] = message
