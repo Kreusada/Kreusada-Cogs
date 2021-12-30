@@ -152,7 +152,7 @@ class Listeners(MixinMeta, metaclass=ABCMeta):
     @commands.guildowner()
     @commands.command(aliases=["bypasscaptcha"])
     async def skipcaptcha(self, ctx, *members: Member):
-        """Cancel a captcha challenge for the specified user"""
+        """Cancel a captcha challenge for the specified members."""
         await ctx.send("Cancelling Captcha challenges...")
         await ctx.trigger_typing()
         for member in members:
