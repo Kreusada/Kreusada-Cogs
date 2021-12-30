@@ -81,10 +81,8 @@ class Listeners(MixinMeta, metaclass=ABCMeta):
             roles_name = [role.name for role in roles]
             try:
                 await challenge.member.send(
-                    f"Please contact the administrator of {challenge.guild.name} for obtaining "
-                    "access of the server, I was unable to add you the roles on the server.\nYou "
-                    f"should have obtained the following roles: "
-                    f"{humanize_list(roles_name) if roles_name else 'None.'}"
+                    f"Please contact the administrator of {challenge.guild.name} in order to obtain "
+                    "access to the server, I was unable to give you the roles on the server."
                 )
             except discord.Forbidden:
                 await challenge.channel.send(
