@@ -73,7 +73,7 @@ class Listeners(MixinMeta, metaclass=ABCMeta):
             )
             await self.send_or_update_log_message(
                 challenge.guild,
-                bold("Roles added, Captcha skiped."),
+                bold("Roles added, Captcha skipped."),
                 challenge.messages["logs"],
                 member=challenge.member,
             )
