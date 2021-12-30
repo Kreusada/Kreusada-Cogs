@@ -20,12 +20,7 @@ class Listeners(MixinMeta, metaclass=ABCMeta):
     async def runner(self, member: Member):
         allowed = await self.basic_check(member)
         if allowed:
-            try:
-                challenge = await self.create_challenge_for(member)
-            except AlreadyHaveCaptchaError:
-                raise AlreadyHaveCaptchaError(
-                    "The user already have a captcha object running."
-                )
+            challenge = await self.create_challenge_for(member)
             # noinspection PyBroadException
             try:
                 await self.realize_challenge(challenge)
