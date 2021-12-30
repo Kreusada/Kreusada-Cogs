@@ -88,10 +88,8 @@ class Listeners(MixinMeta, metaclass=ABCMeta):
                 await challenge.channel.send(
                     challenge.member.mention
                     + ": "
-                    + f"Please contact the administrator of {challenge.guild.name} for obtaining "
-                    "access of the server, I was unable to add you the roles on the server.\nYou "
-                    f"should have obtained the following roles: "
-                    f"{humanize_list(roles_name) if roles_name else 'None.'}",
+                    + f"Please contact the administrator of {challenge.guild.name} in order to obtain "
+                    "access to the server, I was unable to give you the roles on the server."
                     delete_after=10,
                 )
             await self.send_or_update_log_message(
