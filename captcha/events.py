@@ -64,12 +64,9 @@ class Listeners(MixinMeta, metaclass=ABCMeta):
             await self.congratulation(challenge, roles)
             await self.remove_temprole(challenge)
 
-            def ok_check(msg: str):
-                return f"✅ {msg}"
-
             await self.send_or_update_log_message(
                 challenge.guild,
-                ok_check(f"Captcha skiped by {author.name} ({author.id})."),
+                f"✅ Captcha skiped by {author.name} ({author.id}).",
                 challenge.messages["logs"],
                 allowed_tries=(challenge.trynum, challenge.limit),
                 member=challenge.member,
