@@ -1,5 +1,5 @@
 import sys
-from typing import Dict, Union, Optional
+from typing import Dict, Optional, Union
 
 import pycountry
 from redbot.core.commands import BadArgument, Context, Converter
@@ -11,9 +11,7 @@ from .functions import EXCEPTIONS, IMAGE_BASE, SPECIAL_IMAGES, square
 class CountryConverter(Converter):
     """Convert for country input"""
 
-    async def convert(
-        self, ctx: Context, argument: str
-    ) -> Optional[Dict[str, Union[str, int]]]:
+    async def convert(self, ctx: Context, argument: str) -> Optional[Dict[str, Union[str, int]]]:
         argument = argument.lower()
         get = lambda **kwargs: pycountry.countries.get(**kwargs)
 

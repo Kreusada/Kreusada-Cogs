@@ -57,5 +57,5 @@ class Minifier(commands.Cog):
         converted = io.BytesIO(minifier.minify(file).encode(encoding="utf-8"))
         return await ctx.send(
             content="Please see the attached file below, with your minified code.",
-            file=discord.File(converted, filename=file_name)
+            file=discord.File(converted, filename=file_name),
         )

@@ -7,7 +7,6 @@ import discord
 from redbot.core import Config, commands
 from redbot.core.utils.chat_formatting import box, error, warning
 
-
 with open(pathlib.Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
 
@@ -15,8 +14,8 @@ with open(pathlib.Path(__file__).parent / "info.json") as fp:
 class Staff(commands.Cog):
     """
     This cog will allow you to alert staff using a command, which will be sent
-    to the specified staff channel. 
-    
+    to the specified staff channel.
+
     Provides additional details such as the last messages in the channel, the date, author, and more.
     """
 

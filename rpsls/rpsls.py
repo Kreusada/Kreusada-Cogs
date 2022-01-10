@@ -10,12 +10,12 @@ from redbot.core import commands
 from redbot.core.commands import BadArgument, Context, Converter
 from redbot.core.utils.chat_formatting import bold, humanize_list, italics
 
-
 with open(Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
 
 
 DIAGRAM = "https://static.wikia.nocookie.net/bigbangtheory/images/7/7d/RPSLS.png/revision/latest?cb=20120822205915"
+
 
 class RPSLSEnum(enum.Enum):
     SCISSORS = "\N{BLACK SCISSORS}\N{VARIATION SELECTOR-16}"

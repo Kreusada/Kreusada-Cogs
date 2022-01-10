@@ -1,4 +1,5 @@
-from .texteditor import __red_end_user_data_statement__, TextEditor
+from .texteditor import TextEditor, __red_end_user_data_statement__
+
 
 def setup(bot):
     cog = TextEditor(bot)

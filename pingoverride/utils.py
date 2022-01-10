@@ -51,7 +51,9 @@ async def add_random_messages(ctx, original_ping_message):
                 continue
             except Exception:
                 # catch chained attributeerrors and such
-                await ctx.send("This message doesn't look right. Please consult the docs for more information. Skipping for now...")
+                await ctx.send(
+                    "This message doesn't look right. Please consult the docs for more information. Skipping for now..."
+                )
                 continue
             messages.append(message.content)
     else:

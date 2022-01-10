@@ -16,4 +16,5 @@ mixins = (
 
 class Commands(*mixins, metaclass=MetaClass):
     """Mixin used for command-based mixin classes"""
+
     pass

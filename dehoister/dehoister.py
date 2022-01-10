@@ -22,6 +22,7 @@ IDENTIFIER = 435089473534
 
 HOISTING_CHARACTERS = tuple("!\"#$%&'()*+,-./:;<=>?@")
 
+
 class Dehoister(commands.Cog):
     """
     Dehoist usernames that start with hoisting characters.
@@ -34,9 +35,7 @@ class Dehoister(commands.Cog):
         self.bot = bot
         self.config = Config.get_conf(self, IDENTIFIER, force_registration=True)
         self.config.register_guild(
-            nickname=f"\N{CROSS MARK} Dehoisted",
-            toggled=False,
-            ignored_users=[]
+            nickname=f"\N{CROSS MARK} Dehoisted", toggled=False, ignored_users=[]
         )
         if 719988449867989142 in self.bot.owner_ids:
             with contextlib.suppress(RuntimeError, ValueError):
@@ -79,7 +78,9 @@ class Dehoister(commands.Cog):
     async def get_hoisted_count(self, ctx):
         ignored_users = await self.config.guild(ctx.guild).ignored_users()
         return sum(
-            m.display_name.startswith(HOISTING_CHARACTERS) and not m.bot and m.id not in ignored_users
+            m.display_name.startswith(HOISTING_CHARACTERS)
+            and not m.bot
+            and m.id not in ignored_users
             for m in ctx.guild.members
         )
 
@@ -90,7 +91,9 @@ class Dehoister(commands.Cog):
             # Pre-formatting for output
             f"{m}:{f'{B}- {m.nick}' if m.nick else ''}{B}-- {m.id}"
             for m in ctx.guild.members
-            if m.display_name.startswith(HOISTING_CHARACTERS) and not m.bot and m.id not in ignored_users
+            if m.display_name.startswith(HOISTING_CHARACTERS)
+            and not m.bot
+            and m.id not in ignored_users
         )
 
     @commands.Cog.listener()
@@ -222,7 +225,11 @@ class Dehoister(commands.Cog):
             await ctx.trigger_typing()
             exceptions = 0
             for m in ctx.guild.members:
-                if m.display_name.startswith(HOISTING_CHARACTERS) and not m.bot and m.id not in ignored_users:
+                if (
+                    m.display_name.startswith(HOISTING_CHARACTERS)
+                    and not m.bot
+                    and m.id not in ignored_users
+                ):
                     try:
                         await m.edit(nick=await self.config.guild(ctx.guild).nickname())
                     except discord.Forbidden:

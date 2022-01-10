@@ -1,4 +1,4 @@
-from .dehoister import __red_end_user_data_statement__, Dehoister
+from .dehoister import Dehoister, __red_end_user_data_statement__
 
 
 def setup(bot):

@@ -1,4 +1,4 @@
-from .flags import __red_end_user_data_statement__, Flags
+from .flags import Flags, __red_end_user_data_statement__
 
 
 def setup(bot):

@@ -133,7 +133,9 @@ class PingOverride(commands.Cog):
             return
         except Exception:
             # catch chained attributeerrors and such
-            await ctx.send("This message doesn't look right. Please consult the docs for more information.")
+            await ctx.send(
+                "This message doesn't look right. Please consult the docs for more information."
+            )
 
         setter = await add_random_messages(ctx, ping_message)
 
@@ -212,7 +214,9 @@ class PingOverride(commands.Cog):
                 return
             except Exception:
                 # catch chained attributeerrors and such
-                await ctx.send("This message doesn't look right. Please consult the docs for more information.")
+                await ctx.send(
+                    "This message doesn't look right. Please consult the docs for more information."
+                )
 
             await ctx.send("The embed title has been set.")
         else:

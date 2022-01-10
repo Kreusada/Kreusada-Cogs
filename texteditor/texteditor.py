@@ -67,6 +67,7 @@ class Editor(str):
     def multiply(self, mul) -> str:
         return box(self * mul)
 
+
 with open(pathlib.Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
 
@@ -157,7 +158,9 @@ class TextEditor(commands.Cog):
         await ctx.send(text.remove(remove))
 
     @editor.command(name="trim", aliases=["strip"], usage='[trimmer=" "] <text>')
-    async def editor_trim(self, ctx: commands.Context, trimmer: Optional[str] = " ", *, text: Editor):
+    async def editor_trim(
+        self, ctx: commands.Context, trimmer: Optional[str] = " ", *, text: Editor
+    ):
         """Trim the outskirts of the text."""
         await ctx.send(text.trim(trimmer))
 
