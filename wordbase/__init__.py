@@ -70,8 +70,8 @@ with open(pathlib.Path(__file__).parent / "info.json") as fp:
 class WordBase(commands.Cog):
     """Generate rhymes, use a reverse dictionary, and more word related generators."""
 
-    __author__ = ["Kreusada"]
-    __version__ = "1.0.0"
+    __author__ = "Kreusada"
+    __version__ = "1.0.1"
 
     def __init__(self, bot: Red):
         self.bot = bot
@@ -84,8 +84,7 @@ class WordBase(commands.Cog):
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
-        authors = ", ".join(self.__author__)
-        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+        return f"{context}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
     def cog_unload(self):
         self.bot.loop.create_task(self.session.close())

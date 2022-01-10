@@ -15,23 +15,23 @@ class AlphaNato(commands.Cog):
     Get the names of the NATO phonetics through easy-to-use syntax.
     """
 
-    __author__ = ["Kreusada"]
-    __version__ = "1.1.1"
+    __author__ = "Kreusada"
+    __version__ = "1.1.2"
 
     def __init__(self, bot):
         self.bot = bot
         if 719988449867989142 in self.bot.owner_ids:
             with contextlib.suppress(RuntimeError, ValueError):
-                self.bot.add_dev_env_value("alphanato", lambda x: self)
+                self.bot.add_dev_env_value(self.__class__.__name__, lambda x: self)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
-        authors = ", ".join(self.__author__)
-        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+        return f"{context}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
     def cog_unload(self):
-        with contextlib.suppress(Exception):
-            self.bot.remove_dev_env_value(self.__class__.__name__.lower())
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(KeyError):
+                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""
@@ -54,5 +54,4 @@ class AlphaNato(commands.Cog):
         **Returns:**
         The NATO alphabet name for the provided characters.
         """
-        # Oh boy, I love converters :P
         await ctx.send(letters)

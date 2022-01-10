@@ -1,7 +1,3 @@
-from datetime import datetime
-
-_now = datetime.now().strftime("%Y")
-
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", ".venv", "venv"]
 html_css_files = ["literals.css"]
 extensions = ["sphinx_rtd_theme"]
@@ -26,5 +22,5 @@ exclude_patterns = []
 add_function_parentheses = True
 
 project = "Kreusada-Cogs"
-copyright = f"{_now} - 2021 | Kreusada"
+copyright = "2020 - 2022 | Kreusada"
 html_logo = "image_cog-creators-logo.png"

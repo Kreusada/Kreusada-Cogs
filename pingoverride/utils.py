@@ -49,6 +49,10 @@ async def add_random_messages(ctx, original_ping_message):
                 curled = curl(f"author.{e}")
                 await ctx.send(f"{curled} is not valid, author has no attribute {e}, skipping...")
                 continue
+            except Exception:
+                # catch chained attributeerrors and such
+                await ctx.send("This message doesn't look right. Please consult the docs for more information. Skipping for now...")
+                continue
             messages.append(message.content)
     else:
         return original_ping_message

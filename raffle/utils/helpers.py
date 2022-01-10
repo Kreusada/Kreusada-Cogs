@@ -12,7 +12,7 @@ from yaml.parser import MarkedYAMLError
 
 from .checks import now
 from .enums import RaffleEndMessageComponents, RaffleJoinMessageComponents
-from .exceptions import InvalidArgument, RaffleError
+from .exceptions import InvalidArgument
 from .formatting import cross, curl, formatenum
 from .safety import RaffleSafeMember
 

@@ -1,10 +1,15 @@
 import contextlib
 import datetime
+import json
 import os
+import pathlib
 
 from redbot.core import commands
 
-now = datetime.datetime.utcnow()
+with open(pathlib.Path(__file__).parent / "info.json") as fp:
+    __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
+
+now = lambda: datetime.datetime.utcnow()
 
 header = r"""
 ______         _           ______ _                       _  ______       _
@@ -15,35 +20,33 @@ ______         _           ______ _                       _  ______       _
 \_| \_\___|\__,_|          |___/ |_|___/\___\___/|_|  \__,_| \____/ \___/ \__|
 """
 
-cleared = f"Red console cleared. | {now.strftime('%b %d %Y %H:%M:%S')}."
+cleared = f"Red console cleared. | {now().strftime('%b %d %Y %H:%M:%S')}."
 
 
 class ConsoleClearer(commands.Cog):
     """Clear your console."""
 
-    __author__ = ["Kreusada"]
-    __version__ = "1.1.0"
+    __author__ = "Kreusada"
+    __version__ = "1.1.1"
 
     def __init__(self, bot):
         self.bot = bot
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(RuntimeError, ValueError):
+                self.bot.add_dev_env_value(self.__class__.__name__.lower(), lambda x: self)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
-        authors = ", ".join(self.__author__)
-        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+        return f"{context}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete."""
         return
 
     def cog_unload(self):
-        with contextlib.suppress(Exception):
-            self.bot.remove_dev_env_value("consoleclearer")
-
-    async def initialize(self) -> None:
         if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(Exception):
-                self.bot.add_dev_env_value("consoleclearer", lambda x: self)
+            with contextlib.suppress(KeyError):
+                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     @commands.is_owner()
     @commands.command(aliases=["cleanconsole", "consoleclear", "consoleclean"])

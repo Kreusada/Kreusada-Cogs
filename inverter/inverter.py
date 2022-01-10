@@ -15,8 +15,8 @@ with open(pathlib.Path(__file__).parent / "info.json") as fp:
 class Inverter(commands.Cog):
     """Invert images and avatars."""
 
-    __author__ = ["Kreusada"]
-    __version__ = "1.1.0"
+    __author__ = "Kreusada"
+    __version__ = "1.1.1"
 
     def __init__(self, bot):
         self.bot = bot
@@ -26,12 +26,12 @@ class Inverter(commands.Cog):
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
-        authors = ", ".join(self.__author__)
-        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+        return f"{context}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
     def cog_unload(self):
-        with contextlib.suppress(KeyError):
-            self.bot.remove_dev_env_value(self.__class__.__name__.lower())
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(KeyError):
+                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""
@@ -113,10 +113,10 @@ class Inverter(commands.Cog):
         msg = await ctx.send("Inverting avatar...")
         if not member:
             member = ctx.author
-        avvy = str(member.avatar_url_as(format="png"))
+        avatar = str(member.avatar_url_as(format="png"))
         await self.invert_image(
             ctx=ctx,
-            url=avvy,
+            url=avatar,
             image_type="avatar",
         )
         with contextlib.suppress(discord.NotFound):

@@ -20,7 +20,7 @@ class PyPi(commands.Cog):
     """Get information about a package available on PyPi."""
 
     __author__ = ["Kreusada", "OofChair"]
-    __version__ = "1.0.6"
+    __version__ = "1.0.7"
     __dev_ids__ = [719988449867989142, 572944636209922059]
 
     def __init__(self, bot):
@@ -38,8 +38,9 @@ class PyPi(commands.Cog):
 
     def cog_unload(self):
         self.bot.loop.create_task(self.session.close())
-        with contextlib.suppress(Exception):
-            self.bot.remove_dev_env_value(self.__class__.__name__.lower())
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(KeyError):
+                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     @staticmethod
     async def send_embed(ctx, embed: discord.Embed, **kwargs):

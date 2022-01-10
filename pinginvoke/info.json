@@ -2,9 +2,9 @@
     "author": [
         "Kreusada"
     ],
-    "description": "Invoke the ping command when calling for your bot.",
+    "description": "This cog was merged into PingOverride. Please install PingOverride and reconfigure your settings there to carry on using this cog.",
     "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_pinginvoke.html",
-    "short": "Invoke your bot.",
+    "short": "This cog was merged into PingOverride. Please install PingOverride and reconfigure your settings there to carry on using this cog.",
     "name": "PingInvoke",
     "tags": [
         "Invoke",

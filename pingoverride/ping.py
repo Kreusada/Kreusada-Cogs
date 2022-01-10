@@ -1,20 +1,22 @@
 import contextlib
 import functools
+import json
 import logging
+import pathlib
 import random
 from datetime import datetime
 
 import discord
-import yaml
 from redbot.core import Config, commands
 from redbot.core.utils.chat_formatting import box
-from redbot.core.utils.menus import DEFAULT_CONTROLS, menu
 
-from .enums import PingOverrideVariables
 from .objects import Member
 from .utils import add_random_messages, curl
 
 log = logging.getLogger("red.kreusada.pingoverride")
+
+with open(pathlib.Path(__file__).parent / "info.json") as fp:
+    __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
 
 
 ping_com: commands.Command = None
@@ -29,8 +31,8 @@ class PingOverride(commands.Cog):
         "reply_settings": {"toggled": False, "mention": False},
     }
 
-    __author__ = ["Kreusada"]
-    __version__ = "3.5.2"
+    __author__ = "Kreusada"
+    __version__ = "3.5.3"
 
     def __init__(self, bot):
         self.bot = bot
@@ -49,13 +51,13 @@ class PingOverride(commands.Cog):
             except Exception as e:
                 log.info(e)
             self.bot.add_command(ping_com)
-        with contextlib.suppress(KeyError):
-            self.bot.add_dev_env_value(self.__class__.__name__.lower(), lambda x: self)
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(KeyError):
+                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
-        authors = ", ".join(self.__author__)
-        return f"{context}\n\nAuthors: {authors}\nVersion: {self.__version__}"
+        return f"{context}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""
@@ -129,6 +131,9 @@ class PingOverride(commands.Cog):
                 )
             )
             return
+        except Exception:
+            # catch chained attributeerrors and such
+            await ctx.send("This message doesn't look right. Please consult the docs for more information.")
 
         setter = await add_random_messages(ctx, ping_message)
 
@@ -205,32 +210,15 @@ class PingOverride(commands.Cog):
                     )
                 )
                 return
+            except Exception:
+                # catch chained attributeerrors and such
+                await ctx.send("This message doesn't look right. Please consult the docs for more information.")
 
             await ctx.send("The embed title has been set.")
         else:
             await ctx.send("Embeds will no longer have a title.")
 
         await self.config.embed.title.set(title)
-
-    @pingset.command(name="variables", aliases=["vars"])
-    async def pingset_variables(self, ctx: commands.Context):
-        """List the available variables for the ping command."""
-        data = []
-        key = lambda x: x.name
-        sorted_vars = sorted(PingOverrideVariables, key=key)
-        var_length = len(sorted_vars)
-        for c, v in enumerate(sorted_vars, 1):
-            var = v.name.lower()
-            if v.name.lower() != "latency":
-                var = f"author.{var}"
-            _dict = {var: {"description": v.value[1], "example": v.value[2]}}
-            page_info = f"Page {c}/{var_length}"
-            kwargs = {"text": yaml.dump(_dict) + page_info, "lang": "yaml"}
-            data.append(box(**kwargs))
-        if ctx.channel.permissions_for(ctx.me).add_reactions:
-            await menu(ctx, data, DEFAULT_CONTROLS)
-        else:
-            await ctx.send_interactive(data)
 
     @pingset.command(name="settings")
     async def pingset_settings(self, ctx: commands.Context):

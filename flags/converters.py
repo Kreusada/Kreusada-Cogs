@@ -1,5 +1,5 @@
 import sys
-from typing import Dict, Union
+from typing import Dict, Union, Optional
 
 import pycountry
 from redbot.core.commands import BadArgument, Context, Converter
@@ -13,7 +13,7 @@ class CountryConverter(Converter):
 
     async def convert(
         self, ctx: Context, argument: str
-    ) -> Union[Dict[str, Union[str, int]], None]:
+    ) -> Optional[Dict[str, Union[str, int]]]:
         argument = argument.lower()
         get = lambda **kwargs: pycountry.countries.get(**kwargs)
 

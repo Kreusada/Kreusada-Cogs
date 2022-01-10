@@ -10,6 +10,7 @@ except ModuleNotFoundError:
 
 import discord
 from redbot.core import Config, commands
+from redbot.core.bot import Red
 from redbot.core.utils.chat_formatting import bold, box, humanize_number, humanize_timedelta
 
 log = logging.getLogger("red.kreusada.advanceduptime")
@@ -27,18 +28,18 @@ class AdvancedUptime(commands.Cog):
     Show [botname]'s uptime, with extra stats.
     """
 
-    __author__ = ["Kreusada"]
-    __version__ = "3.3.0"
+    __author__ = "Kreusada"
+    __version__ = "3.3.1"
 
-    def __init__(self, bot):
+    def __init__(self, bot: Red):
         self.bot = bot
         self.commands_run = {}
         self.settings = {}
         self.config = Config.get_conf(self, 4589035903485, True)
         self.config.register_global(**default_settings)
         if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(Exception):
-                self.bot.add_dev_env_value("advanceduptime", lambda x: self)
+            with contextlib.suppress(RuntimeError, ValueError):
+                self.bot.add_dev_env_value(self.__class__.__name__.lower(), lambda x: self)
 
     @commands.Cog.listener()
     async def on_command(self, ctx):
@@ -61,8 +62,7 @@ class AdvancedUptime(commands.Cog):
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
-        authors = ", ".join(self.__author__)
-        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+        return f"{context}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""
@@ -76,6 +76,9 @@ class AdvancedUptime(commands.Cog):
             except Exception as error:
                 log.info(error)
             self.bot.add_command(_old_uptime)
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(KeyError):
+                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     async def initialize(self):
         self.settings = await self.config.all()

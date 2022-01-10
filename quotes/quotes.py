@@ -12,8 +12,8 @@ log = logging.getLogger("red.kreusada.quotes")
 class Quotes(commands.Cog):
     """Get a random quote."""
 
-    __version__ = "1.1.0"
-    __author__ = ["Kreusada"]
+    __version__ = "1.1.1"
+    __author__ = "Kreusada"
 
     def __init__(self, bot):
         self.bot = bot
@@ -32,8 +32,7 @@ class Quotes(commands.Cog):
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
-        authors = ", ".join(self.__author__)
-        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+        return f"{context}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete."""

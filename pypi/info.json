@@ -4,7 +4,7 @@
         "OofChair"
     ],
     "description": "Get information about a package available on PyPi.",
-    "install_msg": "Thanks for installing, have fun!",
+    "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_pypi.html",
     "short": "Get information about a package available on PyPi.",
     "name": "PyPi",
     "tags": [

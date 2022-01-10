@@ -6,28 +6,23 @@ Captcha,A Captcha defensive system. to challenge the new users and protect yours
 CogPaths,Get various paths for a cog.,"Tools, Informative",Kreusada
 ConsoleClearer,Completely clear your Red console,Tools,Kreusada
 Dehoister,Dehoist new users with a variety of tools.,Mod,Kreusada
-Encryptor,Generate and validify the strength of passwords.,"Tools, Fun",Kreusada
 Flags,Get the flag for a country,Tools,Kreusada
-Invert,Invert images and avatars,"Tools, Fun",Kreusada
+Inverter,Invert images and avatars,"Tools, Fun",Kreusada
 Minifier,Minify your code with python minifier,Tools,Kreusada
-Mjolnir,Try to lift Thor's hammer,Fun,"Jojo, Kreusada"
 NameGenerator,Generate random names with optional gender arguments.,Fun,Kreusada
-OnThisDay,Find out what happened today, in multiple different years in history.,Fun,Kreusada
-PingInvoke,r2d2? wall-e? Invoke ping by asking if your bot's there.,"Tools, Fun",Kreusada
+OnThisDay,"Find out what happened today, in multiple different years in history.",Fun,Kreusada
+PingInvoke,wall-e? Invoke ping by asking if your bot's there.,"Tools, Fun",Kreusada
 PingOverride,Replace the default ping response with your own response!,"Tools, Fun",Kreusada
 PyPi,Get information about a package available on PyPi.,Tools,"Kreusada, OofChair"
 QR,Create QR codes.,Tools,Kreusada
 Quotes,Get a random quote,Fun,Kreusada
 Raffle,Create raffles for your guild,Fun,Kreusada
-ReplyNoPing,Sends a message when someone pings you on a reply.,Moderation,Kreusada
 RoleBoards,"Get 'leaderboards' about guild roles, such as the users with the most roles,the roles with the most users, and a full list of all the roles.",Tools,Kreusada
 RPSLS,"Rock, paper, scissors, lizard, rock",Fun,Kreusada
 Staff,Alert staff for conspicuous activity.,Mod,Kreusada
 Termino,"Custom shutdown and restart messages, and announcements",Tools,Kreusada
 TextEditor,Edit and manipulate with text,"Fun, Tools",Kreusada
 TimeStamps,Produce Discord timestamps.Tools,Kreusada
-TimesTables,Learn your times tables with an against the clock game.,Fun,Kreusada
 Vinfo,Obtain version info for third-party cogs and dependencies.,Tools,Kreusada
-VoteChannel,Designate a channel to add voting reactions (customizable).,"Fun, Tools",Kreusada
 WordBase,Generate rhymes, use a reverse dictionary, and more word related generators.,"Fun, Tools",Kreusada
 YamlScanner,An easy and quick tool to validate yaml.,Tools,Kreusada

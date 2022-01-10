@@ -1,30 +1,39 @@
 import contextlib
+import json
+import pathlib
 from datetime import datetime
 
 import discord
 from redbot.core import Config, commands
-from redbot.core.utils.chat_formatting import bold, box, error, warning
+from redbot.core.utils.chat_formatting import box, error, warning
+
+
+with open(pathlib.Path(__file__).parent / "info.json") as fp:
+    __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
 
 
 class Staff(commands.Cog):
     """
     This cog will allow you to alert staff using a command, which will be sent
-    to the specified staff channel. Provides additional details such as the last messages
-    in the channel, the date, author, and more.
+    to the specified staff channel. 
+    
+    Provides additional details such as the last messages in the channel, the date, author, and more.
     """
 
-    __author__ = ["Kreusada"]
-    __version__ = "1.5.6"
+    __author__ = "Kreusada"
+    __version__ = "1.5.7"
 
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, 200730042020, force_registration=True)
         self.config.register_guild(role=None, channel=None)
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(RuntimeError, ValueError):
+                self.bot.add_dev_env_value(self.__class__.__name__.lower(), lambda x: self)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
-        authors = ", ".join(self.__author__)
-        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+        return f"{context}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
     async def red_delete_data_for_user(self, **kwargs):
         """
@@ -33,13 +42,9 @@ class Staff(commands.Cog):
         return
 
     def cog_unload(self):
-        with contextlib.suppress(Exception):
-            self.bot.remove_dev_env_value("staff")
-
-    async def initialize(self) -> None:
         if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(Exception):
-                self.bot.add_dev_env_value("staff", lambda x: self)
+            with contextlib.suppress(KeyError):
+                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     @commands.Cog.listener()
     async def on_guild_channel_delete(self, channel):
@@ -54,11 +59,11 @@ class Staff(commands.Cog):
             await self.config.guild(role.guild).role.clear()
 
     @commands.group()
+    @commands.admin_or_permissions(manage_guild=True)
     async def staffset(self, ctx: commands.Context):
         """Staff notifier configuration."""
 
     @staffset.command()
-    @commands.admin_or_permissions(manage_guild=True)
     async def channel(self, ctx: commands.Context, channel: discord.TextChannel = None):
         """Sets the channel for staff to receive notifications."""
         if channel is None:
@@ -71,7 +76,6 @@ class Staff(commands.Cog):
             )
 
     @staffset.command()
-    @commands.admin_or_permissions(manage_guild=True)
     async def role(self, ctx: commands.Context, role: discord.Role = None):
         """Sets the Staff role."""
         if role is None:
@@ -82,7 +86,6 @@ class Staff(commands.Cog):
             await ctx.send(f"{role.mention} will now be considered as the Staff role.")
 
     @staffset.command()
-    @commands.admin_or_permissions(manage_guild=True)
     async def settings(self, ctx: commands.Context):
         """Show the current settings with Staff."""
         settings = await self.config.guild(ctx.guild).all()
@@ -90,15 +93,7 @@ class Staff(commands.Cog):
         channel = ctx.guild.get_channel(settings["channel"]) or "None set."
 
         description = f"Role: {role}\nChannel: {channel}"
-        if await ctx.embed_requested():
-            embed = discord.Embed(
-                title="Staff settings",
-                description=description,
-                color=await ctx.embed_colour(),
-            )
-            await ctx.send(embed=embed)
-            return
-        await ctx.send(description)
+        await ctx.maybe_send_embed(description)
 
     @commands.command()
     @commands.cooldown(1, 600, commands.BucketType.guild)

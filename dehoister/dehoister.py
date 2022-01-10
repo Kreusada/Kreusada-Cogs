@@ -2,7 +2,9 @@ import asyncio
 import contextlib
 import datetime
 import io
+import json
 import logging
+import pathlib
 from typing import Union
 
 import discord
@@ -13,73 +15,45 @@ from redbot.core.utils.predicates import ReactionPredicate
 
 log = logging.getLogger("red.kreusada.dehoister")
 
+with open(pathlib.Path(__file__).parent / "info.json") as fp:
+    __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
+
 IDENTIFIER = 435089473534
 
-HOIST = tuple("!\"#$%&'()*+,-./:;<=>?@")
-
-HOISTING_STANDARDS = (
-    "\n\nDehoister will take actions on users if their name starts with one of the following:\n"
-    + ", ".join(f"`{X}`" for X in HOIST)
-)
-
-AUTO_DEHOIST_EXPLAIN = (
-    "To get started, use `{p}hoist set toggle true`, which will enable this feature. "
-    "Then, you can customize the nickname via `{p}hoist set nickname`.\n\n"
-    "When new users join the guild, their nickname will automatically be changed "
-    "to this configured nickname, if they have a hoisted character at the start of their name. "
-    "If your bot doesn't have permissions, **this process will be cancelled**, so make sure that "
-    "your bot has access to nickname changing."
-)
-
-SCAN_AND_CLEAN_EXPLAIN = (
-    "If users were able to bypass the auto dehoister, due to the bot being down, or it was toggled "
-    "off, there are still tools you can use to protect your guild against hoisted names. "
-    "`{p}hoist scan` will return a full list of users who have hoisted nicknames or usernames. "
-    "`{p}hoist clean` will change everyones nickname to the configured nickname if they "
-    "have a hoisted username/nickname. "
-)
-
+HOISTING_CHARACTERS = tuple("!\"#$%&'()*+,-./:;<=>?@")
 
 class Dehoister(commands.Cog):
     """
     Dehoist usernames that start with hoisting characters.
     """
 
-    __author__ = ["Kreusada"]
-    __version__ = "1.5.2"
+    __author__ = "Kreusada"
+    __version__ = "1.5.3"
 
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, IDENTIFIER, force_registration=True)
-        self.config.register_guild(nickname=f"❌ Dehoisted", toggled=False, ignored_users=[])
+        self.config.register_guild(
+            nickname=f"\N{CROSS MARK} Dehoisted",
+            toggled=False,
+            ignored_users=[]
+        )
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(RuntimeError, ValueError):
+                self.bot.add_dev_env_value(self.__class__.__name__.lower(), lambda x: self)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
-        authors = ", ".join(self.__author__)
-        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+        return f"{context}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""
         return
 
     def cog_unload(self):
-        with contextlib.suppress(Exception):
-            self.bot.remove_dev_env_value("dehoister")
-
-    async def initialize(self) -> None:
         if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(Exception):
-                self.bot.add_dev_env_value("dehoister", lambda x: self)
-
-    async def ex(self, ctx, _type):
-        _type += HOISTING_STANDARDS
-        if not await ctx.embed_requested():
-            return await ctx.send(_type.format(p=ctx.clean_prefix))
-
-        embed = discord.Embed(
-            description=_type.format(p=ctx.clean_prefix), color=await ctx.embed_colour()
-        )
-        return await ctx.send(embed=embed)
+            with contextlib.suppress(KeyError):
+                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     async def create_case(self, guild, user, moderator):
         try:
@@ -105,7 +79,7 @@ class Dehoister(commands.Cog):
     async def get_hoisted_count(self, ctx):
         ignored_users = await self.config.guild(ctx.guild).ignored_users()
         return sum(
-            bool(m.display_name.startswith(HOIST) and not m.bot and m.id not in ignored_users)
+            m.display_name.startswith(HOISTING_CHARACTERS) and not m.bot and m.id not in ignored_users
             for m in ctx.guild.members
         )
 
@@ -116,7 +90,7 @@ class Dehoister(commands.Cog):
             # Pre-formatting for output
             f"{m}:{f'{B}- {m.nick}' if m.nick else ''}{B}-- {m.id}"
             for m in ctx.guild.members
-            if m.display_name.startswith(HOIST) and not m.bot and m.id not in ignored_users
+            if m.display_name.startswith(HOISTING_CHARACTERS) and not m.bot and m.id not in ignored_users
         )
 
     @commands.Cog.listener()
@@ -128,7 +102,7 @@ class Dehoister(commands.Cog):
         if any([not toggle, member.bot, not guild]):
             return
 
-        if member.name.startswith(HOIST):
+        if member.name.startswith(HOISTING_CHARACTERS):
             if guild.me.guild_permissions.manage_nicknames:
                 await member.edit(nick=await self.config.guild(guild).nickname())
                 await self.create_case(guild, member, self.bot)
@@ -152,14 +126,15 @@ class Dehoister(commands.Cog):
         Users who are dehoisted will have their nicknames changed to the set nickname.
         You can set the nickname by using `[p]hoist set nickname`.
         """
+        nickname = await self.config.guild(ctx.guild).nickname()
         if not ctx.channel.permissions_for(ctx.me).manage_nicknames:
             return await ctx.send("I do not have permission to edit nicknames.")
 
-        if member.nick == await self.config.guild(ctx.guild).nickname():
+        if member.nick == nickname:
             return await ctx.send(f"{member.name} is already dehoisted.")
 
         try:
-            await member.edit(nick=await self.config.guild(ctx.guild).nickname())
+            await member.edit(nick=nickname)
             await ctx.send(f"`{member.name}` has successfully been dehoisted.")
             await self.create_case(ctx.guild, member, ctx.author)
         except discord.Forbidden:
@@ -214,7 +189,6 @@ class Dehoister(commands.Cog):
         NOTE: If the server owner is hoisted, [botname] cannot change their nickname.
         """
         hoisted_count = await self.get_hoisted_count(ctx)
-
         guild_config = await self.config.guild(ctx.guild).all()
         nickname = guild_config["nickname"]
         ignored_users = guild_config["ignored_users"]
@@ -248,7 +222,7 @@ class Dehoister(commands.Cog):
             await ctx.trigger_typing()
             exceptions = 0
             for m in ctx.guild.members:
-                if m.display_name.startswith(HOIST) and not m.bot and m.id not in ignored_users:
+                if m.display_name.startswith(HOISTING_CHARACTERS) and not m.bot and m.id not in ignored_users:
                     try:
                         await m.edit(nick=await self.config.guild(ctx.guild).nickname())
                     except discord.Forbidden:
@@ -343,17 +317,3 @@ class Dehoister(commands.Cog):
             )
         await self.config.guild(ctx.guild).nickname.set(nickname)
         await ctx.send(f"Dehoisted members will now have their nickname set to `{nickname}`.")
-
-    @hoist.group()
-    async def explain(self, ctx: commands.Context):
-        """Explain how Dehoister works."""
-
-    @explain.command()
-    async def auto(self, ctx: commands.Context):
-        """Explains how auto-dehoist works."""
-        await self.ex(ctx, AUTO_DEHOIST_EXPLAIN)
-
-    @explain.command()
-    async def scanclean(self, ctx: commands.Context):
-        """Explains how scanning and cleaning works."""
-        await self.ex(ctx, SCAN_AND_CLEAN_EXPLAIN)

@@ -18,11 +18,14 @@ with open(pathlib.Path(__file__).parent / "info.json") as fp:
 class YamlScanner(commands.Cog):
     """An easy and quick tool to validate yaml."""
 
-    __author__ = ["Kreusada"]
-    __version__ = "1.1.2"
+    __author__ = "Kreusada"
+    __version__ = "1.1.3"
 
     def __init__(self, bot):
         self.bot = bot
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(RuntimeError, ValueError):
+                self.bot.add_dev_env_value(self.__class__.__name__.lower(), lambda x: self)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
@@ -34,13 +37,9 @@ class YamlScanner(commands.Cog):
         return
 
     def cog_unload(self):
-        with contextlib.suppress(Exception):
-            self.bot.remove_dev_env_value("raffle")
-
-    async def initialize(self) -> None:
         if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(Exception):
-                self.bot.add_dev_env_value("raffle", lambda x: self)
+            with contextlib.suppress(KeyError):
+                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     @commands.command(usage="[file]")
     async def yamlscan(self, ctx: commands.Context):

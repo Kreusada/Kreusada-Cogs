@@ -6,7 +6,7 @@ import pathlib
 
 from redbot.core import commands, data_manager
 from redbot.core.config import Config
-from redbot.core.utils.chat_formatting import box, humanize_list
+from redbot.core.utils.chat_formatting import box
 
 with open(pathlib.Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
@@ -15,29 +15,27 @@ with open(pathlib.Path(__file__).parent / "info.json") as fp:
 class CogPaths(commands.Cog):
     """Get information about a cog's paths."""
 
-    __author__ = ["Kreusada"]
-    __version__ = "1.0.0"
+    __author__ = "Kreusada"
+    __version__ = "1.0.1"
 
     def __init__(self, bot):
         self.bot = bot
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(RuntimeError, ValueError):
+                self.bot.add_dev_env_value(self.__class__.__name__.lower(), lambda x: self)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
-        authors = humanize_list(self.__author__)
-        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+        return f"{context}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""
         return
 
     def cog_unload(self):
-        with contextlib.suppress(Exception):
-            self.bot.remove_dev_env_value("cogpaths")
-
-    async def initialize(self) -> None:
         if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(Exception):
-                self.bot.add_dev_env_value("cogpaths", lambda x: self)
+            with contextlib.suppress(KeyError):
+                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     @commands.command()
     @commands.is_owner()

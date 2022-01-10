@@ -1,7 +1,5 @@
-import discord
 from redbot.core.commands import Context
 
-from ..log import log
 from .checks import VALID_USER_BADGES, account_age_checker, now, server_join_age_checker
 from .enums import RaffleComponents
 from .exceptions import (
@@ -13,7 +11,6 @@ from .exceptions import (
     UnknownEntityError,
 )
 from .helpers import raffle_safe_member_scanner
-from .safety import RaffleSafeMember
 
 __all__ = ("RaffleManager",)
 
@@ -23,7 +20,6 @@ class RaffleManager(object):
     that it matches the specified requirements."""
 
     def __init__(self, data):
-        super().__init__()
         self.data = data
         self.name = data.get("name", None)
         self.description = data.get("description", None)
@@ -63,7 +59,7 @@ class RaffleManager(object):
 
     @classmethod
     def parse_serverjoinage(cls, ctx: Context, new_join_age: int):
-        guildage = (now - ctx.guild.created_at).days
+        guildage = (now() - ctx.guild.created_at).days
         if not server_join_age_checker(ctx, new_join_age):
             raise InvalidArgument(
                 "Days must be less than this guild's creation date ({} days)".format(guildage)

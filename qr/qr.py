@@ -125,8 +125,8 @@ class ColourConverter(commands.ColourConverter):
 class QR(commands.Cog):
     """Generate a QR code."""
 
-    __author__ = ["Kreusada"]
-    __version__ = "1.1.2"
+    __author__ = "Kreusada"
+    __version__ = "1.1.3"
 
     def __init__(self, bot):
         self.bot: Red = bot
@@ -153,12 +153,12 @@ class QR(commands.Cog):
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
-        authors = humanize_list(self.__author__)
-        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+        return f"{context}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
     def cog_unload(self):
-        with contextlib.suppress(KeyError):
-            self.bot.remove_dev_env_value(self.__class__.__name__.lower())
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(KeyError):
+                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""

@@ -8,6 +8,6 @@ class RaffleMixin(ABC):
     """Base class for well behaved type
     hint detection with composite class."""
 
-    def __init__(self, *nargs):
+    def __init__(self, *_args):
         self.config: Config
         self.bot: Red

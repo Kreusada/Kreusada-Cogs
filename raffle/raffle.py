@@ -43,8 +43,8 @@ class Raffle(*mixinargs, metaclass=MetaClass):
         self.config.register_guild(raffles={})
         self.docs = "https://kreusadacogs.readthedocs.io/en/latest/cog_raffle.html"
         if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(Exception):
-                self.bot.add_dev_env_value("raffle", lambda x: self)
+            with contextlib.suppress(RuntimeError, ValueError):
+                self.bot.add_dev_env_value(self.__class__.__name__.lower(), lambda x: self)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
@@ -66,10 +66,11 @@ class Raffle(*mixinargs, metaclass=MetaClass):
         return
 
     def cog_unload(self):
-        with contextlib.suppress(Exception):
-            self.bot.remove_dev_env_value("raffle")
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(KeyError):
+                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
-    async def cog_check(self, ctx: commands.Context):
+    async def cog_check(self, ctx: Context):
         return ctx.guild is not None
 
     @commands.group()

@@ -3,7 +3,9 @@
 import asyncio
 import contextlib
 import datetime
+import json
 import logging
+import pathlib
 import random
 import re
 
@@ -14,6 +16,9 @@ from redbot.core import commands
 from redbot.core.bot import Red
 from redbot.core.commands import BadArgument, Context, Converter
 from redbot.core.utils.chat_formatting import humanize_list, inline, warning
+
+with open(pathlib.Path(__file__).parent / "info.json") as fp:
+    __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
 
 ENDPOINT = "https://byabbe.se/on-this-day/{}/events.json"
 log = logging.getLogger("red.kreusada.otd")
@@ -87,7 +92,7 @@ class DateConverter(Converter):
 class OnThisDay(commands.Cog):
     """Find out what happened today, in multiple different years in history."""
 
-    __version__ = "1.0.2"
+    __version__ = "1.0.3"
     __author__ = "Kreusada"
 
     def __init__(self, bot: Red):

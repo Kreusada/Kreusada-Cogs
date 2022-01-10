@@ -1,6 +1,8 @@
 import asyncio
 import contextlib
 import datetime
+import json
+import pathlib
 from typing import Union
 
 import discord
@@ -16,13 +18,16 @@ now = datetime.datetime.now().strftime("%d/%m/%Y (%H:%M:%S)")
 shutdown: commands.Command = None
 restart: commands.Command = None
 
+with open(pathlib.Path(__file__).parent / "info.json") as fp:
+    __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
+
 
 class Termino(Utilities, commands.Cog, metaclass=CompositeMetaClass):
     """Customize bot shutdown and restart messages, with predicates, too."""
 
     __author__ = ["Kreusada", "Jojo#7791"]
     __dev_ids__ = [719988449867989142, 544974305445019651]
-    __version__ = "2.0.5"
+    __version__ = "2.0.6"
 
     def __init__(self, bot):
         self.bot = bot
@@ -61,8 +66,9 @@ class Termino(Utilities, commands.Cog, metaclass=CompositeMetaClass):
             except Exception as e:
                 log.info(e)
             self.bot.add_command(restart)
-        with contextlib.suppress(KeyError):
-            self.bot.remove_dev_env_value("termino")
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(KeyError):
+                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
         self.startup_task.cancel()
         self.announce_startup.cancel()
 
@@ -79,7 +85,7 @@ class Termino(Utilities, commands.Cog, metaclass=CompositeMetaClass):
         for uid in self.__dev_ids__:
             if uid in self.bot.owner_ids:
                 with contextlib.suppress(RuntimeError, ValueError):
-                    self.bot.add_dev_env_value("termino", lambda x: self)
+                    self.bot.add_dev_env_value(self.__class__.__name__.lower(), lambda x: self)
 
         # remove no longer used config key
         await self.config.clear_raw("announced")

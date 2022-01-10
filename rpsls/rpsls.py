@@ -11,6 +11,12 @@ from redbot.core.commands import BadArgument, Context, Converter
 from redbot.core.utils.chat_formatting import bold, humanize_list, italics
 
 
+with open(Path(__file__).parent / "info.json") as fp:
+    __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
+
+
+DIAGRAM = "https://static.wikia.nocookie.net/bigbangtheory/images/7/7d/RPSLS.png/revision/latest?cb=20120822205915"
+
 class RPSLSEnum(enum.Enum):
     SCISSORS = "\N{BLACK SCISSORS}\N{VARIATION SELECTOR-16}"
     PAPER = "\N{PAGE FACING UP}"
@@ -23,8 +29,7 @@ class ValidChoiceConverter(Converter):
     async def convert(self, ctx: Context, argument: str):
         argument = argument.lower()
         if argument == "help":
-            with open(Path(__file__).parent / "info.json") as fp:
-                raise BadArgument(json.load(fp)["diagram"])
+            raise BadArgument(DIAGRAM)
         valid_args = [e.name.lower() for e in RPSLSEnum]
         if not argument in valid_args:
             raise BadArgument(
@@ -69,14 +74,14 @@ def generate_bot_rpsls() -> Tuple[str, int]:
 class RPSLS(commands.Cog):
     """Rock, paper, scizzors, lizard, spock."""
 
-    __author__ = ["Kreusada"]
-    __version__ = "2.1.0"
+    __author__ = "Kreusada"
+    __version__ = "2.1.1"
 
     def __init__(self, bot):
         self.bot = bot
         if 719988449867989142 in self.bot.owner_ids:
             with contextlib.suppress(RuntimeError, ValueError):
-                self.bot.add_dev_env_value("rpsls", lambda x: self)
+                self.bot.add_dev_env_value(self.__class__.__name__.lower(), lambda x: self)
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete."""
@@ -84,12 +89,12 @@ class RPSLS(commands.Cog):
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
-        authors = ", ".join(self.__author__)
-        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+        return f"{context}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
     def cog_unload(self):
-        with contextlib.suppress(Exception):
-            self.bot.remove_dev_env_value("rpsls")
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(KeyError):
+                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     @commands.command()
     async def rpsls(self, ctx, choice: ValidChoiceConverter):

@@ -7,7 +7,6 @@ import dateparser
 from redbot.core import commands
 from redbot.core.bot import Red
 from redbot.core.commands import BadArgument, Cog, Context, Converter
-from redbot.core.utils.chat_formatting import humanize_list
 
 with open(pathlib.Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
@@ -26,8 +25,8 @@ class DateConverter(Converter):
 class TimeStamps(Cog):
     """Retrieve timestamps for certain dates."""
 
-    __author__ = ["Kreusada"]
-    __version__ = "1.0.1"
+    __author__ = "Kreusada"
+    __version__ = "1.0.2"
 
     def __init__(self, bot):
         self.bot: Red = bot
@@ -37,12 +36,18 @@ class TimeStamps(Cog):
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
-        authors = humanize_list(self.__author__)
-        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+        return f"{context}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
     def cog_unload(self):
-        with contextlib.suppress(KeyError):
-            self.bot.remove_dev_env_value(self.__class__.__name__.lower())
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(KeyError):
+                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
+
+    async def red_delete_data_for_user(self, **kwargs):
+        """
+        Nothing to delete
+        """
+        return
 
     @commands.command(usage="<date_or_time>")
     async def timestamp(self, ctx: Context, *, dti: DateConverter):

@@ -1,5 +1,7 @@
 import contextlib
 import datetime
+import json
+import pathlib
 
 import discord
 
@@ -10,39 +12,40 @@ except ModuleNotFoundError:
 
 from redbot.core import commands
 from redbot.core.commands import Cog, Context
-from redbot.core.utils.chat_formatting import box, humanize_list
+from redbot.core.utils.chat_formatting import box
 from redbot.core.utils.menus import close_menu, menu
 
 from .converters import CountryConverter
 from .functions import format_attr
 
+with open(pathlib.Path(__file__).parent / "info.json") as fp:
+    __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
+
 
 class Flags(Cog):
     """Get flags from country names."""
 
-    __version__ = "1.1.1"
-    __author__ = ["Kreusada"]
+    __version__ = "1.1.2"
+    __author__ = "Kreusada"
 
     def __init__(self, bot):
         self.bot = bot
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(RuntimeError, ValueError):
+                self.bot.add_dev_env_value(self.__class__.__name__.lower(), lambda x: self)
 
     def format_help_for_context(self, ctx: Context) -> str:
         context = super().format_help_for_context(ctx)
-        authors = humanize_list(self.__author__)
-        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+        return f"{context}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""
         return
 
     def cog_unload(self):
-        with contextlib.suppress(Exception):
-            self.bot.remove_dev_env_value("flags")
-
-    async def initialize(self) -> None:
         if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(Exception):
-                self.bot.add_dev_env_value("flags", lambda x: self)
+            with contextlib.suppress(KeyError):
+                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     @commands.command()
     async def flag(self, ctx: Context, *, argument: CountryConverter):
@@ -58,11 +61,8 @@ class Flags(Cog):
             - ``[p]flag se``
         """
         description = argument.get("description", None)
-        image = argument["image"]
-        title = argument["title"]
-
-        del argument["image"]
-        del argument["title"]
+        image = argument.pop("image")
+        title = argument.pop("title")
 
         if description is None:
             if tabulate:

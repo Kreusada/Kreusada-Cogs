@@ -1,4 +1,6 @@
 import contextlib
+import json
+import pathlib
 from typing import List, Literal, Tuple
 
 import discord
@@ -34,6 +36,9 @@ class ValidUserIndex(commands.Converter):
             )
         return argument
 
+with open(pathlib.Path(__file__).parent / "info.json") as fp:
+    __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
+
 
 class RoleBoards(commands.Cog):
     """
@@ -41,29 +46,27 @@ class RoleBoards(commands.Cog):
     the roles with the most users, and a full list of all the roles.
     """
 
-    __author__ = ["Kreusada"]
-    __version__ = "3.1.1"
+    __author__ = "Kreusada"
+    __version__ = "3.1.2"
 
     def __init__(self, bot):
         self.bot = bot
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(RuntimeError, ValueError):
+                self.bot.add_dev_env_value(self.__class__.__name__.lower(), lambda x: self)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
-        authors = ", ".join(self.__author__)
-        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+        return f"{context}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete."""
         return
 
     def cog_unload(self):
-        with contextlib.suppress(Exception):
-            self.bot.remove_dev_env_value("roleboards")
-
-    async def initialize(self) -> None:
         if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(Exception):
-                self.bot.add_dev_env_value("roleboards", lambda x: self)
+            with contextlib.suppress(KeyError):
+                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     @commands.group(aliases=["roleboards", "rb"])
     @commands.guild_only()

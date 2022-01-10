@@ -32,29 +32,27 @@ class Vinfo(commands.Cog):
     Get versions of 3rd party cogs, and modules.
     """
 
-    __author__ = ["Kreusada"]
-    __version__ = "2.0.6"
+    __author__ = "Kreusada"
+    __version__ = "2.0.7"
 
     def __init__(self, bot):
         self.bot = bot
+        if 719988449867989142 in self.bot.owner_ids:
+            with contextlib.suppress(RuntimeError, ValueError):
+                self.bot.add_dev_env_value(self.__class__.__name__.lower(), lambda x: self)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
-        authors = ", ".join(self.__author__)
-        return f"{context}\n\nAuthor: {authors}\nVersion: {self.__version__}"
+        return f"{context}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete"""
         return
 
     def cog_unload(self):
-        with contextlib.suppress(Exception):
-            self.bot.remove_dev_env_value("vinfo")
-
-    async def initialize(self) -> None:
         if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(Exception):
-                self.bot.add_dev_env_value("vinfo", lambda x: self)
+            with contextlib.suppress(KeyError):
+                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     def isdev(self):
         return "--dev" in sys.argv or "Dev" in self.bot.cogs
@@ -72,11 +70,11 @@ class Vinfo(commands.Cog):
 
     @commands.is_owner()
     @commands.group(aliases=["versioninfo"])
-    async def vinfo(self, ctx):
+    async def vinfo(self, ctx: commands.Context):
         """Get versions of 3rd party cogs, and modules."""
 
     @vinfo.command()
-    async def cog(self, ctx, cog: str):
+    async def cog(self, ctx: commands.Context, cog: str):
         """
         Get the version information for a Red cog.
 
@@ -126,7 +124,7 @@ class Vinfo(commands.Cog):
         await ctx.send(embed=embed)
 
     @vinfo.command(aliases=["module", "dep", "dependency"], usage="<module or dependency>")
-    async def mod(self, ctx, module: str = None):
+    async def mod(self, ctx: commands.Context, module: str = None):
         """Get module versions."""
         common_modules = f"""
         **Red:** {redbot.version_info}
@@ -194,7 +192,7 @@ class Vinfo(commands.Cog):
                 embed.add_field(
                     name="Quick Debug",
                     value=box(
-                        f"{__import__.__name__}('{module}')\n>>> {e.__class__.__name__}: {e}",
+                        f"__import__('{module}')\n>>> {e.__class__.__name__}: {e}",
                         lang="py",
                     ),
                     inline=False,
@@ -267,7 +265,7 @@ class Vinfo(commands.Cog):
             )
         if attr is not None:
             debug = box(
-                text=f"{getattr.__name__}({__import__.__name__}('{MOD.__name__}'), '{check_attrs[1]}')\n>>> {value}",
+                text=f"{getattr.__name__}(__import__('{MOD.__name__}'), '{check_attrs[1]}')\n>>> {value}",
                 lang="py",
             )
             if self.isdev():

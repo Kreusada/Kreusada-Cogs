@@ -4,7 +4,7 @@
 Kreusada-Cogs
 =============
 
-.. image:: /image_repo_artwork2.png
+.. image:: /image_repo_artwork.png
     :target: https://github.com/Kreusada/Kreusada-Cogs
     :alt: Kreusada-Cogs
 
@@ -29,11 +29,9 @@ Useful Links
     cog_cogpaths
     cog_consoleclearer
     cog_dehoister
-    cog_encryptor
     cog_flags
     cog_inverter
     cog_minifier
-    cog_mjolnir
     cog_namegenerator
     cog_onthisday
     cog_pinginvoke
@@ -42,17 +40,13 @@ Useful Links
     cog_quotes
     cog_qr
     cog_raffle
-    cog_replynoping
     cog_roleboards
     cog_rpsls
-    cog_spoilerchannel
     cog_staff
     cog_termino
     cog_texteditor
     cog_timestamps
-    cog_timestables
     cog_vinfo
-    cog_votechannel
     cog_wordbase
     cog_yamlscanner
 
