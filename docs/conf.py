@@ -12,10 +12,6 @@ html_context = {
 
 master_doc = "index"
 html_theme = "furo"
-
-with open("prolog.txt", "r") as file:
-    rst_prolog = file.read()
-
 source_suffix = ".rst"
 master_doc = "index"
 exclude_patterns = []
