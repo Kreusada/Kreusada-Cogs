@@ -20,7 +20,7 @@ class PyPi(commands.Cog):
     """Get information about a package available on PyPi."""
 
     __author__ = ["Kreusada", "OofChair"]
-    __version__ = "1.0.7"
+    __version__ = "1.0.8"
     __dev_ids__ = [719988449867989142, 572944636209922059]
 
     def __init__(self, bot):
@@ -108,6 +108,17 @@ class PyPi(commands.Cog):
                     value=value,
                     inline=False,
                 )
+
+        embed.add_field(
+            name="Installation",
+            value=box(
+                "{esc}[34mpip install{esc}[0m {esc}[32m{package_name}{esc}[0m".format(
+                    esc=chr(27), package_name=info["name"]
+                ),
+                lang="ansi",
+            ),
+            inline=False,
+        )
 
         if classifiers := info["classifiers"]:
             sort = sorted(classifiers, key=lambda x: len(x.split("::")[0]))
