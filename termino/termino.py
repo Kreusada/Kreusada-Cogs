@@ -12,9 +12,9 @@ from redbot.core.utils.predicates import MessagePredicate
 
 from .log import log
 from .mixins import CompositeMetaClass
-from .utils import Utilities, default_wave
+from .utils import Utilities, default_wave, now
 
-now = datetime.datetime.now().strftime("%d/%m/%Y (%H:%M:%S)")
+nowstf = lambda: now().strftime("%d/%m/%Y (%H:%M:%S)")
 shutdown: commands.Command = None
 restart: commands.Command = None
 
@@ -27,7 +27,7 @@ class Termino(Utilities, commands.Cog, metaclass=CompositeMetaClass):
 
     __author__ = ["Kreusada", "Jojo#7791"]
     __dev_ids__ = [719988449867989142, 544974305445019651]
-    __version__ = "2.0.6"
+    __version__ = "2.0.7"
 
     def __init__(self, bot):
         self.bot = bot
@@ -103,7 +103,7 @@ class Termino(Utilities, commands.Cog, metaclass=CompositeMetaClass):
             conf = await self.confirmation(ctx, "restart")
         if not restart_conf or conf:
             await ctx.send(message)
-            log.info(f"{ctx.me.name} was restarted by {ctx.author} ({now})")
+            log.info(f"{ctx.me.name} was restarted by {ctx.author} ({nowstf()})")
             await self.config.restart_channel.set(ctx.channel.id)
             await self.config.restarted_author.set(ctx.author.name)
             try:
@@ -127,7 +127,7 @@ class Termino(Utilities, commands.Cog, metaclass=CompositeMetaClass):
             conf = await self.confirmation(ctx, "shutdown")
         if not shutdown_conf or conf:
             await ctx.send(message)
-            log.info(f"{ctx.me.name} was shutdown by {ctx.author} ({now})")
+            log.info(f"{ctx.me.name} was shutdown by {ctx.author} ({nowstf()})")
             try:
                 await asyncio.wait_for(self._send_announcement(), timeout=15.0)
             except asyncio.TimeoutError:
