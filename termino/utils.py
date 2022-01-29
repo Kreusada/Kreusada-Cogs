@@ -11,6 +11,7 @@ from .mixins import MixinMeta
 
 RED_3_2_0 = version_info >= VersionInfo.from_str("3.2.0")
 default_wave = "\N{WAVING HAND SIGN}\N{EMOJI MODIFIER FITZPATRICK TYPE-3}"
+now = lambda: datetime.datetime.now()
 
 
 class Utilities(MixinMeta):
@@ -56,7 +57,7 @@ class Utilities(MixinMeta):
         kwargs = {
             "content": (
                 f"**{self.bot.user.name} {online[1]}**\n\n{online[0]}"
-                f"\n\n<t:{round(datetime.datetime.now().timestamp())}:R>"
+                f"\n\n<t:{round(now().timestamp())}:R>"
             )
         }
         if ch.permissions_for(ch.guild.me).embed_links:  # Wish I could use ctx.embed_requested
