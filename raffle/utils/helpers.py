@@ -45,7 +45,7 @@ def validator(data) -> Union[bool, dict]:
 
 
 def getstrftime(perc: str) -> Union[str, int]:
-    return now.strftime(f"%{perc}")
+    return now().strftime(f"%{perc}")
 
 
 def number_suffix(number: int) -> str:
