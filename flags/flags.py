@@ -25,7 +25,7 @@ with open(pathlib.Path(__file__).parent / "info.json") as fp:
 class Flags(Cog):
     """Get flags from country names."""
 
-    __version__ = "1.1.2"
+    __version__ = "1.1.3"
     __author__ = "Kreusada"
 
     def __init__(self, bot):

@@ -25,4 +25,8 @@ SPECIAL_IMAGES = {
         "url": "xk",
         "emoji": "flag_xk",
     },
+    "palestine": {
+        "url": "ps",
+        "emoji": "flag_ps",
+    },
 }
