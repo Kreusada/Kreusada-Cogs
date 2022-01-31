@@ -34,6 +34,8 @@ Here are all the commands included in this cog (1):
 
 * ``[p]flag <argument>``
  Get the flag for a country.
+* ``[p]flags [page_number=None]``
+ Get a list of all the flags and their alpha 2 codes.
 
 ------------
 Installation
