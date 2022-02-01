@@ -18,11 +18,14 @@ from redbot.core.commands import BadArgument, Cog, Context, Converter
 from redbot.core.utils.chat_formatting import box, pagify
 from redbot.core.utils.menus import DEFAULT_CONTROLS, close_menu, menu
 
+
 def square(t):
     return f"[{t}]"
 
+
 def format_attr(t):
     return t.replace("_", " ").title()
+
 
 EXCEPTIONS = {"russia": "ru"}
 IMAGE_BASE = "https://flagpedia.net/data/flags/w580/{}.png"
@@ -99,6 +102,7 @@ class CountryConverter(Converter):
 
         return ret
 
+
 with open(pathlib.Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
 
@@ -174,21 +178,25 @@ class Flags(Cog):
     async def flags(self, ctx: commands.Context, page_number: int = None):
         """Get a list of all the flags and their alpha 2 codes."""
         embeds = []
-        message = "\n".join(f":flag_{c.alpha_2.lower()}: `[{c.alpha_2}]` {c.name}" for c in pycountry.countries)
+        message = "\n".join(
+            f":flag_{c.alpha_2.lower()}: `[{c.alpha_2}]` {c.name}" for c in pycountry.countries
+        )
         pages = tuple(pagify(message, page_length=500))
         color = await ctx.embed_colour()
         for page in pages:
             embed = discord.Embed(
                 title=f"All flags (page {pages.index(page) + 1}/{len(pages)})",
                 description=page,
-                color=color
+                color=color,
             )
             embeds.append(embed)
         if page_number is not None:
             try:
                 embed = embeds[page_number - 1]
             except IndexError:
-                await ctx.send(f"Invalid page number provided, must be between 1 and {len(embeds)}.")
+                await ctx.send(
+                    f"Invalid page number provided, must be between 1 and {len(embeds)}."
+                )
                 return
             else:
                 await ctx.send(embed=embed)
