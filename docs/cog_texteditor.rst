@@ -11,8 +11,7 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 ``[p]`` with your own prefix when you use these commands in Discord.
 
 .. note::
-
-    This guide was last updated for version 3.0.1. Ensure
+    This guide was last updated for version 3.0.4. Ensure
     that you are up to date by running ``[p]cog update texteditor``.
 
     If there is something missing, or something that needs improving
@@ -30,13 +29,13 @@ Edit and manipulate with text.
 Commands
 --------
 
-Here are all the commands included in this cog (16):
+Here are all the commands included in this cog (17):
 
 * ``[p]editor``
- Base command for editting text.
+ Base command for editing text.
 * ``[p]editor alternating <text>``
  Convert the text to alternating case.
-* ``[p]editor charcount [include_spaces=True] <text>``
+* ``[p]editor charcount <text>``
  Count the number of characters appearing in the text.
 * ``[p]editor lower <text>``
  Convert the text to lowercase.
@@ -64,6 +63,8 @@ Here are all the commands included in this cog (16):
  Convert the text to uppercase.
 * ``[p]editor wordcount <text>``
  Count the number of words appearing in the text.
+* ``[p]editor wrap <cut_length> <text>``
+ Wrap the text.
 
 ------------
 Installation
