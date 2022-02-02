@@ -73,8 +73,8 @@ class Editor(str):
     def multiply(self, mul) -> str:
         return box(self * mul)
 
-    def wrap(self, cut_length) -> str:
-        return box("\n".join(textwrap.wrap(self, cut_length, break_long_words=False)))
+    def wrap(self, cut_length, cut_words) -> str:
+        return box("\n".join(textwrap.wrap(self, cut_length, break_long_words=cut_words)))
 
 
 with open(pathlib.Path(__file__).parent / "info.json") as fp:
@@ -187,9 +187,16 @@ class TextEditor(commands.Cog):
         await send_safe(ctx, text.multiply(multiplier))
 
     @editor.command(name="wrap")
-    async def editor_wrap(self, ctx: commands.Context, cut_length: int, *, text: Editor):
+    async def editor_wrap(
+        self,
+        ctx: commands.Context,
+        cut_length: int,
+        cut_words: Optional[bool] = True,
+        *,
+        text: Editor,
+    ):
         """Wrap the text."""
-        await send_safe(ctx, text.wrap(cut_length))
+        await send_safe(ctx, text.wrap(cut_length, cut_words))
 
     @editor.command(name="replace")
     async def editor_replace(

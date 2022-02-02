@@ -63,7 +63,7 @@ Here are all the commands included in this cog (17):
  Convert the text to uppercase.
 * ``[p]editor wordcount <text>``
  Count the number of words appearing in the text.
-* ``[p]editor wrap <cut_length> <text>``
+* ``[p]editor wrap <cut_length> [cut_words=True] <text>``
  Wrap the text.
 
 ------------
