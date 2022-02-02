@@ -76,6 +76,21 @@ class Editor(str):
     def wrap(self, cut_length, cut_words) -> str:
         return box("\n".join(textwrap.wrap(self, cut_length, break_long_words=cut_words)))
 
+    def camu(self) -> str:
+        ret = []
+        for w in self.split():
+            tw = list(w)
+            if len(w) == 1:
+                ret.append(w)
+            elif len(w) == 2:
+                random.shuffle(tw)
+                ret.append(w)
+            else:
+                mid = tw[1:-1]
+                random.shuffle(mid)
+                ret.append(w[0] + "".join(mid) + w[-1])
+        return box(" ".join(ret))
+
 
 with open(pathlib.Path(__file__).parent / "info.json") as fp:
     __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
@@ -87,7 +102,7 @@ class TextEditor(commands.Cog):
     """
 
     __author__ = "Kreusada"
-    __version__ = "3.0.4"
+    __version__ = "3.0.5"
 
     def __init__(self, bot):
         self.bot = bot
@@ -185,6 +200,14 @@ class TextEditor(commands.Cog):
     async def editor_multiply(self, ctx: commands.Context, multiplier: int, *, text: Editor):
         """Multiply the text."""
         await send_safe(ctx, text.multiply(multiplier))
+
+    @editor.command(name="camu")
+    async def editor_camu(self, ctx: commands.Context, *, text: Editor):
+        """Jumble text in Cambridge University style.
+
+        https://www.mrc-cbu.cam.ac.uk/people/matt.davis/cmabridge/
+        """
+        await send_safe(ctx, text.camu())
 
     @editor.command(name="wrap")
     async def editor_wrap(
