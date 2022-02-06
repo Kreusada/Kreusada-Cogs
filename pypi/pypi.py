@@ -20,7 +20,7 @@ class PyPi(commands.Cog):
     """Get information about a package available on PyPi."""
 
     __author__ = ["Kreusada", "OofChair"]
-    __version__ = "1.0.10"
+    __version__ = "1.0.11"
     __dev_ids__ = [719988449867989142, 572944636209922059]
 
     def __init__(self, bot):
@@ -123,12 +123,15 @@ class PyPi(commands.Cog):
                     inline=False,
                 )
 
+        value = f"• [PyPi Stats (provided by PePy)](https://pepy.tech/project/{info['name']})"
+        classifier_url = f"\n• [Other projects with this project's classifiers]({self.format_classifiers_url(info['classifiers'])})"
+
+        if len(classifier_url) <= 900:
+            value += classifier_url
+
         embed.add_field(
             name="Other URLs",
-            value=(
-                f"• [Other projects with this project's classifiers]({self.format_classifiers_url(info['classifiers'])})\n"
-                f"• [PyPi Stats (provided by PePy)](https://pepy.tech/project/{info['name']})"
-            ),
+            value=value,
             inline=False,
         )
 
