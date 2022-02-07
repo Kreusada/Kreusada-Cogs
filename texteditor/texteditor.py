@@ -43,6 +43,9 @@ class Editor(str):
     def title(self) -> str:
         return box(super().title())
 
+    def swapcase(self) -> str:
+        return box(super().swapcase())
+
     def alternating(self) -> str:
         text = list(self)
         text[0::2] = map(str.upper, text[0::2])
@@ -102,7 +105,7 @@ class TextEditor(commands.Cog):
     """
 
     __author__ = "Kreusada"
-    __version__ = "3.0.5"
+    __version__ = "3.0.6"
 
     def __init__(self, bot):
         self.bot = bot
@@ -200,6 +203,11 @@ class TextEditor(commands.Cog):
     async def editor_multiply(self, ctx: commands.Context, multiplier: int, *, text: Editor):
         """Multiply the text."""
         await send_safe(ctx, text.multiply(multiplier))
+
+    @editor.command(name="swapcase")
+    async def editor_multiply(self, ctx: commands.Context, *, text: Editor):
+        """Swap the casing for text."""
+        await send_safe(ctx, text.swapcase())
 
     @editor.command(name="camu")
     async def editor_camu(self, ctx: commands.Context, *, text: Editor):
