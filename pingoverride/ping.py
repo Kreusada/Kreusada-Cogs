@@ -32,7 +32,7 @@ class PingOverride(commands.Cog):
     }
 
     __author__ = "Kreusada"
-    __version__ = "3.5.3"
+    __version__ = "3.5.4"
 
     def __init__(self, bot):
         self.bot = bot
@@ -89,11 +89,9 @@ class PingOverride(commands.Cog):
 
         if settings["reply_settings"]["toggled"]:
             kwargs["mention_author"] = settings["reply_settings"]["mention"]
-            sender = functools.partial(ctx.reply, **kwargs)
-        else:
-            sender = functools.partial(ctx.send, **kwargs)
+            kwargs["reference"] = ctx.message.to_reference(fail_if_not_exists=False)
 
-        await sender()
+        await ctx.send(**kwargs)
 
     @commands.group()
     async def pingset(self, ctx: commands.Context):
