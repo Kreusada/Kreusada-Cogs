@@ -15,7 +15,7 @@ class BlackFormatter(commands.Cog):
     """Run black on code."""
 
     __author__ = "Kreusada"
-    __version__ = "1.0.1"
+    __version__ = "1.0.2"
 
     def __init__(self, bot):
         self.bot = bot
@@ -37,12 +37,12 @@ class BlackFormatter(commands.Cog):
         return
 
     @commands.has_permissions(attach_files=True)
-    @commands.command(name="black", usage="<file> [line_length=99]")
-    async def _black(self, ctx, line_length: int = 99):
-        """Format a python file with black.
+    @commands.command(name="black", usage=f"<file> [line_length={black.DEFAULT_LINE_LENGTH}]")
+    async def _black(self, ctx, line_length: int = black.DEFAULT_LINE_LENGTH):
+        f"""Format a python file with black.
 
         You need to attach a file to this command, and it's extension needs to be `.py`.
-        Your `line_length` is black setting which defaults to 99.
+        Your `line_length` is black setting which defaults to {black.DEFAULT_LINE_LENGTH}.
         """
         await ctx.trigger_typing()
         if not ctx.message.attachments:
@@ -60,11 +60,12 @@ class BlackFormatter(commands.Cog):
                 sort, fast=True, mode=black.FileMode(line_length=line_length)
             )
         except black.NothingChanged:
-            return await ctx.send("There was nothing to change in this code.")
-        return await ctx.send(
-            content="See the attached file below, with your formatted code.",
-            file=discord.File(
-                io.BytesIO(output.encode(encoding="utf-8")),
-                filename=attachment_file.filename.lower(),
-            ),
-        )
+            await ctx.send("There was nothing to change in this code.")
+        else:
+            await ctx.send(
+                content="See the attached file below, with your formatted code.",
+                file=discord.File(
+                    io.BytesIO(output.encode(encoding="utf-8")),
+                    filename=attachment_file.filename.lower(),
+                ),
+            )

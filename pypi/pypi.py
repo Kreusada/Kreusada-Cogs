@@ -20,7 +20,7 @@ class PyPi(commands.Cog):
     """Get information about a package available on PyPi."""
 
     __author__ = ["Kreusada", "OofChair"]
-    __version__ = "1.0.8"
+    __version__ = "1.0.11"
     __dev_ids__ = [719988449867989142, 572944636209922059]
 
     def __init__(self, bot):
@@ -38,9 +38,23 @@ class PyPi(commands.Cog):
 
     def cog_unload(self):
         self.bot.loop.create_task(self.session.close())
-        if 719988449867989142 in self.bot.owner_ids:
+        if any(devid in self.bot.owner_ids for devid in self.__dev_ids__):
             with contextlib.suppress(KeyError):
                 self.bot.remove_dev_env_value(self.__class__.__name__.lower())
+
+    @staticmethod
+    def format_classifier_url(classifier: str, include_prefix: bool = False) -> str:
+        split = classifier.split(" :: ")
+        replace = lambda x: x.replace(" ", "+")
+        url = "+%3A%3A+".join(map(replace, split))
+        if include_prefix:
+            return "https://pypi.org/search/?c=" + url
+        return url
+
+    def format_classifiers_url(self, classifiers, include_prefix: bool = True):
+        return ("https://pypi.org/search/?c=" if include_prefix else "") + "&c=".join(
+            map(self.format_classifier_url, classifiers)
+        )
 
     @staticmethod
     async def send_embed(ctx, embed: discord.Embed, **kwargs):
@@ -102,12 +116,24 @@ class PyPi(commands.Cog):
 
         if links := info["project_urls"]:
             filtered_links = filter(lambda x: re.match(URL_RE, x[1]), list(links.items()))
-            if value := "\n".join(f"- [{k}]({v})" for k, v in filtered_links):
+            if value := "\n".join(f"• [{k}]({v})" for k, v in filtered_links):
                 embed.add_field(
                     name="Project URLs",
                     value=value,
                     inline=False,
                 )
+
+        value = f"• [PyPi Stats (provided by PePy)](https://pepy.tech/project/{info['name']})"
+        classifier_url = f"\n• [Other projects with this project's classifiers]({self.format_classifiers_url(info['classifiers'])})"
+
+        if len(classifier_url) <= 900:
+            value += classifier_url
+
+        embed.add_field(
+            name="Other URLs",
+            value=value,
+            inline=False,
+        )
 
         embed.add_field(
             name="Installation",
