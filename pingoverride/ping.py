@@ -134,6 +134,7 @@ class PingOverride(commands.Cog):
             await ctx.send(
                 "This message doesn't look right. Please consult the docs for more information."
             )
+            return
 
         setter = await add_random_messages(ctx, ping_message)
 
