@@ -29,7 +29,7 @@ class AdvancedUptime(commands.Cog):
     """
 
     __author__ = "Kreusada"
-    __version__ = "3.3.1"
+    __version__ = "3.3.2"
 
     def __init__(self, bot: Red):
         self.bot = bot
@@ -231,7 +231,7 @@ class AdvancedUptime(commands.Cog):
                     inline=False,
                 )
 
-        embed.set_author(name=self.bot.user, icon_url=self.bot.user.avatar_url)
+        embed.set_author(name=self.bot.user, icon_url=self.bot.user.avatar.url)
         await ctx.send(embed=embed)
 
 
