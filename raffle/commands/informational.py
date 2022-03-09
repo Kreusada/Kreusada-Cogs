@@ -167,7 +167,7 @@ class InformationalCommands(RaffleMixin, metaclass=MetaClass):
             )
             embed.set_author(
                 name=f"{raffle} | {len(entries)} {entry_grammar}",
-                icon_url=self.bot.user.avatar_url,
+                icon_url=self.bot.user.avatar.url,
             )
             embed.set_footer(text="Sorted in order of join time.")
             embed_pages.append(embed)
