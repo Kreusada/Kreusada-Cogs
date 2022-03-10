@@ -207,10 +207,7 @@ class AdvancedUptime(commands.Cog):
         if self.settings["show_latency_stats"]:
             value = "Bot latency: {}ms".format(str(round(self.bot.latency * 1000, 2)))
             for shard, time in self.bot.latencies:  # Thanks aika
-                try:
-                    value += f"\nShard {shard+1}/{len(self.bot.latencies)}: {round(time * 1000)}ms"
-                except OverflowError:
-                    value += f"\nShard {shard+1}/{len(self.bot.latencies)}: {int(time * 1000)}ms"
+                value += f"\nShard {shard+1}/{len(self.bot.latencies)}: {int(time * 1000)}ms"
 
             embed.add_field(
                 name="Shard and Latency Stats",
