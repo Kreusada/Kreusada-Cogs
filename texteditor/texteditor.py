@@ -155,7 +155,7 @@ class TextEditor(commands.Cog):
     @editor.command(name="lower")
     async def editor_lower(self, ctx: commands.Context, *, text: Editor):
         """Convert the text to lowercase."""
-        await ctx.send_safe(ctx, (text.lower()))
+        await send_safe(ctx, (text.lower()))
 
     @editor.command(name="title")
     async def editor_title(self, ctx: commands.Context, *, text: Editor):
