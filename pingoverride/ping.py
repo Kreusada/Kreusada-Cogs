@@ -32,7 +32,7 @@ class PingOverride(commands.Cog):
     }
 
     __author__ = "Kreusada"
-    __version__ = "3.5.4"
+    __version__ = "3.5.5"
 
     def __init__(self, bot):
         self.bot = bot
@@ -43,17 +43,17 @@ class PingOverride(commands.Cog):
             with contextlib.suppress(RuntimeError, ValueError):
                 self.bot.add_dev_env_value(self.__class__.__name__.lower(), lambda x: self)
 
-    def cog_unload(self):
+    async def cog_unload(self):
         global ping_com
         if ping_com:
             try:
-                self.bot.remove_command("ping")
+                await self.bot.remove_command("ping")
             except Exception as e:
                 log.info(e)
-            self.bot.add_command(ping_com)
+            await self.bot.add_command(ping_com)
         if 719988449867989142 in self.bot.owner_ids:
             with contextlib.suppress(KeyError):
-                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
+                await self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
@@ -241,8 +241,8 @@ class PingOverride(commands.Cog):
         await ctx.send(box(message, lang="yaml"))
 
 
-def setup(bot):
+async def setup(bot):
     global ping_com
     cog = PingOverride(bot)
     ping_com = bot.remove_command("ping")
-    bot.add_cog(cog)
+    await bot.add_cog(cog)

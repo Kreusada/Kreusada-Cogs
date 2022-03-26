@@ -27,7 +27,7 @@ class Termino(Utilities, commands.Cog, metaclass=CompositeMetaClass):
 
     __author__ = ["Kreusada", "Jojo#7791"]
     __dev_ids__ = [719988449867989142, 544974305445019651]
-    __version__ = "2.0.7"
+    __version__ = "2.0.8"
 
     def __init__(self, bot):
         self.bot = bot
@@ -52,25 +52,25 @@ class Termino(Utilities, commands.Cog, metaclass=CompositeMetaClass):
         self.announce_startup = self.bot.loop.create_task(self._announce_start())
         self._first_connect = False
 
-    def cog_unload(self):
+    async def cog_unload(self):
         global shutdown, restart
         if shutdown:
             try:
-                self.bot.remove_command("shutdown")
+                await self.bot.remove_command("shutdown")
             except Exception as e:
                 log.info(e)
-            self.bot.add_command(shutdown)
+            await self.bot.add_command(shutdown)
         if restart:
             try:
-                self.bot.remove_command("restart")
+                await self.bot.remove_command("restart")
             except Exception as e:
                 log.info(e)
-            self.bot.add_command(restart)
+            await self.bot.add_command(restart)
         if 719988449867989142 in self.bot.owner_ids:
             with contextlib.suppress(KeyError):
-                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
-        self.startup_task.cancel()
-        self.announce_startup.cancel()
+                await self.bot.remove_dev_env_value(self.__class__.__name__.lower())
+        await self.startup_task.cancel()
+        await self.announce_startup.cancel()
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
@@ -276,4 +276,4 @@ async def setup(bot):
     shutdown = bot.remove_command("shutdown")
     restart = bot.remove_command("restart")
     await cog.initialize()
-    bot.add_cog(cog)
+    await bot.add_cog(cog)
