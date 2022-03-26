@@ -49,10 +49,10 @@ class Dehoister(commands.Cog):
         """Nothing to delete"""
         return
 
-    def cog_unload(self):
+    async def cog_unload(self):
         if 719988449867989142 in self.bot.owner_ids:
             with contextlib.suppress(KeyError):
-                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
+                await self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     async def create_case(self, guild, user, moderator):
         try:

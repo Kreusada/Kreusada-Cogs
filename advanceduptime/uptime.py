@@ -68,17 +68,17 @@ class AdvancedUptime(commands.Cog):
         """Nothing to delete"""
         return
 
-    def cog_unload(self):
+    async def cog_unload(self):
         global _old_uptime
         if _old_uptime:
             try:
-                self.bot.remove_command("uptime")
+                await self.bot.remove_command("uptime")
             except Exception as error:
                 log.info(error)
-            self.bot.add_command(_old_uptime)
+            await self.bot.add_command(_old_uptime)
         if 719988449867989142 in self.bot.owner_ids:
             with contextlib.suppress(KeyError):
-                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
+                await self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     async def initialize(self):
         self.settings = await self.config.all()
@@ -242,4 +242,4 @@ async def setup(bot):
     if _old_uptime:
         bot.remove_command(_old_uptime.name)
     await au.initialize()
-    bot.add_cog(au)
+    await bot.add_cog(au)
