@@ -26,7 +26,7 @@ class TimeStamps(Cog):
     """Retrieve timestamps for certain dates."""
 
     __author__ = "Kreusada"
-    __version__ = "1.0.2"
+    __version__ = "1.0.3"
 
     def __init__(self, bot):
         self.bot: Red = bot

@@ -29,7 +29,7 @@ class AdvancedUptime(commands.Cog):
     """
 
     __author__ = "Kreusada"
-    __version__ = "3.3.2"
+    __version__ = "3.3.3"
 
     def __init__(self, bot: Red):
         self.bot = bot

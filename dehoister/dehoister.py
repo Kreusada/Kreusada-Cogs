@@ -29,7 +29,7 @@ class Dehoister(commands.Cog):
     """
 
     __author__ = "Kreusada"
-    __version__ = "1.5.3"
+    __version__ = "1.5.4"
 
     def __init__(self, bot):
         self.bot = bot
