@@ -12,7 +12,7 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 
 .. note::
 
-    This guide was last updated for version 1.1.1. Ensure
+    This guide was last updated for version 1.1.5. Ensure
     that you are up to date by running ``[p]cog update flags``.
 
     If there is something missing, or something that needs improving
@@ -30,11 +30,13 @@ Get flags from country names.
 Commands
 --------
 
-Here are all the commands included in this cog (1):
+Here are all the commands included in this cog (3):
 
 * ``[p]flag <argument>``
  Get the flag for a country.
-* ``[p]flags [page_number=None]``
+* ``[p]flagemojis [countries...]``
+ Get flag emojis for a list of countries.
+* ``[p]flags [page_number]``
  Get a list of all the flags and their alpha 2 codes.
 
 ------------

@@ -23,6 +23,10 @@ def square(t):
     return f"[{t}]"
 
 
+def emojify(t):
+    return f":{t}:"
+
+
 def format_attr(t):
     return t.replace("_", " ").title()
 
@@ -60,20 +64,20 @@ class CountryConverter(Converter):
         argument = argument.lower()
         get = pycountry.countries.get
 
-        if argument in SPECIAL_IMAGES.keys():
+        if argument in SPECIAL_IMAGES:
             emoji = SPECIAL_IMAGES[argument]["emoji"]
 
-            if sys.modules.get("tabulate", None) is not None:
+            if tabulate:
                 description = box(f"Emoji Information  [:{emoji}:]", lang="ini")
             else:
-                description = box(f"Emoji Information: :{argument}:", lang="yaml")
+                description = box(f"Emoji Information: :{emoji}:", lang="yaml")
 
             country_name = argument.title()
             image = IMAGE_BASE.format(SPECIAL_IMAGES[argument]["url"])
 
             return {
                 "description": description,
-                "emoji": emoji,
+                "emoji": emojify(emoji),
                 "name": square(country_name),
                 "title": f":{emoji}: {country_name}",
                 "image": image,
@@ -81,24 +85,23 @@ class CountryConverter(Converter):
 
         obj = get(name=argument) or get(alpha_2=argument)
         if not obj:
-            obj = None
             for k, v in EXCEPTIONS.items():
                 if k in argument:
                     obj = get(alpha_2=v)
                     break
             if not obj:
-                raise BadArgument("Could not match this argument to a country.")
+                raise BadArgument("Could not match %r to a country." % argument)
 
         ret = {
-            "name": square(obj.name.title()),
+            "name": obj.name.title(),
             "title": f":flag_{obj.alpha_2.lower()}: {obj.name}",
-            "emoji": square(f":flag_{obj.alpha_2.lower()}:"),
+            "emoji": f":flag_{obj.alpha_2.lower()}:",
             "image": IMAGE_BASE.format(obj.alpha_2.lower()),
         }
 
         for attr in ("alpha_2", "alpha_3", "numeric", "official_name"):
             if hasattr(obj, attr):
-                ret[attr] = square(getattr(obj, attr))
+                ret[attr] = getattr(obj, attr)
 
         return ret
 
@@ -110,7 +113,7 @@ with open(pathlib.Path(__file__).parent / "info.json") as fp:
 class Flags(Cog):
     """Get flags from country names."""
 
-    __version__ = "1.1.4"
+    __version__ = "1.1.5"
     __author__ = "Kreusada"
 
     def __init__(self, bot):
@@ -154,7 +157,8 @@ class Flags(Cog):
             if tabulate:
                 description = box(
                     tabulate.tabulate(
-                        [(format_attr(k), v) for k, v in argument.items()], tablefmt="plain"
+                        [(format_attr(k), square(v)) for k, v in argument.items()],
+                        tablefmt="plain",
                     ),
                     lang="ini",
                 )
@@ -172,6 +176,27 @@ class Flags(Cog):
 
         embed.set_image(url=image)
         await menu(ctx, [embed], {"\N{CROSS MARK}": close_menu})
+
+    @commands.command()
+    async def flagemojis(self, ctx: commands.Context, *countries: CountryConverter):
+        """Get flag emojis for a list of countries.
+
+        **Examples:**
+
+            - ``[p]flagemojis qatar brazil mexico``
+            - ``[p]flagemojis "solomon islands" germany``
+        """
+        if not countries:
+            return await ctx.send_help()
+        # Here, I am removing duplicates. Cannot do set(countries)
+        # because set takes hashable objects of which dict is not
+        # using dict.fromkeys() instead of set() to retain insertion order
+        unique_countries = [
+            dict(s) for s in dict.fromkeys(frozenset(d.items()) for d in countries)
+        ]
+        message = "\n".join(f"{c['emoji']} - `{c['emoji']}`" for c in unique_countries)
+        for page in pagify(message):
+            await ctx.send(page)
 
     @commands.command()
     @commands.has_permissions(embed_links=True)
