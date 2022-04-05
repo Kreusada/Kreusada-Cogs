@@ -12,7 +12,7 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 
 .. note::
 
-    This guide was last updated for version 3.0.6. Ensure
+    This guide was last updated for version 3.0.7. Ensure
     that you are up to date by running ``[p]cog update texteditor``.
 
     If there is something missing, or something that needs improving
@@ -30,7 +30,7 @@ Edit and manipulate with text.
 Commands
 --------
 
-Here are all the commands included in this cog (19):
+Here are all the commands included in this cog (20):
 
 * ``[p]editor``
  Base command for editing text.
@@ -46,6 +46,8 @@ Here are all the commands included in this cog (19):
  Multiply the text.
 * ``[p]editor occurance <check> <text>``
  Count how many times something appears in the text.
+* ``[p]editor permutate <text>``
+ Generate permutations for given combinations of words/digits.
 * ``[p]editor remove <remove> <text>``
  Remove something from the text.
 * ``[p]editor replace <text_to_replace> <replacement> <text>``

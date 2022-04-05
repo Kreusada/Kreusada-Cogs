@@ -1,11 +1,13 @@
 import contextlib
-import inspect
+import io
+import itertools
 import json
 import pathlib
 import random
 import textwrap
 from typing import Optional
 
+import discord
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import bold, box, pagify
 
@@ -79,6 +81,22 @@ class Editor(str):
     def wrap(self, cut_length, cut_words) -> str:
         return box("\n".join(textwrap.wrap(self, cut_length, break_long_words=cut_words)))
 
+    def permutate(self) -> str:
+        split = self.split()
+        if len(split) > 8:
+            raise commands.UserFeedbackCheckFailure("Please only provide up to 8 arguments.")
+        permutations = [" ".join(p) for p in itertools.permutations(split)]
+        message = "# Generated permutations (%s [!%s])\n" % (len(permutations), len(split))
+        join = "\n".join(f"{str(i).zfill(2)}. {j}" for i, j in enumerate(permutations, 1))
+        if len(permutations) > 24:
+            message += "\n".join(join.split("\n")[:24])
+            message += "\n\n...\n\nSee attached file for full permutation"
+            file = io.BytesIO(join.encode("utf-8"))
+        else:
+            message += join
+            file = None
+        return box(message, "md"), file
+
     def camu(self) -> str:
         ret = []
         for w in self.split():
@@ -105,7 +123,7 @@ class TextEditor(commands.Cog):
     """
 
     __author__ = "Kreusada"
-    __version__ = "3.0.6"
+    __version__ = "3.0.7"
 
     def __init__(self, bot):
         self.bot = bot
@@ -155,7 +173,7 @@ class TextEditor(commands.Cog):
     @editor.command(name="lower")
     async def editor_lower(self, ctx: commands.Context, *, text: Editor):
         """Convert the text to lowercase."""
-        await send_safe(ctx, (text.lower()))
+        await send_safe(ctx, text.lower())
 
     @editor.command(name="title")
     async def editor_title(self, ctx: commands.Context, *, text: Editor):
@@ -216,6 +234,15 @@ class TextEditor(commands.Cog):
         https://www.mrc-cbu.cam.ac.uk/people/matt.davis/cmabridge/
         """
         await send_safe(ctx, text.camu())
+
+    @editor.command(name="permutate")
+    async def editor_permutate(self, ctx: commands.Context, *, text: Editor):
+        """Generate permutations for given combinations of words/digits."""
+        message, file = text.permutate()
+        kwargs = {"content": message}
+        if file:
+            kwargs["file"] = discord.File(file, filename="permutations.txt")
+        await ctx.send(**kwargs)
 
     @editor.command(name="wrap")
     async def editor_wrap(
