@@ -81,6 +81,8 @@ class Editor(str):
         return box("\n".join(textwrap.wrap(self, cut_length, break_long_words=cut_words)))
 
     def permutate(self) -> str:
+        if any(map(self.__contains__, "\n`")):
+            raise commands.UserFeedbackCheckFailure("Please don't use backticks or newlines in the permutator.")
         split = self.split()
         if len(split) > 8:
             raise commands.UserFeedbackCheckFailure("Please only provide up to 8 arguments.")
@@ -122,7 +124,7 @@ class TextEditor(commands.Cog):
     """
 
     __author__ = "Kreusada"
-    __version__ = "3.1.0"
+    __version__ = "3.1.1"
 
     def __init__(self, bot):
         self.bot = bot
