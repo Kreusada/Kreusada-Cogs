@@ -55,8 +55,7 @@ class Editor(str):
         return box(text)
 
     def replace(self, text_to_replace, replacement) -> str:
-        replace = lambda x: x.replace(text_to_replace, replacement)
-        return box(replace(self))
+        return box(super().replace(text_to_replace, replacement))
 
     def squash(self) -> str:
         return box(self.replace(" ", ""))
@@ -123,7 +122,7 @@ class TextEditor(commands.Cog):
     """
 
     __author__ = "Kreusada"
-    __version__ = "3.0.7"
+    __version__ = "3.1.0"
 
     def __init__(self, bot):
         self.bot = bot
