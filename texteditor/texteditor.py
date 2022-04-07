@@ -26,7 +26,7 @@ class Editor(str):
         return m
 
     def wordcount(self) -> str:
-        return f"Word count: {len(self.split())}"
+        return f"Word count: **{len(self.split())}**"
 
     def occurance(self, check) -> str:
         counter = self.count(check)
@@ -34,69 +34,56 @@ class Editor(str):
         return f"`{check}` is present in the text {bold(plural_check)}."
 
     def snake(self) -> str:
-        return box(self.replace(" ", "_"))
-
-    def upper(self) -> str:
-        return box(super().upper())
-
-    def lower(self) -> str:
-        return box(super().lower())
-
-    def title(self) -> str:
-        return box(super().title())
-
-    def swapcase(self) -> str:
-        return box(super().swapcase())
+        return self.replace(" ", "_")
 
     def alternating(self) -> str:
         text = list(self)
         text[0::2] = map(str.upper, text[0::2])
         text[1::2] = map(str.lower, text[1::2])
-        return box(text)
-
-    def replace(self, text_to_replace, replacement) -> str:
-        return box(super().replace(text_to_replace, replacement))
+        return "".join(text)
 
     def squash(self) -> str:
-        return box(self.replace(" ", ""))
+        return self.replace(" ", "")
 
     def remove(self, remove) -> str:
-        return box(self.replace(remove, ""))
+        return self.replace(remove, "")
 
     def trim(self, trimmer) -> str:
-        return box(self.strip(trimmer).strip())
+        return self.strip(trimmer)
 
     def shuffle(self) -> str:
         data = self.split()
         random.shuffle(data)
-        return box(" ".join(data))
+        return " ".join(data)
 
     def reverse(self) -> str:
-        return box(self[::-1])
+        return self[::-1]
 
-    def multiply(self, mul) -> str:
-        return box(self * mul)
+    def multiply(self, mul: int) -> str:
+        return self * mul
 
-    def wrap(self, cut_length, cut_words) -> str:
-        return box("\n".join(textwrap.wrap(self, cut_length, break_long_words=cut_words)))
+    def wrap(self, cut_length: int, cut_words: bool) -> str:
+        return "\n".join(textwrap.wrap(self, cut_length, break_long_words=cut_words))
 
     def permutate(self) -> str:
         if any(map(self.__contains__, "\n`")):
             raise commands.UserFeedbackCheckFailure("Please don't use backticks or newlines in the permutator.")
+        if len(self) > 250:
+            raise commands.UserFeedbackCheckFailure("Too many characters were provided.")
         split = self.split()
         if len(split) > 8:
             raise commands.UserFeedbackCheckFailure("Please only provide up to 8 arguments.")
         permutations = [" ".join(p) for p in itertools.permutations(split)]
-        message = "# Generated permutations (%s [!%s])\n" % (len(permutations), len(split))
-        join = "\n".join(f"{str(i).zfill(2)}. {j}" for i, j in enumerate(permutations, 1))
+        message = "Generated permutations (%s [!%s])" % (len(permutations), len(split))
+        join = "\n".join(permutations)
         if len(permutations) > 24:
-            message += "\n".join(join.split("\n")[:24])
-            message += "\n\n...\n\nSee attached file for full permutation"
+            message += "\n(See attached file for full permutation)\n\n"
+            message += "\n".join(permutations[:24])
             file = io.BytesIO(join.encode("utf-8"))
         else:
-            message += join
+            message += "\n" + join
             file = None
-        return box(message, "md"), file
+        return tuple(pagify(message)), file
 
     def camu(self) -> str:
         ret = []
@@ -111,7 +98,7 @@ class Editor(str):
                 mid = tw[1:-1]
                 random.shuffle(mid)
                 ret.append(w[0] + "".join(mid) + w[-1])
-        return box(" ".join(ret))
+        return " ".join(ret)
 
 
 with open(pathlib.Path(__file__).parent / "info.json") as fp:
@@ -124,7 +111,7 @@ class TextEditor(commands.Cog):
     """
 
     __author__ = "Kreusada"
-    __version__ = "3.1.1"
+    __version__ = "3.2.0"
 
     def __init__(self, bot):
         self.bot = bot
@@ -224,7 +211,7 @@ class TextEditor(commands.Cog):
         await send_safe(ctx, text.multiply(multiplier))
 
     @editor.command(name="swapcase")
-    async def editor_multiply(self, ctx: commands.Context, *, text: Editor):
+    async def editor_swapcase(self, ctx: commands.Context, *, text: Editor):
         """Swap the casing for text."""
         await send_safe(ctx, text.swapcase())
 
@@ -240,10 +227,11 @@ class TextEditor(commands.Cog):
     async def editor_permutate(self, ctx: commands.Context, *, text: Editor):
         """Generate permutations for given combinations of words/digits."""
         message, file = text.permutate()
-        kwargs = {"content": message}
-        if file:
-            kwargs["file"] = discord.File(file, filename="permutations.txt")
-        await ctx.send(**kwargs)
+        for i, j in enumerate(message, 1):
+            j = box(j)
+            if i == len(message) and file:
+                return await ctx.send(j, file=discord.File(file, filename="permutations.txt"))
+            await ctx.send(j)
 
     @editor.command(name="wrap")
     async def editor_wrap(

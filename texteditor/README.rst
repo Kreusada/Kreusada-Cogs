@@ -12,7 +12,7 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 
 .. note::
 
-    This guide was last updated for version 3.1.1. Ensure
+    This guide was last updated for version 3.2.0. Ensure
     that you are up to date by running ``[p]cog update texteditor``.
 
     If there is something missing, or something that needs improving
@@ -42,7 +42,7 @@ Here are all the commands included in this cog (20):
  Count the number of characters appearing in the text.
 * ``[p]editor lower <text>``
  Convert the text to lowercase.
-* ``[p]editor multiply <ctx> <multiplier> <text>``
+* ``[p]editor multiply <multiplier> <text>``
  Multiply the text.
 * ``[p]editor occurance <check> <text>``
  Count how many times something appears in the text.
