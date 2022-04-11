@@ -34,6 +34,7 @@ Useful Links
     cog_minifier
     cog_namegenerator
     cog_onthisday
+    cog_ordinal
     cog_pinginvoke
     cog_pingoverride
     cog_pypi

@@ -11,6 +11,7 @@ Inverter,Invert images and avatars,"Tools, Fun",Kreusada
 Minifier,Minify your code with python minifier,Tools,Kreusada
 NameGenerator,Generate random names with optional gender arguments.,Fun,Kreusada
 OnThisDay,"Find out what happened today, in multiple different years in history.",Fun,Kreusada
+Ordinal,"Get ordinal digits and characters easily.",Tools,Kreusada
 PingInvoke,wall-e? Invoke ping by asking if your bot's there.,"Tools, Fun",Kreusada
 PingOverride,Replace the default ping response with your own response!,"Tools, Fun",Kreusada
 PyPi,Get information about a package available on PyPi.,Tools,"Kreusada, OofChair"
@@ -22,7 +23,7 @@ RPSLS,"Rock, paper, scissors, lizard, rock",Fun,Kreusada
 Staff,Alert staff for conspicuous activity.,Mod,Kreusada
 Termino,"Custom shutdown and restart messages, and announcements",Tools,Kreusada
 TextEditor,Edit and manipulate with text,"Fun, Tools",Kreusada
-TimeStamps,Produce Discord timestamps.Tools,Kreusada
+TimeStamps,Produce Discord timestamps.,Tools,Kreusada
 Vinfo,Obtain version info for third-party cogs and dependencies.,Tools,Kreusada
 WordBase,Generate rhymes, use a reverse dictionary, and more word related generators.,"Fun, Tools",Kreusada
 YamlScanner,An easy and quick tool to validate yaml.,Tools,Kreusada

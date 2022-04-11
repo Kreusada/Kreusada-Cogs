@@ -37,6 +37,7 @@
         'minifier',
         'namegenerator',
         'onthisday',
+        'ordinal',
         'pinginvoke',
         'pingoverride',
         'pypi',

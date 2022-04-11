@@ -67,7 +67,9 @@ class Editor(str):
 
     def permutate(self) -> str:
         if any(map(self.__contains__, "\n`")):
-            raise commands.UserFeedbackCheckFailure("Please don't use backticks or newlines in the permutator.")
+            raise commands.UserFeedbackCheckFailure(
+                "Please don't use backticks or newlines in the permutator."
+            )
         if len(self) > 250:
             raise commands.UserFeedbackCheckFailure("Too many characters were provided.")
         split = self.split()
