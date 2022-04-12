@@ -18,7 +18,7 @@ class Ordinal(commands.Cog):
     """Get ordinal digits and characters easily."""
 
     __author__ = "Kreusada"
-    __version__ = "1.0.0"
+    __version__ = "1.0.1"
 
     def __init__(self, bot: Red) -> None:
         self.bot = bot
@@ -31,7 +31,7 @@ class Ordinal(commands.Cog):
         return f"{context}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
     def cog_unload(self) -> None:
-        if 719988449867989142 in self.__dev_ids__:
+        if 719988449867989142 in self.bot.owner_ids:
             with contextlib.suppress(KeyError):
                 self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
