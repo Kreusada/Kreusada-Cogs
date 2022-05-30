@@ -12,7 +12,6 @@ __patchnote__ = (
     "- `[p]repo add fixator10-cogs https://github.com/Fixator10/Fixator10-Cogs`\n"
     "\n**Then run:\n"
     "- `[p]cog install fixator10-cogs captcha`\n"
-    
 )
 __patchnote_version__ = "2"
 
@@ -20,6 +19,18 @@ __patchnote_version__ = "2"
 # dirty solution to save old patch notes.
 
 __OLD_PATCHNOTES__ = {
+    2: (
+        "Hello, this cog is (once again) moving of repository. It'll be now hosted by Fixator10 at \n"
+        "https://github.com/Fixator10/Fixator10-Cogs, if you wish to use this cog in the future, "
+        "please run the following commands:\n"
+        "- `[p]cog uninstall captcha`\n"
+        "\n**If you already have the Fixator10's repository:**\n"
+        "- `[p]repo update`\n"
+        "\n**If you do not have the Fixator10's repository:**\n"
+        "- `[p]repo add fixator10-cogs https://github.com/Fixator10/Fixator10-Cogs`\n"
+        "\n**Then run:\n"
+        "- `[p]cog install fixator10-cogs captcha`\n"
+    ),
     1: (
         "**This message was written by Predeactor:**\n\n"
         "Hello user. Thank for installing my new Captcha cog!\n"
