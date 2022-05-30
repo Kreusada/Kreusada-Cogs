@@ -1,279 +1,193 @@
 import asyncio
-import contextlib
-import datetime
-import json
-import pathlib
-from typing import Union
+from typing import Literal, Optional
 
 import discord
-from redbot.core import Config, VersionInfo, commands, version_info
-from redbot.core.utils.chat_formatting import box, pagify
+from redbot.core import Config, commands
+from redbot.core.bot import Red
+from redbot.core.utils import get_end_user_data_statement
+from redbot.core.utils.chat_formatting import box
 from redbot.core.utils.predicates import MessagePredicate
 
 from .log import log
-from .mixins import CompositeMetaClass
-from .utils import Utilities, default_wave, now
 
-nowstf = lambda: now().strftime("%d/%m/%Y (%H:%M:%S)")
-shutdown: commands.Command = None
-restart: commands.Command = None
+__red_end_user_data_statement__ = get_end_user_data_statement(__file__)
 
-with open(pathlib.Path(__file__).parent / "info.json") as fp:
-    __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
+OLD_RESTART_COMMAND: commands.Command = None
+OLD_SHUTDOWN_COMMAND: commands.Command = None
+DEFAULT_WAVE: str = "\N{WAVING HAND SIGN}\N{EMOJI MODIFIER FITZPATRICK TYPE-3}"
+
+FORMAT_MAPPING = {
+    "$name": lambda bot: bot.name,
+    "$discriminator": lambda bot: str(bot.discriminator),
+    "$id": lambda bot: str(bot.id),
+    "$display_name": lambda bot: bot.display_name,
+}
 
 
-class Termino(Utilities, commands.Cog, metaclass=CompositeMetaClass):
-    """Customize bot shutdown and restart messages, with predicates, too."""
+class Termino(commands.Cog):
+    """Customize shutdown and restart messages, with the ability to add confirmation messages."""
 
-    __author__ = ["Kreusada", "Jojo#7791"]
-    __dev_ids__ = [719988449867989142, 544974305445019651]
-    __version__ = "2.0.7"
+    __version__ = "3.0.0"
 
-    def __init__(self, bot):
+    def __init__(self, bot: Red) -> None:
         self.bot = bot
         self.config = Config.get_conf(self, 89434930598345, force_registration=True)
         self.config.register_global(
-            shutdown_message=f"Shutting down... {default_wave}",
-            restarted_message="I have successfully restarted.",
-            restarted_author=None,
+            shutdown_message=f"Shutting down... {DEFAULT_WAVE}",
             restart_message="Restarting...",
-            reconnect=False,
-            reconnect_message="I have reconnected.",
-            announcement_channel=None,
-            restart_channel=None,
-            confirm_shutdown=True,
-            confirm_restart=True,
+            shutdown_confirmation_message=False,
+            restart_confirmation_message=False,
         )
 
-        self.red_ready = getattr(
-            self.bot, "is_red_ready", lambda: self.bot._red_ready.is_set()
-        )  # This might be changed soon
-        self.startup_task = self.bot.loop.create_task(self.startup())
-        self.announce_startup = self.bot.loop.create_task(self._announce_start())
-        self._first_connect = False
-
-    def cog_unload(self):
-        global shutdown, restart
-        if shutdown:
+    def cog_unload(self) -> None:
+        global OLD_RESTART_COMMAND
+        global OLD_SHUTDOWN_COMMAND
+        if OLD_SHUTDOWN_COMMAND:
             try:
                 self.bot.remove_command("shutdown")
             except Exception as e:
                 log.info(e)
-            self.bot.add_command(shutdown)
-        if restart:
+            self.bot.add_command(OLD_SHUTDOWN_COMMAND)
+        if OLD_RESTART_COMMAND:
             try:
                 self.bot.remove_command("restart")
             except Exception as e:
                 log.info(e)
-            self.bot.add_command(restart)
-        if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(KeyError):
-                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
-        self.startup_task.cancel()
-        self.announce_startup.cancel()
-
-    def format_help_for_context(self, ctx: commands.Context) -> str:
-        context = super().format_help_for_context(ctx)
-        authors = ", ".join(self.__author__)
-        return f"{context}\n\nAuthors: {authors}\nVersion: {self.__version__}"
-
-    async def red_delete_data_for_user(self, **kwargs):
-        """Nothing to delete"""
-        return
-
-    async def initialize(self) -> None:
-        for uid in self.__dev_ids__:
-            if uid in self.bot.owner_ids:
-                with contextlib.suppress(RuntimeError, ValueError):
-                    self.bot.add_dev_env_value(self.__class__.__name__.lower(), lambda x: self)
-
-        # remove no longer used config key
-        await self.config.clear_raw("announced")
-
-    @commands.is_owner()
-    @commands.command()
-    async def restart(self, ctx: commands.Context):
-        """Attempts to restart [botname]."""
-        settings = await self.config.all()
-        restart_message = settings["restart_message"]
-        restart_conf = settings["confirm_restart"]
-
-        message = restart_message.replace(r"{author}", ctx.author.name)
-        if restart_conf:
-            conf = await self.confirmation(ctx, "restart")
-        if not restart_conf or conf:
-            await ctx.send(message)
-            log.info(f"{ctx.me.name} was restarted by {ctx.author} ({nowstf()})")
-            await self.config.restart_channel.set(ctx.channel.id)
-            await self.config.restarted_author.set(ctx.author.name)
-            try:
-                await asyncio.wait_for(self._send_announcement(shutdown=False), timeout=15.0)
-            except asyncio.TimeoutError:
-                pass
-            return await self.bot.shutdown(restart=True)
-        else:
-            await ctx.send("I will not be restarting.")
-
-    @commands.is_owner()
-    @commands.command()
-    async def shutdown(self, ctx: commands.Context):
-        """Shuts down [botname]."""
-        settings = await self.config.all()
-        shutdown_message = settings["shutdown_message"]
-        shutdown_conf = settings["confirm_shutdown"]
-
-        message = shutdown_message.replace(r"{author}", ctx.author.name)
-        if shutdown_conf:
-            conf = await self.confirmation(ctx, "shutdown")
-        if not shutdown_conf or conf:
-            await ctx.send(message)
-            log.info(f"{ctx.me.name} was shutdown by {ctx.author} ({nowstf()})")
-            try:
-                await asyncio.wait_for(self._send_announcement(), timeout=15.0)
-            except asyncio.TimeoutError:
-                pass
-            return await self.bot.shutdown(restart=False)
-        else:
-            await ctx.send("I will not be shutting down.")
+            self.bot.add_command(OLD_RESTART_COMMAND)
 
     @commands.group()
     @commands.is_owner()
-    async def terminoset(self, ctx: commands.Context):
-        """Settings for the shutdown and restart commands."""
+    async def terminoset(self, ctx: commands.Context) -> None:
+        """Configure Termino messages."""
+        pass
 
-    @terminoset.group(name="shutdown", aliases=["shut"], invoke_without_command=True)
-    async def terminoset_shutdown(self, ctx: commands.Context, *, shutdown_message: str):
-        """
-        Set and adjust the shutdown message.
+    @terminoset.group(name="restart")
+    async def terminoset_restart(self, ctx: commands.Context) -> None:
+        """Set Termino's restart settings."""
 
-        You can use `{author}` in your message to send the invokers display name.
+    @terminoset.group(name="shutdown")
+    async def terminoset_shutdown(self, ctx: commands.Context) -> None:
+        """Set Termino's shutdown settings."""
 
-        Type `none` to reset it.
-        """
-        if shutdown_message.lower() == "none":
-            shutdown_message = None
-        msg = shutdown_message or f"Shutting down... {default_wave}"
-        await self.config.shutdown_message.set(msg)
-        set_reset = "set" if shutdown_message else "reset"
-        await ctx.send(f"Shutdown message has been {set_reset}.")
+    async def set_new_message(
+        self, config_attr: str, *, bot: discord.Member, message: str
+    ) -> None:
+        for format_type, func in FORMAT_MAPPING.items():
+            if format_type in message:
+                message = message.replace(format_type, func(bot))
+        await getattr(self.config, config_attr).set(message)
 
-    @terminoset_shutdown.command(name="conf")
-    async def terminoset_shutdown_conf(self, ctx: commands.Context, true_or_false: bool):
-        """Toggle whether shutdowns confirm before shutting down."""
-        await self.config.confirm_shutdown.set(true_or_false)
-        grammar = "not" if not true_or_false else "now"
-        await ctx.send(f"Shutdowns will {grammar} confirm before shutting down.")
+    async def maybe_confirm(
+        self, ctx: commands.Context, *, type: Literal["shutdown", "restart"]
+    ) -> None:
+        config_obj = getattr(self.config, "{type}_confirmation_message".format(type=type))
+        message = await config_obj()
+        if not message:
+            return
+        await ctx.send(message)
+        pred = MessagePredicate.yes_or_no(ctx, user=ctx.author)
+        try:
+            await self.bot.wait_for("message", check=pred, timeout=30)
+        except asyncio.TimeoutError:
+            await ctx.send("You took too long to respond, assuming no.")
+        else:
+            if not pred.result:
+                await ctx.send("Cancelling {type}.".format(type=type))
+            else:
+                return True
 
-    @terminoset.group(name="restart", aliases=["res"], invoke_without_command=True)
-    async def terminoset_restart(self, ctx: commands.Context, *, restart_message: str):
-        """
-        Set and adjust the restart message.
-
-        You can use `{author}` in your message to send the invokers display name.
-
-        Type `none` to reset it.
-        """
-        if restart_message.lower() == "none":
-            restart_message = None
-        msg = restart_message or "Restarting..."
-        await self.config.restart_message.set(msg)
-        set_reset = "set" if restart_message else "reset"
-        await ctx.send("Restart message has been {set_reset}.")
+    @terminoset_restart.command(name="message")
+    async def terminoset_restart_message(self, ctx: commands.Context, *, message: str) -> None:
+        """Set Termino's restart message."""
+        await self.set_new_message("restart_message", bot=ctx.me, message=message)
+        await ctx.send("Restart message set.")
 
     @terminoset_restart.command(name="conf")
-    async def terminoset_restart_conf(self, ctx: commands.Context, true_or_false: bool):
-        """Toggle whether restarts confirm before restarting."""
-        await self.config.confirm_restart.set(true_or_false)
-        grammar = "not" if not true_or_false else "now"
-        await ctx.send(f"Restarts will {grammar} confirm before restarting.")
+    async def terminoset_restart_conf(
+        self, ctx: commands.Context, *, message: Optional[str] = None
+    ) -> None:
+        """Set Termino's restart confirmation message."""
+        if not message:
+            return await ctx.send("Restart confirmation disabled.")
+        await self.set_new_message("restart_confirmation_message", bot=ctx.me, message=message)
+        await ctx.send("Restart confirmation message set.")
 
-    @terminoset_restart.command(name="restartedmessage", aliases=["resmsg"], usage="<message>")
-    async def terminoset_restarted_message(self, ctx: commands.Context, *, restarted_message: str):
-        """Set the message to be sent after restarting.
+    @terminoset_shutdown.command(name="message")
+    async def terminoset_shutdown_message(self, ctx: commands.Context, *, message: str) -> None:
+        """Set Termino's shutdown message."""
+        await self.set_new_message("shutdown_message", bot=ctx.me, message=message)
+        await ctx.send("Shutdown message set.")
 
-        Type `none` to reset it.
+    @terminoset_shutdown.command(name="conf")
+    async def terminoset_shutdown_conf(
+        self, ctx: commands.Context, *, message: Optional[str] = None
+    ) -> None:
+        """Set Termino's shutdown confirmation message."""
+        if not message:
+            return await ctx.send("Shutdown confirmation disabled.")
+        await self.set_new_message("shutdown_confirmation_message", bot=ctx.me, message=message)
+        await ctx.send("Shutdown confirmation message set.")
+
+    @commands.command()
+    async def shutdown(self, ctx: commands.Context, force: Optional[bool] = False) -> None:
+        """Shuts down the bot.
+
+        Allows [botname] to shut down gracefully.
+
+        This is the recommended method for shutting down the bot.
+
+        Use the `force` argument to skip confirmation (if set).
         """
-        if restarted_message.lower() == "none":
-            restarted_message = None
-        msg = restarted_message or "I have successfully restarted."
-        set_reset = "set" if restarted_message else "reset"
-        await self.config.restarted_message.set(msg)
-        await ctx.send(f"Restarted message {set_reset}.")
+        if not force:
+            force = await self.maybe_confirm(ctx, type="shutdown")
+            if not force:
+                return
+        message = await self.config.shutdown_message()
+        await ctx.send(message)
+        await self.bot.shutdown()
 
-    @terminoset.command(name="announcement")
-    async def terminoset_announcement_channel(
-        self, ctx: commands.Context, channel: Union[discord.TextChannel, None]
-    ):
-        """Set the channel where announcements will be sent to when the bot goes online/offline.
+    @commands.command()
+    async def restart(self, ctx: commands.Context, force: Optional[bool] = False) -> None:
+        """Attempts to restart [botname].
 
-        Type `none` to clear it
+        Makes [botname] quit with exit code 26.
+        The restart is not guaranteed: it must be dealt with by the process manager in use.
+
+        Use the `force` argument to skip confirmation (if set).
         """
-        announcement = await self.config.announcement_channel()
-        if all([not announcement, not channel]):
-            return await ctx.send("The announcement channel is not set.")
-        to_set = channel.id if isinstance(channel, discord.TextChannel) else channel
-        await self.config.announcement_channel.set(to_set)
-        msg = "The channel has been reset."
-        if isinstance(channel, discord.TextChannel):
-            msg = f"The channel is now set to {channel.name}."
-        await ctx.send(msg)
+        if not force:
+            force = await self.maybe_confirm(ctx, type="restart")
+            if not force:
+                return
+        message = await self.config.restart_message()
+        await ctx.send(message)
+        await self.bot.shutdown(restart=True)
 
-    @terminoset.group(name="reconnect", invoke_without_command=True)
-    async def terminoset_reconnect(self, ctx: commands.Context, true_or_false: bool):
-        """Announce when the bot has reconnected."""
-        await self.config.reconnect.set(true_or_false)
-        grammar = "now" if true_or_false else "not"
-        await ctx.send(f"Termino will {grammar} send a message when the bot reconnects.")
-
-    @terminoset_reconnect.command(name="message")
-    async def terminoset_reconnect_message(self, ctx: commands.Context, *, message: str):
-        """Set the message the bot will send on reconnect.
-
-        Type `none` to reset it.
-        """
-        if message.lower() == "none":
-            message = None
-        message = message or "I have reconnected."
-        set_reset = "set" if message else "reset"
-        await self.config.reconnect_message.set(message)
-        await ctx.send(f"The reconnect message has been {set_reset}.")
-
-    @terminoset.command()
-    async def settings(self, ctx: commands.Context):
-        """See the current settings for termino."""
+    @terminoset.command(name="settings", aliases=["showsettings"])
+    async def terminoset_settings(self, ctx: commands.Context) -> None:
+        """Shows the current settings for Termino."""
         config = await self.config.all()
-        footer = False
-        for x in [config["restart_message"], config["shutdown_message"]]:
-            if "{author}" in x:
-                footer = True
-        reconnect = config["reconnect"]
-        reconnect_msg = f"Reconnect message: {config['reconnect_message']}\n" if reconnect else ""
-        message = (
-            f"Announcement channel: {config['announcement_channel']}\n"
-            f"Shutdown message: {config['shutdown_message']}\n"
-            f"Shutdown confirmation: {config['confirm_shutdown']}\n\n"
-            f"Reconnect announcements: {reconnect}\n"
-            f"{reconnect_msg}"
-            f"Restart message: {config['restart_message']}\n"
-            f"Restart confirmation: {config['confirm_restart']}\n"
-            f"Restarted message: {config['restarted_message']}\n"
-            f"\t- NOTE: This message will be sent in the invoked channel when a successful restart has occured.\n\n"
+        message_types = (
+            "shutdown_message",
+            "restart_message",
+            "shutdown_confirmation_message",
+            "restart_confirmation_message",
         )
-        if footer:
-            message += "{author} will be replaced with the display name of the invoker."
-        for page in pagify(message, delims=["\n"]):
-            await ctx.send(box(page, lang="yaml"))
+        message = ""
+        for mt in message_types:
+            content = config[mt]
+            if not content:
+                content = "Not configured (disabled)"
+            message += "\n{title}: {content}".format(
+                title=mt.replace("_", " ").capitalize(),
+                content=content,
+            )
+        await ctx.send(box(message, lang="yaml"))
 
 
-async def setup(bot):
-    cog = Termino(bot)
-    global shutdown
-    global restart
-
-    # `bot.remove_command` will attempt to remove a command and return it back
-    # if no command with the name given exists it will return `None`
-    # So we can skip a large chunk of this code for that reason
-    shutdown = bot.remove_command("shutdown")
-    restart = bot.remove_command("restart")
-    await cog.initialize()
-    bot.add_cog(cog)
+def setup(bot: Red) -> None:
+    global OLD_SHUTDOWN_COMMAND
+    global OLD_RESTART_COMMAND
+    OLD_SHUTDOWN_COMMAND = bot.remove_command("shutdown")
+    OLD_RESTART_COMMAND = bot.remove_command("restart")
+    bot.add_cog(Termino(bot))

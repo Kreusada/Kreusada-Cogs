@@ -12,7 +12,7 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 
 .. note::
 
-    This guide was last updated for version 2.0.5. Ensure
+    This guide was last updated for version 3.0.0. Ensure
     that you are up to date by running ``[p]cog update termino``.
 
     If there is something missing, or something that needs improving
@@ -24,38 +24,34 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 About this cog
 --------------
 
-Customize bot shutdown and restart messages, with predicates, too.
+Customize shutdown and restart messages, with the ability to add confirmation messages.
 
 --------
 Commands
 --------
 
-Here are all the commands included in this cog (12):
+Here are all the commands included in this cog (10):
 
-* ``[p]restart``
+* ``[p]restart [force=False]``
  Attempts to restart [botname].
-* ``[p]shutdown``
- Shuts down [botname].
+* ``[p]shutdown [force=False]``
+ Shuts down the bot.
 * ``[p]terminoset``
- Settings for the shutdown and restart commands.
-* ``[p]terminoset announcement [channel]``
- Set the channel where announcements will be sent to when the bot goes online/offline.
-* ``[p]terminoset reconnect <true_or_false>``
- Announce when the bot has reconnected.
-* ``[p]terminoset reconnect message <message>``
- Set the message the bot will send on reconnect.
-* ``[p]terminoset restart <restart_message>``
- Set and adjust the restart message.
-* ``[p]terminoset restart conf <true_or_false>``
- Toggle whether restarts confirm before restarting.
-* ``[p]terminoset restart restartedmessage <message>``
- Set the message to be sent after restarting.
+ Configure Termino messages.
+* ``[p]terminoset restart``
+ Set Termino's restart settings.
+* ``[p]terminoset restart conf [message]``
+ Set Termino's restart confirmation message.
+* ``[p]terminoset restart message <message>``
+ Set Termino's restart message.
 * ``[p]terminoset settings``
- See the current settings for termino.
-* ``[p]terminoset shutdown <shutdown_message>``
- Set and adjust the shutdown message.
-* ``[p]terminoset shutdown conf <true_or_false>``
- Toggle whether shutdowns confirm before shutting down.
+ Shows the current settings for Termino.
+* ``[p]terminoset shutdown``
+ Set Termino's shutdown settings.
+* ``[p]terminoset shutdown conf [message]``
+ Set Termino's shutdown confirmation message.
+* ``[p]terminoset shutdown message <message>``
+ Set Termino's shutdown message.
 
 ------------
 Installation
