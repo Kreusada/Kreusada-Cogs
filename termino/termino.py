@@ -27,7 +27,7 @@ FORMAT_MAPPING = {
 class Termino(commands.Cog):
     """Customize shutdown and restart messages, with the ability to add confirmation messages."""
 
-    __version__ = "3.0.0"
+    __version__ = "3.0.1"
 
     def __init__(self, bot: Red) -> None:
         self.bot = bot
@@ -108,6 +108,7 @@ class Termino(commands.Cog):
     ) -> None:
         """Set Termino's restart confirmation message."""
         if not message:
+            await self.config.restart_confirmation_message.clear()
             return await ctx.send("Restart confirmation disabled.")
         await self.set_new_message("restart_confirmation_message", bot=ctx.me, message=message)
         await ctx.send("Restart confirmation message set.")
@@ -124,6 +125,7 @@ class Termino(commands.Cog):
     ) -> None:
         """Set Termino's shutdown confirmation message."""
         if not message:
+            await self.config.shutdown_confirmation_message.clear()
             return await ctx.send("Shutdown confirmation disabled.")
         await self.set_new_message("shutdown_confirmation_message", bot=ctx.me, message=message)
         await ctx.send("Shutdown confirmation message set.")
