@@ -17,17 +17,18 @@ OLD_SHUTDOWN_COMMAND: commands.Command = None
 DEFAULT_WAVE: str = "\N{WAVING HAND SIGN}\N{EMOJI MODIFIER FITZPATRICK TYPE-3}"
 
 FORMAT_MAPPING = {
-    "$name": lambda bot: bot.name,
-    "$discriminator": lambda bot: str(bot.discriminator),
-    "$id": lambda bot: str(bot.id),
-    "$display_name": lambda bot: bot.display_name,
+    "$name": lambda user: user.name,
+    "$discriminator": lambda user: str(user.discriminator),
+    "$id": lambda user: str(user.id),
+    "$display_name": lambda user: user.display_name,
+    "$mention": lambda user: user.mention,
 }
 
 
 class Termino(commands.Cog):
     """Customize shutdown and restart messages, with the ability to add confirmation messages."""
 
-    __version__ = "3.0.2"
+    __version__ = "3.0.3"
 
     def __init__(self, bot: Red) -> None:
         self.bot = bot
@@ -68,13 +69,10 @@ class Termino(commands.Cog):
     async def terminoset_shutdown(self, ctx: commands.Context) -> None:
         """Set Termino's shutdown settings."""
 
-    async def set_new_message(
-        self, config_attr: str, *, bot: discord.Member, message: str
-    ) -> None:
-        for format_type, func in FORMAT_MAPPING.items():
-            if format_type in message:
-                message = message.replace(format_type, func(bot))
-        await getattr(self.config, config_attr).set(message)
+    def format_message(self, author: discord.Member, message: str) -> str:
+        for key, value in FORMAT_MAPPING.items():
+            message = message.replace(key, value(author))
+        return message
 
     async def maybe_confirm(
         self, ctx: commands.Context, *, type: Literal["shutdown", "restart"]
@@ -99,7 +97,7 @@ class Termino(commands.Cog):
     @terminoset_restart.command(name="message")
     async def terminoset_restart_message(self, ctx: commands.Context, *, message: str) -> None:
         """Set Termino's restart message."""
-        await self.set_new_message("restart_message", bot=ctx.me, message=message)
+        await self.config.restart_message.set(message)
         await ctx.send("Restart message set.")
 
     @terminoset_restart.command(name="conf")
@@ -110,13 +108,13 @@ class Termino(commands.Cog):
         if not message:
             await self.config.restart_confirmation_message.clear()
             return await ctx.send("Restart confirmation disabled.")
-        await self.set_new_message("restart_confirmation_message", bot=ctx.me, message=message)
+        await self.config.restart_confirmation_message.set(message)
         await ctx.send("Restart confirmation message set.")
 
     @terminoset_shutdown.command(name="message")
     async def terminoset_shutdown_message(self, ctx: commands.Context, *, message: str) -> None:
         """Set Termino's shutdown message."""
-        await self.set_new_message("shutdown_message", bot=ctx.me, message=message)
+        await self.config.shutdown_message.set(message)
         await ctx.send("Shutdown message set.")
 
     @terminoset_shutdown.command(name="conf")
@@ -127,7 +125,7 @@ class Termino(commands.Cog):
         if not message:
             await self.config.shutdown_confirmation_message.clear()
             return await ctx.send("Shutdown confirmation disabled.")
-        await self.set_new_message("shutdown_confirmation_message", bot=ctx.me, message=message)
+        await self.config.shutdown_confirmation_message.set(message)
         await ctx.send("Shutdown confirmation message set.")
 
     @commands.command()
@@ -145,7 +143,7 @@ class Termino(commands.Cog):
             if not force:
                 return
         message = await self.config.shutdown_message()
-        await ctx.send(message)
+        await ctx.send(self.format_message(ctx.author, message))
         await self.bot.shutdown()
 
     @commands.command()
@@ -162,7 +160,7 @@ class Termino(commands.Cog):
             if not force:
                 return
         message = await self.config.restart_message()
-        await ctx.send(message)
+        await ctx.send(self.format_message(ctx.author, message))
         await self.bot.shutdown(restart=True)
 
     @terminoset.command(name="settings", aliases=["showsettings"])
