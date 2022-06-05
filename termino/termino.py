@@ -27,7 +27,7 @@ FORMAT_MAPPING = {
 class Termino(commands.Cog):
     """Customize shutdown and restart messages, with the ability to add confirmation messages."""
 
-    __version__ = "3.0.1"
+    __version__ = "3.0.2"
 
     def __init__(self, bot: Red) -> None:
         self.bot = bot
@@ -40,8 +40,7 @@ class Termino(commands.Cog):
         )
 
     def cog_unload(self) -> None:
-        global OLD_RESTART_COMMAND
-        global OLD_SHUTDOWN_COMMAND
+        global OLD_RESTART_COMMAND, OLD_SHUTDOWN_COMMAND
         if OLD_SHUTDOWN_COMMAND:
             try:
                 self.bot.remove_command("shutdown")
@@ -79,22 +78,23 @@ class Termino(commands.Cog):
 
     async def maybe_confirm(
         self, ctx: commands.Context, *, type: Literal["shutdown", "restart"]
-    ) -> None:
+    ) -> bool:
         config_obj = getattr(self.config, "{type}_confirmation_message".format(type=type))
         message = await config_obj()
         if not message:
-            return
+            return True
         await ctx.send(message)
         pred = MessagePredicate.yes_or_no(ctx, user=ctx.author)
         try:
             await self.bot.wait_for("message", check=pred, timeout=30)
         except asyncio.TimeoutError:
             await ctx.send("You took too long to respond, assuming no.")
+            return False
         else:
             if not pred.result:
                 await ctx.send("Cancelling {type}.".format(type=type))
-            else:
-                return True
+                return False
+            return True
 
     @terminoset_restart.command(name="message")
     async def terminoset_restart_message(self, ctx: commands.Context, *, message: str) -> None:
