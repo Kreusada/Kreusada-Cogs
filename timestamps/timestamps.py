@@ -4,6 +4,7 @@ import json
 import pathlib
 
 import dateparser
+import discord
 from redbot.core import commands
 from redbot.core.bot import Red
 from redbot.core.commands import BadArgument, Cog, Context, Converter
@@ -26,7 +27,7 @@ class TimeStamps(Cog):
     """Retrieve timestamps for certain dates."""
 
     __author__ = "Kreusada"
-    __version__ = "1.0.2"
+    __version__ = "1.0.3"
 
     def __init__(self, bot):
         self.bot: Red = bot
@@ -65,11 +66,24 @@ class TimeStamps(Cog):
         - `[p]timestamp 01/10/2021`
         - `[p]timestamp now`
         """
-        ts = int(dti.timestamp())
+        try:
+            ts = int(dti.timestamp())
+        except OSError:
+            await ctx.send(
+                "An operating system error occured whilst attempting to get "
+                "information for this timestamp."
+            )
+            return
         message = f"Timestamps for **<t:{ts}:F>**\n\n"
         for i in "fdt":
             message += f"`<t:{ts}:{i.upper()}>`: <t:{ts}:{i.upper()}>\n"
             message += f"`<t:{ts}:{i.lower()}>`: <t:{ts}:{i.lower()}>\n"
         message += f"`<t:{ts}:R>`: <t:{ts}:R>\n"
         await ctx.tick()
-        await ctx.maybe_send_embed(message)
+        if await ctx.embed_requested():
+            await ctx.send(
+                content=str(ts),
+                embed=discord.Embed(description=message, color=(await ctx.embed_colour())),
+            )
+        else:
+            await ctx.send(message)
