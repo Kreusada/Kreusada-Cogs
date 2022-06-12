@@ -29,10 +29,11 @@ class PingOverride(commands.Cog):
         "response": "Pong.",
         "embed": {"toggled": False, "title": "Ping Pong! 🏓"},
         "reply_settings": {"toggled": False, "mention": False},
+        "pingi_reference": None,
     }
 
     __author__ = "Kreusada"
-    __version__ = "3.5.4"
+    __version__ = "3.6.0"
 
     def __init__(self, bot):
         self.bot = bot
@@ -239,6 +240,66 @@ class PingOverride(commands.Cog):
         else:
             message += "Response: " + response
         await ctx.send(box(message, lang="yaml"))
+
+    @pingset.group(name="invoke")
+    @commands.is_owner()
+    async def pingset_invoke(self, ctx: commands.Context):
+        """Commands to configure invoking ping."""
+
+    @pingset_invoke.command(name="set")
+    async def pingset_invoke_set(self, ctx: commands.Context, botname: str):
+        """
+        Set the bot name to listen for.
+
+        Example Input:
+        `[p]pingi set wall-e`
+        `[p]pingi set r2d2`
+        `[p]pingi set [botname]`
+
+        Usage:
+        When you type [botname]?, or whatever you configure your name as,
+        it will invoke the ping command.
+
+        NOTE: Do not include the question mark.
+        """
+        await self.config.pingi_reference.set(botname)
+        await ctx.send(
+            f"{ctx.me.name} will now invoke the ping command when it hears `{botname}?`."
+        )
+
+    @pingset_invoke.command(name="reset")
+    async def pingset_invoke_reset(self, ctx):
+        """Reset and disable PingInvoke."""
+        await ctx.tick()
+        await self.config.pingi_reference.clear()
+
+    @pingset_invoke.command(name="settings")
+    async def pingset_invoke_settings(self, ctx):
+        """Show the current settings for PingInvoke."""
+        botname = await self.config.pingi_reference()
+        if botname:
+            await ctx.send(f"{ctx.me.name} will respond to `{botname}?`.")
+        else:
+            await ctx.send("A name has not been set.")
+
+    @commands.Cog.listener()
+    async def on_message_without_command(self, message):
+        botname = await self.config.pingi_reference()
+        if not botname:
+            return
+        if not message.guild:
+            return
+        if message.author.bot:
+            return
+        if await self.bot.cog_disabled_in_guild(self, message.guild):
+            return
+        if not await self.bot.ignored_channel_or_guild(message):
+            return
+        if not await self.bot.allowed_by_whitelist_blacklist(message.author):
+            return
+        if message.content.lower().startswith(botname.lower()) and message.content.endswith("?"):
+            ctx = await self.bot.get_context(message)
+            return await ctx.invoke(self.bot.get_command("ping"))
 
 
 def setup(bot):

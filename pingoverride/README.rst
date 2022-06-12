@@ -12,7 +12,7 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 
 .. note::
 
-    This guide was last updated for version 3.5.3. Ensure
+    This guide was last updated for version 3.6.0. Ensure
     that you are up to date by running ``[p]cog update pingoverride``.
 
     If there is something missing, or something that needs improving
@@ -30,7 +30,7 @@ Override the Core's ping command with your own response.
 Commands
 --------
 
-Here are all the commands included in this cog (7):
+Here are all the commands included in this cog (13):
 
 * ``[p]ping``
  Pong.
@@ -38,10 +38,18 @@ Here are all the commands included in this cog (7):
  Set your ping message.
 * ``[p]pingset embed``
  Manage the embed settings for the ping command.
-* ``[p]pingset embed title <title>``
- Set the title for the ping embed.
+* ``[p]pingset embed title [title]``
+ Set the title for the embed.
 * ``[p]pingset embed toggle <toggle>``
- Set whether the ping command should be embedded.
+ Toggle whether embeds should be enabled for the ping command.
+* ``[p]pingset invoke``
+ Commands to configure invoking ping.
+* ``[p]pingset invoke reset``
+ Reset and disable PingInvoke.
+* ``[p]pingset invoke set <botname>``
+ Set the bot name to listen for.
+* ``[p]pingset invoke settings``
+ Show the current settings for PingInvoke.
 * ``[p]pingset message <ping_message>``
  Set the ping message sent when a user runs the ping command.
 * ``[p]pingset reply <reply>``
