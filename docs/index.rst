@@ -25,7 +25,6 @@ Useful Links
     cog_advanceduptime
     cog_alphanato
     cog_blackformatter
-    cog_captcha
     cog_cogpaths
     cog_consoleclearer
     cog_dehoister
