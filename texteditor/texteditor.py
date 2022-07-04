@@ -13,7 +13,12 @@ from redbot.core.utils.chat_formatting import bold, box, pagify
 
 
 async def send_safe(ctx, message: str) -> None:
-    for page in pagify(message, page_length=1990):
+    pages = tuple(pagify(message, page_length=1990))
+    if len(pages) > 3:
+        raise commands.UserFeedbackCheckFailure(
+            "This response contains too many characters. Please be sensible with your inputs."
+        )
+    for page in pages:
         await ctx.send(page)
 
 
@@ -113,7 +118,7 @@ class TextEditor(commands.Cog):
     """
 
     __author__ = "Kreusada"
-    __version__ = "3.2.0"
+    __version__ = "3.2.1"
 
     def __init__(self, bot):
         self.bot = bot
