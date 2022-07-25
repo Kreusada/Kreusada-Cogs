@@ -134,6 +134,7 @@ class Termino(commands.Cog):
         await ctx.send("Shutdown confirmation message set.")
 
     @commands.command()
+    @commands.is_owner()
     async def shutdown(self, ctx: commands.Context, force: Optional[bool] = False) -> None:
         """Shuts down the bot.
 
@@ -152,6 +153,7 @@ class Termino(commands.Cog):
         await self.bot.shutdown()
 
     @commands.command()
+    @commands.is_owner()
     async def restart(self, ctx: commands.Context, force: Optional[bool] = False) -> None:
         """Attempts to restart [botname].
 
