@@ -28,7 +28,7 @@ FORMAT_MAPPING = {
 class Termino(commands.Cog):
     """Customize shutdown and restart messages, with the ability to add confirmation messages."""
 
-    __version__ = "3.0.6"
+    __version__ = "4.0.0"
     __author__ = "Kreusada"
 
     def __init__(self, bot: Red) -> None:
@@ -134,6 +134,7 @@ class Termino(commands.Cog):
         await ctx.send("Shutdown confirmation message set.")
 
     @commands.command()
+    @commands.is_owner()
     async def shutdown(self, ctx: commands.Context, force: Optional[bool] = False) -> None:
         """Shuts down the bot.
 
@@ -152,6 +153,7 @@ class Termino(commands.Cog):
         await self.bot.shutdown()
 
     @commands.command()
+    @commands.is_owner()
     async def restart(self, ctx: commands.Context, force: Optional[bool] = False) -> None:
         """Attempts to restart [botname].
 
