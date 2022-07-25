@@ -28,7 +28,7 @@ FORMAT_MAPPING = {
 class Termino(commands.Cog):
     """Customize shutdown and restart messages, with the ability to add confirmation messages."""
 
-    __version__ = "3.0.6"
+    __version__ = "3.0.7"
     __author__ = "Kreusada"
 
     def __init__(self, bot: Red) -> None:
