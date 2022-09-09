@@ -27,7 +27,7 @@ class TimeStamps(Cog):
     """Retrieve timestamps for certain dates."""
 
     __author__ = "Kreusada"
-    __version__ = "1.0.4"
+    __version__ = "1.0.5"
 
     def __init__(self, bot):
         self.bot: Red = bot
@@ -82,7 +82,7 @@ class TimeStamps(Cog):
         await ctx.tick()
         if await ctx.embed_requested():
             await ctx.send(
-                content=ts if ctx.author.is_on_mobile() else None,
+                content=ts if isinstance(ctx.author, discord.Member) and ctx.author.is_on_mobile() else None,
                 embed=discord.Embed(description=message, color=(await ctx.embed_colour())),
             )
         else:

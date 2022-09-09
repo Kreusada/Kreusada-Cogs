@@ -12,7 +12,7 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 
 .. note::
 
-    This guide was last updated for version 1.0.0. Ensure
+    This guide was last updated for version 1.0.5. Ensure
     that you are up to date by running ``[p]cog update timestamps``.
 
     If there is something missing, or something that needs improving
