@@ -38,7 +38,7 @@ Here are all the commands included in this cog (5):
  Generate passwords.
 * ``[p]password generate complex``
  Generate a complex password.
-* ``[p]password generate strong [delimeter]``
+* ``[p]password generate strong [delimiter]``
  Generate a strong password.
 * ``[p]password strength <password>``
  Validate a passwords strength.
