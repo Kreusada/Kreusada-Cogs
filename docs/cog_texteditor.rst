@@ -12,7 +12,7 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 
 .. note::
 
-    This guide was last updated for version 3.2.1. Ensure
+    This guide was last updated for version 3.3.0. Ensure
     that you are up to date by running ``[p]cog update texteditor``.
 
     If there is something missing, or something that needs improving
@@ -30,16 +30,20 @@ Edit and manipulate with text.
 Commands
 --------
 
-Here are all the commands included in this cog (20):
+Here are all the commands included in this cog (23):
 
 * ``[p]editor``
  Base command for editing text.
 * ``[p]editor alternating <text>``
  Convert the text to alternating case.
+* ``[p]editor bullet <bullet> [items...]``
+ Bullet point a selection of items.
 * ``[p]editor camu <text>``
  Jumble text in Cambridge University style.
 * ``[p]editor charcount <text>``
  Count the number of characters appearing in the text.
+* ``[p]editor formatnumber <number>``
+ Format a number with commas.
 * ``[p]editor lower <text>``
  Convert the text to lowercase.
 * ``[p]editor multiply <multiplier> <text>``
@@ -54,8 +58,10 @@ Here are all the commands included in this cog (20):
  Replace certain parts of the text.
 * ``[p]editor reverse <text>``
  Reverse the text.
+* ``[p]editor shlex <text>``
+ Shlex split a given string.
 * ``[p]editor shuffle <text>``
- Completely shuffle the text.
+ Shuffle the word order in the text.
 * ``[p]editor snake <text>``
  Convert all spaces to underscores.
 * ``[p]editor squash <text>``
@@ -64,7 +70,7 @@ Here are all the commands included in this cog (20):
  Swap the casing for text.
 * ``[p]editor title <text>``
  Convert the text to titlecase.
-* ``[p]editor trim [trimmer=" "] <text>``
+* ``[p]editor trim [trimmer= ] <text>``
  Trim the outskirts of the text.
 * ``[p]editor upper <text>``
  Convert the text to uppercase.
