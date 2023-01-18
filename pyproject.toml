@@ -25,30 +25,18 @@
     sections = ['FUTURE','STDLIB','FIRSTPARTY','THIRDPARTY','LOCALFOLDER']
     known_third_party = ['discord', 'redbot']
     known_first_party = [
-        'advanceduptime',
-        'alphanato',
         'blackformatter',
         'cogpaths',
         'consoleclearer',
-        'dehoister',
         'flags',
-        'inverter',
         'minifier',
-        'namegenerator',
         'onthisday',
-        'ordinal',
-        'pingoverride',
         'pypi',
         'qr',
         'quotes',
-        'raffle',
         'roleboards',
-        'rpsls',
-        'staff',
         'termino',
         'texteditor',
         'timestamps',
-        'vinfo',
         'wordbase',
-        'yamlscanner'
     ]
