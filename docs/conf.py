@@ -18,5 +18,5 @@ exclude_patterns = []
 add_function_parentheses = True
 
 project = "Kreusada-Cogs"
-copyright = "2020 - 2022 | Kreusada"
+copyright = "2020 - 2023 | Kreusada"
 html_logo = "image_cog-creators-logo.png"

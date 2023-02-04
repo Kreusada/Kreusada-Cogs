@@ -8,46 +8,37 @@ Kreusada-Cogs
     :target: https://github.com/Kreusada/Kreusada-Cogs
     :alt: Kreusada-Cogs
 
-This documentation is here for the support of my redbot cogs. Everything should be here that you need, if you
-need further support you can meet me in my `support server <https://discord.gg/JmCFyq7>`_.
+This documentation is here for the support of my redbot cogs.
+
+Mention me in the #support_kreusada-cogs in the `cog support server <https://discord.gg/GET4DVk>`_ if you need any help.
+You can also visit my `personal server <https://discord.gg/JmCFyq7>`_
 
 ============
 Useful Links
 ============
 
-* `Github Repository <https://github.com/kreusada/kreusadacogs>`_
-* `Support Server <https://discord.gg/JmCFyq7>`_
+* `Github Repository <https://github.com/Kreusada/Kreusada-Cogs>`_
+* `Personal Server <https://discord.gg/JmCFyq7>`_
+* `Cog Support Server <https://discord.gg/GET4DVk>`_
 
 .. toctree::
     :caption: Cog Support
     :maxdepth: 1
 
-    cog_advanceduptime
-    cog_alphanato
     cog_blackformatter
     cog_cogpaths
     cog_consoleclearer
-    cog_dehoister
     cog_flags
-    cog_inverter
     cog_minifier
-    cog_namegenerator
     cog_onthisday
-    cog_ordinal
-    cog_pingoverride
     cog_pypi
     cog_quotes
     cog_qr
-    cog_raffle
     cog_roleboards
-    cog_rpsls
-    cog_staff
     cog_termino
     cog_texteditor
     cog_timestamps
-    cog_vinfo
     cog_wordbase
-    cog_yamlscanner
 
 .. toctree::
     :caption: Repository

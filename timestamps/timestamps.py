@@ -82,7 +82,9 @@ class TimeStamps(Cog):
         await ctx.tick()
         if await ctx.embed_requested():
             await ctx.send(
-                content=ts if isinstance(ctx.author, discord.Member) and ctx.author.is_on_mobile() else None,
+                content=ts
+                if isinstance(ctx.author, discord.Member) and ctx.author.is_on_mobile()
+                else None,
                 embed=discord.Embed(description=message, color=(await ctx.embed_colour())),
             )
         else:
