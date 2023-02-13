@@ -1,4 +1,3 @@
-import contextlib
 import io
 import json
 import re
@@ -14,24 +13,16 @@ from .utils import JumpUrlView
 URL_RE = re.compile(r"(https?|s?ftp)://(\S+)", re.I)
 PYTHON_LOGO = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/2048px-Python-logo-notext.svg.png"
 
-with open(Path(__file__).parent / "info.json") as fp:
-    __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
-
 
 class PyPi(commands.Cog):
     """Get information about a package available on PyPi."""
 
     __author__ = ["Kreusada", "OofChair"]
-    __version__ = "1.0.11"
-    __dev_ids__ = [719988449867989142, 572944636209922059]
+    __version__ = "1.1.0"
 
     def __init__(self, bot):
         self.bot = bot
         self.session = aiohttp.ClientSession()
-        for user in self.__dev_ids__:
-            if user in self.bot.owner_ids:
-                with contextlib.suppress(RuntimeError, ValueError):
-                    self.bot.add_dev_env_value(self.__class__.__name__.lower(), lambda x: self)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
