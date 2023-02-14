@@ -1,7 +1,5 @@
 import io
-import json
 import re
-from pathlib import Path
 
 import aiohttp
 import discord
@@ -11,6 +9,7 @@ from redbot.core.utils.chat_formatting import box, humanize_list, inline, italic
 from .utils import JumpUrlView
 
 URL_RE = re.compile(r"(https?|s?ftp)://(\S+)", re.I)
+GIT_REPO_RE = re.compile("https://github.com/([a-z0-9]+)/([a-z0-9]+)/?$", flags=re.IGNORECASE)
 PYTHON_LOGO = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/2048px-Python-logo-notext.svg.png"
 
 
@@ -134,11 +133,13 @@ class PyPi(commands.Cog):
 
         filtered_links = dict(filter(lambda x: URL_RE.match(x[1]), list(info["project_urls"].items())))
         for link in info["project_urls"].values():
-            if "github.com" in link and "issues" not in link and "pulls" not in link:
-                link = ("https://api.github.com/repos/" + link[19:]).rstrip(".git")
-                details = await self.make_request(link)
-                default_branch = details["default_branch"]
-                break
+            match = GIT_REPO_RE.match(link)
+            if not match or match.group(1) == "sponsors":
+                continue
+            link = ("https://api.github.com/repos/" + link[19:]).rstrip(".git")
+            details = await self.make_request(link)
+            default_branch = details["default_branch"]
+            break
         else:
             default_branch = None
         
@@ -151,9 +152,12 @@ class PyPi(commands.Cog):
 
         values = []
         for release in list(releases.keys())[-5:]:
-            release_time = releases[release][-1]['upload_time'][:10]
+            if not (r := releases[release]):
+                continue
+            release_time = r[-1]['upload_time'][:10]
             release_time = "-".join(reversed(release_time.split("-"))) # format date properly
             values.append(f"+ {release} (~{release_time})")
+        print(values)
         embed.add_field(
             name="Recent Releases",
             value=box("\n".join(values), lang="diff"),
