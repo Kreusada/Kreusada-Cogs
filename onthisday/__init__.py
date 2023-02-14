@@ -169,6 +169,13 @@ class YearRangeDropdownView(discord.ui.View):
         self.add_item(YearRangeDropdown(otd))
 
 
+class ButtonView(discord.ui.View):
+    def __init__(self, buttons: dict[str, str]):
+        super().__init__()
+        for label, url in buttons.items():
+            self.add_item(discord.ui.Button(label=label, url=url))
+
+
 class OnThisDay(commands.Cog):
     """Find out what happened on a certain day, in multiple different years in history."""
 
@@ -204,38 +211,32 @@ class OnThisDay(commands.Cog):
     ):
         event = self.year_data[year]
         years_ago = int(self.year) - int("".join(filter(str.isdigit, year)))
+        content = (
+            event["content"] + "\n\n" +
+            f"This event occured on the __{date_suffix(self.date_number)} of {MONTH_MAPPING[self.month_number].capitalize()}, {year}__."
+        )
         embed = discord.Embed(
             title=f"On this day, {years_ago} years ago...",
-            description=highlight_numerical_data(event["content"]),
+            description=highlight_numerical_data(content),
             color=await self.bot.get_embed_colour(ctx.channel),
         )
-        embed.set_footer(text="Year: " + year + f" | {MONTH_MAPPING[self.month_number]} the {date_suffix(self.date_number)}")
-        embed.add_field(
-            name="Specific Wikipedia Links",
-            value="\n".join(
-                f"- [{w['title']}]({w['wikipedia']})" for w in event["wikipedia"]
-            ),
-        )
+        embed.set_footer(text="See the below links for related wikipedia articles")
         _d = {
-            f"Other important events that occured in the year {year}...": "https://en.wikipedia.org/wiki/"
+            f"The year '{year}'": "https://en.wikipedia.org/wiki/"
             + year,
-            f"Other important events that occured on {MONTH_MAPPING[self.month_number]} the {date_suffix(self.date_number)} in history...": self.date_wiki,
+            f"The date '{self.date_number.zfill(2)}/{self.month_number.zfill(2)}'": self.date_wiki,
         }
         embed.add_field(
-            name="Other links",
-            value="\n".join(f"- [[{k}]]({v})" for k, v in _d.items()),
+            name="Other significant events",
+            value="\n".join(f"- [{k}]({v})" for k, v in _d.items()),
             inline=False,
         )
-        kwargs = {"embed": embed}
+        wiki_dict = {w["title"]: w["wikipedia"] for w in event["wikipedia"]}
         if isinstance(ctx, discord.Interaction):
             send_method = ctx.response.edit_message
-            humanized = YearRangeDropdown.YEAR_RANGES_HUMANIZED[
-                YearRangeDropdown.YEAR_RANGES.index(self.year_range)
-            ]
-            kwargs["content"] = f"Selected year range: **{humanized}**"
         else:
             send_method = ctx.send
-        await send_method(**kwargs)
+        await send_method(content=None, embed=embed, view=ButtonView(wiki_dict))
 
     async def run_otd(
         self,
@@ -270,10 +271,7 @@ class OnThisDay(commands.Cog):
             if random:
                 await self.display_events(ctx, year=choice(list(data.keys())))
             else:
-                await ctx.send(
-                    "Choose a year range to select from:",
-                    view=YearRangeDropdownView(self),
-                )
+                await ctx.send("Choose a year range to select from:", view=YearRangeDropdownView(self),)
 
     def cache_date(self, date: Optional[datetime.datetime], /) -> Dict[str, int]:
         if date is None:
