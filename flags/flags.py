@@ -1,10 +1,8 @@
-import contextlib
 import datetime
-import json
-import pathlib
-import sys
 from typing import Dict, Optional, Union
 
+import aiohttp
+import bs4
 import discord
 import pycountry
 
@@ -14,9 +12,12 @@ except ModuleNotFoundError:
     tabulate = None
 
 from redbot.core import commands
+from redbot.core.bot import Red
 from redbot.core.commands import BadArgument, Cog, Context, Converter
 from redbot.core.utils.chat_formatting import box, pagify
-from redbot.core.utils.menus import DEFAULT_CONTROLS, close_menu, menu
+from redbot.core.utils.views import SimpleMenu
+
+from .menus import LabelledMenu, alpha_2_to_unicode
 
 
 def square(t):
@@ -33,6 +34,7 @@ def format_attr(t):
 
 EXCEPTIONS = {"russia": "ru"}
 IMAGE_BASE = "https://flagpedia.net/data/flags/w580/{}.png"
+INFO_BASE = "https://flagpedia.net/"
 SPECIAL_IMAGES = {
     "england": {
         "url": "gb-eng",
@@ -93,15 +95,27 @@ class CountryConverter(Converter):
                 raise BadArgument("Could not match %r to a country." % argument)
 
         ret = {
-            "name": obj.name.title(),
+            "Name": obj.name.title(),
             "title": f":flag_{obj.alpha_2.lower()}: {obj.name}",
-            "emoji": f":flag_{obj.alpha_2.lower()}:",
+            "Emoji": f":flag_{obj.alpha_2.lower()}:",
             "image": IMAGE_BASE.format(obj.alpha_2.lower()),
         }
 
-        for attr in ("alpha_2", "alpha_3", "numeric", "official_name"):
-            if hasattr(obj, attr):
-                ret[attr] = getattr(obj, attr)
+        async with aiohttp.ClientSession() as session:
+            async with session.get(INFO_BASE + obj.alpha_2) as req:
+                text = await req.text("utf-8")
+        soup = bs4.BeautifulSoup(text)
+        ret["description"] = soup.find("p", class_="flag-content").text
+        neighbours = {}
+        neighbour_list = soup.find("ul", class_="flag-grid")
+        if neighbour_list:
+            for li in neighbour_list.find_all("li"):
+                neighbours[li.span.text] = alpha_2_to_unicode(li.img['src'][16:-4])
+        ret["neighbours"] = neighbours
+
+        table = soup.find("table", class_="table-dl")
+        for tr in table.tbody.find_all("tr"):
+            ret[tr.th.text] = tr.td.text
 
         return ret
 
@@ -112,24 +126,15 @@ class Flags(Cog):
     __version__ = "1.1.5"
     __author__ = "Kreusada"
 
-    def __init__(self, bot):
+    def __init__(self, bot: Red):
         self.bot = bot
-        if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(RuntimeError, ValueError):
-                self.bot.add_dev_env_value(self.__class__.__name__.lower(), lambda x: self)
 
     def format_help_for_context(self, ctx: Context) -> str:
         context = super().format_help_for_context(ctx)
         return f"{context}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
     async def red_delete_data_for_user(self, **kwargs):
-        """Nothing to delete"""
         return
-
-    def cog_unload(self):
-        if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(KeyError):
-                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     @commands.command()
     @commands.has_permissions(embed_links=True)
@@ -145,23 +150,10 @@ class Flags(Cog):
             - ``[p]flag dk``
             - ``[p]flag se``
         """
-        description = argument.get("description", None)
+        description = argument.pop("description", None)
         image = argument.pop("image")
         title = argument.pop("title")
-
-        if description is None:
-            if tabulate:
-                description = box(
-                    tabulate.tabulate(
-                        [(format_attr(k), square(v)) for k, v in argument.items()],
-                        tablefmt="plain",
-                    ),
-                    lang="ini",
-                )
-            else:
-                description = box(
-                    (f"{format_attr(k)}: {v}" for k, v in argument.items()), lang="yaml"
-                )
+        neighbours = argument.pop("neighbours")
 
         embed = discord.Embed(
             title=title,
@@ -170,8 +162,37 @@ class Flags(Cog):
             timestamp=datetime.datetime.now(),
         )
 
+        if not neighbours:
+            value = "N/A"
+        else:
+            value = "\n".join(f"{v} {k}" for k, v in neighbours.items())
+        embed.add_field(name="Neighbours", value=value, inline=False)
         embed.set_image(url=image)
-        await menu(ctx, [embed], {"\N{CROSS MARK}": close_menu})
+
+        menu = LabelledMenu()
+        menu.add_option("Flag Information", embed=embed, emoji="\N{WAVING WHITE FLAG}")
+        
+        embed = discord.Embed(
+            title=title,
+            colour=await ctx.embed_colour(),
+            timestamp=datetime.datetime.now(),
+        )
+
+        overflow = {}
+        for k, v in argument.items():
+            if len(v) > 20:
+                overflow[k] = v
+            else:
+                embed.add_field(name=k, value=v)
+        
+        for k, v in overflow.items():
+            embed.add_field(name=k, value=v, inline=False)
+
+        embed.set_thumbnail(url=image)
+        menu.add_option("Country Information", embed=embed, emoji="\N{EARTH GLOBE EUROPE-AFRICA}")
+        menu.set_neighbouring_countries(neighbours)
+        await menu.start(ctx)
+        #await menu(ctx, [embed], {"\N{CROSS MARK}": close_menu})
 
     @commands.command()
     async def flagemojis(self, ctx: commands.Context, *countries: CountryConverter):
@@ -190,7 +211,7 @@ class Flags(Cog):
         unique_countries = [
             dict(s) for s in dict.fromkeys(frozenset(d.items()) for d in countries)
         ]
-        message = "\n".join(f"{c['emoji']} - `{c['emoji']}`" for c in unique_countries)
+        message = "\n".join(f"{c['Emoji']} - `{c['Emoji']}`" for c in unique_countries)
         for page in pagify(message):
             await ctx.send(page)
 
@@ -222,4 +243,4 @@ class Flags(Cog):
             else:
                 await ctx.send(embed=embed)
         else:
-            await menu(ctx, embeds, DEFAULT_CONTROLS)
+            await SimpleMenu(embeds, use_select_menu=True).start(ctx)
