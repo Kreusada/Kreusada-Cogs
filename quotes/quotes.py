@@ -8,7 +8,7 @@ from redbot.core.utils.chat_formatting import bold, warning
 class Quotes(commands.Cog):
     """Get a random quote."""
 
-    __version__ = "1.1.1"
+    __version__ = "1.2.0"
     __author__ = "Kreusada"
 
     def __init__(self, bot: Red):
