@@ -1,6 +1,10 @@
 from .consoleclearer import ConsoleClearer
 
+from redbot.core.bot import Red
+from redbot.core.utils import get_end_user_data_statement
 
-def setup(bot):
-    cog = ConsoleClearer(bot)
-    bot.add_cog(cog)
+__red_end_user_data_statement__ = get_end_user_data_statement(__file__)
+
+
+async def setup(bot: Red):
+    await bot.add_cog(ConsoleClearer(bot))
