@@ -11,7 +11,7 @@ class BlackFormatter(commands.Cog):
     """Run black on code."""
 
     __author__ = "Kreusada"
-    __version__ = "1.0.2"
+    __version__ = "1.1.0"
 
     def __init__(self, bot: Red):
         self.bot = bot
@@ -21,7 +21,6 @@ class BlackFormatter(commands.Cog):
         return f"{context}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
     async def red_delete_data_for_user(self, **kwargs):
-        """Nothing to delete"""
         return
 
     @commands.has_permissions(attach_files=True)
