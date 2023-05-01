@@ -1,11 +1,5 @@
-import json
-import pathlib
-from typing import List, Literal, Tuple
-
-import discord
 from redbot.core import commands
 from redbot.core.bot import Red
-from redbot.core.utils.chat_formatting import box
 from redbot.core.utils.views import SimpleMenu
 
 from .utils import (
@@ -16,7 +10,7 @@ from .utils import (
     get_roles,
 )
 
-PERMS = {"embed_links": True, "add_reactions": True}
+roleboard_perms = commands.bot_has_permissions(embed_links=True, add_reactions=True)
 
 
 class RoleBoards(commands.Cog):
@@ -36,7 +30,6 @@ class RoleBoards(commands.Cog):
         return f"{context}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
     async def red_delete_data_for_user(self, **kwargs):
-        """Nothing to delete."""
         return
 
     @commands.group(aliases=["roleboards", "rb"])
@@ -46,7 +39,7 @@ class RoleBoards(commands.Cog):
         pass
 
     @roleboard.command(aliases=["topusers"])
-    @commands.bot_has_permissions(**PERMS)
+    @roleboard_perms
     async def topmembers(self, ctx: commands.Context, index: ValidUserIndex):
         """Get the members with the most roles.
 
@@ -66,7 +59,7 @@ class RoleBoards(commands.Cog):
         await menu.start(ctx)
 
     @roleboard.command()
-    @commands.bot_has_permissions(**PERMS)
+    @roleboard_perms
     async def toproles(self, ctx: commands.Context, index: ValidRoleIndex):
         """Get the roles with the most members.
 
