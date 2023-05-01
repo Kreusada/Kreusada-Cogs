@@ -136,9 +136,12 @@ class PyPi(commands.Cog):
             match = GIT_REPO_RE.match(link)
             if not match or match.group(1) == "sponsors":
                 continue
-            link = ("https://api.github.com/repos/" + link[19:]).rstrip(".git")
-            details = await self.make_request(link)
-            default_branch = details["default_branch"]
+            try:
+                details = await self.make_request(("https://api.github.com/repos/" + link[19:]).rstrip(".git"))
+            except ValueError:
+                default_branch = None
+            else:
+                default_branch = details["default_branch"]
             break
         else:
             default_branch = None
@@ -157,7 +160,7 @@ class PyPi(commands.Cog):
             release_time = r[-1]['upload_time'][:10]
             release_time = "-".join(reversed(release_time.split("-"))) # format date properly
             values.append(f"+ {release} (~{release_time})")
-        print(values)
+
         embed.add_field(
             name="Recent Releases",
             value=box("\n".join(values), lang="diff"),
