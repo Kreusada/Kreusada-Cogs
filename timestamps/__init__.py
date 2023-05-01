@@ -1,5 +1,10 @@
-from .timestamps import TimeStamps, __red_end_user_data_statement__
+from .timestamps import TimeStamps
+
+from redbot.core.bot import Red
+from redbot.core.utils import get_end_user_data_statement
+
+__red_end_user_data_statement__ = get_end_user_data_statement(__file__)
 
 
-def setup(bot):
-    bot.add_cog(TimeStamps(bot))
+async def setup(bot: Red):
+    await bot.add_cog(TimeStamps(bot))

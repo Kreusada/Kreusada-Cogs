@@ -126,10 +126,10 @@ class QR(commands.Cog):
     """Generate a QR code."""
 
     __author__ = "Kreusada"
-    __version__ = "1.1.3"
+    __version__ = "1.2.0"
 
-    def __init__(self, bot):
-        self.bot: Red = bot
+    def __init__(self, bot: Red):
+        self.bot = bot
         self.styles = {
             "drawers": {
                 1: styles.moduledrawers.SquareModuleDrawer(),
@@ -147,21 +147,12 @@ class QR(commands.Cog):
                 5: styles.colormasks.VerticalGradiantColorMask(),
             },
         }
-        if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(RuntimeError, ValueError):
-                self.bot.add_dev_env_value(self.__class__.__name__.lower(), lambda x: self)
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
         return f"{context}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
-    def cog_unload(self):
-        if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(KeyError):
-                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
-
     async def red_delete_data_for_user(self, **kwargs):
-        """Nothing to delete"""
         return
 
     async def convert_colour(self, ctx: commands.Context, content: str):
@@ -257,7 +248,7 @@ class QR(commands.Cog):
                     qrc_kwargs.update(update)
 
         confirmation_message = await ctx.maybe_send_embed("Generating QR code...")
-        await ctx.trigger_typing()
+        await ctx.typing()
         await asyncio.sleep(1)
         sender_kwargs = {}
 
