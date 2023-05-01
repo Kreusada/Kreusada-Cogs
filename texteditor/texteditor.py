@@ -23,17 +23,13 @@ async def send_safe(ctx, message: str) -> None:
         await ctx.send(box(page))
 
 
-with open(pathlib.Path(__file__).parent / "info.json") as fp:
-    __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
-
-
 class TextEditor(commands.Cog):
     """
     Edit and manipulate with text.
     """
 
     __author__ = "Kreusada"
-    __version__ = "3.3.0"
+    __version__ = "3.4.0"
 
     def __init__(self, bot):
         self.bot = bot
@@ -46,15 +42,7 @@ class TextEditor(commands.Cog):
         return f"{context}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
 
     async def red_delete_data_for_user(self, **kwargs):
-        """
-        Nothing to delete
-        """
         return
-
-    def cog_unload(self):
-        if 719988449867989142 in self.bot.owner_ids:
-            with contextlib.suppress(KeyError):
-                self.bot.remove_dev_env_value(self.__class__.__name__.lower())
 
     @commands.group()
     async def editor(self, ctx: commands.Context):
