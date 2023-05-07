@@ -80,6 +80,55 @@ CARD_TYPES_DATA = [
         "prompt": "Thanks for everything!",
         "colour": 0x3BCC86,
     },
+    {
+        "name": "Anniversary",
+        "description": "Wish someone well on their anniversary",
+        "emoji": "\U0001f48d",
+        "prompt": "Happy anniversary to you and your partner!",
+        "colour": 0x60d6a9,
+    },
+    {
+        "name": "Condolences",
+        "description": "Provide someone some emotional support",
+        "emoji": "\U0001f54a",
+        "prompt": "May the love of those around you help you through the days ahead...",
+        "colour": 0xffffff,
+    },
+    {
+        "name": "Fortune",
+        "description": "Send a good luck card",
+        "emoji": "\U0001f340",
+        "prompt": "Best of luck with your new project!",
+        "colour": 0x7ca53e,
+    },
+    {
+        "name": "New baby",
+        "description": "Congratulate someone on their new baby",
+        "emoji": "\U0001f476",
+        "prompt": "Congrats on your new baby \U0001f979",
+        "colour": 0x89cff0,
+    },
+    {
+        "name": "Graduation",
+        "description": "Congratulate someone on their graduation",
+        "emoji": "\U0001f393",
+        "prompt": "Congrats on the graduation!",
+        "colour": 0x000000,
+    },
+    {
+        "name": "Retirement",
+        "description": "Wish someone well for their retirement",
+        "emoji": "\U0001f9d3",
+        "prompt": "You can relax a tad more now...",
+        "colour": 0x808080,
+    },
+    {
+        "name": "Congratulations",
+        "description": "Congratulate someone on a recent success",
+        "emoji": "\U0001f38a",
+        "prompt": "Congratulations! You did so well.",
+        "colour": 0x446dd4,
+    }
 ]
 
 CARD_TYPES_DATA = sorted(CARD_TYPES_DATA, key=itemgetter("name"))
@@ -350,7 +399,7 @@ class SendCards(commands.Cog):
     async def red_delete_data_for_user(self, **kwargs):
         return
 
-    @commands.command()
+    @commands.group(invoke_without_command=True)
     async def sendcard(self, ctx: commands.Context, user: discord.User):
         """Send a card to a user.
 
@@ -360,3 +409,10 @@ class SendCards(commands.Cog):
         """
         view = CardSelectView(ctx, sender=ctx.author, recipient=user)
         view.message = await ctx.send(view=view)
+
+    @sendcard.command()
+    async def types(self, ctx: commands.Context):
+        """List all the different card types."""
+        await ctx.maybe_send_embed(
+            "\n".join(f"{c['emoji']} {c['name']}" for c in CARD_TYPES_DATA)
+        )
