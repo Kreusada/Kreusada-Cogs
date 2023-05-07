@@ -1,16 +1,14 @@
 import asyncio
+import logging
 from typing import Literal, Optional
 
 import discord
 from redbot.core import Config, commands
 from redbot.core.bot import Red
-from redbot.core.utils import get_end_user_data_statement
 from redbot.core.utils.chat_formatting import box
 from redbot.core.utils.predicates import MessagePredicate
 
-from .log import log
-
-__red_end_user_data_statement__ = get_end_user_data_statement(__file__)
+log = logging.getLogger("red.kreusada.termino")
 
 OLD_RESTART_COMMAND: commands.Command = None
 OLD_SHUTDOWN_COMMAND: commands.Command = None
@@ -28,7 +26,7 @@ FORMAT_MAPPING = {
 class Termino(commands.Cog):
     """Customize shutdown and restart messages, with the ability to add confirmation messages."""
 
-    __version__ = "4.0.0"
+    __version__ = "4.1.0"
     __author__ = "Kreusada"
 
     def __init__(self, bot: Red) -> None:
@@ -192,9 +190,9 @@ class Termino(commands.Cog):
         await ctx.send(box(message, lang="yaml"))
 
 
-def setup(bot: Red) -> None:
+async def setup(bot: Red):
     global OLD_SHUTDOWN_COMMAND
     global OLD_RESTART_COMMAND
     OLD_SHUTDOWN_COMMAND = bot.remove_command("shutdown")
     OLD_RESTART_COMMAND = bot.remove_command("restart")
-    bot.add_cog(Termino(bot))
+    await bot.add_cog(Termino(bot))

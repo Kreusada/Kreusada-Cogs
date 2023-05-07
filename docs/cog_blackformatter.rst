@@ -12,7 +12,7 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 
 .. note::
 
-    This guide was last updated for version 1.0.2. Ensure
+    This guide was last updated for version 1.1.0. Ensure
     that you are up to date by running ``[p]cog update blackformatter``.
 
     If there is something missing, or something that needs improving
@@ -32,7 +32,7 @@ Commands
 
 Here are all the commands included in this cog (1):
 
-* ``[p]black <file> [line_length=88]``
+* ``[p]black <file> [line_length=None]``
  Format a python file with black.
 
 ------------

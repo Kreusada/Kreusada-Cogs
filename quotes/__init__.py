@@ -1,12 +1,10 @@
-import json
-import pathlib
-
 from .quotes import Quotes
 
-with open(pathlib.Path(__file__).parent / "info.json") as fp:
-    __red_end_user_data_statement__ = json.load(fp)["end_user_data_statement"]
+from redbot.core.bot import Red
+from redbot.core.utils import get_end_user_data_statement
+
+__red_end_user_data_statement__ = get_end_user_data_statement(__file__)
 
 
-def setup(bot):
-    cog = Quotes(bot)
-    bot.add_cog(cog)
+async def setup(bot: Red):
+    await bot.add_cog(Quotes(bot))

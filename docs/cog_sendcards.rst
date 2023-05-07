@@ -1,10 +1,10 @@
-.. _blackformatter:
+.. _sendcards:
 
-==============
-BlackFormatter
-==============
+=========
+SendCards
+=========
 
-This is the cog guide for the 'BlackFormatter' cog. This guide
+This is the cog guide for the 'SendCards' cog. This guide
 contains the collection of commands which you can use in the cog.
 
 Through this guide, ``[p]`` will always represent your prefix. Replace
@@ -12,8 +12,8 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 
 .. note::
 
-    This guide was last updated for version 1.1.0. Ensure
-    that you are up to date by running ``[p]cog update blackformatter``.
+    This guide was last updated for version 1.0.0. Ensure
+    that you are up to date by running ``[p]cog update sendcards``.
 
     If there is something missing, or something that needs improving
     in this documentation, feel free to create an issue `here <https://github.com/Kreusada/Kreusada-Cogs/issues>`_.
@@ -24,7 +24,7 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 About this cog
 --------------
 
-Run black on code.
+Send cards to other users! (Christmas, birthday, get well soon, etc...)
 
 --------
 Commands
@@ -32,8 +32,8 @@ Commands
 
 Here are all the commands included in this cog (1):
 
-* ``[p]black <file> [line_length=None]``
- Format a python file with black.
+* ``[p]sendcard <user>``
+ Send a card to a user.
 
 ------------
 Installation
@@ -46,18 +46,18 @@ If you haven't added my repo before, lets add it first. We'll call it
 
     [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
-Now, we can install BlackFormatter.
+Now, we can install SendCards.
 
 .. code-block:: ini
 
-    [p]cog install kreusada-cogs blackformatter
+    [p]cog install kreusada-cogs sendcards
 
 Once it's installed, it is not loaded by default. Load it by running the following
 command:
 
 .. code-block:: ini
 
-    [p]load blackformatter
+    [p]load sendcards
 
 ---------------
 Further Support

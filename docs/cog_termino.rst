@@ -12,7 +12,7 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 
 .. note::
 
-    This guide was last updated for version 3.0.3. Ensure
+    This guide was last updated for version 4.1.0. Ensure
     that you are up to date by running ``[p]cog update termino``.
 
     If there is something missing, or something that needs improving
@@ -40,7 +40,7 @@ Here are all the commands included in this cog (10):
  Configure Termino messages.
 * ``[p]terminoset restart``
  Set Termino's restart settings.
-* ``[p]terminoset restart conf [message]``
+* ``[p]terminoset restart conf [message=None]``
  Set Termino's restart confirmation message.
 * ``[p]terminoset restart message <message>``
  Set Termino's restart message.
@@ -48,7 +48,7 @@ Here are all the commands included in this cog (10):
  Shows the current settings for Termino.
 * ``[p]terminoset shutdown``
  Set Termino's shutdown settings.
-* ``[p]terminoset shutdown conf [message]``
+* ``[p]terminoset shutdown conf [message=None]``
  Set Termino's shutdown confirmation message.
 * ``[p]terminoset shutdown message <message>``
  Set Termino's shutdown message.
