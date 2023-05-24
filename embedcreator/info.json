@@ -1,0 +1,21 @@
+{
+    "author": [
+        "Kreusada"
+    ],
+    "description": "Create embeds using buttons and modals!",
+    "disabled": false,
+    "end_user_data_statement": "This cog does not persistently store data or metadata about users.",
+    "hidden": false,
+    "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_embedcreator.html",
+    "name": "EmbedCreator",
+    "required_cogs": {},
+    "requirements": [],
+    "short": "Create embeds using buttons and modals!",
+    "tags": [
+        "Embeds",
+        "Create",
+        "Buttons",
+        "Modals"
+    ],
+    "type": "COG"
+}
