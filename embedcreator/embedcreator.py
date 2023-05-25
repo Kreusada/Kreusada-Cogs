@@ -210,7 +210,7 @@ class EmbedDictionaryUpdater(SingularEmbedComponentModal):
         try:
             data = json.loads(self.component.value)
         except json.JSONDecodeError as exc:
-            raise ValueError(exc)
+            raise ValueError(f"Invalid JSON (`{exc}`)")
         else:
             if self.replace:
                 new = {"type": "rich", **data}
@@ -303,10 +303,17 @@ class EmbedFieldAdder(ModalBase):
         )
 
     async def edit_embed(self, embed: Embed):
+        inline = self.embed_field_inline.value.lower()
+        if inline == "true":
+            inline = True
+        elif inline == "false":
+            inline = False
+        else:
+            raise ValueError("Embed field inline must be 'true' or 'false'.")
         embed.add_field(
             name=self.embed_field_name.value,
             value=self.embed_field_value.value,
-            inline=self.embed_field_inline.value == "true",
+            inline=inline,
         )
 
 
@@ -328,14 +335,47 @@ class EmbedFieldRemover(ModalBase):
                 embed.remove_field(index - x)
                 x += 1
 
+class EmbedSenderModal(SingularEmbedComponentModal):
+    def __init__(self, view: EmbedEditorView):
+        super().__init__(
+            view,
+            title="Send your embed",
+            label="Channel (ID or name)",
+            style=discord.TextStyle.short,
+            placeholder="#" + view.context.channel.name,
+        )
+
+    async def on_submit(self, interaction: discord.Interaction):
+        try:
+            location = await commands.TextChannelConverter().convert(self.view.context, self.component.value)
+        except BadArgument:
+            return interaction.response.send_message(
+                f"Could not convert {self.component.value!r} to a valid text channel.",
+                ephemeral=True,
+            )
+        else:
+            if not all(
+                [
+                    location.permissions_for(self.view.context.me).send_messages,
+                    location.permissions_for(self.view.context.author).send_messages,
+                ]
+            ):
+                return interaction.response.send_message(
+                    f"Both you and I must have permissions to post in {location.mention}.",
+                    ephemeral=True,
+                )
+            try:
+                await location.send(content=self.view.content, embed=self.view.embed)
+            except discord.HTTPException:
+                return interaction.response.send_message(
+                    f"Something went wrong when trying to send this embed.",
+                    ephemeral=True,
+                )
+            else:
+                await interaction.response.send_message(f"Embed sent to {location.mention}!", ephemeral=True)
+
 
 class EmbedEditorView(discord.ui.View):
-
-    embed = discord.Embed(
-        title=DEFAULT_EMBED_TITLE,
-        description=DEFAULT_EMBED_DESCRIPTION,
-        colour=discord.Colour.greyple(),
-    )
 
     content: Optional[str] = None
     message: Optional[discord.Message] = None
@@ -343,50 +383,58 @@ class EmbedEditorView(discord.ui.View):
     def __init__(self, ctx: Context):
         self.context = ctx
         super().__init__(timeout=180)
+        self.embed = discord.Embed(
+            title=DEFAULT_EMBED_TITLE,
+            description=DEFAULT_EMBED_DESCRIPTION,
+            colour=discord.Colour.greyple(),
+        )
+        self.content: Optional[str] = None
+        self.message: Optional[discord.Message] = None
 
-    @discord.ui.button(label="Title")
+
+    @discord.ui.button(label="Title", style=discord.ButtonStyle.grey)
     async def edit_title_button(self, interaction: discord.Interaction, button: discord.ui.Button):
         await interaction.response.send_modal(EmbedTitleModal(self))
 
-    @discord.ui.button(label="Description")
+    @discord.ui.button(label="Description", style=discord.ButtonStyle.grey)
     async def edit_description_button(
         self, interaction: discord.Interaction, button: discord.ui.Button
     ):
         await interaction.response.send_modal(EmbedDescriptionModal(self))
 
-    @discord.ui.button(label="Message content")
+    @discord.ui.button(label="Message content", style=discord.ButtonStyle.grey)
     async def edit_message_content_button(
         self, interaction: discord.Interaction, button: discord.ui.Button
     ):
         await interaction.response.send_modal(EmbedMessageContentModal(self))
 
-    @discord.ui.button(label="Colour")
+    @discord.ui.button(label="Colour", style=discord.ButtonStyle.grey)
     async def edit_colour_button(
         self, interaction: discord.Interaction, button: discord.ui.Button
     ):
         await interaction.response.send_modal(EmbedColourModal(self, context=self.context))
 
-    @discord.ui.button(label="Image", row=1)
+    @discord.ui.button(label="Image", row=1, style=discord.ButtonStyle.grey)
     async def edit_image_button(self, interaction: discord.Interaction, button: discord.ui.Button):
         await interaction.response.send_modal(EmbedImageModal(self))
 
-    @discord.ui.button(label="Thumbnail", row=1)
+    @discord.ui.button(label="Thumbnail", row=1, style=discord.ButtonStyle.grey)
     async def edit_thumbnail_button(
         self, interaction: discord.Interaction, button: discord.ui.Button
     ):
         await interaction.response.send_modal(EmbedThumbnailModal(self))
 
-    @discord.ui.button(label="URL", row=1)
+    @discord.ui.button(label="URL", row=1, style=discord.ButtonStyle.grey)
     async def edit_url_button(self, interaction: discord.Interaction, button: discord.ui.Button):
         await interaction.response.send_modal(EmbedURLModal(self))
 
-    @discord.ui.button(label="Author", row=1)
+    @discord.ui.button(label="Author", row=1, style=discord.ButtonStyle.grey)
     async def edit_author_button(
         self, interaction: discord.Interaction, button: discord.ui.Button
     ):
         await interaction.response.send_modal(EmbedAuthorBuilder(self))
 
-    @discord.ui.button(label="Footer", row=1)
+    @discord.ui.button(label="Footer", row=1, style=discord.ButtonStyle.grey)
     async def edit_footer_button(
         self, interaction: discord.Interaction, button: discord.ui.Button
     ):
@@ -407,7 +455,7 @@ class EmbedEditorView(discord.ui.View):
         await interaction.response.send_modal(EmbedFieldRemover(self))
 
     @discord.ui.button(
-        label="Get Python", style=discord.ButtonStyle.green, emoji="\U0001f40d", row=3
+        label="Get Python", style=discord.ButtonStyle.blurple, emoji="\U0001f40d", row=3
     )
     async def get_python(self, interaction: discord.Interaction, button: discord.ui.Button):
         embed = self.embed
@@ -477,7 +525,7 @@ class EmbedEditorView(discord.ui.View):
                 ephemeral=True,
             )
 
-    @discord.ui.button(label="Get JSON", style=discord.ButtonStyle.green, emoji=JSON_EMOJI, row=3)
+    @discord.ui.button(label="Get JSON", style=discord.ButtonStyle.blurple, emoji=JSON_EMOJI, row=3)
     async def get_json(self, interaction: discord.Interaction, button: discord.ui.Button):
         text = json.dumps(self.embed.to_dict(), indent=4)
         if len(text) > 1990:
@@ -514,6 +562,12 @@ class EmbedEditorView(discord.ui.View):
         await interaction.response.send_modal(EmbedDictionaryUpdater(self, replace=False))
 
     @discord.ui.button(
+        label="Send", style=discord.ButtonStyle.green, emoji="\U0001f4e4", row=4
+    )
+    async def send(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.send_modal(EmbedSenderModal(self))
+
+    @discord.ui.button(
         label="Prune buttons", style=discord.ButtonStyle.red, emoji="\U00002716", row=4
     )
     async def prune_button(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -544,7 +598,7 @@ class EmbedEditorView(discord.ui.View):
         try:
             await interaction.message.edit(embed=self.embed, content=self.content)
         except discord.HTTPException as exc:
-            exc = exc.text
+            exc = exc.text.replace("embeds.0.", "embed ")
             if "maximum size of 6000" in exc:
                 return await interaction.response.send_message(
                     "Sorry, the embed limit has exceeded 6000 characters, which is the maximum size. Your change could not be made.",
@@ -584,9 +638,7 @@ class EmbedCreator(commands.Cog):
         return
 
     @commands.command(aliases=["ecreate"])
-    async def embedcreate(
-        self, ctx: commands.Context, embed_message: Optional[discord.Message] = None
-    ):
+    async def embedcreate(self, ctx: commands.Context, embed_message: Optional[discord.Message] = None):
         """Create an embed.
 
         `embed_message` can be the ID or URL to a message that contains an embed.
