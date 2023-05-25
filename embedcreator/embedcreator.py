@@ -26,6 +26,7 @@ DEFAULT_EMBED_DESCRIPTION = """
     - **replace** - Replaces all the embed's current JSON data with the uploaded data.
   - **update** - Replaces only the specified keys.
 - You can remove all buttons by using the "Prune buttons" button (this is done automatically after 180 seconds of inactivity).
+- Once you're done, use the "Send" button to export your embed to your desired channel.
 """.strip()
 
 
@@ -376,10 +377,6 @@ class EmbedSenderModal(SingularEmbedComponentModal):
 
 
 class EmbedEditorView(discord.ui.View):
-
-    content: Optional[str] = None
-    message: Optional[discord.Message] = None
-
     def __init__(self, ctx: Context):
         self.context = ctx
         super().__init__(timeout=180)
@@ -571,8 +568,7 @@ class EmbedEditorView(discord.ui.View):
         label="Prune buttons", style=discord.ButtonStyle.red, emoji="\U00002716", row=4
     )
     async def prune_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await self.prune_buttons()
-        await interaction.response.edit_message(view=self)
+        await interaction.response.edit_message(view=None)
 
     @discord.ui.button(
         label="Delete message", style=discord.ButtonStyle.red, emoji="\U00002716", row=4
@@ -582,12 +578,7 @@ class EmbedEditorView(discord.ui.View):
         await interaction.response.defer()
 
     async def on_timeout(self):
-        await self.prune_buttons()
-        await self.message.edit(view=self)
-
-    async def prune_buttons(self):
-        for item in self.children:
-            self.remove_item(item)
+        await self.message.edit(view=None)
 
     async def modify_embed(self, modal: ModalBase, interaction: discord.Interaction):
         previous_embed = deepcopy(self.embed)
@@ -614,7 +605,7 @@ class EmbedEditorView(discord.ui.View):
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user != self.context.author:
             await interaction.response.send_message(
-                "You cannot interact with the creation of this embed.",
+                "You cannot interact with the buttons of this embed.",
                 ephemeral=True,
             )
             return False
