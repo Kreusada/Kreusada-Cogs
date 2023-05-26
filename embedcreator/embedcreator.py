@@ -214,11 +214,15 @@ class EmbedDictionaryUpdater(SingularEmbedComponentModal):
             raise ValueError(f"Invalid JSON (`{exc}`)")
         else:
             if self.replace:
+                data.pop("type", None)
                 new = {"type": "rich", **data}
             else:
                 new = embed.to_dict()
                 new.update(data)
-            self.view.embed = Embed.from_dict(new)
+            try:
+                self.view.embed = Embed.from_dict(new)
+            except Exception as exc:
+                raise ValueError(exc)
 
 
 class EmbedFooterBuilder(ModalBase):
