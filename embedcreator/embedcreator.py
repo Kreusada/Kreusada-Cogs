@@ -600,6 +600,7 @@ class EmbedCreator(commands.Cog):
         return
 
     @commands.command(aliases=["ecreate"])
+    @commands.mod()
     async def embedcreate(self, ctx: commands.Context, embed_message: Optional[discord.Message] = None):
         """Create an embed.
 
