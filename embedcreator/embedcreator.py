@@ -214,9 +214,9 @@ class EmbedDictionaryUpdater(SingularEmbedComponentModal):
         except json.JSONDecodeError as exc:
             raise ValueError(f"Invalid JSON (`{exc}`)")
         else:
+            data["type"] = "rich"
             if self.replace:
-                data.pop("type", None)
-                new = {"type": "rich", **data}
+                new = data
             else:
                 new = embed.to_dict()
                 new.update(data)
@@ -351,6 +351,7 @@ class EmbedEditorView(discord.ui.View):
             description=DEFAULT_EMBED_DESCRIPTION,
             colour=discord.Colour.greyple(),
         )
+        self.embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
         self.content: Optional[str] = None
         self.message: Optional[discord.Message] = None
 
@@ -377,6 +378,10 @@ class EmbedEditorView(discord.ui.View):
     ):
         await interaction.response.send_modal(EmbedColourModal(self, context=self.context))
 
+    @discord.ui.button(label="URL", style=discord.ButtonStyle.grey)
+    async def edit_url_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.send_modal(EmbedURLModal(self))
+
     @discord.ui.button(label="Image", row=1, style=discord.ButtonStyle.grey)
     async def edit_image_button(self, interaction: discord.Interaction, button: discord.ui.Button):
         await interaction.response.send_modal(EmbedImageModal(self))
@@ -386,10 +391,6 @@ class EmbedEditorView(discord.ui.View):
         self, interaction: discord.Interaction, button: discord.ui.Button
     ):
         await interaction.response.send_modal(EmbedThumbnailModal(self))
-
-    @discord.ui.button(label="URL", row=1, style=discord.ButtonStyle.grey)
-    async def edit_url_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await interaction.response.send_modal(EmbedURLModal(self))
 
     @discord.ui.button(label="Author", row=1, style=discord.ButtonStyle.grey)
     async def edit_author_button(
@@ -503,23 +504,23 @@ class EmbedEditorView(discord.ui.View):
             )
 
     @discord.ui.button(
-        label="Upload JSON (replace)",
-        style=discord.ButtonStyle.blurple,
+        label="Replace JSON",
+        style=discord.ButtonStyle.grey,
         emoji=JSON_EMOJI,
         row=3,
     )
-    async def upload_json_replace(
+    async def replace_json(
         self, interaction: discord.Interaction, button: discord.ui.Button
     ):
         await interaction.response.send_modal(EmbedDictionaryUpdater(self, replace=True))
 
     @discord.ui.button(
-        label="Upload JSON (update)",
-        style=discord.ButtonStyle.blurple,
+        label="Update JSON",
+        style=discord.ButtonStyle.grey,
         emoji=JSON_EMOJI,
         row=3,
     )
-    async def upload_json_update(
+    async def update_json(
         self, interaction: discord.Interaction, button: discord.ui.Button
     ):
         await interaction.response.send_modal(EmbedDictionaryUpdater(self, replace=False))
@@ -540,7 +541,7 @@ class EmbedEditorView(discord.ui.View):
     async def send(self, interaction: discord.Interaction, select: discord.ui.ChannelSelect):
         channel = interaction.guild.get_channel(select.values[0].id)
         if not channel.permissions_for(interaction.guild.me).send_messages:
-            return interaction.response.send_message(f"I do not have permissions to post in {channel.mention}.", ephemeral=True)
+            return await interaction.response.send_message(f"I do not have permissions to post in {channel.mention}.", ephemeral=True)
         try:
             await channel.send(embed=self.embed, content=self.content)
         except discord.HTTPException:
@@ -558,6 +559,7 @@ class EmbedEditorView(discord.ui.View):
         except ValueError as exc:
             return await interaction.response.send_message(f"An error occured: {exc}")
         try:
+            self.update_used_characters_count()
             await interaction.message.edit(embed=self.embed, content=self.content)
         except discord.HTTPException as exc:
             exc = exc.text.replace("embeds.0.", "embed ")
@@ -567,7 +569,7 @@ class EmbedEditorView(discord.ui.View):
                     ephemeral=True,
                 )
             await interaction.response.send_message(
-                f"An error occured whilst making modifications to the embed:\n{box(exc)}\n"
+                f"A HTTP error occured whilst making modifications to the embed:\n{box(exc)}\n"
             )
             self.embed = previous_embed
         else:
@@ -576,7 +578,7 @@ class EmbedEditorView(discord.ui.View):
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user != self.context.author:
             await interaction.response.send_message(
-                "You cannot interact with the buttons of this embed.",
+                "You cannot interact with this embed.",
                 ephemeral=True,
             )
             return False
