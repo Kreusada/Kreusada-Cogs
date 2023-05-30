@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import discord
+import contextlib
 import json
 from copy import deepcopy
 from discord import Embed
@@ -340,45 +341,6 @@ class EmbedFieldRemover(ModalBase):
                 embed.remove_field(index - x)
                 x += 1
 
-class EmbedSenderModal(SingularEmbedComponentModal):
-    def __init__(self, view: EmbedEditorView):
-        super().__init__(
-            view,
-            title="Send your embed",
-            label="Channel (ID or name)",
-            style=discord.TextStyle.short,
-            placeholder="#" + view.context.channel.name,
-        )
-
-    async def on_submit(self, interaction: discord.Interaction):
-        try:
-            location = await commands.TextChannelConverter().convert(self.view.context, self.component.value)
-        except BadArgument:
-            return interaction.response.send_message(
-                f"Could not convert {self.component.value!r} to a valid text channel.",
-                ephemeral=True,
-            )
-        else:
-            if not all(
-                [
-                    location.permissions_for(self.view.context.me).send_messages,
-                    location.permissions_for(self.view.context.author).send_messages,
-                ]
-            ):
-                return interaction.response.send_message(
-                    f"Both you and I must have permissions to post in {location.mention}.",
-                    ephemeral=True,
-                )
-            try:
-                await location.send(content=self.view.content, embed=self.view.embed)
-            except discord.HTTPException:
-                return interaction.response.send_message(
-                    f"Something went wrong when trying to send this embed.",
-                    ephemeral=True,
-                )
-            else:
-                await interaction.response.send_message(f"Embed sent to {location.mention}!", ephemeral=True)
-
 
 class EmbedEditorView(discord.ui.View):
     def __init__(self, ctx: Context):
@@ -562,24 +524,29 @@ class EmbedEditorView(discord.ui.View):
     ):
         await interaction.response.send_modal(EmbedDictionaryUpdater(self, replace=False))
 
-    @discord.ui.button(
-        label="Send", style=discord.ButtonStyle.green, emoji="\U0001f4e4", row=4
+    @discord.ui.select(
+        cls=discord.ui.ChannelSelect,
+        channel_types=[
+            discord.ChannelType.text,
+            discord.ChannelType.news,
+            discord.ChannelType.news_thread,
+            discord.ChannelType.public_thread,
+            discord.ChannelType.private_thread,
+            discord.ChannelType.forum
+        ],
+        placeholder="Send your embed",
+        row=4,
     )
-    async def send(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await interaction.response.send_modal(EmbedSenderModal(self))
-
-    @discord.ui.button(
-        label="Prune buttons", style=discord.ButtonStyle.red, emoji="\U00002716", row=4
-    )
-    async def prune_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await interaction.response.edit_message(view=None)
-
-    @discord.ui.button(
-        label="Delete message", style=discord.ButtonStyle.red, emoji="\U00002716", row=4
-    )
-    async def delete_message(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await interaction.message.delete()
-        await interaction.response.defer()
+    async def send(self, interaction: discord.Interaction, select: discord.ui.ChannelSelect):
+        channel = interaction.guild.get_channel(select.values[0].id)
+        if not channel.permissions_for(interaction.guild.me).send_messages:
+            return interaction.response.send_message(f"I do not have permissions to post in {channel.mention}.", ephemeral=True)
+        try:
+            await channel.send(embed=self.embed, content=self.content)
+        except discord.HTTPException:
+            return await interaction.response.send_message("Something went wrong whilst sending the embed.")
+        else:
+            await interaction.response.send_message(f"Embed sent to {channel.mention}.", ephemeral=True)
 
     async def on_timeout(self):
         await self.message.edit(view=None)
