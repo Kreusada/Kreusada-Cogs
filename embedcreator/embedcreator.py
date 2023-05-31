@@ -620,7 +620,7 @@ class EmbedEditorView(discord.ui.View):
 
 
 class EmbedCreator(commands.Cog):
-    """Create embeds using buttons and modals!"""
+    """Create embeds using buttons, modals and dropdowns!"""
 
     __author__ = "Kreusada"
     __version__ = "1.0.0"

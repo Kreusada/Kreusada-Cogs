@@ -24,7 +24,7 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 About this cog
 --------------
 
-Create embeds using buttons and modals!
+Create embeds using buttons, modals and dropdowns!
 
 --------
 Commands

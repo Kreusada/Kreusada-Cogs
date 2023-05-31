@@ -2,7 +2,7 @@
     "author": [
         "Kreusada"
     ],
-    "description": "Create embeds using buttons and modals!",
+    "description": "Create embeds using buttons, modals and dropdowns!",
     "disabled": false,
     "end_user_data_statement": "This cog does not persistently store data or metadata about users.",
     "hidden": false,
@@ -15,7 +15,9 @@
         "Embeds",
         "Create",
         "Buttons",
-        "Modals"
+        "Modals",
+        "Dropdowns",
+        "Selects"
     ],
     "type": "COG"
 }
