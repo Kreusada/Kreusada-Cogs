@@ -31,6 +31,11 @@ DEFAULT_EMBED_DESCRIPTION = """
 """.strip()
 
 
+def shorten_by(s: str, /, length: int) -> str:
+    if len(s) > length:
+        return s[:length - 1] + "…"
+    return s
+
 class ModalBase(discord.ui.Modal):
     def __init__(
         self,
@@ -322,25 +327,35 @@ class EmbedFieldAdder(ModalBase):
             inline=inline,
         )
 
+class EmbedFieldRemoverSelect(discord.ui.Select):
+    def __init__(self, view: EmbedEditorView, /):
+        options = [
+            discord.SelectOption(label=shorten_by(field.name, 100), description=shorten_by(field.value, 100), value=str(index))
+            for index, field in enumerate(view.embed.fields)
+        ]
+        super().__init__(
+            placeholder="Select a field to remove",
+            options=options
+        )
+        self.embed_editor_view = view
 
-class EmbedFieldRemover(ModalBase):
-    def __init__(self, view: EmbedEditorView):
-        super().__init__(view, title="Field remover")
-
-        self.embed_field_name = discord.ui.TextInput(
-            label="Name",
-            style=discord.TextStyle.short,
-            placeholder="The name of the field name to remove.",
-            max_length=256,
+    async def callback(self, interaction: discord.Interaction):
+        self.embed_editor_view.embed.remove_field(int(self.values[0]))
+        await self.embed_editor_view.message.edit(embed=self.embed_editor_view.embed)
+        await interaction.response.edit_message(
+            content="Field removed.",
+            view=None,
         )
 
-    async def edit_embed(self, embed: Embed):
-        x = 0
-        for index, field in enumerate(embed.fields):
-            if field.name == self.embed_field_name.value:
-                embed.remove_field(index - x)
-                x += 1
+class EmbedFieldRemoverView(discord.ui.View):
+    def __init__(self, view: EmbedEditorView):
+        super().__init__(timeout=30)
+        self.add_item(EmbedFieldRemoverSelect(view))
+        self.message: Optional[discord.Message] = None
 
+    async def on_timeout(self):
+        with contextlib.suppress(discord.HTTPException):
+            await self.message.delete()
 
 class EmbedEditorView(discord.ui.View):
     def __init__(self, ctx: Context):
@@ -404,6 +419,15 @@ class EmbedEditorView(discord.ui.View):
     ):
         await interaction.response.send_modal(EmbedFooterBuilder(self))
 
+    @discord.ui.button(label="Clear", row=1, style=discord.ButtonStyle.red)
+    async def clear_button(
+        self, interaction: discord.Interaction, button: discord.ui.Button
+    ):
+        embed = discord.Embed(description="[…]")
+        self.embed = embed
+        self.content = None
+        await interaction.response.edit_message(embed=self.embed, content=self.content)
+
     @discord.ui.button(
         label="Add field", style=discord.ButtonStyle.green, emoji="\U00002795", row=2
     )
@@ -416,7 +440,12 @@ class EmbedEditorView(discord.ui.View):
     async def remove_field_button(
         self, interaction: discord.Interaction, button: discord.ui.Button
     ):
-        await interaction.response.send_modal(EmbedFieldRemover(self))
+        if not self.embed.fields:
+            await interaction.response.send_message("There are no fields to remove.", ephemeral=True)
+        else:
+            view = EmbedFieldRemoverView(self)
+            await interaction.response.send_message(view=view, ephemeral=True)
+            view.message = await interaction.original_response()
 
     @discord.ui.button(
         label="Get Python", style=discord.ButtonStyle.blurple, emoji="\U0001f40d", row=3
@@ -559,7 +588,6 @@ class EmbedEditorView(discord.ui.View):
         except ValueError as exc:
             return await interaction.response.send_message(f"An error occured: {exc}")
         try:
-            self.update_used_characters_count()
             await interaction.message.edit(embed=self.embed, content=self.content)
         except discord.HTTPException as exc:
             exc = exc.text.replace("embeds.0.", "embed ")
@@ -583,7 +611,6 @@ class EmbedEditorView(discord.ui.View):
             )
             return False
         return True
-
 
 class EmbedCreator(commands.Cog):
     """Create embeds using buttons and modals!"""
