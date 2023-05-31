@@ -14,20 +14,18 @@ from redbot.core.commands import BadArgument, ColourConverter, Context
 from redbot.core.utils.chat_formatting import bold, box, text_to_file
 
 JSON_EMOJI = discord.PartialEmoji(name="json", animated=False, id=1110250547254141049)
-REDO_EMOJI = discord.PartialEmoji(name="redo", animated=False, id=1110607817859145768)
-
 
 DEFAULT_EMBED_TITLE = "Welcome to the embed builder"
 
 DEFAULT_EMBED_DESCRIPTION = """
-- Use the grey buttons to edit the various components of the embed.
+- Use the grey buttons to edit the various components of the embed. Use the red clear button to nullify all of the embed's components.
 - You can add or remove fields with the green and red buttons located just under the grey buttons.
+- Get the embed's Python code using the "Get Python" code. This can be used for debugs or for your own code.
 - Get the embed's JSON via the "Get JSON" button. This can be used to store your embeds for shorthand, or to use elsewhere.
-- There are two "Upload JSON" buttons:
+- There are two buttons which can modify the embed using JSON:
     - **replace** - Replaces all the embed's current JSON data with the uploaded data.
   - **update** - Replaces only the specified keys.
-- You can remove all buttons by using the "Prune buttons" button (this is done automatically after 180 seconds of inactivity).
-- Once you're done, use the "Send" button to export your embed to your desired channel.
+- Once you're done, use the "Send" dropdown to export your embed to your desired channel.
 """.strip()
 
 
