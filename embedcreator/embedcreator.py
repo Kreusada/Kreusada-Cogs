@@ -33,8 +33,9 @@ DEFAULT_EMBED_DESCRIPTION = """
 
 def shorten_by(s: str, /, length: int) -> str:
     if len(s) > length:
-        return s[:length - 1] + "…"
+        return s[: length - 1] + "…"
     return s
+
 
 class ModalBase(discord.ui.Modal):
     def __init__(
@@ -327,16 +328,18 @@ class EmbedFieldAdder(ModalBase):
             inline=inline,
         )
 
+
 class EmbedFieldRemoverSelect(discord.ui.Select):
     def __init__(self, view: EmbedEditorView, /):
         options = [
-            discord.SelectOption(label=shorten_by(field.name, 100), description=shorten_by(field.value, 100), value=str(index))
+            discord.SelectOption(
+                label=shorten_by(field.name, 100),
+                description=shorten_by(field.value, 100),
+                value=str(index),
+            )
             for index, field in enumerate(view.embed.fields)
         ]
-        super().__init__(
-            placeholder="Select a field to remove",
-            options=options
-        )
+        super().__init__(placeholder="Select a field to remove", options=options)
         self.embed_editor_view = view
 
     async def callback(self, interaction: discord.Interaction):
@@ -347,6 +350,7 @@ class EmbedFieldRemoverSelect(discord.ui.Select):
             view=None,
         )
 
+
 class EmbedFieldRemoverView(discord.ui.View):
     def __init__(self, view: EmbedEditorView):
         super().__init__(timeout=30)
@@ -356,6 +360,7 @@ class EmbedFieldRemoverView(discord.ui.View):
     async def on_timeout(self):
         with contextlib.suppress(discord.HTTPException):
             await self.message.delete()
+
 
 class EmbedEditorView(discord.ui.View):
     def __init__(self, ctx: Context):
@@ -369,7 +374,6 @@ class EmbedEditorView(discord.ui.View):
         self.embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
         self.content: Optional[str] = None
         self.message: Optional[discord.Message] = None
-
 
     @discord.ui.button(label="Title", style=discord.ButtonStyle.grey)
     async def edit_title_button(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -420,9 +424,7 @@ class EmbedEditorView(discord.ui.View):
         await interaction.response.send_modal(EmbedFooterBuilder(self))
 
     @discord.ui.button(label="Clear", row=1, style=discord.ButtonStyle.red)
-    async def clear_button(
-        self, interaction: discord.Interaction, button: discord.ui.Button
-    ):
+    async def clear_button(self, interaction: discord.Interaction, button: discord.ui.Button):
         embed = discord.Embed(description="[…]")
         self.embed = embed
         self.content = None
@@ -441,7 +443,9 @@ class EmbedEditorView(discord.ui.View):
         self, interaction: discord.Interaction, button: discord.ui.Button
     ):
         if not self.embed.fields:
-            await interaction.response.send_message("There are no fields to remove.", ephemeral=True)
+            await interaction.response.send_message(
+                "There are no fields to remove.", ephemeral=True
+            )
         else:
             view = EmbedFieldRemoverView(self)
             await interaction.response.send_message(view=view, ephemeral=True)
@@ -518,7 +522,9 @@ class EmbedEditorView(discord.ui.View):
                 ephemeral=True,
             )
 
-    @discord.ui.button(label="Get JSON", style=discord.ButtonStyle.blurple, emoji=JSON_EMOJI, row=3)
+    @discord.ui.button(
+        label="Get JSON", style=discord.ButtonStyle.blurple, emoji=JSON_EMOJI, row=3
+    )
     async def get_json(self, interaction: discord.Interaction, button: discord.ui.Button):
         text = json.dumps(self.embed.to_dict(), indent=4)
         if len(text) > 1990:
@@ -538,9 +544,7 @@ class EmbedEditorView(discord.ui.View):
         emoji=JSON_EMOJI,
         row=3,
     )
-    async def replace_json(
-        self, interaction: discord.Interaction, button: discord.ui.Button
-    ):
+    async def replace_json(self, interaction: discord.Interaction, button: discord.ui.Button):
         await interaction.response.send_modal(EmbedDictionaryUpdater(self, replace=True))
 
     @discord.ui.button(
@@ -549,9 +553,7 @@ class EmbedEditorView(discord.ui.View):
         emoji=JSON_EMOJI,
         row=3,
     )
-    async def update_json(
-        self, interaction: discord.Interaction, button: discord.ui.Button
-    ):
+    async def update_json(self, interaction: discord.Interaction, button: discord.ui.Button):
         await interaction.response.send_modal(EmbedDictionaryUpdater(self, replace=False))
 
     @discord.ui.select(
@@ -562,7 +564,7 @@ class EmbedEditorView(discord.ui.View):
             discord.ChannelType.news_thread,
             discord.ChannelType.public_thread,
             discord.ChannelType.private_thread,
-            discord.ChannelType.forum
+            discord.ChannelType.forum,
         ],
         placeholder="Send your embed",
         row=4,
@@ -570,13 +572,19 @@ class EmbedEditorView(discord.ui.View):
     async def send(self, interaction: discord.Interaction, select: discord.ui.ChannelSelect):
         channel = interaction.guild.get_channel(select.values[0].id)
         if not channel.permissions_for(interaction.guild.me).send_messages:
-            return await interaction.response.send_message(f"I do not have permissions to post in {channel.mention}.", ephemeral=True)
+            return await interaction.response.send_message(
+                f"I do not have permissions to post in {channel.mention}.", ephemeral=True
+            )
         try:
             await channel.send(embed=self.embed, content=self.content)
         except discord.HTTPException:
-            return await interaction.response.send_message("Something went wrong whilst sending the embed.")
+            return await interaction.response.send_message(
+                "Something went wrong whilst sending the embed."
+            )
         else:
-            await interaction.response.send_message(f"Embed sent to {channel.mention}.", ephemeral=True)
+            await interaction.response.send_message(
+                f"Embed sent to {channel.mention}.", ephemeral=True
+            )
 
     async def on_timeout(self):
         await self.message.edit(view=None)
@@ -612,6 +620,7 @@ class EmbedEditorView(discord.ui.View):
             return False
         return True
 
+
 class EmbedCreator(commands.Cog):
     """Create embeds using buttons and modals!"""
 
@@ -630,7 +639,9 @@ class EmbedCreator(commands.Cog):
 
     @commands.command(aliases=["ecreate"])
     @commands.mod()
-    async def embedcreate(self, ctx: commands.Context, embed_message: Optional[discord.Message] = None):
+    async def embedcreate(
+        self, ctx: commands.Context, embed_message: Optional[discord.Message] = None
+    ):
         """Create an embed.
 
         `embed_message` can be the ID or URL to a message that contains an embed.
