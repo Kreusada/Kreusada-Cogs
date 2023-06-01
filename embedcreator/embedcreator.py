@@ -25,7 +25,7 @@ DEFAULT_EMBED_DESCRIPTION = """
 - There are two buttons which can modify the embed using JSON:
     - **replace** - Replaces all the embed's current JSON data with the uploaded data.
   - **update** - Replaces only the specified keys.
-- Once you're done, use the "Send" dropdown to export your embed to your desired channel.
+- Once you're done, you may send the embed to a desired channel using the dropdown.
 """.strip()
 
 

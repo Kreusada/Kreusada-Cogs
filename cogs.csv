@@ -2,6 +2,7 @@ Cog Name,Description,Tags,Authors
 BlackFormatter,Style your code with the Black formatter,Tools,Kreusada
 CogPaths,Get various paths for a cog.,"Tools, Informative",Kreusada
 ConsoleClearer,Completely clear your Red console,Tools,Kreusada
+EmbedCreator,"Create embeds using buttons, modals and dropdowns!",Tools,Kreusada
 Flags,Get the flag for a country,Tools,Kreusada
 Minifier,Minify your code with python minifier,Tools,Kreusada
 OnThisDay,"Find out what happened today, in multiple different years in history.",Fun,Kreusada
