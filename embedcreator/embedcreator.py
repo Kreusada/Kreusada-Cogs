@@ -478,7 +478,7 @@ class EmbedEditorView(discord.ui.View):
         if embed.author:
             attrs = {}
             for attr in ["name", "url", "icon_url"]:
-                if (gattr := getattr(embed.author, attr)) :
+                if gattr := getattr(embed.author, attr):
                     attrs[attr] = gattr
             text += (
                 f"embed.set_author(" + ", ".join(f"{k}={v!r}" for k, v in attrs.items()) + ")\n"
@@ -487,7 +487,7 @@ class EmbedEditorView(discord.ui.View):
         if embed.footer:
             attrs = {}
             for attr in ["text", "icon_url"]:
-                if (gattr := getattr(embed.footer, attr)) :
+                if gattr := getattr(embed.footer, attr):
                     attrs[attr] = gattr
             text += (
                 f"embed.set_footer(" + ", ".join(f"{k}={v!r}" for k, v in attrs.items()) + ")\n"
