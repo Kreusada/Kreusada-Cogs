@@ -28,6 +28,7 @@
         'blackformatter',
         'cogpaths',
         'consoleclearer',
+        'embedcreator',
         'flags',
         'minifier',
         'onthisday',

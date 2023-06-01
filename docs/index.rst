@@ -28,6 +28,7 @@ Useful Links
     cog_blackformatter
     cog_cogpaths
     cog_consoleclearer
+    cog_embedcreator
     cog_flags
     cog_minifier
     cog_onthisday
