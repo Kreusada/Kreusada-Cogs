@@ -91,7 +91,6 @@ class DateConverter(Converter):
 
 class YearDropdown(discord.ui.Select):
     def __init__(self, otd: "OnThisDay", /):
-
         self.otd = otd
         cy = current_year()
         options = [
@@ -212,8 +211,9 @@ class OnThisDay(commands.Cog):
         event = self.year_data[year]
         years_ago = int(self.year) - int("".join(filter(str.isdigit, year)))
         content = (
-            event["content"] + "\n\n" +
-            f"This event occured on the __{date_suffix(self.date_number)} of {MONTH_MAPPING[self.month_number].capitalize()}, {year}__."
+            event["content"]
+            + "\n\n"
+            + f"This event occured on the __{date_suffix(self.date_number)} of {MONTH_MAPPING[self.month_number].capitalize()}, {year}__."
         )
         embed = discord.Embed(
             title=f"On this day, {years_ago} years ago...",
@@ -222,8 +222,7 @@ class OnThisDay(commands.Cog):
         )
         embed.set_footer(text="See the below links for related wikipedia articles")
         _d = {
-            f"The year '{year}'": "https://en.wikipedia.org/wiki/"
-            + year,
+            f"The year '{year}'": "https://en.wikipedia.org/wiki/" + year,
             f"The date '{self.date_number.zfill(2)}/{self.month_number.zfill(2)}'": self.date_wiki,
         }
         embed.add_field(
@@ -251,9 +250,7 @@ class OnThisDay(commands.Cog):
             ) as session:
                 if session.status != 200:
                     return await ctx.maybe_send_embed(
-                        warning(
-                            "An error occured whilst retrieving information for this day."
-                        )
+                        warning("An error occured whilst retrieving information for this day.")
                     )
                 content = await session.json()
         except aiohttp.ClientError:
@@ -271,7 +268,10 @@ class OnThisDay(commands.Cog):
             if random:
                 await self.display_events(ctx, year=choice(list(data.keys())))
             else:
-                await ctx.send("Choose a year range to select from:", view=YearRangeDropdownView(self),)
+                await ctx.send(
+                    "Choose a year range to select from:",
+                    view=YearRangeDropdownView(self),
+                )
 
     def cache_date(self, date: Optional[datetime.datetime], /) -> Dict[str, int]:
         if date is None:

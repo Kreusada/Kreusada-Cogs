@@ -5,6 +5,7 @@ from redbot.core import commands
 from redbot.core.bot import Red
 from redbot.core.utils.chat_formatting import bold, warning
 
+
 class Quotes(commands.Cog):
     """Get a random quote."""
 

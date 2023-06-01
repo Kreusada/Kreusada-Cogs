@@ -110,7 +110,7 @@ class CountryConverter(Converter):
         neighbour_list = soup.find("ul", class_="flag-grid")
         if neighbour_list:
             for li in neighbour_list.find_all("li"):
-                neighbours[li.span.text] = alpha_2_to_unicode(li.img['src'][16:-4])
+                neighbours[li.span.text] = alpha_2_to_unicode(li.img["src"][16:-4])
         ret["neighbours"] = neighbours
 
         table = soup.find("table", class_="table-dl")
@@ -171,7 +171,7 @@ class Flags(Cog):
 
         menu = LabelledMenu()
         menu.add_option("Flag Information", embed=embed, emoji="\N{WAVING WHITE FLAG}")
-        
+
         embed = discord.Embed(
             title=title,
             colour=await ctx.embed_colour(),
@@ -184,7 +184,7 @@ class Flags(Cog):
                 overflow[k] = v
             else:
                 embed.add_field(name=k, value=v)
-        
+
         for k, v in overflow.items():
             embed.add_field(name=k, value=v, inline=False)
 
@@ -192,7 +192,7 @@ class Flags(Cog):
         menu.add_option("Country Information", embed=embed, emoji="\N{EARTH GLOBE EUROPE-AFRICA}")
         menu.set_neighbouring_countries(neighbours)
         await menu.start(ctx)
-        #await menu(ctx, [embed], {"\N{CROSS MARK}": close_menu})
+        # await menu(ctx, [embed], {"\N{CROSS MARK}": close_menu})
 
     @commands.command()
     async def flagemojis(self, ctx: commands.Context, *countries: CountryConverter):

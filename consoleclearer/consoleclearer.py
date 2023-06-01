@@ -4,6 +4,7 @@ import os
 from redbot.core import commands
 from redbot.core.bot import Red
 
+
 class ConsoleClearer(commands.Cog):
     """Clear your console."""
 
@@ -27,5 +28,7 @@ class ConsoleClearer(commands.Cog):
         Completely clears [botname]'s console.
         """
         os.system("clear" if os.name == "posix" else "cls")
-        print(f"Red console cleared | {datetime.datetime.utcnow().strftime('%b %d %Y %H:%M:%S')} (UTC)")
+        print(
+            f"Red console cleared | {datetime.datetime.utcnow().strftime('%b %d %Y %H:%M:%S')} (UTC)"
+        )
         await ctx.send("Red console cleared.")

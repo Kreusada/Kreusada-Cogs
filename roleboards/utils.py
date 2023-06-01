@@ -5,6 +5,7 @@ from typing import List, Literal, Tuple
 from redbot.core.commands import BadArgument, Context, Converter
 from redbot.core.utils.chat_formatting import box
 
+
 class ValidRoleIndex(Converter):
     async def convert(self, ctx: Context, argument):
         try:
@@ -30,6 +31,7 @@ class ValidUserIndex(Converter):
             )
         return argument
 
+
 def format_embed_pages(
     ctx: Context,
     *,
@@ -44,7 +46,7 @@ def format_embed_pages(
     total_data = len(getattr(ctx.guild, data_type))
 
     if data_type == "roles":
-        total_data -= 1 # @everyone
+        total_data -= 1  # @everyone
 
     for sector in data:
         description = "\n".join(
@@ -67,16 +69,19 @@ def format_embed_pages(
 
     return pages
 
+
 def yield_chunks(l, n):
     for i in range(0, len(l), n):
         yield l[i : i + n]
 
+
 def get_roles(guild: discord.Guild, *, index: int):
     key = lambda x: len(x.members)
-    roles = [r for r in guild.roles if r.id != guild.id] # exclude @everyone
+    roles = [r for r in guild.roles if r.id != guild.id]  # exclude @everyone
     top_roles = sorted(roles, key=key, reverse=True)
     data = [(x.name, len(x.members)) for x in top_roles[:index]]
     return list(yield_chunks(data, 10))
+
 
 def get_members(guild: discord.Guild, *, index: int):
     key = lambda x: len(x.roles)

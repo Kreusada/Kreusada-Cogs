@@ -4,6 +4,7 @@ import math
 from discord.ui import Button, View
 from typing import Dict
 
+
 class JumpUrlView(View):
     def __init__(self, pypi_url: str, *, project_urls: Dict[str, str]):
         super().__init__()

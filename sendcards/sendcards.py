@@ -85,28 +85,28 @@ CARD_TYPES_DATA = [
         "description": "Wish someone well on their anniversary",
         "emoji": "\U0001f48d",
         "prompt": "Happy anniversary to you and your partner!",
-        "colour": 0x60d6a9,
+        "colour": 0x60D6A9,
     },
     {
         "name": "Condolences",
         "description": "Provide someone some emotional support",
         "emoji": "\U0001f54a",
         "prompt": "May the love of those around you help you through the days ahead...",
-        "colour": 0xffffff,
+        "colour": 0xFFFFFF,
     },
     {
         "name": "Fortune",
         "description": "Send a good luck card",
         "emoji": "\U0001f340",
         "prompt": "Best of luck with your new project!",
-        "colour": 0x7ca53e,
+        "colour": 0x7CA53E,
     },
     {
         "name": "New baby",
         "description": "Congratulate someone on their new baby",
         "emoji": "\U0001f476",
         "prompt": "Congrats on your new baby \U0001f979",
-        "colour": 0x89cff0,
+        "colour": 0x89CFF0,
     },
     {
         "name": "Graduation",
@@ -127,8 +127,8 @@ CARD_TYPES_DATA = [
         "description": "Congratulate someone on a recent success",
         "emoji": "\U0001f38a",
         "prompt": "Congratulations! You did so well.",
-        "colour": 0x446dd4,
-    }
+        "colour": 0x446DD4,
+    },
 ]
 
 CARD_TYPES_DATA = sorted(CARD_TYPES_DATA, key=itemgetter("name"))
@@ -413,6 +413,4 @@ class SendCards(commands.Cog):
     @sendcard.command()
     async def types(self, ctx: commands.Context):
         """List all the different card types."""
-        await ctx.maybe_send_embed(
-            "\n".join(f"{c['emoji']} {c['name']}" for c in CARD_TYPES_DATA)
-        )
+        await ctx.maybe_send_embed("\n".join(f"{c['emoji']} {c['name']}" for c in CARD_TYPES_DATA))

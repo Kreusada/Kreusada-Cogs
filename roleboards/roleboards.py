@@ -50,10 +50,7 @@ class RoleBoards(commands.Cog):
         """
         data = get_members(ctx.guild, index=index)
         pages = format_embed_pages(
-            ctx,
-            data=data,
-            data_type="members",
-            embed_colour=await ctx.embed_colour()
+            ctx, data=data, data_type="members", embed_colour=await ctx.embed_colour()
         )
         menu = SimpleMenu(pages, use_select_menu=True)
         await menu.start(ctx)
@@ -70,10 +67,7 @@ class RoleBoards(commands.Cog):
         """
         data = get_roles(ctx.guild, index=index)
         pages = format_embed_pages(
-            ctx,
-            data=data,
-            data_type="roles",
-            embed_colour=await ctx.embed_colour()
+            ctx, data=data, data_type="roles", embed_colour=await ctx.embed_colour()
         )
         menu = SimpleMenu(pages, use_select_menu=True)
         await menu.start(ctx)

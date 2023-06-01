@@ -58,6 +58,7 @@ TYPES = {
     },
 }
 
+
 class WordBase(commands.Cog):
     """Generate rhymes, use a reverse dictionary, and more word related generators."""
 

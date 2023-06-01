@@ -47,7 +47,9 @@ class BlackFormatter(commands.Cog):
 
         try:
             output = black.format_file_contents(
-                sort, fast=True, mode=black.FileMode(line_length=line_length or black.DEFAULT_LINE_LENGTH)
+                sort,
+                fast=True,
+                mode=black.FileMode(line_length=line_length or black.DEFAULT_LINE_LENGTH),
             )
         except black.NothingChanged:
             await ctx.send("There was nothing to change in this code.")

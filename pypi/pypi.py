@@ -126,18 +126,20 @@ class PyPi(commands.Cog):
         )
 
         embed.add_field(
-            name="Installation",
-            value=box(f"pip install -U {info['name']}"),
-            inline=False
+            name="Installation", value=box(f"pip install -U {info['name']}"), inline=False
         )
 
-        filtered_links = dict(filter(lambda x: URL_RE.match(x[1]), list(info["project_urls"].items())))
+        filtered_links = dict(
+            filter(lambda x: URL_RE.match(x[1]), list(info["project_urls"].items()))
+        )
         for link in info["project_urls"].values():
             match = GIT_REPO_RE.match(link)
             if not match or match.group(1) == "sponsors":
                 continue
             try:
-                details = await self.make_request(("https://api.github.com/repos/" + link[19:]).rstrip(".git"))
+                details = await self.make_request(
+                    ("https://api.github.com/repos/" + link[19:]).rstrip(".git")
+                )
             except ValueError:
                 default_branch = None
             else:
@@ -145,11 +147,13 @@ class PyPi(commands.Cog):
             break
         else:
             default_branch = None
-        
+
         if default_branch:
             embed.add_field(
                 name="Development Installation",
-                value=box(f"pip install -U git+{link}@{default_branch}#egg={info['name']}", lang="fix"),
+                value=box(
+                    f"pip install -U git+{link}@{default_branch}#egg={info['name']}", lang="fix"
+                ),
                 inline=False,
             )
 
@@ -157,18 +161,18 @@ class PyPi(commands.Cog):
         for release in list(releases.keys())[-5:]:
             if not (r := releases[release]):
                 continue
-            release_time = r[-1]['upload_time'][:10]
-            release_time = "-".join(reversed(release_time.split("-"))) # format date properly
+            release_time = r[-1]["upload_time"][:10]
+            release_time = "-".join(reversed(release_time.split("-")))  # format date properly
             values.append(f"+ {release} (~{release_time})")
 
         embed.add_field(
-            name="Recent Releases",
-            value=box("\n".join(values), lang="diff"),
-            inline=False
+            name="Recent Releases", value=box("\n".join(values), lang="diff"), inline=False
         )
 
         if requires_dist := info["requires_dist"]:
-            value = "\n".join("• " + d.replace("(", "[").replace(")", "]") for d in requires_dist[:10])
+            value = "\n".join(
+                "• " + d.replace("(", "[").replace(")", "]") for d in requires_dist[:10]
+            )
             if remaining := requires_dist[10:]:
                 value += f"\nand {len(remaining)} more..."
             embed.add_field(
