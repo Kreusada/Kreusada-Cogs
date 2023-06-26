@@ -17,7 +17,7 @@ class PyPi(commands.Cog):
     """Get information about a package available on PyPi."""
 
     __author__ = ["Kreusada", "OofChair"]
-    __version__ = "1.1.0"
+    __version__ = "1.1.1"
 
     def __init__(self, bot):
         self.bot = bot
@@ -129,33 +129,38 @@ class PyPi(commands.Cog):
             name="Installation", value=box(f"pip install -U {info['name']}"), inline=False
         )
 
-        filtered_links = dict(
-            filter(lambda x: URL_RE.match(x[1]), list(info["project_urls"].items()))
-        )
-        for link in info["project_urls"].values():
-            match = GIT_REPO_RE.match(link)
-            if not match or match.group(1) == "sponsors":
-                continue
-            try:
-                details = await self.make_request(
-                    ("https://api.github.com/repos/" + link[19:]).rstrip(".git")
-                )
-            except ValueError:
-                default_branch = None
-            else:
-                default_branch = details["default_branch"]
-            break
-        else:
-            default_branch = None
+        project_urls = info["project_urls"]
+        filtered_links = {}
 
-        if default_branch:
-            embed.add_field(
-                name="Development Installation",
-                value=box(
-                    f"pip install -U git+{link}@{default_branch}#egg={info['name']}", lang="fix"
-                ),
-                inline=False,
+        if project_urls:
+
+            filtered_links = dict(
+                filter(lambda x: URL_RE.match(x[1]), list(info["project_urls"].items()))
             )
+            for link in info["project_urls"].values():
+                match = GIT_REPO_RE.match(link)
+                if not match or match.group(1) == "sponsors":
+                    continue
+                try:
+                    details = await self.make_request(
+                        ("https://api.github.com/repos/" + link[19:]).rstrip(".git")
+                    )
+                except ValueError:
+                    default_branch = None
+                else:
+                    default_branch = details["default_branch"]
+                break
+            else:
+                default_branch = None
+
+            if default_branch:
+                embed.add_field(
+                    name="Development Installation",
+                    value=box(
+                        f"pip install -U git+{link}@{default_branch}#egg={info['name']}", lang="fix"
+                    ),
+                    inline=False,
+                )
 
         values = []
         for release in list(releases.keys())[-5:]:
@@ -165,9 +170,10 @@ class PyPi(commands.Cog):
             release_time = "-".join(reversed(release_time.split("-")))  # format date properly
             values.append(f"+ {release} (~{release_time})")
 
-        embed.add_field(
-            name="Recent Releases", value=box("\n".join(values), lang="diff"), inline=False
-        )
+        if values:
+            embed.add_field(
+                name="Recent Releases", value=box("\n".join(values), lang="diff"), inline=False
+            )
 
         if requires_dist := info["requires_dist"]:
             value = "\n".join(
