@@ -574,7 +574,11 @@ class EmbedEditorView(discord.ui.View):
                 f"I do not have permissions to post in {channel.mention}.", ephemeral=True
             )
         try:
-            await channel.send(embed=self.embed, content=self.content)
+            await channel.send(
+                embed=self.embed,
+                content=self.content,
+                allowed_mentions=discord.AllowedMentions(roles=True),
+            )
         except discord.HTTPException:
             return await interaction.response.send_message(
                 "Something went wrong whilst sending the embed."
@@ -623,7 +627,7 @@ class EmbedCreator(commands.Cog):
     """Create embeds using buttons, modals and dropdowns!"""
 
     __author__ = "Kreusada"
-    __version__ = "1.0.0"
+    __version__ = "1.0.1"
 
     def __init__(self, bot: Red):
         self.bot = bot
