@@ -264,7 +264,7 @@ class EmbedAuthorBuilder(ModalBase):
             style=discord.TextStyle.short,
             max_length=256,
             default=self.view.embed.author.name,
-            required=True,
+            required=False,
         )
 
         self.embed_author_url = discord.ui.TextInput(
