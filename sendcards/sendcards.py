@@ -179,7 +179,7 @@ class CardSelectView(discord.ui.View):
         recipient: discord.User,
         card_content: Optional[str] = None,
     ):
-        super().__init__(timeout=10)
+        super().__init__(timeout=100)
         self.ctx = ctx
         self.sender = sender
         self.card_content = card_content
@@ -390,7 +390,7 @@ class SendCards(commands.Cog):
         self.bot = bot
 
     __author__ = "Kreusada"
-    __version__ = "1.0.0"
+    __version__ = "1.0.1"
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
