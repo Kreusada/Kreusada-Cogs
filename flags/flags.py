@@ -123,7 +123,7 @@ class CountryConverter(Converter):
 class Flags(Cog):
     """Get flags from country names."""
 
-    __version__ = "1.1.5"
+    __version__ = "1.1.6"
     __author__ = "Kreusada"
 
     def __init__(self, bot: Red):
@@ -205,13 +205,7 @@ class Flags(Cog):
         """
         if not countries:
             return await ctx.send_help()
-        # Here, I am removing duplicates. Cannot do set(countries)
-        # because set takes hashable objects of which dict is not
-        # using dict.fromkeys() instead of set() to retain insertion order
-        unique_countries = [
-            dict(s) for s in dict.fromkeys(frozenset(d.items()) for d in countries)
-        ]
-        message = "\n".join(f"{c['Emoji']} - `{c['Emoji']}`" for c in unique_countries)
+        message = "\n".join(f"{c['Emoji']} - `{c['Emoji']}` ({c['Name']})" for c in countries)
         for page in pagify(message):
             await ctx.send(page)
 
