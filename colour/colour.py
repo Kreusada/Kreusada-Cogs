@@ -28,7 +28,7 @@ class Colour(commands.Cog):
     """View information about a colour."""
 
     __author__ = "Kreusada"
-    __version__ = "1.1.0"
+    __version__ = "1.1.1"
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
@@ -43,7 +43,7 @@ class Colour(commands.Cog):
     ) -> io.BytesIO:
         img = Image.new("RGB", (1500, 500), colour.to_rgb())
         drawer = ImageDraw.Draw(img)
-        font = ImageFont.truetype("arial.ttf", 100)
+        font = ImageFont.load_default(size=100)
         drawer.text((10, 0), name, fill=constrast, font=font)
         l, t, r, b = drawer.textbbox((10, 0), name, font=font)
         cimg = img.crop([l - 10, t - 10, r + 10, b + 10])
