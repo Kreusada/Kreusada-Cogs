@@ -30,7 +30,7 @@ Edit and manipulate with text.
 Commands
 --------
 
-Here are all the commands included in this cog (24):
+Here are all the commands included in this cog (26):
 
 * ``[p]editor``
     Base command for editing text.
@@ -46,12 +46,16 @@ Here are all the commands included in this cog (24):
     Count the number of characters appearing in the text.
 * ``[p]editor formatnumber <number>``
     Format a number with commas.
+* ``[p]editor levenshtein <word1> <word2>``
+    Calculate the Levenshtein distance between two words.
 * ``[p]editor lower <text>``
     Convert the text to lowercase.
 * ``[p]editor multiply <multiplier> <text>``
     Multiply the text.
 * ``[p]editor occurance <check> <text>``
     Count how many times something appears in the text.
+* ``[p]editor palindrome <text>``
+    Checks for any palindromes within the text.
 * ``[p]editor permutate <text>``
     Generate permutations for given combinations of words/digits.
 * ``[p]editor remove <remove> <text>``

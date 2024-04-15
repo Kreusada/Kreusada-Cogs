@@ -1,16 +1,15 @@
 import contextlib
 import io
 import itertools
-import json
-import pathlib
 import random
 import shlex
+import string
 import textwrap
 from typing import Optional
 
 import discord
 from redbot.core import commands
-from redbot.core.utils.chat_formatting import bold, box, pagify
+from redbot.core.utils.chat_formatting import bold, box, error, humanize_list, pagify, success
 
 
 async def send_safe(ctx, message: str) -> None:
@@ -23,13 +22,18 @@ async def send_safe(ctx, message: str) -> None:
         await ctx.send(box(page))
 
 
+def strip_punctuation(text):
+    translation_table = str.maketrans("", "", string.punctuation)
+    return text.translate(translation_table)
+
+
 class TextEditor(commands.Cog):
     """
     Edit and manipulate with text.
     """
 
     __author__ = "Kreusada"
-    __version__ = "3.4.1"
+    __version__ = "3.4.2"
 
     def __init__(self, bot):
         self.bot = bot
@@ -225,7 +229,7 @@ class TextEditor(commands.Cog):
         
         Aoccdrnig to a rscheearch at Cmabrigde Uinervtisy, it deosn't mttaer in waht oredr the ltteers in a wrod are, the olny iprmoetnt tihng is taht the frist and lsat ltteer be at the rghit pclae. The rset can be a toatl mses and you can sitll raed it wouthit porbelm. Tihs is bcuseae the huamn mnid deos not raed ervey lteter by istlef, but the wrod as a wlohe."""
         ret = []
-        for word in text.split():
+        for word in strip_punctuation(text).split():
             if len(word) < 4:
                 ret.append(word)
                 continue
@@ -237,3 +241,43 @@ class TextEditor(commands.Cog):
                     break
             ret.append(word[0] + middle + word[-1])
         await send_safe(ctx, " ".join(ret))
+    
+    @editor.command(name="palindrome")
+    async def editor_palindrome(self, ctx: commands.Context, *, text: str):
+        """Checks for any palindromes within the text."""
+        palindromes = []
+        for word in strip_punctuation(text).split():
+            wl = word.lower()
+            print(wl, wl[::-1])
+            if wl == wl[::-1]:
+                palindromes.append(word)
+        if len(palindromes) == 1:
+            msg = success("The following palindrome was found: " + palindromes[0])
+        elif palindromes:
+            msg = success("The following palindromes were found: " + humanize_list(palindromes))
+        else:
+            msg = error("No palindromes found.")
+        await send_safe(ctx, msg)
+
+    @editor.command(name="levenshtein")
+    async def editor_levenshtein(self, ctx: commands.Context, word1: str, word2: str):
+        """Calculate the Levenshtein distance between two words."""
+        matrix = [[0] * (len(word2) + 1) for _ in range(len(word1) + 1)]
+
+        for i in range(len(word1) + 1):
+            matrix[i][0] = i
+        for j in range(len(word2) + 1):
+            matrix[0][j] = j
+
+        for i in range(1, len(word1) + 1):
+            for j in range(1, len(word2) + 1):
+                cost = 0 if word1[i - 1] == word2[j - 1] else 1
+                matrix[i][j] = min(
+                    matrix[i - 1][j] + 1,        # Deletion
+                    matrix[i][j - 1] + 1,        # Insertion
+                    matrix[i - 1][j - 1] + cost  # Substitution
+                )
+
+        distance = matrix[len(word1)][len(word2)] # Bottom right cell
+        msg = f"The Levenshtein distance between '{word1}' and '{word2}' is {distance}"
+        await ctx.send(msg)
