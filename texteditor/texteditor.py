@@ -29,7 +29,7 @@ class TextEditor(commands.Cog):
     """
 
     __author__ = "Kreusada"
-    __version__ = "3.4.0"
+    __version__ = "3.4.1"
 
     def __init__(self, bot):
         self.bot = bot
@@ -218,3 +218,22 @@ class TextEditor(commands.Cog):
     async def editor_bullet(self, ctx: commands.Context, bullet: str, *items: str):
         """Bullet point a selection of items."""
         await send_safe(ctx, "\n".join(f"{bullet} {item}" for item in items))
+
+    @editor.command(name="typoglycemia")
+    async def editor_typoglycemia(self, ctx: commands.Context, *, text: str):
+        """Scrambles all letters except the first and last letters in a word.
+        
+        Aoccdrnig to a rscheearch at Cmabrigde Uinervtisy, it deosn't mttaer in waht oredr the ltteers in a wrod are, the olny iprmoetnt tihng is taht the frist and lsat ltteer be at the rghit pclae. The rset can be a toatl mses and you can sitll raed it wouthit porbelm. Tihs is bcuseae the huamn mnid deos not raed ervey lteter by istlef, but the wrod as a wlohe."""
+        ret = []
+        for word in text.split():
+            if len(word) < 4:
+                ret.append(word)
+                continue
+            while True:
+                middle = list(word[1:-1])
+                random.shuffle(middle)
+                middle = "".join(middle)
+                if middle != word:
+                    break
+            ret.append(word[0] + middle + word[-1])
+        await send_safe(ctx, " ".join(ret))

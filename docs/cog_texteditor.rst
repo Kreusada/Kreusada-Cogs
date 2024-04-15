@@ -12,7 +12,7 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 
 .. note::
 
-    This guide was last updated for version 3.4.0. Ensure
+    This guide was last updated for version 3.4.1. Ensure
     that you are up to date by running ``[p]cog update texteditor``.
 
     If there is something missing, or something that needs improving
@@ -30,54 +30,60 @@ Edit and manipulate with text.
 Commands
 --------
 
-Here are all the commands included in this cog (23):
+Here are all the commands included in this cog (24):
 
 * ``[p]editor``
- Base command for editing text.
+    Base command for editing text.
 * ``[p]editor alternating <text>``
- Convert the text to alternating case.
+    Convert the text to alternating case.
 * ``[p]editor bullet <bullet> [items...]``
- Bullet point a selection of items.
+    Bullet point a selection of items.
 * ``[p]editor camu <text>``
- Jumble text in Cambridge University style.
+    Jumble text in Cambridge University style.
+
+   https://www.mrc-cbu.cam.ac.uk/people/matt.davis/cmabridge/
 * ``[p]editor charcount <text>``
- Count the number of characters appearing in the text.
+    Count the number of characters appearing in the text.
 * ``[p]editor formatnumber <number>``
- Format a number with commas.
+    Format a number with commas.
 * ``[p]editor lower <text>``
- Convert the text to lowercase.
+    Convert the text to lowercase.
 * ``[p]editor multiply <multiplier> <text>``
- Multiply the text.
+    Multiply the text.
 * ``[p]editor occurance <check> <text>``
- Count how many times something appears in the text.
+    Count how many times something appears in the text.
 * ``[p]editor permutate <text>``
- Generate permutations for given combinations of words/digits.
+    Generate permutations for given combinations of words/digits.
 * ``[p]editor remove <remove> <text>``
- Remove something from the text.
+    Remove something from the text.
 * ``[p]editor replace <text_to_replace> <replacement> <text>``
- Replace certain parts of the text.
+    Replace certain parts of the text.
 * ``[p]editor reverse <text>``
- Reverse the text.
+    Reverse the text.
 * ``[p]editor shlex <text>``
- Shlex split a given string.
+    Shlex split a given string.
 * ``[p]editor shuffle <text>``
- Shuffle the word order in the text.
+    Shuffle the word order in the text.
 * ``[p]editor snake <text>``
- Convert all spaces to underscores.
+    Convert all spaces to underscores.
 * ``[p]editor squash <text>``
- Squash all the words into one.
+    Squash all the words into one.
 * ``[p]editor swapcase <text>``
- Swap the casing for text.
+    Swap the casing for text.
 * ``[p]editor title <text>``
- Convert the text to titlecase.
+    Convert the text to titlecase.
 * ``[p]editor trim [trimmer= ] <text>``
- Trim the outskirts of the text.
+    Trim the outskirts of the text.
+* ``[p]editor typoglycemia <text>``
+    Scrambles all letters except the first and last letters in a word.
+
+   Aoccdrnig to a rscheearch at Cmabrigde Uinervtisy, it deosn't mttaer in waht oredr the ltteers in a wrod are, the olny iprmoetnt tihng is taht the frist and lsat ltteer be at the rghit pclae. The rset can be a toatl mses and you can sitll raed it wouthit porbelm. Tihs is bcuseae the huamn mnid deos not raed ervey lteter by istlef, but the wrod as a wlohe.
 * ``[p]editor upper <text>``
- Convert the text to uppercase.
+    Convert the text to uppercase.
 * ``[p]editor wordcount <text>``
- Count the number of words appearing in the text.
+    Count the number of words appearing in the text.
 * ``[p]editor wrap <cut_length> [cut_words=True] <text>``
- Wrap the text.
+    Wrap the text.
 
 ------------
 Installation
