@@ -9,7 +9,7 @@ from typing import Any, Optional
 
 from redbot.core import commands
 from redbot.core.bot import Red
-from redbot.core.commands import BadArgument, ColourConverter, Context
+from redbot.core.commands import BadArgument, ColourConverter, Context, FlagConverter
 
 from redbot.core.utils.chat_formatting import bold, box, text_to_file
 
@@ -20,12 +20,27 @@ DEFAULT_EMBED_TITLE = "Welcome to the embed builder"
 DEFAULT_EMBED_DESCRIPTION = """
 - Use the grey buttons to edit the various components of the embed. Use the red clear button to nullify all of the embed's components.
 - You can add or remove fields with the green and red buttons located just under the grey buttons.
-- Get the embed's Python code using the "Get Python" code. This can be used for debugs or for your own code.
-- Get the embed's JSON via the "Get JSON" button. This can be used to store your embeds for shorthand, or to use elsewhere.
+- Get the embed's Python code using the "Get Python" code. This can be used for debugs or for your own code. Get the embed's JSON via the "Get JSON" button. This can be used to store your embeds for shorthand, or to use elsewhere.
 - There are two buttons which can modify the embed using JSON:
     - **replace** - Replaces all the embed's current JSON data with the uploaded data.
   - **update** - Replaces only the specified keys.
 - Once you're done, you may send the embed to a desired channel using the dropdown.
+- You may also pass options directly through the command, for example: `[p]embedcreate title: My Embed colour: red builder: no`
+- The following options are supported:
+  - **title** - Embed title.
+  - **description** - Embed description.
+  - **colour/color** - A valid colour or hex code.
+  - **url** - A valid URL for the embed's title hyperlink.
+  - **image** - A valid URL for the embed's image.
+  - **thumbnail** - A valid URL for the embed's thumbnail.
+  - **author_name** - The name of the embed's author.
+  - **author_url** - A valid URL for the author's hyperlink. 
+  - **author_icon_url** - A valid URL for the author's icon image.
+  - **footer_name** - Text for the footer.
+  - **footer_icon_url** - A valid URL for the footer's icon image.
+  - **builder** - Whether this help menu appears along with the constructor buttons. Defaults to true.
+  - **source** - An existing message to use its embed. Can be a link or message ID.
+  - **content** - The text sent outside of the message.
 """.strip()
 
 
@@ -366,7 +381,7 @@ class EmbedEditorView(discord.ui.View):
         super().__init__(timeout=180)
         self.embed = discord.Embed(
             title=DEFAULT_EMBED_TITLE,
-            description=DEFAULT_EMBED_DESCRIPTION,
+            description=DEFAULT_EMBED_DESCRIPTION.replace("[p]", ctx.clean_prefix),
             colour=discord.Colour.greyple(),
         )
         self.embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
@@ -573,6 +588,10 @@ class EmbedEditorView(discord.ui.View):
             return await interaction.response.send_message(
                 f"I do not have permissions to post in {channel.mention}.", ephemeral=True
             )
+        if not channel.permissions_for(interaction.user).send_messages:
+            return await interaction.response.send_message(
+                f"You do not have permissions to post in {channel.mention}.", ephemeral=True
+            )
         try:
             await channel.send(
                 embed=self.embed,
@@ -623,11 +642,85 @@ class EmbedEditorView(discord.ui.View):
         return True
 
 
+class EmbedArgsConverter(FlagConverter):
+    title: Optional[str] = commands.flag(name="title", default=None)
+    description: Optional[str] = commands.flag(name="description", default=None)
+    colour: Optional[discord.Colour] = commands.flag(
+        name="colour", aliases=["color"], default=None, converter=ColourConverter
+    )
+    url: Optional[str] = commands.flag(name="url", default=None)
+
+    image: Optional[str] = commands.flag(name="image", default=None)
+    thumbnail: Optional[str] = commands.flag(name="thumbnail", default=None)
+
+    author_name: Optional[str] = commands.flag(name="author_name", default=None)
+    author_url: Optional[str] = commands.flag(name="author_url", default=None)
+    author_icon_url: Optional[str] = commands.flag(name="author_icon_url", default=None)
+
+    footer_text: Optional[str] = commands.flag(name="footer_text", default=None)
+    footer_icon_url: Optional[str] = commands.flag(name="footer_icon_url", default=None)
+
+    content: Optional[str] = commands.flag(name="content", default=None)
+    builder: Optional[str] = commands.flag(name="builder", default=True, converter=bool)
+    source: Optional[discord.Message] = commands.flag(name="source", default=None, converter=commands.MessageConverter)
+
+    embed_settable_attributes: tuple[str] = (
+        "title",
+        "description",
+        "colour",
+        "url",
+    )
+
+    def author_kwargs(self):
+        d = {}
+        for attr in ("name", "url", "icon_url"):
+            if (gattr := getattr(self, f"author_{attr}")) is not None:
+                d[attr] = gattr
+        return d
+    
+    def footer_kwargs(self):
+        d = {}
+        for attr in ("text", "icon_url"):
+            if (gattr := getattr(self, f"footer_{attr}")) is not None:
+                d[attr] = gattr
+        return d
+
+    def to_dict(self):
+        return {
+            "type": "rich",
+            "title": self.title,
+            "description": self.description,
+            "colour": self.colour,
+            "url": self.url,
+            "image": self.image,
+            "thumbnail": self.thumbnail,
+            "author": {
+                "name": self.author_name,
+                "url": self.author_url,
+                "icon_url": self.author_icon_url,
+            },
+            "footer": {
+                "text": self.footer_text,
+                "icon_url": self.footer_icon_url,
+            }
+        }
+
+    async def convert(self, ctx: commands.Context, argument: str):
+        try:
+            return await super().convert(ctx, argument)
+        except commands.BadFlagArgument as e:
+            raise commands.UserFeedbackCheckFailure(f"Invalid value for the {e.flag.attribute!r} option.")
+        except commands.MissingFlagArgument as e:
+            raise commands.UserFeedbackCheckFailure(f"No value provided for the {e.flag.attribute!r} option.")
+        except commands.TooManyFlags as e:
+            raise commands.UserFeedbackCheckFailure(f"Too many values provided for the {e.flag.attribute!r} option.")
+
+
 class EmbedCreator(commands.Cog):
     """Create embeds using buttons, modals and dropdowns!"""
 
     __author__ = "Kreusada"
-    __version__ = "1.0.1"
+    __version__ = "1.1.0"
 
     def __init__(self, bot: Red):
         self.bot = bot
@@ -641,19 +734,54 @@ class EmbedCreator(commands.Cog):
 
     @commands.command(aliases=["ecreate"])
     @commands.mod()
-    async def embedcreate(
-        self, ctx: commands.Context, embed_message: Optional[discord.Message] = None
-    ):
+    async def embedcreate(self, ctx: commands.Context, *, options: EmbedArgsConverter):
         """Create an embed.
 
-        `embed_message` can be the ID or URL to a message that contains an embed.
-        If supplied, the embed creator will use the message's first embed as the opening template.
+        The command will send an interactive menu to construct an embed, unless otherwise specified by the **builder** option described further below.
+
+        The following options are supported:
+        - **title** - Embed title.
+        - **description** - Embed description.
+        - **colour/color** - A valid colour or hex code.
+        - **url** - A valid URL for the embed's title hyperlink.
+        - **image** - A valid URL for the embed's image.
+        - **thumbnail** - A valid URL for the embed's thumbnail.
+        - **author_name** - The name of the embed's author.
+        - **author_url** - A valid URL for the author's hyperlink. 
+        - **author_icon_url** - A valid URL for the author's icon image.
+        - **footer_name** - Text for the footer.
+        - **footer_icon_url** - A valid URL for the footer's icon image.
+        - **builder** - Whether this help menu appears along with the constructor buttons. Defaults to true.
+        - **source** - An existing message to use its embed. Can be a link or message ID.
+        - **content** - The text sent outside of the message.
         """
         view = EmbedEditorView(ctx)
-        embed = (
-            deepcopy(embed_message.embeds[0])
-            if embed_message and embed_message.embeds
-            else view.embed
-        )
-        view.embed = embed
-        view.message = await ctx.send(view=view, embed=embed)
+        if options.source and options.source.embeds:
+            embed = deepcopy(options.source.embeds[0])
+        elif options.builder:
+            embed = view.embed
+        else:
+            embed = discord.Embed()
+        flags = options.get_flags()
+        for name, flag in flags.items():
+            if (gattr := getattr(options, name)) != flag.default and name in options.embed_settable_attributes:
+                setattr(embed, name, gattr)
+
+        if options.image != flags["image"].default:
+            embed.set_image(url=options.image)
+        if options.thumbnail != flags["thumbnail"].default:
+            embed.set_thumbnail(url=options.thumbnail)
+        if (kwargs := options.author_kwargs()):
+            print(kwargs)
+            embed.set_author(**kwargs)
+        if (kwargs := options.footer_kwargs()):
+            embed.set_footer(**kwargs)
+        
+        try:
+            if options.builder:
+                view.embed = embed
+                view.message = await ctx.send(view=view, embed=embed, content=options.content)
+            else:
+                await ctx.send(embed=embed, content=options.content)
+        except discord.HTTPException as exc:
+            await ctx.send(f"An error occurred whilst creating your embed: {box(exc.text, lang='py')}")
