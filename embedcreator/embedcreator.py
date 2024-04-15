@@ -384,7 +384,6 @@ class EmbedEditorView(discord.ui.View):
             description=DEFAULT_EMBED_DESCRIPTION.replace("[p]", ctx.clean_prefix),
             colour=discord.Colour.greyple(),
         )
-        self.embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
         self.content: Optional[str] = None
         self.message: Optional[discord.Message] = None
 
@@ -720,7 +719,7 @@ class EmbedCreator(commands.Cog):
     """Create embeds using buttons, modals and dropdowns!"""
 
     __author__ = "Kreusada"
-    __version__ = "1.1.0"
+    __version__ = "1.1.1"
 
     def __init__(self, bot: Red):
         self.bot = bot
