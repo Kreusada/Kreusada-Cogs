@@ -12,7 +12,7 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 
 .. note::
 
-    This guide was last updated for version 3.4.1. Ensure
+    This guide was last updated for version 3.4.3. Ensure
     that you are up to date by running ``[p]cog update texteditor``.
 
     If there is something missing, or something that needs improving
@@ -30,7 +30,7 @@ Edit and manipulate with text.
 Commands
 --------
 
-Here are all the commands included in this cog (26):
+Here are all the commands included in this cog (25):
 
 * ``[p]editor``
     Base command for editing text.
@@ -38,10 +38,6 @@ Here are all the commands included in this cog (26):
     Convert the text to alternating case.
 * ``[p]editor bullet <bullet> [items...]``
     Bullet point a selection of items.
-* ``[p]editor camu <text>``
-    Jumble text in Cambridge University style.
-
-   https://www.mrc-cbu.cam.ac.uk/people/matt.davis/cmabridge/
 * ``[p]editor charcount <text>``
     Count the number of characters appearing in the text.
 * ``[p]editor formatnumber <number>``

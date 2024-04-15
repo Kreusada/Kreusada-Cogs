@@ -33,7 +33,7 @@ class TextEditor(commands.Cog):
     """
 
     __author__ = "Kreusada"
-    __version__ = "3.4.2"
+    __version__ = "3.4.3"
 
     def __init__(self, bot):
         self.bot = bot
@@ -136,26 +136,6 @@ class TextEditor(commands.Cog):
     async def editor_swapcase(self, ctx: commands.Context, *, text: str):
         """Swap the casing for text."""
         await send_safe(ctx, text.swapcase())
-
-    @editor.command(name="camu")
-    async def editor_camu(self, ctx: commands.Context, *, text: str):
-        """Jumble text in Cambridge University style.
-
-        https://www.mrc-cbu.cam.ac.uk/people/matt.davis/cmabridge/
-        """
-        ret = []
-        for w in text.split():
-            tw = list(w)
-            if len(w) == 1:
-                ret.append(w)
-            elif len(w) == 2:
-                random.shuffle(tw)
-                ret.append(w)
-            else:
-                mid = tw[1:-1]
-                random.shuffle(mid)
-                ret.append(w[0] + "".join(mid) + w[-1])
-        await send_safe(ctx, " ".join(ret))
 
     @editor.command(name="permutate", aliases=["permutations"])
     async def editor_permutate(self, ctx: commands.Context, *, text: str):
