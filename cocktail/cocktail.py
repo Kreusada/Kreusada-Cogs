@@ -65,6 +65,10 @@ class CocktailView(discord.ui.View):
             CocktailFavouriteButton(cog=cog, cocktail=cocktail, favourite=favourite)
         )
 
+    async def interaction_check(self, interaction: discord.Interaction):
+        if interaction.user.id != self.message.author.id:
+            await interaction.response.send_message("Invoke the command yourself to add it to your favourites.", ephemeral=True)
+
 
 class Cocktail(commands.Cog):
     """Get information about different cocktails and their ingredients."""
@@ -75,7 +79,7 @@ class Cocktail(commands.Cog):
         self.config.register_user(favourites=[])
 
     __author__ = "Kreusada"
-    __version__ = "1.0.1"
+    __version__ = "1.0.2"
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
