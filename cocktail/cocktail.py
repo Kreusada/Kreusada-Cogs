@@ -52,6 +52,10 @@ class CocktailFavouriteButton(discord.ui.Button):
         await interaction.response.send_message(message, ephemeral=True)
         await self.view.message.edit(view=self.view, embed=embed)
 
+    async def on_timeout(self):
+        self.disabled = True
+        await self.view.message.edit(view=self.view)
+
 
 class CocktailView(discord.ui.View):
     def __init__(self, *, cog: Cocktail, cocktail: str, favourite: bool):
@@ -71,7 +75,7 @@ class Cocktail(commands.Cog):
         self.config.register_user(favourites=[])
 
     __author__ = "Kreusada"
-    __version__ = "1.0.0"
+    __version__ = "1.0.1"
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
