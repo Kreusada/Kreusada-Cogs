@@ -6,7 +6,7 @@
     "disabled": false,
     "end_user_data_statement": "This cog stores the user's favourite cocktails which may be removed at any time.",
     "hidden": false,
-    "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_cocktail.html",
+    "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_cocktail.html\n\n**IMPORTANT: Please be aware that this cog promotes and showcases alcoholic beverages. Given the nature of the content, it's crucial to consider the age group of [botname]'s users. Ensure that your audience is appropriate for this type of content and that you are compliant with relevant regulations and guidelines regarding the promotion of alcohol.\n\nI strongly recommend that you review the demographic of [botname]’s user base and assess whether this cog is appropriate. Responsible management is key to maintaining a positive and compliant environment for all users. ",
     "name": "Cocktail",
     "required_cogs": {},
     "requirements": [],
