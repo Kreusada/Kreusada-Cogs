@@ -1,0 +1,20 @@
+{
+    "author": [
+        "Kreusada"
+    ],
+    "description": "Get information about different cocktails and their ingredients.",
+    "disabled": false,
+    "end_user_data_statement": "This cog stores the user's favourite cocktails which may be removed at any time.",
+    "hidden": false,
+    "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_cocktail.html",
+    "name": "Cocktail",
+    "required_cogs": {},
+    "requirements": [],
+    "short": "Get information about different cocktails and their ingredients.",
+    "tags": [
+        "Cocktails",
+        "Alcohol",
+        "Drinks"
+    ],
+    "type": "COG"
+}

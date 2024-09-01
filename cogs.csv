@@ -1,6 +1,8 @@
 Cog Name,Description,Tags,Authors
 BlackFormatter,Style your code with the Black formatter,Tools,Kreusada
+Cocktail,Get information about different cocktails and their ingredients.,"Tools, Fun",Kreusada
 CogPaths,Get various paths for a cog.,"Tools, Informative",Kreusada
+Colour,View information about a colour.,"Tools, Informative",Kreusada
 ConsoleClearer,Completely clear your Red console,Tools,Kreusada
 EmbedCreator,"Create embeds using buttons, modals and dropdowns!",Tools,Kreusada
 Flags,Get the flag for a country,Tools,Kreusada

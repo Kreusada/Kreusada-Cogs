@@ -26,7 +26,9 @@ Useful Links
     :maxdepth: 1
 
     cog_blackformatter
+    cog_cocktail
     cog_cogpaths
+    cog_colour
     cog_consoleclearer
     cog_embedcreator
     cog_flags
