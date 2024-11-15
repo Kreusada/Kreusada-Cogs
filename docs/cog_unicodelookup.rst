@@ -1,10 +1,10 @@
-.. _wordbase:
+.. _unicodelookup:
 
-========
-WordBase
-========
+=============
+UnicodeLookup
+=============
 
-This is the cog guide for the 'WordBase' cog. This guide
+This is the cog guide for the 'UnicodeLookup' cog. This guide
 contains the collection of commands which you can use in the cog.
 
 Through this guide, ``[p]`` will always represent your prefix. Replace
@@ -12,8 +12,8 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 
 .. note::
 
-    This guide was last updated for version 1.1.0. Ensure
-    that you are up to date by running ``[p]cog update wordbase``.
+    This guide was last updated for version 1.0.0. Ensure
+    that you are up to date by running ``[p]cog update unicodelookup``.
 
     If there is something missing, or something that needs improving
     in this documentation, feel free to create an issue `here <https://github.com/Kreusada/Kreusada-Cogs/issues>`_.
@@ -24,34 +24,24 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 About this cog
 --------------
 
-Generate rhymes, use a reverse dictionary, and more word related generators.
+Search the unicode library for characters and names. Supports fuzzy searching.
 
 --------
 Commands
 --------
 
-Here are all the commands included in this cog (10):
+Here are all the commands included in this cog (4):
 
-* ``[p]consonants <word>``
- Get consonant matches for a word.
-* ``[p]homophones <word>``
- Get homophones for a word.
-* ``[p]reversedefine <definition>``
- Get a list of words from a definition.
-* ``[p]rhymes <word>``
- Get rhymes for a word.
-* ``[p]triggers <word>``
- Get triggers for a word.
-* ``[p]wordbase``
- Manage WordBase.
-* ``[p]wordbase block <word>``
- Block profanic words from appearing in WordBase commands.
-* ``[p]wordbase blocklist [spoilers=True]``
- See the current blocked words.
-* ``[p]wordbase clrblock``
- Clear the WordBase blocklist.
-* ``[p]wordbase unblock <word>``
- Unblock profanic words to appear in WordBase commands.
+* ``[p]ulookup``
+    Unicode lookup commands.
+* ``[p]ulookup char <name>``
+    Get the unicode character from the name.
+* ``[p]ulookup fuzzy [strength=80] <term>``
+    Get unicode characters from the fuzzy search term.
+
+   Strength must be a number from 50 to 100, used by the fuzzy search algorithm. Defaults to 80 (recommended).
+* ``[p]ulookup name <characters>``
+    Get the unicode names of characters.
 
 ------------
 Installation
@@ -64,18 +54,18 @@ If you haven't added my repo before, lets add it first. We'll call it
 
     [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
-Now, we can install WordBase.
+Now, we can install UnicodeLookup.
 
 .. code-block:: ini
 
-    [p]cog install kreusada-cogs wordbase
+    [p]cog install kreusada-cogs unicodelookup
 
 Once it's installed, it is not loaded by default. Load it by running the following
 command:
 
 .. code-block:: ini
 
-    [p]load wordbase
+    [p]load unicodelookup
 
 ---------------
 Further Support

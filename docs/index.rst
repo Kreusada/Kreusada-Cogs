@@ -32,16 +32,22 @@ Useful Links
     cog_consoleclearer
     cog_embedcreator
     cog_flags
+    cog_messagedeleter
     cog_minifier
     cog_onthisday
     cog_pypi
-    cog_quotes
     cog_qr
+    cog_quotes
+    cog_rhymes
+    cog_riddles
     cog_roleboards
+    cog_sendcards
     cog_termino
     cog_texteditor
+    cog_textfont
     cog_timestamps
-    cog_wordbase
+    cog_tonguetwisters
+    cog_unicodelookup
 
 .. toctree::
     :caption: Repository
