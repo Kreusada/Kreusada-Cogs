@@ -13,7 +13,7 @@ class CogPaths(commands.Cog):
     """Get information about a cog's paths."""
 
     __author__ = "Kreusada"
-    __version__ = "1.1.0"
+    __version__ = "1.2.0"
 
     def __init__(self, bot: Red):
         self.bot = bot
@@ -34,7 +34,7 @@ class CogPaths(commands.Cog):
         if not os.path.exists(cog_data_path):
             cog_data_path = None
             if not isinstance(getattr(cog, "config", None), Config):
-                reason = "This cog does not store any data, or does not use Red's Config API."
+                reason = "This cog does not store any data, does not use the `.config` attribute, or does not use Red's Config API."
             else:
                 reason = "This cog had its data directory removed."
         message = "Cog path: {}\nData path: {}".format(cog_path, cog_data_path or reason)

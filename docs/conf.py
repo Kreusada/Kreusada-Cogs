@@ -1,6 +1,5 @@
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", ".venv", "venv"]
 html_css_files = ["literals.css"]
-extensions = ["sphinx_rtd_theme"]
 templates_path = ["_templates"]
 
 html_context = {
@@ -18,5 +17,5 @@ exclude_patterns = []
 add_function_parentheses = True
 
 project = "Kreusada-Cogs"
-copyright = "2020 - 2023 | Kreusada"
+copyright = "2020 - 2024 | Kreusada"
 html_logo = "image_cog-creators-logo.png"

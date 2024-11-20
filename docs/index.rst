@@ -11,7 +11,7 @@ Kreusada-Cogs
 This documentation is here for the support of my redbot cogs.
 
 Mention me in the #support_kreusada-cogs in the `cog support server <https://discord.gg/GET4DVk>`_ if you need any help.
-You can also visit my `personal server <https://discord.gg/JmCFyq7>`_
+You can also visit my `personal server <https://discord.gg/JmCFyq7>`_.
 
 ============
 Useful Links
@@ -53,7 +53,4 @@ Useful Links
     :caption: Repository
     :maxdepth: 2
 
-    repo_available_cogs_list
     repo_installation
-    repo_license
-    repo_support

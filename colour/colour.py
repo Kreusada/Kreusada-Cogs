@@ -61,7 +61,7 @@ class Colour(commands.Cog):
         """
         async with aiohttp.ClientSession() as session:
             async with session.get(
-                f"https://www.thecolorapi.com/id?hex={str(colour)[1:]}"
+                f"https://www.thecolorapi.com/id?hex={str(colour)[1:]}", ssl=False
             ) as request:
                 data = await request.json()
         if data["name"]["exact_match_name"]:

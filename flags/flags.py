@@ -145,10 +145,10 @@ class Flags(Cog):
 
         **Examples:**
 
-            - ``[p]flag russia``
-            - ``[p]flag brazil``
-            - ``[p]flag dk``
-            - ``[p]flag se``
+        - ``[p]flag russia``
+        - ``[p]flag brazil``
+        - ``[p]flag dk``
+        - ``[p]flag se``
         """
         description = argument.pop("description", None)
         image = argument.pop("image")

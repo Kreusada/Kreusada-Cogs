@@ -52,23 +52,25 @@ class CocktailFavouriteButton(discord.ui.Button):
         await interaction.response.send_message(message, ephemeral=True)
         await self.view.message.edit(view=self.view, embed=embed)
 
-    async def on_timeout(self):
-        self.disabled = True
-        await self.view.message.edit(view=self.view)
-
 
 class CocktailView(discord.ui.View):
-    def __init__(self, *, cog: Cocktail, cocktail: str, favourite: bool):
+    def __init__(self, ctx: commands.Context, cocktail: str, favourite: bool):
         super().__init__()
         self.message: discord.Message
+        self.ctx = ctx
         self.add_item(
-            CocktailFavouriteButton(cog=cog, cocktail=cocktail, favourite=favourite)
+            CocktailFavouriteButton(cog=ctx.cog, cocktail=cocktail, favourite=favourite)
         )
 
-    async def interaction_check(self, interaction: discord.Interaction):
-        if interaction.user.id != self.message.author.id:
-            await interaction.response.send_message("Invoke the command yourself to add it to your favourites.", ephemeral=True)
+    async def on_timeout(self):
+        for children in self.children:
+            children.disabled = True
+        await self.message.edit(view=self.view)
 
+    async def interaction_check(self, interaction: discord.Interaction):
+        if self.ctx.author.id != interaction.user.id:
+            return interaction.response.send_message("Invoke the command yourself to add/remove from favourites!", ephemeral=True)
+        return True
 
 class Cocktail(commands.Cog):
     """Get information about different cocktails and their ingredients."""
@@ -79,7 +81,7 @@ class Cocktail(commands.Cog):
         self.config.register_user(favourites=[])
 
     __author__ = "Kreusada"
-    __version__ = "1.0.2"
+    __version__ = "1.1.0"
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
@@ -144,7 +146,7 @@ class Cocktail(commands.Cog):
             name="Ingredients", value="\n".join(f"- {x}" for x in ingredients)
         )
 
-        view = CocktailView(cog=self, cocktail=drink["strDrink"], favourite=favourite)
+        view = CocktailView(ctx, cocktail=drink["strDrink"], favourite=favourite)
         view.message = await ctx.send(embed=embed, view=view)
 
     @cocktail.command()

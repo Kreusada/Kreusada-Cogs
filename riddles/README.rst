@@ -32,8 +32,9 @@ Commands
 
 Here are all the commands included in this cog (1):
 
-* ``[p]riddle``
-    Get a random riddle.
+Command        Help
+-------------  --------------------
+``[p]riddle``  Get a random riddle.
 
 ------------
 Installation
