@@ -9,12 +9,12 @@ from redbot.core.utils.chat_formatting import bold, warning
 class Quotes(commands.Cog):
     """Get a random quote."""
 
-    __version__ = "1.2.0"
+    __version__ = "1.3.0"
     __author__ = "Kreusada"
 
     def __init__(self, bot: Red):
         self.bot = bot
-        self.api = "http://api.quotable.io/random"
+        self.api = "https://zenquotes.io/api/random"
         self.session = aiohttp.ClientSession()
 
     async def cog_unload(self):
@@ -38,4 +38,4 @@ class Quotes(commands.Cog):
         except ssl.SSLCertVerificationError:
             await ctx.send(warning("Unable to connect to the quotes API."))
             return
-        await ctx.send(f"From **{content['author']}**\n{content['content']}")
+        await ctx.send(f"From **{content['a']}**\n{content['q']}")
