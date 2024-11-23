@@ -9,7 +9,7 @@ from redbot.core.utils.chat_formatting import bold, warning
 class Quotes(commands.Cog):
     """Get a random quote."""
 
-    __version__ = "1.3.0"
+    __version__ = "1.3.1"
     __author__ = "Kreusada"
 
     def __init__(self, bot: Red):
@@ -32,10 +32,6 @@ class Quotes(commands.Cog):
     async def quote(self, ctx: commands.Context):
         """Get a random quote."""
         await ctx.typing()
-        try:
-            async with self.session.get(self.api) as r:
-                content = await r.json()
-        except ssl.SSLCertVerificationError:
-            await ctx.send(warning("Unable to connect to the quotes API."))
-            return
+        async with self.session.get(self.api, ssl=False) as r:
+            content = (await r.json())[0]
         await ctx.send(f"From **{content['a']}**\n{content['q']}")
