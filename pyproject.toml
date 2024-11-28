@@ -33,6 +33,7 @@
         'flags',
         'messagedeleter',
         'minifier',
+        'morsecode',
         'onthisday',
         'pypi',
         'qr',

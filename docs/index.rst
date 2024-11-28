@@ -34,6 +34,7 @@ Useful Links
     cog_flags
     cog_messagedeleter
     cog_minifier
+    cog_morsecode
     cog_onthisday
     cog_pypi
     cog_qr

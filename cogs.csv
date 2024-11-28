@@ -8,6 +8,7 @@ EmbedCreator,"Create embeds using buttons, modals and dropdowns!",Tools,Kreusada
 Flags,Get the flag for a country,Tools,Kreusada
 MessageDeleter,"Delete messages from users and bots, inclusively or exclusively, in text channels.",Tools,Kreusada
 Minifier,Minify your code with python minifier,Tools,Kreusada
+MorseCode,Encode and decode morse code.,Tools,Kreusada
 OnThisDay,"Find out what happened today, in multiple different years in history.",Fun,Kreusada
 PyPi,Get information about a package available on PyPi.,Tools,"Kreusada, OofChair"
 QR,Create QR codes.,Tools,Kreusada
@@ -21,4 +22,3 @@ TextFont,Change the font of text through unicode alternatives.,"Fun, Tools",Kreu
 TongueTwisters,Generate tongue twisters,Fun,Kreusada
 TimeStamps,Produce Discord timestamps.,Tools,Kreusada
 UnicodeLookup,Search the unicode library for characters and names. Supports fuzzy searching.,Tools,Kreusada
-
