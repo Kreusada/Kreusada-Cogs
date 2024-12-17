@@ -117,7 +117,37 @@ TONGUE_TWISTERS = [
     'Unique New York.',
     'You know New York, you need New York, you know you need unique New York.',
     'Three free throws.',
-    'A skunk sat on a stump and thunk the stump stunk, but the stump thunk the skunk stunk.'
+    'A skunk sat on a stump and thunk the stump stunk, but the stump thunk the skunk stunk.',
+    'Bold beavers balance big blue balloons bravely.',
+    'Fluffy ferrets flit through frothy fountains.',
+    'Jumpy jackals juggled jars of juicy jelly.',
+    'Plump parrots picked perfect purple peaches.',
+    'Bright blue buttons blink briskly below.',
+    'Crazy crickets creepily crawled across crisp crackers.',
+    'Shiny silver spoons swiftly slip sideways.',
+    'Wiggly worms wiggle while waiting for wet weather.',
+    'Kooky koalas kite surf kaleidoscopic kites.',
+    'Nervous newts neatly navigate narrow neon nooks.',
+    'Frothy frappes fizz fast on Friday.',
+    'Bouncing brown bears buy buttery biscuits boldly.',
+    'Greedy goats grab giant golden grapes.',
+    'Swift sparrows silently soar through silver skies.',
+    'Pink pigs playfully push prickly pineapples.',
+    'Wobbly walruses wear wacky woolly wigs.',
+    'Jittery jaguars joyfully jump jellybean jungles.',
+    'Frantic frogs frolic fearlessly in foggy forests.',
+    'Soggy socks slithered silently southward.',
+    'Cheerful chipmunks chase chunky chocolate chips.',
+    'Quivering quails quietly quilt quirky quilts.',
+    'Rapid rabbits raced round red ripe raspberries.',
+    'Spunky sparrows speedily sing sweet songs.',
+    'Clumsy clams clatter clumsily carrying clean cans.',
+    'Lazy lizards lounge lovingly on large lilypads.',
+    'Bright butterflies busily buzz by blooming begonias.',
+    'Two tiny turtles tiptoe timidly toward towering trees.',
+    'Salty sailors sing sea shanties in stormy seas.',
+    'Purple platypuses play poker past midnight.',
+    'Velvet violets vividly vibrate in the village.'
 ] # Feel free to PR and submit more!
 
 
@@ -125,7 +155,7 @@ class TongueTwisters(commands.Cog):
     """Generate tongue twisters."""
 
     __author__ = "Kreusada"
-    __version__ = "1.0.0"
+    __version__ = "1.0.1"
 
     def __init__(self, bot: Red):
         self.bot = bot
@@ -137,7 +167,6 @@ class TongueTwisters(commands.Cog):
     async def red_delete_data_for_user(self, **kwargs):
         return
 
-    @commands.is_owner()
     @commands.command()
     async def tonguetwister(self, ctx: commands.Context):
         """Generate a tonguetwister."""
