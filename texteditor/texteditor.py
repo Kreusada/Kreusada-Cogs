@@ -33,7 +33,7 @@ class TextEditor(commands.Cog):
     """
 
     __author__ = "Kreusada"
-    __version__ = "3.4.3"
+    __version__ = "3.4.4"
 
     def __init__(self, bot):
         self.bot = bot
@@ -160,7 +160,7 @@ class TextEditor(commands.Cog):
             message += "\n" + join
             file = None
 
-        await ctx.send(message=message, file=file)
+        await ctx.send(message, file=file)
 
     @editor.command(name="wrap")
     async def editor_wrap(
