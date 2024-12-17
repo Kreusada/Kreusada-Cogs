@@ -1,13 +1,11 @@
-import discord
+from operator import itemgetter
+from typing import Optional
 
+import discord
 from redbot.core import commands
 from redbot.core.bot import Red
 from redbot.core.commands import Context
 from redbot.core.utils.chat_formatting import quote
-
-from operator import itemgetter
-from typing import Optional
-
 
 CARD_TYPES_DATA = [
     {

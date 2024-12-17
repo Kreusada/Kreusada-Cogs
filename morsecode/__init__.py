@@ -1,9 +1,7 @@
 from morse3 import Morse
-
 from redbot.core import commands
 from redbot.core.utils import get_end_user_data_statement
 from redbot.core.utils.chat_formatting import box, pagify
-
 
 __red_end_user_data_statement__ = get_end_user_data_statement(__file__)
 

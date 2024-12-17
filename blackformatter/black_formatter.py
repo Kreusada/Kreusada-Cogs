@@ -1,10 +1,10 @@
 import io
+from typing import Optional
 
 import black
 import discord
 from redbot.core import commands
 from redbot.core.bot import Red
-from typing import Optional
 
 
 class BlackFormatter(commands.Cog):

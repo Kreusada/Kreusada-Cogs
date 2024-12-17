@@ -2,13 +2,7 @@ from redbot.core import commands
 from redbot.core.bot import Red
 from redbot.core.utils.views import SimpleMenu
 
-from .utils import (
-    ValidRoleIndex,
-    ValidUserIndex,
-    format_embed_pages,
-    get_members,
-    get_roles,
-)
+from .utils import ValidRoleIndex, ValidUserIndex, format_embed_pages, get_members, get_roles
 
 roleboard_perms = commands.bot_has_permissions(embed_links=True, add_reactions=True)
 

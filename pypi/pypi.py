@@ -133,7 +133,6 @@ class PyPi(commands.Cog):
         filtered_links = {}
 
         if project_urls:
-
             filtered_links = dict(
                 filter(lambda x: URL_RE.match(x[1]), list(info["project_urls"].items()))
             )
@@ -157,7 +156,8 @@ class PyPi(commands.Cog):
                 embed.add_field(
                     name="Development Installation",
                     value=box(
-                        f"pip install -U git+{link}@{default_branch}#egg={info['name']}", lang="fix"
+                        f"pip install -U git+{link}@{default_branch}#egg={info['name']}",
+                        lang="fix",
                     ),
                     inline=False,
                 )

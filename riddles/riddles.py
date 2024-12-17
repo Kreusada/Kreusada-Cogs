@@ -3,7 +3,6 @@ import random
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import spoiler
 
-
 RIDDLES = [
     {"riddle": "What has keys but can't open locks?", "answer": "A piano"},
     {"riddle": "What runs but never walks, has a mouth but never talks?", "answer": "A river"},

@@ -1,8 +1,8 @@
-import discord
 import math
-
-from discord.ui import Button, View
 from typing import Dict
+
+import discord
+from discord.ui import Button, View
 
 
 class JumpUrlView(View):

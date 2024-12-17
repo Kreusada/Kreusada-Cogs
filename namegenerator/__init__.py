@@ -1,11 +1,12 @@
-import mimesis
-import random
 import contextlib
+import random
+
 import discord
+import mimesis
+from mimesis.enums import Gender
 from redbot.core import commands
 from redbot.core.bot import Red
 from redbot.core.utils import get_end_user_data_statement
-from mimesis.enums import Gender
 
 __red_end_user_data_statement__ = get_end_user_data_statement(__file__)
 

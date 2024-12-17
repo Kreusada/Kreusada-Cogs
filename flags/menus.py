@@ -1,6 +1,7 @@
-from typing import Any, Optional
-import discord
 import unicodedata
+from typing import Any, Optional
+
+import discord
 from discord.interactions import Interaction
 from redbot.core.commands import Context
 

@@ -1,11 +1,10 @@
-import rapidfuzz
 import unicodedata
 
+import rapidfuzz
 from redbot.core import commands
 from redbot.core.utils import get_end_user_data_statement
-from redbot.core.utils.chat_formatting import inline
+from redbot.core.utils.chat_formatting import inline, pagify
 from redbot.core.utils.views import SimpleMenu
-from redbot.core.utils.chat_formatting import pagify
 
 __red_end_user_data_statement__ = get_end_user_data_statement(__file__)
 
