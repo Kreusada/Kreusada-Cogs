@@ -1,8 +1,7 @@
 import random
 
+import discord
 from redbot.core import commands
-from redbot.core.utils.chat_formatting import spoiler
-
 
 RIDDLES = [
     {"riddle": "What has keys but can't open locks?", "answer": "A piano"},
@@ -173,10 +172,23 @@ RIDDLES = [
 ]
 
 
+class ViewAnswer(discord.ui.View):
+    def __init__(self, answer: str) -> None:
+        super().__init__(timeout=300)
+        self.answer = answer
+
+    @discord.ui.button(emoji="\N{BRAIN}", label="View Answer", style=discord.ButtonStyle.secondary)
+    async def _view_answer(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if interaction.response.is_done():
+            await interaction.followup.send(f"{self.answer}", ephemeral=True)
+        else:
+            await interaction.response.send_message(f"{self.answer}", ephemeral=True)
+
+
 class Riddles(commands.Cog):
     """Get a random riddle."""
 
-    __version__ = "1.0.0"
+    __version__ = "1.0.1"
     __author__ = "Kreusada"
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
@@ -192,5 +204,6 @@ class Riddles(commands.Cog):
         """Get a random riddle."""
         choice = random.choice(RIDDLES)
         await ctx.send(
-            f"\N{BLACK QUESTION MARK ORNAMENT}\N{VARIATION SELECTOR-16} {choice['riddle']}\n\N{BRAIN} {spoiler(choice['answer'] + '.')}"
+            f"\N{BLACK QUESTION MARK ORNAMENT}\N{VARIATION SELECTOR-16} {choice['riddle']}",
+            view=ViewAnswer(choice["answer"]),
         )
