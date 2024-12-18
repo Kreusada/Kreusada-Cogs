@@ -1,7 +1,7 @@
-from .qr import QR
-
 from redbot.core.bot import Red
 from redbot.core.utils import get_end_user_data_statement
+
+from .qr import QR
 
 __red_end_user_data_statement__ = get_end_user_data_statement(__file__)
 

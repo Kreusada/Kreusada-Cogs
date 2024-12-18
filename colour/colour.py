@@ -1,11 +1,11 @@
-import aiohttp
-import discord
 import io
 import re
 
+import aiohttp
+import discord
+from PIL import Image, ImageDraw, ImageFont
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import bold, inline
-from PIL import Image, ImageDraw, ImageFont
 
 HEX_CODE_RE = re.compile(r"#?[0-9a-fA-F]{6}\b")
 
@@ -68,7 +68,9 @@ class Colour(commands.Cog):
             description = f"The provided colour is referred to as {bold(data['name']['value'])}.\n"
             description += "This is an *exact* name match."
         else:
-            description = f"The provided colour may be referred to as {bold(data['name']['value'])}.\n"
+            description = (
+                f"The provided colour may be referred to as {bold(data['name']['value'])}.\n"
+            )
             description += "This is not an *exact* name match, but is very similar to "
             description += (
                 inline(data["name"]["closest_named_hex"])

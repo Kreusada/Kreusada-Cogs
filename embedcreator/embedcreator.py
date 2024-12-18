@@ -1,16 +1,15 @@
 from __future__ import annotations
 
-import discord
 import contextlib
 import json
 from copy import deepcopy
-from discord import Embed
 from typing import Any, Optional
 
+import discord
+from discord import Embed
 from redbot.core import commands
 from redbot.core.bot import Red
 from redbot.core.commands import BadArgument, ColourConverter, Context, FlagConverter
-
 from redbot.core.utils.chat_formatting import bold, box, text_to_file
 
 JSON_EMOJI = discord.PartialEmoji(name="json", animated=False, id=1110250547254141049)
@@ -661,7 +660,9 @@ class EmbedArgsConverter(FlagConverter):
 
     content: Optional[str] = commands.flag(name="content", default=None)
     builder: Optional[str] = commands.flag(name="builder", default=True, converter=bool)
-    source: Optional[discord.Message] = commands.flag(name="source", default=None, converter=commands.MessageConverter)
+    source: Optional[discord.Message] = commands.flag(
+        name="source", default=None, converter=commands.MessageConverter
+    )
 
     embed_settable_attributes: tuple[str] = (
         "title",
@@ -676,7 +677,7 @@ class EmbedArgsConverter(FlagConverter):
             if (gattr := getattr(self, f"author_{attr}")) is not None:
                 d[attr] = gattr
         return d
-    
+
     def footer_kwargs(self):
         d = {}
         for attr in ("text", "icon_url"):
@@ -701,18 +702,24 @@ class EmbedArgsConverter(FlagConverter):
             "footer": {
                 "text": self.footer_text,
                 "icon_url": self.footer_icon_url,
-            }
+            },
         }
 
     async def convert(self, ctx: commands.Context, argument: str):
         try:
             return await super().convert(ctx, argument)
         except commands.BadFlagArgument as e:
-            raise commands.UserFeedbackCheckFailure(f"Invalid value for the {e.flag.attribute!r} option.")
+            raise commands.UserFeedbackCheckFailure(
+                f"Invalid value for the {e.flag.attribute!r} option."
+            )
         except commands.MissingFlagArgument as e:
-            raise commands.UserFeedbackCheckFailure(f"No value provided for the {e.flag.attribute!r} option.")
+            raise commands.UserFeedbackCheckFailure(
+                f"No value provided for the {e.flag.attribute!r} option."
+            )
         except commands.TooManyFlags as e:
-            raise commands.UserFeedbackCheckFailure(f"Too many values provided for the {e.flag.attribute!r} option.")
+            raise commands.UserFeedbackCheckFailure(
+                f"Too many values provided for the {e.flag.attribute!r} option."
+            )
 
 
 class EmbedCreator(commands.Cog):
@@ -746,7 +753,7 @@ class EmbedCreator(commands.Cog):
         - **image** - A valid URL for the embed's image.
         - **thumbnail** - A valid URL for the embed's thumbnail.
         - **author_name** - The name of the embed's author.
-        - **author_url** - A valid URL for the author's hyperlink. 
+        - **author_url** - A valid URL for the author's hyperlink.
         - **author_icon_url** - A valid URL for the author's icon image.
         - **footer_name** - Text for the footer.
         - **footer_icon_url** - A valid URL for the footer's icon image.
@@ -763,19 +770,21 @@ class EmbedCreator(commands.Cog):
             embed = discord.Embed()
         flags = options.get_flags()
         for name, flag in flags.items():
-            if (gattr := getattr(options, name)) != flag.default and name in options.embed_settable_attributes:
+            if (
+                gattr := getattr(options, name)
+            ) != flag.default and name in options.embed_settable_attributes:
                 setattr(embed, name, gattr)
 
         if options.image != flags["image"].default:
             embed.set_image(url=options.image)
         if options.thumbnail != flags["thumbnail"].default:
             embed.set_thumbnail(url=options.thumbnail)
-        if (kwargs := options.author_kwargs()):
+        if kwargs := options.author_kwargs():
             print(kwargs)
             embed.set_author(**kwargs)
-        if (kwargs := options.footer_kwargs()):
+        if kwargs := options.footer_kwargs():
             embed.set_footer(**kwargs)
-        
+
         try:
             if options.builder:
                 view.embed = embed
@@ -783,4 +792,6 @@ class EmbedCreator(commands.Cog):
             else:
                 await ctx.send(embed=embed, content=options.content)
         except discord.HTTPException as exc:
-            await ctx.send(f"An error occurred whilst creating your embed: {box(exc.text, lang='py')}")
+            await ctx.send(
+                f"An error occurred whilst creating your embed: {box(exc.text, lang='py')}"
+            )

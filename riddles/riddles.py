@@ -2,6 +2,7 @@ import random
 
 import discord
 from redbot.core import commands
+from redbot.core.utils.chat_formatting import spoiler
 
 RIDDLES = [
     {"riddle": "What has keys but can't open locks?", "answer": "A piano"},

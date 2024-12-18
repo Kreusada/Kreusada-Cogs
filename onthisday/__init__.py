@@ -3,16 +3,17 @@
 import asyncio
 import datetime
 import re
+from random import choice
+from typing import Dict, Iterable, Optional, Union
+
 import aiohttp
 import dateparser
 import discord
-from random import choice
 from redbot.core import commands
 from redbot.core.bot import Red
 from redbot.core.commands import BadArgument, Context, Converter
 from redbot.core.utils import get_end_user_data_statement
 from redbot.core.utils.chat_formatting import inline, warning
-from typing import Dict, Iterable, Optional, Union
 
 __red_end_user_data_statement__ = get_end_user_data_statement(__file__)
 

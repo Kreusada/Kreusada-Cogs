@@ -1,8 +1,8 @@
-import discord
+from typing import Literal, Optional
 
+import discord
 from redbot.core import Config, commands
 from redbot.core.bot import Red
-from typing import Literal, Optional
 
 ENABLE_CONFIRMATION_MESSAGE = (
     "Successfully *enabled* deletion of {type} messages in {channel.mention}. "

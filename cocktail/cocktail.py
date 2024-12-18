@@ -30,9 +30,7 @@ class CocktailFavouriteButton(discord.ui.Button):
             self.style = discord.ButtonStyle.green
             self.label = "Favourite"
             message = "Cocktail removed from favourites."
-            async with self.cog.config.user(
-                interaction.user
-            ).favourites() as favourites:
+            async with self.cog.config.user(interaction.user).favourites() as favourites:
                 favourites.remove(self.cocktail)
             embed = self.view.message.embeds[0]
             embed.remove_author()
@@ -40,14 +38,10 @@ class CocktailFavouriteButton(discord.ui.Button):
             self.style = discord.ButtonStyle.red
             self.label = "Unfavourite"
             message = f"Cocktail added to favourites."
-            async with self.cog.config.user(
-                interaction.user
-            ).favourites() as favourites:
+            async with self.cog.config.user(interaction.user).favourites() as favourites:
                 favourites.append(self.cocktail)
             embed = self.view.message.embeds[0]
-            embed.set_author(
-                name="This cocktail is in your favourites!", icon_url=FAVOURITE_ICON
-            )
+            embed.set_author(name="This cocktail is in your favourites!", icon_url=FAVOURITE_ICON)
         self.favourite = not self.favourite
         await interaction.response.send_message(message, ephemeral=True)
         await self.view.message.edit(view=self.view, embed=embed)
@@ -61,13 +55,13 @@ class CocktailView(discord.ui.View):
     def __init__(self, *, cog: Cocktail, cocktail: str, favourite: bool):
         super().__init__()
         self.message: discord.Message
-        self.add_item(
-            CocktailFavouriteButton(cog=cog, cocktail=cocktail, favourite=favourite)
-        )
+        self.add_item(CocktailFavouriteButton(cog=cog, cocktail=cocktail, favourite=favourite))
 
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user.id != self.message.author.id:
-            await interaction.response.send_message("Invoke the command yourself to add it to your favourites.", ephemeral=True)
+            await interaction.response.send_message(
+                "Invoke the command yourself to add it to your favourites.", ephemeral=True
+            )
 
 
 class Cocktail(commands.Cog):
@@ -140,9 +134,7 @@ class Cocktail(commands.Cog):
             else:
                 string = f"{ingredient} ({measure.rstrip()})"
             ingredients.append(string)
-        embed.add_field(
-            name="Ingredients", value="\n".join(f"- {x}" for x in ingredients)
-        )
+        embed.add_field(name="Ingredients", value="\n".join(f"- {x}" for x in ingredients))
 
         view = CocktailView(cog=self, cocktail=drink["strDrink"], favourite=favourite)
         view.message = await ctx.send(embed=embed, view=view)

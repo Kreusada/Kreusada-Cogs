@@ -206,8 +206,9 @@ class TextEditor(commands.Cog):
     @editor.command(name="typoglycemia")
     async def editor_typoglycemia(self, ctx: commands.Context, *, text: str):
         """Scrambles all letters except the first and last letters in a word.
-        
-        Aoccdrnig to a rscheearch at Cmabrigde Uinervtisy, it deosn't mttaer in waht oredr the ltteers in a wrod are, the olny iprmoetnt tihng is taht the frist and lsat ltteer be at the rghit pclae. The rset can be a toatl mses and you can sitll raed it wouthit porbelm. Tihs is bcuseae the huamn mnid deos not raed ervey lteter by istlef, but the wrod as a wlohe."""
+
+        Aoccdrnig to a rscheearch at Cmabrigde Uinervtisy, it deosn't mttaer in waht oredr the ltteers in a wrod are, the olny iprmoetnt tihng is taht the frist and lsat ltteer be at the rghit pclae. The rset can be a toatl mses and you can sitll raed it wouthit porbelm. Tihs is bcuseae the huamn mnid deos not raed ervey lteter by istlef, but the wrod as a wlohe.
+        """
         ret = []
         for word in strip_punctuation(text).split():
             if len(word) < 4:
@@ -221,7 +222,7 @@ class TextEditor(commands.Cog):
                     break
             ret.append(word[0] + middle + word[-1])
         await send_safe(ctx, " ".join(ret))
-    
+
     @editor.command(name="palindrome")
     async def editor_palindrome(self, ctx: commands.Context, *, text: str):
         """Checks for any palindromes within the text."""
@@ -253,11 +254,11 @@ class TextEditor(commands.Cog):
             for j in range(1, len(word2) + 1):
                 cost = 0 if word1[i - 1] == word2[j - 1] else 1
                 matrix[i][j] = min(
-                    matrix[i - 1][j] + 1,        # Deletion
-                    matrix[i][j - 1] + 1,        # Insertion
-                    matrix[i - 1][j - 1] + cost  # Substitution
+                    matrix[i - 1][j] + 1,  # Deletion
+                    matrix[i][j - 1] + 1,  # Insertion
+                    matrix[i - 1][j - 1] + cost,  # Substitution
                 )
 
-        distance = matrix[len(word1)][len(word2)] # Bottom right cell
+        distance = matrix[len(word1)][len(word2)]  # Bottom right cell
         msg = f"The Levenshtein distance between '{word1}' and '{word2}' is {distance}"
         await ctx.send(msg)
