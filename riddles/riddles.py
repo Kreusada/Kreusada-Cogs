@@ -2,7 +2,6 @@ import random
 
 import discord
 from redbot.core import commands
-from redbot.core.utils.chat_formatting import spoiler
 
 RIDDLES = [
     {"riddle": "What has keys but can't open locks?", "answer": "A piano"},
@@ -190,11 +189,11 @@ class Riddles(commands.Cog):
     """Get a random riddle."""
 
     __version__ = "1.0.1"
-    __author__ = "Kreusada"
+    __author__ = "Kreusada, MeatyChunks"
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
-        return f"{context}\n\nAuthor: {self.__author__}\nVersion: {self.__version__}"
+        return f"{context}\n\nAuthors: {self.__author__}\nVersion: {self.__version__}"
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete."""
