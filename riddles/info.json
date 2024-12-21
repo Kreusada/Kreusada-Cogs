@@ -1,6 +1,7 @@
 {
     "author": [
-        "Kreusada"
+        "Kreusada",
+        "MeatyChunks"
     ],
     "description": "Get a random riddle.",
     "disabled": false,
