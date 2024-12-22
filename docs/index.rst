@@ -30,13 +30,18 @@ Useful Links
     cog_cogpaths
     cog_colour
     cog_consoleclearer
+    cog_counting
     cog_embedcreator
     cog_flags
+    cog_gallery
+    cog_lock
+    cog_mentionable
     cog_messagedeleter
     cog_minifier
     cog_morsecode
     cog_namegenerator
     cog_onthisday
+    cog_pick
     cog_pypi
     cog_qr
     cog_quotes
@@ -50,6 +55,7 @@ Useful Links
     cog_timestamps
     cog_tonguetwisters
     cog_unicodelookup
+    cog_vinfo
 
 .. toctree::
     :caption: Repository

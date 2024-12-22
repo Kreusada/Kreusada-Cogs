@@ -1,0 +1,9 @@
+{
+    "author" : ["saurichable", "bobloy", "Kreusada"],
+    "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_mentionable.html",
+    "name" : "Mentionable",
+    "short" : "Makes unmentionable roles mentionable.",
+    "description" : "Very simple way to make unmentionable roles mentionable.",
+    "tags" : ["mentionable"],
+    "end_user_data_statement": "This cog does not store any user data."
+}

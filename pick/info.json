@@ -1,0 +1,9 @@
+{
+    "author" : ["Kreusada", "saurichable", "AAA3A"],
+    "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_pick.html",
+    "name" : "Pick",
+    "short" : "Pick a random member.",
+    "description" : "Pick a random member.",
+    "tags" : ["pick", "random", "member", "nestedcommands"],
+    "end_user_data_statement": "This cog does not store any user data."
+}
