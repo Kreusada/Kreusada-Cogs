@@ -17,7 +17,7 @@ class Gallery(commands.Cog):
     Set channels as galleries, deleting all messages that don't contain any attachments.
     """
 
-    __version__ = "2.0.0"
+    __version__ = "2.0.1"
     __author__ = "saurichable, Kreusada"
 
     def __init__(self, bot: Red):
@@ -95,7 +95,7 @@ class Gallery(commands.Cog):
         role = "None" if not role else role.name
 
         embed = discord.Embed(colour=await ctx.embed_colour(), timestamp=datetime.datetime.now())
-        embed.set_author(name=ctx.guild.name, icon_url=ctx.guild.icon_url)
+        embed.set_author(name=ctx.guild.name, icon_url=ctx.guild.icon.url if ctx.guild.icon else None)
         embed.title = "**__Unique Name settings:__**"
         embed.set_footer(text="*required to function properly")
 
