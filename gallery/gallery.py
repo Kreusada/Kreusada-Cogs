@@ -16,7 +16,7 @@ class Gallery(commands.Cog):
     Set channels as galleries, deleting all messages that don't contain any attachments.
     """
 
-    __version__ = "2.0.2"
+    __version__ = "2.0.3"
     __author__ = "saurichable, Kreusada"
 
     def __init__(self, bot: Red):
@@ -38,25 +38,51 @@ class Gallery(commands.Cog):
     async def galleryset(self, ctx: commands.Context):
         """Various Gallery settings."""
 
-    @galleryset.command(name="add")
-    async def galleryset_add(self, ctx: commands.Context, channel: discord.TextChannel):
-        """Add a channel to the list of Gallery channels."""
-        if channel.id not in await self.config.guild(ctx.guild).channels():
-            async with self.config.guild(ctx.guild).channels() as channels:
-                channels.append(channel.id)
-            await ctx.send(f"{channel.mention} has been added into the Gallery channels list.")
-        else:
-            await ctx.send(f"{channel.mention} is already in the Gallery channels list.")
+    @galleryset.command(name="add", usage="<channels...>")
+    async def galleryset_add(self, ctx: commands.Context, *channels: discord.TextChannel):
+        """Add channels to the list of Gallery channels."""
+        if not channels:
+            await ctx.send_help()
+            return
 
-    @galleryset.command(name="remove")
-    async def galleryset_remove(self, ctx: commands.Context, channel: discord.TextChannel):
-        """Remove a channel from the list of Gallery channels."""
-        if channel.id in await self.config.guild(ctx.guild).channels():
-            async with self.config.guild(ctx.guild).channels() as channels:
-                channels.remove(channel.id)
-            await ctx.send(f"{channel.mention} has been removed from the Gallery channels list.")
-        else:
-            await ctx.send(f"{channel.mention} isn't in the Gallery channels list.")
+        added_channels = []
+        already_in_list = []
+
+        async with self.config.guild(ctx.guild).channels() as channel_list:
+            for channel in channels:
+                if channel.id not in channel_list:
+                    channel_list.append(channel.id)
+                    added_channels.append(channel.mention)
+                else:
+                    already_in_list.append(channel.mention)
+
+        if added_channels:
+            await ctx.send(f"{', '.join(added_channels)} added to the Gallery channels list.")
+        if already_in_list:
+            await ctx.send(f"{', '.join(already_in_list)} already in the Gallery channels list.")
+
+    @galleryset.command(name="remove", usage="<channels...>")
+    async def galleryset_remove(self, ctx: commands.Context, *channels: discord.TextChannel):
+        """Remove channels from the list of Gallery channels."""
+        if not channels:
+            await ctx.send_help()
+            return
+
+        removed_channels = []
+        not_in_list = []
+
+        async with self.config.guild(ctx.guild).channels() as channel_list:
+            for channel in channels:
+                if channel.id in channel_list:
+                    channel_list.remove(channel.id)
+                    removed_channels.append(channel.mention)
+                else:
+                    not_in_list.append(channel.mention)
+
+        if removed_channels:
+            await ctx.send(f"{', '.join(removed_channels)} removed from the Gallery channels list.")
+        if not_in_list:
+            await ctx.send(f"{', '.join(not_in_list)} not in the Gallery channels list.")
 
     @galleryset.command(name="role")
     async def galleryset_role(self, ctx: commands.Context, *roles: discord.Role):
@@ -109,15 +135,18 @@ class Gallery(commands.Cog):
         embed.title = "**__Gallery Settings:__**"
         embed.set_footer(text="*required to function properly")
 
-        embed.add_field(name="Gallery channels*:", value=channels)
-        embed.add_field(name="Whitelisted roles:", value=whitelist_roles)
-        embed.add_field(name="Wait time:", value=str(data["time"]))
+        embed.add_field(name="Gallery channels*", value=channels)
+        embed.add_field(name="Whitelisted roles", value=whitelist_roles)
+        embed.add_field(name="Wait time", value=str(data["time"]))
 
         await ctx.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
         if not message.guild:
+            return
+
+        if message.author.bot:
             return
 
         if message.channel.id not in await self.config.guild(message.guild).channels():
