@@ -120,7 +120,7 @@ class Gallery(commands.Cog):
         await self.config.guild(ctx.guild).time.set(time)
         await ctx.send(f"I will wait {time} seconds before deleting messages that are not images.")
 
-    @galleryset.command(name="settings")
+    @galleryset.command(name="settings", aliases=["showsettings", "setting", "show"])
     async def galleryset_settings(self, ctx: commands.Context):
         """See current settings."""
         data = await self.config.guild(ctx.guild).all()
