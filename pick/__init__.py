@@ -12,7 +12,7 @@ __red_end_user_data_statement__ = get_end_user_data_statement(__file__)
 class Pick(commands.Cog):
     """Pick a random member."""
 
-    __version__ = "1.0.0"
+    __version__ = "1.0.1"
     __author__ = "Kreusada, saurichable, AAA3A"
 
     async def red_delete_data_for_user(self, **kwargs):
@@ -28,6 +28,8 @@ class Pick(commands.Cog):
     async def pick(self, ctx: commands.Context, *, role: Optional[discord.Role] = None):
         """Pick a random member. You may supply a role to pick from."""
         role = role or ctx.guild.default_role
+        if not role.members:
+            return await ctx.send("That role has no members to pick from.")
         winner = random.choice(role.members)
         embed = discord.Embed(
             description=f"- Mention: {winner.mention} ({inline(winner.mention)})\n- ID: {winner.id}",
@@ -49,6 +51,8 @@ class Pick(commands.Cog):
         This can be integrated with [nestedcommands by tmerc](https://github.com/tmercswims/tmerc-cogs)
         Example of usage: `[p]say Congratulations <@$(pick True)>! You won!`
         """
+        if not role.members:
+            return await ctx.send("That role has no members to pick from.")
         await ctx.send(str(random.choice((role or ctx.guild.default_role).members).id))
 
 
