@@ -56,10 +56,14 @@ class Gallery(commands.Cog):
                 else:
                     already_in_list.append(channel.mention)
 
+        response = []
         if added_channels:
-            await ctx.send(f"{', '.join(added_channels)} added to the Gallery channels list.")
+            response.append(f"{', '.join(added_channels)} added to the Gallery channels list.")
         if already_in_list:
-            await ctx.send(f"{', '.join(already_in_list)} already in the Gallery channels list.")
+            response.append(f"{', '.join(already_in_list)} already in the Gallery channels list.")
+
+        if response:
+            await ctx.send("\n".join(response))
 
     @galleryset.command(name="remove", usage="<channels...>")
     async def galleryset_remove(self, ctx: commands.Context, *channels: discord.TextChannel):
@@ -79,10 +83,14 @@ class Gallery(commands.Cog):
                 else:
                     not_in_list.append(channel.mention)
 
+        response = []
         if removed_channels:
-            await ctx.send(f"{', '.join(removed_channels)} removed from the Gallery channels list.")
+            response.append(f"{', '.join(removed_channels)} removed from the Gallery channels list.")
         if not_in_list:
-            await ctx.send(f"{', '.join(not_in_list)} not in the Gallery channels list.")
+            response.append(f"{', '.join(not_in_list)} not in the Gallery channels list.")
+
+        if response:
+            await ctx.send("\n".join(response))
 
     @galleryset.command(name="role")
     async def galleryset_role(self, ctx: commands.Context, *roles: discord.Role):
@@ -100,10 +108,10 @@ class Gallery(commands.Cog):
             for role in roles:
                 if role.id in whitelisted_roles:
                     whitelisted_roles.remove(role.id)
-                    removed_roles.append(role.name)
+                    removed_roles.append(f"<@&{role.id}>")
                 else:
                     whitelisted_roles.append(role.id)
-                    added_roles.append(role.name)
+                    added_roles.append(f"<@&{role.id}>")
 
         response = []
         if added_roles:
@@ -132,7 +140,7 @@ class Gallery(commands.Cog):
 
         embed = discord.Embed(colour=await ctx.embed_colour(), timestamp=datetime.datetime.now())
         embed.set_author(name=ctx.guild.name, icon_url=ctx.guild.icon)
-        embed.title = "**__Gallery Settings:__**"
+        embed.title = "**__Gallery Settings__**"
         embed.set_footer(text="*required to function properly")
 
         embed.add_field(name="Gallery channels*", value=channels)
@@ -154,7 +162,7 @@ class Gallery(commands.Cog):
 
         if not message.attachments:
             uris = re.findall(
-                r"http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+",
+                r"http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+",
                 message.content,
             )
             if len(uris) == 1:
