@@ -16,7 +16,7 @@ class Gallery(commands.Cog):
     Set channels as galleries, deleting all messages that don't contain any attachments.
     """
 
-    __version__ = "2.0.2"
+    __version__ = "2.0.3"
     __author__ = "saurichable, Kreusada"
 
     def __init__(self, bot: Red):
@@ -38,25 +38,59 @@ class Gallery(commands.Cog):
     async def galleryset(self, ctx: commands.Context):
         """Various Gallery settings."""
 
-    @galleryset.command(name="add")
-    async def galleryset_add(self, ctx: commands.Context, channel: discord.TextChannel):
-        """Add a channel to the list of Gallery channels."""
-        if channel.id not in await self.config.guild(ctx.guild).channels():
-            async with self.config.guild(ctx.guild).channels() as channels:
-                channels.append(channel.id)
-            await ctx.send(f"{channel.mention} has been added into the Gallery channels list.")
-        else:
-            await ctx.send(f"{channel.mention} is already in the Gallery channels list.")
+    @galleryset.command(name="add", usage="<channels...>")
+    async def galleryset_add(self, ctx: commands.Context, *channels: discord.TextChannel):
+        """Add channels to the list of Gallery channels."""
+        if not channels:
+            await ctx.send_help()
+            return
 
-    @galleryset.command(name="remove")
-    async def galleryset_remove(self, ctx: commands.Context, channel: discord.TextChannel):
-        """Remove a channel from the list of Gallery channels."""
-        if channel.id in await self.config.guild(ctx.guild).channels():
-            async with self.config.guild(ctx.guild).channels() as channels:
-                channels.remove(channel.id)
-            await ctx.send(f"{channel.mention} has been removed from the Gallery channels list.")
-        else:
-            await ctx.send(f"{channel.mention} isn't in the Gallery channels list.")
+        added_channels = []
+        already_in_list = []
+
+        async with self.config.guild(ctx.guild).channels() as channel_list:
+            for channel in channels:
+                if channel.id not in channel_list:
+                    channel_list.append(channel.id)
+                    added_channels.append(channel.mention)
+                else:
+                    already_in_list.append(channel.mention)
+
+        response = []
+        if added_channels:
+            response.append(f"{', '.join(added_channels)} added to the Gallery channels list.")
+        if already_in_list:
+            response.append(f"{', '.join(already_in_list)} already in the Gallery channels list.")
+
+        if response:
+            await ctx.send("\n".join(response))
+
+    @galleryset.command(name="remove", usage="<channels...>")
+    async def galleryset_remove(self, ctx: commands.Context, *channels: discord.TextChannel):
+        """Remove channels from the list of Gallery channels."""
+        if not channels:
+            await ctx.send_help()
+            return
+
+        removed_channels = []
+        not_in_list = []
+
+        async with self.config.guild(ctx.guild).channels() as channel_list:
+            for channel in channels:
+                if channel.id in channel_list:
+                    channel_list.remove(channel.id)
+                    removed_channels.append(channel.mention)
+                else:
+                    not_in_list.append(channel.mention)
+
+        response = []
+        if removed_channels:
+            response.append(f"{', '.join(removed_channels)} removed from the Gallery channels list.")
+        if not_in_list:
+            response.append(f"{', '.join(not_in_list)} not in the Gallery channels list.")
+
+        if response:
+            await ctx.send("\n".join(response))
 
     @galleryset.command(name="role")
     async def galleryset_role(self, ctx: commands.Context, *roles: discord.Role):
@@ -74,10 +108,10 @@ class Gallery(commands.Cog):
             for role in roles:
                 if role.id in whitelisted_roles:
                     whitelisted_roles.remove(role.id)
-                    removed_roles.append(role.name)
+                    removed_roles.append(f"<@&{role.id}>")
                 else:
                     whitelisted_roles.append(role.id)
-                    added_roles.append(role.name)
+                    added_roles.append(f"<@&{role.id}>")
 
         response = []
         if added_roles:
@@ -94,7 +128,7 @@ class Gallery(commands.Cog):
         await self.config.guild(ctx.guild).time.set(time)
         await ctx.send(f"I will wait {time} seconds before deleting messages that are not images.")
 
-    @galleryset.command(name="settings")
+    @galleryset.command(name="settings", aliases=["showsettings", "setting", "show"])
     async def galleryset_settings(self, ctx: commands.Context):
         """See current settings."""
         data = await self.config.guild(ctx.guild).all()
@@ -106,12 +140,12 @@ class Gallery(commands.Cog):
 
         embed = discord.Embed(colour=await ctx.embed_colour(), timestamp=datetime.datetime.now())
         embed.set_author(name=ctx.guild.name, icon_url=ctx.guild.icon)
-        embed.title = "**__Gallery Settings:__**"
+        embed.title = "**__Gallery Settings__**"
         embed.set_footer(text="*required to function properly")
 
-        embed.add_field(name="Gallery channels*:", value=channels)
-        embed.add_field(name="Whitelisted roles:", value=whitelist_roles)
-        embed.add_field(name="Wait time:", value=str(data["time"]))
+        embed.add_field(name="Gallery channels*", value=channels)
+        embed.add_field(name="Whitelisted roles", value=whitelist_roles)
+        embed.add_field(name="Wait time", value=str(data["time"]))
 
         await ctx.send(embed=embed)
 
@@ -120,12 +154,15 @@ class Gallery(commands.Cog):
         if not message.guild:
             return
 
+        if message.author.bot:
+            return
+
         if message.channel.id not in await self.config.guild(message.guild).channels():
             return
 
         if not message.attachments:
             uris = re.findall(
-                r"http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+",
+                r"http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+",
                 message.content,
             )
             if len(uris) == 1:
