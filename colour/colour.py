@@ -28,7 +28,7 @@ class Colour(commands.Cog):
     """View information about a colour."""
 
     __author__ = "Kreusada"
-    __version__ = "1.1.1"
+    __version__ = "1.1.2"
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
@@ -61,7 +61,8 @@ class Colour(commands.Cog):
         """
         async with aiohttp.ClientSession() as session:
             async with session.get(
-                f"https://www.thecolorapi.com/id?hex={str(colour)[1:]}"
+                f"https://www.thecolorapi.com/id?hex={str(colour)[1:]}",
+                ssl=False
             ) as request:
                 data = await request.json()
         if data["name"]["exact_match_name"]:
