@@ -13,7 +13,8 @@ class Counting(commands.Cog):
     Make a counting channel with goals.
     """
 
-    __version__ = "1.4.0"
+    __version__ = "1.5.0"
+    __author__ = "saurichable, Kreusada"
 
     def __init__(self, bot: Red):
         self.bot = bot
@@ -37,7 +38,7 @@ class Counting(commands.Cog):
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
-        return f"{context}\n\nVersion: {self.__version__}"
+        return f"{context}\n\nVersion: {self.__version__}\nAuthors: {self.__author__}"
 
     @checks.admin()
     @checks.bot_has_permissions(manage_channels=True, manage_messages=True)
@@ -59,7 +60,7 @@ class Counting(commands.Cog):
         await self.config.guild(ctx.guild).channel.set(channel.id)
         goal = await self.config.guild(ctx.guild).goal()
         if await self.config.guild(ctx.guild).topic():
-            await self._set_topic(0, goal, 1, channel)
+            await self._update_topic(channel)
         await ctx.send(f"{channel.name} has been set for counting.")
 
     @countset.command(name="goal")
@@ -86,7 +87,7 @@ class Counting(commands.Cog):
         goal = await self.config.guild(ctx.guild).goal()
         next_number = number + 1
         if await self.config.guild(ctx.guild).topic():
-            await self._set_topic(number, goal, next_number, channel)
+            await self._update_topic(channel)
         await channel.send(number)
         if c_id != ctx.channel.id:
             await ctx.send(f"Counting start set to {number}.")
@@ -112,7 +113,7 @@ class Counting(commands.Cog):
         await c.send("Counting has been reset.")
         goal = await self.config.guild(ctx.guild).goal()
         if await self.config.guild(ctx.guild).topic():
-            await self._set_topic(0, goal, 1, c)
+            await self._update_topic(c)
         if c_id != ctx.channel.id:
             await ctx.send("Counting has been reset.")
 
