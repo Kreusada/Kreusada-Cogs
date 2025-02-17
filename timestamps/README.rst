@@ -12,7 +12,7 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 
 .. note::
 
-    This guide was last updated for version 1.1.0. Ensure
+    This guide was last updated for version 1.2.0. Ensure
     that you are up to date by running ``[p]cog update timestamps``.
 
     If there is something missing, or something that needs improving
@@ -32,8 +32,23 @@ Commands
 
 Here are all the commands included in this cog (1):
 
-* ``[p]timestamp <date_or_time>``
- Produce a Discord timestamp.
++------------------+-------------------------------------------------------------------+
+| Command          | Help                                                              |
++==================+===================================================================+
+| ``[p]timestamp`` | Produce a Discord timestamp.                                      |
+|                  |                                                                   |
+|                  | Timestamps are a feature added to Discord in the summer of 2021,  |
+|                  | which allows you to send timestamps will which update accordingly |
+|                  | with any user's date time settings.                               |
+|                  |                                                                   |
+|                  | **Example Usage**                                                 |
+|                  |                                                                   |
+|                  | - `[p]timestamp 1st of october 2021`                              |
+|                  | - `[p]timestamp 20 hours ago raw:true`                            |
+|                  | - `[p]timestamp in 50 minutes`                                    |
+|                  | - `[p]timestamp 01/10/2021 format:f`                              |
+|                  | - `[p]timestamp now raw:true format:R`                            |
++------------------+-------------------------------------------------------------------+
 
 ------------
 Installation
