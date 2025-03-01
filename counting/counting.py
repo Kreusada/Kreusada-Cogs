@@ -13,7 +13,7 @@ class Counting(commands.Cog):
     Make a counting channel with goals.
     """
 
-    __version__ = "1.5.0"
+    __version__ = "1.5.1"
     __author__ = "saurichable, Kreusada"
 
     def __init__(self, bot: Red):
@@ -180,7 +180,7 @@ class Counting(commands.Cog):
         warn = "Disabled" if data["warning"] else f"Enabled ({data['seconds']} s)"
 
         embed = discord.Embed(colour=await ctx.embed_colour(), timestamp=datetime.datetime.now())
-        embed.set_author(name=ctx.guild.name, icon_url=ctx.guild.icon_url)
+        embed.set_author(name=ctx.guild.name, icon_url=ctx.guild.icon.url if ctx.guild.icon else None)
         embed.title = "**__Counting settings:__**"
         embed.set_footer(text="*required to function properly")
 

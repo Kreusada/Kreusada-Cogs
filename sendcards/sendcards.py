@@ -320,7 +320,7 @@ class OpenCardButtonView(discord.ui.View):
             )
         embed.set_author(
             name=self.sender.name,
-            icon_url=self.sender.avatar.url,
+            icon_url=self.sender.avatar.url if self.sender.avatar else None,
         )
 
         return embed
@@ -388,7 +388,7 @@ class SendCards(commands.Cog):
         self.bot = bot
 
     __author__ = "Kreusada"
-    __version__ = "1.0.1"
+    __version__ = "1.0.2"
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)

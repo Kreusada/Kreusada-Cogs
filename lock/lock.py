@@ -12,7 +12,7 @@ class Lock(commands.Cog):
     Lock `@everyone` from sending messages in channels or the entire guild, and only allow Moderators to talk.
     """
 
-    __version__ = "2.0.0"
+    __version__ = "2.0.1"
     __author__ = "saurichable, Kreusada"
 
     def __init__(self, bot: Red):
@@ -86,7 +86,7 @@ class Lock(commands.Cog):
             c_text = humanize_list(c_text)
 
         embed = discord.Embed(colour=await ctx.embed_colour(), timestamp=datetime.datetime.now())
-        embed.set_author(name=ctx.guild.name, icon_url=ctx.guild.icon_url)
+        embed.set_author(name=ctx.guild.name, icon_url=ctx.guild.icon.url if ctx.guild.icon else None)
         embed.title = "**__Lock settings:__**"
         embed.set_footer(text="*required to function properly")
 

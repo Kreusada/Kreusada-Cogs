@@ -60,7 +60,7 @@ def format_embed_pages(
         embed.set_footer(text=f"Page {data.index(sector)+1}/{len(data)}")
 
         embed.set_author(
-            name=ctx.guild.name + f" | {total_data} {data_type}", icon_url=ctx.guild.icon.url
+            name=ctx.guild.name + f" | {total_data} {data_type}", icon_url=ctx.guild.icon.url if ctx.guild.icon else None
         )
 
         pages.append(embed)
