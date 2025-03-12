@@ -10,7 +10,7 @@ from PIL import Image, ImageDraw, ImageFont
 from PIL.Image import Resampling
 from redbot.core import Config, bank, commands
 from redbot.core.bot import Red
-from redbot.core.data_manager import cog_data_path
+from redbot.core.data_manager import bundled_data_path
 from redbot.core.utils import get_end_user_data_statement
 
 __red_end_user_data_statement__ = get_end_user_data_statement(__file__)
@@ -58,7 +58,7 @@ class HigherOrLowerSession:
         self.indexes: list[int] = []
         order = DEFAULT_ORDER if ace_high else [*DEFAULT_ORDER[1:], DEFAULT_ORDER[0]]
 
-        image_path = cog_data_path(cog) / "images"
+        image_path = bundled_data_path(cog) / "images"
         for path in random.sample(list(image_path.iterdir()), size[0] * size[1]):
             self.indexes.append(order.index(path.name.split(".")[0][1:]))
             self.images.append(Image.open(path).resize((250, 363)).convert("RGBA"))
@@ -178,7 +178,7 @@ class HigherOrLower(commands.Cog):
     """Play Higher Or Lower, win big!"""
 
     __author__ = "Kreusada"
-    __version__ = "1.0.1"
+    __version__ = "1.0.2"
 
     def __init__(self, bot: Red):
         self.bot = bot
