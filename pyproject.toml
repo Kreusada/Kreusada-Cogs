@@ -33,6 +33,7 @@
         'embedcreator',
         'flags',
         'gallery',
+        'higherorlower',
         'lock',
         'mentionable',
         'messagedeleter',

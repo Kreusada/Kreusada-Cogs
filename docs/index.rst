@@ -34,6 +34,7 @@ Useful Links
     cog_embedcreator
     cog_flags
     cog_gallery
+    cog_higherorlower
     cog_lock
     cog_mentionable
     cog_messagedeleter
