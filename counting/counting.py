@@ -13,7 +13,7 @@ class Counting(commands.Cog):
     Make a counting channel with goals.
     """
 
-    __version__ = "1.5.1"
+    __version__ = "1.5.2"
     __author__ = "saurichable, Kreusada"
 
     def __init__(self, bot: Red):
@@ -221,7 +221,8 @@ class Counting(commands.Cog):
         if await self.config.guild(message.guild).warning():
             if message.author.id != last_id:
                 warn_msg = await message.channel.send(
-                    f"The next message in this channel must be {previous + 1}"
+                    f"The next message in this channel must be {previous + 1}",
+                    delete_after=10
                 )
             else:
                 warn_msg = await message.channel.send(f"You cannot count twice in a row.")
