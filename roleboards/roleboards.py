@@ -37,7 +37,6 @@ class RoleBoards(commands.Cog):
     async def topmembers(self, ctx: commands.Context, index: ValidUserIndex):
         """Get the members with the most roles.
 
-        \u200b
         **Arguments**
 
         -   ``<index>``: The number of members to get the data for.
@@ -54,7 +53,6 @@ class RoleBoards(commands.Cog):
     async def toproles(self, ctx: commands.Context, index: ValidRoleIndex):
         """Get the roles with the most members.
 
-        \u200b
         **Arguments**
 
         -   ``<index>``: The number of roles to get the data for.

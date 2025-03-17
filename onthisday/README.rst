@@ -12,7 +12,7 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 
 .. note::
 
-    This guide was last updated for version 1.0.0. Ensure
+    This guide was last updated for version 2.0.0. Ensure
     that you are up to date by running ``[p]cog update onthisday``.
 
     If there is something missing, or something that needs improving
@@ -24,7 +24,7 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 About this cog
 --------------
 
-Find out what happened today, in multiple different years in history.
+Find out what happened on a certain day, in multiple different years in history.
 
 --------
 Commands
@@ -32,10 +32,20 @@ Commands
 
 Here are all the commands included in this cog (2):
 
-* ``[p]onthisday [day]``
- Find out what happened on this day, in various different years!
-* ``[p]onthisday random [day]``
- Find out what happened on this day, in a random year.
++-------------------------+--------------------------------------------------------------------------+
+| Command                 | Help                                                                     |
++=========================+==========================================================================+
+| ``[p]onthisday``        | Find out what happened on this day, in various different years!          |
+|                         |                                                                          |
+|                         | If you want to specify your own date, you can do so by using             |
+|                         | `[p]onthisday [date]`.                                                   |
+|                         | You can also receive a random year by using `[p]onthisday random [day]`. |
++-------------------------+--------------------------------------------------------------------------+
+| ``[p]onthisday random`` | Find out what happened on this day, in a random year.                    |
+|                         |                                                                          |
+|                         | If you want to specify your own date, you can do so by using             |
+|                         | `[p]onthisday [date]`.                                                   |
++-------------------------+--------------------------------------------------------------------------+
 
 ------------
 Installation
@@ -44,20 +54,20 @@ Installation
 If you haven't added my repo before, lets add it first. We'll call it
 "kreusada-cogs" here.
 
-.. code-block:: ini
+.. code-block::
 
     [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
 Now, we can install OnThisDay.
 
-.. code-block:: ini
+.. code-block::
 
     [p]cog install kreusada-cogs onthisday
 
 Once it's installed, it is not loaded by default. Load it by running the following
 command:
 
-.. code-block:: ini
+.. code-block::
 
     [p]load onthisday
 

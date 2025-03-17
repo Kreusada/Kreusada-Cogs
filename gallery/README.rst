@@ -12,7 +12,7 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 
 .. note::
 
-    This guide was last updated for version 2.0.0. Ensure
+    This guide was last updated for version 2.0.4. Ensure
     that you are up to date by running ``[p]cog update gallery``.
 
     If there is something missing, or something that needs improving
@@ -37,16 +37,16 @@ Here are all the commands included in this cog (6):
 +============================+=============================================================================+
 | ``[p]galleryset``          | Various Gallery settings.                                                   |
 +----------------------------+-----------------------------------------------------------------------------+
-| ``[p]galleryset add``      | Add a channel to the list of Gallery channels.                              |
+| ``[p]galleryset add``      | Add channels to the list of Gallery channels.                               |
 +----------------------------+-----------------------------------------------------------------------------+
-| ``[p]galleryset remove``   | Remove a channel from the list of Gallery channels.                         |
+| ``[p]galleryset remove``   | Remove channels from the list of Gallery channels.                          |
 +----------------------------+-----------------------------------------------------------------------------+
-| ``[p]galleryset role``     | Add or remove a whitelisted role.                                           |
+| ``[p]galleryset role``     | Add or remove whitelisted roles.                                            |
+|                            | Running the command twice with the same role removes it from the whitelist. |
 +----------------------------+-----------------------------------------------------------------------------+
 | ``[p]galleryset settings`` | See current settings.                                                       |
 +----------------------------+-----------------------------------------------------------------------------+
 | ``[p]galleryset time``     | Set how long (in seconds!!) the bot should wait before deleting non images. |
-|                            |                                                                             |
 |                            | 0 to reset (default time)                                                   |
 +----------------------------+-----------------------------------------------------------------------------+
 
@@ -57,20 +57,20 @@ Installation
 If you haven't added my repo before, lets add it first. We'll call it
 "kreusada-cogs" here.
 
-.. code-block:: ini
+.. code-block::
 
     [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
 Now, we can install Gallery.
 
-.. code-block:: ini
+.. code-block::
 
     [p]cog install kreusada-cogs gallery
 
 Once it's installed, it is not loaded by default. Load it by running the following
 command:
 
-.. code-block:: ini
+.. code-block::
 
     [p]load gallery
 

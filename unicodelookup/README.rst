@@ -32,16 +32,19 @@ Commands
 
 Here are all the commands included in this cog (4):
 
-* ``[p]ulookup``
-    Unicode lookup commands.
-* ``[p]ulookup char <name>``
-    Get the unicode character from the name.
-* ``[p]ulookup fuzzy [strength=80] <term>``
-    Get unicode characters from the fuzzy search term.
-
-   Strength must be a number from 50 to 100, used by the fuzzy search algorithm. Defaults to 80 (recommended).
-* ``[p]ulookup name <characters>``
-    Get the unicode names of characters.
++----------------------+-------------------------------------------------------------------------------------------------------------+
+| Command              | Help                                                                                                        |
++======================+=============================================================================================================+
+| ``[p]ulookup``       | Unicode lookup commands.                                                                                    |
++----------------------+-------------------------------------------------------------------------------------------------------------+
+| ``[p]ulookup char``  | Get the unicode character from the name.                                                                    |
++----------------------+-------------------------------------------------------------------------------------------------------------+
+| ``[p]ulookup fuzzy`` | Get unicode characters from the fuzzy search term.                                                          |
+|                      |                                                                                                             |
+|                      | Strength must be a number from 50 to 100, used by the fuzzy search algorithm. Defaults to 80 (recommended). |
++----------------------+-------------------------------------------------------------------------------------------------------------+
+| ``[p]ulookup name``  | Get the unicode names of characters.                                                                        |
++----------------------+-------------------------------------------------------------------------------------------------------------+
 
 ------------
 Installation
@@ -50,20 +53,20 @@ Installation
 If you haven't added my repo before, lets add it first. We'll call it
 "kreusada-cogs" here.
 
-.. code-block:: ini
+.. code-block::
 
     [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
 Now, we can install UnicodeLookup.
 
-.. code-block:: ini
+.. code-block::
 
     [p]cog install kreusada-cogs unicodelookup
 
 Once it's installed, it is not loaded by default. Load it by running the following
 command:
 
-.. code-block:: ini
+.. code-block::
 
     [p]load unicodelookup
 

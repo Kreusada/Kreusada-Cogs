@@ -32,12 +32,15 @@ Commands
 
 Here are all the commands included in this cog (3):
 
-* ``[p]cocktail <name>``
-    Get information about a cocktail / cocktail related commands. Supply 'random' to retrieve a random cocktail.
-* ``[p]cocktail favourites``
-    See your favourite cocktails.
-* ``[p]cocktail ingredient <name>``
-    Get information about a cocktail ingredient.
++----------------------------+--------------------------------------------------------------------------------------------------------------+
+| Command                    | Help                                                                                                         |
++============================+==============================================================================================================+
+| ``[p]cocktail``            | Get information about a cocktail / cocktail related commands. Supply 'random' to retrieve a random cocktail. |
++----------------------------+--------------------------------------------------------------------------------------------------------------+
+| ``[p]cocktail favourites`` | See your favourite cocktails.                                                                                |
++----------------------------+--------------------------------------------------------------------------------------------------------------+
+| ``[p]cocktail ingredient`` | Get information about a cocktail ingredient.                                                                 |
++----------------------------+--------------------------------------------------------------------------------------------------------------+
 
 ------------
 Installation
@@ -46,20 +49,20 @@ Installation
 If you haven't added my repo before, lets add it first. We'll call it
 "kreusada-cogs" here.
 
-.. code-block:: ini
+.. code-block::
 
     [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
 Now, we can install Cocktail.
 
-.. code-block:: ini
+.. code-block::
 
     [p]cog install kreusada-cogs cocktail
 
 Once it's installed, it is not loaded by default. Load it by running the following
 command:
 
-.. code-block:: ini
+.. code-block::
 
     [p]load cocktail
 

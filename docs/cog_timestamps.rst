@@ -43,10 +43,15 @@ Here are all the commands included in this cog (1):
 |                  |                                                                   |
 |                  | **Example Usage**                                                 |
 |                  |                                                                   |
+|                  |                                                                   |
 |                  | - `[p]timestamp 1st of october 2021`                              |
+|                  |                                                                   |
 |                  | - `[p]timestamp 20 hours ago raw:true`                            |
+|                  |                                                                   |
 |                  | - `[p]timestamp in 50 minutes`                                    |
+|                  |                                                                   |
 |                  | - `[p]timestamp 01/10/2021 format:f`                              |
+|                  |                                                                   |
 |                  | - `[p]timestamp now raw:true format:R`                            |
 +------------------+-------------------------------------------------------------------+
 
@@ -57,20 +62,20 @@ Installation
 If you haven't added my repo before, lets add it first. We'll call it
 "kreusada-cogs" here.
 
-.. code-block:: ini
+.. code-block::
 
     [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
 Now, we can install TimeStamps.
 
-.. code-block:: ini
+.. code-block::
 
     [p]cog install kreusada-cogs timestamps
 
 Once it's installed, it is not loaded by default. Load it by running the following
 command:
 
-.. code-block:: ini
+.. code-block::
 
     [p]load timestamps
 

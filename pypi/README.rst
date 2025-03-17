@@ -32,8 +32,11 @@ Commands
 
 Here are all the commands included in this cog (1):
 
-* ``[p]pypi <project>``
- Get information about a project on PyPi.
++-------------+------------------------------------------+
+| Command     | Help                                     |
++=============+==========================================+
+| ``[p]pypi`` | Get information about a project on PyPi. |
++-------------+------------------------------------------+
 
 ------------
 Installation
@@ -42,20 +45,20 @@ Installation
 If you haven't added my repo before, lets add it first. We'll call it
 "kreusada-cogs" here.
 
-.. code-block:: ini
+.. code-block::
 
     [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
 Now, we can install PyPi.
 
-.. code-block:: ini
+.. code-block::
 
     [p]cog install kreusada-cogs pypi
 
 Once it's installed, it is not loaded by default. Load it by running the following
 command:
 
-.. code-block:: ini
+.. code-block::
 
     [p]load pypi
 

@@ -32,8 +32,15 @@ Commands
 
 Here are all the commands included in this cog (1):
 
-* ``[p]black <file> [line_length=None]``
- Format a python file with black.
++--------------+----------------------------------------------------------------------------------+
+| Command      | Help                                                                             |
++==============+==================================================================================+
+| ``[p]black`` | Format a python file with black.                                                 |
+|              |                                                                                  |
+|              | You need to attach a file to this command, and it's extension needs to be `.py`. |
+|              | Your `line_length` is black setting. If it is not provided, it defaults to the   |
+|              | configured black line length (the default, unchanged, is 88).                    |
++--------------+----------------------------------------------------------------------------------+
 
 ------------
 Installation
@@ -42,20 +49,20 @@ Installation
 If you haven't added my repo before, lets add it first. We'll call it
 "kreusada-cogs" here.
 
-.. code-block:: ini
+.. code-block::
 
     [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
 Now, we can install BlackFormatter.
 
-.. code-block:: ini
+.. code-block::
 
     [p]cog install kreusada-cogs blackformatter
 
 Once it's installed, it is not loaded by default. Load it by running the following
 command:
 
-.. code-block:: ini
+.. code-block::
 
     [p]load blackformatter
 

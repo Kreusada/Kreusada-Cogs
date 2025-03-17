@@ -32,8 +32,11 @@ Commands
 
 Here are all the commands included in this cog (1):
 
-* ``[p]rhymes <word>``
-    Get rhymes for a word.
++---------------+------------------------+
+| Command       | Help                   |
++===============+========================+
+| ``[p]rhymes`` | Get rhymes for a word. |
++---------------+------------------------+
 
 ------------
 Installation
@@ -42,20 +45,20 @@ Installation
 If you haven't added my repo before, lets add it first. We'll call it
 "kreusada-cogs" here.
 
-.. code-block:: ini
+.. code-block::
 
     [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
 Now, we can install Rhymes.
 
-.. code-block:: ini
+.. code-block::
 
     [p]cog install kreusada-cogs rhymes
 
 Once it's installed, it is not loaded by default. Load it by running the following
 command:
 
-.. code-block:: ini
+.. code-block::
 
     [p]load rhymes
 

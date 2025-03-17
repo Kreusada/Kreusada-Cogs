@@ -12,7 +12,7 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 
 .. note::
 
-    This guide was last updated for version 1.0.0. Ensure
+    This guide was last updated for version 1.0.2. Ensure
     that you are up to date by running ``[p]cog update sendcards``.
 
     If there is something missing, or something that needs improving
@@ -30,10 +30,19 @@ Send cards to other users! (Christmas, birthday, get well soon, etc...)
 Commands
 --------
 
-Here are all the commands included in this cog (1):
+Here are all the commands included in this cog (2):
 
-* ``[p]sendcard <user>``
- Send a card to a user.
++-----------------------+-----------------------------------------------------------------------------+
+| Command               | Help                                                                        |
++=======================+=============================================================================+
+| ``[p]sendcard``       | Send a card to a user.                                                      |
+|                       |                                                                             |
+|                       | The bot must share a server with the recipient. Provide                     |
+|                       | a user ID, mention, or username. The command will ask you further questions |
+|                       | in order to get information for the card.                                   |
++-----------------------+-----------------------------------------------------------------------------+
+| ``[p]sendcard types`` | List all the different card types.                                          |
++-----------------------+-----------------------------------------------------------------------------+
 
 ------------
 Installation
@@ -42,20 +51,20 @@ Installation
 If you haven't added my repo before, lets add it first. We'll call it
 "kreusada-cogs" here.
 
-.. code-block:: ini
+.. code-block::
 
     [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
 Now, we can install SendCards.
 
-.. code-block:: ini
+.. code-block::
 
     [p]cog install kreusada-cogs sendcards
 
 Once it's installed, it is not loaded by default. Load it by running the following
 command:
 
-.. code-block:: ini
+.. code-block::
 
     [p]load sendcards
 

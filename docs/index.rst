@@ -4,14 +4,14 @@
 Kreusada-Cogs
 =============
 
-.. image:: /image_repo_artwork.png
+.. image:: /image_repo_artwork3.png
     :target: https://github.com/Kreusada/Kreusada-Cogs
     :alt: Kreusada-Cogs
 
-This documentation is here for the support of my redbot cogs.
+This documentation is here for the support of my Red-DiscordBot cogs.
 
 Mention me in the #support_kreusada-cogs in the `cog support server <https://discord.gg/GET4DVk>`_ if you need any help.
-You can also visit my `personal server <https://discord.gg/JmCFyq7>`_
+You can also visit my `personal server <https://discord.gg/JmCFyq7>`_.
 
 ============
 Useful Links
@@ -56,13 +56,3 @@ Useful Links
     cog_timestamps
     cog_tonguetwisters
     cog_unicodelookup
-    cog_vinfo
-
-.. toctree::
-    :caption: Repository
-    :maxdepth: 2
-
-    repo_available_cogs_list
-    repo_installation
-    repo_license
-    repo_support

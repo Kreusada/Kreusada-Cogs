@@ -32,8 +32,11 @@ Commands
 
 Here are all the commands included in this cog (1):
 
-* ``[p]cogpath <cog>``
- Get the paths for a cog.
++----------------+--------------------------+
+| Command        | Help                     |
++================+==========================+
+| ``[p]cogpath`` | Get the paths for a cog. |
++----------------+--------------------------+
 
 ------------
 Installation
@@ -42,20 +45,20 @@ Installation
 If you haven't added my repo before, lets add it first. We'll call it
 "kreusada-cogs" here.
 
-.. code-block:: ini
+.. code-block::
 
     [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
 Now, we can install CogPaths.
 
-.. code-block:: ini
+.. code-block::
 
     [p]cog install kreusada-cogs cogpaths
 
 Once it's installed, it is not loaded by default. Load it by running the following
 command:
 
-.. code-block:: ini
+.. code-block::
 
     [p]load cogpaths
 

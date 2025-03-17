@@ -12,7 +12,7 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 
 .. note::
 
-    This guide was last updated for version 3.1.1. Ensure
+    This guide was last updated for version 3.2.1. Ensure
     that you are up to date by running ``[p]cog update roleboards``.
 
     If there is something missing, or something that needs improving
@@ -24,8 +24,8 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 About this cog
 --------------
 
-Get 'leaderboards' about guild roles, such as the users with the most roles,
-the roles with the most users, and a full list of all the roles.
+Get 'leaderboards' about guild roles, such as the users with the most roles
+and the roles with the most users.
 
 --------
 Commands
@@ -33,12 +33,25 @@ Commands
 
 Here are all the commands included in this cog (3):
 
-* ``[p]roleboard``
- Get roleboards for this server..
-* ``[p]roleboard topmembers <index>``
- Get the members with the most roles.
-* ``[p]roleboard toproles <index>``
- Get the roles with the most members.
++-----------------------------+-------------------------------------------------------------+
+| Command                     | Help                                                        |
++=============================+=============================================================+
+| ``[p]roleboard``            | Get roleboards for this server..                            |
++-----------------------------+-------------------------------------------------------------+
+| ``[p]roleboard topmembers`` | Get the members with the most roles.                        |
+|                             |                                                             |
+|                             | **Arguments**                                               |
+|                             |                                                             |
+|                             |                                                             |
+|                             | -   ``<index>``: The number of members to get the data for. |
++-----------------------------+-------------------------------------------------------------+
+| ``[p]roleboard toproles``   | Get the roles with the most members.                        |
+|                             |                                                             |
+|                             | **Arguments**                                               |
+|                             |                                                             |
+|                             |                                                             |
+|                             | -   ``<index>``: The number of roles to get the data for.   |
++-----------------------------+-------------------------------------------------------------+
 
 ------------
 Installation
@@ -47,20 +60,20 @@ Installation
 If you haven't added my repo before, lets add it first. We'll call it
 "kreusada-cogs" here.
 
-.. code-block:: ini
+.. code-block::
 
     [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
 Now, we can install RoleBoards.
 
-.. code-block:: ini
+.. code-block::
 
     [p]cog install kreusada-cogs roleboards
 
 Once it's installed, it is not loaded by default. Load it by running the following
 command:
 
-.. code-block:: ini
+.. code-block::
 
     [p]load roleboards
 

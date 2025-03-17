@@ -12,7 +12,7 @@ Through this guide, ``[p]`` will always represent your prefix. Replace
 
 .. note::
 
-    This guide was last updated for version 1.0.0. Ensure
+    This guide was last updated for version 1.0.2. Ensure
     that you are up to date by running ``[p]cog update higherorlower``.
 
     If there is something missing, or something that needs improving
@@ -61,20 +61,20 @@ Installation
 If you haven't added my repo before, lets add it first. We'll call it
 "kreusada-cogs" here.
 
-.. code-block:: ini
+.. code-block::
 
     [p]repo add kreusada-cogs https://github.com/Kreusada/Kreusada-Cogs
 
 Now, we can install HigherOrLower.
 
-.. code-block:: ini
+.. code-block::
 
     [p]cog install kreusada-cogs higherorlower
 
 Once it's installed, it is not loaded by default. Load it by running the following
 command:
 
-.. code-block:: ini
+.. code-block::
 
     [p]load higherorlower
 
