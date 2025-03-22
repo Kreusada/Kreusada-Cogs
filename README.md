@@ -1,10 +1,6 @@
+[![Kreusada-Cogs](https://raw.githubusercontent.com/Kreusada/Kreusada-Cogs/refs/heads/master/.github/resources/kreusadacogs-artwork3.png)](https://github.com/Kreusada/Kreusada-Cogs)
 <h1 align="center">
-  <br>
-  <a href="https://github.com/Kreusada/Kreusada-Cogs">
-    <img src="https://raw.githubusercontent.com/Kreusada/Kreusada-Cogs/refs/heads/master/.github/resources/kreusadacogs-artwork3.png" alt="Kreusada-Cogs">
-  </a>
-  <br>
-  Kreusada-Cogs - A collection of plugins for Red-DiscordBot
+  <b>Kreusada-Cogs</b> - A collection of plugins for Red-DiscordBot
   <br>
 </h1>
 
