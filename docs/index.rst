@@ -31,6 +31,7 @@ Useful Links
     cog_colour
     cog_consoleclearer
     cog_counting
+    cog_didyoumean
     cog_embedcreator
     cog_flags
     cog_gallery
