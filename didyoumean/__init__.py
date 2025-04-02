@@ -54,13 +54,11 @@ class DidYouMean(commands.Cog):
 
             if best_match and highest_ratio >= await self.config.threshold():
                 view = ConfirmView(ctx.author, timeout=30)
-                view.message = await ctx.send(
-                    f"Could not find a top-level command named `{ctx.invoked_with}`. "
-                    f"Perhaps you meant `{best_match}`?\n"
-                    f"Confirming will execute `{(execute := ctx.message.content.lstrip(ctx.prefix).replace(ctx.invoked_with, best_match, 1))}`.",
-                    view=view,
-                    delete_after=30
-                )
+                to_execute = ctx.message.content.lstrip(ctx.prefix).replace(ctx.invoked_with, best_match, 1)
+                message = f"Could not find a top-level command named `{ctx.invoked_with}`. Perhaps you meant `{best_match}`?"
+                if to_execute != best_match:
+                    message += f"\nConfirming will execute `{(execute := ctx.message.content.lstrip(ctx.prefix).replace(ctx.invoked_with, best_match, 1))}`."
+                view.message = await ctx.send(message, view=view, delete_after=30)
                 await view.wait()
                 if view.result:
                     ctx.message.content = execute
