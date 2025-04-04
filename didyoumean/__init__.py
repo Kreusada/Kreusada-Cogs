@@ -57,7 +57,7 @@ class DidYouMean(commands.Cog):
                 to_execute = ctx.message.content.lstrip(ctx.prefix).replace(ctx.invoked_with, best_match, 1)
                 message = f"Could not find a top-level command named `{ctx.invoked_with}`. Perhaps you meant `{best_match}`?"
                 if to_execute != best_match:
-                    message += f"\nConfirming will execute `{(execute := ctx.message.content.lstrip(ctx.prefix).replace(ctx.invoked_with, best_match, 1))}`."
+                    message += f"\nConfirming will execute `{(execute := ctx.message.content.replace(ctx.invoked_with, best_match, 1))}`."
                 view.message = await ctx.send(message, view=view, delete_after=30)
                 await view.wait()
                 if view.result:
