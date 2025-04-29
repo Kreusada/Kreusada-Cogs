@@ -9,7 +9,7 @@
     "install_msg": "Thanks for installing, have fun. Please refer to my docs if you need any help: https://kreusadacogs.readthedocs.io/en/latest/cog_higherorlower.html\n\nThis cog has only recently been released, please use #support_kreusada-cogs in the cog support server to provide further suggestions to enhance the cog, or to report any bugs that you come across.",
     "name": "HigherOrLower",
     "required_cogs": {},
-    "requirements": ["pillow"],
+    "requirements": ["pillow>=10.1.0"],
     "short": "Play Higher Or Lower, win big!",
     "tags": [
         "Cards",
