@@ -780,7 +780,6 @@ class EmbedCreator(commands.Cog):
         if options.thumbnail != flags["thumbnail"].default:
             embed.set_thumbnail(url=options.thumbnail)
         if kwargs := options.author_kwargs():
-            print(kwargs)
             embed.set_author(**kwargs)
         if kwargs := options.footer_kwargs():
             embed.set_footer(**kwargs)
