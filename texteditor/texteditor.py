@@ -229,7 +229,6 @@ class TextEditor(commands.Cog):
         palindromes = []
         for word in strip_punctuation(text).split():
             wl = word.lower()
-            print(wl, wl[::-1])
             if wl == wl[::-1]:
                 palindromes.append(word)
         if len(palindromes) == 1:
